@@ -54,9 +54,9 @@ export class CertificatesViewer {
   renderDN(item: Certificate['subject'] | Certificate['issuer']) {
     return Object.keys(item).map(subject => {
       return (
-        <p>
-          <span>{item[subject].name}</span>
-          <span>{item[subject].value}</span>
+        <p class="dn_row">
+          <span class="dn_name b3 text_black">{item[subject].name}</span>
+          <span class="dn_value b3 text_black">{item[subject].value}</span>
         </p>
       )
     })
@@ -64,25 +64,25 @@ export class CertificatesViewer {
 
   renderMetaData(item: Certificate) {
     return ([
-      <p>
-        <span>Serial number:</span>
-        <span>{item.serialNumber}</span>
+      <p class="meta_row">
+        <span class="meta_name text_grey_5 b3">Serial number:</span>
+        <span class="meta_value text_black b3">{item.serialNumber}</span>
       </p>,
-      <p>
-        <span>Version:</span>
-        <span>{item.version}</span>
+      <p class="meta_row">
+        <span class="meta_name text_grey_5 b3">Version:</span>
+        <span class="meta_value text_black b3">{item.version}</span>
       </p>,
-      <p>
-        <span>Validity:</span>
-        <span>{item.validity} days</span>
+      <p class="meta_row">
+        <span class="meta_name text_grey_5 b3">Validity:</span>
+        <span class="meta_value text_black b3">{item.validity} days</span>
       </p>,
-      <p>
-        <span>Issued:</span>
-        <span>{dayjs(item.notBefore).format('ddd, MMM D, YYYY h:mm:ss')}</span>
+      <p class="meta_row">
+        <span class="meta_name text_grey_5 b3">Issued:</span>
+        <span class="meta_value text_black b3">{dayjs(item.notBefore).format('ddd, MMM D, YYYY h:mm:ss')}</span>
       </p>,
-      <p>
-        <span>Expired:</span>
-        <span>{dayjs(item.notAfter).format('ddd, MMM D, YYYY h:mm:ss')}</span>
+      <p class="meta_row">
+        <span class="meta_name text_grey_5 b3">Expired:</span>
+        <span class="meta_value text_black b3">{dayjs(item.notAfter).format('ddd, MMM D, YYYY h:mm:ss')}</span>
       </p>,
     ])
   }
@@ -92,37 +92,50 @@ export class CertificatesViewer {
       const isExpanded = certificate.serialNumber === this.expanded;
 
       return ([
-        <tr class={isExpanded && 'fill_grey'}>
-          <td>
+        <tr class={isExpanded && 'expanded fill_grey_2'}>
+          <td colSpan={2} class="align-left b3">
             {certificate.commonName}
           </td>
-          <td>
+          <td colSpan={6} class="align-left b3">
             {certificate.fingerprint}
           </td>
-          <td>
-            <button onClick={this.setExpanded.bind(this, certificate.serialNumber)}>
+          <td colSpan={2} class="align-center">
+            <button
+              onClick={this.setExpanded.bind(this, certificate.serialNumber)}
+              class="b3 text_secondary"
+            >
               Details
             </button>
-            <button onClick={certificate.downloadAsPEM}>
-              Download PEM
+            <button
+              onClick={certificate.downloadAsPEM}
+              class="b3 text_secondary"
+            >
+              PEM
             </button>
-            <button onClick={certificate.downloadAsDER}>
-              Download DER
+            <button
+              onClick={certificate.downloadAsDER}
+              class="b3 text_secondary"
+            >
+              DER
             </button>
           </td>
-          <td />
+          <td colSpan={2} class="align-center" />
         </tr>,
         isExpanded && (
-          <tr class="fill_grey">
-            <td colSpan={1}>
-              <span>Subject DN:</span>
+          <tr class="expanded fill_grey_2">
+            <td colSpan={3}>
+              <p class="text_grey_5 b3 dn_row">
+                Subject DN:
+              </p>
               {this.renderDN(certificate.subject)}
             </td>
-            <td colSpan={1}>
-              <span>Issuer DN:</span>
+            <td colSpan={3}>
+              <p class="text_grey_5 b3 dn_row">
+                Issuer DN:
+              </p>
               {this.renderDN(certificate.issuer)}
             </td>
-            <td colSpan={2}>
+            <td colSpan={6}>
               {this.renderMetaData(certificate)}
             </td>
           </tr>
@@ -133,18 +146,18 @@ export class CertificatesViewer {
   render() {
     return (
       <table>
-        <thead>
+        <thead class="fill_grey_2">
           <tr>
-            <th>
+            <th colSpan={2} class="align-left h7">
               Name
             </th>
-            <th>
+            <th colSpan={6} class="align-letf h7">
               Fingerprint (SHA-1)
             </th>
-            <th>
+            <th colSpan={2} class="align-center h7">
               Actions
             </th>
-            <th>
+            <th colSpan={2} class="align-center h7">
               Test URLs
             </th>
           </tr>
