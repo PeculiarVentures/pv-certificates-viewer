@@ -1,5 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: transparent;
+  word-break: break-word;
+}
+
+*:focus:not(:active):not(:hover) {
+  outline-width: 2px;
+  outline-style: solid;
+  outline-offset: -1px;
+}
+
+input:focus, textarea:focus, *:active, *:hover {
+  outline: none !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+textarea {
+  resize: none;
+}
+
+input, textarea {
+  -webkit-appearance: none !important;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none !important;
+  font-family: inherit;
+}
+
+button {
+  font-family: inherit;
+  background: transparent;
+}
+
+table {
+  cellspacing: 0 !important;
+  border-spacing: 0 !important;
+}
+
 :host {
   display: block;
   width: 100%;
   word-wrap: break-word;
+  font-family: 'Arial', sans-serif;
+}
+
+.fill_grey {
+  background-color: #f4f4f4;
+}
+
+table {
+  width: 100%
+}
+
+button {
+  background: black;
+  color: white;
+  padding: 5px 10px;
+  margin: 1px;
+  cursor: pointer;
+}
+
+table td,
+table th {
+  padding: 10px 5px;
+}
+
+table th:nth-child(1) {
+  width: 20%;
+  text-align: left;
+}
+table th:nth-child(2) {
+  width: 40%;
+  text-align: left;
+}
+table th:nth-child(3) {
+  width: 30%;
+}
+table th:nth-child(4) {
+  width: 10%;
+}
+
+table tr {
+  vertical-align: top;
+}
+
+span {
+  margin-right: 10px;
 }

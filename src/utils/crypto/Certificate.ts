@@ -181,11 +181,11 @@ export default class Certificate extends Basic {
     return;
   }
 
-  downloadAsPEM() {
+  downloadAsPEM = () => {
     downloadFromBuffer(this.pem, 'text/plain', this.commonName, 'crt');
   }
 
-  downloadAsDER() {
+  downloadAsDER = () => {
     downloadFromBuffer(this.hex, 'application/octet-stream', this.commonName, 'crt');
   }
 }
