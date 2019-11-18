@@ -70,10 +70,10 @@ export class CertificatesViewer {
         <thead>
           <tr>
             <th>
-              Subject
+              Name
             </th>
             <th>
-              Hash (SHA-256)
+              Fingerprint (SHA-1)
             </th>
             <th>
               Actions
