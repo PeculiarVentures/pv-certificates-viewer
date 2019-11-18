@@ -4,7 +4,7 @@ import { Convert } from 'pvtsutils';
 export default class Basic {
   input: string;
   base64: string;
-  base64Pem: string;
+  pem: string;
   hex: string;
   schema: asn1js.LocalBaseBlock;
 
@@ -113,12 +113,13 @@ export default class Basic {
 
   static validation = {
     isHex: (value: string) => /^\s*(?:[0-9A-Fa-f][0-9A-Fa-f]\s*)+$/.test(value),
+    isPem: (value: string) => /-----BEGIN.+-----/.test(value),
   };
 
   static base64Clear(base64: string) {
     const res = atob(base64.replace(/[\s\r\n]/g, ''));
 
-    if (/-----BEGIN.+-----/.test(res)) {
+    if (Basic.validation.isPem(res)) {
       return atob(res
         .replace(/-----.+-----/g, '')
         .replace(/[\s\r\n]/g, ''));
@@ -139,6 +140,10 @@ export default class Basic {
     return `-----BEGIN NEW CERTIFICATE REQUEST-----\n${base64}\n-----END NEW CERTIFICATE REQUEST-----`;
   }
 
+  static formatHex(value: string) {
+    return value.replace(/(.{32})/g, '$1\n').replace(/(.{4})/g, '$1 ').trim();
+  }
+
   constructor(value: string) {
     this.input = value;
 
@@ -146,7 +151,7 @@ export default class Basic {
   }
 
   private init() {
-    let certificateBuffer;
+    let certificateBuffer: ArrayBuffer
 
     if (Basic.validation.isHex(this.input)) {
       certificateBuffer = Convert.FromHex(this.input);
@@ -154,9 +159,14 @@ export default class Basic {
       certificateBuffer = Convert.FromBase64(this.input);
     }
 
+    // crypto.subtle.digest('SHA-1', certificateBuffer)
+    //   .then((res) => {
+    //     console.log(Convert.ToHex(res));
+    //   });
+
     this.schema = asn1js.fromBER(certificateBuffer).result;
     this.base64 = Convert.ToBase64(certificateBuffer);
-    this.hex = Convert.ToHex(certificateBuffer);
+    this.hex = Basic.formatHex(Convert.ToHex(certificateBuffer));
   }
 
   static prepareSubject(subjects: object[]) {
