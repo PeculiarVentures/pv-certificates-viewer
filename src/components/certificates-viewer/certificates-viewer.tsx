@@ -40,7 +40,7 @@ export class CertificatesViewer {
           {certificate.commonName}
         </td>
         <td>
-          {certificate.serialNumber}
+          {certificate.fingerprint}
         </td>
         <td>
           <button>Details</button>
