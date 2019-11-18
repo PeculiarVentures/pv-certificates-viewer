@@ -92,7 +92,7 @@ export class CertificatesViewer {
       const isExpanded = certificate.serialNumber === this.expanded;
 
       return ([
-        <tr class={isExpanded && 'expanded fill_grey_2'}>
+        <tr class={isExpanded && 'expanded fill_grey_2_opacity'}>
           <td colSpan={2} class="align-left b3">
             {certificate.commonName}
           </td>
@@ -122,7 +122,7 @@ export class CertificatesViewer {
           <td colSpan={2} class="align-center" />
         </tr>,
         isExpanded && (
-          <tr class="expanded fill_grey_2">
+          <tr class="expanded fill_grey_2_opacity">
             <td colSpan={3}>
               <p class="text_grey_5 b3 dn_row">
                 Subject DN:
