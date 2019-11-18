@@ -1,11 +1,14 @@
 import _Certificate from 'pkijs/src/Certificate';
 import { Convert } from 'pvtsutils';
+import dayjs from 'dayjs';
+import downloadFromBuffer from  '../downloadFromBuffer';
 
 import Basic from './Basic';
 
 export default class Certificate extends Basic {
   notBefore: string = '';
   notAfter: string = '';
+  validity: number = 0;
   subject: {
     name: string;
     nameLong: string;
@@ -31,6 +34,7 @@ export default class Certificate extends Basic {
     oid: string;
   };
   serialNumber: string = '';
+  version: number = 0;
 
   constructor(value: string) {
     super(value);
@@ -45,7 +49,7 @@ export default class Certificate extends Basic {
   }
 
   private decode() {
-    this.base64Pem = Certificate.base64ToPem(this.base64);
+    this.pem = Certificate.base64ToPem(this.base64);
 
     const pkijsSchema = new _Certificate({
       schema: this.schema,
@@ -69,6 +73,11 @@ export default class Certificate extends Basic {
     // decode notAfter date
     if (pkijsSchemaJson.notAfter && pkijsSchemaJson.notAfter.value) {
       this.notAfter = new Date(pkijsSchemaJson.notAfter.value).toISOString();
+    }
+
+    // decode validity days
+    if (this.notBefore && this.notAfter) {
+      this.validity = dayjs(this.notAfter).diff(dayjs(this.notBefore), 'day');
     }
 
     // decode public key
@@ -145,5 +154,28 @@ export default class Certificate extends Basic {
           .valueHex
           .toLowerCase()
       : undefined;
+
+    // decode version
+    this.version = pkijsSchemaJson.version;
+  }
+
+  get commonName() {
+    for (let i = 0; i <= this.subject.length; i += 1) {
+      const subject = this.subject[i];
+
+      if (subject.name === 'CN') {
+        return subject.value;
+      }
+    }
+
+    return;
+  }
+
+  downloadAsPEM() {
+    downloadFromBuffer(this.pem, 'text/plain', this.commonName, 'crt');
+  }
+
+  downloadAsDER() {
+    downloadFromBuffer(this.hex, 'application/octet-stream', this.commonName, 'crt');
   }
 }
