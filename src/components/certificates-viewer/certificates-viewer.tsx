@@ -56,6 +56,7 @@ export class CertificatesViewer {
       return (
         <p>
           <span>{item[subject].name}</span>
+          &nbsp;
           <span>{item[subject].value}</span>
         </p>
       )
@@ -65,23 +66,28 @@ export class CertificatesViewer {
   renderMetaData(item: Certificate) {
     return ([
       <p>
-        <span>Serial number</span>
+        <span>Serial number:</span>
+        &nbsp;
         <span>{item.serialNumber}</span>
       </p>,
       <p>
-        <span>Version</span>
+        <span>Version:</span>
+        &nbsp;
         <span>{item.version}</span>
       </p>,
       <p>
-        <span>Validity</span>
+        <span>Validity:</span>
+        &nbsp;
         <span>{item.validity} days</span>
       </p>,
       <p>
-        <span>Issued</span>
+        <span>Issued:</span>
+        &nbsp;
         <span>{dayjs(item.notBefore).format('ddd, MMM D, YYYY h:mm:ss')}</span>
       </p>,
       <p>
-        <span>Expired</span>
+        <span>Expired:</span>
+        &nbsp;
         <span>{dayjs(item.notAfter).format('ddd, MMM D, YYYY h:mm:ss')}</span>
       </p>,
     ])
@@ -100,25 +106,35 @@ export class CertificatesViewer {
             {certificate.fingerprint}
           </td>
           <td>
-            <button onClick={this.setExpanded.bind(this, certificate.signature.value)}>Details</button>
-            <button onClick={certificate.downloadAsPEM}>Download PEM</button>
-            <button onClick={certificate.downloadAsDER}>Download DER</button>
+            <button onClick={this.setExpanded.bind(this, certificate.signature.value)}>
+              Details
+            </button>
+            <button onClick={certificate.downloadAsPEM}>
+              Download PEM
+            </button>
+            <button onClick={certificate.downloadAsDER}>
+              Download DER
+            </button>
           </td>
           <td />
         </tr>,
         isExpanded && (
           <tr class="fill_grey">
             <td colSpan={1}>
+              <span>Subject DN:</span>
+              &nbsp;
               {this.renderDN(certificate.subject)}
             </td>
             <td colSpan={1}>
+              <span>Issuer DN:</span>
+              &nbsp;
               {this.renderDN(certificate.issuer)}
             </td>
             <td colSpan={2}>
               {this.renderMetaData(certificate)}
             </td>
           </tr>
-        )
+        ),
     ])})
   }
 
