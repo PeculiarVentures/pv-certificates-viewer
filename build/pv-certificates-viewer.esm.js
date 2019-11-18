@@ -1,1 +1,1 @@
-import{p as a,b as s}from"./p-7aaa8d5b.js";a().then(a=>s([["p-34amekss",[[1,"pv-certificates-viewer"]]]],a));
+import{p as e,b as i}from"./p-24e0417d.js";e().then(e=>i([["p-6j7p3pn6",[[1,"pv-certificates-viewer",{certificates:[1],certificatesDecoded:[32]}]]]],e));
