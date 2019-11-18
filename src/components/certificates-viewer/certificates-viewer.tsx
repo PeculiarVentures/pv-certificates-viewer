@@ -12,7 +12,12 @@ export class CertificatesViewer {
   @State() certificatesDecoded: Certificate[] = [];
   @State() expanded: Certificate['serialNumber'];
 
-  async componentWillLoad() {
+  componentWillLoad() {
+    this.certificatesDecodeAndSet();
+  }
+
+  @Watch('certificates')
+  watchCertificates() {
     this.certificatesDecodeAndSet();
   }
 
@@ -27,7 +32,6 @@ export class CertificatesViewer {
         data.push(certificate)
       } catch(error) {
         console.error(error);
-
       }
     }
 
@@ -38,9 +42,18 @@ export class CertificatesViewer {
     return this.certificates.split(',');
   }
 
-  @Watch('certificates')
-  watchCertificates() {
-    this.certificatesDecodeAndSet();
+  onClickDownload(certificate: Certificate, downloadType: 'PEM' | 'DER', event: MouseEvent) {
+    event.stopPropagation();
+
+    if (downloadType === 'PEM') {
+      return certificate.downloadAsPEM();
+    }
+
+    return certificate.downloadAsDER();
+  }
+
+  onClickDetails = (event: MouseEvent) => {
+    event.stopPropagation();
   }
 
   setExpanded(serialNumber: Certificate['serialNumber']) {
@@ -84,7 +97,7 @@ export class CertificatesViewer {
         <span class="meta_name text_grey_5 b3">Expired:</span>
         <span class="meta_value text_black b3">{dayjs(item.notAfter).format('ddd, MMM D, YYYY h:mm:ss')}</span>
       </p>,
-    ])
+    ]);
   }
 
   renderCertificates() {
@@ -92,7 +105,10 @@ export class CertificatesViewer {
       const isExpanded = certificate.serialNumber === this.expanded;
 
       return ([
-        <tr class={isExpanded && 'expanded fill_grey_2_opacity'}>
+        <tr
+          class={isExpanded && 'expanded fill_grey_2_opacity'}
+          onClick={this.setExpanded.bind(this, certificate.serialNumber)}
+        >
           <td colSpan={2} class="align-left b3">
             {certificate.commonName}
           </td>
@@ -101,19 +117,19 @@ export class CertificatesViewer {
           </td>
           <td colSpan={2} class="align-center">
             <button
-              onClick={this.setExpanded.bind(this, certificate.serialNumber)}
+              onClick={this.onClickDetails}
               class="b3 text_secondary"
             >
               Details
             </button>
             <button
-              onClick={certificate.downloadAsPEM}
+              onClick={this.onClickDownload.bind(this, certificate, 'PEM')}
               class="b3 text_secondary"
             >
               PEM
             </button>
             <button
-              onClick={certificate.downloadAsDER}
+              onClick={this.onClickDownload.bind(this, certificate, 'DER')}
               class="b3 text_secondary"
             >
               DER
