@@ -10,6 +10,8 @@ export class CertificatesViewer {
   @Prop() certificates: string = '';
   @State() certificatesDecoded: Certificate[] = [];
 
+  error: Error;
+
   componentWillLoad() {
     const data = [];
 
@@ -17,7 +19,7 @@ export class CertificatesViewer {
       try {
         data.push(new Certificate(value))
       } catch(error) {
-        console.error(error);
+        this.error = error;
       }
     });
 
@@ -25,23 +27,89 @@ export class CertificatesViewer {
   }
 
   get certificatesPropParsed() {
-    return this.certificates.split(',');
+    return this.certificates ? this.certificates.split(',') : [];
+  }
+
+  renderEmptyState() {
+    return (
+      <tr>
+        <td
+          colSpan={4}
+          class="empty"
+        >
+          No certificates provided
+        </td>
+      </tr>
+    )
+  }
+
+  renderError() {
+    return (
+      <tr>
+        <td
+          colSpan={4}
+          class="empty"
+        >
+          Certificate parsing error occured
+        </td>
+      </tr>
+    )
+  }
+
+  renderCertificates() {
+
+    if (this.error) {
+      return this.renderError();
+    }
+
+    if (!this.certificatesDecoded.length) {
+      return this.renderEmptyState();
+    }
+
+    return this.certificatesDecoded.map(certificate => (
+      <tr>
+        <td>
+          {certificate.subject['name']}
+        </td>
+        <td>
+          {certificate.serialNumber}
+        </td>
+        <td>
+          <button>Details</button>
+          <button>Download</button>
+        </td>
+        <td>
+          <a href="#">Valid</a>
+          <a href="#">Revoked</a>
+          <a href="#">Expired</a>
+        </td>
+      </tr>
+    ))
   }
 
   render() {
     return (
-      <section>
-        <h3>
-          Certificates:
-        </h3>
-        <ul>
-          {this.certificatesDecoded.map(value => (
-            <li>
-              {value.serialNumber}
-            </li>
-          ))}
-        </ul>
-      </section>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Subject
+            </th>
+            <th>
+              Hash (SHA-256)
+            </th>
+            <th>
+              Actions
+            </th>
+            <th>
+              Test URLs
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.renderCertificates()}
+        </tbody>
+      </table>
     );
   }
 }
