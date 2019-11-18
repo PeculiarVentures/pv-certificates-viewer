@@ -191,9 +191,11 @@ table tr.expanded + tr.expanded td {
 }
 
 .meta_name {
+  display: inline-block;
   width: 120px;
 }
 
 .meta_value {
+  display: inline-block;
   width: calc(100% - 120px);
 }
