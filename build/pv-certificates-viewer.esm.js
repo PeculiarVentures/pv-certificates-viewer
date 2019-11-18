@@ -1,1 +1,6 @@
-import{p as e,b as i}from"./p-24e0417d.js";e().then(e=>i([["p-dhn2ihnk",[[1,"pv-certificates-viewer",{certificates:[1],certificatesDecoded:[32]}]]]],e));
+import { p as patchBrowser, g as globals, b as bootstrapLazy } from './core-81618ee4.js';
+
+patchBrowser().then(options => {
+  globals();
+  return bootstrapLazy([["pv-certificates-viewer",[[1,"pv-certificates-viewer",{"certificates":[1],"certificatesDecoded":[32],"expanded":[32]}]]]], options);
+});
