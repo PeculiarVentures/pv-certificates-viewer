@@ -2,8 +2,30 @@
   display: block;
   width: 100%;
   word-wrap: break-word;
+  font-family: 'Arial', sans-serif;
 }
 
 .fill_grey {
   background-color: #f4f4f4;
+}
+
+.table {
+  width: 100%
+}
+
+.table th:nth-child(1) {
+  width: 30%
+}
+.table th:nth-child(2) {
+  width: 30%;
+}
+.table th:nth-child(3) {
+  width: 30%;
+}
+.table th:nth-child(4) {
+  width: 10%;
+}
+
+.table tr {
+  vertical-align: top;
 }

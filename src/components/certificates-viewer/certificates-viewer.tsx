@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 export class CertificatesViewer {
   @Prop() certificates: string = '';
   @State() certificatesDecoded: Certificate[] = [];
-  @State() expanded: Certificate['signature']['value'];
+  @State() expanded: Certificate['serialNumber'];
 
   async componentWillLoad() {
     const data = [];
@@ -34,12 +34,12 @@ export class CertificatesViewer {
     return this.certificates.split(',');
   }
 
-  setExpanded(signature) {
-    const isExpandedClicked = this.expanded === signature;
+  setExpanded(serialNumber: Certificate['serialNumber']) {
+    const isExpandedClicked = this.expanded === serialNumber;
 
     this.expanded = isExpandedClicked
       ? null
-      : signature;
+      : serialNumber;
   }
 
   renderDN(item: Certificate['subject'] | Certificate['issuer']) {
@@ -79,9 +79,10 @@ export class CertificatesViewer {
   }
 
   renderCertificates() {
+    console.log(this.certificatesDecoded);
 
     return this.certificatesDecoded.map(certificate => {
-      const isExpanded = certificate.signature.value === this.expanded;
+      const isExpanded = certificate.serialNumber === this.expanded;
 
       return ([
         <tr class={isExpanded && 'fill_grey'}>
@@ -92,7 +93,7 @@ export class CertificatesViewer {
             {certificate.fingerprint}
           </td>
           <td>
-            <button onClick={this.setExpanded.bind(this, certificate.signature.value)}>Details</button>
+            <button onClick={this.setExpanded.bind(this, certificate.serialNumber)}>Details</button>
             <button onClick={certificate.downloadAsPEM}>Download PEM</button>
             <button onClick={certificate.downloadAsDER}>Download DER</button>
           </td>
@@ -116,7 +117,7 @@ export class CertificatesViewer {
 
   render() {
     return (
-      <table>
+      <table class="table">
         <thead>
           <tr>
             <th>
