@@ -66,10 +66,12 @@ export class CertificatesViewer {
       return this.renderEmptyState();
     }
 
+    console.log(this.certificatesDecoded)
+
     return this.certificatesDecoded.map(certificate => (
       <tr>
         <td>
-          {certificate.subject['name']}
+          {certificate.commonName}
         </td>
         <td>
           {certificate.serialNumber}
