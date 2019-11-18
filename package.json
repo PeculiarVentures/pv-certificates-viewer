@@ -24,7 +24,14 @@
   },
   "devDependencies": {
     "@stencil/core": "^1.3.3",
+    "@types/asn1js": "0.0.1",
+    "@types/pkijs": "0.0.2",
     "gh-pages": "^2.1.1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "asn1js": "^2.0.26",
+    "pkijs": "^2.1.82",
+    "pvtsutils": "^1.0.6"
+  }
 }

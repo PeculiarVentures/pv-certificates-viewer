@@ -1,4 +1,5 @@
 import { Component, h, Prop, State } from '@stencil/core';
+import { Certificate } from '../../utils/crypto';
 
 @Component({
   tag: 'pv-certificates-viewer',
@@ -7,28 +8,20 @@ import { Component, h, Prop, State } from '@stencil/core';
 })
 export class CertificatesViewer {
   @Prop() certificates: string = '';
-  @State() certificatesDecoded: ICertificate[] = [];
+  @State() certificatesDecoded: Certificate[] = [];
 
   componentWillLoad() {
-    this.certificatesDecoded = [{
-      subject: 'GTS Root R1',
-      issuer: 'GTS Root R1',
-      fingerprint: 'e1c950e6ef22f84c5645728b922060d7d5a7a3e8',
-      issued: '2019-11-18T11:56:50.463Z',
-      expired: '2019-11-18T11:56:50.463Z',
-      validity: 1,
-      version: 0,
-      serialNumber: 'serial number',
-    }, {
-      subject: 'GTS Root R2',
-      issuer: 'GTS Root R2',
-      fingerprint: 'e1c950e6ef22f84c5645728b922060d7d5a7a3e8',
-      issued: '2019-11-18T11:56:50.463Z',
-      expired: '2019-11-18T11:56:50.463Z',
-      validity: 1,
-      version: 0,
-      serialNumber: 'serial number',
-    }];
+    const data = [];
+
+    this.certificatesPropParsed.forEach((value) => {
+      try {
+        data.push(new Certificate(value))
+      } catch(error) {
+        console.error(error);
+      }
+    });
+
+    this.certificatesDecoded = data;
   }
 
   get certificatesPropParsed() {
@@ -44,7 +37,7 @@ export class CertificatesViewer {
         <ul>
           {this.certificatesDecoded.map(value => (
             <li>
-              {value.subject}
+              {value.serialNumber}
             </li>
           ))}
         </ul>
