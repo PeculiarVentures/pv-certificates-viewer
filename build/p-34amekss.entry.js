@@ -1,0 +1,1 @@
+import{r as t,h as r,H as e}from"./p-7aaa8d5b.js";const s=class{constructor(r){t(this,r)}render(){return r(e,null,r("slot",null))}static get style(){return":host{display:block}"}};export{s as pv_certificates_viewer};
