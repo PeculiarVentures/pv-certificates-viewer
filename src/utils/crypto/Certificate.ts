@@ -62,18 +62,26 @@ export default class Certificate extends Basic {
 
     // Start decode
     // decode subject
-    this.subject = Certificate.prepareSubject(
-      pkijsSchemaJson.subject
-        ? pkijsSchemaJson.subject.typesAndValues
-        : pkijsSchemaJson.subject,
-    );
+    if (pkijsSchemaJson.subject) {
+      if (Array.isArray(pkijsSchemaJson.subject)) {
+        this.subject = Certificate.prepareSubject(pkijsSchemaJson.subject);
+      }
+
+      if (Array.isArray(pkijsSchemaJson.subject.typesAndValues)) {
+        this.subject = Certificate.prepareSubject(pkijsSchemaJson.subject.typesAndValues);
+      }
+    }
 
     // decode issuer
-    this.issuer = Certificate.prepareSubject(
-      pkijsSchemaJson.issuer
-        ? pkijsSchemaJson.issuer.typesAndValues
-        : pkijsSchemaJson.issuer,
-    );
+    if (pkijsSchemaJson.issuer) {
+      if (Array.isArray(pkijsSchemaJson.issuer)) {
+        this.issuer = Certificate.prepareSubject(pkijsSchemaJson.issuer);
+      }
+
+      if (Array.isArray(pkijsSchemaJson.issuer.typesAndValues)) {
+        this.issuer = Certificate.prepareSubject(pkijsSchemaJson.issuer.typesAndValues);
+      }
+    }
 
     // decode notBefore date
     if (pkijsSchemaJson.notBefore && pkijsSchemaJson.notBefore.value) {

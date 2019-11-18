@@ -12,7 +12,12 @@ export class CertificatesViewer {
   @State() certificatesDecoded: Certificate[] = [];
   @State() expanded: Certificate['serialNumber'];
 
-  async componentWillLoad() {
+  componentWillLoad() {
+    this.certificatesDecodeAndSet();
+  }
+
+  @Watch('certificates')
+  watchCertificates() {
     this.certificatesDecodeAndSet();
   }
 
@@ -27,7 +32,6 @@ export class CertificatesViewer {
         data.push(certificate)
       } catch(error) {
         console.error(error);
-
       }
     }
 
@@ -38,9 +42,18 @@ export class CertificatesViewer {
     return this.certificates.split(',');
   }
 
-  @Watch('certificates')
-  watchCertificates() {
-    this.certificatesDecodeAndSet();
+  onClickDownload(certificate: Certificate, downloadType: 'PEM' | 'DER', event: MouseEvent) {
+    event.stopPropagation();
+
+    if (downloadType === 'PEM') {
+      return certificate.downloadAsPEM();
+    }
+
+    return certificate.downloadAsDER();
+  }
+
+  onClickDetails = (event: MouseEvent) => {
+    event.stopPropagation();
   }
 
   setExpanded(serialNumber: Certificate['serialNumber']) {
@@ -52,14 +65,12 @@ export class CertificatesViewer {
   }
 
   renderDN(item: Certificate['subject'] | Certificate['issuer']) {
-    return Object.keys(item).map(subject => {
-      return (
-        <p>
-          <span>{item[subject].name}</span>
-          <span>{item[subject].value}</span>
-        </p>
-      )
-    })
+    return Object.keys(item).map(subject => (
+      <p>
+        <span>{item[subject].name}</span>
+        <span>{item[subject].value}</span>
+      </p>
+    ));
   }
 
   renderMetaData(item: Certificate) {
@@ -84,7 +95,7 @@ export class CertificatesViewer {
         <span>Expired:</span>
         <span>{dayjs(item.notAfter).format('ddd, MMM D, YYYY h:mm:ss')}</span>
       </p>,
-    ])
+    ]);
   }
 
   renderCertificates() {
@@ -92,7 +103,10 @@ export class CertificatesViewer {
       const isExpanded = certificate.serialNumber === this.expanded;
 
       return ([
-        <tr class={isExpanded && 'fill_grey'}>
+        <tr
+          class={isExpanded && 'fill_grey'}
+          onClick={this.setExpanded.bind(this, certificate.serialNumber)}
+        >
           <td>
             {certificate.commonName}
           </td>
@@ -100,13 +114,19 @@ export class CertificatesViewer {
             {certificate.fingerprint}
           </td>
           <td>
-            <button onClick={this.setExpanded.bind(this, certificate.serialNumber)}>
+            <button
+              onClick={this.onClickDetails}
+            >
               Details
             </button>
-            <button onClick={certificate.downloadAsPEM}>
+            <button
+              onClick={this.onClickDownload.bind(this, certificate, 'PEM')}
+            >
               Download PEM
             </button>
-            <button onClick={certificate.downloadAsDER}>
+            <button
+              onClick={this.onClickDownload.bind(this, certificate, 'DER')}
+            >
               Download DER
             </button>
           </td>
