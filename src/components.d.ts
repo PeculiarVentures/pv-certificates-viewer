@@ -10,7 +10,9 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface PvCertificatesViewer {}
+  interface PvCertificatesViewer {
+    'certificates': string;
+  }
 }
 
 declare global {
@@ -27,7 +29,9 @@ declare global {
 }
 
 declare namespace LocalJSX {
-  interface PvCertificatesViewer {}
+  interface PvCertificatesViewer {
+    'certificates'?: string;
+  }
 
   interface IntrinsicElements {
     'pv-certificates-viewer': PvCertificatesViewer;
