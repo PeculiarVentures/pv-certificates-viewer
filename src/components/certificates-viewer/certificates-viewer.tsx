@@ -33,7 +33,6 @@ export class CertificatesViewer {
   }
 
   renderCertificates() {
-
     return this.certificatesDecoded.map(certificate => (
       <tr>
         <td>
@@ -58,10 +57,10 @@ export class CertificatesViewer {
         <thead>
           <tr>
             <th>
-              Subject
+              Name
             </th>
             <th>
-              Hash (SHA-256)
+              Fingerprint (SHA-1)
             </th>
             <th>
               Actions
