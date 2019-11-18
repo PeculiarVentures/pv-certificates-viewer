@@ -1,4 +1,4 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Prop, State, Watch } from '@stencil/core';
 import { Certificate } from '../../utils/crypto';
 
 @Component({
@@ -11,6 +11,10 @@ export class CertificatesViewer {
   @State() certificatesDecoded: Certificate[] = [];
 
   async componentWillLoad() {
+    this.certificatesDecodeAndSet();
+  }
+
+  async certificatesDecodeAndSet() {
     const data = [];
 
     for (let value of this.certificatesPropParsed) {
@@ -29,6 +33,11 @@ export class CertificatesViewer {
 
   get certificatesPropParsed() {
     return this.certificates.split(',');
+  }
+
+  @Watch('certificates')
+  watchCertificates() {
+    this.certificatesDecodeAndSet();
   }
 
   render() {
