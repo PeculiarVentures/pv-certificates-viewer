@@ -5,16 +5,19 @@ import downloadFromBuffer from  '../downloadFromBuffer';
 
 import Basic from './Basic';
 
+interface ISubject {
+  name: string;
+  nameLong: string;
+  oid: string;
+  value: string;
+};
+
 export default class Certificate extends Basic {
   notBefore: string = '';
   notAfter: string = '';
   validity: number = 0;
-  subject: {
-    name: string;
-    nameLong: string;
-    oid: string;
-    value: string;
-  }[] = [];
+  subject: ISubject[] = [];
+  issuer: ISubject[] = [];
   publicKey: {
     algorithm: {
       name: string;
@@ -63,6 +66,13 @@ export default class Certificate extends Basic {
       pkijsSchemaJson.subject
         ? pkijsSchemaJson.subject.typesAndValues
         : pkijsSchemaJson.subject,
+    );
+
+    // decode issuer
+    this.issuer = Certificate.prepareSubject(
+      pkijsSchemaJson.issuer
+        ? pkijsSchemaJson.issuer.typesAndValues
+        : pkijsSchemaJson.issuer,
     );
 
     // decode notBefore date
