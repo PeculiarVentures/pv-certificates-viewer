@@ -11,17 +11,20 @@ export class CertificatesViewer {
   @State() certificatesDecoded: Certificate[] = [];
   @State() expanded: Certificate['signature']['value'];
 
-  componentWillLoad() {
+  async componentWillLoad() {
     const data = [];
 
-    this.certificatesPropParsed.forEach((value) => {
+    for (let value of this.certificatesPropParsed) {
+      const certificate = new Certificate(value);
+      await certificate.getFingerprint();
+
       try {
-        data.push(new Certificate(value))
+        data.push(certificate)
       } catch(error) {
         console.error(error);
 
       }
-    });
+    }
 
     this.certificatesDecoded = data;
   }
@@ -49,7 +52,7 @@ export class CertificatesViewer {
             {certificate.commonName}
           </td>
           <td>
-            {certificate.serialNumber}
+            {certificate.fingerprint}
           </td>
           <td>
             <button onClick={this.setExpanded.bind(this, certificate.signature.value)}>Details</button>
