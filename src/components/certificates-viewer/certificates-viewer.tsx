@@ -10,8 +10,6 @@ export class CertificatesViewer {
   @Prop() certificates: string = '';
   @State() certificatesDecoded: Certificate[] = [];
 
-  error: Error;
-
   componentWillLoad() {
     const data = [];
 
@@ -19,7 +17,8 @@ export class CertificatesViewer {
       try {
         data.push(new Certificate(value))
       } catch(error) {
-        this.error = error;
+        console.error(error);
+
       }
     });
 
@@ -27,46 +26,10 @@ export class CertificatesViewer {
   }
 
   get certificatesPropParsed() {
-    return this.certificates ? this.certificates.split(',') : [];
-  }
-
-  renderEmptyState() {
-    return (
-      <tr>
-        <td
-          colSpan={4}
-          class="empty"
-        >
-          No certificates provided
-        </td>
-      </tr>
-    )
-  }
-
-  renderError() {
-    return (
-      <tr>
-        <td
-          colSpan={4}
-          class="empty"
-        >
-          Certificate parsing error occured
-        </td>
-      </tr>
-    )
+    return this.certificates.split(',');
   }
 
   renderCertificates() {
-
-    if (this.error) {
-      return this.renderError();
-    }
-
-    if (!this.certificatesDecoded.length) {
-      return this.renderEmptyState();
-    }
-
-    console.log(this.certificatesDecoded)
 
     return this.certificatesDecoded.map(certificate => (
       <tr>
@@ -78,13 +41,10 @@ export class CertificatesViewer {
         </td>
         <td>
           <button>Details</button>
-          <button>Download</button>
+          <button onClick={certificate.downloadAsPEM}>Download PEM</button>
+          <button onClick={certificate.downloadAsDER}>Download DER</button>
         </td>
-        <td>
-          <a href="#">Valid</a>
-          <a href="#">Revoked</a>
-          <a href="#">Expired</a>
-        </td>
+        <td />
       </tr>
     ))
   }
