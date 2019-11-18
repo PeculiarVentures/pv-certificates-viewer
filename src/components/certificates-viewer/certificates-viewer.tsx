@@ -9,6 +9,7 @@ import { Certificate } from '../../utils/crypto';
 export class CertificatesViewer {
   @Prop() certificates: string = '';
   @State() certificatesDecoded: Certificate[] = [];
+  @State() expanded: Certificate['signature']['value'];
 
   componentWillLoad() {
     const data = [];
@@ -29,24 +30,35 @@ export class CertificatesViewer {
     return this.certificates.split(',');
   }
 
+  setExpanded(signature) {
+    const isExpandedClicked = this.expanded === signature;
+
+    this.expanded = isExpandedClicked
+      ? null
+      : signature;
+  }
+
   renderCertificates() {
 
-    return this.certificatesDecoded.map(certificate => (
-      <tr>
-        <td>
-          {certificate.commonName}
-        </td>
-        <td>
-          {certificate.serialNumber}
-        </td>
-        <td>
-          <button>Details</button>
-          <button onClick={certificate.downloadAsPEM}>Download PEM</button>
-          <button onClick={certificate.downloadAsDER}>Download DER</button>
-        </td>
-        <td />
-      </tr>
-    ))
+    return this.certificatesDecoded.map(certificate => {
+      const isExpanded = certificate.signature.value === this.expanded;
+
+      return (
+        <tr class={isExpanded && 'fill_grey'}>
+          <td>
+            {certificate.commonName}
+          </td>
+          <td>
+            {certificate.serialNumber}
+          </td>
+          <td>
+            <button onClick={this.setExpanded.bind(this, certificate.signature.value)}>Details</button>
+            <button onClick={certificate.downloadAsPEM}>Download PEM</button>
+            <button onClick={certificate.downloadAsDER}>Download DER</button>
+          </td>
+          <td />
+        </tr>
+    )})
   }
 
   render() {

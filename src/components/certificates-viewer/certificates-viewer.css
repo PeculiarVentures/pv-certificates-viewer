@@ -3,3 +3,7 @@
   width: 100%;
   word-wrap: break-word;
 }
+
+.fill_grey {
+  background-color: #eee;
+}
