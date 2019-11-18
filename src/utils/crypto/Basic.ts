@@ -7,6 +7,7 @@ export default class Basic {
   pem: string;
   hex: string;
   schema: asn1js.LocalBaseBlock;
+  fingerprint: string;
 
   static algorithmOIDs: Record<string, { name: string; hash: string }> = {
     '1.2.840.113549.1.1.5': {
@@ -159,14 +160,20 @@ export default class Basic {
       certificateBuffer = Convert.FromBase64(this.input);
     }
 
-    // crypto.subtle.digest('SHA-1', certificateBuffer)
-    //   .then((res) => {
-    //     console.log(Convert.ToHex(res));
-    //   });
-
-    this.schema = asn1js.fromBER(certificateBuffer).result;
+    this.schema = asn1js.fromBER(certificateBuffer).result;;
     this.base64 = Convert.ToBase64(certificateBuffer);
     this.hex = Basic.formatHex(Convert.ToHex(certificateBuffer));
+  }
+
+  public async getFingerprint() {
+    try {
+      const response = await crypto.subtle
+        .digest('SHA-1', this.schema.valueBeforeDecode);
+
+      this.fingerprint = Convert.ToHex(response);
+    } catch(error) {
+      console.error(error);
+    }
   }
 
   static prepareSubject(subjects: object[]) {
