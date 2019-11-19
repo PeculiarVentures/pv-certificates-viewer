@@ -156,17 +156,14 @@ table tr.expanded td:last-child {
 
 /* Second row */
 table tr.expanded + tr.expanded td {
+  position: relative;
+  padding: 20px 20px 30px;
   vertical-align: top;
   border-bottom-color: #D1D5D9;
   border-top-color: transparent;
 }
 
-.expanded + .expanded td {
-  position: relative;
-  padding: 20px 20px 30px
-}
-
-.expanded + .expanded td:not(:last-child):after {
+table tr.expanded + tr.expanded td:not(:last-child):after {
   content: '';
   display: block;
   position: absolute;
