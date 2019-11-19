@@ -1,6 +1,9 @@
 import { Component, h, Prop, State, Watch } from '@stencil/core';
 import { Certificate } from '../../utils/crypto';
 import dayjs from 'dayjs';
+import LocalizedFormat from 'dayjs/plugin/localizedFormat';
+
+dayjs.extend(LocalizedFormat);
 
 @Component({
   tag: 'pv-certificates-viewer',
@@ -91,11 +94,11 @@ export class CertificatesViewer {
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Issued:</span>
-        <span class="meta_value text_black b3">{dayjs(item.notBefore).format('ddd, MMM D, YYYY h:mm:ss')}</span>
+        <span class="meta_value text_black b3">{dayjs(item.notBefore).format('llll')}</span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Expired:</span>
-        <span class="meta_value text_black b3">{dayjs(item.notAfter).format('ddd, MMM D, YYYY h:mm:ss')}</span>
+        <span class="meta_value text_black b3">{dayjs(item.notAfter).format('llll')}</span>
       </p>,
     ]);
   }

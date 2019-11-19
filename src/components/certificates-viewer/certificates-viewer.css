@@ -62,7 +62,7 @@ table {
 }
 
 button {
-  padding: 5px 10px;
+  padding: 3px 5px;
   margin: 0 2.5px;
   cursor: pointer;
   border: 1px solid rgba(53, 132, 247, 0.3);
@@ -188,12 +188,12 @@ table tr.expanded + tr.expanded td {
   width: calc(100% - 40px);
 }
 
-.dn_row {
+.dn_row:not(:last-child) {
   margin-bottom: 10px;
 }
 
 /* Meta styles */
-.meta_row {
+.meta_row:not(:last-child) {
   margin-bottom: 20px;
 }
 
