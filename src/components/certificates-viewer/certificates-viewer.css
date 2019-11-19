@@ -1,58 +1,9 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  border: 0;
-  border-radius: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-size-adjust: none;
-  -webkit-text-size-adjust: none;
-  -webkit-tap-highlight-color: transparent;
-  word-break: break-word;
-}
-
-*:focus:not(:active):not(:hover) {
-  outline-width: 2px;
-  outline-style: solid;
-  outline-offset: -1px;
-}
-
-input:focus, textarea:focus, *:active, *:hover {
-  outline: none !important;
-}
-
-a {
-  text-decoration: none;
-}
-
-textarea {
-  resize: none;
-}
-
-input, textarea {
-  -webkit-appearance: none !important;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none !important;
-  font-family: inherit;
-}
-
-button {
-  font-family: inherit;
-  background: transparent;
-}
-
-table {
-  cellspacing: 0 !important;
-  border-spacing: 0 !important;
-}
-
 :host {
   display: block;
   width: 100%;
   word-wrap: break-word;
-  font-family: 'Arial', sans-serif;
+  background: white;
+  font-family: 'Open Sans', Arial, sans-serif;
 }
 
 table {
@@ -73,108 +24,44 @@ table tr {
   vertical-align: middle;
 }
 
-table td,
 table th {
+  padding: 15px 10px;
+  text-align: left;
+  border-width: 1px;
+  border-style: solid;
+}
+
+table td {
   padding: 10px;
   text-align: left;
-  border: 1px solid #D1D5D9;
+  border-width: 1px;
+  border-style: solid;
 }
 
-/* Text styles*/
-/* Text type */
-.b3 {
-  font-family: 'Open Sans', 'Arial', sans-serif;
-  font-size: 13px;
-  line-height: 20px;
-  letter-spacing: 0.5px;
+table th:nth-child(1) {
+  width: 20%;
 }
 
-.h7 {
-  font-family: 'Open Sans', 'Arial', sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 19px;
-}
-
-/* Text color */
-.text_black {
-  color: #2A3134;
-}
-
-.text_white {
-  color: #fff;
-}
-
-.text_grey_5 {
-  color: #869196;
-}
-
-.text_secondary {
-  color: #3584F7;
-}
-
-/* Text aligance */
-.align-center {
-  text-align: center;
-}
-
-.align-left {
-  text-align: left;
-}
-
-/* Background */
-/* BG color */
-.fill_grey_2 {
-  background-color: #F4F7FC;
-}
-
-.fill_grey_2_opacity {
-  background-color: rgba(244, 247, 252, 0.8);
-}
-
-.fill_grey_5 {
-  background-color: #869196;
+table th:nth-child(2) {
+  width: 58%;
 }
 
 /* Mockup particular parts styles */
 
 /* Expande rows styles */
 /* First row */
-table tr.expanded td {
+table tr.expanded td:not(:last-child) {
   border-right-color: transparent;
-  border-left-color: transparent;
+}
+
+table tr.expanded td {
   border-bottom-color: transparent;
 }
 
-table tr.expanded td:first-child {
-  border-left-color: #D1D5D9;
-}
-
-table tr.expanded td:last-child {
-  border-right-color: #D1D5D9;
-}
-
 /* Second row */
-table tr.expanded + tr.expanded td {
+table tr.expanded_summary td {
   vertical-align: top;
-  border-bottom-color: #D1D5D9;
-  border-top-color: transparent;
-}
-
-.expanded + .expanded td {
-  position: relative;
-  padding: 20px 20px 30px
-}
-
-.expanded + .expanded td:not(:last-child):after {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 15px;
-  bottom: 25px;
-  right: 0;
-  width: 1px;
-  background-color: rgba(209, 213, 217, 0.5);
+  padding: 10px 20px 26px;
 }
 
 /* Columns styles */
@@ -183,10 +70,12 @@ table tr.expanded + tr.expanded td {
   display: inline-block;
   width: 40px;
   vertical-align: top;
+  padding-right: 5px;
 }
 
 .dn_value {
   display: inline-block;
+  vertical-align: top;
   width: calc(100% - 40px);
 }
 
@@ -196,16 +85,19 @@ table tr.expanded + tr.expanded td {
 
 /* Meta styles */
 .meta_row:not(:last-child) {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .meta_name {
   display: inline-block;
   width: 120px;
+  padding-right: 5px;
+  vertical-align: top;
 }
 
 .meta_value {
   display: inline-block;
+  vertical-align: top;
   width: calc(100% - 120px);
 }
 
@@ -228,7 +120,7 @@ table tr.expanded + tr.expanded td {
   overflow: auto;
   padding: 20px;
   text-align: center;
-  background: rgba(0, 0, 0, .6);
+  background: rgba(42, 49, 52, 0.8);
   animation: fadeIn 300ms;
 }
 
@@ -255,7 +147,6 @@ table tr.expanded + tr.expanded td {
   width: 100%;
   max-width: 800px;
   text-align: left;
-  background: white;
   padding: 10px;
   border-radius: 3px;
 }

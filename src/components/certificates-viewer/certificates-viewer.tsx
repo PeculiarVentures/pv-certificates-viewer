@@ -7,7 +7,11 @@ dayjs.extend(LocalizedFormat);
 
 @Component({
   tag: 'pv-certificates-viewer',
-  styleUrl: 'certificates-viewer.css',
+  styleUrls: [
+    '../../styles/reset.css',
+    '../../styles/theme.css',
+    'certificates-viewer.css',
+  ],
   shadow: true
 })
 export class CertificatesViewer {
@@ -79,8 +83,8 @@ export class CertificatesViewer {
     return Object.keys(item).map(subject => {
       return (
         <p class="dn_row">
-          <span class="dn_name b3 text_black">{item[subject].name}</span>
-          <span class="dn_value b3 text_black">{item[subject].value}</span>
+          <span class="dn_name b3">{item[subject].name}</span>
+          <span class="dn_value b3">{item[subject].value}</span>
         </p>
       )
     })
@@ -90,23 +94,23 @@ export class CertificatesViewer {
     return ([
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Serial number:</span>
-        <span class="meta_value text_black b3">{item.serialNumber}</span>
+        <span class="meta_value b3">{item.serialNumber}</span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Version:</span>
-        <span class="meta_value text_black b3">{item.version}</span>
+        <span class="meta_value b3">{item.version}</span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Validity:</span>
-        <span class="meta_value text_black b3">{item.validity} days</span>
+        <span class="meta_value b3">{item.validity} days</span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Issued:</span>
-        <span class="meta_value text_black b3">{dayjs(item.notBefore).format('llll')}</span>
+        <span class="meta_value b3">{dayjs(item.notBefore).format('llll')}</span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Expired:</span>
-        <span class="meta_value text_black b3">{dayjs(item.notAfter).format('llll')}</span>
+        <span class="meta_value b3">{dayjs(item.notAfter).format('llll')}</span>
       </p>,
     ]);
   }
@@ -117,16 +121,16 @@ export class CertificatesViewer {
 
       return ([
         <tr
-          class={isExpandedRow && 'expanded fill_grey_2_opacity'}
+          class={isExpandedRow && 'expanded fill_grey_1_opacity'}
           onClick={this.onClickRow.bind(this, certificate.serialNumber)}
         >
-          <td colSpan={2} class="align-left b3">
+          <td class="b3 stroke_grey_3_border">
             {certificate.commonName}
           </td>
-          <td colSpan={6} class="align-left b3">
+          <td colSpan={3} class="b3 stroke_grey_3_border">
             {certificate.fingerprint}
           </td>
-          <td colSpan={2} class="align-center">
+          <td class="align-center stroke_grey_3_border">
             <button
               onClick={this.onClickDetails.bind(this, certificate.base64)}
               class="b3 text_secondary"
@@ -146,23 +150,22 @@ export class CertificatesViewer {
               DER
             </button>
           </td>
-          <td colSpan={2} class="align-center" />
         </tr>,
         isExpandedRow && (
-          <tr class="expanded fill_grey_2_opacity">
-            <td colSpan={3}>
+          <tr class="expanded_summary fill_grey_1_opacity">
+            <td colSpan={2} class="stroke_grey_3_border">
               <p class="text_grey_5 b3 dn_row">
                 Subject DN:
               </p>
               {this.renderDN(certificate.subject)}
             </td>
-            <td colSpan={3}>
+            <td colSpan={1} class="stroke_grey_3_border">
               <p class="text_grey_5 b3 dn_row">
                 Issuer DN:
               </p>
               {this.renderDN(certificate.issuer)}
             </td>
-            <td colSpan={6}>
+            <td colSpan={2} class="stroke_grey_3_border">
               {this.renderMetaData(certificate)}
             </td>
           </tr>
@@ -181,7 +184,7 @@ export class CertificatesViewer {
           class="modal_overlay"
           onClick={this.onClickModalOverlay}
         />
-        <div class="modal_content">
+        <div class="modal_content fill_white">
           <pv-certificate-viewer
             certificate={this.certificateSelectedForDetails}
           />
@@ -193,20 +196,17 @@ export class CertificatesViewer {
   render() {
     return (
       <Host>
-        <table>
-          <thead class="fill_grey_5">
+        <table class="text_black">
+          <thead class="fill_grey_2">
             <tr>
-              <th colSpan={2} class="align-left text_white h7">
+              <th class="h7 stroke_grey_3_border">
                 Name
               </th>
-              <th colSpan={6} class="align-letf text_white h7">
+              <th colSpan={3} class="h7 stroke_grey_3_border">
                 Fingerprint (SHA-1)
               </th>
-              <th colSpan={2} class="align-center text_white h7">
+              <th class="align-center h7 stroke_grey_3_border">
                 Actions
-              </th>
-              <th colSpan={2} class="align-center text_white h7">
-                Test URLs
               </th>
             </tr>
           </thead>

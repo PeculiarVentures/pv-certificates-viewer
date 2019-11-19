@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: transparent;
+  word-break: break-word;
+}
+
+*:focus:not(:active):not(:hover) {
+  outline-width: 2px;
+  outline-style: solid;
+  outline-offset: -1px;
+}
+
+input:focus, textarea:focus, *:active, *:hover {
+  outline: none !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+textarea {
+  resize: none;
+}
+
+input, textarea {
+  -webkit-appearance: none !important;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none !important;
+  font-family: inherit;
+}
+
+button {
+  font-family: inherit;
+  background: transparent;
+}
+
+table {
+  cellspacing: 0 !important;
+  border-spacing: 0 !important;
+}
