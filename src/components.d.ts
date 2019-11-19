@@ -10,6 +10,9 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
+  interface PvCertificateViewer {
+    'certificate': string;
+  }
   interface PvCertificatesViewer {
     'certificates': string;
   }
@@ -18,22 +21,33 @@ export namespace Components {
 declare global {
 
 
+  interface HTMLPvCertificateViewerElement extends Components.PvCertificateViewer, HTMLStencilElement {}
+  var HTMLPvCertificateViewerElement: {
+    prototype: HTMLPvCertificateViewerElement;
+    new (): HTMLPvCertificateViewerElement;
+  };
+
   interface HTMLPvCertificatesViewerElement extends Components.PvCertificatesViewer, HTMLStencilElement {}
   var HTMLPvCertificatesViewerElement: {
     prototype: HTMLPvCertificatesViewerElement;
     new (): HTMLPvCertificatesViewerElement;
   };
   interface HTMLElementTagNameMap {
+    'pv-certificate-viewer': HTMLPvCertificateViewerElement;
     'pv-certificates-viewer': HTMLPvCertificatesViewerElement;
   }
 }
 
 declare namespace LocalJSX {
+  interface PvCertificateViewer {
+    'certificate'?: string;
+  }
   interface PvCertificatesViewer {
     'certificates'?: string;
   }
 
   interface IntrinsicElements {
+    'pv-certificate-viewer': PvCertificateViewer;
     'pv-certificates-viewer': PvCertificatesViewer;
   }
 }
@@ -44,6 +58,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
+      'pv-certificate-viewer': LocalJSX.PvCertificateViewer & JSXBase.HTMLAttributes<HTMLPvCertificateViewerElement>;
       'pv-certificates-viewer': LocalJSX.PvCertificatesViewer & JSXBase.HTMLAttributes<HTMLPvCertificatesViewerElement>;
     }
   }

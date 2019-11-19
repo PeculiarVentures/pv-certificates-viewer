@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, Watch } from '@stencil/core';
+import { Component, h, Prop, State, Watch, Host } from '@stencil/core';
 import { Certificate } from '../../utils/crypto';
 import dayjs from 'dayjs';
 
@@ -9,8 +9,10 @@ import dayjs from 'dayjs';
 })
 export class CertificatesViewer {
   @Prop() certificates: string = '';
+
   @State() certificatesDecoded: Certificate[] = [];
-  @State() expanded: Certificate['serialNumber'];
+  @State() expandedRow: Certificate['serialNumber'] | null;
+  @State() certificateSelectedForDetails: string | null;
 
   componentWillLoad() {
     this.certificatesDecodeAndSet();
@@ -52,14 +54,20 @@ export class CertificatesViewer {
     return certificate.downloadAsDER();
   }
 
-  onClickDetails = (event: MouseEvent) => {
+  onClickDetails = (value: string, event: MouseEvent) => {
     event.stopPropagation();
+
+    this.certificateSelectedForDetails = value;
   }
 
-  setExpanded(serialNumber: Certificate['serialNumber']) {
-    const isExpandedClicked = this.expanded === serialNumber;
+  onClickModalOverlay = () => {
+    this.certificateSelectedForDetails = null;
+  }
 
-    this.expanded = isExpandedClicked
+  onClickRow(serialNumber: Certificate['serialNumber']) {
+    const isExpandedRowClicked = this.expandedRow === serialNumber;
+
+    this.expandedRow = isExpandedRowClicked
       ? null
       : serialNumber;
   }
@@ -100,12 +108,12 @@ export class CertificatesViewer {
 
   renderCertificates() {
     return this.certificatesDecoded.map(certificate => {
-      const isExpanded = certificate.serialNumber === this.expanded;
+      const isExpandedRow = certificate.serialNumber === this.expandedRow;
 
       return ([
         <tr
-          class={isExpanded && 'fill_grey'}
-          onClick={this.setExpanded.bind(this, certificate.serialNumber)}
+          class={isExpandedRow && 'fill_grey'}
+          onClick={this.onClickRow.bind(this, certificate.serialNumber)}
         >
           <td>
             {certificate.commonName}
@@ -115,7 +123,7 @@ export class CertificatesViewer {
           </td>
           <td>
             <button
-              onClick={this.onClickDetails}
+              onClick={this.onClickDetails.bind(this, certificate.base64)}
             >
               Details
             </button>
@@ -132,7 +140,7 @@ export class CertificatesViewer {
           </td>
           <td />
         </tr>,
-        isExpanded && (
+        isExpandedRow && (
           <tr class="fill_grey">
             <td colSpan={1}>
               <span>Subject DN:</span>
@@ -150,29 +158,52 @@ export class CertificatesViewer {
     ])})
   }
 
+  renderCertificateDetailsModal() {
+    if (!this.certificateSelectedForDetails) {
+      return null;
+    }
+
+    return  (
+      <div class="modal_wrapper">
+        <div
+          class="modal_overlay"
+          onClick={this.onClickModalOverlay}
+        />
+        <div class="modal_content">
+          <pv-certificate-viewer
+            certificate={this.certificateSelectedForDetails}
+          />
+        </div>
+      </div>
+    );
+  }
+
   render() {
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>
-              Name
-            </th>
-            <th>
-              Fingerprint (SHA-1)
-            </th>
-            <th>
-              Actions
-            </th>
-            <th>
-              Test URLs
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.renderCertificates()}
-        </tbody>
-      </table>
+      <Host>
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Name
+              </th>
+              <th>
+                Fingerprint (SHA-1)
+              </th>
+              <th>
+                Actions
+              </th>
+              <th>
+                Test URLs
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.renderCertificates()}
+          </tbody>
+        </table>
+        {this.renderCertificateDetailsModal()}
+      </Host>
     );
   }
 }

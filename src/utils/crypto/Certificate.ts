@@ -2,6 +2,7 @@ import _Certificate from 'pkijs/src/Certificate';
 import { Convert } from 'pvtsutils';
 import dayjs from 'dayjs';
 import downloadFromBuffer from  '../downloadFromBuffer';
+import OIDS from  '../../constants/oids';
 
 import Basic from './Basic';
 
@@ -11,6 +12,13 @@ interface ISubject {
   oid: string;
   value: string;
 };
+
+interface IExtension {
+  name: string;
+  oid: string;
+  critical: boolean;
+  value: string[] | Record<string, string> | { oid: string; name: string; }[] | string;
+}
 
 export default class Certificate extends Basic {
   notBefore: string = '';
@@ -37,12 +45,14 @@ export default class Certificate extends Basic {
     oid: string;
   };
   serialNumber: string = '';
+  extensions: IExtension[] = [];
+  attributes: any[] = [];
   version: number = 0;
 
-  constructor(value: string) {
+  constructor(value: string, fullDecode: boolean = false) {
     super(value);
 
-    this.decode();
+    this.decode(fullDecode);
   }
 
   static base64ToPem(base64: string) {
@@ -51,7 +61,54 @@ export default class Certificate extends Basic {
     return Certificate.pemTagCertificate(base64);
   }
 
-  private decode() {
+  static getExtensionKeyUsage(extension: any) {
+    const usages = [];
+    // parse key usage BitString
+    const valueHex = new Uint8Array(Convert.FromHex(extension.parsedValue.valueBlock.valueHex));
+    const unusedBits = extension.parsedValue.valueBlock.unusedBits;
+    let keyUsageByte1 = valueHex[0];
+    let keyUsageByte2 = valueHex.byteLength > 1 ? valueHex[1] : 0;
+
+    if (valueHex.byteLength === 1) {
+      keyUsageByte1 >>= unusedBits;
+      keyUsageByte1 <<= unusedBits;
+    }
+    if (valueHex.byteLength === 2) {
+      keyUsageByte2 >>= unusedBits;
+      keyUsageByte2 <<= unusedBits;
+    }
+    if (keyUsageByte1 & 0x80) {
+      usages.push('Digital Signature');
+    }
+    if (keyUsageByte1 & 0x40) {
+      usages.push('Non Repudiation');
+    }
+    if (keyUsageByte1 & 0x20) {
+      usages.push('Key Encipherment');
+    }
+    if (keyUsageByte1 & 0x10) {
+      usages.push('Data Encipherment');
+    }
+    if (keyUsageByte1 & 0x08) {
+      usages.push('Key Agreement');
+    }
+    if (keyUsageByte1 & 0x04) {
+      usages.push('Key Cert Sign');
+    }
+    if (keyUsageByte1 & 0x02) {
+      usages.push('cRL Sign');
+    }
+    if (keyUsageByte1 & 0x01) {
+      usages.push('Encipher Only');
+    }
+    if (keyUsageByte2 & 0x80) {
+      usages.push('Decipher Only');
+    }
+
+    return usages;
+  }
+
+  private decode(fullDecode: boolean = false) {
     this.pem = Certificate.base64ToPem(this.base64);
 
     const pkijsSchema = new _Certificate({
@@ -175,6 +232,64 @@ export default class Certificate extends Basic {
 
     // decode version
     this.version = pkijsSchemaJson.version;
+
+    if (fullDecode) {
+      // decode extensions
+      if (pkijsSchemaJson.extensions) {
+        pkijsSchemaJson.extensions.forEach((ext) => {
+          const extension = {
+            name: OIDS[ext.extnID],
+            oid: ext.extnID,
+            critical: Boolean(ext.critical),
+            value: [],
+          };
+
+          switch (ext.extnID) {
+            // Basic Constraints
+            case '2.5.29.19': {
+              extension.value = ext.parsedValue;
+
+              break;
+            }
+
+            // Key Usage
+            case '2.5.29.15': {
+              extension.value = Certificate.getExtensionKeyUsage(ext);
+
+              break;
+            }
+
+            // Extended Key Usage
+            case '2.5.29.37': {
+              extension.value = ext.parsedValue.keyPurposes.map(oid => ({
+                oid,
+                name: OIDS[oid],
+              }));
+
+              break;
+            }
+
+            default:
+              extension.value = ext.extnValue.valueBlock.valueHex.toLowerCase();
+          }
+
+          this.extensions.push(extension);
+        });
+      }
+
+      // decode attributes
+      if (pkijsSchemaJson.attributes) {
+        pkijsSchemaJson.attributes.forEach((attr) => {
+          const attribute = {
+            name: OIDS[attr.extnID],
+            oid: attr.extnID,
+            value: [],
+          };
+
+          this.attributes.push(attribute);
+        });
+      }
+    }
   }
 
   get commonName() {
