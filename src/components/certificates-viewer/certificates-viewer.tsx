@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, Watch } from '@stencil/core';
+import { Component, h, Prop, State, Watch, Host } from '@stencil/core';
 import { Certificate } from '../../utils/crypto';
 import dayjs from 'dayjs';
 import LocalizedFormat from 'dayjs/plugin/localizedFormat';
@@ -12,8 +12,10 @@ dayjs.extend(LocalizedFormat);
 })
 export class CertificatesViewer {
   @Prop() certificates: string = '';
+
   @State() certificatesDecoded: Certificate[] = [];
-  @State() expanded: Certificate['serialNumber'];
+  @State() expandedRow: Certificate['serialNumber'] | null;
+  @State() certificateSelectedForDetails: string | null;
 
   componentWillLoad() {
     this.certificatesDecodeAndSet();
@@ -55,14 +57,20 @@ export class CertificatesViewer {
     return certificate.downloadAsDER();
   }
 
-  onClickDetails = (event: MouseEvent) => {
+  onClickDetails = (value: string, event: MouseEvent) => {
     event.stopPropagation();
+
+    this.certificateSelectedForDetails = value;
   }
 
-  setExpanded(serialNumber: Certificate['serialNumber']) {
-    const isExpandedClicked = this.expanded === serialNumber;
+  onClickModalOverlay = () => {
+    this.certificateSelectedForDetails = null;
+  }
 
-    this.expanded = isExpandedClicked
+  onClickRow(serialNumber: Certificate['serialNumber']) {
+    const isExpandedRowClicked = this.expandedRow === serialNumber;
+
+    this.expandedRow = isExpandedRowClicked
       ? null
       : serialNumber;
   }
@@ -105,12 +113,12 @@ export class CertificatesViewer {
 
   renderCertificates() {
     return this.certificatesDecoded.map(certificate => {
-      const isExpanded = certificate.serialNumber === this.expanded;
+      const isExpandedRow = certificate.serialNumber === this.expandedRow;
 
       return ([
         <tr
-          class={isExpanded && 'expanded fill_grey_2_opacity'}
-          onClick={this.setExpanded.bind(this, certificate.serialNumber)}
+          class={isExpandedRow && 'expanded fill_grey_2_opacity'}
+          onClick={this.onClickRow.bind(this, certificate.serialNumber)}
         >
           <td colSpan={2} class="align-left b3">
             {certificate.commonName}
@@ -120,7 +128,7 @@ export class CertificatesViewer {
           </td>
           <td colSpan={2} class="align-center">
             <button
-              onClick={this.onClickDetails}
+              onClick={this.onClickDetails.bind(this, certificate.base64)}
               class="b3 text_secondary"
             >
               Details
@@ -140,7 +148,7 @@ export class CertificatesViewer {
           </td>
           <td colSpan={2} class="align-center" />
         </tr>,
-        isExpanded && (
+        isExpandedRow && (
           <tr class="expanded fill_grey_2_opacity">
             <td colSpan={3}>
               <p class="text_grey_5 b3 dn_row">
@@ -162,29 +170,52 @@ export class CertificatesViewer {
     ])})
   }
 
+  renderCertificateDetailsModal() {
+    if (!this.certificateSelectedForDetails) {
+      return null;
+    }
+
+    return  (
+      <div class="modal_wrapper">
+        <div
+          class="modal_overlay"
+          onClick={this.onClickModalOverlay}
+        />
+        <div class="modal_content">
+          <pv-certificate-viewer
+            certificate={this.certificateSelectedForDetails}
+          />
+        </div>
+      </div>
+    );
+  }
+
   render() {
     return (
-      <table>
-        <thead class="fill_grey_5">
-          <tr>
-            <th colSpan={2} class="align-left text_white h7">
-              Name
-            </th>
-            <th colSpan={6} class="align-letf text_white h7">
-              Fingerprint (SHA-1)
-            </th>
-            <th colSpan={2} class="align-center text_white h7">
-              Actions
-            </th>
-            <th colSpan={2} class="align-center text_white h7">
-              Test URLs
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.renderCertificates()}
-        </tbody>
-      </table>
+      <Host>
+        <table>
+          <thead class="fill_grey_5">
+            <tr>
+              <th colSpan={2} class="align-left text_white h7">
+                Name
+              </th>
+              <th colSpan={6} class="align-letf text_white h7">
+                Fingerprint (SHA-1)
+              </th>
+              <th colSpan={2} class="align-center text_white h7">
+                Actions
+              </th>
+              <th colSpan={2} class="align-center text_white h7">
+                Test URLs
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.renderCertificates()}
+          </tbody>
+        </table>
+        {this.renderCertificateDetailsModal()}
+      </Host>
     );
   }
 }
