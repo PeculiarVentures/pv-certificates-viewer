@@ -1,9 +1,6 @@
 import { Component, h, Prop, State, Watch, Host } from '@stencil/core';
 import { Certificate } from '../../utils/crypto';
 import dayjs from 'dayjs';
-import LocalizedFormat from 'dayjs/plugin/localizedFormat';
-
-dayjs.extend(LocalizedFormat);
 
 @Component({
   tag: 'pv-certificates-viewer',
@@ -106,13 +103,40 @@ export class CertificatesViewer {
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Issued:</span>
-        <span class="meta_value b3">{dayjs(item.notBefore).format('llll')}</span>
+        <span class="meta_value b3">{dayjs(item.notBefore).format('ddd, MMM D, YYYY h:mm A')}</span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Expired:</span>
-        <span class="meta_value b3">{dayjs(item.notAfter).format('llll')}</span>
+        <span class="meta_value b3">{dayjs(item.notAfter).format('ddd, MMM D, YYYY h:mm A')}</span>
       </p>,
     ]);
+  }
+
+  renderExpandedRow(certificate: Certificate) {
+    return (
+      <tr class="expanded_summary fill_grey_1_opacity">
+        <td colSpan={certificate.isRoot ? 3 : 2} class="stroke_grey_3_border">
+          <p class="text_grey_5 b3 dn_row">
+            Subject DN:
+          </p>
+          {this.renderDN(certificate.subject)}
+        </td>
+        {certificate.isRoot
+          ? null
+          : (
+            <td colSpan={1} class="stroke_grey_3_border">
+              <p class="text_grey_5 b3 dn_row">
+                Issuer DN:
+              </p>
+              {this.renderDN(certificate.issuer)}
+            </td>
+          )
+        }
+        <td colSpan={2} class="stroke_grey_3_border">
+          {this.renderMetaData(certificate)}
+        </td>
+      </tr>
+    );
   }
 
   renderCertificates() {
@@ -151,25 +175,7 @@ export class CertificatesViewer {
             </button>
           </td>
         </tr>,
-        isExpandedRow && (
-          <tr class="expanded_summary fill_grey_1_opacity">
-            <td colSpan={2} class="stroke_grey_3_border">
-              <p class="text_grey_5 b3 dn_row">
-                Subject DN:
-              </p>
-              {this.renderDN(certificate.subject)}
-            </td>
-            <td colSpan={1} class="stroke_grey_3_border">
-              <p class="text_grey_5 b3 dn_row">
-                Issuer DN:
-              </p>
-              {this.renderDN(certificate.issuer)}
-            </td>
-            <td colSpan={2} class="stroke_grey_3_border">
-              {this.renderMetaData(certificate)}
-            </td>
-          </tr>
-        ),
+        isExpandedRow && this.renderExpandedRow(certificate),
     ])})
   }
 

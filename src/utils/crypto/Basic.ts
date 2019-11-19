@@ -1,5 +1,7 @@
 import * as asn1js from 'asn1js';
 import { Convert } from 'pvtsutils';
+import _AttributeTypeAndValue from 'pkijs/src/AttributeTypeAndValue';
+import _AlgorithmIdentifier from 'pkijs/src/AlgorithmIdentifier';
 
 export default class Basic {
   input: string;
@@ -176,24 +178,24 @@ export default class Basic {
     }
   }
 
-  static prepareSubject(subjects: object[]) {
+  static prepareSubject(subjects: _AttributeTypeAndValue[]) {
     if (!subjects) {
       return [];
     }
 
-    return subjects.map((subject: any) => {
+    return subjects.map((subject) => {
       const oid = Basic.subjectOIDs[subject.type.toString()];
 
       return {
         name: oid && oid.short ? oid.short : '',
         nameLong: oid ? oid.long : '',
-        oid: subject.type,
-        value: subject.value.valueBlock.value,
+        oid: subject.type.toString(),
+        value: subject.value.valueBlock.value.toString(),
       };
     });
   }
 
-  static prepareAlgorithm(algorithm: { algorithmId: string }) {
+  static prepareAlgorithm(algorithm: _AlgorithmIdentifier) {
     if (!algorithm) {
       return { name: '' };
     }

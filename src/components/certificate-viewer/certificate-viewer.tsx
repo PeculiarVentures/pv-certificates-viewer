@@ -1,10 +1,6 @@
 import { Component, h, Prop } from '@stencil/core';
 import { Certificate } from '../../utils/crypto';
 import dayjs from 'dayjs';
-import LocalizedFormat from 'dayjs/plugin/localizedFormat';
-
-dayjs.extend(LocalizedFormat);
-
 
 @Component({
   tag: 'pv-certificate-viewer',
@@ -67,8 +63,8 @@ export class CertificateViewer {
         {this.renderRowValue('Issuer DN', this.cert.issuer.map(obj => `${obj.name}=${obj.value}`).join(','))}
         {this.renderRowValue('Serial Number', this.cert.serialNumber)}
         {this.renderRowValue('Version', this.cert.version)}
-        {this.renderRowValue('Issued', dayjs(this.cert.notBefore).format('llll'))}
-        {this.renderRowValue('Expired', dayjs(this.cert.notAfter).format('llll'))}
+        {this.renderRowValue('Issued', dayjs(this.cert.notBefore).format('ddd, MMM D, YYYY h:mm A'))}
+        {this.renderRowValue('Expired', dayjs(this.cert.notAfter).format('ddd, MMM D, YYYY h:mm A'))}
         {this.renderRowValue('Validity', `${this.cert.validity} days`)}
         <tr>
           <td colSpan={2}>

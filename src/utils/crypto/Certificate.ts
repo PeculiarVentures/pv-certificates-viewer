@@ -1,4 +1,7 @@
 import _Certificate from 'pkijs/src/Certificate';
+import _Extension from 'pkijs/src/Extension';
+import _GeneralSubtree from 'pkijs/src/GeneralSubtree';
+import _GeneralName from 'pkijs/src/GeneralName';
 import { Convert } from 'pvtsutils';
 import * as asn1js from 'asn1js';
 import dayjs from 'dayjs';
@@ -24,8 +27,8 @@ interface IExtension {
 }
 
 export default class Certificate extends Basic {
-  notBefore: string = '';
-  notAfter: string = '';
+  notBefore?: Date;
+  notAfter?: Date;
   validity: number = 0;
   subject: ISubject[] = [];
   issuer: ISubject[] = [];
@@ -47,9 +50,8 @@ export default class Certificate extends Basic {
     value: string;
     oid: string;
   };
-  serialNumber: string = '';
+  serialNumber?: string;
   extensions: IExtension[] = [];
-  attributes: any[] = [];
   version: number = 0;
   isRoot: boolean = false;
 
@@ -65,13 +67,13 @@ export default class Certificate extends Basic {
     return Certificate.pemTagCertificate(base64);
   }
 
-  static getExtensionNetscapeCertType(extension: any) {
+  static getExtensionNetscapeCertType(extension: _Extension) {
     const usages = [];
-      // parse key usage BitString
-    const valueHex = Convert.FromHex(extension.extnValue.valueBlock.valueHex);
-    const bitString = asn1js.fromBER(valueHex).result;
+    // parse key usage BitString
+    const bitString = asn1js.fromBER(extension.extnValue.valueBlock.valueHex).result;
     const unusedBits = (bitString as any).valueBlock.unusedBits;
     let byte = new Uint8Array((bitString as any).valueBlock.valueHex)[0];
+
     byte >>= unusedBits;
     byte <<= unusedBits;
     /**
@@ -114,10 +116,10 @@ export default class Certificate extends Basic {
     return usages;
   }
 
-  static getExtensionKeyUsage(extension: any) {
+  static getExtensionKeyUsage(extension: _Extension) {
     const usages = [];
     // parse key usage BitString
-    const valueHex = new Uint8Array(Convert.FromHex(extension.parsedValue.valueBlock.valueHex));
+    const valueHex = new Uint8Array(extension.parsedValue.valueBlock.valueHex);
     const unusedBits = extension.parsedValue.valueBlock.unusedBits;
     let keyUsageByte1 = valueHex[0];
     let keyUsageByte2 = valueHex.byteLength > 1 ? valueHex[1] : 0;
@@ -161,54 +163,62 @@ export default class Certificate extends Basic {
     return usages;
   }
 
-  static decodeIP(string) {
-    if (string.length === 64 && parseInt(string, 16) === 0) {
+  static decodeIP(value: string) {
+    if (value.length === 64 && parseInt(value, 16) === 0) {
       return '::/0';
     }
 
-    if (string.length !== 16) {
-      return string;
+    if (value.length !== 16) {
+      return value;
     }
 
-    const mask = parseInt(string.slice(8), 16)
+    const mask = parseInt(value.slice(8), 16)
       .toString(2)
       .split('')
       .reduce((a, k) => a + (+k), 0);
-    let ip = string.slice(0, 8)
+    let ip = value.slice(0, 8)
       .replace(/(.{2})/g, match => `${parseInt(match, 16)}.`);
+
     ip = ip.slice(0, -1);
 
     return `${ip}/${mask}`;
   }
 
-  static decodeSANs(listSAN: any[]) {
-    return listSAN.map((an) => {
-      const itemSAN = an.base || an;
+  static decodeSANs(altNames: (_GeneralSubtree | _GeneralName)[]) {
+    return altNames.map((altName) => {
+      const altNameBase = 'base' in altName ? altName.base : altName;
       const item = {
         value: undefined,
-        name: SANs[itemSAN.type] || `need handler for this type - ${itemSAN.type}`,
-        type: itemSAN.type,
+        name: SANs[altNameBase.type] || `need handler for this type - ${altNameBase.type}`,
+        type: altNameBase.type,
       };
 
-      switch (itemSAN.type) {
-        case 4:
-          item.value = itemSAN.value.typesAndValues.map(i => ({
+      switch (item.type) {
+        case 4: {
+          item.value = altNameBase.value.typesAndValues.map(i => ({
             name: OIDS[i.type],
             oid: i.type,
             value: i.value.valueBlock.value,
           }));
 
           break;
+        }
 
-        case 7:
-          item.value = Certificate.decodeIP(itemSAN.value.valueBlock.valueHex);
+        case 7: {
+          item.value = Certificate.decodeIP(
+            Convert.ToHex(
+              altNameBase.value.valueBlock.valueHex,
+            ),
+          );
 
           break;
+        }
 
-        default:
-          item.value = typeof itemSAN.value === 'string'
-            ? itemSAN.value
-            : `type value is not a string - ${itemSAN.type}`;
+        default: {
+          item.value = typeof altNameBase.value === 'string'
+            ? altNameBase.value
+            : `type value is not a string - ${item.type}`;
+        }
       }
 
       return item;
@@ -222,28 +232,26 @@ export default class Certificate extends Basic {
       schema: this.schema,
     });
 
-    const pkijsSchemaJson = pkijsSchema.toJSON();
-
     // Start decode
     // decode subject
-    if (pkijsSchemaJson.subject) {
-      if (Array.isArray(pkijsSchemaJson.subject)) {
-        this.subject = Certificate.prepareSubject(pkijsSchemaJson.subject);
+    if (pkijsSchema.subject) {
+      if (Array.isArray(pkijsSchema.subject)) {
+        this.subject = Certificate.prepareSubject(pkijsSchema.subject);
       }
 
-      if (Array.isArray(pkijsSchemaJson.subject.typesAndValues)) {
-        this.subject = Certificate.prepareSubject(pkijsSchemaJson.subject.typesAndValues);
+      if (Array.isArray(pkijsSchema.subject.typesAndValues)) {
+        this.subject = Certificate.prepareSubject(pkijsSchema.subject.typesAndValues);
       }
     }
 
     // decode issuer
-    if (pkijsSchemaJson.issuer) {
-      if (Array.isArray(pkijsSchemaJson.issuer)) {
-        this.issuer = Certificate.prepareSubject(pkijsSchemaJson.issuer);
+    if (pkijsSchema.issuer) {
+      if (Array.isArray(pkijsSchema.issuer)) {
+        this.issuer = Certificate.prepareSubject(pkijsSchema.issuer);
       }
 
-      if (Array.isArray(pkijsSchemaJson.issuer.typesAndValues)) {
-        this.issuer = Certificate.prepareSubject(pkijsSchemaJson.issuer.typesAndValues);
+      if (Array.isArray(pkijsSchema.issuer.typesAndValues)) {
+        this.issuer = Certificate.prepareSubject(pkijsSchema.issuer.typesAndValues);
       }
     }
 
@@ -251,13 +259,13 @@ export default class Certificate extends Basic {
     this.isRoot = JSON.stringify(this.issuer) === JSON.stringify(this.subject);
 
     // decode notBefore date
-    if (pkijsSchemaJson.notBefore && pkijsSchemaJson.notBefore.value) {
-      this.notBefore = new Date(pkijsSchemaJson.notBefore.value).toISOString();
+    if (pkijsSchema.notBefore && pkijsSchema.notBefore.value) {
+      this.notBefore = pkijsSchema.notBefore.value;
     }
 
     // decode notAfter date
-    if (pkijsSchemaJson.notAfter && pkijsSchemaJson.notAfter.value) {
-      this.notAfter = new Date(pkijsSchemaJson.notAfter.value).toISOString();
+    if (pkijsSchema.notAfter && pkijsSchema.notAfter.value) {
+      this.notAfter = pkijsSchema.notAfter.value;
     }
 
     // decode validity days
@@ -288,8 +296,9 @@ export default class Certificate extends Basic {
       if (pkijsSchema.subjectPublicKeyInfo.algorithm.algorithmId === '1.2.840.10045.2.1') {
         this.publicKey.algorithm.name = 'EC';
 
-        this.publicKey.algorithm.namedCurve = pkijsSchemaJson
+        this.publicKey.algorithm.namedCurve = pkijsSchema
           .subjectPublicKeyInfo
+          .toJSON()
           .crv;
       } else {
         this.publicKey.algorithm.name = 'RSA';
@@ -320,33 +329,35 @@ export default class Certificate extends Basic {
 
     // decode signature
     this.signature = {
-      algorithm: Certificate.prepareAlgorithm(pkijsSchemaJson.signatureAlgorithm),
-      value: pkijsSchemaJson
-        .signatureValue
-        .valueBlock
-        .valueHex
-        .toLowerCase(),
-      oid: pkijsSchemaJson
+      algorithm: Certificate.prepareAlgorithm(pkijsSchema.signatureAlgorithm),
+      value: Convert.ToHex(
+        pkijsSchema
+          .signatureValue
+          .valueBlock
+          .valueHex,
+      ),
+      oid: pkijsSchema
         .signatureAlgorithm
         .algorithmId,
     };
 
     // decode serial number
-    this.serialNumber = pkijsSchemaJson.serialNumber
-      ? pkijsSchemaJson
-          .serialNumber
-          .valueBlock
-          .valueHex
-          .toLowerCase()
+    this.serialNumber = pkijsSchema.serialNumber
+      ? Convert.ToHex(
+          pkijsSchema
+            .serialNumber
+            .valueBlock
+            .valueHex,
+        )
       : undefined;
 
     // decode version
-    this.version = pkijsSchemaJson.version;
+    this.version = pkijsSchema.version;
 
     if (fullDecode) {
       // decode extensions
-      if (pkijsSchemaJson.extensions) {
-        pkijsSchemaJson.extensions.forEach((ext) => {
+      if (pkijsSchema.extensions) {
+        pkijsSchema.extensions.forEach((ext: _Extension) => {
           const extension = {
             name: OIDS[ext.extnID],
             oid: ext.extnID,
@@ -397,25 +408,29 @@ export default class Certificate extends Basic {
               extension.value = {};
 
               if (ext.parsedValue.keyIdentifier) {
-                extension.value.keyIdentifier = ext
-                  .parsedValue
-                  .keyIdentifier
-                  .valueBlock
-                  .valueHex.toLowerCase();
+                extension.value.keyIdentifier = Convert.ToHex(
+                  ext
+                    .parsedValue
+                    .keyIdentifier
+                    .valueBlock
+                    .valueHex,
+                );
               }
 
               if (ext.parsedValue.authorityCertSerialNumber) {
-                extension.value.authorityCertSerialNumber = ext
-                  .parsedValue
-                  .authorityCertSerialNumber
-                  .valueBlock
-                  .valueHex.toLowerCase();
+                extension.value.authorityCertSerialNumber = Convert.ToHex(
+                  ext
+                    .parsedValue
+                    .authorityCertSerialNumber
+                    .valueBlock
+                    .valueHex,
+                );
               }
 
               if (ext.parsedValue.authorityCertIssuer) {
-                // TODO: need check this decoding
-                extension.value.authorityCertIssuer = ext.parsedValue.authorityCertIssuer;
-                // this.name2str(ext.parsedValue.authorityCertIssuer[0].value);
+                extension.value.authorityCertIssuer = ext
+                  .parsedValue
+                  .authorityCertIssuer;
               }
 
               break;
@@ -494,23 +509,15 @@ export default class Certificate extends Basic {
             }
 
             default:
-              extension.value = ext.extnValue.valueBlock.valueHex.toLowerCase();
+              extension.value = Convert.ToHex(
+                ext
+                  .extnValue
+                  .valueBlock
+                  .valueHex,
+              );
           }
 
           this.extensions.push(extension);
-        });
-      }
-
-      // decode attributes
-      if (pkijsSchemaJson.attributes) {
-        pkijsSchemaJson.attributes.forEach((attr) => {
-          const attribute = {
-            name: OIDS[attr.extnID],
-            oid: attr.extnID,
-            value: [],
-          };
-
-          this.attributes.push(attribute);
         });
       }
     }
