@@ -12,12 +12,18 @@ export class CertificateViewer {
   @Prop() certificate: string;
 
   componentWillLoad() {
-    this.cert = new Certificate(this.certificate, true);
-
-    console.log(this.cert);
+    try {
+      this.cert = new Certificate(this.certificate, true);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   render() {
+    if (!this.cert) {
+      return null;
+    }
+
     return (
       <table>
         <tr>
