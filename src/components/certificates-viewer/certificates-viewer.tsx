@@ -162,18 +162,18 @@ export class CertificatesViewer {
   render() {
     return (
       <table>
-        <thead class="fill_grey_2">
+        <thead class="fill_grey_5">
           <tr>
-            <th colSpan={2} class="align-left h7">
+            <th colSpan={2} class="align-left text_white h7">
               Name
             </th>
-            <th colSpan={6} class="align-letf h7">
+            <th colSpan={6} class="align-letf text_white h7">
               Fingerprint (SHA-1)
             </th>
-            <th colSpan={2} class="align-center h7">
+            <th colSpan={2} class="align-center text_white h7">
               Actions
             </th>
-            <th colSpan={2} class="align-center h7">
+            <th colSpan={2} class="align-center text_white h7">
               Test URLs
             </th>
           </tr>
