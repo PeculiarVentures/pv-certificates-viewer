@@ -12,7 +12,7 @@ dayjs.extend(LocalizedFormat);
     '../../styles/theme.css',
     'certificates-viewer.css',
   ],
-  shadow: true
+  shadow: true,
 })
 export class CertificatesViewer {
   @Prop() certificates: string = '';
