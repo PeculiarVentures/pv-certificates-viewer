@@ -141,22 +141,24 @@ table th {
 /* Expande rows styles */
 /* First row */
 table tr.expanded td {
-  border-width: 1px 0 0 0;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
 }
 
 table tr.expanded td:first-child {
-  border-left-width: 1px;
+  border-left-color: #D1D5D9;
 }
 
 table tr.expanded td:last-child {
-  border-right-width: 1px;
+  border-right-color: #D1D5D9;
 }
 
 /* Second row */
 table tr.expanded + tr.expanded td {
   vertical-align: top;
-  border-bottom-width: 1px;
-  border-top-width: 0;
+  border-bottom-color: #D1D5D9;
+  border-top-color: transparent;
 }
 
 .expanded + .expanded td {
