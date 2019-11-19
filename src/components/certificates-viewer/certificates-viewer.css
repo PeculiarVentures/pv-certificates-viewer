@@ -1,102 +1,104 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  border: 0;
-  border-radius: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-size-adjust: none;
-  -webkit-text-size-adjust: none;
-  -webkit-tap-highlight-color: transparent;
-  word-break: break-word;
-}
-
-*:focus:not(:active):not(:hover) {
-  outline-width: 2px;
-  outline-style: solid;
-  outline-offset: -1px;
-}
-
-input:focus, textarea:focus, *:active, *:hover {
-  outline: none !important;
-}
-
-a {
-  text-decoration: none;
-}
-
-textarea {
-  resize: none;
-}
-
-input, textarea {
-  -webkit-appearance: none !important;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none !important;
-  font-family: inherit;
-}
-
-button {
-  font-family: inherit;
-  background: transparent;
-}
-
-table {
-  cellspacing: 0 !important;
-  border-spacing: 0 !important;
-}
-
 :host {
   display: block;
   width: 100%;
   word-wrap: break-word;
-  font-family: 'Arial', sans-serif;
-}
-
-.fill_grey {
-  background-color: #f4f4f4;
+  background: white;
+  font-family: 'Open Sans', Arial, sans-serif;
 }
 
 table {
-  width: 100%
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
 }
 
 button {
-  background: black;
-  color: white;
-  padding: 5px 10px;
-  margin: 1px;
+  padding: 3px 5px;
+  margin: 0 2.5px;
   cursor: pointer;
+  border: 1px solid rgba(53, 132, 247, 0.3);
+  border-radius: 2px;
 }
 
-table td,
+table tr {
+  vertical-align: middle;
+}
+
 table th {
-  padding: 10px 5px;
+  padding: 15px 10px;
+  text-align: left;
+  border-width: 1px;
+  border-style: solid;
+}
+
+table td {
+  padding: 10px;
+  text-align: left;
+  border-width: 1px;
+  border-style: solid;
 }
 
 table th:nth-child(1) {
   width: 20%;
-  text-align: left;
-}
-table th:nth-child(2) {
-  width: 40%;
-  text-align: left;
-}
-table th:nth-child(3) {
-  width: 30%;
-}
-table th:nth-child(4) {
-  width: 10%;
 }
 
-table tr {
+table th:nth-child(2) {
+  width: 58%;
+}
+
+/* Mockup particular parts styles */
+
+/* Expande rows styles */
+/* First row */
+table tr.expanded td:not(:last-child) {
+  border-right-color: transparent;
+}
+
+table tr.expanded td {
+  border-bottom-color: transparent;
+}
+
+/* Second row */
+table tr.expanded_summary td {
+  vertical-align: top;
+  padding: 10px 20px 26px;
+}
+
+/* Columns styles */
+/* DN styles */
+.dn_name {
+  display: inline-block;
+  width: 40px;
+  vertical-align: top;
+  padding-right: 5px;
+}
+
+.dn_value {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(100% - 40px);
+}
+
+.dn_row:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+/* Meta styles */
+.meta_row:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.meta_name {
+  display: inline-block;
+  width: 120px;
+  padding-right: 5px;
   vertical-align: top;
 }
 
-span {
-  margin-right: 10px;
+.meta_value {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(100% - 120px);
 }
 
 @keyframes fadeIn {
@@ -118,7 +120,7 @@ span {
   overflow: auto;
   padding: 20px;
   text-align: center;
-  background: rgba(0, 0, 0, .6);
+  background: rgba(42, 49, 52, 0.8);
   animation: fadeIn 300ms;
 }
 
@@ -145,7 +147,6 @@ span {
   width: 100%;
   max-width: 800px;
   text-align: left;
-  background: white;
   padding: 10px;
   border-radius: 3px;
 }

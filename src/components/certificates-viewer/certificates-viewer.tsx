@@ -1,11 +1,18 @@
 import { Component, h, Prop, State, Watch, Host } from '@stencil/core';
 import { Certificate } from '../../utils/crypto';
 import dayjs from 'dayjs';
+import LocalizedFormat from 'dayjs/plugin/localizedFormat';
+
+dayjs.extend(LocalizedFormat);
 
 @Component({
   tag: 'pv-certificates-viewer',
-  styleUrl: 'certificates-viewer.css',
-  shadow: true
+  styleUrls: [
+    '../../styles/reset.css',
+    '../../styles/theme.css',
+    'certificates-viewer.css',
+  ],
+  shadow: true,
 })
 export class CertificatesViewer {
   @Prop() certificates: string = '';
@@ -73,35 +80,37 @@ export class CertificatesViewer {
   }
 
   renderDN(item: Certificate['subject'] | Certificate['issuer']) {
-    return Object.keys(item).map(subject => (
-      <p>
-        <span>{item[subject].name}</span>
-        <span>{item[subject].value}</span>
-      </p>
-    ));
+    return Object.keys(item).map(subject => {
+      return (
+        <p class="dn_row">
+          <span class="dn_name b3">{item[subject].name}</span>
+          <span class="dn_value b3">{item[subject].value}</span>
+        </p>
+      )
+    })
   }
 
   renderMetaData(item: Certificate) {
     return ([
-      <p>
-        <span>Serial number:</span>
-        <span>{item.serialNumber}</span>
+      <p class="meta_row">
+        <span class="meta_name text_grey_5 b3">Serial number:</span>
+        <span class="meta_value b3">{item.serialNumber}</span>
       </p>,
-      <p>
-        <span>Version:</span>
-        <span>{item.version}</span>
+      <p class="meta_row">
+        <span class="meta_name text_grey_5 b3">Version:</span>
+        <span class="meta_value b3">{item.version}</span>
       </p>,
-      <p>
-        <span>Validity:</span>
-        <span>{item.validity} days</span>
+      <p class="meta_row">
+        <span class="meta_name text_grey_5 b3">Validity:</span>
+        <span class="meta_value b3">{item.validity} days</span>
       </p>,
-      <p>
-        <span>Issued:</span>
-        <span>{dayjs(item.notBefore).format('ddd, MMM D, YYYY h:mm:ss')}</span>
+      <p class="meta_row">
+        <span class="meta_name text_grey_5 b3">Issued:</span>
+        <span class="meta_value b3">{dayjs(item.notBefore).format('llll')}</span>
       </p>,
-      <p>
-        <span>Expired:</span>
-        <span>{dayjs(item.notAfter).format('ddd, MMM D, YYYY h:mm:ss')}</span>
+      <p class="meta_row">
+        <span class="meta_name text_grey_5 b3">Expired:</span>
+        <span class="meta_value b3">{dayjs(item.notAfter).format('llll')}</span>
       </p>,
     ]);
   }
@@ -112,45 +121,51 @@ export class CertificatesViewer {
 
       return ([
         <tr
-          class={isExpandedRow && 'fill_grey'}
+          class={isExpandedRow && 'expanded fill_grey_1_opacity'}
           onClick={this.onClickRow.bind(this, certificate.serialNumber)}
         >
-          <td>
+          <td class="b3 stroke_grey_3_border">
             {certificate.commonName}
           </td>
-          <td>
+          <td colSpan={3} class="b3 stroke_grey_3_border">
             {certificate.fingerprint}
           </td>
-          <td>
+          <td class="align-center stroke_grey_3_border">
             <button
               onClick={this.onClickDetails.bind(this, certificate.base64)}
+              class="b3 text_secondary"
             >
               Details
             </button>
             <button
               onClick={this.onClickDownload.bind(this, certificate, 'PEM')}
+              class="b3 text_secondary"
             >
-              Download PEM
+              PEM
             </button>
             <button
               onClick={this.onClickDownload.bind(this, certificate, 'DER')}
+              class="b3 text_secondary"
             >
-              Download DER
+              DER
             </button>
           </td>
-          <td />
         </tr>,
         isExpandedRow && (
-          <tr class="fill_grey">
-            <td colSpan={1}>
-              <span>Subject DN:</span>
+          <tr class="expanded_summary fill_grey_1_opacity">
+            <td colSpan={2} class="stroke_grey_3_border">
+              <p class="text_grey_5 b3 dn_row">
+                Subject DN:
+              </p>
               {this.renderDN(certificate.subject)}
             </td>
-            <td colSpan={1}>
-              <span>Issuer DN:</span>
+            <td colSpan={1} class="stroke_grey_3_border">
+              <p class="text_grey_5 b3 dn_row">
+                Issuer DN:
+              </p>
               {this.renderDN(certificate.issuer)}
             </td>
-            <td colSpan={2}>
+            <td colSpan={2} class="stroke_grey_3_border">
               {this.renderMetaData(certificate)}
             </td>
           </tr>
@@ -169,7 +184,7 @@ export class CertificatesViewer {
           class="modal_overlay"
           onClick={this.onClickModalOverlay}
         />
-        <div class="modal_content">
+        <div class="modal_content fill_white">
           <pv-certificate-viewer
             certificate={this.certificateSelectedForDetails}
           />
@@ -181,20 +196,17 @@ export class CertificatesViewer {
   render() {
     return (
       <Host>
-        <table>
-          <thead>
+        <table class="text_black">
+          <thead class="fill_grey_2">
             <tr>
-              <th>
+              <th class="h7 stroke_grey_3_border">
                 Name
               </th>
-              <th>
+              <th colSpan={3} class="h7 stroke_grey_3_border">
                 Fingerprint (SHA-1)
               </th>
-              <th>
+              <th class="align-center h7 stroke_grey_3_border">
                 Actions
-              </th>
-              <th>
-                Test URLs
               </th>
             </tr>
           </thead>

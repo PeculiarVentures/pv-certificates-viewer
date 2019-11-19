@@ -1,10 +1,19 @@
 import { Component, h, Prop } from '@stencil/core';
 import { Certificate } from '../../utils/crypto';
+import dayjs from 'dayjs';
+import LocalizedFormat from 'dayjs/plugin/localizedFormat';
+
+dayjs.extend(LocalizedFormat);
+
 
 @Component({
   tag: 'pv-certificate-viewer',
-  styleUrl: 'certificate-viewer.css',
-  shadow: true
+  styleUrls: [
+    '../../styles/reset.css',
+    '../../styles/theme.css',
+    'certificate-viewer.css',
+  ],
+  shadow: true,
 })
 export class CertificateViewer {
   cert: Certificate;
@@ -19,192 +28,81 @@ export class CertificateViewer {
     }
   }
 
+  renderRowTitle(title: string) {
+    return (
+      <tr>
+        <td colSpan={2} class="h7">
+          {title}
+        </td>
+      </tr>
+    );
+  }
+
+  renderRowValue(title: string, value: string | number) {
+    if (typeof value !== 'string' && typeof value !== 'number') {
+      return null;
+    }
+
+    return (
+      <tr>
+        <td class="b3 text_grey_5">
+          {title}:
+        </td>
+        <td class="b3">
+          {value}
+        </td>
+      </tr>
+    );
+  }
+
   render() {
     if (!this.cert) {
       return null;
     }
 
     return (
-      <table>
-        <tr>
-          <td colSpan={2}>
-            <h3>
-              Basic Information
-            </h3>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Subject DN:
-          </td>
-          <td>
-            {this.cert.subject.map(sbj => `${sbj.name}=${sbj.value}`).join(',')}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Issuer DN:
-          </td>
-          <td>
-            {this.cert.issuer.map(sbj => `${sbj.name}=${sbj.value}`).join(',')}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Serial Number:
-          </td>
-          <td>
-            {this.cert.serialNumber}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Version:
-          </td>
-          <td>
-            {this.cert.version}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Issued:
-          </td>
-          <td>
-            {this.cert.notBefore}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Expired:
-          </td>
-          <td>
-            {this.cert.notAfter}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Validity:
-          </td>
-          <td>
-            {this.cert.validity} days
-          </td>
-        </tr>
-
+      <table class="text_black">
+        {this.renderRowTitle('Basic Information')}
+        {this.renderRowValue('Subject DN', this.cert.subject.map(obj => `${obj.name}=${obj.value}`).join(','))}
+        {this.renderRowValue('Issuer DN', this.cert.issuer.map(obj => `${obj.name}=${obj.value}`).join(','))}
+        {this.renderRowValue('Serial Number', this.cert.serialNumber)}
+        {this.renderRowValue('Version', this.cert.version)}
+        {this.renderRowValue('Issued', dayjs(this.cert.notBefore).format('llll'))}
+        {this.renderRowValue('Expired', dayjs(this.cert.notAfter).format('llll'))}
+        {this.renderRowValue('Validity', `${this.cert.validity} days`)}
         <tr>
           <td colSpan={2}>
             <br/>
-            <h3>
-              Public Key Info
-            </h3>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Algorithm:
-          </td>
-          <td>
-            {this.cert.publicKey.algorithm.name}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Modulus Bits:
-          </td>
-          <td>
-            {this.cert.publicKey.algorithm.modulusBits}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Public Exponent:
-          </td>
-          <td>
-            {this.cert.publicKey.algorithm.publicExponent}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Named Curve:
-          </td>
-          <td>
-            {this.cert.publicKey.algorithm.namedCurve}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Value:
-          </td>
-          <td>
-            {this.cert.publicKey.value}
           </td>
         </tr>
 
+        {this.renderRowTitle('Public Key Info')}
+        {this.renderRowValue('Algorithm', this.cert.publicKey.algorithm.name)}
+        {this.renderRowValue('Modulus Bits', this.cert.publicKey.algorithm.modulusBits)}
+        {this.renderRowValue('Public Exponent', this.cert.publicKey.algorithm.publicExponent)}
+        {this.renderRowValue('Named Curve', this.cert.publicKey.algorithm.namedCurve)}
+        {this.renderRowValue('Value', this.cert.publicKey.value)}
         <tr>
           <td colSpan={2}>
             <br/>
-            <h3>
-              Signature
-            </h3>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Algorithm:
-          </td>
-          <td>
-            {this.cert.signature.algorithm.name}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Hash:
-          </td>
-          <td>
-            {this.cert.signature.algorithm.hash}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Value:
-          </td>
-          <td>
-            {this.cert.signature.value}
           </td>
         </tr>
 
+        {this.renderRowTitle('Signature')}
+        {this.renderRowValue('Algorithm', this.cert.signature.algorithm.name)}
+        {this.renderRowValue('Hash', this.cert.signature.algorithm.hash)}
+        {this.renderRowValue('Value', this.cert.signature.value)}
         <tr>
           <td colSpan={2}>
             <br/>
-            <h3>
-              Extensions
-            </h3>
           </td>
         </tr>
+
+        {this.renderRowTitle('Extensions')}
         {this.cert.extensions.map((extension) => ([
-          <tr>
-            <td>
-              Name:
-            </td>
-            <td>
-              {extension.name ? `${extension.name} (${extension.oid})` : extension.oid}
-            </td>
-          </tr>,
-          <tr>
-            <td>
-              Critical:
-            </td>
-            <td>
-              {extension.critical ? 'Yes' : 'No'}
-            </td>
-          </tr>,
-          <tr>
-            <td>
-              Value:
-            </td>
-            <td>
-              {JSON.stringify(extension.value)}
-            </td>
-          </tr>,
+          this.renderRowValue('Name', extension.name ? `${extension.name} (${extension.oid})` : extension.oid),
+          this.renderRowValue('Critical', extension.critical ? 'Yes' : 'No'),
+          this.renderRowValue('Value', JSON.stringify(extension.value)),
           <tr>
             <td colSpan={2}>
               <br/>
