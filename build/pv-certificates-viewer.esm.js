@@ -1,1 +1,6 @@
-import{p as e,b as i}from"./p-da098cb8.js";e().then(e=>i([["p-z3rb9qpd",[[1,"pv-certificates-viewer",{certificates:[1],certificatesDecoded:[32],expandedRow:[32],certificateSelectedForDetails:[32]}],[1,"pv-certificate-viewer",{certificate:[1]}]]]],e));
+import { p as patchBrowser, g as globals, b as bootstrapLazy } from './core-cdbd8562.js';
+
+patchBrowser().then(options => {
+  globals();
+  return bootstrapLazy([["pv-certificate-viewer",[[1,"pv-certificate-viewer",{"certificate":[1]}]]],["pv-certificates-viewer",[[1,"pv-certificates-viewer",{"certificates":[1],"certificatesDecoded":[32],"expandedRow":[32],"certificateSelectedForDetails":[32]}]]]], options);
+});
