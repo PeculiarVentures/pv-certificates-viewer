@@ -1,5 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
-import { Certificate } from '../../utils/crypto';
+import { Certificate, IExtension } from '../../utils/crypto';
 import dayjs from 'dayjs';
 
 @Component({
@@ -35,7 +35,10 @@ export class CertificateViewer {
   }
 
   renderRowValue(title: string, value: string | number) {
-    if (typeof value !== 'string' && typeof value !== 'number') {
+    if (
+      typeof value !== 'string'
+      && typeof value !== 'number'
+    ) {
       return null;
     }
 
@@ -45,10 +48,34 @@ export class CertificateViewer {
           {title}:
         </td>
         <td class="b3">
-          {value}
+          {value.toString()}
         </td>
       </tr>
     );
+  }
+
+  renderRowExtensionValue(extension: IExtension) {
+    if (typeof extension.value === 'string') {
+      return this.renderRowValue('Value', extension.value);
+    }
+
+    if (
+      Array.isArray(extension.value)
+      && typeof extension.value[0] === 'string'
+    ) {
+      return this.renderRowValue('Value', extension.value.join(', '));
+    }
+
+    if (
+      !Array.isArray(extension.value)
+      && typeof extension.value === 'object'
+    ) {
+      return Object.keys(extension.value).map(keyName => (
+        this.renderRowValue(keyName, JSON.stringify(extension.value[keyName]))
+      ));
+    }
+
+    return this.renderRowValue('Value', JSON.stringify(extension.value));
   }
 
   render() {
@@ -98,7 +125,7 @@ export class CertificateViewer {
         {this.cert.extensions.map((extension) => ([
           this.renderRowValue('Name', extension.name ? `${extension.name} (${extension.oid})` : extension.oid),
           this.renderRowValue('Critical', extension.critical ? 'Yes' : 'No'),
-          this.renderRowValue('Value', JSON.stringify(extension.value)),
+          this.renderRowExtensionValue(extension),
           <tr>
             <td colSpan={2}>
               <br/>

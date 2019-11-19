@@ -19,7 +19,7 @@ interface ISubject {
   value: string;
 };
 
-interface IExtension {
+export interface IExtension {
   name: string;
   oid: string;
   critical: boolean;
