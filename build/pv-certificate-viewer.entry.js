@@ -1,7 +1,6 @@
 import { r as registerInstance, h } from './core-cdbd8562.js';
-import { d as dayjs, L as LocalizedFormat, C as Certificate } from './localizedFormat-3a7d52e6.js';
+import { C as Certificate, d as dayjs } from './index-2c40cab3.js';
 
-dayjs.extend(LocalizedFormat);
 const CertificateViewer = class {
     constructor(hostRef) {
         registerInstance(this, hostRef);
@@ -18,19 +17,34 @@ const CertificateViewer = class {
         return (h("tr", null, h("td", { colSpan: 2, class: "h7" }, title)));
     }
     renderRowValue(title, value) {
-        if (typeof value !== 'string' && typeof value !== 'number') {
+        if (typeof value !== 'string'
+            && typeof value !== 'number') {
             return null;
         }
-        return (h("tr", null, h("td", { class: "b3 text_grey_5" }, title, ":"), h("td", { class: "b3" }, value)));
+        return (h("tr", null, h("td", { class: "b3 text_grey_5" }, title, ":"), h("td", { class: "b3" }, value.toString())));
+    }
+    renderRowExtensionValue(extension) {
+        if (typeof extension.value === 'string') {
+            return this.renderRowValue('Value', extension.value);
+        }
+        if (Array.isArray(extension.value)
+            && typeof extension.value[0] === 'string') {
+            return this.renderRowValue('Value', extension.value.join(', '));
+        }
+        if (!Array.isArray(extension.value)
+            && typeof extension.value === 'object') {
+            return Object.keys(extension.value).map(keyName => (this.renderRowValue(keyName, JSON.stringify(extension.value[keyName]))));
+        }
+        return this.renderRowValue('Value', JSON.stringify(extension.value));
     }
     render() {
         if (!this.cert) {
             return null;
         }
-        return (h("table", { class: "text_black" }, this.renderRowTitle('Basic Information'), this.renderRowValue('Subject DN', this.cert.subject.map(obj => `${obj.name}=${obj.value}`).join(',')), this.renderRowValue('Issuer DN', this.cert.issuer.map(obj => `${obj.name}=${obj.value}`).join(',')), this.renderRowValue('Serial Number', this.cert.serialNumber), this.renderRowValue('Version', this.cert.version), this.renderRowValue('Issued', dayjs(this.cert.notBefore).format('llll')), this.renderRowValue('Expired', dayjs(this.cert.notAfter).format('llll')), this.renderRowValue('Validity', `${this.cert.validity} days`), h("tr", null, h("td", { colSpan: 2 }, h("br", null))), this.renderRowTitle('Public Key Info'), this.renderRowValue('Algorithm', this.cert.publicKey.algorithm.name), this.renderRowValue('Modulus Bits', this.cert.publicKey.algorithm.modulusBits), this.renderRowValue('Public Exponent', this.cert.publicKey.algorithm.publicExponent), this.renderRowValue('Named Curve', this.cert.publicKey.algorithm.namedCurve), this.renderRowValue('Value', this.cert.publicKey.value), h("tr", null, h("td", { colSpan: 2 }, h("br", null))), this.renderRowTitle('Signature'), this.renderRowValue('Algorithm', this.cert.signature.algorithm.name), this.renderRowValue('Hash', this.cert.signature.algorithm.hash), this.renderRowValue('Value', this.cert.signature.value), h("tr", null, h("td", { colSpan: 2 }, h("br", null))), this.renderRowTitle('Extensions'), this.cert.extensions.map((extension) => ([
+        return (h("table", { class: "text_black" }, this.renderRowTitle('Basic Information'), this.renderRowValue('Subject DN', this.cert.subject.map(obj => `${obj.name}=${obj.value}`).join(',')), this.renderRowValue('Issuer DN', this.cert.issuer.map(obj => `${obj.name}=${obj.value}`).join(',')), this.renderRowValue('Serial Number', this.cert.serialNumber), this.renderRowValue('Version', this.cert.version), this.renderRowValue('Issued', dayjs(this.cert.notBefore).format('ddd, MMM D, YYYY h:mm A')), this.renderRowValue('Expired', dayjs(this.cert.notAfter).format('ddd, MMM D, YYYY h:mm A')), this.renderRowValue('Validity', `${this.cert.validity} days`), h("tr", null, h("td", { colSpan: 2 }, h("br", null))), this.renderRowTitle('Public Key Info'), this.renderRowValue('Algorithm', this.cert.publicKey.algorithm.name), this.renderRowValue('Modulus Bits', this.cert.publicKey.algorithm.modulusBits), this.renderRowValue('Public Exponent', this.cert.publicKey.algorithm.publicExponent), this.renderRowValue('Named Curve', this.cert.publicKey.algorithm.namedCurve), this.renderRowValue('Value', this.cert.publicKey.value), h("tr", null, h("td", { colSpan: 2 }, h("br", null))), this.renderRowTitle('Signature'), this.renderRowValue('Algorithm', this.cert.signature.algorithm.name), this.renderRowValue('Hash', this.cert.signature.algorithm.hash), this.renderRowValue('Value', this.cert.signature.value), h("tr", null, h("td", { colSpan: 2 }, h("br", null))), this.renderRowTitle('Extensions'), this.cert.extensions.map((extension) => ([
             this.renderRowValue('Name', extension.name ? `${extension.name} (${extension.oid})` : extension.oid),
             this.renderRowValue('Critical', extension.critical ? 'Yes' : 'No'),
-            this.renderRowValue('Value', JSON.stringify(extension.value)),
+            this.renderRowExtensionValue(extension),
             h("tr", null, h("td", { colSpan: 2 }, h("br", null))),
         ]))));
     }

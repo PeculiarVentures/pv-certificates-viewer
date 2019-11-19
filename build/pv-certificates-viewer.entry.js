@@ -1,7 +1,6 @@
 import { r as registerInstance, h, H as Host } from './core-cdbd8562.js';
-import { d as dayjs, L as LocalizedFormat, C as Certificate } from './localizedFormat-3a7d52e6.js';
+import { C as Certificate, d as dayjs } from './index-2c40cab3.js';
 
-dayjs.extend(LocalizedFormat);
 const CertificatesViewer = class {
     constructor(hostRef) {
         registerInstance(this, hostRef);
@@ -61,16 +60,21 @@ const CertificatesViewer = class {
             h("p", { class: "meta_row" }, h("span", { class: "meta_name text_grey_5 b3" }, "Serial number:"), h("span", { class: "meta_value b3" }, item.serialNumber)),
             h("p", { class: "meta_row" }, h("span", { class: "meta_name text_grey_5 b3" }, "Version:"), h("span", { class: "meta_value b3" }, item.version)),
             h("p", { class: "meta_row" }, h("span", { class: "meta_name text_grey_5 b3" }, "Validity:"), h("span", { class: "meta_value b3" }, item.validity, " days")),
-            h("p", { class: "meta_row" }, h("span", { class: "meta_name text_grey_5 b3" }, "Issued:"), h("span", { class: "meta_value b3" }, dayjs(item.notBefore).format('llll'))),
-            h("p", { class: "meta_row" }, h("span", { class: "meta_name text_grey_5 b3" }, "Expired:"), h("span", { class: "meta_value b3" }, dayjs(item.notAfter).format('llll'))),
+            h("p", { class: "meta_row" }, h("span", { class: "meta_name text_grey_5 b3" }, "Issued:"), h("span", { class: "meta_value b3" }, dayjs(item.notBefore).format('ddd, MMM D, YYYY h:mm A'))),
+            h("p", { class: "meta_row" }, h("span", { class: "meta_name text_grey_5 b3" }, "Expired:"), h("span", { class: "meta_value b3" }, dayjs(item.notAfter).format('ddd, MMM D, YYYY h:mm A'))),
         ]);
+    }
+    renderExpandedRow(certificate) {
+        return (h("tr", { class: "expanded_summary fill_grey_1_opacity" }, h("td", { colSpan: certificate.isRoot ? 3 : 2, class: "stroke_grey_3_border" }, h("p", { class: "text_grey_5 b3 dn_row" }, "Subject DN:"), this.renderDN(certificate.subject)), certificate.isRoot
+            ? null
+            : (h("td", { colSpan: 1, class: "stroke_grey_3_border" }, h("p", { class: "text_grey_5 b3 dn_row" }, "Issuer DN:"), this.renderDN(certificate.issuer))), h("td", { colSpan: 2, class: "stroke_grey_3_border" }, this.renderMetaData(certificate))));
     }
     renderCertificates() {
         return this.certificatesDecoded.map(certificate => {
             const isExpandedRow = certificate.serialNumber === this.expandedRow;
             return ([
                 h("tr", { class: isExpandedRow && 'expanded fill_grey_1_opacity', onClick: this.onClickRow.bind(this, certificate.serialNumber) }, h("td", { class: "b3 stroke_grey_3_border" }, certificate.commonName), h("td", { colSpan: 3, class: "b3 stroke_grey_3_border" }, certificate.fingerprint), h("td", { class: "align-center stroke_grey_3_border" }, h("button", { onClick: this.onClickDetails.bind(this, certificate.base64), class: "b3 text_secondary" }, "Details"), h("button", { onClick: this.onClickDownload.bind(this, certificate, 'PEM'), class: "b3 text_secondary" }, "PEM"), h("button", { onClick: this.onClickDownload.bind(this, certificate, 'DER'), class: "b3 text_secondary" }, "DER"))),
-                isExpandedRow && (h("tr", { class: "expanded_summary fill_grey_1_opacity" }, h("td", { colSpan: 2, class: "stroke_grey_3_border" }, h("p", { class: "text_grey_5 b3 dn_row" }, "Subject DN:"), this.renderDN(certificate.subject)), h("td", { colSpan: 1, class: "stroke_grey_3_border" }, h("p", { class: "text_grey_5 b3 dn_row" }, "Issuer DN:"), this.renderDN(certificate.issuer)), h("td", { colSpan: 2, class: "stroke_grey_3_border" }, this.renderMetaData(certificate)))),
+                isExpandedRow && this.renderExpandedRow(certificate),
             ]);
         });
     }
