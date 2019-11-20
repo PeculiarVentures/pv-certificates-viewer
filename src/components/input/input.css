@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+.input {
+  width: 100%;
+  padding: 0 15px;
+  height: 30px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+
+  /* Text styles */
+  font-family: 'Open Sans', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.45px;
+}
+
+.input::-webkit-input-placeholder { /* Edge */
+  color: #C4C8CC;
+}
+
+.input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #C4C8CC;
+}
+
+.input::placeholder {
+  color: #C4C8CC;
+}
