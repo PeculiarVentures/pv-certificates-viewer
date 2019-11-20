@@ -149,30 +149,35 @@ export class CertificatesViewer {
           onClick={this.onClickRow.bind(this, certificate.serialNumber)}
         >
           <td class="b3 stroke_grey_3_border">
-            {certificate.commonName}
+            <span class="mobile_title text_grey_5 align-left b3">Subject:</span>
+            <span class="content">{certificate.commonName}</span>
           </td>
           <td colSpan={3} class="b3 stroke_grey_3_border">
-            {certificate.fingerprint}
+            <span class="mobile_title text_grey_5 align-left b3">Hash (SHA-256):</span>
+            <span class="content">{certificate.fingerprint}</span>
           </td>
           <td class="align-center stroke_grey_3_border">
-            <button
-              onClick={this.onClickDetails.bind(this, certificate.base64)}
-              class="b3 text_secondary"
-            >
-              Details
-            </button>
-            <button
-              onClick={this.onClickDownload.bind(this, certificate, 'PEM')}
-              class="b3 text_secondary"
-            >
-              PEM
-            </button>
-            <button
-              onClick={this.onClickDownload.bind(this, certificate, 'DER')}
-              class="b3 text_secondary"
-            >
-              DER
-            </button>
+            <span class="mobile_title text_grey_5 align-left b3">Action:</span>
+            <span class="content">
+              <button
+                onClick={this.onClickDetails.bind(this, certificate.base64)}
+                class="b3 text_secondary"
+              >
+                Details
+              </button>
+              <button
+                onClick={this.onClickDownload.bind(this, certificate, 'PEM')}
+                class="b3 text_secondary"
+              >
+                PEM
+              </button>
+              <button
+                onClick={this.onClickDownload.bind(this, certificate, 'DER')}
+                class="b3 text_secondary"
+              >
+                DER
+              </button>
+            </span>
           </td>
         </tr>,
         isExpandedRow && this.renderExpandedRow(certificate),
