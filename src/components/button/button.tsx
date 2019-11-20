@@ -3,7 +3,6 @@ import { Component, h, Prop, Host } from '@stencil/core';
 @Component({
   tag: 'pv-button',
   styleUrls: [
-    '../../styles/reset.css',
     '../../styles/theme.css',
     'button.css',
   ],
@@ -17,6 +16,13 @@ export class Button {
     return (
       <Host
         class={{
+          b3: true,
+          button: true,
+          button_stroke: this.fill === 'stroke',
+          stroke_secondary_border: this.fill === 'stroke',
+          text_secondary: this.fill === 'stroke',
+          text_white: this.fill === 'fill',
+          fill_secondary: this.fill === 'fill',
           button_disabled: this.disabled,
         }}
       >
@@ -24,12 +30,7 @@ export class Button {
           type="button"
           disabled={this.disabled}
           class={{
-            b3: true,
-            button: true,
-            button_stroke: this.fill === 'stroke',
-            text_secondary: this.fill === 'stroke',
-            text_white: this.fill === 'fill',
-            fill_secondary: this.fill === 'fill',
+            button_native: true,
           }}
         >
           <slot></slot>

@@ -158,7 +158,7 @@ export class CertificatesViewer {
           <td class="align-center stroke_grey_3_border">
             <pv-button
               onClick={this.onClickDetails.bind(this, certificate.base64)}
-              fill="fill"
+              class="button_table_action"
             >
               Details
             </pv-button>
@@ -168,6 +168,7 @@ export class CertificatesViewer {
                 text: 'Download DER',
                 onClick: this.onClickDownload.bind(this, certificate, 'DER'),
               }]}
+              class="button_table_action"
             >
               Download PEM
             </pv-button-split>

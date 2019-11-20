@@ -6,18 +6,20 @@
   font-size: 0;
 }
 
-.icon {
+.button_split_icon {
   width: 7px;
   height: 5px;
   display: inline-block;
   vertical-align: middle;
 }
 
-.button_with_icon {
+.button_split_with_icon {
   width: 25px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
 }
 
-.button_action {
+.button_split_action {
   width: 100%;
 }
 
@@ -29,4 +31,10 @@
   border-radius: 2px;
   box-shadow: 0px 2px 1px #F2F6F6, 0px 0px 10px rgba(0, 0, 0, 0.0241168);
   z-index: 1;
+}
+
+.button_split {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-right-width: 0;
 }

@@ -2,8 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  border: 0;
-  border-radius: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-size-adjust: none;
@@ -36,11 +34,6 @@ input, textarea {
   -ms-appearance: none;
   appearance: none !important;
   font-family: inherit;
-}
-
-button {
-  font-family: inherit;
-  background: transparent;
 }
 
 table {

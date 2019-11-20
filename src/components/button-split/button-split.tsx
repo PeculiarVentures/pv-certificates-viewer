@@ -8,7 +8,6 @@ export interface IAction {
 @Component({
   tag: 'pv-button-split',
   styleUrls: [
-    '../../styles/reset.css',
     '../../styles/theme.css',
     'button-split.css',
   ],
@@ -43,7 +42,7 @@ export class ButtonSplit {
         {this.actions.map(action => (
           <pv-button
             fill="fill"
-            class="button_action"
+            class="button_split_action"
             onClick={this.onClickActiveButton.bind(this, action.onClick)}
           >
             {action.text}
@@ -59,19 +58,20 @@ export class ButtonSplit {
         <pv-button
           fill={this.fill}
           onClick={this.onClick}
+          class="button_split"
         >
           <slot></slot>
         </pv-button>
         <pv-button
           fill={this.fill}
           onClick={this.onClickSplitButton}
-          class="button_with_icon"
+          class="button_split_with_icon"
         >
           <svg
             viewBox="0 0 7 5"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            class="icon"
+            class="button_split_icon"
           >
             <path
               fill-rule="evenodd"
