@@ -3,21 +3,12 @@
   width: 100%;
   word-wrap: break-word;
   background: white;
-  font-family: 'Open Sans', Arial, sans-serif;
 }
 
 table {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
-}
-
-button {
-  padding: 3px 5px;
-  margin: 0 2.5px;
-  cursor: pointer;
-  border: 1px solid rgba(53, 132, 247, 0.3);
-  border-radius: 2px;
 }
 
 table tr {
@@ -32,7 +23,7 @@ table th {
 }
 
 table td {
-  padding: 10px;
+  padding: 8px 10px;
   text-align: left;
   border-width: 1px;
   border-style: solid;
@@ -149,6 +140,10 @@ table tr.expanded_summary td {
   text-align: left;
   padding: 10px;
   border-radius: 3px;
+}
+
+.button_table_action {
+  margin: 2px;
 }
 
 /* Adaptivity styles */
