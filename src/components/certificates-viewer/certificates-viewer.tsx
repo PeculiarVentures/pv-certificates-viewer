@@ -202,6 +202,13 @@ export class CertificatesViewer {
   render() {
     return (
       <Host>
+        <div class="input_wrapper stroke_grey_3_border fill_grey_2">
+          <pv-input
+            placeholder="Search"
+            onChange={(e: Event) => console.log(e.target)}
+            onInput={(e: Event) => console.log(e.target)}
+          />
+        </div>
         <table class="text_black">
           <thead class="fill_grey_2">
             <tr>
