@@ -1,0 +1,32 @@
+:host {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  white-space: nowrap;
+  font-size: 0;
+}
+
+.icon {
+  width: 7px;
+  height: 5px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.button_with_icon {
+  width: 25px;
+}
+
+.button_action {
+  width: 100%;
+}
+
+.active_split_container {
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 0;
+  width: 100%;
+  border-radius: 2px;
+  box-shadow: 0px 2px 1px #F2F6F6, 0px 0px 10px rgba(0, 0, 0, 0.0241168);
+  z-index: 1;
+}

@@ -147,6 +147,7 @@ export class CertificatesViewer {
         <tr
           class={isExpandedRow && 'expanded fill_grey_1_opacity'}
           onClick={this.onClickRow.bind(this, certificate.serialNumber)}
+          key={certificate.serialNumber}
         >
           <td class="b3 stroke_grey_3_border">
             {certificate.commonName}
@@ -155,24 +156,21 @@ export class CertificatesViewer {
             {certificate.fingerprint}
           </td>
           <td class="align-center stroke_grey_3_border">
-            <button
+            <pv-button
               onClick={this.onClickDetails.bind(this, certificate.base64)}
-              class="b3 text_secondary"
+              fill="fill"
             >
               Details
-            </button>
-            <button
+            </pv-button>
+            <pv-button-split
               onClick={this.onClickDownload.bind(this, certificate, 'PEM')}
-              class="b3 text_secondary"
+              actions={[{
+                text: 'Download DER',
+                onClick: this.onClickDownload.bind(this, certificate, 'DER'),
+              }]}
             >
-              PEM
-            </button>
-            <button
-              onClick={this.onClickDownload.bind(this, certificate, 'DER')}
-              class="b3 text_secondary"
-            >
-              DER
-            </button>
+              Download PEM
+            </pv-button-split>
           </td>
         </tr>,
         isExpandedRow && this.renderExpandedRow(certificate),

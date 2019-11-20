@@ -57,6 +57,10 @@
   background-color: white;
 }
 
+.fill_secondary {
+  background-color: #3584F7;
+}
+
 /* Border color */
 .stroke_grey_3_border {
   border-color: #D1D5D9;

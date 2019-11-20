@@ -12,14 +12,6 @@ table {
   border-collapse: collapse;
 }
 
-button {
-  padding: 3px 5px;
-  margin: 0 2.5px;
-  cursor: pointer;
-  border: 1px solid rgba(53, 132, 247, 0.3);
-  border-radius: 2px;
-}
-
 table tr {
   vertical-align: middle;
 }
