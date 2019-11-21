@@ -34,10 +34,11 @@ export class CertificateViewer {
     );
   }
 
-  renderRowValue(title: string, value: string | number) {
+  renderRowValue(title: string, value: string | number | any[]) {
     if (
       typeof value !== 'string'
       && typeof value !== 'number'
+      && !Array.isArray(value)
     ) {
       return null;
     }
@@ -48,7 +49,7 @@ export class CertificateViewer {
           {title}:
         </td>
         <td class="b3">
-          {value.toString()}
+          {Array.isArray(value) ? value : value.toString()}
         </td>
       </tr>
     );
@@ -61,15 +62,198 @@ export class CertificateViewer {
 
     switch (extension.oid) {
       case EnumOIDs.BasicConstraints: {
-        return this.renderRowValue('Value', JSON.stringify(extension.value));
+        return [
+          this.renderRowValue('cA', String(extension.value.cA)),
+          this.renderRowValue('pathLenConstraint', extension.value.pathLenConstraint),
+        ];
       }
 
+      case EnumOIDs.NetscapeCertificateType:
       case EnumOIDs.KeyUsage: {
         return this.renderRowValue('Value', extension.value.join(', '));
       }
+
+      case EnumOIDs.ExtendedKeyUsage: {
+        return this.renderRowValue(
+          'Values',
+          extension.value.map((value) => (
+            <p class="b3">
+              {value.name} ({value.oid})
+            </p>
+          )),
+        );
+      }
+
+      case EnumOIDs.CertificatePolicies: {
+        return this.renderRowValue(
+          'Values',
+          extension.value.map((value) => (
+            <p class="b3">
+              {value.name
+                ? `${value.name} (${value.oid})`
+                : value.oid
+              }
+            </p>
+          )),
+        );
+      }
+
+      case EnumOIDs.CRLDistributionPoints: {
+        return this.renderRowValue(
+          'Paths',
+          extension.value.map((value) => {
+            if (!value.distributionPoint) {
+              return null;
+            }
+
+            return value.distributionPoint.map((valuePoint) => {
+              if (valuePoint.type === 6) {
+                return (
+                  <p class="b3">
+                    <a href={valuePoint.value}>
+                      {valuePoint.value}
+                    </a>
+                  </p>
+                );
+              }
+
+              return (
+                <p class="b3">
+                  {valuePoint.value}
+                </p>
+              );
+            });
+          }),
+        );
+      }
+
+      case EnumOIDs.CertificateAuthorityInformationAccess: {
+        return this.renderRowValue(
+          'Paths',
+          extension.value.map((value) => {
+            const accessLocation: Record<string, any> = value.accessLocation;
+
+            if (accessLocation.type === 6) {
+              return (
+                <p class="b3">
+                  {value.accessMethod}: <a href={accessLocation.value}>{accessLocation.value}</a>
+                </p>
+              );
+            }
+
+            return (
+              <p class="b3">
+                {value.accessMethod}: {accessLocation.value}
+              </p>
+            );
+          }),
+        );
+      }
+
+      case EnumOIDs.NameConstraints: {
+        return [
+          this.renderRowValue(
+            'Permitted Values',
+            extension.value.permitted.map((value) => {
+              if (value.type === 2) {
+                return (
+                  <p class="b3">
+                    <a href={`https://censys.io/ipv4?q=${value.value}`}>
+                      {value.value}
+                    </a>
+                  </p>
+                );
+              }
+
+              if (value.type === 7) {
+                return (
+                  <p class="b3">
+                    <a href={`https://censys.io/ipv4?q=${value.value}`}>
+                      {value.value}
+                    </a>
+                  </p>
+                );
+              }
+
+              if (value.type === 4) {
+                return (
+                  <p class="b3">
+                    {value.value.map((valueType) => `${valueType.name}=${valueType.value}`).join(', ')}
+                  </p>
+                );
+              }
+
+              return (
+                <p class="b3">
+                  {value.value}
+                </p>
+              );
+            }),
+          ),
+        ];
+      }
+
+      case EnumOIDs.SubjectAlternativeName: {
+        return [
+          this.renderRowValue(
+            'Values',
+            extension.value.map((value) => {
+              if (value.type === 2) {
+                return (
+                  <p class="b3">
+                    <a href={`https://censys.io/ipv4?q=${value.value}`}>
+                      {value.value}
+                    </a>
+                  </p>
+                );
+              }
+
+              if (value.type === 7) {
+                return (
+                  <p class="b3">
+                    <a href={`https://censys.io/ipv4?q=${value.value}`}>
+                      {value.value}
+                    </a>
+                  </p>
+                );
+              }
+
+              if (value.type === 4) {
+                return (
+                  <p class="b3">
+                    {value.value.map((valueType) => `${valueType.name}=${valueType.value}`).join(', ')}
+                  </p>
+                );
+              }
+
+              return (
+                <p class="b3">
+                  {value.value}
+                </p>
+              );
+            }),
+          ),
+        ];
+      }
+
+      case EnumOIDs.CertificateTemplate: {
+        return [
+          this.renderRowValue('Template Id', extension.value.templateID),
+          this.renderRowValue('Template Major Version', extension.value.templateMajorVersion),
+          this.renderRowValue('Template Minor Version', extension.value.templateMinorVersion),
+        ];
+      }
+
+      case EnumOIDs.AuthorityKeyIdentifier: {
+        return [
+          this.renderRowValue('Key Identifier', extension.value.keyIdentifier),
+          this.renderRowValue('Authority Cert Issuer', extension.value.authorityCertIssuer),
+          this.renderRowValue('Authority Cert Serial Number', extension.value.authorityCertSerialNumber),
+        ];
+      }
     }
 
-    return this.renderRowValue('Value', JSON.stringify(extension.value));
+    return this.renderRowValue('Value', extension.value);
   }
 
   render() {
@@ -118,7 +302,7 @@ export class CertificateViewer {
         {this.renderRowTitle('Extensions')}
         {this.cert.extensions.map((extension) => ([
           this.renderRowValue('Name', extension.name ? `${extension.name} (${extension.oid})` : extension.oid),
-          this.renderRowValue('Critical', extension.critical ? 'Yes' : 'No'),
+          this.renderRowValue('Critical', String(extension.critical)),
           this.renderRowExtensionValue(extension),
           <tr>
             <td colSpan={2}>

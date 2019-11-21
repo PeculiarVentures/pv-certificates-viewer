@@ -322,7 +322,7 @@ export default class Certificate extends Basic {
         default: {
           item.value = typeof altNameBase.value === 'string'
             ? altNameBase.value
-            : `type value is not a string - ${item.type}`;
+            : item.type;
         }
       }
 
