@@ -65,7 +65,7 @@
   background: inherit;
   border: none;
   border-radius: inherit;
-  padding: 0 5px;
+  padding: 0 var(--pv-button-padding-end) 0 var(--pv-button-padding-start);
 }
 
 .button_native:focus {
