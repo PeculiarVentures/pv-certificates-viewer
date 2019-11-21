@@ -183,8 +183,7 @@ table tr.expanded_summary td {
   }
   
   table tr.expanded_summary td {
-    padding-left: 0;
-    padding-right: 0;
+    padding: 15px 0
   }
 
   .mobile_title {
@@ -205,6 +204,7 @@ table tr.expanded_summary td {
   }
   .expanded_summary {
     border-top-color: transparent;
+    padding-bottom: 10px;
   }
 
   .expanded_summary td:before {
