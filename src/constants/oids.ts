@@ -1,4 +1,4 @@
-export default {
+const OIDs: Record<string, string> = {
   '0.2.262.1.10': 'Telesec',
   '0.2.262.1.10.0': 'Extension',
   '0.2.262.1.10.1': 'Mechanism',
@@ -2229,3 +2229,5 @@ export default {
   '1.3.6.1.4.1.4329.7.2.4': 'SslTlsCerts',
   '1.3.6.1.4.1.4329.7': 'Siemens Public Key Infrastructure',
 };
+
+export default OIDs;

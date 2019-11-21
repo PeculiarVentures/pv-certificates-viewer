@@ -2,12 +2,22 @@ import _Certificate from 'pkijs/src/Certificate';
 import _Extension from 'pkijs/src/Extension';
 import _GeneralSubtree from 'pkijs/src/GeneralSubtree';
 import _GeneralName from 'pkijs/src/GeneralName';
+import _BasicConstraints from 'pkijs/src/BasicConstraints';
+import _ExtKeyUsage from 'pkijs/src/ExtKeyUsage';
+import _AuthorityKeyIdentifier from 'pkijs/src/AuthorityKeyIdentifier';
+import _InfoAccess from 'pkijs/src/InfoAccess';
+import _CRLDistributionPoints from 'pkijs/src/CRLDistributionPoints';
+import _CertificatePolicies from 'pkijs/src/CertificatePolicies';
+import _DistributionPoint from 'pkijs/src/DistributionPoint';
+import _AccessDescription from 'pkijs/src/AccessDescription';
+import _AltName from 'pkijs/src/AltName';
+import _NameConstraints from 'pkijs/src/NameConstraints';
 import { Convert } from 'pvtsutils';
 import * as asn1js from 'asn1js';
 import dayjs from 'dayjs';
 import downloadFromBuffer from  '../downloadFromBuffer';
 import OIDS from  '../../constants/oids';
-import LOGS from '../../constants/logs';
+// import LOGS from '../../constants/logs';
 import SANs from '../../constants/san_types';
 
 import Basic from './Basic';
@@ -19,12 +29,107 @@ interface ISubject {
   value: string;
 };
 
-export interface IExtension {
-  name: string;
-  oid: string;
-  critical: boolean;
-  value: string[] | Record<string, string> | { oid: string; name: string; }[] | string;
+export enum EnumOIDs {
+  BasicConstraints = '2.5.29.19',
+  KeyUsage = '2.5.29.15',
+  ExtendedKeyUsage = '2.5.29.37',
+  CertificatePolicies = '2.5.29.32',
+  AuthorityKeyIdentifier = '2.5.29.35',
+  CertificateAuthorityInformationAccess = '1.3.6.1.5.5.7.1.1',
+  CRLDistributionPoints = '2.5.29.31',
+  SubjectAlternativeName = '2.5.29.17',
+  NetscapeCertificateType = '2.16.840.1.113730.1.1',
+  NameConstraints = '2.5.29.30',
+  CertificateTransparency = '1.3.6.1.4.1.11129.2.4.2',
+  CertificateTemplate = '1.3.6.1.4.1.311.21.7',
+  ANY = '',
 }
+
+export interface IExtensionBasic<O, V> {
+  name: string;
+  oid: O;
+  critical: boolean;
+  value: V;
+}
+
+interface IExtensionBasicConstraints
+  extends IExtensionBasic<
+    EnumOIDs.BasicConstraints,
+    {cA: boolean; pathLenConstraint?: number;}
+  > {}
+
+interface IExtensionKeyUsage
+  extends IExtensionBasic<
+    EnumOIDs.KeyUsage,
+    string[]
+  > {}
+
+interface IExtensionNetscapeCertificateType
+  extends IExtensionBasic<
+    EnumOIDs.NetscapeCertificateType,
+    string[]
+  > {}
+
+interface IExtensionExtendedKeyUsage
+  extends IExtensionBasic<
+    EnumOIDs.ExtendedKeyUsage,
+    { oid: string; name: string }[]
+  > {}
+
+interface IExtensionCertificatePolicies
+  extends IExtensionBasic<
+    EnumOIDs.CertificatePolicies,
+    { oid: string; name: string }[]
+  > {}
+
+interface IExtensionCRLDistributionPoints
+  extends IExtensionBasic<
+    EnumOIDs.CRLDistributionPoints,
+    _DistributionPoint[]
+  > {}
+
+interface IExtensionCertificateAuthorityInformationAccess
+  extends IExtensionBasic<
+    EnumOIDs.CertificateAuthorityInformationAccess,
+    _AccessDescription[]
+  > {}
+
+interface IExtensionSubjectAlternativeName
+  extends IExtensionBasic<
+    EnumOIDs.SubjectAlternativeName,
+    any[]
+  > {}
+
+interface IExtensionNameConstraints
+  extends IExtensionBasic<
+    EnumOIDs.NameConstraints,
+    { permitted: any[]; excluded: any[] }
+  > {}
+
+interface IExtensionCertificateTemplate
+  extends IExtensionBasic<
+    EnumOIDs.CertificateTemplate,
+    { templateID: string; templateMajorVersion: number; templateMinorVersion: number; }
+  > {}
+
+interface IExtensionAuthorityKeyIdentifier
+  extends IExtensionBasic<
+    EnumOIDs.AuthorityKeyIdentifier,
+    { keyIdentifier: string; authorityCertIssuer?: string; authorityCertSerialNumber?: string; }
+  > {}
+
+export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
+  | IExtensionBasicConstraints
+  | IExtensionKeyUsage
+  | IExtensionExtendedKeyUsage
+  | IExtensionCertificatePolicies
+  | IExtensionAuthorityKeyIdentifier
+  | IExtensionCRLDistributionPoints
+  | IExtensionCertificateAuthorityInformationAccess
+  | IExtensionSubjectAlternativeName
+  | IExtensionCertificateTemplate
+  | IExtensionNameConstraints
+  | IExtensionNetscapeCertificateType;
 
 export default class Certificate extends Basic {
   notBefore?: Date;
@@ -51,7 +156,7 @@ export default class Certificate extends Basic {
     oid: string;
   };
   serialNumber?: string;
-  extensions: IExtension[] = [];
+  extensions: TExtension[] = [];
   version: number = 0;
   isRoot: boolean = false;
 
@@ -67,7 +172,7 @@ export default class Certificate extends Basic {
     return Certificate.pemTagCertificate(base64);
   }
 
-  static getExtensionNetscapeCertType(extension: _Extension) {
+  static getExtensionNetscapeCertType(extension: _Extension): string[] {
     const usages = [];
     // parse key usage BitString
     const bitString = asn1js.fromBER(extension.extnValue.valueBlock.valueHex).result;
@@ -116,7 +221,7 @@ export default class Certificate extends Basic {
     return usages;
   }
 
-  static getExtensionKeyUsage(extension: _Extension) {
+  static getExtensionKeyUsage(extension: _Extension): string[] {
     const usages = [];
     // parse key usage BitString
     const valueHex = new Uint8Array(extension.parsedValue.valueBlock.valueHex);
@@ -358,166 +463,205 @@ export default class Certificate extends Basic {
       // decode extensions
       if (pkijsSchema.extensions) {
         pkijsSchema.extensions.forEach((ext: _Extension) => {
-          const extension = {
-            name: OIDS[ext.extnID],
-            oid: ext.extnID,
-            critical: Boolean(ext.critical),
-            value: undefined,
-          };
+          if (ext.parsedValue instanceof _BasicConstraints) {
+            const extension: IExtensionBasicConstraints = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.BasicConstraints,
+              value: {
+                cA: false,
+                pathLenConstraint: typeof ext.parsedValue.pathLenConstraint === 'number'
+                  ? ext.parsedValue.pathLenConstraint
+                  : undefined,
+              },
+            };
 
-          switch (ext.extnID) {
-            // Basic Constraints
-            case '2.5.29.19': {
-              extension.value = Object.assign(
-                { cA: false, },
-                ext.parsedValue,
-              );
+            return this.extensions.push(extension);
+          }
 
-              break;
-            }
-
-            // Key Usage
-            case '2.5.29.15': {
-              extension.value = Certificate.getExtensionKeyUsage(ext);
-
-              break;
-            }
-
-            // Extended Key Usage
-            case '2.5.29.37': {
-              extension.value = ext.parsedValue.keyPurposes.map(oid => ({
+          if (ext.parsedValue instanceof _ExtKeyUsage) {
+            const extension: IExtensionExtendedKeyUsage = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.ExtendedKeyUsage,
+              value: ext.parsedValue.keyPurposes.map(oid => ({
                 oid,
                 name: OIDS[oid],
-              }));
+              })),
+            };
 
-              break;
-            }
+            return this.extensions.push(extension);
+          }
 
-            // Certificate Policies
-            case '2.5.29.32': {
-              extension.value = ext.parsedValue.certificatePolicies.map(cp => ({
+          if (ext.parsedValue instanceof _CertificatePolicies) {
+            const extension: IExtensionCertificatePolicies = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.CertificatePolicies,
+              value: ext.parsedValue.certificatePolicies.map(cp => ({
                 oid: cp.policyIdentifier,
                 name: OIDS[cp.policyIdentifier],
-              }));
+              })),
+            };
 
-              break;
-            }
+            return this.extensions.push(extension);
+          }
 
-            // Authority Key Identifier
-            case '2.5.29.35': {
-              extension.value = {};
-
-              if (ext.parsedValue.keyIdentifier) {
-                extension.value.keyIdentifier = Convert.ToHex(
+          if (ext.parsedValue instanceof _AuthorityKeyIdentifier) {
+            const extension: IExtensionAuthorityKeyIdentifier = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.AuthorityKeyIdentifier,
+              value: {
+                keyIdentifier: Convert.ToHex(
                   ext
                     .parsedValue
                     .keyIdentifier
                     .valueBlock
                     .valueHex,
-                );
-              }
+                ),
+                authorityCertSerialNumber: ext.parsedValue.authorityCertSerialNumber
+                  ? Convert.ToHex(
+                    ext
+                      .parsedValue
+                      .authorityCertSerialNumber
+                      .valueBlock
+                      .valueHex,
+                  )
+                  : undefined,
+                // authorityCertIssuer: ext.parsedValue.authorityCertIssuer,
+              },
+            };
 
-              if (ext.parsedValue.authorityCertSerialNumber) {
-                extension.value.authorityCertSerialNumber = Convert.ToHex(
-                  ext
-                    .parsedValue
-                    .authorityCertSerialNumber
-                    .valueBlock
-                    .valueHex,
-                );
-              }
+            return this.extensions.push(extension);
+          }
 
-              if (ext.parsedValue.authorityCertIssuer) {
-                extension.value.authorityCertIssuer = ext
-                  .parsedValue
-                  .authorityCertIssuer;
-              }
+          if (ext.parsedValue instanceof _CRLDistributionPoints) {
+            const extension: IExtensionCRLDistributionPoints = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.CRLDistributionPoints,
+              value: ext.parsedValue.distributionPoints,
+            };
 
-              break;
-            }
+            return this.extensions.push(extension);
+          }
 
-            // Certificate Authority Information Access
-            case '1.3.6.1.5.5.7.1.1': {
-              extension.value = ext.parsedValue.accessDescriptions.map(desc => ({
-                oid: desc.accessMethod,
-                name: OIDS[desc.accessMethod],
-                value: {
-                  type: desc.accessLocation.type,
-                  value: desc.accessLocation.value,
-                },
-              }));
+          if (ext.parsedValue instanceof _InfoAccess) {
+            const extension: IExtensionCertificateAuthorityInformationAccess = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.CertificateAuthorityInformationAccess,
+              value: ext.parsedValue.accessDescriptions,
+            };
 
-              break;
-            }
+            return this.extensions.push(extension);
+          }
 
-            // CRL Distribution Points
-            case '2.5.29.31': {
-              extension.value = [];
+          if (ext.parsedValue instanceof _AltName) {
+            const extension: IExtensionSubjectAlternativeName = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.SubjectAlternativeName,
+              value: Certificate.decodeSANs(ext.parsedValue.altNames),
+            };
 
-              ext.parsedValue.distributionPoints.forEach(dp => {
-                dp.distributionPoint.forEach(p => {
-                  extension.value.push({
-                    value: p.value,
-                    type: p.type,
-                  });
-                });
-              });
+            return this.extensions.push(extension);
+          }
 
-              break;
-            }
-
-            // Subject Alternative Name
-            case '2.5.29.17': {
-              extension.value = Certificate.decodeSANs(ext.parsedValue.altNames);
-
-              break;
-            }
-
-            // Netscape Certificate Type
-            case '2.16.840.1.113730.1.1': {
-              extension.value = Certificate.getExtensionNetscapeCertType(ext);
-
-              break;
-            }
-
-            // Name Constraints
-            case '2.5.29.30': {
-              extension.value = {
+          if (ext.parsedValue instanceof _NameConstraints) {
+            const extension: IExtensionNameConstraints = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.NameConstraints,
+              value: {
                 permitted: Certificate.decodeSANs(ext.parsedValue.permittedSubtrees || []),
-                excluded: Certificate.decodeSANs(ext.parsedValue.excludedSubtrees || []),
-              };
+                excluded: Certificate.decodeSANs(ext.parsedValue.excludedSubtrees || [])
+              },
+            };
 
-              break;
-            }
+            return this.extensions.push(extension);
+          }
 
-            // Certificate Transparency
-            case '1.3.6.1.4.1.11129.2.4.2': {
-              extension.value = ext.parsedValue.timestamps.map((t) => {
-                const logName = LOGS.logs.filter(l => l.hex === t.logID.toLowerCase());
-
-                return {
-                  logID: t.logID,
-                  logName: logName.length > 0 ? logName[0].description : '',
-                  timestamp: new Date(t.timestamp).toISOString(),
-                  signature: t.signature.valueBeforeDecode,
-                  hashAlgorithm: t.hashAlgorithm,
-                  signatureAlgorithm: t.signatureAlgorithm,
-                };
-              });
-
-              break;
-            }
-
-            default:
-              extension.value = Convert.ToHex(
+          if (ext.parsedValue instanceof asn1js.OctetString) {
+            const extension = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: ext.extnID as EnumOIDs.ANY,
+              value: Convert.ToHex(
                 ext
                   .extnValue
                   .valueBlock
                   .valueHex,
-              );
+              ),
+            };
+
+            return this.extensions.push(extension);
           }
 
+          if (ext.extnID === EnumOIDs.KeyUsage) {
+            const extension: IExtensionKeyUsage = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.KeyUsage,
+              value: Certificate.getExtensionKeyUsage(ext),
+            };
+
+            return this.extensions.push(extension);
+          }
+
+          if (ext.extnID === EnumOIDs.NetscapeCertificateType) {
+            const extension: IExtensionNetscapeCertificateType = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.NetscapeCertificateType,
+              value: Certificate.getExtensionNetscapeCertType(ext),
+            };
+
+            return this.extensions.push(extension);
+          }
+
+          if (ext.extnID === EnumOIDs.CertificateTemplate) {
+            const extension: IExtensionCertificateTemplate = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.CertificateTemplate,
+              value: ext.parsedValue,
+            };
+
+            return this.extensions.push(extension);
+          }
+
+          const extension = {
+            name: OIDS[ext.extnID] || '',
+            critical: ext.critical,
+            oid: ext.extnID as EnumOIDs.ANY,
+            value: Convert.ToHex(
+              ext
+                .extnValue
+                .valueBlock
+                .valueHex,
+            ),
+          };
+
           this.extensions.push(extension);
+
+          // case EnumOIDs.CertificateTransparency: {
+          //   extension.value = ext.parsedValue.timestamps.map((t) => {
+          //     const logName = LOGS.logs.filter(l => l.hex === t.logID.toLowerCase());
+
+          //     return {
+          //       logID: t.logID,
+          //       logName: logName.length > 0 ? logName[0].description : '',
+          //       timestamp: new Date(t.timestamp).toISOString(),
+          //       signature: t.signature.valueBeforeDecode,
+          //       hashAlgorithm: t.hashAlgorithm,
+          //       signatureAlgorithm: t.signatureAlgorithm,
+          //     };
+          //   });
+
+          //   break;
+          // }
         });
       }
     }

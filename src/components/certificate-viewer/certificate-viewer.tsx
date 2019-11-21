@@ -1,5 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
-import { Certificate, IExtension } from '../../utils/crypto';
+import { Certificate, TExtension, EnumOIDs } from '../../utils/crypto';
 import dayjs from 'dayjs';
 
 @Component({
@@ -54,25 +54,19 @@ export class CertificateViewer {
     );
   }
 
-  renderRowExtensionValue(extension: IExtension) {
+  renderRowExtensionValue(extension: TExtension) {
     if (typeof extension.value === 'string') {
       return this.renderRowValue('Value', extension.value);
     }
 
-    if (
-      Array.isArray(extension.value)
-      && typeof extension.value[0] === 'string'
-    ) {
-      return this.renderRowValue('Value', extension.value.join(', '));
-    }
+    switch (extension.oid) {
+      case EnumOIDs.BasicConstraints: {
+        return this.renderRowValue('Value', JSON.stringify(extension.value));
+      }
 
-    if (
-      !Array.isArray(extension.value)
-      && typeof extension.value === 'object'
-    ) {
-      return Object.keys(extension.value).map(keyName => (
-        this.renderRowValue(keyName, JSON.stringify(extension.value[keyName]))
-      ));
+      case EnumOIDs.KeyUsage: {
+        return this.renderRowValue('Value', extension.value.join(', '));
+      }
     }
 
     return this.renderRowValue('Value', JSON.stringify(extension.value));
