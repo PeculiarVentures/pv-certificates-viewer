@@ -1,0 +1,47 @@
+:host {
+  display: block;
+}
+
+.text {
+  display: inline-block;
+  width: calc(100% - 70px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.text.opened {
+  white-space: initial;
+}
+
+.action {
+  display: inline-block;
+  width: 70px;
+  text-align: right;
+}
+
+.expand_button {
+  border: 1px solid rgba(50, 124, 232, 0.3);
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+  background-color: transparent;
+  text-align: center;
+}
+
+.expand_icon {
+  width: 7px;
+  height: 5px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.opened.expand_button {
+  background-color: rgba(53, 132, 247, 0.7);
+  border: none;
+}
+
+.opened .expand_icon {
+  transform: rotate(180deg);
+}

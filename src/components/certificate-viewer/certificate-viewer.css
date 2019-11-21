@@ -12,8 +12,13 @@ table {
 table td {
   vertical-align: top;
   padding: 5px;
+  max-width: 0;
 }
 
 table td:first-child {
   width: 25%;
+}
+
+table td:last-child {
+  width: 75%;
 }
