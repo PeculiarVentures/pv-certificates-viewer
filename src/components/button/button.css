@@ -12,6 +12,11 @@
   pointer-events: auto;
   font-kerning: none;
   box-sizing: border-box;
+
+  /**
+   * @prop --pv-button-padding-start: Left padding of the button
+   * @prop --pv-button-padding-end: Right padding of the button
+  */
 }
 
 :host(.button) {
