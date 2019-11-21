@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
   styleUrls: [
     '../../styles/reset.css',
     '../../styles/theme.css',
+    '../../styles/system.css',
     'certificate-viewer.css',
   ],
   shadow: true,
