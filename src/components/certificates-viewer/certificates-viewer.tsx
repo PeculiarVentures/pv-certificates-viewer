@@ -82,7 +82,7 @@ export class CertificatesViewer {
         <td colSpan={5} class="stroke_grey_3_border">
           <pv-certificate-summary
             certificate={certificate}
-            showIssuer={certificate.isRoot}
+            showIssuer={!certificate.isRoot}
           />
         </td>
       </tr>
