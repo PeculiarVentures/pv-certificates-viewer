@@ -40,15 +40,6 @@ table .title + tr td {
   padding-top: 15px;
 }
 
-/* PEM block */
-.pem_block {
-  padding: 10px;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 3px;
-  white-space: pre-wrap;
-}
-
 /* Extentions */
 .divider {
   padding-top: 15px;

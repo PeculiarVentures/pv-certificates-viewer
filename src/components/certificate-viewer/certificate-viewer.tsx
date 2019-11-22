@@ -289,17 +289,6 @@ export class CertificateViewer {
 
     return (
       <table>
-        {this.renderRowTitle('PEM')}
-        <tr>
-          <td colSpan={2}>
-            <div
-              class="pem_block stroke_grey_3_border b3 text_black monospace"
-            >
-              {this.cert.pem}
-            </div>
-          </td>
-        </tr>
-
         {this.renderRowTitle('Basic Information')}
         <tr>
           <td colSpan={2}>
