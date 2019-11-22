@@ -32,7 +32,7 @@ export namespace Components {
     'certificate': string;
   }
   interface PvCertificatesViewer {
-    'certificates': string;
+    'certificates': string[];
   }
 }
 
@@ -95,7 +95,7 @@ declare namespace LocalJSX {
     'certificate'?: string;
   }
   interface PvCertificatesViewer {
-    'certificates'?: string;
+    'certificates'?: string[];
   }
 
   interface IntrinsicElements {
