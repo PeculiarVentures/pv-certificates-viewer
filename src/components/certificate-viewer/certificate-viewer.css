@@ -6,6 +6,10 @@
   padding: 30px 0;
 }
 
+a {
+  color: 
+}
+
 table {
   width: 100%;
   padding: 30px 0;
@@ -50,7 +54,6 @@ table td:last-child {
 /* Basic information */
 .basic_info {
   display: flex;
-  flex-wrap: wrap;
 }
 
 .basic_col {
@@ -136,6 +139,9 @@ tr:last-child .divider {
 
 /* Adaptivity */
 @media (max-width: 767px) {
+  .basic_info {
+    flex-wrap: wrap;
+  }
   .basic_col {
     padding: 20px 0;
     flex-basis: 100%;
