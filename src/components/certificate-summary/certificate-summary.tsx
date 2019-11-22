@@ -33,7 +33,7 @@ export class CertificateSummary {
     return ([
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Serial number:</span>
-        <span class="meta_value b3 text_black">{item.serialNumber}</span>
+        <span class="meta_value b3 text_black monospace">{item.serialNumber}</span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Version:</span>
