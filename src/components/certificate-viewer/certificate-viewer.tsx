@@ -43,6 +43,20 @@ export class CertificateViewer {
       return null;
     }
 
+    let valueElem;
+
+    if (collapseValue) {
+      valueElem = (
+        <pv-text-hider>
+          {value}
+        </pv-text-hider>
+      );
+    } else {
+      valueElem = Array.isArray(value)
+        ? value
+        : value.toString();
+    }
+
     return (
       <tr>
         <td class="b3 text_grey_5">
@@ -55,11 +69,7 @@ export class CertificateViewer {
             monospace: valueMonospace,
           }}
         >
-          {collapseValue ? (
-            <pv-text-hider
-              text={value.toString()}
-            />
-          ) : Array.isArray(value) ? value : value.toString()}
+          {valueElem}
         </td>
       </tr>
     );
@@ -310,7 +320,7 @@ export class CertificateViewer {
         {this.renderRowTitle('Signature')}
         {this.renderRowValue('Algorithm', this.cert.signature.algorithm.name)}
         {this.renderRowValue('Hash', this.cert.signature.algorithm.hash)}
-        {this.renderRowValue('Value', this.cert.signature.value, true)}
+        {this.renderRowValue('Value', this.cert.signature.value, true, true)}
 
         {this.renderRowTitle('Extensions')}
         {this.cert.extensions.map((extension) => ([

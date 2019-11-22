@@ -29,7 +29,9 @@ graph TD;
   pv-certificates-viewer --> pv-button-split
   pv-certificates-viewer --> pv-certificate-viewer
   pv-button-split --> pv-button
+  pv-certificate-viewer --> pv-text-hider
   pv-certificate-viewer --> pv-certificate-summary
+  pv-text-hider --> pv-button
   style pv-certificates-viewer fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

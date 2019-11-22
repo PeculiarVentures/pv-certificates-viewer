@@ -36,7 +36,6 @@ export namespace Components {
   }
   interface PvTextHider {
     'opened': boolean;
-    'text': string;
   }
 }
 
@@ -111,7 +110,6 @@ declare namespace LocalJSX {
   interface PvTextHider {
     'onTextExpand'?: (event: CustomEvent<any>) => void;
     'opened'?: boolean;
-    'text'?: string;
   }
 
   interface IntrinsicElements {

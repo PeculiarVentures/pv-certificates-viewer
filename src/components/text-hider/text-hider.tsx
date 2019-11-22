@@ -4,16 +4,16 @@ import { Component, Host, h, Prop, Event, EventEmitter, Listen } from '@stencil/
   tag: 'pv-text-hider',
   styleUrls: [
     '../../styles/reset.css',
+    '../../styles/system.css',
     'text-hider.css'
   ],
   shadow: true
 })
 export class TextHider {
-
-  @Prop() text: string;
   @Prop({ mutable: true, reflect: true }) opened: boolean = false;
 
   @Event() textExpand: EventEmitter;
+
   @Listen('textExpand')
   textExpandHandler() {
     this.opened = !this.opened;
@@ -23,17 +23,21 @@ export class TextHider {
     return (
       <Host>
         <div class="root">
-          <p class={{
+          <div class={{
             text: true,
-            opened: this.opened,
+            m_opened: this.opened,
           }}>
-            {this.text.toString()}
-          </p>
+            <slot></slot>
+          </div>
           <div class="action">
-            <button class={{
-              expand_button: true,
-              opened: this.opened,
-            }} onClick={this.textExpand.emit}>
+            <pv-button
+              onClick={this.textExpand.emit}
+              class={{
+                button_action: true,
+                m_opened: this.opened,
+              }}
+              fill={this.opened ? 'fill' : 'stroke'}
+            >
               <svg
                 viewBox="0 0 7 5"
                 fill="none"
@@ -47,7 +51,7 @@ export class TextHider {
                   fill={this.opened ? '#FFFFFF' : '#3584F7'}
                 />
               </svg>
-            </button>
+            </pv-button>
           </div>
         </div>
       </Host>
