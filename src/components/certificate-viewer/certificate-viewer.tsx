@@ -29,7 +29,7 @@ export class CertificateViewer {
   renderRowTitle(title: string) {
     return ([
       <tr class="title">
-        <td colSpan={2} class="h6 stroke_grey_3_border">
+        <td colSpan={2} class="h6 stroke_grey_3_border text_black">
           {title}
         </td>
       </tr>,
@@ -53,7 +53,7 @@ export class CertificateViewer {
         <td class="b3 text_grey_5">
           {title}:
         </td>
-        <td class="b3">
+        <td class="b3 text_black">
           {Array.isArray(value) ? value : value.toString()}
         </td>
       </tr>
@@ -82,7 +82,7 @@ export class CertificateViewer {
         return this.renderRowValue(
           'Values',
           extension.value.map((value) => (
-            <p class="b3">
+            <p class="b3 text_black">
               {value.name} ({value.oid})
             </p>
           )),
@@ -93,7 +93,7 @@ export class CertificateViewer {
         return this.renderRowValue(
           'Values',
           extension.value.map((value) => (
-            <p class="b3">
+            <p class="b3 text_black">
               {value.name
                 ? `${value.name} (${value.oid})`
                 : value.oid
@@ -123,7 +123,7 @@ export class CertificateViewer {
               }
 
               return (
-                <p class="b3">
+                <p class="b3 text_black">
                   {valuePoint.value}
                 </p>
               );
@@ -140,14 +140,14 @@ export class CertificateViewer {
 
             if (accessLocation.type === 6) {
               return (
-                <p class="b3">
+                <p class="b3 text_black">
                   {value.accessMethod}: <a class="text_secondary" href={accessLocation.value}>{accessLocation.value}</a>
                 </p>
               );
             }
 
             return (
-              <p class="b3">
+              <p class="b3 text_black">
                 {value.accessMethod}: {accessLocation.value}
               </p>
             );
@@ -189,7 +189,7 @@ export class CertificateViewer {
               }
 
               return (
-                <p class="b3">
+                <p class="b3 text_black">
                   {value.value}
                 </p>
               );
@@ -232,7 +232,7 @@ export class CertificateViewer {
               }
 
               return (
-                <p class="b3">
+                <p class="b3 text_black">
                   {value.value}
                 </p>
               );
@@ -267,8 +267,8 @@ export class CertificateViewer {
     return Object.keys(item).map(subject => {
       return (
         <p class="dn_row">
-          <span class="dn_name b3">{subject}</span>
-          <span class="dn_value b3">{item[subject].value}</span>
+          <span class="dn_name b3 text_black">{subject}</span>
+          <span class="dn_value b3 text_black">{item[subject].value}</span>
         </p>
       )
     })
@@ -278,23 +278,23 @@ export class CertificateViewer {
     return ([
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Serial number:</span>
-        <span class="meta_value b3">{item.serialNumber}</span>
+        <span class="meta_value b3 text_black">{item.serialNumber}</span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Version:</span>
-        <span class="meta_value b3">{item.version}</span>
+        <span class="meta_value b3 text_black">{item.version}</span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Validity:</span>
-        <span class="meta_value b3">{item.validity} days</span>
+        <span class="meta_value b3 text_black">{item.validity} days</span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Issued:</span>
-        <span class="meta_value b3">{dayjs(item.notBefore).format('ddd, MMM D, YYYY h:mm A')}</span>
+        <span class="meta_value b3 text_black">{dayjs(item.notBefore).format('ddd, MMM D, YYYY h:mm A')}</span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Expired:</span>
-        <span class="meta_value b3">{dayjs(item.notAfter).format('ddd, MMM D, YYYY h:mm A')}</span>
+        <span class="meta_value b3 text_black">{dayjs(item.notAfter).format('ddd, MMM D, YYYY h:mm A')}</span>
       </p>,
     ]);
   }
@@ -335,7 +335,7 @@ export class CertificateViewer {
         {this.renderRowTitle('PEM')}
         <tr>
           <td colSpan={2}>
-            <div class="pem_block stroke_grey_3_border b3">
+            <div class="pem_block stroke_grey_3_border b3 text_black">
               {this.cert.pem}
             </div>
           </td>

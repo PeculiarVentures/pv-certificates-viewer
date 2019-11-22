@@ -201,9 +201,9 @@ export class CertificatesViewer {
         />
         <div class="modal_content">
           <div class="fill_grey_2 modal_title stroke_grey_3_border">
-            <p class="h4">
+            <h4 class="h4 text_black">
               Certificate details
-            </p>
+            </h4>
             <button class="modal_close" onClick={this.onClickModalClose}>
               <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path

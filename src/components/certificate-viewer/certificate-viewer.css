@@ -112,6 +112,7 @@ table td:last-child {
 
 /* PEM block */
 .pem_block {
+  margin-top: 5px;
   padding: 10px;
   border-width: 1px;
   border-style: solid;
