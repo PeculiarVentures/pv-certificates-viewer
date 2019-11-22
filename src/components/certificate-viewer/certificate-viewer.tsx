@@ -20,7 +20,6 @@ export class CertificateViewer {
   componentWillLoad() {
     try {
       this.cert = new Certificate(this.certificate, true);
-      console.log(this.cert);
     } catch (error) {
       console.error(error);
     }
