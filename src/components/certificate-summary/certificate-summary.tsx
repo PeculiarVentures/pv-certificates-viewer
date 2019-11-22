@@ -16,6 +16,7 @@ import { Certificate } from '../../utils/crypto';
 
 export class CertificateSummary {
   @Prop() certificate: Certificate;
+  @Prop() showIssuer: boolean = true;
 
   renderDN(item: Certificate['subject'] | Certificate['issuer']) {
     return Object.keys(item).map(subject => {
@@ -56,18 +57,23 @@ export class CertificateSummary {
   renderCertificateSummary() {
     return (
       <div class="basic_info">
-        <div class="basic_col">
+        <div class={{
+          basic_col: true,
+          is_only: !this.showIssuer,
+        }}>
           <p class="text_grey_5 b3 dn_row">
             Subject DN:
           </p>
           {this.renderDN(this.certificate.subject)}
         </div>
-        <div class="basic_col stroke_grey_3_border">
-          <p class="text_grey_5 b3 dn_row">
-            Issuer DN:
-          </p>
-          {this.renderDN(this.certificate.issuer)}
-        </div>
+        {this.showIssuer && (
+          <div class="basic_col stroke_grey_3_border">
+            <p class="text_grey_5 b3 dn_row">
+              Issuer DN:
+            </p>
+            {this.renderDN(this.certificate.issuer)}
+          </div>
+        )}
         <div class="basic_meta">
           {this.renderMetaData(this.certificate)}
         </div>

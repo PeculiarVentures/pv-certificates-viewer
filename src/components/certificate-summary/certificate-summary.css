@@ -13,6 +13,10 @@
   position: relative;
 }
 
+.basic_col.is_only {
+  flex-grow: 3;
+}
+
 .basic_col:after {
   content: '';
   display: block;

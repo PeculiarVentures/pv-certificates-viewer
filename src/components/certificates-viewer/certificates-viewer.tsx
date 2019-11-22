@@ -80,7 +80,10 @@ export class CertificatesViewer {
     return (
       <tr class="expanded_summary fill_grey_1_opacity">
         <td colSpan={5} class="stroke_grey_3_border">
-          <pv-certificate-summary certificate={certificate} />
+          <pv-certificate-summary
+            certificate={certificate}
+            showIssuer={certificate.isRoot}
+          />
         </td>
       </tr>
     );

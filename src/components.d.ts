@@ -26,6 +26,7 @@ export namespace Components {
   }
   interface PvCertificateSummary {
     'certificate': Certificate;
+    'showIssuer': boolean;
   }
   interface PvCertificateViewer {
     'certificate': string;
@@ -88,6 +89,7 @@ declare namespace LocalJSX {
   }
   interface PvCertificateSummary {
     'certificate'?: Certificate;
+    'showIssuer'?: boolean;
   }
   interface PvCertificateViewer {
     'certificate'?: string;
