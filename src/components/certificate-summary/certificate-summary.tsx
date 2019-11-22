@@ -56,7 +56,7 @@ export class CertificateSummary {
 
   renderCertificateSummary() {
     return (
-      <div class="basic_info">
+      <div>
         <div class={{
           basic_col: true,
           is_only: !this.showIssuer,
