@@ -16,7 +16,6 @@ export class TextHider {
   @Event() textExpand: EventEmitter;
   @Listen('textExpand')
   textExpandHandler() {
-    console.log('KURVA')
     this.opened = !this.opened;
   }
 
