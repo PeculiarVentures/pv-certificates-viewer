@@ -162,7 +162,7 @@ export class CertificatesViewer {
           key={certificate.serialNumber}
         >
           <td class="b3 stroke_grey_3_border">
-            <span class="mobile_title text_grey_5 align-left b3">Subject:</span>
+            <span class="mobile_title text_grey_5 align-left b3">Name:</span>
             <span class="content">{certificate.commonName}</span>
           </td>
           <td class="b3 stroke_grey_3_border">
@@ -241,7 +241,7 @@ export class CertificatesViewer {
           <thead class="fill_grey_2">
             <tr>
               <th class="h7 stroke_grey_3_border">
-                Subject
+                Name
               </th>
               <th class="h7 stroke_grey_3_border">
                 Fingerprint (SHA-1)
