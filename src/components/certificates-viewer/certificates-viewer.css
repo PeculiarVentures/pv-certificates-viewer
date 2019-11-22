@@ -165,7 +165,7 @@ table tr.expanded_summary td {
 }
 
 .modal_close:hover {
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 .button_table_action {
