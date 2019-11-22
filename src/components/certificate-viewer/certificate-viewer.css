@@ -40,69 +40,6 @@ table .title + tr td {
   padding-top: 15px;
 }
 
-/* Basic information */
-.basic_info {
-  display: flex;
-}
-
-.basic_col {
-  flex: 0 0 210px;
-  min-width: 210px;
-  padding-right: 40px;
-  position: relative;
-}
-
-.basic_col:after {
-  content: '';
-  display: block;
-  position: absolute;
-  width: 1px;
-  top: 0;
-  bottom: 0;
-  right: 20px;
-  background-color: #D1D5D9;
-  opacity: 0.5;
-}
-
-.basic_meta {
-  flex: 1 1 auto;
-}
-/* DN styles */
-.dn_name {
-  display: inline-block;
-  width: 30px;
-  vertical-align: top;
-  padding-right: 5px;
-}
-
-.dn_value {
-  display: inline-block;
-  vertical-align: top;
-  width: calc(100% - 30px);
-}
-
-.dn_row:not(:last-child) {
-  margin-bottom: 10px;
-}
-
-/* Meta styles */
-.meta_row:not(:last-child) {
-  margin-bottom: 10px;
-}
-
-.meta_name {
-  display: inline-block;
-  width: 120px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-.meta_value {
-  display: inline-block;
-  vertical-align: top;
-  width: calc(100% - 120px);
-}
-
 /* PEM block */
 .pem_block {
   padding: 10px;
@@ -130,28 +67,6 @@ table tr:last-child .divider {
 
 /* Adaptivity */
 @media (max-width: 767px) {
-  .basic_info {
-    flex-wrap: wrap;
-  }
-  .basic_col {
-    padding: 20px 0;
-    flex-basis: 100%;
-  }
-
-  .basic_col::after {
-    top: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    width: 100%;
-  }
-
-  .basic_meta {
-    flex-basis: 100%;
-    padding: 20px 0;
-  }
-
   tr, td {
     display: block;
   }
