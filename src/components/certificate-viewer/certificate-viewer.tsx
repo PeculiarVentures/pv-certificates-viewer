@@ -263,7 +263,7 @@ export class CertificateViewer {
     return Object.keys(item).map(subject => {
       return (
         <p class="dn_row">
-          <span class="dn_name b3">{item[subject].name}</span>
+          <span class="dn_name b3">{subject}</span>
           <span class="dn_value b3">{item[subject].value}</span>
         </p>
       )
