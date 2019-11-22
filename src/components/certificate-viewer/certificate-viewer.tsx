@@ -111,7 +111,7 @@ export class CertificateViewer {
               if (valuePoint.type === 6) {
                 return (
                   <p class="b3">
-                    <a href={valuePoint.value}>
+                    <a class="text_secondary" href={valuePoint.value}>
                       {valuePoint.value}
                     </a>
                   </p>
@@ -137,7 +137,7 @@ export class CertificateViewer {
             if (accessLocation.type === 6) {
               return (
                 <p class="b3">
-                  {value.accessMethod}: <a href={accessLocation.value}>{accessLocation.value}</a>
+                  {value.accessMethod}: <a class="text_secondary" href={accessLocation.value}>{accessLocation.value}</a>
                 </p>
               );
             }
@@ -159,7 +159,7 @@ export class CertificateViewer {
               if (value.type === 2) {
                 return (
                   <p class="b3">
-                    <a href={`https://censys.io/ipv4?q=${value.value}`}>
+                    <a class="text_secondary" href={`https://censys.io/ipv4?q=${value.value}`}>
                       {value.value}
                     </a>
                   </p>
@@ -169,7 +169,7 @@ export class CertificateViewer {
               if (value.type === 7) {
                 return (
                   <p class="b3">
-                    <a href={`https://censys.io/ipv4?q=${value.value}`}>
+                    <a class="text_secondary" href={`https://censys.io/ipv4?q=${value.value}`}>
                       {value.value}
                     </a>
                   </p>
@@ -202,7 +202,7 @@ export class CertificateViewer {
               if (value.type === 2) {
                 return (
                   <p class="b3">
-                    <a href={`https://censys.io/ipv4?q=${value.value}`}>
+                    <a class="text_secondary" href={`https://censys.io/ipv4?q=${value.value}`}>
                       {value.value}
                     </a>
                   </p>
@@ -212,7 +212,7 @@ export class CertificateViewer {
               if (value.type === 7) {
                 return (
                   <p class="b3">
-                    <a href={`https://censys.io/ipv4?q=${value.value}`}>
+                    <a class="text_secondary" href={`https://censys.io/ipv4?q=${value.value}`}>
                       {value.value}
                     </a>
                   </p>
