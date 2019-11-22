@@ -3,17 +3,174 @@
   width: 100%;
   word-wrap: break-word;
   background: white;
+  padding: 30px 0;
 }
 
 table {
   width: 100%;
+  padding: 30px 0;
+}
+
+table tr:not(:first-child).title td {
+  padding-top: 75px;
+}
+
+table tr.title td {
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 table td {
   vertical-align: top;
-  padding: 5px;
+  padding: 5px 10px;
 }
 
 table td:first-child {
-  width: 25%;
+  width: 150px;
+  padding-left: 30px;
+}
+
+table td:last-child {
+  width: calc(100% - 150px);
+  padding-right: 30px;
+}
+
+/* Content styles */
+/* Section title */
+.title td {
+  padding: 5px 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+.title_offset {
+  padding: 5px 0;
+}
+
+/* Basic information */
+.basic_info {
+  display: flex;
+}
+
+.basic_col {
+  flex: 0 0 210px;
+  min-width: 210px;
+  padding-right: 40px;
+  position: relative;
+}
+
+.basic_col:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 1px;
+  top: 0;
+  bottom: 0;
+  right: 20px;
+  background-color: #D1D5D9;
+  opacity: 0.5;
+}
+
+.basic_meta {
+  flex: 1 1 auto;
+}
+/* DN styles */
+.dn_name {
+  display: inline-block;
+  width: 30px;
+  vertical-align: top;
+  padding-right: 5px;
+}
+
+.dn_value {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(100% - 30px);
+}
+
+.dn_row:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+/* Meta styles */
+.meta_row:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.meta_name {
+  display: inline-block;
+  width: 120px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+.meta_value {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(100% - 120px);
+}
+
+/* PEM block */
+.pem_block {
+  margin-top: 5px;
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  white-space: pre-wrap;
+}
+
+/* Extentions */
+.divider {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+tr:last-child .divider {
+  display: none;;
+}
+
+.divider span {
+  display: block;
+  height: 1px;
+}
+
+/* Adaptivity */
+@media (max-width: 767px) {
+  .basic_info {
+    flex-wrap: wrap;
+  }
+  .basic_col {
+    padding: 20px 0;
+    flex-basis: 100%;
+  }
+
+  .basic_col::after {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    width: 100%;
+  }
+
+  .basic_meta {
+    flex-basis: 100%;
+    padding: 20px 0;
+  }
+
+  tr, td {
+    display: block;
+  }
+
+  table td:first-child,
+  table td:last-child {
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  tr.title + tr td {
+    padding-top: 10px;
+  }
 }

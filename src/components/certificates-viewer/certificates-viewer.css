@@ -111,7 +111,7 @@ table tr.expanded_summary td {
   overflow: auto;
   padding: 20px;
   text-align: center;
-  background: rgba(42, 49, 52, 0.8);
+  background: rgba(42, 49, 52, 0.9);
   animation: fadeIn 300ms;
 }
 
@@ -136,10 +136,36 @@ table tr.expanded_summary td {
   display: inline-block;
   vertical-align: middle;
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
   text-align: left;
-  padding: 10px;
   border-radius: 3px;
+  overflow: hidden;
+}
+
+.modal_title {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  padding: 17px 60px 17px 20px;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.modal_close {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding: 0 12px;
+  transition: opacity 100ms;
+}
+
+.modal_close:hover {
+  opacity: 0.6;
 }
 
 .button_table_action {
