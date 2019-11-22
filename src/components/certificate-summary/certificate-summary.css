@@ -9,6 +9,7 @@
 
 .basic_col {
   flex: 1 1 auto;
+  min-width: 220px;
   padding-right: 40px;
   position: relative;
 }
@@ -31,6 +32,7 @@
 
 .basic_meta {
   flex: 3 1 auto;
+  min-width: 450px;
 }
 /* DN styles */
 .dn_name {
