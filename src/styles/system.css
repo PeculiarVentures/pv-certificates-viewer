@@ -97,3 +97,7 @@
 .stroke_secondary_border {
   border-color: rgba(50, 124, 232, 0.3);
 }
+
+.monospace {
+  font-family: monospace;
+}

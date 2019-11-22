@@ -105,7 +105,7 @@ export class CertificatesViewer {
           </td>
           <td colSpan={3} class="b3 stroke_grey_3_border">
             <span class="mobile_title text_grey_5 align-left b3">Hash (SHA-256):</span>
-            <span class="content">{certificate.fingerprint}</span>
+            <span class="content monospace">{certificate.fingerprint}</span>
           </td>
           <td class="align-center stroke_grey_3_border">
             <span class="mobile_title text_grey_5 align-left b3">Action:</span>
