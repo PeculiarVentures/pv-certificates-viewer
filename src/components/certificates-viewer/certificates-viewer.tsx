@@ -12,7 +12,7 @@ import { Certificate } from '../../utils/crypto';
   shadow: true,
 })
 export class CertificatesViewer {
-  @Prop() certificates: string = '';
+  @Prop() certificates: string[] = [];
 
   @State() certificatesDecoded: Certificate[] = [];
   @State() expandedRow: Certificate['serialNumber'] | null;
@@ -28,9 +28,13 @@ export class CertificatesViewer {
   }
 
   async certificatesDecodeAndSet() {
+    if (!Array.isArray(this.certificates)) {
+      return [];
+    }
+
     const data = [];
 
-    for (let value of this.certificatesPropParsed) {
+    for (let value of this.certificates) {
       const certificate = new Certificate(value);
       await certificate.getFingerprint();
 
@@ -42,10 +46,6 @@ export class CertificatesViewer {
     }
 
     this.certificatesDecoded = data;
-  }
-
-  get certificatesPropParsed() {
-    return this.certificates.split(',');
   }
 
   onClickDownload(certificate: Certificate, downloadType: 'PEM' | 'DER', event: MouseEvent) {

@@ -32,7 +32,7 @@ export namespace Components {
     'certificate': string;
   }
   interface PvCertificatesViewer {
-    'certificates': string;
+    'certificates': string[];
   }
   interface PvTextHider {
     'opened': boolean;
@@ -106,7 +106,7 @@ declare namespace LocalJSX {
     'certificate'?: string;
   }
   interface PvCertificatesViewer {
-    'certificates'?: string;
+    'certificates'?: string[];
   }
   interface PvTextHider {
     'onTextExpand'?: (event: CustomEvent<any>) => void;
