@@ -1,4 +1,4 @@
-import { r as registerInstance, h, H as Host } from './core-d6f9181b.js';
+import { r as registerInstance, h, H as Host } from './core-facd9e82.js';
 
 const ButtonSplit = class {
     constructor(hostRef) {

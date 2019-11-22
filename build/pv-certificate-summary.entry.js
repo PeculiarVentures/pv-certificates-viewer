@@ -1,5 +1,5 @@
-import { r as registerInstance, h, H as Host } from './core-d6f9181b.js';
-import { d as dayjs } from './dayjs.min-21a180a8.js';
+import { r as registerInstance, h, H as Host } from './core-facd9e82.js';
+import { s as short } from './date_formatter-80b284a6.js';
 
 const CertificateSummary = class {
     constructor(hostRef) {
@@ -15,9 +15,9 @@ const CertificateSummary = class {
         return ([
             h("p", { class: "meta_row" }, h("span", { class: "meta_name text_grey_5 b3" }, "Serial number:"), h("span", { class: "meta_value b3 text_black monospace" }, item.serialNumber)),
             h("p", { class: "meta_row" }, h("span", { class: "meta_name text_grey_5 b3" }, "Version:"), h("span", { class: "meta_value b3 text_black" }, item.version)),
-            h("p", { class: "meta_row" }, h("span", { class: "meta_name text_grey_5 b3" }, "Validity:"), h("span", { class: "meta_value b3 text_black" }, item.validity, " days")),
-            h("p", { class: "meta_row" }, h("span", { class: "meta_name text_grey_5 b3" }, "Issued:"), h("span", { class: "meta_value b3 text_black" }, dayjs(item.notBefore).format('ddd, MMM D, YYYY h:mm A'))),
-            h("p", { class: "meta_row" }, h("span", { class: "meta_name text_grey_5 b3" }, "Expired:"), h("span", { class: "meta_value b3 text_black" }, dayjs(item.notAfter).format('ddd, MMM D, YYYY h:mm A'))),
+            h("p", { class: "meta_row" }, h("span", { class: "meta_name text_grey_5 b3" }, "Validity:"), h("span", { class: "meta_value b3 text_black" }, item.validity)),
+            h("p", { class: "meta_row" }, h("span", { class: "meta_name text_grey_5 b3" }, "Issued:"), h("span", { class: "meta_value b3 text_black" }, short(item.notBefore))),
+            h("p", { class: "meta_row" }, h("span", { class: "meta_name text_grey_5 b3" }, "Expired:"), h("span", { class: "meta_value b3 text_black" }, short(item.notAfter))),
         ]);
     }
     renderCertificateSummary() {

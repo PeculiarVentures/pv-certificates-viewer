@@ -1,4 +1,4 @@
-import { d as dayjs } from './dayjs.min-21a180a8.js';
+import { f as fromNow } from './date_formatter-80b284a6.js';
 
 //**************************************************************************************
 /**
@@ -7001,7 +7001,6 @@ class Basic {
             certificateBuffer = Convert.FromBase64(this.input);
         }
         this.schema = fromBER(certificateBuffer).result;
-        ;
         this.base64 = Convert.ToBase64(certificateBuffer);
         this.hex = Basic.formatHex(Convert.ToHex(certificateBuffer));
     }
@@ -27707,7 +27706,7 @@ var EnumOIDs;
 class Certificate$1 extends Basic {
     constructor(value, fullDecode = false) {
         super(value);
-        this.validity = 0;
+        this.validity = '';
         this.extensions = [];
         this.version = 0;
         this.isRoot = false;
@@ -27894,8 +27893,8 @@ class Certificate$1 extends Basic {
             this.notAfter = pkijsSchema.notAfter.value;
         }
         // decode validity days
-        if (this.notBefore && this.notAfter) {
-            this.validity = dayjs(this.notAfter).diff(dayjs(this.notBefore), 'day');
+        if (this.notAfter) {
+            this.validity = fromNow(this.notAfter);
         }
         // decode public key
         this.publicKey = {
