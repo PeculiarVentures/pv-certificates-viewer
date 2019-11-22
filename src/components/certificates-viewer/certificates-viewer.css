@@ -154,6 +154,7 @@ table tr.expanded_summary td {
 }
 
 .modal_close {
+  cursor: pointer;
   border: none;
   background-color: transparent;
   position: absolute;
