@@ -20,6 +20,7 @@ export class CertificateViewer {
   componentWillLoad() {
     try {
       this.cert = new Certificate(this.certificate, true);
+      console.log(this.cert);
     } catch (error) {
       console.error(error);
     }
@@ -306,17 +307,12 @@ export class CertificateViewer {
               </p>
               {this.renderDN(certificate.subject)}
             </div>
-            {certificate.isRoot
-              ? null
-              : (
-                <div class="basic_col stroke_grey_3_border">
-                  <p class="text_grey_5 b3 dn_row">
-                    Issuer DN:
-                  </p>
-                  {this.renderDN(certificate.issuer)}
-                </div>
-              )
-            }
+            <div class="basic_col stroke_grey_3_border">
+              <p class="text_grey_5 b3 dn_row">
+                Issuer DN:
+              </p>
+              {this.renderDN(certificate.issuer)}
+            </div>
             <div class="basic_meta">
               {this.renderMetaData(certificate)}
             </div>
