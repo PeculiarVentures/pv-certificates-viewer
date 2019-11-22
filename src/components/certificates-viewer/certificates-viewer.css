@@ -3,6 +3,9 @@
   width: 100%;
   word-wrap: break-word;
   background: white;
+  min-width: 300px;
+  min-height: 400px;
+  overflow: auto;
 }
 
 table {
@@ -102,14 +105,14 @@ table tr.expanded_summary td {
 }
 
 .modal_wrapper {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
   overflow: auto;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   background: rgba(42, 49, 52, 0.9);
   animation: fadeIn 300ms;
@@ -121,14 +124,6 @@ table tr.expanded_summary td {
   width: 0;
   height: 100%;
   content: '';
-}
-
-.modal_overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
 }
 
 .modal_content {
@@ -221,6 +216,10 @@ table tr.expanded_summary td {
     display: inline-block;
     width: 90px;
     vertical-align: middle;
+  }
+
+  .modal_title {
+    padding: 17px 60px 17px 15px;
   }
 
   .content {

@@ -26,16 +26,13 @@ export class CertificateViewer {
   }
 
   renderRowTitle(title: string) {
-    return ([
+    return (
       <tr class="title">
         <td colSpan={2} class="h6 stroke_grey_3_border text_black">
           {title}
         </td>
-      </tr>,
-      <tr>
-        <td colSpan={2} class="title_offset" />
       </tr>
-    ]);
+    );
   }
 
   renderRowValue(title: string, value: string | number | any[]) {
@@ -330,7 +327,7 @@ export class CertificateViewer {
     }
 
     return (
-      <table class="text_black">
+      <table>
         {this.renderRowTitle('PEM')}
         <tr>
           <td colSpan={2}>
