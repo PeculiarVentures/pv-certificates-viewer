@@ -9,11 +9,124 @@ table {
   width: 100%;
 }
 
+table tr:not(:first-child).title td {
+  padding-top: 75px;
+}
+
+table tr.title td {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+tr.title + tr td {
+  padding-top: 15px;
+}
+
 table td {
   vertical-align: top;
-  padding: 5px;
+  padding: 10px;
 }
 
 table td:first-child {
   width: 25%;
+  padding-left: 30px;
+}
+
+table td:last-child {
+  width: 75%;
+  padding-right: 30px;
+}
+
+/* Content styles */
+/* Section title */
+.title td {
+  padding: 5px 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+
+/* Basic information */
+.basic_info {
+  display: flex;
+}
+
+.basic_col {
+  flex: 0 0 210px;
+  min-width: 210px;
+  padding-right: 40px;
+  position: relative;
+}
+
+.basic_col:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 1px;
+  top: 0;
+  bottom: 0;
+  right: 20px;
+  background-color: #D1D5D9;
+  opacity: 0.5;
+}
+
+.basic_meta {
+  flex: 1 1 auto;
+}
+/* DN styles */
+.dn_name {
+  display: inline-block;
+  width: 30px;
+  vertical-align: top;
+  padding-right: 5px;
+}
+
+.dn_value {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(100% - 30px);
+}
+
+.dn_row:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+/* Meta styles */
+.meta_row:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.meta_name {
+  display: inline-block;
+  width: 120px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+.meta_value {
+  display: inline-block;
+  vertical-align: top;
+  width: calc(100% - 120px);
+}
+
+/* PEM block */
+.pem_block {
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+}
+
+/* Extentions */
+.divider {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+tr:last-child .divider {
+  display: none;;
+}
+
+.divider span {
+  display: block;
+  height: 1px;
 }

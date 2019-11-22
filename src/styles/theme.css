@@ -11,6 +11,14 @@
   font-weight: 400;
 }
 
+.h6 {
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0.3px;
+}
+
 .h7 {
   font-family: 'Open Sans', Arial, sans-serif;
   font-weight: 600;
@@ -57,6 +65,10 @@
   background-color: #869196;
 }
 
+.fill_grey_3_opacity_border {
+  background-color: rgba(209, 213, 217, 0.5);
+}
+
 .fill_white {
   background-color: white;
 }
@@ -68,6 +80,10 @@
 /* Border color */
 .stroke_grey_3_border {
   border-color: #D1D5D9;
+}
+
+.stroke_grey_3_opcity_border {
+  border-color: rgba(209, 213, 217, 0.5);
 }
 
 .stroke_secondary_border {
