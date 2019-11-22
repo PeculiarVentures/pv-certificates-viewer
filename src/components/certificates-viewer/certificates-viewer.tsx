@@ -82,7 +82,7 @@ export class CertificatesViewer {
         <td colSpan={5} class="stroke_grey_3_border">
           <pv-certificate-summary
             certificate={certificate}
-            showIssuer={certificate.isRoot}
+            showIssuer={!certificate.isRoot}
           />
         </td>
       </tr>
@@ -140,10 +140,6 @@ export class CertificatesViewer {
 
     return  (
       <div class="modal_wrapper">
-        <div
-          class="modal_overlay"
-          onClick={this.onClickModalClose}
-        />
         <div class="modal_content">
           <div class="fill_grey_2 modal_title stroke_grey_3_border">
             <h4 class="h4 text_black">
