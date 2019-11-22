@@ -3,10 +3,12 @@
   width: 100%;
   word-wrap: break-word;
   background: white;
+  padding: 30px 0;
 }
 
 table {
   width: 100%;
+  padding: 30px 0;
 }
 
 table tr:not(:first-child).title td {

@@ -64,7 +64,7 @@ export class CertificatesViewer {
     this.certificateSelectedForDetails = value;
   }
 
-  onClickModalOverlay = () => {
+  onClickModalClose = () => {
     this.certificateSelectedForDetails = null;
   }
 
@@ -187,12 +187,29 @@ export class CertificatesViewer {
       <div class="modal_wrapper">
         <div
           class="modal_overlay"
-          onClick={this.onClickModalOverlay}
+          onClick={this.onClickModalClose}
         />
-        <div class="modal_content fill_white">
-          <pv-certificate-viewer
-            certificate={this.certificateSelectedForDetails}
-          />
+        <div class="modal_content">
+          <div class="fill_grey_2 modal_title stroke_grey_3_border">
+            <p class="h4">
+              Certificate details
+            </p>
+            <button class="modal_close" onClick={this.onClickModalClose}>
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M15.7204 14.375L21.0654 19.7185C21.3115 19.9658 21.3115 20.3693 21.0654 20.6154L20.615 21.0645C20.3689 21.3118 19.9667 21.3118 19.7181 21.0645L14.3744 15.721L9.03194 21.0645C8.78327 21.3118 8.3811 21.3118 8.13371 21.0645L7.68459 20.6154C7.43847 20.3693 7.43847 19.9658 7.68459 19.7185L13.0296 14.375L7.68459 9.03155C7.43847 8.78417 7.43847 8.38074 7.68459 8.13463L8.13371 7.68554C8.3811 7.43815 8.78327 7.43815 9.03194 7.68554L14.3744 13.029L19.7181 7.68554C19.9667 7.43815 20.3689 7.43815 20.615 7.68554L21.0654 8.13463C21.3115 8.38074 21.3115 8.78417 21.0654 9.03155L15.7204 14.375Z"
+                  fill="#2A3134"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="fill_white">
+            <pv-certificate-viewer
+              certificate={this.certificateSelectedForDetails}
+            />
+          </div>
         </div>
       </div>
     );

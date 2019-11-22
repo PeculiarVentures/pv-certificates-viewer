@@ -139,6 +139,26 @@ table tr.expanded_summary td {
   max-width: 800px;
   text-align: left;
   border-radius: 3px;
+  overflow: hidden;
+}
+
+.modal_title {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  line-height: 60px;
+  padding: 17px 20px;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.modal_close {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding: 0 12px;
 }
 
 .button_table_action {

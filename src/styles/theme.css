@@ -11,6 +11,14 @@
   font-weight: 400;
 }
 
+.h4 {
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+}
+
 .h6 {
   font-family: 'Open Sans', Arial, sans-serif;
   font-weight: 600;
