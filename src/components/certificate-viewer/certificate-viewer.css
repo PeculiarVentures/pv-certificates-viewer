@@ -24,13 +24,13 @@ table td:first-child {
 
 table td:last-child {
   padding-right: 30px;
+  width: calc(100% - 130px);
 }
 
 table td {
   vertical-align: top;
   padding-top: 5px;
   padding-bottom: 5px;
-  max-width: 0;
 }
 
 table .title:first-child td {
@@ -39,6 +39,10 @@ table .title:first-child td {
 
 table .title + tr td {
   padding-top: 15px;
+}
+
+table td.monospace {
+  max-width: 0;
 }
 
 /* Extentions */
@@ -77,8 +81,8 @@ table tr:last-child .divider {
   table .title + tr td:first-child {
     padding-top: 15px;
   }
-}
 
-table td:last-child {
-  width: 75%;
+  table td.monospace {
+    max-width: calc(100vw - 20px);
+  }
 }
