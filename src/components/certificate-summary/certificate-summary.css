@@ -18,11 +18,11 @@
 }
 
 .basic_wrapper::before {
-  left: calc(25% - 20px);
+  left: calc(30% - 20px);
 }
 
 .basic_wrapper::after {
-  left: calc(50% - 20px);
+  left: calc(60% - 20px);
 }
 
 .is_only.basic_wrapper::before {
@@ -33,19 +33,19 @@
 .basic_col {
   vertical-align: top;
   display: inline-block;
-  width: 25%;
+  width: 30%;
   padding-right: 40px;
   position: relative;
 }
 
 .is_only .basic_col {
-  width: 50%;
+  width: 60%;
 }
 
 .basic_meta {
   vertical-align: top;
   display: inline-block;
-  width: 50%;
+  width: 40%;
 }
 /* DN styles */
 .dn_name {
