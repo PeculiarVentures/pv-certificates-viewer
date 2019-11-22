@@ -9,14 +9,74 @@ table {
   width: 100%;
 }
 
-table td {
-  vertical-align: top;
-  padding: 5px;
-  max-width: 0;
+table .title td {
+  padding-top: 60px;
+  padding-bottom: 15px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
 }
 
 table td:first-child {
-  width: 25%;
+  padding-left: 30px;
+  width: 130px;
+  padding-right: 10px;
+}
+
+table td:last-child {
+  padding-right: 30px;
+}
+
+table td {
+  vertical-align: top;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  max-width: 0;
+}
+
+table .title:first-child td {
+  padding-top: 15px;
+}
+
+table .title + tr td {
+  padding-top: 15px;
+}
+
+/* Extentions */
+.divider {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+table tr:last-child .divider {
+  padding-top: 0;
+  opacity: 0;
+}
+
+.divider span {
+  display: block;
+  height: 1px;
+}
+
+/* Adaptivity */
+@media (max-width: 767px) {
+  tr, td {
+    display: block;
+  }
+
+  table td:last-child,
+  table td:first-child {
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100%;
+  }
+
+  table .title + tr td {
+    padding-top: 5px;
+  }
+
+  table .title + tr td:first-child {
+    padding-top: 15px;
+  }
 }
 
 table td:last-child {

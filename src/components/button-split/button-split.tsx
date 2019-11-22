@@ -9,6 +9,7 @@ export interface IAction {
   tag: 'pv-button-split',
   styleUrls: [
     '../../styles/theme.css',
+    '../../styles/system.css',
     'button-split.css',
   ],
   shadow: true,
