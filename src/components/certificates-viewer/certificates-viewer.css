@@ -163,6 +163,10 @@ table tr.expanded_summary td {
   padding: 0 12px;
 }
 
+.modal_close:hover {
+  opacity: 0.5;
+}
+
 .button_table_action {
   margin: 2px;
 }
