@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property       | Attribute      | Description | Type     | Default |
-| -------------- | -------------- | ----------- | -------- | ------- |
-| `certificates` | `certificates` |             | `string` | `''`    |
+| Property       | Attribute | Description | Type       | Default |
+| -------------- | --------- | ----------- | ---------- | ------- |
+| `certificates` | --        |             | `string[]` | `[]`    |
 
 
 ## Dependencies
