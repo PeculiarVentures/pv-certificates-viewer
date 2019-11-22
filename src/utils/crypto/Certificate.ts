@@ -14,7 +14,7 @@ import _AltName from 'pkijs/src/AltName';
 import _NameConstraints from 'pkijs/src/NameConstraints';
 import { Convert } from 'pvtsutils';
 import * as asn1js from 'asn1js';
-import dayjs from 'dayjs';
+import * as dateFormatter from '../../utils/date_formatter';
 import downloadFromBuffer from  '../downloadFromBuffer';
 import OIDS from  '../../constants/oids';
 // import LOGS from '../../constants/logs';
@@ -129,7 +129,7 @@ export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
 export default class Certificate extends Basic {
   notBefore?: Date;
   notAfter?: Date;
-  validity: number = 0;
+  validity: string = '';
   subject?: ISubject;
   issuer?: ISubject;
   publicKey: {
@@ -369,8 +369,8 @@ export default class Certificate extends Basic {
     }
 
     // decode validity days
-    if (this.notBefore && this.notAfter) {
-      this.validity = dayjs(this.notAfter).diff(dayjs(this.notBefore), 'day');
+    if (this.notAfter) {
+      this.validity = dateFormatter.fromNow(this.notAfter);
     }
 
     // decode public key

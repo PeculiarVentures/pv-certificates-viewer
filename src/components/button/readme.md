@@ -11,6 +11,8 @@
 | ---------- | ---------- | ----------- | -------------------- | ----------- |
 | `disabled` | `disabled` |             | `boolean`            | `undefined` |
 | `fill`     | `fill`     |             | `"fill" \| "stroke"` | `'stroke'`  |
+| `href`     | `href`     |             | `string`             | `undefined` |
+| `target`   | `target`   |             | `string`             | `undefined` |
 
 
 ## CSS Custom Properties

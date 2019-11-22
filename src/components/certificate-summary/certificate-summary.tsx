@@ -1,7 +1,7 @@
 import { Component, Host, h, Prop } from '@stencil/core';
-import dayjs from 'dayjs';
 
 import { Certificate } from '../../utils/crypto';
+import * as dateFormatter from '../../utils/date_formatter';
 
 @Component({
   tag: 'pv-certificate-summary',
@@ -41,15 +41,15 @@ export class CertificateSummary {
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Validity:</span>
-        <span class="meta_value b3 text_black">{item.validity} days</span>
+        <span class="meta_value b3 text_black">{item.validity}</span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Issued:</span>
-        <span class="meta_value b3 text_black">{dayjs(item.notBefore).format('ddd, MMM D, YYYY h:mm A')}</span>
+        <span class="meta_value b3 text_black">{dateFormatter.short(item.notBefore)}</span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Expired:</span>
-        <span class="meta_value b3 text_black">{dayjs(item.notAfter).format('ddd, MMM D, YYYY h:mm A')}</span>
+        <span class="meta_value b3 text_black">{dateFormatter.short(item.notAfter)}</span>
       </p>,
     ]);
   }

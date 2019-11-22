@@ -1,6 +1,19 @@
 import { Component, h, Prop, State, Watch, Host } from '@stencil/core';
 import { Certificate } from '../../utils/crypto';
 
+export interface ICertificate {
+  value: string;
+  tests?: {
+    valid?: string;
+    revoked?: string;
+    expired?: string;
+  };
+}
+
+interface ICertificateDecoded extends Certificate {
+  tests?: ICertificate['tests'];
+}
+
 @Component({
   tag: 'pv-certificates-viewer',
   styleUrls: [
@@ -12,9 +25,9 @@ import { Certificate } from '../../utils/crypto';
   shadow: true,
 })
 export class CertificatesViewer {
-  @Prop() certificates: string[] = [];
+  @Prop() certificates: ICertificate[] = [];
 
-  @State() certificatesDecoded: Certificate[] = [];
+  @State() certificatesDecoded: ICertificateDecoded[] = [];
   @State() expandedRow: Certificate['serialNumber'] | null;
   @State() certificateSelectedForDetails: string | null;
 
@@ -32,14 +45,17 @@ export class CertificatesViewer {
       return [];
     }
 
-    const data = [];
+    const data: ICertificateDecoded[] = [];
 
-    for (let value of this.certificates) {
-      const certificate = new Certificate(value);
-      await certificate.getFingerprint();
+    for (let certificate of this.certificates) {
+      const cert = new Certificate(certificate.value);
+      await cert.getFingerprint();
 
       try {
-        data.push(certificate)
+        data.push(Object.assign(
+          cert,
+          { tests: certificate.tests },
+        ));
       } catch(error) {
         console.error(error);
       }
@@ -79,7 +95,7 @@ export class CertificatesViewer {
   renderExpandedRow(certificate: Certificate) {
     return (
       <tr class="expanded_summary fill_grey_1_opacity">
-        <td colSpan={5} class="stroke_grey_3_border">
+        <td colSpan={4} class="stroke_grey_3_border">
           <pv-certificate-summary
             certificate={certificate}
             showIssuer={!certificate.isRoot}
@@ -87,6 +103,52 @@ export class CertificatesViewer {
         </td>
       </tr>
     );
+  }
+
+  renderCertificateTests(tests: ICertificateDecoded['tests']) {
+    if (!tests) {
+      return null;
+    }
+
+    const elems = [];
+
+    if (tests.valid) {
+      elems.push((
+        <pv-button
+          class="button_table_action"
+          href={tests.valid}
+          target="_blank"
+        >
+          Valid
+        </pv-button>
+      ));
+    }
+
+    if (tests.revoked) {
+      elems.push((
+        <pv-button
+          class="button_table_action"
+          href={tests.revoked}
+          target="_blank"
+        >
+          Revoked
+        </pv-button>
+      ));
+    }
+
+    if (tests.expired) {
+      elems.push((
+        <pv-button
+          class="button_table_action"
+          href={tests.expired}
+          target="_blank"
+        >
+          Expired
+        </pv-button>
+      ));
+    }
+
+    return elems;
   }
 
   renderCertificates() {
@@ -103,7 +165,7 @@ export class CertificatesViewer {
             <span class="mobile_title text_grey_5 align-left b3">Subject:</span>
             <span class="content">{certificate.commonName}</span>
           </td>
-          <td colSpan={3} class="b3 stroke_grey_3_border">
+          <td class="b3 stroke_grey_3_border">
             <span class="mobile_title text_grey_5 align-left b3">Hash (SHA-256):</span>
             <span class="content monospace">{certificate.fingerprint}</span>
           </td>
@@ -126,6 +188,12 @@ export class CertificatesViewer {
               >
                 Download PEM
               </pv-button-split>
+            </span>
+          </td>
+          <td class="align-center stroke_grey_3_border">
+            <span class="mobile_title text_grey_5 align-left b3">Test URLs:</span>
+            <span class="content">
+              {this.renderCertificateTests(certificate.tests)}
             </span>
           </td>
         </tr>,
@@ -173,13 +241,16 @@ export class CertificatesViewer {
           <thead class="fill_grey_2">
             <tr>
               <th class="h7 stroke_grey_3_border">
-                Name
+                Subject
               </th>
-              <th colSpan={3} class="h7 stroke_grey_3_border">
+              <th class="h7 stroke_grey_3_border">
                 Fingerprint (SHA-1)
               </th>
               <th class="align-center h7 stroke_grey_3_border">
                 Actions
+              </th>
+              <th class="align-center h7 stroke_grey_3_border">
+                Test URLs
               </th>
             </tr>
           </thead>

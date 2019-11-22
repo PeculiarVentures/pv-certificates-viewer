@@ -28,13 +28,37 @@ export default class Basic {
       name: 'RSASSA-PKCS1-v1_5',
       hash: 'SHA-512',
     },
-    '1.2.840.10045.4.3.2': {
-      name: 'ECDSA',
-      hash: 'SHA-256',
+    '1.2.840.113549.1.1.14': {
+      name: 'RSASSA-PKCS1-v1_5',
+      hash: 'SHA-224',
     },
     '1.2.840.10045.4.1': {
       name: 'ECDSA',
       hash: 'SHA-1',
+    },
+    '1.2.840.10045.4.2': {
+      name: 'ECDSA',
+      hash: 'Recommended',
+    },
+    '1.2.840.10045.4.3': {
+      name: 'ECDSA',
+      hash: 'Specified',
+    },
+    '1.2.840.10045.4.3.1': {
+      name: 'ECDSA',
+      hash: 'SHA-224',
+    },
+    '1.2.840.10045.4.3.2': {
+      name: 'ECDSA',
+      hash: 'SHA-256',
+    },
+    '1.2.840.10045.4.3.3': {
+      name: 'ECDSA',
+      hash: 'SHA-384',
+    },
+    '1.2.840.10045.4.3.4': {
+      name: 'ECDSA',
+      hash: 'SHA-512',
     },
   };
 
@@ -162,7 +186,7 @@ export default class Basic {
       certificateBuffer = Convert.FromBase64(this.input);
     }
 
-    this.schema = asn1js.fromBER(certificateBuffer).result;;
+    this.schema = asn1js.fromBER(certificateBuffer).result;
     this.base64 = Convert.ToBase64(certificateBuffer);
     this.hex = Basic.formatHex(Convert.ToHex(certificateBuffer));
   }

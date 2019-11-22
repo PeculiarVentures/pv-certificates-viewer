@@ -13,11 +13,16 @@ import {
 import {
   Certificate,
 } from './utils/crypto';
+import {
+  ICertificate,
+} from './components/certificates-viewer/certificates-viewer';
 
 export namespace Components {
   interface PvButton {
-    'disabled': boolean;
-    'fill': 'stroke' | 'fill';
+    'disabled'?: boolean;
+    'fill'?: 'stroke' | 'fill';
+    'href'?: string;
+    'target'?: string;
   }
   interface PvButtonSplit {
     'actions': IAction[];
@@ -32,7 +37,7 @@ export namespace Components {
     'certificate': string;
   }
   interface PvCertificatesViewer {
-    'certificates': string[];
+    'certificates': ICertificate[];
   }
   interface PvTextHider {
     'opened': boolean;
@@ -91,6 +96,8 @@ declare namespace LocalJSX {
   interface PvButton {
     'disabled'?: boolean;
     'fill'?: 'stroke' | 'fill';
+    'href'?: string;
+    'target'?: string;
   }
   interface PvButtonSplit {
     'actions'?: IAction[];
@@ -105,7 +112,7 @@ declare namespace LocalJSX {
     'certificate'?: string;
   }
   interface PvCertificatesViewer {
-    'certificates'?: string[];
+    'certificates'?: ICertificate[];
   }
   interface PvTextHider {
     'onTextExpand'?: (event: CustomEvent<any>) => void;

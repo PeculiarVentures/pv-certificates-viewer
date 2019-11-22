@@ -10,10 +10,20 @@ import { Component, h, Prop, Host } from '@stencil/core';
   shadow: true,
 })
 export class Button {
-  @Prop() fill: 'stroke' | 'fill' = 'stroke';
-  @Prop() disabled: boolean;
+  @Prop() fill?: 'stroke' | 'fill' = 'stroke';
+  @Prop() disabled?: boolean;
+  @Prop() href?: string;
+  @Prop() target?: string;
 
   render() {
+    const TagType = this.href === undefined ? 'button' : 'a';
+    const attrs = (TagType === 'button')
+      ? { type: 'button' }
+      : {
+        href: this.href,
+        target: this.target,
+      };
+
     return (
       <Host
         class={{
@@ -27,15 +37,15 @@ export class Button {
           button_disabled: this.disabled,
         }}
       >
-        <button
-          type="button"
+        <TagType
+          {...attrs}
           disabled={this.disabled}
           class={{
             button_native: true,
           }}
         >
           <slot></slot>
-        </button>
+        </TagType>
       </Host>
     );
   }
