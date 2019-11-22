@@ -53,23 +53,23 @@ export class CertificateSummary {
     ]);
   }
 
-  renderCertificateSummary(certificate: Certificate) {
+  renderCertificateSummary() {
     return (
       <div class="basic_info">
         <div class="basic_col">
           <p class="text_grey_5 b3 dn_row">
             Subject DN:
           </p>
-          {this.renderDN(certificate.subject)}
+          {this.renderDN(this.certificate.subject)}
         </div>
         <div class="basic_col stroke_grey_3_border">
           <p class="text_grey_5 b3 dn_row">
             Issuer DN:
           </p>
-          {this.renderDN(certificate.issuer)}
+          {this.renderDN(this.certificate.issuer)}
         </div>
         <div class="basic_meta">
-          {this.renderMetaData(certificate)}
+          {this.renderMetaData(this.certificate)}
         </div>
       </div>
     );
@@ -78,7 +78,7 @@ export class CertificateSummary {
   render() {
     return (
       <Host>
-        {this.renderCertificateSummary(this.certificate)}
+        {this.renderCertificateSummary()}
       </Host>
     );
   }

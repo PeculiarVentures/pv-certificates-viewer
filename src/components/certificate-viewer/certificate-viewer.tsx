@@ -276,7 +276,11 @@ export class CertificateViewer {
         </tr>
 
         {this.renderRowTitle('Basic Information')}
-        <pv-certificate-summary certificate={this.cert} />
+        <tr>
+          <td colSpan={2}>
+            <pv-certificate-summary certificate={this.cert} />
+          </td>
+        </tr>
 
         {this.renderRowTitle('Public Key Info')}
         {this.renderRowValue('Algorithm', this.cert.publicKey.algorithm.name)}
