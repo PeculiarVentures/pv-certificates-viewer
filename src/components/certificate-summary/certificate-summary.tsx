@@ -56,11 +56,11 @@ export class CertificateSummary {
 
   renderCertificateSummary() {
     return (
-      <div>
-        <div class={{
-          basic_col: true,
-          is_only: !this.showIssuer,
-        }}>
+      <div class={{
+        basic_wrapper: true,
+        is_only: !this.showIssuer,
+      }}>
+        <div class="basic_col">
           <p class="text_grey_5 b3 dn_row">
             Subject DN:
           </p>
