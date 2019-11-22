@@ -8,14 +8,13 @@
 }
 
 .basic_col {
-  flex: 1 1 auto;
-  min-width: 220px;
+  flex: 0 0 30%;
   padding-right: 40px;
   position: relative;
 }
 
 .basic_col.is_only {
-  flex-grow: 3;
+  flex-grow: 1;
 }
 
 .basic_col:after {
@@ -31,8 +30,7 @@
 }
 
 .basic_meta {
-  flex: 3 1 auto;
-  min-width: 450px;
+  flex: 0 0 40%;
 }
 /* DN styles */
 .dn_name {
