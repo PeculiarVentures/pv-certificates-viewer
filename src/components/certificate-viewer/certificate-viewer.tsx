@@ -35,7 +35,7 @@ export class CertificateViewer {
     );
   }
 
-  renderRowValue(title: string, value: string | number | any[]) {
+  renderRowValue(title: string, value: string | number | any[], valueMonospace?: boolean) {
     if (
       typeof value !== 'string'
       && typeof value !== 'number'
@@ -49,7 +49,13 @@ export class CertificateViewer {
         <td class="b3 text_grey_5">
           {title}:
         </td>
-        <td class="b3 text_black">
+        <td
+          class={{
+            b3: true,
+            text_black: true,
+            monospace: valueMonospace,
+          }}
+        >
           {Array.isArray(value) ? value : value.toString()}
         </td>
       </tr>
@@ -58,7 +64,7 @@ export class CertificateViewer {
 
   renderRowExtensionValue(extension: TExtension) {
     if (typeof extension.value === 'string') {
-      return this.renderRowValue('Value', extension.value);
+      return this.renderRowValue('Value', extension.value, true);
     }
 
     switch (extension.oid) {
@@ -247,7 +253,7 @@ export class CertificateViewer {
 
       case EnumOIDs.AuthorityKeyIdentifier: {
         return [
-          this.renderRowValue('Key Identifier', extension.value.keyIdentifier),
+          this.renderRowValue('Key Identifier', extension.value.keyIdentifier, true),
           this.renderRowValue('Authority Cert Issuer', extension.value.authorityCertIssuer),
           this.renderRowValue('Authority Cert Serial Number', extension.value.authorityCertSerialNumber),
         ];
@@ -331,7 +337,9 @@ export class CertificateViewer {
         {this.renderRowTitle('PEM')}
         <tr>
           <td colSpan={2}>
-            <div class="pem_block stroke_grey_3_border b3 text_black">
+            <div
+              class="pem_block stroke_grey_3_border b3 text_black monospace"
+            >
               {this.cert.pem}
             </div>
           </td>
@@ -345,12 +353,12 @@ export class CertificateViewer {
         {this.renderRowValue('Modulus Bits', this.cert.publicKey.algorithm.modulusBits)}
         {this.renderRowValue('Public Exponent', this.cert.publicKey.algorithm.publicExponent)}
         {this.renderRowValue('Named Curve', this.cert.publicKey.algorithm.namedCurve)}
-        {this.renderRowValue('Value', this.cert.publicKey.value)}
+        {this.renderRowValue('Value', this.cert.publicKey.value, true)}
 
         {this.renderRowTitle('Signature')}
         {this.renderRowValue('Algorithm', this.cert.signature.algorithm.name)}
         {this.renderRowValue('Hash', this.cert.signature.algorithm.hash)}
-        {this.renderRowValue('Value', this.cert.signature.value)}
+        {this.renderRowValue('Value', this.cert.signature.value, true)}
 
         {this.renderRowTitle('Extensions')}
         {this.cert.extensions.map((extension) => ([
