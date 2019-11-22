@@ -30,6 +30,7 @@ table td {
   vertical-align: top;
   padding-top: 5px;
   padding-bottom: 5px;
+  max-width: 0;
 }
 
 table .title:first-child td {
@@ -76,4 +77,8 @@ table tr:last-child .divider {
   table .title + tr td:first-child {
     padding-top: 15px;
   }
+}
+
+table td:last-child {
+  width: 75%;
 }

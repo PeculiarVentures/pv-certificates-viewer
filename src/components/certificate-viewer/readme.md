@@ -20,12 +20,15 @@
 
 ### Depends on
 
+- [pv-text-hider](../text-hider)
 - [pv-certificate-summary](../certificate-summary)
 
 ### Graph
 ```mermaid
 graph TD;
+  pv-certificate-viewer --> pv-text-hider
   pv-certificate-viewer --> pv-certificate-summary
+  pv-text-hider --> pv-button
   pv-certificates-viewer --> pv-certificate-viewer
   style pv-certificate-viewer fill:#f9f,stroke:#333,stroke-width:4px
 ```

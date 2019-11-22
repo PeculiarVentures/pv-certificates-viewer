@@ -34,6 +34,9 @@ export namespace Components {
   interface PvCertificatesViewer {
     'certificates': string[];
   }
+  interface PvTextHider {
+    'opened': boolean;
+  }
 }
 
 declare global {
@@ -68,12 +71,19 @@ declare global {
     prototype: HTMLPvCertificatesViewerElement;
     new (): HTMLPvCertificatesViewerElement;
   };
+
+  interface HTMLPvTextHiderElement extends Components.PvTextHider, HTMLStencilElement {}
+  var HTMLPvTextHiderElement: {
+    prototype: HTMLPvTextHiderElement;
+    new (): HTMLPvTextHiderElement;
+  };
   interface HTMLElementTagNameMap {
     'pv-button': HTMLPvButtonElement;
     'pv-button-split': HTMLPvButtonSplitElement;
     'pv-certificate-summary': HTMLPvCertificateSummaryElement;
     'pv-certificate-viewer': HTMLPvCertificateViewerElement;
     'pv-certificates-viewer': HTMLPvCertificatesViewerElement;
+    'pv-text-hider': HTMLPvTextHiderElement;
   }
 }
 
@@ -97,6 +107,10 @@ declare namespace LocalJSX {
   interface PvCertificatesViewer {
     'certificates'?: string[];
   }
+  interface PvTextHider {
+    'onTextExpand'?: (event: CustomEvent<any>) => void;
+    'opened'?: boolean;
+  }
 
   interface IntrinsicElements {
     'pv-button': PvButton;
@@ -104,6 +118,7 @@ declare namespace LocalJSX {
     'pv-certificate-summary': PvCertificateSummary;
     'pv-certificate-viewer': PvCertificateViewer;
     'pv-certificates-viewer': PvCertificatesViewer;
+    'pv-text-hider': PvTextHider;
   }
 }
 
@@ -118,6 +133,7 @@ declare module "@stencil/core" {
       'pv-certificate-summary': LocalJSX.PvCertificateSummary & JSXBase.HTMLAttributes<HTMLPvCertificateSummaryElement>;
       'pv-certificate-viewer': LocalJSX.PvCertificateViewer & JSXBase.HTMLAttributes<HTMLPvCertificateViewerElement>;
       'pv-certificates-viewer': LocalJSX.PvCertificatesViewer & JSXBase.HTMLAttributes<HTMLPvCertificatesViewerElement>;
+      'pv-text-hider': LocalJSX.PvTextHider & JSXBase.HTMLAttributes<HTMLPvTextHiderElement>;
     }
   }
 }
