@@ -265,8 +265,8 @@ export class CertificateViewer {
     return (
       <table class="text_black">
         {this.renderRowTitle('Basic Information')}
-        {this.renderRowValue('Subject DN', this.cert.subject.map(obj => `${obj.name}=${obj.value}`).join(','))}
-        {this.renderRowValue('Issuer DN', this.cert.issuer.map(obj => `${obj.name}=${obj.value}`).join(','))}
+        {/* {this.renderRowValue('Subject DN', this.cert.subject.map(obj => `${obj.name}=${obj.value}`).join(','))}
+        {this.renderRowValue('Issuer DN', this.cert.issuer.map(obj => `${obj.name}=${obj.value}`).join(','))} */}
         {this.renderRowValue('Serial Number', this.cert.serialNumber)}
         {this.renderRowValue('Version', this.cert.version)}
         {this.renderRowValue('Issued', dayjs(this.cert.notBefore).format('ddd, MMM D, YYYY h:mm A'))}

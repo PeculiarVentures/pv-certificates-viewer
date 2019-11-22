@@ -78,11 +78,15 @@ export class CertificatesViewer {
   }
 
   renderDN(item: Certificate['subject'] | Certificate['issuer']) {
-    return Object.keys(item).map(subject => {
+    if (!item) {
+      return null;
+    }
+
+    return Object.keys(item).map(keyName => {
       return (
         <p class="dn_row">
-          <span class="dn_name b3">{item[subject].name}</span>
-          <span class="dn_value b3">{item[subject].value}</span>
+          <span class="dn_name b3">{keyName}</span>
+          <span class="dn_value b3">{item[keyName].value}</span>
         </p>
       )
     })

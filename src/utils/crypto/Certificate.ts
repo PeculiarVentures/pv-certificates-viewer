@@ -22,12 +22,7 @@ import SANs from '../../constants/san_types';
 
 import Basic from './Basic';
 
-interface ISubject {
-  name: string;
-  nameLong: string;
-  oid: string;
-  value: string;
-};
+interface ISubject extends Record<string, { nameLong: string; oid: string; value: string; }> {}
 
 export enum EnumOIDs {
   BasicConstraints = '2.5.29.19',
@@ -135,8 +130,8 @@ export default class Certificate extends Basic {
   notBefore?: Date;
   notAfter?: Date;
   validity: number = 0;
-  subject: ISubject[] = [];
-  issuer: ISubject[] = [];
+  subject?: ISubject;
+  issuer?: ISubject;
   publicKey: {
     algorithm: {
       name: string;
@@ -668,11 +663,13 @@ export default class Certificate extends Basic {
   }
 
   get commonName() {
-    for (let i = 0; i <= this.subject.length; i += 1) {
-      const subject = this.subject[i];
+    if (this.subject) {
+      if (this.subject.CN) {
+        return this.subject.CN.value;
+      }
 
-      if (subject.name === 'CN') {
-        return subject.value;
+      if (this.subject.E) {
+        return this.subject.E.value;
       }
     }
 
