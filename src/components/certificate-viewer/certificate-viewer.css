@@ -50,6 +50,7 @@ table td:last-child {
 /* Basic information */
 .basic_info {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .basic_col {
@@ -131,4 +132,41 @@ tr:last-child .divider {
 .divider span {
   display: block;
   height: 1px;
+}
+
+/* Adaptivity */
+@media (max-width: 767px) {
+  .basic_col {
+    padding: 20px 0;
+    flex-basis: 100%;
+  }
+
+  .basic_col::after {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    width: 100%;
+  }
+
+  .basic_meta {
+    flex-basis: 100%;
+    padding: 20px 0;
+  }
+
+  tr, td {
+    display: block;
+  }
+
+  table td:first-child,
+  table td:last-child {
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  tr.title + tr td {
+    padding-top: 10px;
+  }
 }
