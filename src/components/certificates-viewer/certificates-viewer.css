@@ -111,7 +111,7 @@ table tr.expanded_summary td {
   overflow: auto;
   padding: 20px;
   text-align: center;
-  background: rgba(42, 49, 52, 0.8);
+  background: rgba(42, 49, 52, 0.9);
   animation: fadeIn 300ms;
 }
 
@@ -136,7 +136,7 @@ table tr.expanded_summary td {
   display: inline-block;
   vertical-align: middle;
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
   text-align: left;
   border-radius: 3px;
   overflow: hidden;
@@ -145,8 +145,7 @@ table tr.expanded_summary td {
 .modal_title {
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  line-height: 60px;
-  padding: 17px 20px;
+  padding: 17px 60px 17px 20px;
   position: relative;
   overflow: hidden;
   text-overflow: ellipsis;
