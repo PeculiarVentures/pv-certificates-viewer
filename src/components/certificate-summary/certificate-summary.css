@@ -92,5 +92,6 @@
   .basic_meta {
     flex-basis: 100%;
     padding: 20px 0;
+    min-width: auto;
   }
 }
