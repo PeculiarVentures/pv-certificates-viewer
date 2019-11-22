@@ -37,8 +37,6 @@ table th:nth-child(2) {
   width: 58%;
 }
 
-/* Mockup particular parts styles */
-
 /* Expande rows styles */
 /* First row */
 table tr.expanded td:not(:last-child) {
@@ -53,43 +51,6 @@ table tr.expanded td {
 table tr.expanded_summary td {
   vertical-align: top;
   padding: 10px 20px 26px;
-}
-
-/* Columns styles */
-/* DN styles */
-.dn_name {
-  display: inline-block;
-  width: 40px;
-  vertical-align: top;
-  padding-right: 5px;
-}
-
-.dn_value {
-  display: inline-block;
-  vertical-align: top;
-  width: calc(100% - 40px);
-}
-
-.dn_row:not(:last-child) {
-  margin-bottom: 10px;
-}
-
-/* Meta styles */
-.meta_row:not(:last-child) {
-  margin-bottom: 10px;
-}
-
-.meta_name {
-  display: inline-block;
-  width: 120px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-.meta_value {
-  display: inline-block;
-  vertical-align: top;
-  width: calc(100% - 120px);
 }
 
 @keyframes fadeIn {

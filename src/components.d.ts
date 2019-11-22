@@ -10,6 +10,9 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
   IAction,
 } from './components/button-split/button-split';
+import {
+  Certificate,
+} from './utils/crypto';
 
 export namespace Components {
   interface PvButton {
@@ -20,6 +23,9 @@ export namespace Components {
     'actions': IAction[];
     'fill': 'stroke' | 'fill';
     'onClick': (event: MouseEvent) => void;
+  }
+  interface PvCertificateSummary {
+    'certificate': Certificate;
   }
   interface PvCertificateViewer {
     'certificate': string;
@@ -44,6 +50,12 @@ declare global {
     new (): HTMLPvButtonSplitElement;
   };
 
+  interface HTMLPvCertificateSummaryElement extends Components.PvCertificateSummary, HTMLStencilElement {}
+  var HTMLPvCertificateSummaryElement: {
+    prototype: HTMLPvCertificateSummaryElement;
+    new (): HTMLPvCertificateSummaryElement;
+  };
+
   interface HTMLPvCertificateViewerElement extends Components.PvCertificateViewer, HTMLStencilElement {}
   var HTMLPvCertificateViewerElement: {
     prototype: HTMLPvCertificateViewerElement;
@@ -58,6 +70,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'pv-button': HTMLPvButtonElement;
     'pv-button-split': HTMLPvButtonSplitElement;
+    'pv-certificate-summary': HTMLPvCertificateSummaryElement;
     'pv-certificate-viewer': HTMLPvCertificateViewerElement;
     'pv-certificates-viewer': HTMLPvCertificatesViewerElement;
   }
@@ -73,6 +86,9 @@ declare namespace LocalJSX {
     'fill'?: 'stroke' | 'fill';
     'onClick'?: (event: MouseEvent) => void;
   }
+  interface PvCertificateSummary {
+    'certificate'?: Certificate;
+  }
   interface PvCertificateViewer {
     'certificate'?: string;
   }
@@ -83,6 +99,7 @@ declare namespace LocalJSX {
   interface IntrinsicElements {
     'pv-button': PvButton;
     'pv-button-split': PvButtonSplit;
+    'pv-certificate-summary': PvCertificateSummary;
     'pv-certificate-viewer': PvCertificateViewer;
     'pv-certificates-viewer': PvCertificatesViewer;
   }
@@ -96,6 +113,7 @@ declare module "@stencil/core" {
     interface IntrinsicElements {
       'pv-button': LocalJSX.PvButton & JSXBase.HTMLAttributes<HTMLPvButtonElement>;
       'pv-button-split': LocalJSX.PvButtonSplit & JSXBase.HTMLAttributes<HTMLPvButtonSplitElement>;
+      'pv-certificate-summary': LocalJSX.PvCertificateSummary & JSXBase.HTMLAttributes<HTMLPvCertificateSummaryElement>;
       'pv-certificate-viewer': LocalJSX.PvCertificateViewer & JSXBase.HTMLAttributes<HTMLPvCertificateViewerElement>;
       'pv-certificates-viewer': LocalJSX.PvCertificatesViewer & JSXBase.HTMLAttributes<HTMLPvCertificatesViewerElement>;
     }

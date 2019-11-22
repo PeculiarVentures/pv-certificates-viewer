@@ -1,6 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
 import { Certificate, TExtension, EnumOIDs } from '../../utils/crypto';
-import dayjs from 'dayjs';
 
 @Component({
   tag: 'pv-certificate-viewer',
@@ -260,70 +259,6 @@ export class CertificateViewer {
     return this.renderRowValue('Value', extension.value);
   }
 
-
-
-  renderDN(item: Certificate['subject'] | Certificate['issuer']) {
-    return Object.keys(item).map(subject => {
-      return (
-        <p class="dn_row">
-          <span class="dn_name b3 text_black">{subject}</span>
-          <span class="dn_value b3 text_black">{item[subject].value}</span>
-        </p>
-      )
-    })
-  }
-
-  renderMetaData(item: Certificate) {
-    return ([
-      <p class="meta_row">
-        <span class="meta_name text_grey_5 b3">Serial number:</span>
-        <span class="meta_value b3 text_black">{item.serialNumber}</span>
-      </p>,
-      <p class="meta_row">
-        <span class="meta_name text_grey_5 b3">Version:</span>
-        <span class="meta_value b3 text_black">{item.version}</span>
-      </p>,
-      <p class="meta_row">
-        <span class="meta_name text_grey_5 b3">Validity:</span>
-        <span class="meta_value b3 text_black">{item.validity} days</span>
-      </p>,
-      <p class="meta_row">
-        <span class="meta_name text_grey_5 b3">Issued:</span>
-        <span class="meta_value b3 text_black">{dayjs(item.notBefore).format('ddd, MMM D, YYYY h:mm A')}</span>
-      </p>,
-      <p class="meta_row">
-        <span class="meta_name text_grey_5 b3">Expired:</span>
-        <span class="meta_value b3 text_black">{dayjs(item.notAfter).format('ddd, MMM D, YYYY h:mm A')}</span>
-      </p>,
-    ]);
-  }
-
-  renderBasicInformation(certificate: Certificate) {
-    return (
-      <tr>
-        <td colSpan={2}>
-          <div class="basic_info">
-            <div class="basic_col">
-              <p class="text_grey_5 b3 dn_row">
-                Subject DN:
-              </p>
-              {this.renderDN(certificate.subject)}
-            </div>
-            <div class="basic_col stroke_grey_3_border">
-              <p class="text_grey_5 b3 dn_row">
-                Issuer DN:
-              </p>
-              {this.renderDN(certificate.issuer)}
-            </div>
-            <div class="basic_meta">
-              {this.renderMetaData(certificate)}
-            </div>
-          </div>
-        </td>
-      </tr>
-    );
-  }
-
   render() {
     if (!this.cert) {
       return null;
@@ -341,7 +276,7 @@ export class CertificateViewer {
         </tr>
 
         {this.renderRowTitle('Basic Information')}
-        {this.renderBasicInformation(this.cert)}
+        <pv-certificate-summary certificate={this.cert} />
 
         {this.renderRowTitle('Public Key Info')}
         {this.renderRowValue('Algorithm', this.cert.publicKey.algorithm.name)}
