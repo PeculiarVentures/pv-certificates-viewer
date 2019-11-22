@@ -121,8 +121,8 @@ table td:last-child {
 
 /* Extentions */
 .divider {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 tr:last-child .divider {
