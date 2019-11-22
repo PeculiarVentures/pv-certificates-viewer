@@ -18,9 +18,14 @@
 
  - [pv-certificates-viewer](../certificates-viewer)
 
+### Depends on
+
+- [pv-certificate-summary](../certificate-summary)
+
 ### Graph
 ```mermaid
 graph TD;
+  pv-certificate-viewer --> pv-certificate-summary
   pv-certificates-viewer --> pv-certificate-viewer
   style pv-certificate-viewer fill:#f9f,stroke:#333,stroke-width:4px
 ```
