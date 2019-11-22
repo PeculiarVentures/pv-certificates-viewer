@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
   styleUrls: [
     '../../styles/reset.css',
     '../../styles/theme.css',
+    '../../styles/system.css',
     'certificates-viewer.css',
   ],
   shadow: true,
@@ -77,11 +78,15 @@ export class CertificatesViewer {
   }
 
   renderDN(item: Certificate['subject'] | Certificate['issuer']) {
-    return Object.keys(item).map(subject => {
+    if (!item) {
+      return null;
+    }
+
+    return Object.keys(item).map(keyName => {
       return (
         <p class="dn_row">
-          <span class="dn_name b3">{item[subject].name}</span>
-          <span class="dn_value b3">{item[subject].value}</span>
+          <span class="dn_name b3">{keyName}</span>
+          <span class="dn_value b3">{item[keyName].value}</span>
         </p>
       )
     })
@@ -150,28 +155,33 @@ export class CertificatesViewer {
           key={certificate.serialNumber}
         >
           <td class="b3 stroke_grey_3_border">
-            {certificate.commonName}
+            <span class="mobile_title text_grey_5 align-left b3">Subject:</span>
+            <span class="content">{certificate.commonName}</span>
           </td>
           <td colSpan={3} class="b3 stroke_grey_3_border">
-            {certificate.fingerprint}
+            <span class="mobile_title text_grey_5 align-left b3">Hash (SHA-256):</span>
+            <span class="content">{certificate.fingerprint}</span>
           </td>
           <td class="align-center stroke_grey_3_border">
-            <pv-button
-              onClick={this.onClickDetails.bind(this, certificate.base64)}
-              class="button_table_action"
-            >
-              Details
-            </pv-button>
-            <pv-button-split
-              onClick={this.onClickDownload.bind(this, certificate, 'PEM')}
-              actions={[{
-                text: 'Download DER',
-                onClick: this.onClickDownload.bind(this, certificate, 'DER'),
-              }]}
-              class="button_table_action"
-            >
-              Download PEM
-            </pv-button-split>
+            <span class="mobile_title text_grey_5 align-left b3">Action:</span>
+            <span class="content">
+              <pv-button
+                onClick={this.onClickDetails.bind(this, certificate.base64)}
+                class="button_table_action"
+              >
+                Details
+              </pv-button>
+              <pv-button-split
+                onClick={this.onClickDownload.bind(this, certificate, 'PEM')}
+                actions={[{
+                  text: 'Download DER',
+                  onClick: this.onClickDownload.bind(this, certificate, 'DER'),
+                }]}
+                class="button_table_action"
+              >
+                Download PEM
+              </pv-button-split>
+            </span>
           </td>
         </tr>,
         isExpandedRow && this.renderExpandedRow(certificate),

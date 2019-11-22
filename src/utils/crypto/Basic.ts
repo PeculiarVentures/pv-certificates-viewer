@@ -180,19 +180,23 @@ export default class Basic {
 
   static prepareSubject(subjects: _AttributeTypeAndValue[]) {
     if (!subjects) {
-      return [];
+      return undefined;
     }
 
-    return subjects.map((subject) => {
-      const oid = Basic.subjectOIDs[subject.type.toString()];
+    const data = {};
 
-      return {
-        name: oid && oid.short ? oid.short : '',
-        nameLong: oid ? oid.long : '',
+    subjects.forEach((subject) => {
+      const type = Basic.subjectOIDs[subject.type.toString()];
+      const name = type && type.short ? type.short : subject.type.toString();
+
+      data[name] = {
+        nameLong: type ? type.long : '',
         oid: subject.type.toString(),
         value: subject.value.valueBlock.value.toString(),
       };
     });
+
+    return data;
   }
 
   static prepareAlgorithm(algorithm: _AlgorithmIdentifier) {

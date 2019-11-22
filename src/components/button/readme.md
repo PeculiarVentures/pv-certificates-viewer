@@ -13,6 +13,14 @@
 | `fill`     | `fill`     |             | `"fill" \| "stroke"` | `'stroke'`  |
 
 
+## CSS Custom Properties
+
+| Name                        | Description                 |
+| --------------------------- | --------------------------- |
+| `--pv-button-padding-end`   | Right padding of the button |
+| `--pv-button-padding-start` | Left padding of the button  |
+
+
 ## Dependencies
 
 ### Used by
