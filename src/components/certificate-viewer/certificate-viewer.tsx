@@ -34,7 +34,7 @@ export class CertificateViewer {
     );
   }
 
-  renderRowValue(title: string, value: string | number | any[], valueMonospace?: boolean) {
+  renderRowValue(title: string, value: string | number | any[], valueMonospace?: boolean, collapseValue?: boolean) {
     if (
       typeof value !== 'string'
       && typeof value !== 'number'
@@ -55,7 +55,11 @@ export class CertificateViewer {
             monospace: valueMonospace,
           }}
         >
-          {Array.isArray(value) ? value : value.toString()}
+          {collapseValue ? (
+            <pv-text-hider
+              text={value.toString()}
+            />
+          ) : Array.isArray(value) ? value : value.toString()}
         </td>
       </tr>
     );
@@ -301,7 +305,7 @@ export class CertificateViewer {
         {this.renderRowValue('Modulus Bits', this.cert.publicKey.algorithm.modulusBits)}
         {this.renderRowValue('Public Exponent', this.cert.publicKey.algorithm.publicExponent)}
         {this.renderRowValue('Named Curve', this.cert.publicKey.algorithm.namedCurve)}
-        {this.renderRowValue('Value', this.cert.publicKey.value, true)}
+        {this.renderRowValue('Value', this.cert.publicKey.value, true, true)}
 
         {this.renderRowTitle('Signature')}
         {this.renderRowValue('Algorithm', this.cert.signature.algorithm.name)}

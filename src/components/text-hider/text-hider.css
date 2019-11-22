@@ -16,9 +16,12 @@
 }
 
 .action {
+  vertical-align: top;
   display: inline-block;
   width: 70px;
   text-align: right;
+  position: relative;
+  top: -6px;
 }
 
 .expand_button {

@@ -28,7 +28,7 @@ export class TextHider {
             text: true,
             opened: this.opened,
           }}>
-            {this.text}
+            {this.text.toString()}
           </p>
           <div class="action">
             <button class={{
