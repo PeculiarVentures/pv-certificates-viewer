@@ -110,7 +110,11 @@ export class CertificateViewer {
               if (valuePoint.type === 6) {
                 return (
                   <p class="b3">
-                    <a class="text_secondary" href={valuePoint.value}>
+                    <a
+                      class="text_secondary"
+                      href={valuePoint.value}
+                      target="_blank"
+                    >
                       {valuePoint.value}
                     </a>
                   </p>
@@ -136,7 +140,7 @@ export class CertificateViewer {
             if (accessLocation.type === 6) {
               return (
                 <p class="b3 text_black">
-                  {value.accessMethod}: <a class="text_secondary" href={accessLocation.value}>{accessLocation.value}</a>
+                  {value.accessMethod}: <a class="text_secondary" href={accessLocation.value} target="_blank">{accessLocation.value}</a>
                 </p>
               );
             }
@@ -158,7 +162,11 @@ export class CertificateViewer {
               if (value.type === 2) {
                 return (
                   <p class="b3">
-                    <a class="text_secondary" href={`https://censys.io/ipv4?q=${value.value}`}>
+                    <a
+                      class="text_secondary"
+                      href={`https://censys.io/ipv4?q=${value.value}`}
+                      target="_blank"
+                    >
                       {value.value}
                     </a>
                   </p>
@@ -168,7 +176,11 @@ export class CertificateViewer {
               if (value.type === 7) {
                 return (
                   <p class="b3">
-                    <a class="text_secondary" href={`https://censys.io/ipv4?q=${value.value}`}>
+                    <a
+                      class="text_secondary"
+                      href={`https://censys.io/ipv4?q=${value.value}`}
+                      target="_blank"
+                    >
                       {value.value}
                     </a>
                   </p>
@@ -201,7 +213,11 @@ export class CertificateViewer {
               if (value.type === 2) {
                 return (
                   <p class="b3">
-                    <a class="text_secondary" href={`https://censys.io/ipv4?q=${value.value}`}>
+                    <a
+                      class="text_secondary"
+                      href={`https://censys.io/ipv4?q=${value.value}`}
+                      target="_blank"
+                    >
                       {value.value}
                     </a>
                   </p>
@@ -211,7 +227,11 @@ export class CertificateViewer {
               if (value.type === 7) {
                 return (
                   <p class="b3">
-                    <a class="text_secondary" href={`https://censys.io/ipv4?q=${value.value}`}>
+                    <a
+                      class="text_secondary"
+                      href={`https://censys.io/ipv4?q=${value.value}`}
+                      target="_blank"
+                    >
                       {value.value}
                     </a>
                   </p>
