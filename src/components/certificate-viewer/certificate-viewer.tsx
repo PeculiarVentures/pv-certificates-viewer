@@ -5,7 +5,6 @@ import { Certificate, TExtension, EnumOIDs } from '../../utils/crypto';
   tag: 'pv-certificate-viewer',
   styleUrls: [
     '../../styles/reset.css',
-    '../../styles/theme.css',
     '../../styles/system.css',
     'certificate-viewer.css',
   ],
@@ -18,7 +17,7 @@ export class CertificateViewer {
 
   componentWillLoad() {
     try {
-      this.cert = new Certificate(this.certificate, true);
+      this.cert = new Certificate(this.certificate, undefined, true);
     } catch (error) {
       console.error(error);
     }

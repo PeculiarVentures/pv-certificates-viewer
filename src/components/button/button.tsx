@@ -3,7 +3,6 @@ import { Component, h, Prop, Host } from '@stencil/core';
 @Component({
   tag: 'pv-button',
   styleUrls: [
-    '../../styles/theme.css',
     '../../styles/system.css',
     'button.css',
   ],

@@ -155,8 +155,8 @@ export default class Certificate extends Basic {
   version: number = 0;
   isRoot: boolean = false;
 
-  constructor(value: string, fullDecode: boolean = false) {
-    super(value);
+  constructor(value: string, name?: string, fullDecode: boolean = false) {
+    super(value, name);
 
     this.decode(fullDecode);
   }
@@ -663,6 +663,10 @@ export default class Certificate extends Basic {
   }
 
   get commonName() {
+    if (this.name) {
+      return this.name;
+    }
+
     if (this.subject) {
       if (this.subject.CN) {
         return this.subject.CN.value;

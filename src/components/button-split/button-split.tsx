@@ -8,7 +8,6 @@ export interface IAction {
 @Component({
   tag: 'pv-button-split',
   styleUrls: [
-    '../../styles/theme.css',
     '../../styles/system.css',
     'button-split.css',
   ],

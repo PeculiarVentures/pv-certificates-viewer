@@ -7,7 +7,6 @@ import * as dateFormatter from '../../utils/date_formatter';
   tag: 'pv-certificate-summary',
   styleUrls: [
     '../../styles/reset.css',
-    '../../styles/theme.css',
     '../../styles/system.css',
     'certificate-summary.css',
   ],
@@ -32,24 +31,40 @@ export class CertificateSummary {
   renderMetaData(item: Certificate) {
     return ([
       <p class="meta_row">
+        <span class="meta_name text_grey_5 b3">Public key:</span>
+        <span class="meta_value b3 text_black">
+          {item.publicKey.algorithm.name} {item.publicKey.algorithm.modulusBits || item.publicKey.algorithm.namedCurve}
+        </span>
+      </p>,
+      <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Serial number:</span>
-        <span class="meta_value b3 text_black monospace">{item.serialNumber}</span>
+        <span class="meta_value b3 text_black monospace">
+          {item.serialNumber}
+        </span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Version:</span>
-        <span class="meta_value b3 text_black">{item.version}</span>
+        <span class="meta_value b3 text_black">
+          {item.version}
+        </span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Validity:</span>
-        <span class="meta_value b3 text_black">{item.validity}</span>
+        <span class="meta_value b3 text_black">
+          {item.validity}
+        </span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Issued:</span>
-        <span class="meta_value b3 text_black">{dateFormatter.short(item.notBefore)}</span>
+        <span class="meta_value b3 text_black">
+          {dateFormatter.short(item.notBefore)}
+        </span>
       </p>,
       <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Expired:</span>
-        <span class="meta_value b3 text_black">{dateFormatter.short(item.notAfter)}</span>
+        <span class="meta_value b3 text_black">
+          {dateFormatter.short(item.notAfter)}
+        </span>
       </p>,
     ]);
   }

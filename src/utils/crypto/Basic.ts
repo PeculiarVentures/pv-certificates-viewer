@@ -5,11 +5,12 @@ import _AlgorithmIdentifier from 'pkijs/src/AlgorithmIdentifier';
 
 export default class Basic {
   input: string;
+  name?: string;
   base64: string;
   pem: string;
   hex: string;
   schema: asn1js.LocalBaseBlock;
-  fingerprint: string;
+  fingerprint?: string;
 
   static algorithmOIDs: Record<string, { name: string; hash: string }> = {
     '1.2.840.113549.1.1.5': {
@@ -171,8 +172,9 @@ export default class Basic {
     return value.replace(/(.{32})/g, '$1\n').replace(/(.{4})/g, '$1 ').trim();
   }
 
-  constructor(value: string) {
+  constructor(value: string, name?: string) {
     this.input = value;
+    this.name = name;
 
     this.init();
   }

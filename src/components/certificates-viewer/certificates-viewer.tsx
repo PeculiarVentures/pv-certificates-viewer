@@ -3,6 +3,7 @@ import { Certificate } from '../../utils/crypto';
 
 export interface ICertificate {
   value: string;
+  name?: string;
   tests?: {
     valid?: string;
     revoked?: string;
@@ -18,7 +19,6 @@ interface ICertificateDecoded extends Certificate {
   tag: 'pv-certificates-viewer',
   styleUrls: [
     '../../styles/reset.css',
-    '../../styles/theme.css',
     '../../styles/system.css',
     'certificates-viewer.css',
   ],
@@ -48,7 +48,7 @@ export class CertificatesViewer {
     const data: ICertificateDecoded[] = [];
 
     for (let certificate of this.certificates) {
-      const cert = new Certificate(certificate.value);
+      const cert = new Certificate(certificate.value, certificate.name);
       await cert.getFingerprint();
 
       try {
@@ -162,15 +162,25 @@ export class CertificatesViewer {
           key={certificate.serialNumber}
         >
           <td class="b3 stroke_grey_3_border">
-            <span class="mobile_title text_grey_5 align-left b3">Name:</span>
-            <span class="content">{certificate.commonName}</span>
+            <span class="mobile_title text_grey_5 align-left b3">
+              Name:
+            </span>
+            <span class="content">
+              {certificate.commonName}
+            </span>
           </td>
           <td class="b3 stroke_grey_3_border">
-            <span class="mobile_title text_grey_5 align-left b3">Hash (SHA-256):</span>
-            <span class="content monospace">{certificate.fingerprint}</span>
+            <span class="mobile_title text_grey_5 align-left b3">
+              Fingerprint (SHA-1):
+            </span>
+            <span class="content monospace">
+              {certificate.fingerprint}
+            </span>
           </td>
           <td class="align-center stroke_grey_3_border">
-            <span class="mobile_title text_grey_5 align-left b3">Action:</span>
+            <span class="mobile_title text_grey_5 align-left b3">
+              Actions:
+            </span>
             <span class="content">
               <pv-button
                 onClick={this.onClickDetails.bind(this, certificate.base64)}
@@ -191,7 +201,9 @@ export class CertificatesViewer {
             </span>
           </td>
           <td class="align-center stroke_grey_3_border">
-            <span class="mobile_title text_grey_5 align-left b3">Test URLs:</span>
+            <span class="mobile_title text_grey_5 align-left b3">
+              Test URLs:
+            </span>
             <span class="content">
               {this.renderCertificateTests(certificate.tests)}
             </span>
