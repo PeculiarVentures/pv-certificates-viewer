@@ -6967,8 +6967,9 @@ function isEqual(bytes1, bytes2) {
 }
 
 class Basic {
-    constructor(value) {
+    constructor(value, name) {
         this.input = value;
+        this.name = name;
         this.init();
     }
     static base64Clear(base64) {
@@ -27728,8 +27729,8 @@ var EnumOIDs;
     EnumOIDs["ANY"] = "";
 })(EnumOIDs || (EnumOIDs = {}));
 class Certificate$1 extends Basic {
-    constructor(value, fullDecode = false) {
-        super(value);
+    constructor(value, name, fullDecode = false) {
+        super(value, name);
         this.validity = '';
         this.extensions = [];
         this.version = 0;
@@ -28159,6 +28160,9 @@ class Certificate$1 extends Basic {
         }
     }
     get commonName() {
+        if (this.name) {
+            return this.name;
+        }
         if (this.subject) {
             if (this.subject.CN) {
                 return this.subject.CN.value;
