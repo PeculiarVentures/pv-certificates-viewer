@@ -32,8 +32,11 @@ table td {
   border-style: solid;
 }
 
-table th:nth-child(1) {
+table th:nth-child(1),
+table th:nth-child(3),
+table th:nth-child(4) {
   width: 20%;
+  min-width: 210px;
 }
 
 table th:nth-child(2) {

@@ -227,17 +227,17 @@ export class CertificatesViewer {
         <table class="text_black">
           <thead class="fill_grey_2">
             <tr>
-              <th class="h7 stroke_grey_3_border">
+              <th colSpan={1} class="h7 stroke_grey_3_border">
                 Name
               </th>
               <th colSpan={3} class="h7 stroke_grey_3_border">
                 Fingerprint (SHA-1)
               </th>
-              <th class="align-center h7 stroke_grey_3_border">
+              <th colSpan={1} class="align-center h7 stroke_grey_3_border">
                 Actions
               </th>
               {this.isTests && (
-                <th class="align-center h7 stroke_grey_3_border">
+                <th colSpan={1} class="align-center h7 stroke_grey_3_border">
                   Tests
                 </th>
               )}
