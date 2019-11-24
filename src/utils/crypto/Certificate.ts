@@ -154,6 +154,11 @@ export default class Certificate extends Basic {
   extensions: TExtension[] = [];
   version: number = 0;
   isRoot: boolean = false;
+  tests?: {
+    g?: string;
+    r?: string;
+    e?: string;
+  }
 
   constructor(value: string, fullDecode: boolean = false) {
     super(value);

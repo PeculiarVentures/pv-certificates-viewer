@@ -1,6 +1,15 @@
 import { Component, h, Prop, State, Watch, Host } from '@stencil/core';
 import { Certificate } from '../../utils/crypto';
 
+export interface ICertificateList {
+  value: string;
+  tests?: {
+    g?: string;
+    r?: string;
+    e?: string;
+  };
+};
+
 @Component({
   tag: 'pv-certificates-viewer',
   styleUrls: [
@@ -12,14 +21,19 @@ import { Certificate } from '../../utils/crypto';
   shadow: true,
 })
 export class CertificatesViewer {
-  @Prop() certificates: string[] = [];
+  @Prop() certificates: ICertificateList[] = [];
 
   @State() certificatesDecoded: Certificate[] = [];
   @State() expandedRow: Certificate['serialNumber'] | null;
   @State() certificateSelectedForDetails: string | null;
+  
+  isTests: boolean;
 
   componentWillLoad() {
     this.certificatesDecodeAndSet();
+
+    this.isTests = !!this.certificates.filter(item =>
+      item.tests && (item.tests.g || item.tests.r || item.tests.e)).length;
   }
 
   @Watch('certificates')
@@ -35,8 +49,10 @@ export class CertificatesViewer {
     const data = [];
 
     for (let value of this.certificates) {
-      const certificate = new Certificate(value);
+      const certificate = new Certificate(value.value);
+
       await certificate.getFingerprint();
+      value.tests && (certificate.tests = value.tests);
 
       try {
         data.push(certificate)
@@ -89,6 +105,39 @@ export class CertificatesViewer {
     );
   }
 
+  renderTestLinks(certificate: Certificate) {
+    const buttonList = [];
+
+    switch (false) {
+      case !!certificate.tests:
+        return null;
+
+      case !certificate.tests.g:
+        buttonList.push(
+          <a href={certificate.tests.g} target="_blank">
+            g
+          </a>
+        );
+
+      case !certificate.tests.e:
+        buttonList.push(
+          <a href={certificate.tests.e} target="_blank">
+            e
+          </a>
+        );
+
+      case !certificate.tests.r:
+        buttonList.push(
+          <a href={certificate.tests.r} target="_blank">
+            r
+          </a>
+        );
+
+    }
+
+    return buttonList;
+  }
+
   renderCertificates() {
     return this.certificatesDecoded.map(certificate => {
       const isExpandedRow = certificate.serialNumber === this.expandedRow;
@@ -128,6 +177,11 @@ export class CertificatesViewer {
               </pv-button-split>
             </span>
           </td>
+          {this.isTests && (
+            <td class="align-center stroke_grey_3_border">
+              {this.renderTestLinks(certificate)}
+            </td>
+          )}
         </tr>,
         isExpandedRow && this.renderExpandedRow(certificate),
     ])})
@@ -167,6 +221,7 @@ export class CertificatesViewer {
   }
 
   render() {
+
     return (
       <Host>
         <table class="text_black">
@@ -181,6 +236,11 @@ export class CertificatesViewer {
               <th class="align-center h7 stroke_grey_3_border">
                 Actions
               </th>
+              {this.isTests && (
+                <th class="align-center h7 stroke_grey_3_border">
+                  Tests
+                </th>
+              )}
             </tr>
           </thead>
           <tbody>

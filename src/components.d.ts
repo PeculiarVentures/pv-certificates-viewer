@@ -13,6 +13,9 @@ import {
 import {
   Certificate,
 } from './utils/crypto';
+import {
+  ICertificateList,
+} from './components/certificates-viewer/certificates-viewer';
 
 export namespace Components {
   interface PvButton {
@@ -32,7 +35,7 @@ export namespace Components {
     'certificate': string;
   }
   interface PvCertificatesViewer {
-    'certificates': string[];
+    'certificates': ICertificateList[];
   }
 }
 
@@ -95,7 +98,7 @@ declare namespace LocalJSX {
     'certificate'?: string;
   }
   interface PvCertificatesViewer {
-    'certificates'?: string[];
+    'certificates'?: ICertificateList[];
   }
 
   interface IntrinsicElements {
