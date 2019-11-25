@@ -31,6 +31,8 @@ export class CertificatesViewer {
   @State() expandedRow: Certificate['serialNumber'] | null;
   @State() certificateSelectedForDetails: string | null;
 
+  private isHasTests: boolean = false;
+
   componentWillLoad() {
     this.certificatesDecodeAndSet();
   }
@@ -41,6 +43,8 @@ export class CertificatesViewer {
   }
 
   async certificatesDecodeAndSet() {
+    this.isHasTests = false;
+
     if (!Array.isArray(this.certificates)) {
       return [];
     }
@@ -56,6 +60,15 @@ export class CertificatesViewer {
           cert,
           { tests: certificate.tests },
         ));
+
+        if (!this.isHasTests) {
+          if (
+            certificate.tests &&
+            (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid)
+          ) {
+            this.isHasTests = true;
+          }
+        }
       } catch(error) {
         console.error(error);
       }
@@ -95,7 +108,7 @@ export class CertificatesViewer {
   renderExpandedRow(certificate: Certificate) {
     return (
       <tr class="expanded_summary fill_grey_1_opacity">
-        <td colSpan={5} class="stroke_grey_3_border">
+        <td colSpan={this.isHasTests ? 5 : 4} class="stroke_grey_3_border">
           <pv-certificate-summary
             certificate={certificate}
             showIssuer={!certificate.isRoot}
@@ -208,14 +221,16 @@ export class CertificatesViewer {
               </pv-button-split>
             </span>
           </td>
-          <td class="align-center stroke_grey_3_border">
-            <span class="mobile_title text_grey_5 align-left b3">
-              Test URLs:
-            </span>
-            <span class="content">
-              {this.renderCertificateTests(certificate.tests)}
-            </span>
-          </td>
+          {this.isHasTests && (
+            <td class="align-center stroke_grey_3_border">
+              <span class="mobile_title text_grey_5 align-left b3">
+                Test URLs:
+              </span>
+              <span class="content">
+                {this.renderCertificateTests(certificate.tests)}
+              </span>
+            </td>
+          )}
         </tr>,
         isExpandedRow && this.renderExpandedRow(certificate),
     ])})
@@ -272,9 +287,11 @@ export class CertificatesViewer {
               <th class="align-center h7 stroke_grey_3_border">
                 Actions
               </th>
-              <th class="align-center h7 stroke_grey_3_border">
-                Test URLs
-              </th>
+              {this.isHasTests && (
+                <th class="align-center h7 stroke_grey_3_border">
+                  Test URLs
+                </th>
+              )}
             </tr>
           </thead>
           <tbody>
