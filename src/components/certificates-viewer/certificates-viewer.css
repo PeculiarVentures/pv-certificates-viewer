@@ -45,10 +45,18 @@ table th:nth-child(1) {
 }
 
 table th:nth-child(2) {
-  width: 45%;
+  width: 12.5%;
 }
 
 table th:nth-child(3) {
+  width: 45%;
+}
+
+table th:nth-child(4) {
+  width: 19%;
+}
+
+table th:nth-child(5) {
   width: 19%;
 }
 
