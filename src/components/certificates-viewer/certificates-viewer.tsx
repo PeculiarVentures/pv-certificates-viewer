@@ -35,6 +35,7 @@ export class CertificatesViewer {
   @State() certificateSelectedForDetails: string | null;
 
   private isHasTests: boolean = false;
+  private isHasRoots: boolean = false;
 
   componentWillLoad() {
     this.certificatesDecodeAndSet();
@@ -47,6 +48,7 @@ export class CertificatesViewer {
 
   async certificatesDecodeAndSet() {
     this.isHasTests = false;
+    this.isHasRoots = false;
 
     if (!Array.isArray(this.certificates)) {
       return [];
@@ -63,6 +65,10 @@ export class CertificatesViewer {
           cert,
           { tests: certificate.tests },
         ));
+
+        if (!this.isHasRoots && cert.isRoot) {
+          this.isHasRoots = true;
+        }
 
         if (!this.isHasTests) {
           if (
@@ -109,9 +115,19 @@ export class CertificatesViewer {
   }
 
   renderExpandedRow(certificate: Certificate) {
+    let colSpan = 4;
+
+    if (this.isHasTests) {
+      colSpan += 1;
+    }
+
+    if (!this.isHasRoots) {
+      colSpan += 1;
+    }
+
     return (
       <tr class="expanded_summary fill_grey_1_opacity">
-        <td colSpan={this.isHasTests ? 5 : 4} class="stroke_grey_3_border">
+        <td colSpan={colSpan} class="stroke_grey_3_border">
           <pv-certificate-summary
             certificate={certificate}
             showIssuer={!certificate.isRoot}
@@ -177,6 +193,16 @@ export class CertificatesViewer {
           onClick={this.onClickRow.bind(this, certificate.serialNumber)}
           key={certificate.serialNumber}
         >
+          {!this.isHasRoots && (
+            <td class="b3 stroke_grey_3_border">
+              <span class="mobile_title text_grey_5 align-left b3">
+                Issuer:
+              </span>
+              <span class="content">
+                {certificate.issuer && certificate.issuer.CN ? certificate.issuer.CN.value : ''}
+              </span>
+            </td>
+          )}
           <td class="b3 stroke_grey_3_border">
             <span class="mobile_title text_grey_5 align-left b3">
               Name:
@@ -275,23 +301,33 @@ export class CertificatesViewer {
   render() {
     return (
       <Host>
-        <table class="text_black">
+        <table
+          class={{
+            text_black: true,
+            m_extra: this.isHasTests || !this.isHasRoots,
+          }}
+        >
           <thead class="fill_grey_2">
             <tr>
-              <th class="h7 stroke_grey_3_border">
+              {!this.isHasRoots && (
+                <th class="h7 stroke_grey_3_border col_issuer">
+                  Issuer
+                </th>
+              )}
+              <th class="h7 stroke_grey_3_border col_name">
                 Name
               </th>
-              <th class="h7 stroke_grey_3_border">
+              <th class="h7 stroke_grey_3_border col_public_key">
                 Public Key
               </th>
-              <th class="h7 stroke_grey_3_border">
+              <th class="h7 stroke_grey_3_border col_fingerprint">
                 Fingerprint (SHA-1)
               </th>
-              <th class="align-center h7 stroke_grey_3_border">
+              <th class="align-center h7 stroke_grey_3_border col_actions">
                 Actions
               </th>
               {this.isHasTests && (
-                <th class="align-center h7 stroke_grey_3_border">
+                <th class="align-center h7 stroke_grey_3_border col_tests">
                   Test URLs
                 </th>
               )}

@@ -62,7 +62,7 @@ table tr:last-child .divider {
 }
 
 /* Adaptivity */
-@media (max-width: 767px) {
+@media (max-width: 900px) {
   tr, td {
     display: block;
   }

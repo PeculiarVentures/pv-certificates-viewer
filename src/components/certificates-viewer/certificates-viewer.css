@@ -40,24 +40,28 @@ table td {
   border-style: solid;
 }
 
-table th:nth-child(1) {
-  width: 17.5%;
+/* For col 4 */
+table .col_issuer,
+table .col_name,
+table .col_public_key {
+  width: 16%;
 }
 
-table th:nth-child(2) {
-  width: 12.5%;
+table .col_actions,
+table .col_tests {
+  width: 18%;
 }
 
-table th:nth-child(3) {
-  width: 45%;
+/* For col extra */
+table.m_extra .col_issuer,
+table.m_extra .col_name,
+table.m_extra .col_public_key {
+  width: 12%;
 }
 
-table th:nth-child(4) {
-  width: 19%;
-}
-
-table th:nth-child(5) {
-  width: 19%;
+table.m_extra .col_actions,
+table.m_extra .col_tests {
+  width: 17%;
 }
 
 /* Expande rows styles */
@@ -153,7 +157,7 @@ table tr.expanded_summary td {
   display: none;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 900px) {
   pv-button {
     --pv-button-padding-start: 8px;
     --pv-button-padding-end: 8px;
@@ -175,6 +179,9 @@ table tr.expanded_summary td {
   tr {
     padding: 0 15px;
     border: 1px solid #D1D5D9;
+  }
+
+  tr:not(:first-child) {
     margin-top: -1px;
   }
 
