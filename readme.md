@@ -1,4 +1,17 @@
 # pv-certificates-viewer
+PV Certificate Viewer makes it easy for you to display certificate related details in your web application. It includes two components:
+1. Display a table of certificates
+
+![image](https://user-images.githubusercontent.com/1619279/69567071-6ba44100-0f6d-11ea-9be5-863483bae511.png)
+
+2. Display a specific certificate
+
+![image](https://user-images.githubusercontent.com/1619279/69567112-81b20180-0f6d-11ea-8f50-155ca05fa795.png)
+
+These components are built with PKI.js so all decoding happens in pure Javascript.  The components have been designed to be responsive, themeable and easy to use.
+
+You may also be interested in our web component for viewing and verifying signed PDFs, you can find it at https://verify.ink.
+
 
 ## Installation
 
@@ -12,13 +25,13 @@ Put a script and link tag in the head of your index.html
 </head>
 ```
 
-Then you can use the element anywhere in your template, JSX, html etc
+Then you can use the element anywhere in your template, JSX, html, etc.
 
 ## Usage
 
 ### pv-certificates-viewer
 
-Web-component for decode and show certificates details table like [google](https://pki.goog/) and [amazon](https://www.amazontrust.com/repository/).
+Web-component to decode and display certificates details table like done on both the [google](https://pki.goog/) and [amazon](https://www.amazontrust.com/repository/) Certificate Authority repository pages.
 
 ```html
 <body>
@@ -47,7 +60,7 @@ Web-component for decode and show certificates details table like [google](https
 
 ### pv-certificate-viewer
 
-Web-component for decode and show certificate details: subject, issuer, signature, public key info, extensions etc.
+Web-component to decode and display certificate details such as the subject, issuer, signature, public key info, and extensions.
 
 ```html
 <body>
