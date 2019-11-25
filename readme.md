@@ -1,6 +1,6 @@
 # pv-certificates-viewer
 PV Certificate Viewer makes it easy for you to display certificate related details in your web application. It includes two components:
-1. Display a table of certificates
+### Display a table of certificates ###
 
 ![image](https://user-images.githubusercontent.com/1619279/69567071-6ba44100-0f6d-11ea-9be5-863483bae511.png)
 
@@ -10,7 +10,7 @@ PV Certificate Viewer makes it easy for you to display certificate related detai
 
 **NOTE**: If the supplied certificates are self-signed the issuer column will be ommited.
 
-2. Display a specific certificate
+### Display a specific certificate ###
 
 ![image](https://user-images.githubusercontent.com/1619279/69567112-81b20180-0f6d-11ea-8f50-155ca05fa795.png)
 
