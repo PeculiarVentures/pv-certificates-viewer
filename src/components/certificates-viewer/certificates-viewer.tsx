@@ -61,10 +61,11 @@ export class CertificatesViewer {
         ));
 
         if (
+          !this.isHasTests &&
           certificate.tests &&
           (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid)
         ) {
-          !this.isHasTests && (this.isHasTests = true);
+          this.isHasTests = true;
         }
       } catch(error) {
         console.error(error);
