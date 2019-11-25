@@ -61,12 +61,13 @@ export class CertificatesViewer {
           { tests: certificate.tests },
         ));
 
-        if (
-          !this.isHasTests &&
-          certificate.tests &&
-          (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid)
-        ) {
-          this.isHasTests = true;
+        if (!this.isHasTests) {
+          if (
+            certificate.tests &&
+            (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid)
+          ) {
+            this.isHasTests = true;
+          }
         }
       } catch(error) {
         console.error(error);
