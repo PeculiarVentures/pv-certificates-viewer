@@ -14,8 +14,16 @@ table {
   border-collapse: collapse;
 }
 
-table tr {
+table tr td {
   vertical-align: middle;
+}
+
+table tr:not(.expanded_summary) td {
+  cursor: pointer;
+}
+
+table tr:hover td {
+  background-color: rgba(251, 252, 253, 0.8);
 }
 
 table th {
@@ -37,10 +45,18 @@ table th:nth-child(1) {
 }
 
 table th:nth-child(2) {
-  width: 45%;
+  width: 12.5%;
 }
 
 table th:nth-child(3) {
+  width: 45%;
+}
+
+table th:nth-child(4) {
+  width: 19%;
+}
+
+table th:nth-child(5) {
   width: 19%;
 }
 

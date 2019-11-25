@@ -31,12 +31,6 @@ export class CertificateSummary {
   renderMetaData(item: Certificate) {
     return ([
       <p class="meta_row">
-        <span class="meta_name text_grey_5 b3">Public key:</span>
-        <span class="meta_value b3 text_black">
-          {item.publicKey.algorithm.name} {item.publicKey.algorithm.modulusBits || item.publicKey.algorithm.namedCurve}
-        </span>
-      </p>,
-      <p class="meta_row">
         <span class="meta_name text_grey_5 b3">Serial number:</span>
         <span class="meta_value b3 text_black monospace">
           {item.serialNumber}
