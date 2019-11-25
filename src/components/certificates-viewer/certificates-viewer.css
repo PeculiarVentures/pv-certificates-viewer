@@ -14,8 +14,13 @@ table {
   border-collapse: collapse;
 }
 
-table tr {
+table tr td {
   vertical-align: middle;
+  cursor: pointer;
+}
+
+table tr:hover td {
+  background-color: rgba(251, 252, 253, 0.8);
 }
 
 table th {
