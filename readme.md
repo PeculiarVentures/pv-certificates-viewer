@@ -4,6 +4,10 @@ PV Certificate Viewer makes it easy for you to display certificate related detai
 
 ![image](https://user-images.githubusercontent.com/1619279/69567071-6ba44100-0f6d-11ea-9be5-863483bae511.png)
 
+**NOTE**: If you do not provide a "Name" value when invocing the component it will take the first Subject.CN value.
+**NOTE**: If you do not provide a "Test URLs" this column will be ommited from the rendered page.
+**NOTE**: If the supplied certificates are self-signed the issuer column will be ommited.
+
 2. Display a specific certificate
 
 ![image](https://user-images.githubusercontent.com/1619279/69567112-81b20180-0f6d-11ea-8f50-155ca05fa795.png)
