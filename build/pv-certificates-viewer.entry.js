@@ -7,6 +7,7 @@ const CertificatesViewer = class {
         registerInstance(this, hostRef);
         this.certificates = [];
         this.certificatesDecoded = [];
+        this.isHasTests = false;
         this.onClickDetails = (value, event) => {
             event.stopPropagation();
             this.certificateSelectedForDetails = value;
@@ -22,6 +23,7 @@ const CertificatesViewer = class {
         this.certificatesDecodeAndSet();
     }
     async certificatesDecodeAndSet() {
+        this.isHasTests = false;
         if (!Array.isArray(this.certificates)) {
             return [];
         }
@@ -31,6 +33,12 @@ const CertificatesViewer = class {
             await cert.getFingerprint();
             try {
                 data.push(Object.assign(cert, { tests: certificate.tests }));
+                if (!this.isHasTests) {
+                    if (certificate.tests &&
+                        (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid)) {
+                        this.isHasTests = true;
+                    }
+                }
             }
             catch (error) {
                 console.error(error);
@@ -52,7 +60,7 @@ const CertificatesViewer = class {
             : serialNumber;
     }
     renderExpandedRow(certificate) {
-        return (h("tr", { class: "expanded_summary fill_grey_1_opacity" }, h("td", { colSpan: 5, class: "stroke_grey_3_border" }, h("pv-certificate-summary", { certificate: certificate, showIssuer: !certificate.isRoot }))));
+        return (h("tr", { class: "expanded_summary fill_grey_1_opacity" }, h("td", { colSpan: this.isHasTests ? 5 : 4, class: "stroke_grey_3_border" }, h("pv-certificate-summary", { certificate: certificate, showIssuer: !certificate.isRoot }))));
     }
     renderCertificateTests(tests) {
         if (!tests) {
@@ -77,7 +85,7 @@ const CertificatesViewer = class {
                 h("tr", { class: isExpandedRow && 'expanded fill_grey_1_opacity', onClick: this.onClickRow.bind(this, certificate.serialNumber), key: certificate.serialNumber }, h("td", { class: "b3 stroke_grey_3_border" }, h("span", { class: "mobile_title text_grey_5 align-left b3" }, "Name:"), h("span", { class: "content" }, certificate.commonName)), h("td", { class: "b3 stroke_grey_3_border" }, h("span", { class: "mobile_title text_grey_5 align-left b3" }, "Public Key:"), h("span", { class: "content" }, certificate.publicKey.algorithm.name, " ", certificate.publicKey.algorithm.modulusBits || certificate.publicKey.algorithm.namedCurve)), h("td", { class: "b3 stroke_grey_3_border" }, h("span", { class: "mobile_title text_grey_5 align-left b3" }, "Fingerprint (SHA-1):"), h("span", { class: "content monospace" }, certificate.fingerprint)), h("td", { class: "align-center stroke_grey_3_border" }, h("span", { class: "mobile_title text_grey_5 align-left b3" }, "Actions:"), h("span", { class: "content" }, h("pv-button", { onClick: this.onClickDetails.bind(this, certificate.base64), class: "button_table_action" }, "Details"), h("pv-button-split", { onClick: this.onClickDownload.bind(this, certificate, 'PEM'), actions: [{
                             text: 'Download DER',
                             onClick: this.onClickDownload.bind(this, certificate, 'DER'),
-                        }], class: "button_table_action" }, "Download PEM"))), h("td", { class: "align-center stroke_grey_3_border" }, h("span", { class: "mobile_title text_grey_5 align-left b3" }, "Test URLs:"), h("span", { class: "content" }, this.renderCertificateTests(certificate.tests)))),
+                        }], class: "button_table_action" }, "Download PEM"))), this.isHasTests && (h("td", { class: "align-center stroke_grey_3_border" }, h("span", { class: "mobile_title text_grey_5 align-left b3" }, "Test URLs:"), h("span", { class: "content" }, this.renderCertificateTests(certificate.tests))))),
                 isExpandedRow && this.renderExpandedRow(certificate),
             ]);
         });
@@ -89,7 +97,7 @@ const CertificatesViewer = class {
         return (h("div", { class: "modal_wrapper" }, h("div", { class: "modal_content" }, h("div", { class: "fill_grey_2 modal_title stroke_grey_3_border" }, h("h4", { class: "h4 text_black" }, "Certificate details"), h("button", { class: "modal_close", onClick: this.onClickModalClose }, h("svg", { width: "30", height: "30", viewBox: "0 0 30 30", fill: "none", xmlns: "http://www.w3.org/2000/svg" }, h("path", { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M15.7204 14.375L21.0654 19.7185C21.3115 19.9658 21.3115 20.3693 21.0654 20.6154L20.615 21.0645C20.3689 21.3118 19.9667 21.3118 19.7181 21.0645L14.3744 15.721L9.03194 21.0645C8.78327 21.3118 8.3811 21.3118 8.13371 21.0645L7.68459 20.6154C7.43847 20.3693 7.43847 19.9658 7.68459 19.7185L13.0296 14.375L7.68459 9.03155C7.43847 8.78417 7.43847 8.38074 7.68459 8.13463L8.13371 7.68554C8.3811 7.43815 8.78327 7.43815 9.03194 7.68554L14.3744 13.029L19.7181 7.68554C19.9667 7.43815 20.3689 7.43815 20.615 7.68554L21.0654 8.13463C21.3115 8.38074 21.3115 8.78417 21.0654 9.03155L15.7204 14.375Z", fill: "#2A3134" })))), h("div", { class: "fill_white" }, h("pv-certificate-viewer", { certificate: this.certificateSelectedForDetails })))));
     }
     render() {
-        return (h(Host, null, h("table", { class: "text_black" }, h("thead", { class: "fill_grey_2" }, h("tr", null, h("th", { class: "h7 stroke_grey_3_border" }, "Name"), h("th", { class: "h7 stroke_grey_3_border" }, "Public Key"), h("th", { class: "h7 stroke_grey_3_border" }, "Fingerprint (SHA-1)"), h("th", { class: "align-center h7 stroke_grey_3_border" }, "Actions"), h("th", { class: "align-center h7 stroke_grey_3_border" }, "Test URLs"))), h("tbody", null, this.renderCertificates())), this.renderCertificateDetailsModal()));
+        return (h(Host, null, h("table", { class: "text_black" }, h("thead", { class: "fill_grey_2" }, h("tr", null, h("th", { class: "h7 stroke_grey_3_border" }, "Name"), h("th", { class: "h7 stroke_grey_3_border" }, "Public Key"), h("th", { class: "h7 stroke_grey_3_border" }, "Fingerprint (SHA-1)"), h("th", { class: "align-center h7 stroke_grey_3_border" }, "Actions"), this.isHasTests && (h("th", { class: "align-center h7 stroke_grey_3_border" }, "Test URLs")))), h("tbody", null, this.renderCertificates())), this.renderCertificateDetailsModal()));
     }
     static get watchers() { return {
         "certificates": ["watchCertificates"]
