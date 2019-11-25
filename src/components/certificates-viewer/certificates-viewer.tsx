@@ -25,6 +25,9 @@ interface ICertificateDecoded extends Certificate {
   shadow: true,
 })
 export class CertificatesViewer {
+  /**
+   * List of certificates values for decode and show in the list.
+   */
   @Prop() certificates: ICertificate[] = [];
 
   @State() certificatesDecoded: ICertificateDecoded[] = [];

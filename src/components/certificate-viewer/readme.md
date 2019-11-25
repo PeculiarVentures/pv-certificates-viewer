@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property      | Attribute     | Description | Type     | Default     |
-| ------------- | ------------- | ----------- | -------- | ----------- |
-| `certificate` | `certificate` |             | `string` | `undefined` |
+| Property      | Attribute     | Description                                                               | Type     | Default     |
+| ------------- | ------------- | ------------------------------------------------------------------------- | -------- | ----------- |
+| `certificate` | `certificate` | The certificate value for decode and show details. Use PEM or DER format. | `string` | `undefined` |
 
 
 ## Dependencies
@@ -35,4 +35,4 @@ graph TD;
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

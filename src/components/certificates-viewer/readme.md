@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property       | Attribute | Description | Type             | Default |
-| -------------- | --------- | ----------- | ---------------- | ------- |
-| `certificates` | --        |             | `ICertificate[]` | `[]`    |
+| Property       | Attribute | Description                                                  | Type             | Default |
+| -------------- | --------- | ------------------------------------------------------------ | ---------------- | ------- |
+| `certificates` | --        | List of certificates values for decode and show in the list. | `ICertificate[]` | `[]`    |
 
 
 ## Dependencies
@@ -37,4 +37,4 @@ graph TD;
 
 ----------------------------------------------
 
-*Built with [StencilJS](https://stenciljs.com/)*
+

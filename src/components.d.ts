@@ -34,9 +34,15 @@ export namespace Components {
     'showIssuer': boolean;
   }
   interface PvCertificateViewer {
+    /**
+    * The certificate value for decode and show details. Use PEM or DER format.
+    */
     'certificate': string;
   }
   interface PvCertificatesViewer {
+    /**
+    * List of certificates values for decode and show in the list.
+    */
     'certificates': ICertificate[];
   }
   interface PvTextHider {
@@ -109,9 +115,15 @@ declare namespace LocalJSX {
     'showIssuer'?: boolean;
   }
   interface PvCertificateViewer {
+    /**
+    * The certificate value for decode and show details. Use PEM or DER format.
+    */
     'certificate'?: string;
   }
   interface PvCertificatesViewer {
+    /**
+    * List of certificates values for decode and show in the list.
+    */
     'certificates'?: ICertificate[];
   }
   interface PvTextHider {

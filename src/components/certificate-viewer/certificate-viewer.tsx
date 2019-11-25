@@ -13,6 +13,9 @@ import { Certificate, TExtension, EnumOIDs } from '../../utils/crypto';
 export class CertificateViewer {
   cert: Certificate;
 
+  /**
+   * The certificate value for decode and show details. Use PEM or DER format.
+   */
   @Prop() certificate: string;
 
   componentWillLoad() {
