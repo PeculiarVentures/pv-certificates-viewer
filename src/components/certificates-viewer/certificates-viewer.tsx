@@ -31,13 +31,10 @@ export class CertificatesViewer {
   @State() expandedRow: Certificate['serialNumber'] | null;
   @State() certificateSelectedForDetails: string | null;
 
-  private isTests: boolean = false;
+  private isHasTests: boolean = false;
 
   componentWillLoad() {
     this.certificatesDecodeAndSet();
-
-    this.isTests = !!this.certificates.filter(item =>
-      item.tests && (item.tests.expired || item.tests.revoked || item.tests.valid)).length;
   }
 
   @Watch('certificates')
@@ -51,6 +48,7 @@ export class CertificatesViewer {
     }
 
     const data: ICertificateDecoded[] = [];
+    let isHasTests = false;
 
     for (let certificate of this.certificates) {
       const cert = new Certificate(certificate.value, certificate.name);
@@ -61,11 +59,19 @@ export class CertificatesViewer {
           cert,
           { tests: certificate.tests },
         ));
+
+        if (
+          certificate.tests &&
+          (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid)
+        ) {
+          isHasTests = true;
+        }
       } catch(error) {
         console.error(error);
       }
     }
 
+    this.isHasTests = isHasTests;
     this.certificatesDecoded = data;
   }
 
@@ -100,7 +106,7 @@ export class CertificatesViewer {
   renderExpandedRow(certificate: Certificate) {
     return (
       <tr class="expanded_summary fill_grey_1_opacity">
-        <td colSpan={this.isTests ? 4 : 3} class="stroke_grey_3_border">
+        <td colSpan={this.isHasTests ? 4 : 3} class="stroke_grey_3_border">
           <pv-certificate-summary
             certificate={certificate}
             showIssuer={!certificate.isRoot}
@@ -205,7 +211,7 @@ export class CertificatesViewer {
               </pv-button-split>
             </span>
           </td>
-          {this.isTests && (
+          {this.isHasTests && (
             <td class="align-center stroke_grey_3_border">
               <span class="mobile_title text_grey_5 align-left b3">
                 Test URLs:
@@ -268,7 +274,7 @@ export class CertificatesViewer {
               <th class="align-center h7 stroke_grey_3_border">
                 Actions
               </th>
-              {this.isTests && (
+              {this.isHasTests && (
                 <th class="align-center h7 stroke_grey_3_border">
                   Test URLs
                 </th>
