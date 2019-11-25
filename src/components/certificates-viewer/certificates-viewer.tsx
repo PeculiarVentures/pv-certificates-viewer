@@ -43,11 +43,12 @@ export class CertificatesViewer {
   }
 
   async certificatesDecodeAndSet() {
+    this.isHasTests = false;
+
     if (!Array.isArray(this.certificates)) {
       return [];
     }
 
-    this.isHasTests = false;
     const data: ICertificateDecoded[] = [];
 
     for (let certificate of this.certificates) {
