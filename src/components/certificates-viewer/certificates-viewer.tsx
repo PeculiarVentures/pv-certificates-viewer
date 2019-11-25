@@ -48,7 +48,6 @@ export class CertificatesViewer {
     }
 
     const data: ICertificateDecoded[] = [];
-    let isHasTests = false;
 
     for (let certificate of this.certificates) {
       const cert = new Certificate(certificate.value, certificate.name);
@@ -64,14 +63,13 @@ export class CertificatesViewer {
           certificate.tests &&
           (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid)
         ) {
-          isHasTests = true;
+          this.isHasTests = true;
         }
       } catch(error) {
         console.error(error);
       }
     }
 
-    this.isHasTests = isHasTests;
     this.certificatesDecoded = data;
   }
 
