@@ -16,6 +16,9 @@ table {
 
 table tr td {
   vertical-align: middle;
+}
+
+table tr:not(.expanded_summary) td {
   cursor: pointer;
 }
 
