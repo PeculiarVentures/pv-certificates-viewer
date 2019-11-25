@@ -264,7 +264,7 @@ export class CertificatesViewer {
                 Name
               </th>
               <th class="h7 stroke_grey_3_border">
-                Public key
+                Public Key
               </th>
               <th class="h7 stroke_grey_3_border">
                 Fingerprint (SHA-1)
