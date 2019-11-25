@@ -14,7 +14,7 @@ PV Certificate Viewer makes it easy for you to display certificate related detai
 
 ![image](https://user-images.githubusercontent.com/1619279/69567112-81b20180-0f6d-11ea-8f50-155ca05fa795.png)
 
-These components are built with PKI.js so all decoding happens in pure Javascript.  The components have been designed to be responsive, themeable and easy to use.
+These components are built with [PKI.js](https://github.com/PeculiarVentures/PKI.js/) so all decoding happens in pure Javascript.  The components have been designed to be responsive, themeable and easy to use.
 
 You may also be interested in our web component for viewing and verifying signed PDFs, you can find it at https://verify.ink.
 
