@@ -12,6 +12,7 @@ import { Certificate, TExtension, EnumOIDs } from '../../utils/crypto';
 })
 export class CertificateViewer {
   cert: Certificate;
+  interaction: Element;
 
   /**
    * The certificate value for decode and show details. Use PEM or DER format.
@@ -19,11 +20,43 @@ export class CertificateViewer {
   @Prop() certificate: string;
 
   componentWillLoad() {
+    this.interaction = undefined;
+
+    if (!this.certificate) {
+      this.interaction = this.renderInteraction(this.renderEmptyState());
+      return null;
+    }
+
     try {
       this.cert = new Certificate(this.certificate, undefined, true);
     } catch (error) {
+      this.interaction = this.renderInteraction(this.renderErrorState());
       console.error(error);
     }
+  }
+
+  renderInteraction(inner: Element | Element[]) {
+    return (
+      <div class="empty_wrapper">
+        {inner}
+      </div>
+    )
+  }
+
+  renderEmptyState() {
+    return (
+      <p class="b1 interaction_text">
+        There is no certificate specified.
+      </p>
+    )
+  }
+
+  renderErrorState() {
+    return (
+      <p class="b1 interaction_text">
+        There is error for certificate decode.
+      </p>
+    );
   }
 
   renderRowTitle(title: string) {
@@ -299,8 +332,8 @@ export class CertificateViewer {
   }
 
   render() {
-    if (!this.cert) {
-      return null;
+    if (this.interaction) {
+      return this.interaction;
     }
 
     return (

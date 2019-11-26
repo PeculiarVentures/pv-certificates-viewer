@@ -1,4 +1,10 @@
 /* Text type */
+.b1 {
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 22px;
+  letter-spacing: 0.3px;
+}
 .b3 {
   font-family: inherit;
   font-size: 13px;
