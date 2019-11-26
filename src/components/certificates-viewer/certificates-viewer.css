@@ -157,6 +157,18 @@ table tr.expanded_summary td {
   display: none;
 }
 
+/* Empty state */
+.empty_wrapper {
+  height: 300px;
+}
+
+.interaction_text {
+  padding: 15px 0;
+  width: 300px;
+  margin: auto;
+  text-align: center;
+}
+
 @media (max-width: 900px) {
   pv-button {
     --pv-button-padding-start: 8px;

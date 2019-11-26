@@ -36,6 +36,7 @@ export class CertificatesViewer {
 
   private isHasTests: boolean = false;
   private isHasRoots: boolean = false;
+  private interaction: Element;
 
   componentWillLoad() {
     this.certificatesDecodeAndSet();
@@ -49,9 +50,15 @@ export class CertificatesViewer {
   async certificatesDecodeAndSet() {
     this.isHasTests = false;
     this.isHasRoots = false;
+    this.interaction = undefined;
 
     if (!Array.isArray(this.certificates)) {
       return [];
+    }
+
+    if (!this.certificates.length) {
+      this.interaction = this.renderInteraction(this.renderEmptyState());
+      return null;
     }
 
     const data: ICertificateDecoded[] = [];
@@ -112,6 +119,24 @@ export class CertificatesViewer {
     this.expandedRow = isExpandedRowClicked
       ? null
       : serialNumber;
+  }
+
+  renderInteraction(inner: Element | Element[]) {
+    return (
+      <tr>
+        <td colSpan={5} class="stroke_grey_3_border empty_wrapper">
+            {inner}
+        </td>
+      </tr>
+    )
+  }
+
+  renderEmptyState() {
+    return (
+      <p class="b1 interaction_text">
+        There is no certificate specified.
+      </p>
+    )
   }
 
   renderExpandedRow(certificate: Certificate) {
@@ -334,7 +359,7 @@ export class CertificatesViewer {
             </tr>
           </thead>
           <tbody>
-            {this.renderCertificates()}
+            {this.interaction ? this.interaction : this.renderCertificates()}
           </tbody>
         </table>
         {this.renderCertificateDetailsModal()}
