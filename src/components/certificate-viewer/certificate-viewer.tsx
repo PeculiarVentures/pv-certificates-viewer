@@ -29,30 +29,6 @@ export class CertificateViewer {
     }
   }
 
-  renderInteraction(inner: Element | Element[]) {
-    return (
-      <div class="empty_wrapper">
-        {inner}
-      </div>
-    )
-  }
-
-  renderEmptyState() {
-    return (
-      <p class="b1 interaction_text">
-        There is no certificate specified.
-      </p>
-    )
-  }
-
-  renderErrorState() {
-    return (
-      <p class="b1 interaction_text">
-        There is error for certificate decode.
-      </p>
-    );
-  }
-
   renderRowTitle(title: string) {
     return (
       <tr class="title">
@@ -326,12 +302,24 @@ export class CertificateViewer {
   }
 
   render() {
-    if (this.certificateDecodeError) {
-      return 'Error state';
+    if (this.certificateDecodeError) {  
+      return (
+        <div class="empty_wrapper">
+          <p class="b1 interaction_text">
+            There is error for certificate decode.
+          </p>
+        </div>
+      )
     }
 
     if (!this.certificateDecoded) {
-      return 'Empty state';
+      return (
+        <div class="empty_wrapper">
+          <p class="b1 interaction_text">
+            There is no certificate specified.
+          </p>
+        </div>
+      )
     }
 
     return (
