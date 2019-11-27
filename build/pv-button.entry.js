@@ -1,4 +1,4 @@
-import { r as registerInstance, h, H as Host } from './core-facd9e82.js';
+import { r as registerInstance, h, H as Host } from './core-828499c0.js';
 
 const Button = class {
     constructor(hostRef) {
