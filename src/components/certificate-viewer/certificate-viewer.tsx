@@ -32,7 +32,7 @@ export class CertificateViewer {
   renderRowTitle(title: string) {
     return (
       <tr class="title">
-        <td colSpan={2} class="h6 stroke_grey_3_border text_black">
+        <td colSpan={2} class="h6 stroke_border text_black">
           {title}
         </td>
       </tr>
@@ -64,7 +64,7 @@ export class CertificateViewer {
 
     return (
       <tr>
-        <td class="b3 text_grey_5">
+        <td class="b3 text_grey">
           {title}:
         </td>
         <td
@@ -136,7 +136,7 @@ export class CertificateViewer {
                 return (
                   <p class="b3">
                     <a
-                      class="text_secondary"
+                      class="text_primary"
                       href={valuePoint.value}
                       target="_blank"
                     >
@@ -165,7 +165,7 @@ export class CertificateViewer {
             if (accessLocation.type === 6) {
               return (
                 <p class="b3 text_black">
-                  {value.accessMethod}: <a class="text_secondary" href={accessLocation.value} target="_blank">{accessLocation.value}</a>
+                  {value.accessMethod}: <a class="text_primary" href={accessLocation.value} target="_blank">{accessLocation.value}</a>
                 </p>
               );
             }
@@ -188,7 +188,7 @@ export class CertificateViewer {
                 return (
                   <p class="b3">
                     <a
-                      class="text_secondary"
+                      class="text_primary"
                       href={`https://censys.io/ipv4?q=${value.value}`}
                       target="_blank"
                     >
@@ -202,7 +202,7 @@ export class CertificateViewer {
                 return (
                   <p class="b3">
                     <a
-                      class="text_secondary"
+                      class="text_primary"
                       href={`https://censys.io/ipv4?q=${value.value}`}
                       target="_blank"
                     >
@@ -239,7 +239,7 @@ export class CertificateViewer {
                 return (
                   <p class="b3">
                     <a
-                      class="text_secondary"
+                      class="text_primary"
                       href={`https://censys.io/ipv4?q=${value.value}`}
                       target="_blank"
                     >
@@ -253,7 +253,7 @@ export class CertificateViewer {
                 return (
                   <p class="b3">
                     <a
-                      class="text_secondary"
+                      class="text_primary"
                       href={`https://censys.io/ipv4?q=${value.value}`}
                       target="_blank"
                     >
