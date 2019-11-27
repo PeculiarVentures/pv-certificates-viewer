@@ -365,7 +365,6 @@ export class CertificatesViewer {
   render() {
     return (
       <Host>
-        <input type="text" value={this.search} onInput={e => this.onSearchChange(e)} />
         <table
           class={{
             text_black: true,
