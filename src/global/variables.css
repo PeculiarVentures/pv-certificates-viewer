@@ -3,12 +3,15 @@
   --pv-color-black: #2A3134;
   --pv-color-white: #ffffff;
   --pv-color-border: #D1D5D9;
+  --pv-color-border-light: #e7e9eb;
   --pv-color-primary: #3584F7;
+  --pv-color-primary-light: #c0d9fc;
   --pv-color-grey: #869196;
   --pv-color-grey-light: #F4F7FC;
-  --pv-color-attention-opacity: #F7A83166;
+  --pv-color-highlight: rgba(247, 168, 49, 0.4);
+  --pv-color-overlay: rgba(42, 49, 52, 0.9);
 
-  /* Components */
+  /* Button component */
   --pv-button-padding-end: 5px;
   --pv-button-padding-start: 5px;
 }

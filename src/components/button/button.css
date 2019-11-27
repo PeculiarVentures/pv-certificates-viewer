@@ -25,10 +25,6 @@
   border-radius: 2px;
 }
 
-:host(.button:hover) {
-  opacity: 0.8;
-}
-
 :host(.button:active) {
   opacity: 0.6;
 }
@@ -75,4 +71,10 @@
 
 .button_native:focus {
   opacity: 0.8;
+}
+
+@media (hover: hover) {
+  :host(.button:hover) {
+    opacity: 0.8;
+  }
 }

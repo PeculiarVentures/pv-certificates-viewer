@@ -358,7 +358,7 @@ export class CertificateViewer {
           this.renderRowExtensionValue(extension),
           <tr>
             <td colSpan={2} class="divider">
-              <span class="fill_grey_3_opacity_border"></span>
+              <span class="fill_border_light"></span>
             </td>
           </tr>,
         ]))}
