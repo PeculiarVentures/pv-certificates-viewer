@@ -29,10 +29,10 @@ export class Button {
           b3: true,
           button: true,
           button_stroke: this.fill === 'stroke',
-          stroke_secondary_border: this.fill === 'stroke',
-          text_secondary: this.fill === 'stroke',
+          stroke_primary_border: this.fill === 'stroke',
+          text_primary: this.fill === 'stroke',
           text_white: this.fill === 'fill',
-          fill_secondary: this.fill === 'fill',
+          fill_primary: this.fill === 'fill',
           button_disabled: this.disabled,
         }}
       >
