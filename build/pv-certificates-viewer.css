@@ -1,1 +1,13 @@
-:root{--pv-button-padding-end:5px;--pv-button-padding-start:5px}
+:root {
+  /* Colors */
+  --pv-color-black: #2A3134;
+  --pv-color-white: #ffffff;
+  --pv-color-border: #D1D5D9;
+  --pv-color-primary: #3584F7;
+  --pv-color-grey: #869196;
+  --pv-color-grey-light: #F4F7FC;
+
+  /* Components */
+  --pv-button-padding-end: 5px;
+  --pv-button-padding-start: 5px;
+}
