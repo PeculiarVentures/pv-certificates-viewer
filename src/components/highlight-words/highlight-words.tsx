@@ -9,6 +9,8 @@ export class HighlightWords {
 
   @Prop() search: string;
 
+  private tag: string = 'mark';
+
   componentDidLoad() {
     this.handleHighlightSearch();
   }
@@ -19,12 +21,13 @@ export class HighlightWords {
 
   handleHighlightSearch() {
     const basicString = this.resetHighlightSearch(this.host.innerHTML);
-    const substring = new RegExp(`(${this.search})`, 'g');
-    this.host.innerHTML = basicString.replace(substring, '<mark>$1</mark>');
+    const substring = new RegExp(`(${this.search})`, 'gi');
+    this.host.innerHTML = basicString.replace(substring, `<${this.tag}>$1</${this.tag}>`);
   }
 
   resetHighlightSearch(source: string) {
-    return source.replace(/<\/?mark>/g, '');
+    const substring = new RegExp(`<\/?${this.tag}>`, 'g');
+    return source.replace(substring, '');
   }
 
   render() {

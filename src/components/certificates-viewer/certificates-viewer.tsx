@@ -224,7 +224,9 @@ export class CertificatesViewer {
               Public Key:
             </span>
             <span class="content">
-              {certificate.publicKey.algorithm.name} {certificate.publicKey.algorithm.modulusBits || certificate.publicKey.algorithm.namedCurve}
+              <pv-highlight-words search={this.search}>
+                {certificate.publicKey.algorithm.name} {certificate.publicKey.algorithm.modulusBits || certificate.publicKey.algorithm.namedCurve}
+              </pv-highlight-words>
             </span>
           </td>
           <td class="b3 stroke_border">
@@ -232,7 +234,9 @@ export class CertificatesViewer {
               Fingerprint (SHA-1):
             </span>
             <span class="content monospace">
-              {certificate.fingerprint}
+              <pv-highlight-words search={this.search}>
+                {certificate.fingerprint}
+              </pv-highlight-words>
             </span>
           </td>
           <td class="align-center stroke_border">
