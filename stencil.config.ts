@@ -3,6 +3,9 @@ import { Config } from '@stencil/core';
 export const config: Config = {
   namespace: 'pv-certificates-viewer',
   globalStyle: 'src/global/variables.css',
+  devServer: {
+    port: 3000,
+  },
   outputTargets: [
     {
       type: 'dist',

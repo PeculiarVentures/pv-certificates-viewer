@@ -11,8 +11,8 @@ import { Certificate, TExtension, EnumOIDs } from '../../utils/crypto';
   shadow: true,
 })
 export class CertificateViewer {
-  cert: Certificate;
-  interaction: Element;
+  certificateDecoded: Certificate;
+  certificateDecodeError: Error;
 
   /**
    * The certificate value for decode and show details. Use PEM or DER format.
@@ -20,18 +20,12 @@ export class CertificateViewer {
   @Prop() certificate: string;
 
   componentWillLoad() {
-    this.interaction = undefined;
-
-    if (!this.certificate) {
-      this.interaction = this.renderInteraction(this.renderEmptyState());
-      return null;
-    }
-
-    try {
-      this.cert = new Certificate(this.certificate, undefined, true);
-    } catch (error) {
-      this.interaction = this.renderInteraction(this.renderErrorState());
-      console.error(error);
+    if (this.certificate) {
+      try {
+        this.certificateDecoded = new Certificate(this.certificate, undefined, true);
+      } catch (error) {
+        this.certificateDecodeError = error;
+      }
     }
   }
 
@@ -332,8 +326,12 @@ export class CertificateViewer {
   }
 
   render() {
-    if (this.interaction) {
-      return this.interaction;
+    if (this.certificateDecodeError) {
+      return 'Error state';
+    }
+
+    if (!this.certificateDecoded) {
+      return 'Empty state';
     }
 
     return (
@@ -341,24 +339,24 @@ export class CertificateViewer {
         {this.renderRowTitle('Basic Information')}
         <tr>
           <td colSpan={2}>
-            <pv-certificate-summary certificate={this.cert} />
+            <pv-certificate-summary certificate={this.certificateDecoded} />
           </td>
         </tr>
 
         {this.renderRowTitle('Public Key Info')}
-        {this.renderRowValue('Algorithm', this.cert.publicKey.algorithm.name)}
-        {this.renderRowValue('Modulus Bits', this.cert.publicKey.algorithm.modulusBits)}
-        {this.renderRowValue('Public Exponent', this.cert.publicKey.algorithm.publicExponent)}
-        {this.renderRowValue('Named Curve', this.cert.publicKey.algorithm.namedCurve)}
-        {this.renderRowValue('Value', this.cert.publicKey.value, true, true)}
+        {this.renderRowValue('Algorithm', this.certificateDecoded.publicKey.algorithm.name)}
+        {this.renderRowValue('Modulus Bits', this.certificateDecoded.publicKey.algorithm.modulusBits)}
+        {this.renderRowValue('Public Exponent', this.certificateDecoded.publicKey.algorithm.publicExponent)}
+        {this.renderRowValue('Named Curve', this.certificateDecoded.publicKey.algorithm.namedCurve)}
+        {this.renderRowValue('Value', this.certificateDecoded.publicKey.value, true, true)}
 
         {this.renderRowTitle('Signature')}
-        {this.renderRowValue('Algorithm', this.cert.signature.algorithm.name)}
-        {this.renderRowValue('Hash', this.cert.signature.algorithm.hash)}
-        {this.renderRowValue('Value', this.cert.signature.value, true, true)}
+        {this.renderRowValue('Algorithm', this.certificateDecoded.signature.algorithm.name)}
+        {this.renderRowValue('Hash', this.certificateDecoded.signature.algorithm.hash)}
+        {this.renderRowValue('Value', this.certificateDecoded.signature.value, true, true)}
 
         {this.renderRowTitle('Extensions')}
-        {this.cert.extensions.map((extension) => ([
+        {this.certificateDecoded.extensions.map((extension) => ([
           this.renderRowValue('Name', extension.name ? `${extension.name} (${extension.oid})` : extension.oid),
           this.renderRowValue('Critical', String(extension.critical)),
           this.renderRowExtensionValue(extension),
