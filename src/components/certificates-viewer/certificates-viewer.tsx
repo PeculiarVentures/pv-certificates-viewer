@@ -205,7 +205,9 @@ export class CertificatesViewer {
                 Issuer:
               </span>
               <span class="content">
-                {certificate.issuer && certificate.issuer.CN ? certificate.issuer.CN.value : ''}
+                <pv-highlight-words search={this.search}>
+                  {certificate.issuer && certificate.issuer.CN ? certificate.issuer.CN.value : ''}
+                </pv-highlight-words>
               </span>
             </td>
           )}
