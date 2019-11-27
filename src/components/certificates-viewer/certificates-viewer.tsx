@@ -338,7 +338,7 @@ export class CertificatesViewer {
               this.renderCertificates()
             ) : (
               <tr>
-                <td colSpan={5} class="stroke_grey_3_border empty_wrapper">
+                <td colSpan={5} class="stroke_grey_3_border empty_wrapper text_black">
                   <p class="b1 interaction_text">
                     There is no certificate specified.
                   </p>
