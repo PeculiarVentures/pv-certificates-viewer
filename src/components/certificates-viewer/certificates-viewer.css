@@ -158,7 +158,7 @@ table tr.expanded_summary td {
 }
 
 /* Empty state */
-.empty_wrapper {
+.status_wrapper {
   height: 300px;
 }
 

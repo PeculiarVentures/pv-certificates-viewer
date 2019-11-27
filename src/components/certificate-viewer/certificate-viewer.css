@@ -65,7 +65,7 @@ table tr:last-child .divider {
 }
 
 /* Empty state */
-.empty_wrapper {
+.status_wrapper {
   min-height: inherit;
   display: flex;
   justify-content: center;
