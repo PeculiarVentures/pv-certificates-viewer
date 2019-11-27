@@ -358,13 +358,23 @@ export class CertificatesViewer {
     return this.renderContentState();
   }
 
-  onSearchChange(e: any) {
+  onSearchChange = (e: any) => {
     this.search = e.target.value;
   }
 
   render() {
     return (
       <Host>
+        <div class="search_section fill_grey_light stroke_border">
+          <input
+            onInput={this.onSearchChange}
+            type="search"
+            value=""
+            class="input_search fill_white stroke_border text_black"
+            disabled={!this.certificatesDecoded.length}
+            placeholder="Search"
+          />
+        </div>
         <table
           class={{
             text_black: true,

@@ -160,6 +160,28 @@ table tr.expanded_summary td {
   pointer-events: none;
 }
 
+/* Search */
+.search_section {
+  height: 50px;
+  padding: 10px;
+  border-width: 1px 1px 0 1px;
+  border-style: solid;
+}
+
+.input_search {
+  height: 100%;
+  width: 100%;
+  border-radius: 3px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 0 14px;
+  font-size: 12px;
+}
+
+.input_search::placeholder {
+  color: var(--pv-color-border-light);
+}
+
 @media (hover: hover) {
   table tr:not(.expanded_summary):hover {
     background-color: var(--pv-color-grey-light);
@@ -233,5 +255,11 @@ table tr.expanded_summary td {
   .status_wrapper {
     height: 400px;
     display: table-cell;
+  }
+
+  /* Search */
+  .search_section {
+    height: 60px;
+    padding: 15px;
   }
 }
