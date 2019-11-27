@@ -18,12 +18,8 @@ table tr td {
   vertical-align: middle;
 }
 
-table tr:not(.expanded_summary) td {
+table tr:not(.expanded_summary) {
   cursor: pointer;
-}
-
-table tr:hover td {
-  background-color: rgba(251, 252, 253, 0.8);
 }
 
 table th {
@@ -162,6 +158,12 @@ table tr.expanded_summary td {
   height: 350px;
   text-align: center;
   pointer-events: none;
+}
+
+@media (hover: hover) {
+  table tr:not(.expanded_summary):hover {
+    background-color: var(--pv-color-grey-light);
+  }
 }
 
 @media (max-width: 900px) {
