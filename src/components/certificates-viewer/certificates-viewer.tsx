@@ -30,6 +30,7 @@ export class CertificatesViewer {
    */
   @Prop() certificates: ICertificate[] = [];
 
+  @State() search: string = '';
   @State() certificatesDecoded: ICertificateDecoded[] = [];
   @State() expandedRow: Certificate['serialNumber'] | null;
   @State() certificateSelectedForDetails: string | null;
@@ -204,7 +205,9 @@ export class CertificatesViewer {
                 Issuer:
               </span>
               <span class="content">
-                {certificate.issuer && certificate.issuer.CN ? certificate.issuer.CN.value : ''}
+                <pv-highlight-words search={this.search}>
+                  {certificate.issuer && certificate.issuer.CN ? certificate.issuer.CN.value : ''}
+                </pv-highlight-words>
               </span>
             </td>
           )}
@@ -213,7 +216,9 @@ export class CertificatesViewer {
               Name:
             </span>
             <span class="content">
-              {certificate.commonName}
+              <pv-highlight-words search={this.search}>
+                {certificate.commonName}
+              </pv-highlight-words>
             </span>
           </td>
           <td class="b3 stroke_border">
@@ -221,7 +226,9 @@ export class CertificatesViewer {
               Public Key:
             </span>
             <span class="content">
-              {certificate.publicKey.algorithm.name} {certificate.publicKey.algorithm.modulusBits || certificate.publicKey.algorithm.namedCurve}
+              <pv-highlight-words search={this.search}>
+                {certificate.publicKey.algorithm.name} {certificate.publicKey.algorithm.modulusBits || certificate.publicKey.algorithm.namedCurve}
+              </pv-highlight-words>
             </span>
           </td>
           <td class="b3 stroke_border">
@@ -229,7 +236,9 @@ export class CertificatesViewer {
               Fingerprint (SHA-1):
             </span>
             <span class="content monospace">
-              {certificate.fingerprint}
+              <pv-highlight-words search={this.search}>
+                {certificate.fingerprint}
+              </pv-highlight-words>
             </span>
           </td>
           <td class="align-center stroke_border">
@@ -347,6 +356,10 @@ export class CertificatesViewer {
     }
 
     return this.renderContentState();
+  }
+
+  onSearchChange(e: any) {
+    this.search = e.target.value;
   }
 
   render() {

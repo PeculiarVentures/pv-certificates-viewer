@@ -1,0 +1,7 @@
+:host {
+  display: inline-block;
+}
+
+::slotted(mark) {
+  background-color: var(--pv-color-highlight);
+}

@@ -45,6 +45,9 @@ export namespace Components {
     */
     'certificates': ICertificate[];
   }
+  interface PvHighlightWords {
+    'search': string;
+  }
   interface PvTextHider {
     'opened': boolean;
   }
@@ -83,6 +86,12 @@ declare global {
     new (): HTMLPvCertificatesViewerElement;
   };
 
+  interface HTMLPvHighlightWordsElement extends Components.PvHighlightWords, HTMLStencilElement {}
+  var HTMLPvHighlightWordsElement: {
+    prototype: HTMLPvHighlightWordsElement;
+    new (): HTMLPvHighlightWordsElement;
+  };
+
   interface HTMLPvTextHiderElement extends Components.PvTextHider, HTMLStencilElement {}
   var HTMLPvTextHiderElement: {
     prototype: HTMLPvTextHiderElement;
@@ -94,6 +103,7 @@ declare global {
     'pv-certificate-summary': HTMLPvCertificateSummaryElement;
     'pv-certificate-viewer': HTMLPvCertificateViewerElement;
     'pv-certificates-viewer': HTMLPvCertificatesViewerElement;
+    'pv-highlight-words': HTMLPvHighlightWordsElement;
     'pv-text-hider': HTMLPvTextHiderElement;
   }
 }
@@ -126,6 +136,9 @@ declare namespace LocalJSX {
     */
     'certificates'?: ICertificate[];
   }
+  interface PvHighlightWords {
+    'search'?: string;
+  }
   interface PvTextHider {
     'onTextExpand'?: (event: CustomEvent<any>) => void;
     'opened'?: boolean;
@@ -137,6 +150,7 @@ declare namespace LocalJSX {
     'pv-certificate-summary': PvCertificateSummary;
     'pv-certificate-viewer': PvCertificateViewer;
     'pv-certificates-viewer': PvCertificatesViewer;
+    'pv-highlight-words': PvHighlightWords;
     'pv-text-hider': PvTextHider;
   }
 }
@@ -152,6 +166,7 @@ declare module "@stencil/core" {
       'pv-certificate-summary': LocalJSX.PvCertificateSummary & JSXBase.HTMLAttributes<HTMLPvCertificateSummaryElement>;
       'pv-certificate-viewer': LocalJSX.PvCertificateViewer & JSXBase.HTMLAttributes<HTMLPvCertificateViewerElement>;
       'pv-certificates-viewer': LocalJSX.PvCertificatesViewer & JSXBase.HTMLAttributes<HTMLPvCertificatesViewerElement>;
+      'pv-highlight-words': LocalJSX.PvHighlightWords & JSXBase.HTMLAttributes<HTMLPvHighlightWordsElement>;
       'pv-text-hider': LocalJSX.PvTextHider & JSXBase.HTMLAttributes<HTMLPvTextHiderElement>;
     }
   }
