@@ -21,8 +21,14 @@ export class HighlightWords {
 
   handleHighlightSearch() {
     const basicString = this.resetHighlightSearch(this.host.innerHTML);
-    const substring = new RegExp(`(${this.search})`, 'gi');
-    this.host.innerHTML = basicString.replace(substring, `<${this.tag}>$1</${this.tag}>`);
+    let result = basicString;
+
+    if (this.search) {
+      const substring = new RegExp(`(${this.search})`, 'gi');
+      result = basicString.replace(substring, `<${this.tag}>$1</${this.tag}>`);
+    }
+
+    this.host.innerHTML = result;
   }
 
   resetHighlightSearch(source: string) {
