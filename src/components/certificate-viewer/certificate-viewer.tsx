@@ -301,25 +301,33 @@ export class CertificateViewer {
     return this.renderRowValue('Value', extension.value);
   }
 
+  renderErrorState() {
+    return (
+      <div class="status_wrapper">
+        <p class="b1 interaction_text text_black">
+          There is error for certificate decode.
+        </p>
+      </div>
+    );
+  }
+
+  renderEmptyState() {
+    return (
+      <div class="status_wrapper">
+        <p class="b1 interaction_text text_black">
+          There is no certificate specified.
+        </p>
+      </div>
+    );
+  }
+
   render() {
-    if (this.certificateDecodeError) {  
-      return (
-        <div class="status_wrapper">
-          <p class="b1 interaction_text">
-            There is error for certificate decode.
-          </p>
-        </div>
-      )
+    if (this.certificateDecodeError) {
+      return this.renderErrorState();
     }
 
     if (!this.certificateDecoded) {
-      return (
-        <div class="status_wrapper">
-          <p class="b1 interaction_text">
-            There is no certificate specified.
-          </p>
-        </div>
-      )
+      return this.renderEmptyState();
     }
 
     return (
