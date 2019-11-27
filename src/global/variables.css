@@ -6,7 +6,7 @@
   --pv-color-primary: #3584F7;
   --pv-color-grey: #869196;
   --pv-color-grey-light: #F4F7FC;
-  --pv-color-attention-opacity: #F7A83166;
+  --pv-color-highlight: rgba(247, 168, 49, 0.4);
 
   /* Components */
   --pv-button-padding-end: 5px;
