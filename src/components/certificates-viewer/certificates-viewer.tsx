@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, Watch, Host } from '@stencil/core';
+import { Component, h, Prop, State, Watch, Host, Element } from '@stencil/core';
 import { Certificate } from '../../utils/crypto';
 
 export interface ICertificate {
@@ -28,6 +28,8 @@ export class CertificatesViewer {
   /**
    * List of certificates values for decode and show in the list.
    */
+  @Element() host: HTMLElement;
+
   @Prop() certificates: ICertificate[] = [];
 
   @State() certificatesDecoded: ICertificateDecoded[] = [];
@@ -41,9 +43,35 @@ export class CertificatesViewer {
     this.certificatesDecodeAndSet();
   }
 
+  componentDidRender() {
+    this.search('e1c');
+
+    setTimeout(
+      () => { this.search('2a5')},
+      2000,
+    )
+  }
+
   @Watch('certificates')
   watchCertificates() {
     this.certificatesDecodeAndSet();
+  }
+
+  purifyStrin(source: string) {
+    const re = new RegExp(/<\/?b>/, 'g');
+
+    return source.replace(re, '');
+  }
+
+  search(srch: string) {
+    const collection = this.host.shadowRoot.querySelectorAll('[data-col="test"]');
+
+    collection.forEach(cell => {
+      const current = cell.innerHTML;
+      let result = this.purifyStrin(current);
+
+      cell.innerHTML = result.replace(srch, `<b>${srch}</b>`);
+    })
   }
 
   async certificatesDecodeAndSet() {
@@ -226,7 +254,7 @@ export class CertificatesViewer {
             <span class="mobile_title text_grey align-left b3">
               Fingerprint (SHA-1):
             </span>
-            <span class="content monospace">
+            <span class="content monospace" data-col="test">
               {certificate.fingerprint}
             </span>
           </td>
@@ -327,6 +355,7 @@ export class CertificatesViewer {
             text_black: true,
             m_extra: this.isHasTests || !this.isHasRoots,
           }}
+          id="temp"
         >
           <thead class="fill_grey_light">
             <tr class="stroke_border">

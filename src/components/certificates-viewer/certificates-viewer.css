@@ -80,6 +80,13 @@ table tr.expanded_summary td {
   padding: 10px 20px 26px;
 }
 
+/* Search */
+
+.content b {
+  background-color: var(--pv-color-attention);
+  font-weight: inherit;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0.001;

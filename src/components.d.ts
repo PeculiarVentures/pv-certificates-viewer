@@ -40,9 +40,6 @@ export namespace Components {
     'certificate': string;
   }
   interface PvCertificatesViewer {
-    /**
-    * List of certificates values for decode and show in the list.
-    */
     'certificates': ICertificate[];
   }
   interface PvTextHider {
@@ -121,9 +118,6 @@ declare namespace LocalJSX {
     'certificate'?: string;
   }
   interface PvCertificatesViewer {
-    /**
-    * List of certificates values for decode and show in the list.
-    */
     'certificates'?: ICertificate[];
   }
   interface PvTextHider {
