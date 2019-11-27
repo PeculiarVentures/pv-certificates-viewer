@@ -3,6 +3,6 @@
 }
 
 ::slotted(mark) {
-  background-color: #F7A866;
+  background-color: #F7A83166;
   background-color: var(--pv-color-attention-opacity);
 }
