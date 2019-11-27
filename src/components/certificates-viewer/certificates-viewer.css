@@ -18,11 +18,11 @@ table tr td {
   vertical-align: middle;
 }
 
-table tr:not(.expanded_summary) td {
+table tr:not(.expanded_summary) {
   cursor: pointer;
 }
 
-table tr:not(.expanded_summary):hover td {
+table tr:not(.expanded_summary):hover {
   background-color: #F4F7FC;
 }
 
