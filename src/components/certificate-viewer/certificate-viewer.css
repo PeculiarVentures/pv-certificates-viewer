@@ -2,6 +2,9 @@
   display: block;
   width: 100%;
   word-wrap: break-word;
+  position: relative;
+  min-width: 300px;
+  min-height: 300px;
   background: var(--pv-color-white);
 }
 
@@ -59,6 +62,21 @@ table tr:last-child .divider {
 .divider span {
   display: block;
   height: 1px;
+}
+
+/* Empty state */
+.status_wrapper {
+  min-height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.interaction_text {
+  padding: 15px 0;
+  width: 300px;
+  margin: auto;
+  text-align: center;
 }
 
 /* Adaptivity */

@@ -33,6 +33,7 @@ export class CertificatesViewer {
   @State() certificatesDecoded: ICertificateDecoded[] = [];
   @State() expandedRow: Certificate['serialNumber'] | null;
   @State() certificateSelectedForDetails: string | null;
+  @State() isDecodeInProcess: boolean = true;
 
   private isHasTests: boolean = false;
   private isHasRoots: boolean = false;
@@ -84,6 +85,7 @@ export class CertificatesViewer {
     }
 
     this.certificatesDecoded = data;
+    this.isDecodeInProcess = false;
   }
 
   onClickDownload(certificate: Certificate, downloadType: 'PEM' | 'DER', event: MouseEvent) {
@@ -126,7 +128,7 @@ export class CertificatesViewer {
     }
 
     return (
-      <tr class="expanded_summary fill_grey_1_opacity">
+      <tr class="expanded_summary fill_grey_1_opacity stroke_border">
         <td colSpan={colSpan} class="stroke_border">
           <pv-certificate-summary
             certificate={certificate}
@@ -183,7 +185,7 @@ export class CertificatesViewer {
     return elems;
   }
 
-  renderCertificates() {
+  renderContentState() {
     return this.certificatesDecoded.map(certificate => {
       const isExpandedRow = certificate.serialNumber === this.expandedRow;
 
@@ -309,6 +311,44 @@ export class CertificatesViewer {
     );
   }
 
+  renderEmptyState() {
+    return (
+      <tr class="stroke_border">
+        <td
+          class="b1 text_black stroke_border status_wrapper"
+          colSpan={5}
+        >
+          There is no certificates specified.
+        </td>
+      </tr>
+    );
+  }
+
+  renderLoadingState() {
+    return (
+      <tr class="stroke_border">
+        <td
+          class="b1 text_black stroke_border status_wrapper"
+          colSpan={5}
+        >
+          Loading...
+        </td>
+      </tr>
+    );
+  }
+
+  renderBody() {
+    if (this.isDecodeInProcess) {
+      return this.renderLoadingState();
+    }
+
+    if (!this.certificatesDecoded.length) {
+      return this.renderEmptyState();
+    }
+
+    return this.renderContentState();
+  }
+
   render() {
     return (
       <Host>
@@ -345,7 +385,7 @@ export class CertificatesViewer {
             </tr>
           </thead>
           <tbody>
-            {this.renderCertificates()}
+            {this.renderBody()}
           </tbody>
         </table>
         {this.renderCertificateDetailsModal()}
