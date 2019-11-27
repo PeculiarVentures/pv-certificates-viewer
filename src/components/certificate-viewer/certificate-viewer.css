@@ -2,10 +2,10 @@
   display: block;
   width: 100%;
   word-wrap: break-word;
-  background: white;
   position: relative;
   min-width: 300px;
   min-height: 300px;
+  background: var(--pv-color-white);
 }
 
 table {

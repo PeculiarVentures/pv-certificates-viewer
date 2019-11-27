@@ -127,7 +127,7 @@ export class CertificatesViewer {
 
     return (
       <tr class="expanded_summary fill_grey_1_opacity">
-        <td colSpan={colSpan} class="stroke_grey_3_border">
+        <td colSpan={colSpan} class="stroke_border">
           <pv-certificate-summary
             certificate={certificate}
             showIssuer={!certificate.isRoot}
@@ -189,13 +189,16 @@ export class CertificatesViewer {
 
       return ([
         <tr
-          class={isExpandedRow && 'expanded fill_grey_1_opacity'}
+          class={{
+            stroke_border: true,
+            'expanded fill_grey_1_opacity': isExpandedRow,
+          }}
           onClick={this.onClickRow.bind(this, certificate.serialNumber)}
           key={certificate.serialNumber}
         >
           {!this.isHasRoots && (
-            <td class="b3 stroke_grey_3_border">
-              <span class="mobile_title text_grey_5 align-left b3">
+            <td class="b3 stroke_border">
+              <span class="mobile_title text_grey align-left b3">
                 Issuer:
               </span>
               <span class="content">
@@ -203,32 +206,32 @@ export class CertificatesViewer {
               </span>
             </td>
           )}
-          <td class="b3 stroke_grey_3_border">
-            <span class="mobile_title text_grey_5 align-left b3">
+          <td class="b3 stroke_border">
+            <span class="mobile_title text_grey align-left b3">
               Name:
             </span>
             <span class="content">
               {certificate.commonName}
             </span>
           </td>
-          <td class="b3 stroke_grey_3_border">
-            <span class="mobile_title text_grey_5 align-left b3">
+          <td class="b3 stroke_border">
+            <span class="mobile_title text_grey align-left b3">
               Public Key:
             </span>
             <span class="content">
               {certificate.publicKey.algorithm.name} {certificate.publicKey.algorithm.modulusBits || certificate.publicKey.algorithm.namedCurve}
             </span>
           </td>
-          <td class="b3 stroke_grey_3_border">
-            <span class="mobile_title text_grey_5 align-left b3">
+          <td class="b3 stroke_border">
+            <span class="mobile_title text_grey align-left b3">
               Fingerprint (SHA-1):
             </span>
             <span class="content monospace">
               {certificate.fingerprint}
             </span>
           </td>
-          <td class="align-center stroke_grey_3_border">
-            <span class="mobile_title text_grey_5 align-left b3">
+          <td class="align-center stroke_border">
+            <span class="mobile_title text_grey align-left b3">
               Actions:
             </span>
             <span class="content">
@@ -251,8 +254,8 @@ export class CertificatesViewer {
             </span>
           </td>
           {this.isHasTests && (
-            <td class="align-center stroke_grey_3_border">
-              <span class="mobile_title text_grey_5 align-left b3">
+            <td class="align-center stroke_border">
+              <span class="mobile_title text_grey align-left b3">
                 Test URLs:
               </span>
               <span class="content">
@@ -273,17 +276,25 @@ export class CertificatesViewer {
     return  (
       <div class="modal_wrapper">
         <div class="modal_content">
-          <div class="fill_grey_2 modal_title stroke_grey_3_border">
+          <div class="fill_grey_light modal_title stroke_border">
             <h4 class="h4 text_black">
               Certificate details
             </h4>
-            <button class="modal_close" onClick={this.onClickModalClose}>
-              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <button
+              class="modal_close"
+              onClick={this.onClickModalClose}
+            >
+              <svg
+                width="30"
+                height="30"
+                viewBox="0 0 30 30"
+                xmlns="http://www.w3.org/2000/svg"
+                class="svg_fill_black"
+              >
                 <path
                   fill-rule="evenodd"
                   clip-rule="evenodd"
                   d="M15.7204 14.375L21.0654 19.7185C21.3115 19.9658 21.3115 20.3693 21.0654 20.6154L20.615 21.0645C20.3689 21.3118 19.9667 21.3118 19.7181 21.0645L14.3744 15.721L9.03194 21.0645C8.78327 21.3118 8.3811 21.3118 8.13371 21.0645L7.68459 20.6154C7.43847 20.3693 7.43847 19.9658 7.68459 19.7185L13.0296 14.375L7.68459 9.03155C7.43847 8.78417 7.43847 8.38074 7.68459 8.13463L8.13371 7.68554C8.3811 7.43815 8.78327 7.43815 9.03194 7.68554L14.3744 13.029L19.7181 7.68554C19.9667 7.43815 20.3689 7.43815 20.615 7.68554L21.0654 8.13463C21.3115 8.38074 21.3115 8.78417 21.0654 9.03155L15.7204 14.375Z"
-                  fill="#2A3134"
                 />
               </svg>
             </button>
@@ -317,27 +328,27 @@ export class CertificatesViewer {
             m_extra: this.isHasTests || !this.isHasRoots,
           }}
         >
-          <thead class="fill_grey_2">
-            <tr>
+          <thead class="fill_grey_light">
+            <tr class="stroke_border">
               {!this.isHasRoots && (
-                <th class="h7 stroke_grey_3_border col_issuer">
+                <th class="h7 stroke_border col_issuer">
                   Issuer
                 </th>
               )}
-              <th class="h7 stroke_grey_3_border col_name">
+              <th class="h7 stroke_border col_name">
                 Name
               </th>
-              <th class="h7 stroke_grey_3_border col_public_key">
+              <th class="h7 stroke_border col_public_key">
                 Public Key
               </th>
-              <th class="h7 stroke_grey_3_border col_fingerprint">
+              <th class="h7 stroke_border col_fingerprint">
                 Fingerprint (SHA-1)
               </th>
-              <th class="align-center h7 stroke_grey_3_border col_actions">
+              <th class="align-center h7 stroke_border col_actions">
                 Actions
               </th>
               {this.isHasTests && (
-                <th class="align-center h7 stroke_grey_3_border col_tests">
+                <th class="align-center h7 stroke_border col_tests">
                   Test URLs
                 </th>
               )}
