@@ -30,6 +30,7 @@ export class CertificatesViewer {
    */
   @Prop() certificates: ICertificate[] = [];
 
+  @State() search: string = '';
   @State() certificatesDecoded: ICertificateDecoded[] = [];
   @State() expandedRow: Certificate['serialNumber'] | null;
   @State() certificateSelectedForDetails: string | null;
@@ -213,7 +214,9 @@ export class CertificatesViewer {
               Name:
             </span>
             <span class="content">
-              {certificate.commonName}
+              <pv-highlight-words search={this.search}>
+                {certificate.commonName}
+              </pv-highlight-words>
             </span>
           </td>
           <td class="b3 stroke_border">
@@ -349,9 +352,14 @@ export class CertificatesViewer {
     return this.renderContentState();
   }
 
+  onSearchChange(e: any) {
+    this.search = e.target.value;
+  }
+
   render() {
     return (
       <Host>
+        <input type="text" value={this.search} onInput={e => this.onSearchChange(e)} />
         <table
           class={{
             text_black: true,

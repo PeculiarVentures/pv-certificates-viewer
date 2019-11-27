@@ -1,0 +1,8 @@
+:host {
+  display: inline-block;
+}
+
+::slotted(mark) {
+  background-color: #F7A866;
+  background-color: var(--pv-color-attention-opacity);
+}
