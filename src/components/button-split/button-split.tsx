@@ -69,15 +69,13 @@ export class ButtonSplit {
         >
           <svg
             viewBox="0 0 7 5"
-            fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            class="button_split_icon"
+            class="button_split_icon svg_fill_primary"
           >
             <path
               fill-rule="evenodd"
               clip-rule="evenodd"
               d="M5.459.124c.934.001 1.442.994.84 1.644L4.425 3.794c-.44.475-1.244.475-1.684 0L.862 1.764C.26 1.115.77.12 1.705.122l3.754.003z"
-              fill="#3584F7"
             />
           </svg>
         </pv-button>

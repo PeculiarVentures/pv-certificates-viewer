@@ -31,31 +31,31 @@ export class CertificateSummary {
   renderMetaData(item: Certificate) {
     return ([
       <p class="meta_row">
-        <span class="meta_name text_grey_5 b3">Serial number:</span>
+        <span class="meta_name text_grey b3">Serial number:</span>
         <span class="meta_value b3 text_black monospace">
           {item.serialNumber}
         </span>
       </p>,
       <p class="meta_row">
-        <span class="meta_name text_grey_5 b3">Version:</span>
+        <span class="meta_name text_grey b3">Version:</span>
         <span class="meta_value b3 text_black">
           {item.version}
         </span>
       </p>,
       <p class="meta_row">
-        <span class="meta_name text_grey_5 b3">Validity:</span>
+        <span class="meta_name text_grey b3">Validity:</span>
         <span class="meta_value b3 text_black">
           {item.validity}
         </span>
       </p>,
       <p class="meta_row">
-        <span class="meta_name text_grey_5 b3">Issued:</span>
+        <span class="meta_name text_grey b3">Issued:</span>
         <span class="meta_value b3 text_black">
           {dateFormatter.short(item.notBefore)}
         </span>
       </p>,
       <p class="meta_row">
-        <span class="meta_name text_grey_5 b3">Expired:</span>
+        <span class="meta_name text_grey b3">Expired:</span>
         <span class="meta_value b3 text_black">
           {dateFormatter.short(item.notAfter)}
         </span>
@@ -70,14 +70,14 @@ export class CertificateSummary {
         is_only: !this.showIssuer,
       }}>
         <div class="basic_col">
-          <p class="text_grey_5 b3 dn_row">
+          <p class="text_grey b3 dn_row">
             Subject DN:
           </p>
           {this.renderDN(this.certificate.subject)}
         </div>
         {this.showIssuer && (
-          <div class="basic_col stroke_grey_3_border">
-            <p class="text_grey_5 b3 dn_row">
+          <div class="basic_col stroke_border">
+            <p class="text_grey b3 dn_row">
               Issuer DN:
             </p>
             {this.renderDN(this.certificate.issuer)}
