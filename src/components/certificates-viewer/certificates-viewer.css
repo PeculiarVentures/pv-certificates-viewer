@@ -166,19 +166,9 @@ table tr.expanded_summary td {
 
 /* Empty state */
 .status_wrapper {
-  min-height: inherit;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-width: 1px;
-  border-style: solid;
-}
-
-.interaction_text {
-  padding: 15px 0;
-  width: 300px;
-  margin: auto;
+  height: 350px;
   text-align: center;
+  pointer-events: none;
 }
 
 @media (max-width: 900px) {
@@ -242,5 +232,11 @@ table tr.expanded_summary td {
 
   .expanded_summary td:before {
     content: none;
+  }
+
+  /* Empty state */
+  .status_wrapper {
+    height: 400px;
+    display: table-cell;
   }
 }
