@@ -305,7 +305,7 @@ export class CertificateViewer {
     if (this.certificateDecodeError) {  
       return (
         <div class="status_wrapper">
-          <p class="b1 interaction_text">
+          <p class="b1 interaction_text text_black">
             There is error for certificate decode.
           </p>
         </div>
@@ -315,7 +315,7 @@ export class CertificateViewer {
     if (!this.certificateDecoded) {
       return (
         <div class="status_wrapper">
-          <p class="b1 interaction_text">
+          <p class="b1 interaction_text text_black">
             There is no certificate specified.
           </p>
         </div>

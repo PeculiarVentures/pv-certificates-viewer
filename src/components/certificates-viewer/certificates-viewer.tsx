@@ -302,7 +302,7 @@ export class CertificatesViewer {
     if (!this.certificatesDecoded.length) {
       return (
         <div class="status_wrapper stroke_grey_3_border">
-          <p class="b1 interaction_text">
+          <p class="b1 interaction_text text_black">
             There is no certificate specified.
           </p>
         </div>
