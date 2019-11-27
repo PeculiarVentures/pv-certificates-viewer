@@ -155,7 +155,7 @@ table tr.expanded_summary td {
 
 @media (hover: hover) {
   table tr:not(.expanded_summary):hover {
-    background-color: #F4F7FC;
+    background-color: var(--pv-color-grey-light);
   }
 }
 
