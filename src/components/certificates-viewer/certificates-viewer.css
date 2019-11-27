@@ -159,7 +159,12 @@ table tr.expanded_summary td {
 
 /* Empty state */
 .status_wrapper {
-  height: 300px;
+  min-height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-width: 1px;
+  border-style: solid;
 }
 
 .interaction_text {

@@ -299,6 +299,16 @@ export class CertificatesViewer {
   }
 
   render() {
+    if (!this.certificatesDecoded.length) {
+      return (
+        <div class="status_wrapper stroke_grey_3_border">
+          <p class="b1 interaction_text">
+            There is no certificate specified.
+          </p>
+        </div>
+      )
+    }
+
     return (
       <Host>
         <table
@@ -334,17 +344,7 @@ export class CertificatesViewer {
             </tr>
           </thead>
           <tbody>
-            {this.certificates.length ? (
-              this.renderCertificates()
-            ) : (
-              <tr>
-                <td colSpan={5} class="stroke_grey_3_border status_wrapper text_black">
-                  <p class="b1 interaction_text">
-                    There is no certificate specified.
-                  </p>
-                </td>
-              </tr>
-            )}
+            {this.renderCertificates()}
           </tbody>
         </table>
         {this.renderCertificateDetailsModal()}
