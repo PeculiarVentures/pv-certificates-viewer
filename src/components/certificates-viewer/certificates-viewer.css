@@ -22,10 +22,6 @@ table tr:not(.expanded_summary) {
   cursor: pointer;
 }
 
-table tr:not(.expanded_summary):hover {
-  background-color: #F4F7FC;
-}
-
 table th {
   padding: 15px 10px;
   text-align: left;
@@ -155,6 +151,12 @@ table tr.expanded_summary td {
 /* Adaptivity styles */
 .mobile_title {
   display: none;
+}
+
+@media (hover: hover) {
+  table tr:not(.expanded_summary):hover {
+    background-color: #F4F7FC;
+  }
 }
 
 @media (max-width: 900px) {
