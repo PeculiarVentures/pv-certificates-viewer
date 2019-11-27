@@ -95,7 +95,7 @@ table tr.expanded_summary td {
   overflow: auto;
   padding: 10px;
   text-align: center;
-  background: rgba(42, 49, 52, 0.9);
+  background: var(--pv-color-overlay);
   animation: fadeIn 300ms;
 }
 
@@ -193,7 +193,7 @@ table tr.expanded_summary td {
     padding-left: 0;
     padding-right: 0;
     border-width: 1px 0 0 0 ! important;
-    border-color: rgba(209, 213, 217, 0.5) ! important;
+    border-color: var(--pv-color-border-light) ! important;
   }
 
   table tr.expanded_summary td {

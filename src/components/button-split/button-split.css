@@ -29,7 +29,7 @@
   left: 0;
   width: 100%;
   border-radius: 2px;
-  box-shadow: 0px 2px 1px #F2F6F6, 0px 0px 10px rgba(0, 0, 0, 0.0241168);
+  box-shadow: 0px 2px 1px var(--pv-color-white), 0px 0px 10px rgba(0, 0, 0, 0.0241168);
   z-index: 1;
 }
 

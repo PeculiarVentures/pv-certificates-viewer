@@ -63,37 +63,31 @@ export class CertificateSummary {
     ]);
   }
 
-  renderCertificateSummary() {
-    return (
-      <div class={{
-        basic_wrapper: true,
-        is_only: !this.showIssuer,
-      }}>
-        <div class="basic_col">
-          <p class="text_grey b3 dn_row">
-            Subject DN:
-          </p>
-          {this.renderDN(this.certificate.subject)}
-        </div>
-        {this.showIssuer && (
-          <div class="basic_col stroke_border">
-            <p class="text_grey b3 dn_row">
-              Issuer DN:
-            </p>
-            {this.renderDN(this.certificate.issuer)}
-          </div>
-        )}
-        <div class="basic_meta">
-          {this.renderMetaData(this.certificate)}
-        </div>
-      </div>
-    );
-  }
-
   render() {
     return (
       <Host>
-        {this.renderCertificateSummary()}
+        <div class={{
+          basic_wrapper: true,
+          is_only: !this.showIssuer,
+        }}>
+          <div class="basic_col">
+            <p class="text_grey b3 dn_row">
+              Subject DN:
+            </p>
+            {this.renderDN(this.certificate.subject)}
+          </div>
+          {this.showIssuer && (
+            <div class="basic_col stroke_border">
+              <p class="text_grey b3 dn_row">
+                Issuer DN:
+              </p>
+              {this.renderDN(this.certificate.issuer)}
+            </div>
+          )}
+          <div class="basic_meta">
+            {this.renderMetaData(this.certificate)}
+          </div>
+        </div>
       </Host>
     );
   }
