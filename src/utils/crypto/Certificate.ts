@@ -451,8 +451,15 @@ export default class Certificate extends Basic {
         )
       : undefined;
 
-    // decode version
-    this.version = pkijsSchema.version;
+    /**
+     * Decode version
+     *
+     * for value 2 - version 3
+     * for value 1 - version 2
+     *
+     * https://tools.ietf.org/html/rfc5280#section-4.1.2.1
+     */
+    this.version = pkijsSchema.version + 1;
 
     if (fullDecode) {
       // decode extensions
