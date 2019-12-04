@@ -1,5 +1,5 @@
 import { r as registerInstance, h } from './core-828499c0.js';
-import { C as Certificate, E as EnumOIDs } from './index-b8f78dc7.js';
+import { C as Certificate, E as EnumOIDs } from './index-eecb4381.js';
 import './date_formatter-80b284a6.js';
 
 const CertificateViewer = class {
