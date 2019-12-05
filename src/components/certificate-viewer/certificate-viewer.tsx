@@ -1,4 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
+
 import { Certificate, TExtension, EnumOIDs } from '../../utils/crypto';
 
 @Component({
@@ -39,7 +40,12 @@ export class CertificateViewer {
     );
   }
 
-  renderRowValue(title: string, value: string | number | any[], valueMonospace?: boolean, collapseValue?: boolean) {
+  renderRowValue(
+    title: string,
+    value: string | number | any[],
+    valueMonospace?: boolean,
+    collapseValue?: boolean,
+  ) {
     if (
       typeof value !== 'string'
       && typeof value !== 'number'
@@ -101,7 +107,7 @@ export class CertificateViewer {
       case EnumOIDs.ExtendedKeyUsage: {
         return this.renderRowValue(
           'Values',
-          extension.value.map((value) => (
+          extension.value.map(value => (
             <p class="b3 text_black">
               {value.name} ({value.oid})
             </p>
@@ -112,7 +118,7 @@ export class CertificateViewer {
       case EnumOIDs.CertificatePolicies: {
         return this.renderRowValue(
           'Values',
-          extension.value.map((value) => (
+          extension.value.map(value => (
             <p class="b3 text_black">
               {value.name
                 ? `${value.name} (${value.oid})`
@@ -215,7 +221,9 @@ export class CertificateViewer {
               if (value.type === 4) {
                 return (
                   <p class="b3">
-                    {value.value.map((valueType) => `${valueType.name}=${valueType.value}`).join(', ')}
+                    {value.value
+                      .map(valueType => `${valueType.name}=${valueType.value}`).join(', ')
+                    }
                   </p>
                 );
               }
@@ -266,7 +274,9 @@ export class CertificateViewer {
               if (value.type === 4) {
                 return (
                   <p class="b3">
-                    {value.value.map((valueType) => `${valueType.name}=${valueType.value}`).join(', ')}
+                    {value.value
+                      .map(valueType => `${valueType.name}=${valueType.value}`).join(', ')
+                    }
                   </p>
                 );
               }
@@ -293,7 +303,10 @@ export class CertificateViewer {
         return [
           this.renderRowValue('Key Identifier', extension.value.keyIdentifier, true),
           this.renderRowValue('Authority Cert Issuer', extension.value.authorityCertIssuer),
-          this.renderRowValue('Authority Cert Serial Number', extension.value.authorityCertSerialNumber),
+          this.renderRowValue(
+            'Authority Cert Serial Number',
+            extension.value.authorityCertSerialNumber,
+          ),
         ];
       }
     }
@@ -341,8 +354,14 @@ export class CertificateViewer {
 
         {this.renderRowTitle('Public Key Info')}
         {this.renderRowValue('Algorithm', this.certificateDecoded.publicKey.algorithm.name)}
-        {this.renderRowValue('Modulus Bits', this.certificateDecoded.publicKey.algorithm.modulusBits)}
-        {this.renderRowValue('Public Exponent', this.certificateDecoded.publicKey.algorithm.publicExponent)}
+        {this.renderRowValue(
+          'Modulus Bits',
+          this.certificateDecoded.publicKey.algorithm.modulusBits,
+        )}
+        {this.renderRowValue(
+          'Public Exponent',
+          this.certificateDecoded.publicKey.algorithm.publicExponent,
+        )}
         {this.renderRowValue('Named Curve', this.certificateDecoded.publicKey.algorithm.namedCurve)}
         {this.renderRowValue('Value', this.certificateDecoded.publicKey.value, true, true)}
 
@@ -352,8 +371,11 @@ export class CertificateViewer {
         {this.renderRowValue('Value', this.certificateDecoded.signature.value, true, true)}
 
         {this.renderRowTitle('Extensions')}
-        {this.certificateDecoded.extensions.map((extension) => ([
-          this.renderRowValue('Name', extension.name ? `${extension.name} (${extension.oid})` : extension.oid),
+        {this.certificateDecoded.extensions.map(extension => ([
+          this.renderRowValue(
+            'Name',
+            extension.name ? `${extension.name} (${extension.oid})` : extension.oid,
+          ),
           this.renderRowValue('Critical', String(extension.critical)),
           this.renderRowExtensionValue(extension),
           <tr>
