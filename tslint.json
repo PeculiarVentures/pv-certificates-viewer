@@ -1,0 +1,35 @@
+{
+  "extends": [
+    "tslint-config-airbnb",
+    "tslint-stencil",
+    "tslint-eslint-rules"
+  ],
+  "rules": {
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-pascal-case"
+    ],
+    "import-name": false,
+    "interface-name": [true, "always-prefix"],
+    "newline-before-return": true,
+    "indent": [true, "spaces", 2],
+    "function-name": [true, {
+      "method-regex": "^[a-z]+[A-Za-z0-9]+$",
+      "private-method-regex": "^[a-z]+[A-Za-z0-9]+$",
+      "protected-method-regex": "^[a-z]+[A-Za-z0-9]+$",
+      "static-method-regex": "^[a-z]+[A-Za-z0-9]+$",
+      "function-regex": "^[a-z]+[A-Za-z0-9]+$"
+    }],
+    "ter-newline-after-var": [true],
+    "ordered-imports": [
+      true,
+      {
+        "grouped-imports": true,
+        "import-sources-order": "any",
+        "named-imports-order": "any"
+      }
+    ]
+  }
+}
