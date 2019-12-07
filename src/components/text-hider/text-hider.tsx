@@ -5,9 +5,9 @@ import { Component, Host, h, Prop, Event, EventEmitter, Listen } from '@stencil/
   styleUrls: [
     '../../styles/reset.css',
     '../../styles/system.css',
-    'text-hider.css'
+    'text-hider.css',
   ],
-  shadow: true
+  shadow: true,
 })
 export class TextHider {
   @Prop({ mutable: true, reflect: true }) opened: boolean = false;
@@ -59,5 +59,4 @@ export class TextHider {
       </Host>
     );
   }
-
 }

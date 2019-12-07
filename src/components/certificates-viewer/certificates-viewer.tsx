@@ -1,4 +1,5 @@
 import { Component, h, Prop, State, Watch, Host } from '@stencil/core';
+
 import { Certificate } from '../../utils/crypto';
 
 export interface ICertificate {
@@ -58,8 +59,9 @@ export class CertificatesViewer {
 
     const data: ICertificateDecoded[] = [];
 
-    for (let certificate of this.certificates) {
+    for (const certificate of this.certificates) {
       const cert = new Certificate(certificate.value, certificate.name);
+
       await cert.getFingerprint();
 
       try {
@@ -80,7 +82,7 @@ export class CertificatesViewer {
             this.isHasTests = true;
           }
         }
-      } catch(error) {
+      } catch (error) {
         console.error(error);
       }
     }
@@ -187,8 +189,9 @@ export class CertificatesViewer {
   }
 
   renderContentState() {
-    return this.certificatesDecoded.map(certificate => {
+    return this.certificatesDecoded.map((certificate) => {
       const isExpandedRow = certificate.serialNumber === this.expandedRow;
+      const publicKeyValue = `${certificate.publicKey.algorithm.name} ${certificate.publicKey.algorithm.modulusBits || certificate.publicKey.algorithm.namedCurve}`;
 
       return ([
         <tr
@@ -227,7 +230,7 @@ export class CertificatesViewer {
             </span>
             <span class="content">
               <pv-highlight-words search={this.search}>
-                {certificate.publicKey.algorithm.name} {certificate.publicKey.algorithm.modulusBits || certificate.publicKey.algorithm.namedCurve}
+                {publicKeyValue}
               </pv-highlight-words>
             </span>
           </td>
@@ -276,7 +279,8 @@ export class CertificatesViewer {
           )}
         </tr>,
         isExpandedRow && this.renderExpandedRow(certificate),
-    ])})
+      ]);
+    });
   }
 
   renderCertificateDetailsModal() {
