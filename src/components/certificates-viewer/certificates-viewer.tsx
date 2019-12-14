@@ -31,6 +31,9 @@ export class CertificatesViewer {
    */
   @Prop() certificates: ICertificate[] = [];
 
+  @Prop() filterWithSearch: boolean = true;
+  @Prop() highlightWithSearch: boolean = true;
+
   @State() search: string = '';
   @State() certificatesDecoded: ICertificateDecoded[] = [];
   @State() expandedRow: Certificate['serialNumber'] | null;
@@ -60,11 +63,11 @@ export class CertificatesViewer {
     const data: ICertificateDecoded[] = [];
 
     for (const certificate of this.certificates) {
-      const cert = new Certificate(certificate.value, certificate.name);
-
-      await cert.getFingerprint();
-
       try {
+        const cert = new Certificate(certificate.value, certificate.name);
+
+        await cert.getFingerprint();
+
         data.push(Object.assign(
           cert,
           { tests: certificate.tests },
@@ -189,9 +192,14 @@ export class CertificatesViewer {
   }
 
   renderContentState() {
+    const searchHighlight = this.highlightWithSearch ? this.search : '';
+
     return this.certificatesDecoded.map((certificate) => {
       const isExpandedRow = certificate.serialNumber === this.expandedRow;
       const publicKeyValue = `${certificate.publicKey.algorithm.name} ${certificate.publicKey.algorithm.modulusBits || certificate.publicKey.algorithm.namedCurve}`;
+      const issuerValue = certificate.issuer && certificate.issuer.CN
+        ? certificate.issuer.CN.value
+        : '';
 
       return ([
         <tr
@@ -208,8 +216,8 @@ export class CertificatesViewer {
                 Issuer:
               </span>
               <span class="content">
-                <pv-highlight-words search={this.search}>
-                  {certificate.issuer && certificate.issuer.CN ? certificate.issuer.CN.value : ''}
+                <pv-highlight-words search={searchHighlight}>
+                  {issuerValue}
                 </pv-highlight-words>
               </span>
             </td>
@@ -219,7 +227,7 @@ export class CertificatesViewer {
               Name:
             </span>
             <span class="content">
-              <pv-highlight-words search={this.search}>
+              <pv-highlight-words search={searchHighlight}>
                 {certificate.commonName}
               </pv-highlight-words>
             </span>
@@ -229,7 +237,7 @@ export class CertificatesViewer {
               Public Key:
             </span>
             <span class="content">
-              <pv-highlight-words search={this.search}>
+              <pv-highlight-words search={searchHighlight}>
                 {publicKeyValue}
               </pv-highlight-words>
             </span>
@@ -239,7 +247,7 @@ export class CertificatesViewer {
               Fingerprint (SHA-1):
             </span>
             <span class="content monospace">
-              <pv-highlight-words search={this.search}>
+              <pv-highlight-words search={searchHighlight}>
                 {certificate.fingerprint}
               </pv-highlight-words>
             </span>
@@ -324,6 +332,25 @@ export class CertificatesViewer {
     );
   }
 
+  renderSearch() {
+    if (!this.filterWithSearch && !this.highlightWithSearch) {
+      return null;
+    }
+
+    return (
+      <div class="search_section fill_grey_light stroke_border">
+        <input
+          onInput={this.onSearchChange}
+          type="search"
+          value=""
+          class="input_search fill_white stroke_border text_black"
+          disabled={!this.certificatesDecoded.length}
+          placeholder="Search"
+        />
+      </div>
+    );
+  }
+
   renderEmptyState() {
     return (
       <tr class="stroke_border">
@@ -369,16 +396,7 @@ export class CertificatesViewer {
   render() {
     return (
       <Host>
-        <div class="search_section fill_grey_light stroke_border">
-          <input
-            onInput={this.onSearchChange}
-            type="search"
-            value=""
-            class="input_search fill_white stroke_border text_black"
-            disabled={!this.certificatesDecoded.length}
-            placeholder="Search"
-          />
-        </div>
+        {this.renderSearch()}
         <table
           class={{
             text_black: true,

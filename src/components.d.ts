@@ -44,6 +44,8 @@ export namespace Components {
     * List of certificates values for decode and show in the list.
     */
     'certificates': ICertificate[];
+    'filterWithSearch': boolean;
+    'highlightWithSearch': boolean;
   }
   interface PvHighlightWords {
     'search': string;
@@ -135,6 +137,8 @@ declare namespace LocalJSX {
     * List of certificates values for decode and show in the list.
     */
     'certificates'?: ICertificate[];
+    'filterWithSearch'?: boolean;
+    'highlightWithSearch'?: boolean;
   }
   interface PvHighlightWords {
     'search'?: string;
