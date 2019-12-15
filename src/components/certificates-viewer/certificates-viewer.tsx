@@ -192,7 +192,9 @@ export class CertificatesViewer {
   }
 
   renderContentState() {
-    const searchHighlight = this.highlightWithSearch ? this.search : '';
+    const searchHighlight = this.highlightWithSearch
+      ? this.search
+      : '';
 
     return this.certificatesDecoded.map((certificate) => {
       const isExpandedRow = certificate.serialNumber === this.expandedRow;
@@ -200,6 +202,21 @@ export class CertificatesViewer {
       const issuerValue = certificate.issuer && certificate.issuer.CN
         ? certificate.issuer.CN.value
         : '';
+
+      if (this.filterWithSearch && this.search) {
+        const certificateStringForSearch = [
+          publicKeyValue,
+          issuerValue,
+          certificate.commonName,
+          certificate.fingerprint,
+        ]
+          .join(' ')
+          .toLowerCase();
+
+        if (certificateStringForSearch.indexOf(this.search) === -1) {
+          return null;
+        }
+      }
 
       return ([
         <tr
@@ -390,7 +407,9 @@ export class CertificatesViewer {
   }
 
   onSearchChange = (e: any) => {
-    this.search = e.target.value;
+    this.search = e.target.value
+      .trim()
+      .toLowerCase();
   }
 
   render() {
