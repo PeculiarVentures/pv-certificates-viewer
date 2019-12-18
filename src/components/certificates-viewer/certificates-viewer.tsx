@@ -30,8 +30,13 @@ export class CertificatesViewer {
    * List of certificates values for decode and show in the list.
    */
   @Prop() certificates: ICertificate[] = [];
-
+  /**
+   * Use filter in the list when search is changed.
+   */
   @Prop() filterWithSearch: boolean = true;
+  /**
+   * Use highlight chapters in the list when search is changed.
+   */
   @Prop() highlightWithSearch: boolean = true;
 
   @State() search: string = '';
@@ -195,8 +200,9 @@ export class CertificatesViewer {
     const searchHighlight = this.highlightWithSearch
       ? this.search
       : '';
+    const content = [];
 
-    return this.certificatesDecoded.map((certificate) => {
+    this.certificatesDecoded.forEach((certificate) => {
       const isExpandedRow = certificate.serialNumber === this.expandedRow;
       const publicKeyValue = `${certificate.publicKey.algorithm.name} ${certificate.publicKey.algorithm.modulusBits || certificate.publicKey.algorithm.namedCurve}`;
       const issuerValue = certificate.issuer && certificate.issuer.CN
@@ -214,11 +220,11 @@ export class CertificatesViewer {
           .toLowerCase();
 
         if (certificateStringForSearch.indexOf(this.search) === -1) {
-          return null;
+          return;
         }
       }
 
-      return ([
+      content.push([
         <tr
           class={{
             stroke_border: true,
@@ -306,6 +312,8 @@ export class CertificatesViewer {
         isExpandedRow && this.renderExpandedRow(certificate),
       ]);
     });
+
+    return content;
   }
 
   renderCertificateDetailsModal() {
@@ -381,6 +389,19 @@ export class CertificatesViewer {
     );
   }
 
+  renderEmptySearchState() {
+    return (
+      <tr class="stroke_border">
+        <td
+          class="b1 text_black stroke_border status_wrapper"
+          colSpan={5}
+        >
+          No results found for "{this.search}"
+        </td>
+      </tr>
+    );
+  }
+
   renderLoadingState() {
     return (
       <tr class="stroke_border">
@@ -403,7 +424,13 @@ export class CertificatesViewer {
       return this.renderEmptyState();
     }
 
-    return this.renderContentState();
+    const contentState = this.renderContentState();
+
+    if (this.search && !contentState.length) {
+      return this.renderEmptySearchState();
+    }
+
+    return contentState;
   }
 
   onSearchChange = (e: any) => {

@@ -3,7 +3,6 @@
   width: 100%;
   word-wrap: break-word;
   min-width: 300px;
-  min-height: 400px;
   overflow: auto;
   background: var(--pv-color-white);
 }
@@ -155,7 +154,7 @@ table tr.expanded_summary td {
 
 /* Empty state */
 .status_wrapper {
-  height: 350px;
+  height: 85px;
   text-align: center;
   pointer-events: none;
 }
@@ -253,7 +252,7 @@ table tr.expanded_summary td {
 
   /* Empty state */
   .status_wrapper {
-    height: 400px;
+    height: 266px;
     display: table-cell;
   }
 
