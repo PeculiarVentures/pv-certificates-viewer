@@ -7,8 +7,8 @@ const CertificateSummary = class {
         this.showIssuer = true;
     }
     renderDN(item) {
-        return Object.keys(item).map(subject => {
-            return (h("p", { class: "dn_row" }, h("span", { class: "dn_name b3 text_black" }, subject), h("span", { class: "dn_value b3 text_black" }, item[subject].value)));
+        return Object.keys(item).map((keyName) => {
+            return (h("p", { class: "dn_row" }, h("span", { class: "dn_name b3 text_black" }, keyName), h("span", { class: "dn_value b3 text_black" }, item[keyName].value)));
         });
     }
     renderMetaData(item) {

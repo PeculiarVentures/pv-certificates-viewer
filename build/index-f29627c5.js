@@ -27744,8 +27744,7 @@ class Certificate$1 extends Basic {
         this.decode(fullDecode);
     }
     static base64ToPem(base64) {
-        base64 = base64.replace(/(.{64})/g, '$1\n');
-        return Certificate$1.pemTagCertificate(base64);
+        return Certificate$1.pemTagCertificate(base64.replace(/(.{64})/g, '$1\n'));
     }
     static getExtensionNetscapeCertType(extension) {
         const usages = [];
@@ -28094,7 +28093,7 @@ class Certificate$1 extends Basic {
                             oid: EnumOIDs.NameConstraints,
                             value: {
                                 permitted: Certificate$1.decodeSANs(ext.parsedValue.permittedSubtrees || []),
-                                excluded: Certificate$1.decodeSANs(ext.parsedValue.excludedSubtrees || [])
+                                excluded: Certificate$1.decodeSANs(ext.parsedValue.excludedSubtrees || []),
                             },
                         };
                         return this.extensions.push(extension);

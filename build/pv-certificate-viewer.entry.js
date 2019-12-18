@@ -1,5 +1,5 @@
 import { r as registerInstance, h } from './core-828499c0.js';
-import { C as Certificate, E as EnumOIDs } from './index-eecb4381.js';
+import { C as Certificate, E as EnumOIDs } from './index-f29627c5.js';
 import './date_formatter-80b284a6.js';
 
 const CertificateViewer = class {
@@ -56,10 +56,10 @@ const CertificateViewer = class {
                 return this.renderRowValue('Value', extension.value.join(', '));
             }
             case EnumOIDs.ExtendedKeyUsage: {
-                return this.renderRowValue('Values', extension.value.map((value) => (h("p", { class: "b3 text_black" }, value.name, " (", value.oid, ")"))));
+                return this.renderRowValue('Values', extension.value.map(value => (h("p", { class: "b3 text_black" }, value.name, " (", value.oid, ")"))));
             }
             case EnumOIDs.CertificatePolicies: {
-                return this.renderRowValue('Values', extension.value.map((value) => (h("p", { class: "b3 text_black" }, value.name
+                return this.renderRowValue('Values', extension.value.map(value => (h("p", { class: "b3 text_black" }, value.name
                     ? `${value.name} (${value.oid})`
                     : value.oid))));
             }
@@ -95,7 +95,8 @@ const CertificateViewer = class {
                             return (h("p", { class: "b3" }, h("a", { class: "text_primary", href: `https://censys.io/ipv4?q=${value.value}`, target: "_blank" }, value.value)));
                         }
                         if (value.type === 4) {
-                            return (h("p", { class: "b3" }, value.value.map((valueType) => `${valueType.name}=${valueType.value}`).join(', ')));
+                            return (h("p", { class: "b3" }, value.value
+                                .map(valueType => `${valueType.name}=${valueType.value}`).join(', ')));
                         }
                         return (h("p", { class: "b3 text_black" }, value.value));
                     })),
@@ -111,7 +112,8 @@ const CertificateViewer = class {
                             return (h("p", { class: "b3" }, h("a", { class: "text_primary", href: `https://censys.io/ipv4?q=${value.value}`, target: "_blank" }, value.value)));
                         }
                         if (value.type === 4) {
-                            return (h("p", { class: "b3" }, value.value.map((valueType) => `${valueType.name}=${valueType.value}`).join(', ')));
+                            return (h("p", { class: "b3" }, value.value
+                                .map(valueType => `${valueType.name}=${valueType.value}`).join(', ')));
                         }
                         return (h("p", { class: "b3 text_black" }, value.value));
                     })),
@@ -147,7 +149,7 @@ const CertificateViewer = class {
         if (!this.certificateDecoded) {
             return this.renderEmptyState();
         }
-        return (h("table", null, this.renderRowTitle('Basic Information'), h("tr", null, h("td", { colSpan: 2 }, h("pv-certificate-summary", { certificate: this.certificateDecoded }))), this.renderRowTitle('Public Key Info'), this.renderRowValue('Algorithm', this.certificateDecoded.publicKey.algorithm.name), this.renderRowValue('Modulus Bits', this.certificateDecoded.publicKey.algorithm.modulusBits), this.renderRowValue('Public Exponent', this.certificateDecoded.publicKey.algorithm.publicExponent), this.renderRowValue('Named Curve', this.certificateDecoded.publicKey.algorithm.namedCurve), this.renderRowValue('Value', this.certificateDecoded.publicKey.value, true, true), this.renderRowTitle('Signature'), this.renderRowValue('Algorithm', this.certificateDecoded.signature.algorithm.name), this.renderRowValue('Hash', this.certificateDecoded.signature.algorithm.hash), this.renderRowValue('Value', this.certificateDecoded.signature.value, true, true), this.renderRowTitle('Extensions'), this.certificateDecoded.extensions.map((extension) => ([
+        return (h("table", null, this.renderRowTitle('Basic Information'), h("tr", null, h("td", { colSpan: 2 }, h("pv-certificate-summary", { certificate: this.certificateDecoded }))), this.renderRowTitle('Public Key Info'), this.renderRowValue('Algorithm', this.certificateDecoded.publicKey.algorithm.name), this.renderRowValue('Modulus Bits', this.certificateDecoded.publicKey.algorithm.modulusBits), this.renderRowValue('Public Exponent', this.certificateDecoded.publicKey.algorithm.publicExponent), this.renderRowValue('Named Curve', this.certificateDecoded.publicKey.algorithm.namedCurve), this.renderRowValue('Value', this.certificateDecoded.publicKey.value, true, true), this.renderRowTitle('Signature'), this.renderRowValue('Algorithm', this.certificateDecoded.signature.algorithm.name), this.renderRowValue('Hash', this.certificateDecoded.signature.algorithm.hash), this.renderRowValue('Value', this.certificateDecoded.signature.value, true, true), this.renderRowTitle('Extensions'), this.certificateDecoded.extensions.map(extension => ([
             this.renderRowValue('Name', extension.name ? `${extension.name} (${extension.oid})` : extension.oid),
             this.renderRowValue('Critical', String(extension.critical)),
             this.renderRowExtensionValue(extension),
