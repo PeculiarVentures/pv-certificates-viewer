@@ -44,6 +44,14 @@ export namespace Components {
     * List of certificates values for decode and show in the list.
     */
     'certificates': ICertificate[];
+    /**
+    * Use filter in the list when search is changed.
+    */
+    'filterWithSearch': boolean;
+    /**
+    * Use highlight chapters in the list when search is changed.
+    */
+    'highlightWithSearch': boolean;
   }
   interface PvHighlightWords {
     'search': string;
@@ -135,6 +143,14 @@ declare namespace LocalJSX {
     * List of certificates values for decode and show in the list.
     */
     'certificates'?: ICertificate[];
+    /**
+    * Use filter in the list when search is changed.
+    */
+    'filterWithSearch'?: boolean;
+    /**
+    * Use highlight chapters in the list when search is changed.
+    */
+    'highlightWithSearch'?: boolean;
   }
   interface PvHighlightWords {
     'search'?: string;

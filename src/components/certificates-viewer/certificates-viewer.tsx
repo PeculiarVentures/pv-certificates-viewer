@@ -30,6 +30,14 @@ export class CertificatesViewer {
    * List of certificates values for decode and show in the list.
    */
   @Prop() certificates: ICertificate[] = [];
+  /**
+   * Use filter in the list when search is changed.
+   */
+  @Prop() filterWithSearch: boolean = true;
+  /**
+   * Use highlight chapters in the list when search is changed.
+   */
+  @Prop() highlightWithSearch: boolean = true;
 
   @State() search: string = '';
   @State() certificatesDecoded: ICertificateDecoded[] = [];
@@ -60,11 +68,11 @@ export class CertificatesViewer {
     const data: ICertificateDecoded[] = [];
 
     for (const certificate of this.certificates) {
-      const cert = new Certificate(certificate.value, certificate.name);
-
-      await cert.getFingerprint();
-
       try {
+        const cert = new Certificate(certificate.value, certificate.name);
+
+        await cert.getFingerprint();
+
         data.push(Object.assign(
           cert,
           { tests: certificate.tests },
@@ -189,11 +197,34 @@ export class CertificatesViewer {
   }
 
   renderContentState() {
-    return this.certificatesDecoded.map((certificate) => {
+    const searchHighlight = this.highlightWithSearch
+      ? this.search
+      : '';
+    const content = [];
+
+    this.certificatesDecoded.forEach((certificate) => {
       const isExpandedRow = certificate.serialNumber === this.expandedRow;
       const publicKeyValue = `${certificate.publicKey.algorithm.name} ${certificate.publicKey.algorithm.modulusBits || certificate.publicKey.algorithm.namedCurve}`;
+      const issuerValue = certificate.issuer && certificate.issuer.CN
+        ? certificate.issuer.CN.value
+        : '';
 
-      return ([
+      if (this.filterWithSearch && this.search) {
+        const certificateStringForSearch = [
+          publicKeyValue,
+          issuerValue,
+          certificate.commonName,
+          certificate.fingerprint,
+        ]
+          .join(' ')
+          .toLowerCase();
+
+        if (certificateStringForSearch.indexOf(this.search) === -1) {
+          return;
+        }
+      }
+
+      content.push([
         <tr
           class={{
             stroke_border: true,
@@ -208,8 +239,8 @@ export class CertificatesViewer {
                 Issuer:
               </span>
               <span class="content">
-                <pv-highlight-words search={this.search}>
-                  {certificate.issuer && certificate.issuer.CN ? certificate.issuer.CN.value : ''}
+                <pv-highlight-words search={searchHighlight}>
+                  {issuerValue}
                 </pv-highlight-words>
               </span>
             </td>
@@ -219,7 +250,7 @@ export class CertificatesViewer {
               Name:
             </span>
             <span class="content">
-              <pv-highlight-words search={this.search}>
+              <pv-highlight-words search={searchHighlight}>
                 {certificate.commonName}
               </pv-highlight-words>
             </span>
@@ -229,7 +260,7 @@ export class CertificatesViewer {
               Public Key:
             </span>
             <span class="content">
-              <pv-highlight-words search={this.search}>
+              <pv-highlight-words search={searchHighlight}>
                 {publicKeyValue}
               </pv-highlight-words>
             </span>
@@ -239,7 +270,7 @@ export class CertificatesViewer {
               Fingerprint (SHA-1):
             </span>
             <span class="content monospace">
-              <pv-highlight-words search={this.search}>
+              <pv-highlight-words search={searchHighlight}>
                 {certificate.fingerprint}
               </pv-highlight-words>
             </span>
@@ -281,6 +312,8 @@ export class CertificatesViewer {
         isExpandedRow && this.renderExpandedRow(certificate),
       ]);
     });
+
+    return content;
   }
 
   renderCertificateDetailsModal() {
@@ -324,6 +357,25 @@ export class CertificatesViewer {
     );
   }
 
+  renderSearch() {
+    if (!this.filterWithSearch && !this.highlightWithSearch) {
+      return null;
+    }
+
+    return (
+      <div class="search_section fill_grey_light stroke_border">
+        <input
+          onInput={this.onSearchChange}
+          type="search"
+          value=""
+          class="input_search fill_white stroke_border text_black"
+          disabled={!this.certificatesDecoded.length}
+          placeholder="Search"
+        />
+      </div>
+    );
+  }
+
   renderEmptyState() {
     return (
       <tr class="stroke_border">
@@ -332,6 +384,19 @@ export class CertificatesViewer {
           colSpan={5}
         >
           There is no certificates specified.
+        </td>
+      </tr>
+    );
+  }
+
+  renderEmptySearchState() {
+    return (
+      <tr class="stroke_border">
+        <td
+          class="b1 text_black stroke_border status_wrapper"
+          colSpan={5}
+        >
+          No results found for "{this.search}"
         </td>
       </tr>
     );
@@ -359,26 +424,25 @@ export class CertificatesViewer {
       return this.renderEmptyState();
     }
 
-    return this.renderContentState();
+    const contentState = this.renderContentState();
+
+    if (this.search && !contentState.length) {
+      return this.renderEmptySearchState();
+    }
+
+    return contentState;
   }
 
   onSearchChange = (e: any) => {
-    this.search = e.target.value;
+    this.search = e.target.value
+      .trim()
+      .toLowerCase();
   }
 
   render() {
     return (
       <Host>
-        <div class="search_section fill_grey_light stroke_border">
-          <input
-            onInput={this.onSearchChange}
-            type="search"
-            value=""
-            class="input_search fill_white stroke_border text_black"
-            disabled={!this.certificatesDecoded.length}
-            placeholder="Search"
-          />
-        </div>
+        {this.renderSearch()}
         <table
           class={{
             text_black: true,
