@@ -43,5 +43,5 @@
 }
 
 .circle_progress_backdrop {
-  stroke: var(--pv-color-primary);
+  stroke: var(--pv-color-border);
 }
