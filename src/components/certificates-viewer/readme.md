@@ -7,9 +7,11 @@
 
 ## Properties
 
-| Property       | Attribute | Description                                                  | Type             | Default |
-| -------------- | --------- | ------------------------------------------------------------ | ---------------- | ------- |
-| `certificates` | --        | List of certificates values for decode and show in the list. | `ICertificate[]` | `[]`    |
+| Property              | Attribute               | Description                                                  | Type             | Default |
+| --------------------- | ----------------------- | ------------------------------------------------------------ | ---------------- | ------- |
+| `certificates`        | --                      | List of certificates values for decode and show in the list. | `ICertificate[]` | `[]`    |
+| `filterWithSearch`    | `filter-with-search`    | Use filter in the list when search is changed.               | `boolean`        | `true`  |
+| `highlightWithSearch` | `highlight-with-search` | Use highlight chapters in the list when search is changed.   | `boolean`        | `true`  |
 
 
 ## Dependencies

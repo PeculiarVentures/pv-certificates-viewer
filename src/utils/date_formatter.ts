@@ -10,4 +10,3 @@ export const short = (date: string | number | Date) => (
 export const fromNow = (date: string | number | Date) => (
   dayjs(date).fromNow()
 );
-

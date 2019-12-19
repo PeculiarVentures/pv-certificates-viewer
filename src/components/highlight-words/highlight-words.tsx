@@ -3,7 +3,7 @@ import { Component, Host, h, Element, Prop } from '@stencil/core';
 @Component({
   tag: 'pv-highlight-words',
   styleUrl: 'highlight-words.css',
-  shadow: true
+  shadow: true,
 })
 export class HighlightWords {
   @Element() host: HTMLElement;
@@ -26,6 +26,7 @@ export class HighlightWords {
 
     if (this.search) {
       const substring = new RegExp(`(${this.search})`, 'gi');
+
       result = basicString.replace(substring, `<${this.tag}>$1</${this.tag}>`);
     }
 
@@ -34,6 +35,7 @@ export class HighlightWords {
 
   resetHighlightSearch(source: string) {
     const substring = new RegExp(`<\/?${this.tag}>`, 'g');
+
     return source.replace(substring, '');
   }
 
