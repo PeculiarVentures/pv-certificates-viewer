@@ -3,7 +3,7 @@ import { Component, Host, h, Prop } from '@stencil/core';
 @Component({
   tag: 'pv-circular-progress',
   styleUrl: 'circular-progress.css',
-  shadow: true
+  shadow: true,
 })
 export class CircularProgress {
 
