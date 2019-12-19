@@ -54,7 +54,13 @@ export namespace Components {
     'highlightWithSearch': boolean;
   }
   interface PvCircularProgress {
+    /**
+    * @size prop sets width/height of progress circle.
+    */
     'size': number;
+    /**
+    * @width props declares stroke width of progress bar circle.
+    */
     'width': number;
   }
   interface PvHighlightWords {
@@ -164,7 +170,13 @@ declare namespace LocalJSX {
     'highlightWithSearch'?: boolean;
   }
   interface PvCircularProgress {
+    /**
+    * @size prop sets width/height of progress circle.
+    */
     'size'?: number;
+    /**
+    * @width props declares stroke width of progress bar circle.
+    */
     'width'?: number;
   }
   interface PvHighlightWords {
