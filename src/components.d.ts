@@ -53,6 +53,10 @@ export namespace Components {
     */
     'highlightWithSearch': boolean;
   }
+  interface PvCircularProgress {
+    'size': number;
+    'width': number;
+  }
   interface PvHighlightWords {
     'search': string;
   }
@@ -94,6 +98,12 @@ declare global {
     new (): HTMLPvCertificatesViewerElement;
   };
 
+  interface HTMLPvCircularProgressElement extends Components.PvCircularProgress, HTMLStencilElement {}
+  var HTMLPvCircularProgressElement: {
+    prototype: HTMLPvCircularProgressElement;
+    new (): HTMLPvCircularProgressElement;
+  };
+
   interface HTMLPvHighlightWordsElement extends Components.PvHighlightWords, HTMLStencilElement {}
   var HTMLPvHighlightWordsElement: {
     prototype: HTMLPvHighlightWordsElement;
@@ -111,6 +121,7 @@ declare global {
     'pv-certificate-summary': HTMLPvCertificateSummaryElement;
     'pv-certificate-viewer': HTMLPvCertificateViewerElement;
     'pv-certificates-viewer': HTMLPvCertificatesViewerElement;
+    'pv-circular-progress': HTMLPvCircularProgressElement;
     'pv-highlight-words': HTMLPvHighlightWordsElement;
     'pv-text-hider': HTMLPvTextHiderElement;
   }
@@ -152,6 +163,10 @@ declare namespace LocalJSX {
     */
     'highlightWithSearch'?: boolean;
   }
+  interface PvCircularProgress {
+    'size'?: number;
+    'width'?: number;
+  }
   interface PvHighlightWords {
     'search'?: string;
   }
@@ -166,6 +181,7 @@ declare namespace LocalJSX {
     'pv-certificate-summary': PvCertificateSummary;
     'pv-certificate-viewer': PvCertificateViewer;
     'pv-certificates-viewer': PvCertificatesViewer;
+    'pv-circular-progress': PvCircularProgress;
     'pv-highlight-words': PvHighlightWords;
     'pv-text-hider': PvTextHider;
   }
@@ -182,6 +198,7 @@ declare module "@stencil/core" {
       'pv-certificate-summary': LocalJSX.PvCertificateSummary & JSXBase.HTMLAttributes<HTMLPvCertificateSummaryElement>;
       'pv-certificate-viewer': LocalJSX.PvCertificateViewer & JSXBase.HTMLAttributes<HTMLPvCertificateViewerElement>;
       'pv-certificates-viewer': LocalJSX.PvCertificatesViewer & JSXBase.HTMLAttributes<HTMLPvCertificatesViewerElement>;
+      'pv-circular-progress': LocalJSX.PvCircularProgress & JSXBase.HTMLAttributes<HTMLPvCircularProgressElement>;
       'pv-highlight-words': LocalJSX.PvHighlightWords & JSXBase.HTMLAttributes<HTMLPvHighlightWordsElement>;
       'pv-text-hider': LocalJSX.PvTextHider & JSXBase.HTMLAttributes<HTMLPvTextHiderElement>;
     }
