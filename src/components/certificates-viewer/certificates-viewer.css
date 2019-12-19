@@ -5,6 +5,7 @@
   min-width: 300px;
   overflow: auto;
   background: var(--pv-color-white);
+  position: relative;
 }
 
 table {
@@ -179,6 +180,17 @@ table tr.expanded_summary td {
 
 .input_search::placeholder {
   color: var(--pv-color-border-light);
+}
+
+.loading_container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--pv-color-overlay);
+  display: flex;
+  align-items: center;
 }
 
 @media (hover: hover) {

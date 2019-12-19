@@ -1,37 +1,12 @@
 :host {
   display: block;
-}
-
-
-
-@-webkit-keyframes circular-rotate {
-  to {
-      -webkit-transform: rotate(1turn);
-      transform: rotate(1turn)
-  }
+  width: 100%;
 }
 
 @keyframes circular-rotate {
   to {
       -webkit-transform: rotate(1turn);
       transform: rotate(1turn)
-  }
-}
-
-@-webkit-keyframes circular-dash {
-  0% {
-      stroke-dasharray: 1,200;
-      stroke-dashoffset: 0
-  }
-
-  50% {
-      stroke-dasharray: 100,200;
-      stroke-dashoffset: -15
-  }
-
-  to {
-      stroke-dasharray: 100,200;
-      stroke-dashoffset: -120
   }
 }
 
@@ -53,18 +28,15 @@
 }
 
 .circle_progress {
-  display: inline-block;
-  vertical-align: top
+  margin: 0 auto;
 }
 
 .circle_progress_svg {
-  -webkit-animation: circular-rotate 1.4s linear infinite;
   animation: circular-rotate 1.4s linear infinite
 }
 
 .circle_progress_circle {
   stroke-linecap: round;
-  -webkit-animation: circular-dash 1.4s ease-in-out infinite;
   animation: circular-dash 1.4s ease-in-out infinite;
   stroke-dasharray: 80,200;
   stroke-dashoffset: 0;
