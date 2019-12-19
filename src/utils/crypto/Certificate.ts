@@ -14,6 +14,7 @@ import _AltName from 'pkijs/src/AltName';
 import _NameConstraints from 'pkijs/src/NameConstraints';
 import { Convert } from 'pvtsutils';
 import * as asn1js from 'asn1js';
+
 import * as dateFormatter from '../../utils/date_formatter';
 import downloadFromBuffer from  '../downloadFromBuffer';
 import OIDS from  '../../constants/oids';
@@ -50,7 +51,7 @@ export interface IExtensionBasic<O, V> {
 interface IExtensionBasicConstraints
   extends IExtensionBasic<
     EnumOIDs.BasicConstraints,
-    {cA: boolean; pathLenConstraint?: number;}
+    { cA: boolean; pathLenConstraint?: number; }
   > {}
 
 interface IExtensionKeyUsage
@@ -162,9 +163,7 @@ export default class Certificate extends Basic {
   }
 
   static base64ToPem(base64: string) {
-    base64 = base64.replace(/(.{64})/g, '$1\n');
-
-    return Certificate.pemTagCertificate(base64);
+    return Certificate.pemTagCertificate(base64.replace(/(.{64})/g, '$1\n'));
   }
 
   static getExtensionNetscapeCertType(extension: _Extension): string[] {
@@ -451,8 +450,15 @@ export default class Certificate extends Basic {
         )
       : undefined;
 
-    // decode version
-    this.version = pkijsSchema.version;
+    /**
+     * Decode version
+     *
+     * for value 2 - version 3
+     * for value 1 - version 2
+     *
+     * https://tools.ietf.org/html/rfc5280#section-4.1.2.1
+     */
+    this.version = pkijsSchema.version + 1;
 
     if (fullDecode) {
       // decode extensions
@@ -571,7 +577,7 @@ export default class Certificate extends Basic {
               oid: EnumOIDs.NameConstraints,
               value: {
                 permitted: Certificate.decodeSANs(ext.parsedValue.permittedSubtrees || []),
-                excluded: Certificate.decodeSANs(ext.parsedValue.excludedSubtrees || [])
+                excluded: Certificate.decodeSANs(ext.parsedValue.excludedSubtrees || []),
               },
             };
 

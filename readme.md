@@ -1,4 +1,7 @@
 # pv-certificates-viewer
+
+[![CircleCI](https://circleci.com/gh/PeculiarVentures/pv-certificates-viewer.svg?style=svg)](https://circleci.com/gh/PeculiarVentures/pv-certificates-viewer)
+
 PV Certificate Viewer makes it easy for you to display certificate related details in your web application. It includes two components:
 ### Display a table of certificates ###
 

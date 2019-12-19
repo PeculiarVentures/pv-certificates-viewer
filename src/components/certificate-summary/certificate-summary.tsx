@@ -10,7 +10,7 @@ import * as dateFormatter from '../../utils/date_formatter';
     '../../styles/system.css',
     'certificate-summary.css',
   ],
-  shadow: true
+  shadow: true,
 })
 
 export class CertificateSummary {
@@ -18,14 +18,14 @@ export class CertificateSummary {
   @Prop() showIssuer: boolean = true;
 
   renderDN(item: Certificate['subject'] | Certificate['issuer']) {
-    return Object.keys(item).map(subject => {
+    return Object.keys(item).map((keyName) => {
       return (
         <p class="dn_row">
-          <span class="dn_name b3 text_black">{subject}</span>
-          <span class="dn_value b3 text_black">{item[subject].value}</span>
+          <span class="dn_name b3 text_black">{keyName}</span>
+          <span class="dn_value b3 text_black">{item[keyName].value}</span>
         </p>
-      )
-    })
+      );
+    });
   }
 
   renderMetaData(item: Certificate) {

@@ -180,7 +180,7 @@ export default class Basic {
   }
 
   private init() {
-    let certificateBuffer: ArrayBuffer
+    let certificateBuffer: ArrayBuffer;
 
     if (Basic.validation.isHex(this.input)) {
       certificateBuffer = Convert.FromHex(this.input);
@@ -199,7 +199,7 @@ export default class Basic {
         .digest('SHA-1', this.schema.valueBeforeDecode);
 
       this.fingerprint = Convert.ToHex(response);
-    } catch(error) {
+    } catch (error) {
       console.error(error);
     }
   }
