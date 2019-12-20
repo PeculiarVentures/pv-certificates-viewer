@@ -78,3 +78,27 @@ Web-component to decode and display certificate details such as the subject, iss
   />
 </body>
 ```
+
+## Theaming
+
+For theaming component there are set of variables, you can change to manipulate view. For now, theaming supports color changes and minor view settings, that should be upgraded through time.
+
+### Coloring
+
+All colors should be set in RGB-format, for example `--pv-color-black-rgb: R, G, B`. This is used to propperly manipulate alpha chanel in component's view.
+Now there is available further color options:
+
+  - `--pv-color-black-rgb` - theme black color. Used to style text color, shadows and backdrops.
+  - `--pv-color-white-rgb` - theme white color. Used to set backgrounds of table cells and search input.
+  - `--pv-color-border-rgb` - theme border color. Used to set border color for table. Also different opacity versions of this color used in component, so you shoud be aware of it.
+  - `--pv-color-primary-rgb` - basic theme color. This color and it's different opacity versions are used for styling active elements, like buttons and icons.
+  - `--pv-color-grey-rgb` - theme grey color. Used as text color for minor accents.
+  - `--pv-color-grey-light-rgb` - theme light grey color. Used for setting backgrounds for accent elements (like table header), expanded table rows and hover row elements. 
+  - `--pv-color-attention-rgb` - theme attention color. Used for text-highlight while search field find matces.
+
+### View settings
+
+Currently, there are next variable options available:
+
+  - `--pv-button-padding-end` - right padding of button component.
+  - `--pv-button-padding-start` - left padding of button component.
