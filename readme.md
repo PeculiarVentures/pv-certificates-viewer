@@ -93,7 +93,8 @@ Now there is available further color options:
   - `--pv-color-border-rgb` - theme border color. Used to set border color for table. Also different opacity versions of this color used in component, so you shoud be aware of it.
   - `--pv-color-primary-rgb` - basic theme color. This color and it's different opacity versions are used for styling active elements, like buttons and icons.
   - `--pv-color-grey-rgb` - theme grey color. Used as text color for minor accents.
-  - `--pv-color-grey-light-rgb` - theme light grey color. Used for setting backgrounds for accent elements (like table header), expanded table rows and hover row elements. 
+  - `--pv-color-grey-light-rgb` - theme light grey color. Used for setting backgrounds for table headers and search part background. 
+  - `--pv-color-grey-lighter-rgb` - theme minor accent color. Used to 
   - `--pv-color-attention-rgb` - theme attention color. Used for text-highlight while search field find matces.
 
 ### View settings
