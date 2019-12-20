@@ -183,7 +183,7 @@ table tr.expanded_summary td {
 
 @media (hover: hover) {
   table tr:not(.expanded_summary):hover {
-    background-color: rgba(var(--pv-color-grey-light-rgb), 1);
+    background-color: rgba(var(--pv-color-grey-lighter-rgb), 0.8);
   }
 }
 

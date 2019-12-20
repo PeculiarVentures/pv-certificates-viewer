@@ -139,7 +139,7 @@ export class CertificatesViewer {
     }
 
     return (
-      <tr class="expanded_summary fill_grey_light stroke_border">
+      <tr class="expanded_summary fill_grey_lighter_opacity stroke_border">
         <td colSpan={colSpan} class="stroke_border">
           <pv-certificate-summary
             certificate={certificate}
@@ -228,7 +228,7 @@ export class CertificatesViewer {
         <tr
           class={{
             stroke_border: true,
-            'expanded fill_grey_light': isExpandedRow,
+            'expanded fill_grey_lighter_opacity': isExpandedRow,
           }}
           onClick={this.onClickRow.bind(this, certificate.serialNumber)}
           key={certificate.serialNumber}

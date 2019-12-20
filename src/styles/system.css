@@ -67,6 +67,14 @@
   background-color: rgb(var(--pv-color-grey-light-rgb));
 }
 
+.fill_grey_lighter {
+  background-color: rgb(var(--pv-color-grey-lighter-rgb));
+}
+
+.fill_grey_lighter_opacity {
+  background-color: rgb(var(--pv-color-grey-lighter-rgb));
+}
+
 .fill_border_opacity {
   background-color: rgb(var(--pv-color-border-rgb), 0.5);
 }
