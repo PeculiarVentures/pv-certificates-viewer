@@ -67,8 +67,8 @@
   background-color: rgb(var(--pv-color-grey-light-rgb));
 }
 
-.fill_border_light {
-  background-color: rgb(var(--pv-color-border-rgb), 1);
+.fill_border_opacity {
+  background-color: rgb(var(--pv-color-border-rgb), 0.5);
 }
 
 .fill_grey {
@@ -99,6 +99,10 @@
 /* Border color */
 .stroke_border {
   border-color: rgb(var(--pv-color-border-rgb));
+}
+
+.stroke_grey_opacity {
+  border-color: rgba(var(--pv-color-border-rgb), 0.5);
 }
 
 .stroke_primary_light {
