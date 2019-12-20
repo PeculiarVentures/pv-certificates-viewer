@@ -63,22 +63,6 @@
 }
 
 /* Background color */
-.fill_grey_light {
-  background-color: rgb(var(--pv-color-grey-light-rgb));
-}
-
-.fill_grey_lighter {
-  background-color: rgb(var(--pv-color-grey-lighter-rgb));
-}
-
-.fill_grey_lighter_opacity {
-  background-color: rgb(var(--pv-color-grey-lighter-rgb));
-}
-
-.fill_border_opacity {
-  background-color: rgb(var(--pv-color-border-rgb), 0.5);
-}
-
 .fill_grey {
   background-color: rgb(var(--pv-color-grey-rgb));
 }
@@ -107,10 +91,6 @@
 /* Border color */
 .stroke_border {
   border-color: rgb(var(--pv-color-border-rgb));
-}
-
-.stroke_grey_opacity {
-  border-color: rgba(var(--pv-color-border-rgb), 0.5);
 }
 
 .stroke_primary_light {

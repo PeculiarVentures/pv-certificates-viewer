@@ -13,6 +13,7 @@ table {
 }
 
 table .title td {
+  border-color: rgba(var(--pv-color-border-rgb), 0.5);
   padding-top: 60px;
   padding-bottom: 15px;
   border-bottom-width: 1px;
@@ -52,6 +53,10 @@ table td.monospace {
 .divider {
   padding-top: 15px;
   padding-bottom: 15px;
+}
+
+.divider .bg_fill {
+  background-color: rgb(var(--pv-color-border-rgb), 0.5);
 }
 
 table tr:last-child .divider {

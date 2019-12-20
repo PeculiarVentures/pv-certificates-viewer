@@ -13,6 +13,10 @@ table {
   border-collapse: collapse;
 }
 
+table thead {
+  background-color: rgba(var(--pv-color-primary-rgb), 0.07);
+}
+
 table tr td {
   vertical-align: middle;
 }
@@ -69,6 +73,15 @@ table tr.expanded td {
   border-bottom-color: transparent;
 }
 
+.expanded {
+  border-bottom-color: transparent;
+  background-color: rgba(var(--pv-color-border-rgb), 0.1);
+}
+
+table tr.expanded_summary {
+  background-color: rgba(var(--pv-color-border-rgb), 0.1);
+}
+
 /* Second row */
 table tr.expanded_summary td {
   vertical-align: top;
@@ -118,6 +131,7 @@ table tr.expanded_summary td {
 }
 
 .modal_title {
+  background-color: rgba(var(--pv-color-primary-rgb), 0.07);
   border-bottom-width: 1px;
   border-bottom-style: solid;
   padding: 17px 60px 17px 20px;
@@ -161,6 +175,7 @@ table tr.expanded_summary td {
 
 /* Search */
 .search_section {
+  background-color: rgba(var(--pv-color-primary-rgb), 0.07);
   height: 50px;
   padding: 10px;
   border-width: 1px 1px 0 1px;
@@ -182,8 +197,8 @@ table tr.expanded_summary td {
 }
 
 @media (hover: hover) {
-  table tr:not(.expanded_summary):hover {
-    background-color: rgba(var(--pv-color-grey-lighter-rgb), 0.8);
+  table tbody tr:not(.expanded_summary):hover {
+    background-color: rgba(var(--pv-color-border-rgb), 0.1);
   }
 }
 
@@ -238,9 +253,6 @@ table tr.expanded_summary td {
     text-align: left;
   }
 
-  .expanded {
-    border-bottom-color: transparent;
-  }
   .expanded_summary {
     border-top-color: transparent;
     padding-bottom: 10px;

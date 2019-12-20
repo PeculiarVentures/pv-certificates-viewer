@@ -139,7 +139,7 @@ export class CertificatesViewer {
     }
 
     return (
-      <tr class="expanded_summary fill_grey_lighter_opacity stroke_border">
+      <tr class="expanded_summary stroke_border">
         <td colSpan={colSpan} class="stroke_border">
           <pv-certificate-summary
             certificate={certificate}
@@ -228,7 +228,7 @@ export class CertificatesViewer {
         <tr
           class={{
             stroke_border: true,
-            'expanded fill_grey_lighter_opacity': isExpandedRow,
+            expanded: isExpandedRow,
           }}
           onClick={this.onClickRow.bind(this, certificate.serialNumber)}
           key={certificate.serialNumber}
@@ -324,7 +324,7 @@ export class CertificatesViewer {
     return  (
       <div class="modal_wrapper">
         <div class="modal_content fill_white">
-          <div class="fill_grey_light modal_title stroke_border">
+          <div class="modal_title stroke_border">
             <h4 class="h4 text_black">
               Certificate details
             </h4>
@@ -361,7 +361,7 @@ export class CertificatesViewer {
     }
 
     return (
-      <div class="search_section fill_grey_light stroke_border">
+      <div class="search_section stroke_border">
         <input
           onInput={this.onSearchChange}
           type="search"
@@ -447,7 +447,7 @@ export class CertificatesViewer {
             m_extra: this.isHasTests || !this.isHasRoots,
           }}
         >
-          <thead class="fill_grey_light">
+          <thead>
             <tr class="stroke_border">
               {!this.isHasRoots && (
                 <th class="h7 stroke_border col_issuer">
