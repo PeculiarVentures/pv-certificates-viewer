@@ -39,11 +39,11 @@ export class Button {
         <TagType
           {...attrs}
           disabled={this.disabled}
-          class={{
-            button_native: true,
-          }}
+          class="button_native"
         >
-          <slot></slot>
+          <span class="button_inner">
+            <slot></slot>
+          </span>
         </TagType>
       </Host>
     );

@@ -219,7 +219,7 @@ export class CertificatesViewer {
           .join(' ')
           .toLowerCase();
 
-        if (certificateStringForSearch.indexOf(this.search) === -1) {
+        if (certificateStringForSearch.indexOf(this.search.toLowerCase()) === -1) {
           return;
         }
       }
@@ -433,8 +433,7 @@ export class CertificatesViewer {
 
   onSearchChange = (e: any) => {
     this.search = e.target.value
-      .trim()
-      .toLowerCase();
+      .trim();
   }
 
   render() {
