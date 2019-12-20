@@ -94,7 +94,7 @@ table tr.expanded_summary td {
   overflow: auto;
   padding: 10px;
   text-align: center;
-  background: var(--pv-color-overlay);
+  background: rgba(var(--pv-color-black-rgb), 0.9);
   animation: fadeIn 300ms;
 }
 
@@ -178,12 +178,12 @@ table tr.expanded_summary td {
 }
 
 .input_search::placeholder {
-  color: var(--pv-color-border-light);
+  color: rgba(var(--pv-color-border-rgb), 1);
 }
 
 @media (hover: hover) {
   table tr:not(.expanded_summary):hover {
-    background-color: var(--pv-color-grey-light);
+    background-color: rgba(var(--pv-color-grey-rgb), 1);
   }
 }
 
@@ -214,7 +214,7 @@ table tr.expanded_summary td {
     padding-left: 0;
     padding-right: 0;
     border-width: 1px 0 0 0 ! important;
-    border-color: var(--pv-color-border-light) ! important;
+    border-color: rgba(var(--pv-color-border-rgb), 1) ! important;
   }
 
   table tr.expanded_summary td {

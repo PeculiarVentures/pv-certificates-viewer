@@ -323,7 +323,7 @@ export class CertificatesViewer {
 
     return  (
       <div class="modal_wrapper">
-        <div class="modal_content">
+        <div class="modal_content fill_white">
           <div class="fill_grey_light modal_title stroke_border">
             <h4 class="h4 text_black">
               Certificate details
@@ -347,11 +347,9 @@ export class CertificatesViewer {
               </svg>
             </button>
           </div>
-          <div class="fill_white">
-            <pv-certificate-viewer
-              certificate={this.certificateSelectedForDetails}
-            />
-          </div>
+          <pv-certificate-viewer
+            certificate={this.certificateSelectedForDetails}
+          />
         </div>
       </div>
     );

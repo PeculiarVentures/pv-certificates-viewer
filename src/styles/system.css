@@ -38,7 +38,7 @@
 
 /* Text color */
 .text_black {
-  color: var(--pv-color-black);
+  color: rgb(var(--pv-color-black-rgb));
 }
 
 .text_white {
@@ -64,11 +64,11 @@
 
 /* Background color */
 .fill_grey_light {
-  background-color: var(--pv-color-grey-light);
+  background-color: rgba(var(--pv-color-grey-rgb), 1);
 }
 
 .fill_border_light {
-  background-color: var(--pv-color-border-light);
+  background-color: rgba(var(--pv-color-border-rgb), 1);
 }
 
 .fill_grey {
@@ -85,7 +85,7 @@
 
 /* SVG fill color */
 .svg_fill_black {
-  fill: var(--pv-color-black);
+  fill: rgb(var(--pv-color-black-rgb));
 }
 
 .svg_fill_white {
@@ -102,7 +102,7 @@
 }
 
 .stroke_primary_light {
-  border-color: var(--pv-color-primary-light);
+  border-color: rgba(var(--pv-color-primary-rgb), 0.3);
 }
 
 .monospace {
