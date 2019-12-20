@@ -31,8 +31,7 @@ const CertificatesViewer = class {
         };
         this.onSearchChange = (e) => {
             this.search = e.target.value
-                .trim()
-                .toLowerCase();
+                .trim();
         };
     }
     componentWillLoad() {
@@ -129,7 +128,7 @@ const CertificatesViewer = class {
                 ]
                     .join(' ')
                     .toLowerCase();
-                if (certificateStringForSearch.indexOf(this.search) === -1) {
+                if (certificateStringForSearch.indexOf(this.search.toLowerCase()) === -1) {
                     return;
                 }
             }
