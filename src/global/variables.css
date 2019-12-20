@@ -1,13 +1,11 @@
 :root {
   /* Colors */
   --pv-color-black-rgb: 42, 49, 52;
-  --pv-color-white: #ffffff;
-  --pv-color-border: #D1D5D9;
+  --pv-color-white-rgb: 255, 255, 255;
   --pv-color-border-rgb: 209, 213, 217;
-  --pv-color-primary: #3584F7;
   --pv-color-primary-rgb: 53, 132, 247;
-  --pv-color-grey: #869196;
   --pv-color-grey-rgb: 134, 145, 150;
+  --pv-color-grey-light-rgb: 244, 247, 252;
   --pv-color-attention-rgb: 247, 168, 49;
 
   /* Button component */

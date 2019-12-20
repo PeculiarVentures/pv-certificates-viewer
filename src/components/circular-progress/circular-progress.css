@@ -1,0 +1,47 @@
+:host {
+  display: block;
+}
+
+@keyframes circular-rotate {
+  to {
+      -webkit-transform: rotate(1turn);
+      transform: rotate(1turn)
+  }
+}
+
+@keyframes circular-dash {
+  0% {
+      stroke-dasharray: 1,200;
+      stroke-dashoffset: 0
+  }
+
+  50% {
+      stroke-dasharray: 100,200;
+      stroke-dashoffset: -15
+  }
+
+  to {
+      stroke-dasharray: 100,200;
+      stroke-dashoffset: -120
+  }
+}
+
+.circle_progress {
+  margin: auto;
+}
+
+.circle_progress_svg {
+  animation: circular-rotate 1.4s linear infinite;
+}
+
+.circle_progress_circle {
+  stroke-linecap: round;
+  animation: circular-dash 1.4s ease-in-out infinite;
+  stroke-dasharray: 80,200;
+  stroke-dashoffset: 0;
+  stroke: rgb(var(--pv-color-primary-rgb));
+}
+
+.circle_progress_backdrop {
+  stroke: rgb(var(--pv-color-border-rgb));
+}

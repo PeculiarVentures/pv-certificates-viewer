@@ -4,7 +4,7 @@
   word-wrap: break-word;
   min-width: 300px;
   overflow: auto;
-  background: var(--pv-color-white);
+  background: rgb(var(--pv-color-white-rgb));
 }
 
 table {
@@ -183,7 +183,7 @@ table tr.expanded_summary td {
 
 @media (hover: hover) {
   table tr:not(.expanded_summary):hover {
-    background-color: rgba(var(--pv-color-grey-rgb), 1);
+    background-color: rgba(var(--pv-color-grey-light-rgb), 1);
   }
 }
 
@@ -214,7 +214,7 @@ table tr.expanded_summary td {
     padding-left: 0;
     padding-right: 0;
     border-width: 1px 0 0 0 ! important;
-    border-color: rgba(var(--pv-color-border-rgb), 1) ! important;
+    border-color: rgba(var(--pv-color-border-rgb), 0.5) ! important;
   }
 
   table tr.expanded_summary td {

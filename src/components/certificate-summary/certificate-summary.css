@@ -15,7 +15,7 @@
   width: 1px;
   top: 0;
   bottom: 0;
-  background-color: rgba(var(--pv-color-border-rgb), 1);
+  background-color: rgba(var(--pv-color-border-rgb), 0.5);
 }
 
 .basic_wrapper::before {

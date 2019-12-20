@@ -42,15 +42,15 @@
 }
 
 .text_white {
-  color: var(--pv-color-white);
+  color: rgb(var(--pv-color-white-rgb));
 }
 
 .text_grey {
-  color: var(--pv-color-grey);
+  color: rgb(var(--pv-color-grey-rgb));
 }
 
 .text_primary {
-  color: var(--pv-color-primary);
+  color: rgb(var(--pv-color-primary-rgb));
 }
 
 /* Text aligance */
@@ -64,23 +64,23 @@
 
 /* Background color */
 .fill_grey_light {
-  background-color: rgba(var(--pv-color-grey-rgb), 1);
+  background-color: rgb(var(--pv-color-grey-light-rgb));
 }
 
 .fill_border_light {
-  background-color: rgba(var(--pv-color-border-rgb), 1);
+  background-color: rgb(var(--pv-color-border-rgb), 1);
 }
 
 .fill_grey {
-  background-color: var(--pv-color-grey);
+  background-color: rgb(var(--pv-color-grey-rgb));
 }
 
 .fill_white {
-  background-color: var(--pv-color-white);
+  background-color: rgb(var(--pv-color-white-rgb));
 }
 
 .fill_primary {
-  background-color: var(--pv-color-primary);
+  background-color: rgb(var(--pv-color-primary-rgb));
 }
 
 /* SVG fill color */
@@ -89,16 +89,16 @@
 }
 
 .svg_fill_white {
-  fill: var(--pv-color-white);
+  fill: rgb(var(--pv-color-white-rgb));
 }
 
 .svg_fill_primary {
-  fill: var(--pv-color-primary);
+  fill: rgb(var(--pv-color-primary-rgb));
 }
 
 /* Border color */
 .stroke_border {
-  border-color: var(--pv-color-border);
+  border-color: rgb(var(--pv-color-border-rgb));
 }
 
 .stroke_primary_light {
