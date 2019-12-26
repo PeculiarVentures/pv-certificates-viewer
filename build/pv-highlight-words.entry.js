@@ -28,7 +28,7 @@ const HighlightWords = class {
         return (h(Host, null, h("slot", null)));
     }
     get host() { return getElement(this); }
-    static get style() { return ":host {\n  display: inline-block;\n}\n\n::slotted(mark) {\n  background-color: var(--pv-color-highlight);\n}"; }
+    static get style() { return ":host {\n  display: inline-block;\n}\n\n::slotted(mark) {\n  background-color: rgba(var(--pv-color-attention-rgb), 0.4);\n}"; }
 };
 
 export { HighlightWords as pv_highlight_words };
