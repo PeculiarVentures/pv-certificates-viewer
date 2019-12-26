@@ -5,6 +5,7 @@
   line-height: 1.46;
   letter-spacing: 0.3px;
 }
+
 .b3 {
   font-family: inherit;
   font-size: 13px;
@@ -36,6 +37,10 @@
   line-height: 1.35;
 }
 
+.monospace {
+  font-family: monospace;
+}
+
 /* Text color */
 .text_black {
   color: rgb(var(--pv-color-black-rgb));
@@ -54,12 +59,16 @@
 }
 
 /* Text aligance */
-.align-center {
+.align_center {
   text-align: center;
 }
 
-.align-left {
+.align_left {
   text-align: left;
+}
+
+.align_right {
+  text-align: right;
 }
 
 /* Background color */
@@ -91,12 +100,4 @@
 /* Border color */
 .stroke_border {
   border-color: rgb(var(--pv-color-border-rgb));
-}
-
-.stroke_primary_light {
-  border-color: rgba(var(--pv-color-primary-rgb), 0.3);
-}
-
-.monospace {
-  font-family: monospace;
 }

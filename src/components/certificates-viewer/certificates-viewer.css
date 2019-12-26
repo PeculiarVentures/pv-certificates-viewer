@@ -75,11 +75,11 @@ table tr.expanded td {
 
 .expanded {
   border-bottom-color: transparent;
-  background-color: rgba(var(--pv-color-border-rgb), 0.1);
+  background-color: rgba(var(--pv-color-primary-rgb), 0.04);
 }
 
 table tr.expanded_summary {
-  background-color: rgba(var(--pv-color-border-rgb), 0.1);
+  background-color: rgba(var(--pv-color-primary-rgb), 0.04);
 }
 
 /* Second row */
@@ -193,12 +193,12 @@ table tr.expanded_summary td {
 }
 
 .input_search::placeholder {
-  color: rgba(var(--pv-color-border-rgb), 1);
+  color: rgb(var(--pv-color-border-rgb));
 }
 
 @media (hover: hover) {
   table tbody tr:not(.expanded_summary):hover {
-    background-color: rgba(var(--pv-color-border-rgb), 0.1);
+    background-color: rgba(var(--pv-color-primary-rgb), 0.04);
   }
 }
 

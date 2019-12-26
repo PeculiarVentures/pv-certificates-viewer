@@ -81,23 +81,18 @@ Web-component to decode and display certificate details such as the subject, iss
 
 ## Theaming
 
-For theaming component there are set of variables, you can change to manipulate view. For now, theaming supports color changes and minor view settings, that should be upgraded through time.
+This component use CSS variables to work with themes. You can customize colors declaring it in your main CSS file:
 
-### Coloring
 
-All colors should be set in RGB-format, for example `--pv-color-black-rgb: R, G, B`. This is used to propperly manipulate alpha chanel in component's view.
-Now there is available further color options:
+```css
+:root {
+  --pv-color-black-rgb: 42, 49, 52;
+  --pv-color-white-rgb: 255, 255, 255;
+  --pv-color-grey-rgb: 134, 145, 150;
+  --pv-color-border-rgb: 209, 213, 217;
+  --pv-color-primary-rgb: 53, 132, 247;
+  --pv-color-attention-rgb: 247, 168, 49;
+}
+```
 
-  - `--pv-color-black-rgb` - theme black color. Used to style text color, shadows and backdrops.
-  - `--pv-color-white-rgb` - theme white color. Used to set backgrounds of table cells and search input.
-  - `--pv-color-border-rgb` - theme border color. Used to set border color for table. Also different opacity versions of this color used in component, so you shoud be aware of it.
-  - `--pv-color-primary-rgb` - basic theme color. This color and it's different opacity versions are used for styling active elements, like buttons and icons.
-  - `--pv-color-grey-rgb` - theme grey color. Used as text color for minor accents.
-  - `--pv-color-attention-rgb` - theme attention color. Used for text-highlight while search field find matces.
-
-### View settings
-
-Currently, there are next variable options available:
-
-  - `--pv-button-padding-end` - right padding of button component.
-  - `--pv-button-padding-start` - left padding of button component.
+Check out the [variables.css](https://github.com/PeculiarVentures/pv-certificates-viewer/blob/master/src/global/variables.css) to discover all the theme variables that you can customize.

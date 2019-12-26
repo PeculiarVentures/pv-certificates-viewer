@@ -235,7 +235,7 @@ export class CertificatesViewer {
         >
           {!this.isHasRoots && (
             <td class="b3 stroke_border">
-              <span class="mobile_title text_grey align-left b3">
+              <span class="mobile_title text_grey align_left b3">
                 Issuer:
               </span>
               <span class="content">
@@ -246,7 +246,7 @@ export class CertificatesViewer {
             </td>
           )}
           <td class="b3 stroke_border">
-            <span class="mobile_title text_grey align-left b3">
+            <span class="mobile_title text_grey align_left b3">
               Name:
             </span>
             <span class="content">
@@ -256,7 +256,7 @@ export class CertificatesViewer {
             </span>
           </td>
           <td class="b3 stroke_border">
-            <span class="mobile_title text_grey align-left b3">
+            <span class="mobile_title text_grey align_left b3">
               Public Key:
             </span>
             <span class="content">
@@ -266,7 +266,7 @@ export class CertificatesViewer {
             </span>
           </td>
           <td class="b3 stroke_border">
-            <span class="mobile_title text_grey align-left b3">
+            <span class="mobile_title text_grey align_left b3">
               Fingerprint (SHA-1):
             </span>
             <span class="content monospace">
@@ -275,8 +275,8 @@ export class CertificatesViewer {
               </pv-highlight-words>
             </span>
           </td>
-          <td class="align-center stroke_border">
-            <span class="mobile_title text_grey align-left b3">
+          <td class="align_center stroke_border">
+            <span class="mobile_title text_grey align_left b3">
               Actions:
             </span>
             <span class="content">
@@ -299,8 +299,8 @@ export class CertificatesViewer {
             </span>
           </td>
           {this.isHasTests && (
-            <td class="align-center stroke_border">
-              <span class="mobile_title text_grey align-left b3">
+            <td class="align_center stroke_border">
+              <span class="mobile_title text_grey align_left b3">
                 Test URLs:
               </span>
               <span class="content">
@@ -462,11 +462,11 @@ export class CertificatesViewer {
               <th class="h7 stroke_border col_fingerprint">
                 Fingerprint (SHA-1)
               </th>
-              <th class="align-center h7 stroke_border col_actions">
+              <th class="align_center h7 stroke_border col_actions">
                 Actions
               </th>
               {this.isHasTests && (
-                <th class="align-center h7 stroke_border col_tests">
+                <th class="align_center h7 stroke_border col_tests">
                   Test URLs
                 </th>
               )}
