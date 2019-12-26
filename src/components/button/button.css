@@ -72,7 +72,7 @@
 
 /* Focus state */
 .button_native:focus {
-  box-shadow: 0 4px 10px 0 rgba(64, 72, 79, 0.15);
+  box-shadow: 0 4px 10px 0 rgba(var(--pv-color-black-rgb), 0.15);
 }
 
 /* Hover state */

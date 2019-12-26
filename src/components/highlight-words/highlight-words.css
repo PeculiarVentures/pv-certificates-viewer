@@ -3,5 +3,5 @@
 }
 
 ::slotted(mark) {
-  background-color: var(--pv-color-highlight);
+  background-color: rgba(var(--pv-color-attention-rgb), 0.4);
 }
