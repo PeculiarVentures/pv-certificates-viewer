@@ -33,7 +33,7 @@ export class CertificateViewer {
   renderRowTitle(title: string) {
     return (
       <tr class="title">
-        <td colSpan={2} class="h6 stroke_border text_black">
+        <td colSpan={2} class="h6 text_black">
           {title}
         </td>
       </tr>
@@ -380,7 +380,7 @@ export class CertificateViewer {
           this.renderRowExtensionValue(extension),
           <tr>
             <td colSpan={2} class="divider">
-              <span class="fill_border_light"></span>
+              <span class="bg_fill"></span>
             </td>
           </tr>,
         ]))}

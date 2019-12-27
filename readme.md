@@ -78,3 +78,21 @@ Web-component to decode and display certificate details such as the subject, iss
   />
 </body>
 ```
+
+## Theaming
+
+This component use CSS variables to work with themes. You can customize colors declaring it in your main CSS file:
+
+
+```css
+:root {
+  --pv-color-black-rgb: 42, 49, 52;
+  --pv-color-white-rgb: 255, 255, 255;
+  --pv-color-grey-rgb: 134, 145, 150;
+  --pv-color-border-rgb: 209, 213, 217;
+  --pv-color-primary-rgb: 53, 132, 247;
+  --pv-color-attention-rgb: 247, 168, 49;
+}
+```
+
+Check out the [variables.css](https://github.com/PeculiarVentures/pv-certificates-viewer/blob/master/src/global/variables.css) to discover all the theme variables that you can customize.

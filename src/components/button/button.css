@@ -21,17 +21,7 @@
 
 :host(.button) {
   height: 30px;
-  transition: background-color, opacity 100ms linear;
   border-radius: 2px;
-}
-
-:host(.button:active) {
-  opacity: 0.6;
-}
-
-:host(.button_disabled) {
-  opacity: .5;
-  pointer-events: none;
 }
 
 :host(.button_stroke) {
@@ -67,14 +57,32 @@
   border: none;
   border-radius: inherit;
   padding: 0 var(--pv-button-padding-end) 0 var(--pv-button-padding-start);
+  transition: box-shadow 200ms;
 }
 
+.button_inner {
+  transition: opacity 200ms;
+}
+
+/* Disabled state */
+:host(.button_disabled) {
+  opacity: .5;
+  pointer-events: none;
+}
+
+/* Focus state */
 .button_native:focus {
-  opacity: 0.8;
+  box-shadow: 0 4px 10px 0 rgba(var(--pv-color-black-rgb), 0.15);
 }
 
+/* Hover state */
 @media (hover: hover) {
-  :host(.button:hover) {
-    opacity: 0.8;
+  .button_native:hover .button_inner {
+    opacity: 0.6;
   }
+}
+
+/* Active state */
+.button_native:active .button_inner {
+  opacity: 1;
 }
