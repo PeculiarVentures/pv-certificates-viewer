@@ -203,7 +203,7 @@ table tr.expanded_summary td {
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--pv-color-overlay);
+  background: rgba(var(--pv-color-black-rgb), 0.3);
   display: flex;
   align-items: center;
 }
