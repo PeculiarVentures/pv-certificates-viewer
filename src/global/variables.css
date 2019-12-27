@@ -1,17 +1,11 @@
 :root {
   /* Colors */
-  --pv-color-black: #2A3134;
-  --pv-color-white: #ffffff;
-  --pv-color-border: #D1D5D9;
-  --pv-color-border-light: #e7e9eb;
-  --pv-color-primary: #3584F7;
-  --pv-color-primary-light: #c0d9fc;
-  --pv-color-grey: #869196;
-  --pv-color-grey-light: #F4F7FC;
-  --pv-color-highlight: rgba(247, 168, 49, 0.4);
-  --pv-color-circular-backdrop: #D1D5D9;
-  --pv-color-circular-progress: #3584F7;
-  --pv-color-overlay: rgba(42, 49, 52, 0.9);
+  --pv-color-black-rgb: 42, 49, 52;
+  --pv-color-white-rgb: 255, 255, 255;
+  --pv-color-grey-rgb: 134, 145, 150;
+  --pv-color-border-rgb: 209, 213, 217;
+  --pv-color-primary-rgb: 53, 132, 247;
+  --pv-color-attention-rgb: 247, 168, 49;
 
   /* Button component */
   --pv-button-padding-end: 5px;

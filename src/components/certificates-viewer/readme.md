@@ -23,6 +23,7 @@
 - [pv-highlight-words](../highlight-words)
 - [pv-button-split](../button-split)
 - [pv-certificate-viewer](../certificate-viewer)
+- [pv-circular-progress](../circular-progress)
 
 ### Graph
 ```mermaid
@@ -32,6 +33,7 @@ graph TD;
   pv-certificates-viewer --> pv-highlight-words
   pv-certificates-viewer --> pv-button-split
   pv-certificates-viewer --> pv-certificate-viewer
+  pv-certificates-viewer --> pv-circular-progress
   pv-button-split --> pv-button
   pv-certificate-viewer --> pv-text-hider
   pv-certificate-viewer --> pv-certificate-summary

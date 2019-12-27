@@ -29,7 +29,6 @@ export class Button {
           b3: true,
           button: true,
           button_stroke: this.fill === 'stroke',
-          stroke_primary_light: this.fill === 'stroke',
           text_primary: this.fill === 'stroke',
           text_white: this.fill === 'fill',
           fill_primary: this.fill === 'fill',
@@ -39,11 +38,11 @@ export class Button {
         <TagType
           {...attrs}
           disabled={this.disabled}
-          class={{
-            button_native: true,
-          }}
+          class="button_native"
         >
-          <slot></slot>
+          <span class="button_inner">
+            <slot></slot>
+          </span>
         </TagType>
       </Host>
     );

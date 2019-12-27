@@ -5,6 +5,7 @@
   line-height: 1.46;
   letter-spacing: 0.3px;
 }
+
 .b3 {
   font-family: inherit;
   font-size: 13px;
@@ -36,75 +37,67 @@
   line-height: 1.35;
 }
 
+.monospace {
+  font-family: monospace;
+}
+
 /* Text color */
 .text_black {
-  color: var(--pv-color-black);
+  color: rgb(var(--pv-color-black-rgb));
 }
 
 .text_white {
-  color: var(--pv-color-white);
+  color: rgb(var(--pv-color-white-rgb));
 }
 
 .text_grey {
-  color: var(--pv-color-grey);
+  color: rgb(var(--pv-color-grey-rgb));
 }
 
 .text_primary {
-  color: var(--pv-color-primary);
+  color: rgb(var(--pv-color-primary-rgb));
 }
 
 /* Text aligance */
-.align-center {
+.align_center {
   text-align: center;
 }
 
-.align-left {
+.align_left {
   text-align: left;
 }
 
+.align_right {
+  text-align: right;
+}
+
 /* Background color */
-.fill_grey_light {
-  background-color: var(--pv-color-grey-light);
-}
-
-.fill_border_light {
-  background-color: var(--pv-color-border-light);
-}
-
 .fill_grey {
-  background-color: var(--pv-color-grey);
+  background-color: rgb(var(--pv-color-grey-rgb));
 }
 
 .fill_white {
-  background-color: var(--pv-color-white);
+  background-color: rgb(var(--pv-color-white-rgb));
 }
 
 .fill_primary {
-  background-color: var(--pv-color-primary);
+  background-color: rgb(var(--pv-color-primary-rgb));
 }
 
 /* SVG fill color */
 .svg_fill_black {
-  fill: var(--pv-color-black);
+  fill: rgb(var(--pv-color-black-rgb));
 }
 
 .svg_fill_white {
-  fill: var(--pv-color-white);
+  fill: rgb(var(--pv-color-white-rgb));
 }
 
 .svg_fill_primary {
-  fill: var(--pv-color-primary);
+  fill: rgb(var(--pv-color-primary-rgb));
 }
 
 /* Border color */
 .stroke_border {
-  border-color: var(--pv-color-border);
-}
-
-.stroke_primary_light {
-  border-color: var(--pv-color-primary-light);
-}
-
-.monospace {
-  font-family: monospace;
+  border-color: rgb(var(--pv-color-border-rgb));
 }

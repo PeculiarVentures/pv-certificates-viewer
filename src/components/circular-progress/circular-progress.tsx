@@ -3,11 +3,17 @@ import { Component, Host, h, Prop } from '@stencil/core';
 @Component({
   tag: 'pv-circular-progress',
   styleUrl: 'circular-progress.css',
-  shadow: true
+  shadow: true,
 })
 export class CircularProgress {
 
+  /**
+   * Width/height of progress circle.
+   */
   @Prop() size: number = 24;
+  /**
+   * Stroke width of progress bar circle.
+   */
   @Prop() width: number = 4;
 
   private box: number = 50;
