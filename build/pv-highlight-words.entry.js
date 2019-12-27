@@ -1,4 +1,4 @@
-import { r as registerInstance, h, H as Host, c as getElement } from './core-828499c0.js';
+import { r as registerInstance, h, H as Host, c as getElement } from './core-b3a1a540.js';
 
 const HighlightWords = class {
     constructor(hostRef) {

@@ -1,4 +1,4 @@
-import { r as registerInstance, d as createEvent, h, H as Host } from './core-828499c0.js';
+import { r as registerInstance, d as createEvent, h, H as Host } from './core-b3a1a540.js';
 
 const TextHider = class {
     constructor(hostRef) {
