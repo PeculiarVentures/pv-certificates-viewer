@@ -58,6 +58,8 @@ export class CertificatesViewer {
   }
 
   async certificatesDecodeAndSet() {
+    const timeStart = performance.now();
+
     this.isHasTests = false;
     this.isHasRoots = false;
 
@@ -95,8 +97,24 @@ export class CertificatesViewer {
       }
     }
 
+    const timeEnd = performance.now();
+    const timeDuration = timeEnd - timeStart;
+    const minimumTimeDuration = 800;
+
+    /**
+     * Check decode time duration and change `isDecodeInProcess` to `false`
+     * only after `minimumTimeDuration` time for prevent quickly hide loading state
+     */
+    if (timeDuration < minimumTimeDuration) {
+      setTimeout(
+        () => this.isDecodeInProcess = false,
+        minimumTimeDuration - timeDuration,
+      );
+    } else {
+      this.isDecodeInProcess = false;
+    }
+
     this.certificatesDecoded = data;
-    this.isDecodeInProcess = false;
   }
 
   onClickDownload(certificate: Certificate, downloadType: 'PEM' | 'DER', event: MouseEvent) {
@@ -402,20 +420,15 @@ export class CertificatesViewer {
 
   renderLoadingState() {
     return (
-      <tr class="stroke_border">
-        <td
-          class="b1 text_black stroke_border status_wrapper"
-          colSpan={5}
-        >
-          Loading...
-        </td>
-      </tr>
+      <div class="loading_container">
+        <pv-circular-progress />
+      </div>
     );
   }
 
   renderBody() {
     if (this.isDecodeInProcess) {
-      return this.renderLoadingState();
+      return null;
     }
 
     if (!this.certificatesDecoded.length) {
@@ -477,6 +490,7 @@ export class CertificatesViewer {
           </tbody>
         </table>
         {this.renderCertificateDetailsModal()}
+        {this.isDecodeInProcess && this.renderLoadingState()}
       </Host>
     );
   }

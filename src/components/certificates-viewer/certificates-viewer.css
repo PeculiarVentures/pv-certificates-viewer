@@ -4,6 +4,7 @@
   word-wrap: break-word;
   min-width: 300px;
   overflow: auto;
+  position: relative;
   background: rgb(var(--pv-color-white-rgb));
 }
 
@@ -194,6 +195,17 @@ table tr.expanded_summary td {
 
 .input_search::placeholder {
   color: rgb(var(--pv-color-border-rgb));
+}
+
+.loading_container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(var(--pv-color-black-rgb), 0.3);
+  display: flex;
+  align-items: center;
 }
 
 @media (hover: hover) {

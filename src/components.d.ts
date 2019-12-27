@@ -55,11 +55,11 @@ export namespace Components {
   }
   interface PvCircularProgress {
     /**
-    * @size prop sets width/height of progress circle.
+    * Width/height of progress circle.
     */
     'size': number;
     /**
-    * @width props declares stroke width of progress bar circle.
+    * Stroke width of progress bar circle.
     */
     'width': number;
   }
@@ -171,11 +171,11 @@ declare namespace LocalJSX {
   }
   interface PvCircularProgress {
     /**
-    * @size prop sets width/height of progress circle.
+    * Width/height of progress circle.
     */
     'size'?: number;
     /**
-    * @width props declares stroke width of progress bar circle.
+    * Stroke width of progress bar circle.
     */
     'width'?: number;
   }

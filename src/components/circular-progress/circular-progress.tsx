@@ -8,11 +8,11 @@ import { Component, Host, h, Prop } from '@stencil/core';
 export class CircularProgress {
 
   /**
-   * @size prop sets width/height of progress circle.
+   * Width/height of progress circle.
    */
   @Prop() size: number = 24;
   /**
-   * @width props declares stroke width of progress bar circle.
+   * Stroke width of progress bar circle.
    */
   @Prop() width: number = 4;
 
