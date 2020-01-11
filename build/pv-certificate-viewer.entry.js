@@ -1,6 +1,6 @@
 import { r as registerInstance, h } from './core-b3a1a540.js';
-import { C as Certificate, E as EnumOIDs } from './index-f29627c5.js';
-import './date_formatter-80b284a6.js';
+import { C as Certificate, E as EnumOIDs } from './index-5eca15d7.js';
+import { s as short } from './date_formatter-80b284a6.js';
 
 const CertificateViewer = class {
     constructor(hostRef) {
@@ -132,6 +132,11 @@ const CertificateViewer = class {
                     this.renderRowValue('Authority Cert Issuer', extension.value.authorityCertIssuer),
                     this.renderRowValue('Authority Cert Serial Number', extension.value.authorityCertSerialNumber),
                 ];
+            }
+            case EnumOIDs.CertificateTransparency: {
+                return this.renderRowValue('Values', extension.value.map((value) => {
+                    return (h("p", { class: "b3 text_black" }, value.name, " (", short(value.timestamp), ")"));
+                }));
             }
         }
         return this.renderRowValue('Value', extension.value);

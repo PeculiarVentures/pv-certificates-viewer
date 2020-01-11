@@ -7020,7 +7020,6 @@ class Basic {
             return undefined;
         }
         const data = {};
-        debugger;
         subjects.forEach((subject) => {
             const type = Basic.subjectOIDs[subject.type.toString()];
             const name = type && type.short ? type.short : subject.type.toString();
@@ -28137,6 +28136,16 @@ class Certificate$1 extends Basic {
                             value: ext.parsedValue,
                         };
                         return this.extensions.push(extension);
+                    }
+                    if (ext.extnID === EnumOIDs.CertificateTransparency) {
+                        console.log(ext);
+                        // const extension: IExtensionCertificateTemplate = {
+                        //   name: OIDS[ext.extnID] || '',
+                        //   critical: ext.critical,
+                        //   oid: EnumOIDs.CertificateTemplate,
+                        //   value: ext.parsedValue,
+                        // };
+                        // return this.extensions.push(extension);
                     }
                     const extension = {
                         name: OIDs[ext.extnID] || '',
