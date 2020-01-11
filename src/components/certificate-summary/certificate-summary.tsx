@@ -20,10 +20,10 @@ export class CertificateSummary {
   renderDN(item: Certificate['subject'] | Certificate['issuer']) {
     return Object.keys(item).map((keyName) => {
       return (
-        <p class="dn_row">
-          <span class="dn_name b3 text_black">{keyName}</span>
-          <span class="dn_value b3 text_black">{item[keyName].value}</span>
-        </p>
+        <tr class="dn_row">
+          <td class="dn_name b3 text_black">{keyName}</td>
+          <td class="dn_value b3 text_black">{item[keyName].value}</td>
+        </tr>
       );
     });
   }
@@ -74,14 +74,22 @@ export class CertificateSummary {
             <p class="text_grey b3 dn_row">
               Subject DN:
             </p>
-            {this.renderDN(this.certificate.subject)}
+            <table class="table_attributes">
+              <tbody>
+                {this.renderDN(this.certificate.subject)}
+              </tbody>
+            </table>
           </div>
           {this.showIssuer && (
             <div class="basic_col stroke_border">
               <p class="text_grey b3 dn_row">
                 Issuer DN:
               </p>
-              {this.renderDN(this.certificate.issuer)}
+              <table class="table_attributes">
+                <tbody>
+                  {this.renderDN(this.certificate.issuer)}
+                </tbody>
+              </table>
             </div>
           )}
           <div class="basic_meta">

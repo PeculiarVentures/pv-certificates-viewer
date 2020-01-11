@@ -50,16 +50,13 @@
 }
 /* DN styles */
 .dn_name {
-  display: inline-block;
-  width: 30px;
+  min-width: 30px;
   vertical-align: top;
   padding-right: 5px;
 }
 
 .dn_value {
-  display: inline-block;
   vertical-align: top;
-  width: calc(100% - 30px);
 }
 
 .dn_row:not(:last-child) {
@@ -82,6 +79,10 @@
   display: inline-block;
   vertical-align: top;
   width: calc(100% - 120px);
+}
+
+.table_attributes {
+  width: 100%;
 }
 
 /* Adaptivity */
