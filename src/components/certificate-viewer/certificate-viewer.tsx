@@ -1,6 +1,7 @@
 import { Component, h, Prop } from '@stencil/core';
 
 import { Certificate, TExtension, EnumOIDs } from '../../utils/crypto';
+import * as dateFormatter from '../../utils/date_formatter';
 
 @Component({
   tag: 'pv-certificate-viewer',
@@ -308,6 +309,19 @@ export class CertificateViewer {
             extension.value.authorityCertSerialNumber,
           ),
         ];
+      }
+
+      case EnumOIDs.CertificateTransparency: {
+        return this.renderRowValue(
+          'Values',
+          extension.value.map((value) => {
+            return (
+              <p class="b3 text_black">
+                {value.name} ({dateFormatter.short(value.timestamp)})
+              </p>
+            );
+          }),
+        );
       }
     }
 

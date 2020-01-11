@@ -114,6 +114,12 @@ interface IExtensionAuthorityKeyIdentifier
     { keyIdentifier: string; authorityCertIssuer?: string; authorityCertSerialNumber?: string; }
   > {}
 
+interface IExtensionCertificateTransparency
+  extends IExtensionBasic<
+    EnumOIDs.CertificateTransparency,
+    { logID: string; name?: string; timestamp: Date; version: number; hashAlgorithm: string; signatureAlgorithm: string; }[]
+  > {}
+
 export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionBasicConstraints
   | IExtensionKeyUsage
@@ -125,7 +131,8 @@ export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionSubjectAlternativeName
   | IExtensionCertificateTemplate
   | IExtensionNameConstraints
-  | IExtensionNetscapeCertificateType;
+  | IExtensionNetscapeCertificateType
+  | IExtensionCertificateTransparency;
 
 export default class Certificate extends Basic {
   notBefore?: Date;
@@ -633,6 +640,28 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
+          if (ext.extnID === EnumOIDs.CertificateTransparency) {
+            const extension: IExtensionCertificateTransparency = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.CertificateTransparency,
+              value: ext.parsedValue.timestamps.map((timestamp) => {
+                const logID = Convert.ToHex(timestamp.logID);
+
+                return {
+                  logID,
+                  name: Certificate.logs[logID],
+                  timestamp: timestamp.timestamp,
+                  version: timestamp.version + 1,
+                  hashAlgorithm: timestamp.hashAlgorithm,
+                  signatureAlgorithm: timestamp.signatureAlgorithm,
+                };
+              }),
+            };
+
+            return this.extensions.push(extension);
+          }
+
           const extension = {
             name: OIDS[ext.extnID] || '',
             critical: ext.critical,
@@ -646,23 +675,6 @@ export default class Certificate extends Basic {
           };
 
           this.extensions.push(extension);
-
-          // case EnumOIDs.CertificateTransparency: {
-          //   extension.value = ext.parsedValue.timestamps.map((t) => {
-          //     const logName = LOGS.logs.filter(l => l.hex === t.logID.toLowerCase());
-
-          //     return {
-          //       logID: t.logID,
-          //       logName: logName.length > 0 ? logName[0].description : '',
-          //       timestamp: new Date(t.timestamp).toISOString(),
-          //       signature: t.signature.valueBeforeDecode,
-          //       hashAlgorithm: t.hashAlgorithm,
-          //       signatureAlgorithm: t.signatureAlgorithm,
-          //     };
-          //   });
-
-          //   break;
-          // }
         });
       }
     }
