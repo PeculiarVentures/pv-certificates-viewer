@@ -21,10 +21,14 @@ export class CertificateViewer {
    */
   @Prop() certificate: string;
 
-  componentWillLoad() {
+  // TODO: Need to add loading state for decoding
+  async componentWillLoad() {
     if (this.certificate) {
       try {
         this.certificateDecoded = new Certificate(this.certificate, undefined, true);
+
+        await this.certificateDecoded.getFingerprint('SHA-1');
+        await this.certificateDecoded.getFingerprint('SHA-256');
       } catch (error) {
         this.certificateDecodeError = error;
       }
@@ -116,18 +120,18 @@ export class CertificateViewer {
         );
       }
 
+      // TODO: Need to update render and add values from qualified
       case EnumOIDs.CertificatePolicies: {
-        return this.renderRowValue(
-          'Values',
-          extension.value.map(value => (
-            <p class="b3 text_black">
-              {value.name
-                ? `${value.name} (${value.oid})`
-                : value.oid
-              }
-            </p>
-          )),
-        );
+        return extension.value.map((value, index) => (
+          this.renderRowValue(
+            `Policy ${index + 1}`,
+            [
+              <p>
+                {value.name} ({value.oid})
+              </p>,
+            ],
+          )
+        ));
       }
 
       case EnumOIDs.CRLDistributionPoints: {
@@ -164,26 +168,22 @@ export class CertificateViewer {
       }
 
       case EnumOIDs.CertificateAuthorityInformationAccess: {
-        return this.renderRowValue(
-          'Paths',
-          extension.value.map((value) => {
-            const accessLocation: Record<string, any> = value.accessLocation;
-
-            if (accessLocation.type === 6) {
-              return (
-                <p class="b3 text_black">
-                  {value.accessMethod}: <a class="text_primary" href={accessLocation.value} target="_blank">{accessLocation.value}</a>
-                </p>
-              );
-            }
-
-            return (
-              <p class="b3 text_black">
-                {value.accessMethod}: {accessLocation.value}
-              </p>
-            );
-          }),
-        );
+        return extension.value
+          .map((value, index) => (
+            this.renderRowValue(
+              `Method ${index + 1}`,
+              [
+                <p>
+                  {value.name} ({value.oid})
+                </p>,
+                value.type === 6 ? (
+                  <a class="text_primary" href={value.value} target="_blank">{value.value}</a>
+                ) : (
+                  value.value
+                ),
+              ],
+            )
+          ));
       }
 
       case EnumOIDs.NameConstraints: {
@@ -383,6 +383,10 @@ export class CertificateViewer {
         {this.renderRowValue('Algorithm', this.certificateDecoded.signature.algorithm.name)}
         {this.renderRowValue('Hash', this.certificateDecoded.signature.algorithm.hash)}
         {this.renderRowValue('Value', this.certificateDecoded.signature.value, true, true)}
+
+        {this.renderRowTitle('Fingerprints')}
+        {this.renderRowValue('SHA-256', this.certificateDecoded.fingerprints['SHA-256'], true)}
+        {this.renderRowValue('SHA-1', this.certificateDecoded.fingerprints['SHA-1'], true)}
 
         {this.renderRowTitle('Extensions')}
         {this.certificateDecoded.extensions.map(extension => ([

@@ -77,7 +77,7 @@ export class CertificatesViewer {
       try {
         const cert = new Certificate(certificate.value, certificate.name);
 
-        await cert.getFingerprint();
+        await cert.getFingerprint('SHA-1');
 
         data.push(Object.assign(
           cert,
@@ -236,7 +236,7 @@ export class CertificatesViewer {
           publicKeyValue,
           issuerValue,
           certificate.commonName,
-          certificate.fingerprint,
+          certificate.fingerprints['SHA-1'],
         ]
           .join(' ')
           .toLowerCase();
@@ -293,7 +293,7 @@ export class CertificatesViewer {
             </span>
             <span class="content monospace">
               <pv-highlight-words search={searchHighlight}>
-                {certificate.fingerprint}
+                {certificate.fingerprints['SHA-1']}
               </pv-highlight-words>
             </span>
           </td>
