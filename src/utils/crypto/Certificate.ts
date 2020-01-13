@@ -522,10 +522,18 @@ export default class Certificate extends Basic {
               });
 
               policy.policyQualifiers?.forEach((qualifier) => {
+                let value = qualifier.qualifier.valueBlock.value;
+
+                if (Array.isArray(value) && value.length === 1) {
+                  value = value[0].valueBlock.value;
+                } else if (Array.isArray(value) && value.length > 1) {
+                  value = '(currently unsupported)';
+                }
+
                 qualifiers.push({
+                  value,
                   oid: qualifier.policyQualifierId,
                   name: OIDS[qualifier.policyQualifierId],
-                  value: qualifier.qualifier.valueBlock.value,
                 });
               });
             });

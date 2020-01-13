@@ -2057,6 +2057,7 @@ const OIDs: Record<string, string> = {
   '2.16.840.1.113733.1.7.1.1': 'Verisign Cert Policies95 Qualifier1',
   '2.16.840.1.113733.1.7.1.1.1': 'Verisign CP Sv1notice',
   '2.16.840.1.113733.1.7.1.1.2': 'Verisign CP Sv1nsi',
+  '2.16.840.1.113733.1.7.54': 'Symantec',
   '2.16.840.1.113733.1.7.23.6': 'Veri Sign EV policy',
   '2.16.840.1.113733.1.7.48.1': 'Thawte EV policy',
   '2.16.840.1.113733.1.8.1': 'erisign ISS Strong Crypto',
