@@ -1,5 +1,5 @@
 import { r as registerInstance, h, H as Host } from './core-b3a1a540.js';
-import { C as Certificate } from './index-5eca15d7.js';
+import { C as Certificate } from './index-e683dca0.js';
 import './date_formatter-80b284a6.js';
 
 const CertificatesViewer = class {
@@ -55,7 +55,7 @@ const CertificatesViewer = class {
         for (const certificate of this.certificates) {
             try {
                 const cert = new Certificate(certificate.value, certificate.name);
-                await cert.getFingerprint();
+                await cert.getFingerprint('SHA-1');
                 data.push(Object.assign(cert, { tests: certificate.tests }));
                 if (!this.isHasRoots && cert.isRoot) {
                     this.isHasRoots = true;
@@ -141,7 +141,7 @@ const CertificatesViewer = class {
                     publicKeyValue,
                     issuerValue,
                     certificate.commonName,
-                    certificate.fingerprint,
+                    certificate.fingerprints['SHA-1'],
                 ]
                     .join(' ')
                     .toLowerCase();
@@ -153,7 +153,7 @@ const CertificatesViewer = class {
                 h("tr", { class: {
                         stroke_border: true,
                         expanded: isExpandedRow,
-                    }, onClick: this.onClickRow.bind(this, certificate.serialNumber), key: certificate.serialNumber }, !this.isHasRoots && (h("td", { class: "b3 stroke_border" }, h("span", { class: "mobile_title text_grey align_left b3" }, "Issuer:"), h("span", { class: "content" }, h("pv-highlight-words", { search: searchHighlight }, issuerValue)))), h("td", { class: "b3 stroke_border" }, h("span", { class: "mobile_title text_grey align_left b3" }, "Name:"), h("span", { class: "content" }, h("pv-highlight-words", { search: searchHighlight }, certificate.commonName))), h("td", { class: "b3 stroke_border" }, h("span", { class: "mobile_title text_grey align_left b3" }, "Public Key:"), h("span", { class: "content" }, h("pv-highlight-words", { search: searchHighlight }, publicKeyValue))), h("td", { class: "b3 stroke_border" }, h("span", { class: "mobile_title text_grey align_left b3" }, "Fingerprint (SHA-1):"), h("span", { class: "content monospace" }, h("pv-highlight-words", { search: searchHighlight }, certificate.fingerprint))), h("td", { class: "align_center stroke_border" }, h("span", { class: "mobile_title text_grey align_left b3" }, "Actions:"), h("span", { class: "content" }, h("pv-button", { onClick: this.onClickDetails.bind(this, certificate.base64), class: "button_table_action" }, "Details"), h("pv-button-split", { onClick: this.onClickDownload.bind(this, certificate, 'PEM'), actions: [{
+                    }, onClick: this.onClickRow.bind(this, certificate.serialNumber), key: certificate.serialNumber }, !this.isHasRoots && (h("td", { class: "b3 stroke_border" }, h("span", { class: "mobile_title text_grey align_left b3" }, "Issuer:"), h("span", { class: "content" }, h("pv-highlight-words", { search: searchHighlight }, issuerValue)))), h("td", { class: "b3 stroke_border" }, h("span", { class: "mobile_title text_grey align_left b3" }, "Name:"), h("span", { class: "content" }, h("pv-highlight-words", { search: searchHighlight }, certificate.commonName))), h("td", { class: "b3 stroke_border" }, h("span", { class: "mobile_title text_grey align_left b3" }, "Public Key:"), h("span", { class: "content" }, h("pv-highlight-words", { search: searchHighlight }, publicKeyValue))), h("td", { class: "b3 stroke_border" }, h("span", { class: "mobile_title text_grey align_left b3" }, "Fingerprint (SHA-1):"), h("span", { class: "content monospace" }, h("pv-highlight-words", { search: searchHighlight }, certificate.fingerprints['SHA-1']))), h("td", { class: "align_center stroke_border" }, h("span", { class: "mobile_title text_grey align_left b3" }, "Actions:"), h("span", { class: "content" }, h("pv-button", { onClick: this.onClickDetails.bind(this, certificate.base64), class: "button_table_action" }, "Details"), h("pv-button-split", { onClick: this.onClickDownload.bind(this, certificate, 'PEM'), actions: [{
                             text: 'Download DER',
                             onClick: this.onClickDownload.bind(this, certificate, 'DER'),
                         }], class: "button_table_action" }, "Download PEM"))), this.isHasTests && (h("td", { class: "align_center stroke_border" }, h("span", { class: "mobile_title text_grey align_left b3" }, "Test URLs:"), h("span", { class: "content" }, this.renderCertificateTests(certificate.tests))))),

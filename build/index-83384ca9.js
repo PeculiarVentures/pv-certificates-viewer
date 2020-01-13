@@ -6968,6 +6968,7 @@ function isEqual(bytes1, bytes2) {
 
 class Basic {
     constructor(value, name) {
+        this.fingerprints = {};
         this.input = value;
         this.name = name;
         this.init();
@@ -7005,11 +7006,11 @@ class Basic {
         this.base64 = Convert.ToBase64(certificateBuffer);
         this.hex = Basic.formatHex(Convert.ToHex(certificateBuffer));
     }
-    async getFingerprint() {
+    async getFingerprint(algorithm = 'SHA-1') {
         try {
             const response = await crypto.subtle
-                .digest('SHA-1', this.schema.valueBeforeDecode);
-            this.fingerprint = Convert.ToHex(response);
+                .digest(algorithm, this.schema.valueBeforeDecode);
+            this.fingerprints[algorithm] = Convert.ToHex(response);
         }
         catch (error) {
             console.error(error);
@@ -27627,8 +27628,9 @@ const OIDs = {
     '2.16.840.1.114412.1.3.0.3': 'Digi Cert Global Root CA Policy',
     '2.16.840.1.114412.1.3.0.4': 'Digi Cert Assured ID Root CA Policy',
     '2.16.840.1.114412.1.11': 'Digi Cert Federated Device Cert',
-    '2.16.840.1.114412.2.1': 'Digi Cert  EV policy',
+    '2.16.840.1.114412.2.1': 'Digi Cert EV policy',
     '2.16.840.1.114412.2.2': 'Digi Cert EV Cert',
+    '2.23.140.1.1': 'EV guidelines certificate policy',
     '2.16.840.1.114412.2.3': 'Digi Cert Object Signing Cert',
     '2.16.840.1.114412.2.3.1': 'Digi Cert Code Signing Cert',
     '2.16.840.1.114412.2.3.2': 'Digi Cert EV Code Signing Cert',
@@ -28104,14 +28106,23 @@ class Certificate$1 extends Basic {
                         return this.extensions.push(extension);
                     }
                     if (ext.parsedValue instanceof CertificatePolicies) {
+                        // TODO: Need to complete extension parse
                         const extension = {
                             name: OIDs[ext.extnID] || '',
                             critical: ext.critical,
                             oid: EnumOIDs.CertificatePolicies,
-                            value: ext.parsedValue.certificatePolicies.map(cp => ({
-                                oid: cp.policyIdentifier,
-                                name: OIDs[cp.policyIdentifier],
-                            })),
+                            value: ext.parsedValue.certificatePolicies.map(certificatePolicy => {
+                                var _a;
+                                return ({
+                                    oid: certificatePolicy.policyIdentifier,
+                                    name: OIDs[certificatePolicy.policyIdentifier],
+                                    value: (_a = certificatePolicy.policyQualifiers) === null || _a === void 0 ? void 0 : _a.map(qualifier => ({
+                                        oid: qualifier.policyQualifierId,
+                                        name: OIDs[qualifier.policyQualifierId],
+                                        value: qualifier.qualifier.valueBlock.value,
+                                    })),
+                                });
+                            }),
                         };
                         return this.extensions.push(extension);
                     }
@@ -28151,7 +28162,12 @@ class Certificate$1 extends Basic {
                             name: OIDs[ext.extnID] || '',
                             critical: ext.critical,
                             oid: EnumOIDs.CertificateAuthorityInformationAccess,
-                            value: ext.parsedValue.accessDescriptions,
+                            value: ext.parsedValue.accessDescriptions.map(accessDescription => ({
+                                name: OIDs[accessDescription.accessMethod],
+                                oid: accessDescription.accessMethod,
+                                type: accessDescription.accessLocation['type'],
+                                value: accessDescription.accessLocation['value'],
+                            })),
                         };
                         return this.extensions.push(extension);
                     }
@@ -28216,7 +28232,8 @@ class Certificate$1 extends Basic {
                         return this.extensions.push(extension);
                     }
                     if (ext.extnID === EnumOIDs.CertificateTransparency) {
-                        console.log(ext);
+                        // TODO: Need to complete extension parce
+                        // moz-extension://db8dafe3-2186-644c-9aea-5b2e70ea8422/viewer/index.html?tid=2
                         const extension = {
                             name: OIDs[ext.extnID] || '',
                             critical: ext.critical,
@@ -28228,13 +28245,11 @@ class Certificate$1 extends Basic {
                                     name: Certificate$1.logs[logID],
                                     timestamp: timestamp.timestamp,
                                     version: timestamp.version + 1,
-                                    // signature: t.signature.valueBeforeDecode,
                                     hashAlgorithm: timestamp.hashAlgorithm,
                                     signatureAlgorithm: timestamp.signatureAlgorithm,
                                 };
                             }),
                         };
-                        console.log(extension);
                         return this.extensions.push(extension);
                     }
                     const extension = {
@@ -28247,20 +28262,6 @@ class Certificate$1 extends Basic {
                             .valueHex),
                     };
                     this.extensions.push(extension);
-                    // case EnumOIDs.CertificateTransparency: {
-                    // extension.value = ext.parsedValue.timestamps.map((t) => {
-                    //   const logName = LOGS.logs.filter(l => l.hex === t.logID.toLowerCase());
-                    //   return {
-                    //     logID: t.logID,
-                    //     logName: logName.length > 0 ? logName[0].description : '',
-                    //     timestamp: new Date(t.timestamp).toISOString(),
-                    //     signature: t.signature.valueBeforeDecode,
-                    //     hashAlgorithm: t.hashAlgorithm,
-                    //     signatureAlgorithm: t.signatureAlgorithm,
-                    //   };
-                    // });
-                    //   break;
-                    // }
                 });
             }
         }
