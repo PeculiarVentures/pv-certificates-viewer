@@ -10,7 +10,7 @@ export default class Basic {
   pem: string;
   hex: string;
   schema: asn1js.LocalBaseBlock;
-  fingerprint?: string;
+  fingerprints: Record<string, string> = {};
 
   static algorithmOIDs: Record<string, { name: string; hash: string }> = {
     '1.2.840.113549.1.1.5': {
@@ -272,12 +272,12 @@ export default class Basic {
     this.hex = Basic.formatHex(Convert.ToHex(certificateBuffer));
   }
 
-  public async getFingerprint() {
+  public async getFingerprint(algorithm: string = 'SHA-1') {
     try {
       const response = await crypto.subtle
-        .digest('SHA-1', this.schema.valueBeforeDecode);
+        .digest(algorithm, this.schema.valueBeforeDecode);
 
-      this.fingerprint = Convert.ToHex(response);
+      this.fingerprints[algorithm] = Convert.ToHex(response);
     } catch (error) {
       console.error(error);
     }

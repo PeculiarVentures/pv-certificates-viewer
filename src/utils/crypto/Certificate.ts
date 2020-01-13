@@ -75,7 +75,7 @@ interface IExtensionExtendedKeyUsage
 interface IExtensionCertificatePolicies
   extends IExtensionBasic<
     EnumOIDs.CertificatePolicies,
-    { oid: string; name: string }[]
+    { oid: string; name?: string; value?: { oid: string; name?: string; value: string }[] }[]
   > {}
 
 interface IExtensionCRLDistributionPoints
@@ -87,7 +87,7 @@ interface IExtensionCRLDistributionPoints
 interface IExtensionCertificateAuthorityInformationAccess
   extends IExtensionBasic<
     EnumOIDs.CertificateAuthorityInformationAccess,
-    _AccessDescription[]
+    { name?: string; oid: string, type: number; value: string; }[]
   > {}
 
 interface IExtensionSubjectAlternativeName
@@ -501,14 +501,20 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
+          // TODO: Need to complete extension parse
           if (ext.parsedValue instanceof _CertificatePolicies) {
             const extension: IExtensionCertificatePolicies = {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
               oid: EnumOIDs.CertificatePolicies,
-              value: ext.parsedValue.certificatePolicies.map(cp => ({
-                oid: cp.policyIdentifier,
-                name: OIDS[cp.policyIdentifier],
+              value: ext.parsedValue.certificatePolicies.map(certificatePolicy => ({
+                oid: certificatePolicy.policyIdentifier,
+                name: OIDS[certificatePolicy.policyIdentifier],
+                value: certificatePolicy.policyQualifiers?.map(qualifier => ({
+                  oid: qualifier.policyQualifierId,
+                  name: OIDS[qualifier.policyQualifierId],
+                  value: qualifier.qualifier.valueBlock.value,
+                })),
               })),
             };
 
@@ -560,7 +566,12 @@ export default class Certificate extends Basic {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
               oid: EnumOIDs.CertificateAuthorityInformationAccess,
-              value: ext.parsedValue.accessDescriptions,
+              value: ext.parsedValue.accessDescriptions.map(accessDescription => ({
+                name: OIDS[accessDescription.accessMethod],
+                oid: accessDescription.accessMethod,
+                type: accessDescription.accessLocation['type'],
+                value: accessDescription.accessLocation['value'],
+              })),
             };
 
             return this.extensions.push(extension);
@@ -640,6 +651,7 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
+          // TODO: Need to complete extension parse
           if (ext.extnID === EnumOIDs.CertificateTransparency) {
             const extension: IExtensionCertificateTransparency = {
               name: OIDS[ext.extnID] || '',
