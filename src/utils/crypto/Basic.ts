@@ -128,7 +128,7 @@ export default class Basic {
     },
     '1.3.6.1.4.1.311.60.2.1.3': {
       short: 'jurisdictionCountry',
-      long: 'Jurisdiction Country',
+      long: 'Inc. Country',
     },
     '2.5.4.15': {
       short: 'businessCategory',
@@ -136,6 +136,9 @@ export default class Basic {
     },
     '1.3.6.1.2.1.1.5': {
       long: 'Host Name',
+    },
+    '1.3.6.1.4.1.311.60.2.1.2': {
+      long: 'Inc. State / Province',
     },
   };
 
