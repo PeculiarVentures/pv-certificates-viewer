@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, State } from '@stencil/core';
 
 import { Certificate, TExtension, EnumOIDs } from '../../utils/crypto';
 import * as dateFormatter from '../../utils/date_formatter';
@@ -21,7 +21,8 @@ export class CertificateViewer {
    */
   @Prop() certificate: string;
 
-  // TODO: Need to add loading state for decoding
+  @State() isDecodeInProcess: boolean = true;
+
   async componentWillLoad() {
     if (this.certificate) {
       try {
@@ -30,9 +31,13 @@ export class CertificateViewer {
         await this.certificateDecoded.getFingerprint('SHA-1');
         await this.certificateDecoded.getFingerprint('SHA-256');
       } catch (error) {
+        console.error(error);
+
         this.certificateDecodeError = error;
       }
     }
+
+    this.isDecodeInProcess = false;
   }
 
   renderRowTitle(title: string) {
@@ -120,18 +125,30 @@ export class CertificateViewer {
         );
       }
 
-      // TODO: Need to update render and add values from qualified
       case EnumOIDs.CertificatePolicies: {
-        return extension.value.map((value, index) => (
-          this.renderRowValue(
-            `Policy ${index + 1}`,
-            [
-              <p>
-                {value.name} ({value.oid})
-              </p>,
-            ],
-          )
-        ));
+        return [
+          extension.value.policies.map((value, index) => (
+            this.renderRowValue(
+              `Policy ${index + 1}`,
+              [
+                <p>
+                  {value.name} ({value.oid})
+                </p>,
+              ],
+            )
+          )),
+          extension.value.qualifiers.map((value, index) => (
+            this.renderRowValue(
+              `Qualifier ${index + 1}`,
+              [
+                <p>
+                  {value.name} ({value.oid})
+                </p>,
+                <a class="text_primary" href={value.value} target="_blank">{value.value}</a>,
+              ],
+            )
+          )),
+        ];
       }
 
       case EnumOIDs.CRLDistributionPoints: {
@@ -312,16 +329,30 @@ export class CertificateViewer {
       }
 
       case EnumOIDs.CertificateTransparency: {
-        return this.renderRowValue(
-          'Values',
-          extension.value.map((value) => {
-            return (
-              <p class="b3 text_black">
-                {value.name} ({dateFormatter.short(value.timestamp)})
-              </p>
-            );
-          }),
-        );
+        return extension.value.map(timestamp => [
+          <br />,
+          this.renderRowValue(
+            'Log ID',
+            timestamp.logID,
+            true,
+          ),
+          this.renderRowValue(
+            'Log Name',
+            timestamp.name,
+          ),
+          this.renderRowValue(
+            'Hash Algorithm',
+            timestamp.hashAlgorithm.toUpperCase(),
+          ),
+          this.renderRowValue(
+            'Signature Algorithm',
+            timestamp.signatureAlgorithm.toUpperCase(),
+          ),
+          this.renderRowValue(
+            'Timestamp',
+            dateFormatter.short(timestamp.timestamp),
+          ),
+        ]);
       }
     }
 
