@@ -1,5 +1,5 @@
 import { r as registerInstance, h, H as Host } from './core-b3a1a540.js';
-import { C as Certificate } from './index-d96a9cc0.js';
+import { C as Certificate } from './index-28846616.js';
 import './date_formatter-80b284a6.js';
 
 const CertificatesViewer = class {

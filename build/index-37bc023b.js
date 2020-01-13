@@ -26686,7 +26686,7 @@ const OIDs = {
     '1.3.6.1.4.1.5472.1.3': 'TSS400',
     '1.3.6.1.4.1.5770.0.3': 'Secondary Practices',
     '1.3.6.1.4.1.5770.0.4': 'Physician Identifiers',
-    '1.3.6.1.4.1.6334.1.100.1': 'Cybertrust  EV policy',
+    '1.3.6.1.4.1.6334.1.100.1': 'Cybertrust EV policy',
     '1.3.6.1.4.1.6449.1.2.1.3.1': 'Comodo Policy',
     '1.3.6.1.4.1.6449.1.2.1.5.1': 'Comodo  EV policy',
     '1.3.6.1.4.1.6449.1.2.2.7': 'Comodo TLS DV',
@@ -27606,6 +27606,7 @@ const OIDs = {
     '2.16.840.1.113733.1.7.1.1': 'Verisign Cert Policies95 Qualifier1',
     '2.16.840.1.113733.1.7.1.1.1': 'Verisign CP Sv1notice',
     '2.16.840.1.113733.1.7.1.1.2': 'Verisign CP Sv1nsi',
+    '2.16.840.1.113733.1.7.54': 'Symantec',
     '2.16.840.1.113733.1.7.23.6': 'Veri Sign EV policy',
     '2.16.840.1.113733.1.7.48.1': 'Thawte EV policy',
     '2.16.840.1.113733.1.8.1': 'erisign ISS Strong Crypto',
@@ -28106,24 +28107,31 @@ class Certificate$1 extends Basic {
                         };
                         return this.extensions.push(extension);
                     }
-                    // TODO: Need to complete extension parse
                     if (ext.parsedValue instanceof CertificatePolicies) {
+                        const policies = [];
+                        const qualifiers = [];
+                        ext.parsedValue.certificatePolicies.forEach((policy) => {
+                            var _a;
+                            policies.push({
+                                oid: policy.policyIdentifier,
+                                name: OIDs[policy.policyIdentifier],
+                            });
+                            (_a = policy.policyQualifiers) === null || _a === void 0 ? void 0 : _a.forEach((qualifier) => {
+                                qualifiers.push({
+                                    oid: qualifier.policyQualifierId,
+                                    name: OIDs[qualifier.policyQualifierId],
+                                    value: qualifier.qualifier.valueBlock.value,
+                                });
+                            });
+                        });
                         const extension = {
                             name: OIDs[ext.extnID] || '',
                             critical: ext.critical,
                             oid: EnumOIDs.CertificatePolicies,
-                            value: ext.parsedValue.certificatePolicies.map(certificatePolicy => {
-                                var _a;
-                                return ({
-                                    oid: certificatePolicy.policyIdentifier,
-                                    name: OIDs[certificatePolicy.policyIdentifier],
-                                    value: (_a = certificatePolicy.policyQualifiers) === null || _a === void 0 ? void 0 : _a.map(qualifier => ({
-                                        oid: qualifier.policyQualifierId,
-                                        name: OIDs[qualifier.policyQualifierId],
-                                        value: qualifier.qualifier.valueBlock.value,
-                                    })),
-                                });
-                            }),
+                            value: {
+                                policies,
+                                qualifiers,
+                            },
                         };
                         return this.extensions.push(extension);
                     }
@@ -28232,7 +28240,6 @@ class Certificate$1 extends Basic {
                         };
                         return this.extensions.push(extension);
                     }
-                    // TODO: Need to complete extension parse
                     if (ext.extnID === EnumOIDs.CertificateTransparency) {
                         const extension = {
                             name: OIDs[ext.extnID] || '',
