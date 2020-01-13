@@ -6968,6 +6968,7 @@ function isEqual(bytes1, bytes2) {
 
 class Basic {
     constructor(value, name) {
+        this.fingerprints = {};
         this.input = value;
         this.name = name;
         this.init();
@@ -7005,11 +7006,11 @@ class Basic {
         this.base64 = Convert.ToBase64(certificateBuffer);
         this.hex = Basic.formatHex(Convert.ToHex(certificateBuffer));
     }
-    async getFingerprint() {
+    async getFingerprint(algorithm = 'SHA-1') {
         try {
             const response = await crypto.subtle
-                .digest('SHA-1', this.schema.valueBeforeDecode);
-            this.fingerprint = Convert.ToHex(response);
+                .digest(algorithm, this.schema.valueBeforeDecode);
+            this.fingerprints[algorithm] = Convert.ToHex(response);
         }
         catch (error) {
             console.error(error);
@@ -26685,9 +26686,10 @@ const OIDs = {
     '1.3.6.1.4.1.5472.1.3': 'TSS400',
     '1.3.6.1.4.1.5770.0.3': 'Secondary Practices',
     '1.3.6.1.4.1.5770.0.4': 'Physician Identifiers',
-    '1.3.6.1.4.1.6334.1.100.1': 'Cybertrust  EV policy',
+    '1.3.6.1.4.1.6334.1.100.1': 'Cybertrust EV policy',
     '1.3.6.1.4.1.6449.1.2.1.3.1': 'Comodo Policy',
     '1.3.6.1.4.1.6449.1.2.1.5.1': 'Comodo  EV policy',
+    '1.3.6.1.4.1.6449.1.2.2.7': 'Comodo TLS DV',
     '1.3.6.1.4.1.6449.1.2.2.15': 'Wotrust Policy',
     '1.3.6.1.4.1.6449.1.3.5.2': 'Comodo Certified Delivery Service',
     '1.3.6.1.4.1.6449.2.1.1': 'Comodo Timestamping Policy',
@@ -28104,31 +28106,33 @@ class Certificate$1 extends Basic {
                         };
                         return this.extensions.push(extension);
                     }
+                    // TODO: Need to complete extension parse
                     if (ext.parsedValue instanceof CertificatePolicies) {
-                        console.log(ext);
-                        // TODO: Need to complete extension parse
-                        // moz-extension://db8dafe3-2186-644c-9aea-5b2e70ea8422/viewer/index.html?tid=2
+                        const policies = [];
+                        const qualifiers = [];
+                        ext.parsedValue.certificatePolicies.forEach((policy) => {
+                            var _a;
+                            policies.push({
+                                oid: policy.policyIdentifier,
+                                name: OIDs[policy.policyIdentifier],
+                            });
+                            (_a = policy.policyQualifiers) === null || _a === void 0 ? void 0 : _a.forEach((qualifier) => {
+                                qualifiers.push({
+                                    oid: qualifier.policyQualifierId,
+                                    name: OIDs[qualifier.policyQualifierId],
+                                    value: qualifier.qualifier.valueBlock.value,
+                                });
+                            });
+                        });
                         const extension = {
                             name: OIDs[ext.extnID] || '',
                             critical: ext.critical,
                             oid: EnumOIDs.CertificatePolicies,
-                            // value: {
-                            //   policies: [],
-                            //   qualifiers: [],
-                            // },
-                            value: ext.parsedValue.certificatePolicies.map(certificatePolicy => {
-                                var _a;
-                                return ({
-                                    oid: certificatePolicy.policyIdentifier,
-                                    name: OIDs[certificatePolicy.policyIdentifier],
-                                    value: (_a = certificatePolicy.policyQualifiers) === null || _a === void 0 ? void 0 : _a.map(qualifier => ({
-                                        oid: qualifier.policyQualifierId,
-                                        name: OIDs[qualifier.policyQualifierId],
-                                        value: qualifier.qualifier.valueBlock.value,
-                                    })),
-                                });
-                            }),
+                            value: [],
                         };
+                        console.log(extension);
+                        console.log(policies);
+                        console.log(qualifiers);
                         return this.extensions.push(extension);
                     }
                     if (ext.parsedValue instanceof AuthorityKeyIdentifier) {
@@ -28236,9 +28240,8 @@ class Certificate$1 extends Basic {
                         };
                         return this.extensions.push(extension);
                     }
+                    // TODO: Need to complete extension parse
                     if (ext.extnID === EnumOIDs.CertificateTransparency) {
-                        // TODO: Need to complete extension parce
-                        // moz-extension://db8dafe3-2186-644c-9aea-5b2e70ea8422/viewer/index.html?tid=2
                         const extension = {
                             name: OIDs[ext.extnID] || '',
                             critical: ext.critical,

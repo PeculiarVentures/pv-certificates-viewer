@@ -1,12 +1,12 @@
 import { r as registerInstance, h } from './core-b3a1a540.js';
-import { C as Certificate, E as EnumOIDs } from './index-e683dca0.js';
+import { C as Certificate, E as EnumOIDs } from './index-d96a9cc0.js';
 import { s as short } from './date_formatter-80b284a6.js';
 
 const CertificateViewer = class {
     constructor(hostRef) {
         registerInstance(this, hostRef);
+        this.isDecodeInProcess = true;
     }
-    // TODO: Need to add loading state for decoding
     async componentWillLoad() {
         if (this.certificate) {
             try {
@@ -15,9 +15,11 @@ const CertificateViewer = class {
                 await this.certificateDecoded.getFingerprint('SHA-256');
             }
             catch (error) {
+                console.error(error);
                 this.certificateDecodeError = error;
             }
         }
+        this.isDecodeInProcess = false;
     }
     renderRowTitle(title) {
         return (h("tr", { class: "title" }, h("td", { colSpan: 2, class: "h6 text_black" }, title)));
@@ -61,11 +63,16 @@ const CertificateViewer = class {
             case EnumOIDs.ExtendedKeyUsage: {
                 return this.renderRowValue('Values', extension.value.map(value => (h("p", { class: "b3 text_black" }, value.name, " (", value.oid, ")"))));
             }
-            // TODO: Need to update render and add values from qualified
             case EnumOIDs.CertificatePolicies: {
-                return extension.value.map((value, index) => (this.renderRowValue(`Policy ${index + 1}`, [
-                    h("p", null, value.name, " (", value.oid, ")"),
-                ])));
+                return [
+                    extension.value.policies.map((value, index) => (this.renderRowValue(`Policy ${index + 1}`, [
+                        h("p", null, value.name, " (", value.oid, ")"),
+                    ]))),
+                    extension.value.qualifiers.map((value, index) => (this.renderRowValue(`Qualifier ${index + 1}`, [
+                        h("p", null, value.name, " (", value.oid, ")"),
+                        h("a", { class: "text_primary", href: value.value, target: "_blank" }, value.value),
+                    ]))),
+                ];
             }
             case EnumOIDs.CRLDistributionPoints: {
                 return this.renderRowValue('Paths', extension.value.map((value) => {
@@ -136,9 +143,14 @@ const CertificateViewer = class {
                 ];
             }
             case EnumOIDs.CertificateTransparency: {
-                return this.renderRowValue('Values', extension.value.map((value) => {
-                    return (h("p", { class: "b3 text_black" }, value.name, " (", short(value.timestamp), ")"));
-                }));
+                return extension.value.map(timestamp => [
+                    h("br", null),
+                    this.renderRowValue('Log ID', timestamp.logID, true),
+                    this.renderRowValue('Log Name', timestamp.name),
+                    this.renderRowValue('Hash Algorithm', timestamp.hashAlgorithm.toUpperCase()),
+                    this.renderRowValue('Signature Algorithm', timestamp.signatureAlgorithm.toUpperCase()),
+                    this.renderRowValue('Timestamp', short(timestamp.timestamp)),
+                ]);
             }
         }
         return this.renderRowValue('Value', extension.value);
