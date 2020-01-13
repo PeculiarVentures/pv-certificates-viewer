@@ -75,7 +75,10 @@ interface IExtensionExtendedKeyUsage
 interface IExtensionCertificatePolicies
   extends IExtensionBasic<
     EnumOIDs.CertificatePolicies,
-    { oid: string; name?: string; value?: { oid: string; name?: string; value: string }[] }[]
+    {
+      policies: { oid: string; name?: string }[];
+      qualifiers: { oid: string; name?: string; value: string }[];
+    }
   > {}
 
 interface IExtensionCRLDistributionPoints
@@ -117,7 +120,14 @@ interface IExtensionAuthorityKeyIdentifier
 interface IExtensionCertificateTransparency
   extends IExtensionBasic<
     EnumOIDs.CertificateTransparency,
-    { logID: string; name?: string; timestamp: Date; version: number; hashAlgorithm: string; signatureAlgorithm: string; }[]
+    {
+      logID: string;
+      name?: string;
+      timestamp: Date;
+      version: number;
+      hashAlgorithm: string;
+      signatureAlgorithm: string;
+    }[]
   > {}
 
 export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
@@ -501,21 +511,33 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
-          // TODO: Need to complete extension parse
           if (ext.parsedValue instanceof _CertificatePolicies) {
+            const policies = [];
+            const qualifiers = [];
+
+            ext.parsedValue.certificatePolicies.forEach((policy) => {
+              policies.push({
+                oid: policy.policyIdentifier,
+                name: OIDS[policy.policyIdentifier],
+              });
+
+              policy.policyQualifiers?.forEach((qualifier) => {
+                qualifiers.push({
+                  oid: qualifier.policyQualifierId,
+                  name: OIDS[qualifier.policyQualifierId],
+                  value: qualifier.qualifier.valueBlock.value,
+                });
+              });
+            });
+
             const extension: IExtensionCertificatePolicies = {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
               oid: EnumOIDs.CertificatePolicies,
-              value: ext.parsedValue.certificatePolicies.map(certificatePolicy => ({
-                oid: certificatePolicy.policyIdentifier,
-                name: OIDS[certificatePolicy.policyIdentifier],
-                value: certificatePolicy.policyQualifiers?.map(qualifier => ({
-                  oid: qualifier.policyQualifierId,
-                  name: OIDS[qualifier.policyQualifierId],
-                  value: qualifier.qualifier.valueBlock.value,
-                })),
-              })),
+              value: {
+                policies,
+                qualifiers,
+              },
             };
 
             return this.extensions.push(extension);
@@ -651,7 +673,6 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
-          // TODO: Need to complete extension parse
           if (ext.extnID === EnumOIDs.CertificateTransparency) {
             const extension: IExtensionCertificateTransparency = {
               name: OIDS[ext.extnID] || '',
