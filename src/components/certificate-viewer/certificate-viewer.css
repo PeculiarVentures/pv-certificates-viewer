@@ -31,10 +31,22 @@ table td:last-child {
   width: calc(100% - 130px);
 }
 
+table tr:last-child td {
+  padding-bottom: 50px;
+}
+
 table td {
   vertical-align: top;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+.vertical_align_top {
+  vertical-align: top;
+}
+
+.vertical_align_middle {
+  vertical-align: middle;
 }
 
 table .title:first-child td {

@@ -35,9 +35,13 @@ export namespace Components {
   }
   interface PvCertificateViewer {
     /**
-    * The certificate value for decode and show details. Use PEM or DER format.
+    * The certificate value for decode and show details. Use PEM or DER.
     */
     'certificate': string;
+    /**
+    * If `true` - component will show split-button to download certificate as PEM or DER.
+    */
+    'download': boolean;
   }
   interface PvCertificatesViewer {
     /**
@@ -151,9 +155,13 @@ declare namespace LocalJSX {
   }
   interface PvCertificateViewer {
     /**
-    * The certificate value for decode and show details. Use PEM or DER format.
+    * The certificate value for decode and show details. Use PEM or DER.
     */
     'certificate'?: string;
+    /**
+    * If `true` - component will show split-button to download certificate as PEM or DER.
+    */
+    'download'?: boolean;
   }
   interface PvCertificatesViewer {
     /**

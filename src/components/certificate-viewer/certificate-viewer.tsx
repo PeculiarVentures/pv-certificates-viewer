@@ -17,9 +17,13 @@ export class CertificateViewer {
   certificateDecodeError: Error;
 
   /**
-   * The certificate value for decode and show details. Use PEM or DER format.
+   * The certificate value for decode and show details. Use PEM or DER.
    */
   @Prop() certificate: string;
+  /**
+   * If `true` - component will show split-button to download certificate as PEM or DER.
+   */
+  @Prop() download: boolean;
 
   @State() isDecodeInProcess: boolean = true;
 
@@ -53,8 +57,7 @@ export class CertificateViewer {
   renderRowValue(
     title: string,
     value: string | number | any[],
-    valueMonospace?: boolean,
-    collapseValue?: boolean,
+    options: { monospace?: boolean; collapse?: boolean; align?: 'middle' } = {},
   ) {
     if (
       typeof value !== 'string'
@@ -66,7 +69,7 @@ export class CertificateViewer {
 
     let valueElem;
 
-    if (collapseValue) {
+    if (options.collapse) {
       valueElem = (
         <pv-text-hider>
           {value}
@@ -80,14 +83,21 @@ export class CertificateViewer {
 
     return (
       <tr>
-        <td class="b3 text_grey">
+        <td
+          class={{
+            b3: true,
+            text_grey: true,
+            vertical_align_top: options.align !== 'middle',
+            vertical_align_middle: options.align === 'middle',
+          }}
+        >
           {title}:
         </td>
         <td
           class={{
             b3: true,
             text_black: true,
-            monospace: valueMonospace,
+            monospace: options.monospace,
           }}
         >
           {valueElem}
@@ -98,7 +108,7 @@ export class CertificateViewer {
 
   renderRowExtensionValue(extension: TExtension) {
     if (typeof extension.value === 'string') {
-      return this.renderRowValue('Value', extension.value, true);
+      return this.renderRowValue('Value', extension.value, { monospace: true });
     }
 
     switch (extension.oid) {
@@ -319,7 +329,11 @@ export class CertificateViewer {
 
       case EnumOIDs.AuthorityKeyIdentifier: {
         return [
-          this.renderRowValue('Key Identifier', extension.value.keyIdentifier, true),
+          this.renderRowValue(
+            'Key Identifier',
+            extension.value.keyIdentifier,
+            { monospace: true },
+          ),
           this.renderRowValue('Authority Cert Issuer', extension.value.authorityCertIssuer),
           this.renderRowValue(
             'Authority Cert Serial Number',
@@ -334,7 +348,7 @@ export class CertificateViewer {
           this.renderRowValue(
             'Log ID',
             timestamp.logID,
-            true,
+            { monospace: true },
           ),
           this.renderRowValue(
             'Log Name',
@@ -357,6 +371,31 @@ export class CertificateViewer {
     }
 
     return this.renderRowValue('Value', extension.value);
+  }
+
+  renderMiscellaneous() {
+    if (!this.download) {
+      return null;
+    }
+
+    return [
+      this.renderRowTitle('Miscellaneous'),
+      this.renderRowValue(
+        'Download',
+        [(
+          <pv-button-split
+            onClick={this.certificateDecoded.downloadAsPEM.bind(this)}
+            actions={[{
+              text: 'Download DER',
+              onClick: this.certificateDecoded.downloadAsDER.bind(this),
+            }]}
+          >
+            Download PEM
+          </pv-button-split>
+        )],
+        { align: 'middle' },
+      ),
+    ];
   }
 
   renderErrorState() {
@@ -408,16 +447,32 @@ export class CertificateViewer {
           this.certificateDecoded.publicKey.algorithm.publicExponent,
         )}
         {this.renderRowValue('Named Curve', this.certificateDecoded.publicKey.algorithm.namedCurve)}
-        {this.renderRowValue('Value', this.certificateDecoded.publicKey.value, true, true)}
+        {this.renderRowValue(
+          'Value',
+          this.certificateDecoded.publicKey.value,
+          { monospace: true, collapse: true },
+        )}
 
         {this.renderRowTitle('Signature')}
         {this.renderRowValue('Algorithm', this.certificateDecoded.signature.algorithm.name)}
         {this.renderRowValue('Hash', this.certificateDecoded.signature.algorithm.hash)}
-        {this.renderRowValue('Value', this.certificateDecoded.signature.value, true, true)}
+        {this.renderRowValue(
+          'Value',
+          this.certificateDecoded.signature.value,
+          { monospace: true, collapse: true },
+        )}
 
         {this.renderRowTitle('Fingerprints')}
-        {this.renderRowValue('SHA-256', this.certificateDecoded.fingerprints['SHA-256'], true)}
-        {this.renderRowValue('SHA-1', this.certificateDecoded.fingerprints['SHA-1'], true)}
+        {this.renderRowValue(
+          'SHA-256',
+          this.certificateDecoded.fingerprints['SHA-256'],
+          { monospace: true },
+        )}
+        {this.renderRowValue(
+          'SHA-1',
+          this.certificateDecoded.fingerprints['SHA-1'],
+          { monospace: true },
+        )}
 
         {this.renderRowTitle('Extensions')}
         {this.certificateDecoded.extensions.map(extension => ([
@@ -433,6 +488,8 @@ export class CertificateViewer {
             </td>
           </tr>,
         ]))}
+
+        {this.renderMiscellaneous()}
       </table>
     );
   }
