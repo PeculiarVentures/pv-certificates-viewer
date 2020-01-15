@@ -35,13 +35,28 @@ export namespace Components {
   }
   interface PvCertificateViewer {
     /**
+    * Authority Key Identifier extension parent link. NOTE: `{{authKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `auth-key-id-parent-link`.
+    * @example  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
+    */
+    'authKeyIdParentLink'?: string;
+    /**
+    * Authority Key Identifier extension siblings link. NOTE: `{{authKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `auth-key-id-siblings-link`.
+    * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
+    */
+    'authKeyIdSiblingsLink'?: string;
+    /**
     * The certificate value for decode and show details. Use PEM or DER.
     */
     'certificate': string;
     /**
     * If `true` - component will show split-button to download certificate as PEM or DER.
     */
-    'download': boolean;
+    'download'?: boolean;
+    /**
+    * Subject Key Identifier extension children link. NOTE: `{{subjectKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `subject-key-id-children-link`.
+    * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
+    */
+    'subjectKeyIdChildrenLink'?: string;
   }
   interface PvCertificatesViewer {
     /**
@@ -155,6 +170,16 @@ declare namespace LocalJSX {
   }
   interface PvCertificateViewer {
     /**
+    * Authority Key Identifier extension parent link. NOTE: `{{authKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `auth-key-id-parent-link`.
+    * @example  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
+    */
+    'authKeyIdParentLink'?: string;
+    /**
+    * Authority Key Identifier extension siblings link. NOTE: `{{authKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `auth-key-id-siblings-link`.
+    * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
+    */
+    'authKeyIdSiblingsLink'?: string;
+    /**
     * The certificate value for decode and show details. Use PEM or DER.
     */
     'certificate'?: string;
@@ -162,6 +187,11 @@ declare namespace LocalJSX {
     * If `true` - component will show split-button to download certificate as PEM or DER.
     */
     'download'?: boolean;
+    /**
+    * Subject Key Identifier extension children link. NOTE: `{{subjectKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `subject-key-id-children-link`.
+    * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
+    */
+    'subjectKeyIdChildrenLink'?: string;
   }
   interface PvCertificatesViewer {
     /**

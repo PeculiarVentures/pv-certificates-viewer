@@ -18,7 +18,6 @@ import * as asn1js from 'asn1js';
 import * as dateFormatter from '../../utils/date_formatter';
 import downloadFromBuffer from  '../downloadFromBuffer';
 import OIDS from  '../../constants/oids';
-// import LOGS from '../../constants/logs';
 import SANs from '../../constants/san_types';
 
 import Basic from './Basic';
@@ -31,6 +30,7 @@ export enum EnumOIDs {
   ExtendedKeyUsage = '2.5.29.37',
   CertificatePolicies = '2.5.29.32',
   AuthorityKeyIdentifier = '2.5.29.35',
+  SubjectKeyIdentifier = '2.5.29.14',
   CertificateAuthorityInformationAccess = '1.3.6.1.5.5.7.1.1',
   CRLDistributionPoints = '2.5.29.31',
   SubjectAlternativeName = '2.5.29.17',
@@ -111,7 +111,7 @@ interface IExtensionCertificateTemplate
     { templateID: string; templateMajorVersion: number; templateMinorVersion: number; }
   > {}
 
-interface IExtensionAuthorityKeyIdentifier
+export interface IExtensionAuthorityKeyIdentifier
   extends IExtensionBasic<
     EnumOIDs.AuthorityKeyIdentifier,
     { keyIdentifier: string; authorityCertIssuer?: string; authorityCertSerialNumber?: string; }
@@ -130,6 +130,12 @@ interface IExtensionCertificateTransparency
     }[]
   > {}
 
+export interface IExtensionSubjectKeyIdentifier
+  extends IExtensionBasic<
+    EnumOIDs.SubjectKeyIdentifier,
+    string
+  > {}
+
 export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionBasicConstraints
   | IExtensionKeyUsage
@@ -142,7 +148,8 @@ export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionCertificateTemplate
   | IExtensionNameConstraints
   | IExtensionNetscapeCertificateType
-  | IExtensionCertificateTransparency;
+  | IExtensionCertificateTransparency
+  | IExtensionSubjectKeyIdentifier;
 
 export default class Certificate extends Basic {
   notBefore?: Date;

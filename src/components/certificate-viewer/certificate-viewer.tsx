@@ -1,6 +1,12 @@
 import { Component, h, Prop, State } from '@stencil/core';
 
-import { Certificate, TExtension, EnumOIDs } from '../../utils/crypto';
+import {
+  Certificate,
+  TExtension,
+  EnumOIDs,
+  IExtensionAuthorityKeyIdentifier,
+  IExtensionSubjectKeyIdentifier,
+} from '../../utils/crypto';
 import * as dateFormatter from '../../utils/date_formatter';
 
 @Component({
@@ -23,7 +29,31 @@ export class CertificateViewer {
   /**
    * If `true` - component will show split-button to download certificate as PEM or DER.
    */
-  @Prop() download: boolean;
+  @Prop() download?: boolean;
+  /**
+   * Authority Key Identifier extension parent link.
+   * NOTE: `{{authKeyId}}` will be replaced to value from the extension.
+   * NOTE: HTML component attribute must be `auth-key-id-parent-link`.
+   * @example
+   *  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
+   */
+  @Prop() authKeyIdParentLink?: string;
+  /**
+   * Authority Key Identifier extension siblings link.
+   * NOTE: `{{authKeyId}}` will be replaced to value from the extension.
+   * NOTE: HTML component attribute must be `auth-key-id-siblings-link`.
+   * @example
+   *  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
+   */
+  @Prop() authKeyIdSiblingsLink?: string;
+  /**
+   * Subject Key Identifier extension children link.
+   * NOTE: `{{subjectKeyId}}` will be replaced to value from the extension.
+   * NOTE: HTML component attribute must be `subject-key-id-children-link`.
+   * @example
+   *  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
+   */
+  @Prop() subjectKeyIdChildrenLink?: string;
 
   @State() isDecodeInProcess: boolean = true;
 
@@ -34,6 +64,7 @@ export class CertificateViewer {
 
         await this.certificateDecoded.getFingerprint('SHA-1');
         await this.certificateDecoded.getFingerprint('SHA-256');
+
       } catch (error) {
         console.error(error);
 
@@ -42,6 +73,21 @@ export class CertificateViewer {
     }
 
     this.isDecodeInProcess = false;
+  }
+
+  getAuthKeyIdParentLink(extension: IExtensionAuthorityKeyIdentifier) {
+    return this.authKeyIdParentLink
+      ?.replace('{{authKeyId}}', extension.value.keyIdentifier);
+  }
+
+  getAuthKeyIdSiblingsLink(extension: IExtensionAuthorityKeyIdentifier) {
+    return this.authKeyIdSiblingsLink
+      ?.replace('{{authKeyId}}', extension.value.keyIdentifier);
+  }
+
+  getSubjectKeyIdChildrenLink(extension: IExtensionSubjectKeyIdentifier) {
+    return this.subjectKeyIdChildrenLink
+      ?.replace('{{subjectKeyId}}', extension.value);
   }
 
   renderRowTitle(title: string) {
@@ -107,10 +153,6 @@ export class CertificateViewer {
   }
 
   renderRowExtensionValue(extension: TExtension) {
-    if (typeof extension.value === 'string') {
-      return this.renderRowValue('Value', extension.value, { monospace: true });
-    }
-
     switch (extension.oid) {
       case EnumOIDs.BasicConstraints: {
         return [
@@ -328,13 +370,33 @@ export class CertificateViewer {
       }
 
       case EnumOIDs.AuthorityKeyIdentifier: {
+        const parentLink = this.getAuthKeyIdParentLink(extension);
+        const siblingsLink = this.getAuthKeyIdSiblingsLink(extension);
+
         return [
           this.renderRowValue(
             'Key Identifier',
-            extension.value.keyIdentifier,
+            [
+              <span>
+                {extension.value.keyIdentifier}
+              </span>,
+              parentLink && (
+                <span>
+                  &nbsp;[<a class="text_primary" href={parentLink} target="_blank">parents</a>]
+                </span>
+              ),
+              siblingsLink && (
+                <span>
+                  &nbsp;[<a class="text_primary" href={siblingsLink} target="_blank">siblings</a>]
+                </span>
+              ),
+            ],
             { monospace: true },
           ),
-          this.renderRowValue('Authority Cert Issuer', extension.value.authorityCertIssuer),
+          this.renderRowValue(
+            'Authority Cert Issuer',
+            extension.value.authorityCertIssuer,
+          ),
           this.renderRowValue(
             'Authority Cert Serial Number',
             extension.value.authorityCertSerialNumber,
@@ -368,6 +430,33 @@ export class CertificateViewer {
           ),
         ]);
       }
+
+      case EnumOIDs.SubjectKeyIdentifier: {
+        const childrenLink = this.getSubjectKeyIdChildrenLink(extension);
+
+        return this.renderRowValue(
+          'Value',
+          [
+            <span>
+              {extension.value}
+            </span>,
+            childrenLink && (
+              <span>
+                &nbsp;[<a class="text_primary" href={childrenLink} target="_blank">children</a>]
+              </span>
+            ),
+          ],
+          { monospace: true },
+        );
+      }
+    }
+
+    if (typeof extension.value === 'string') {
+      return this.renderRowValue(
+        'Value',
+        extension.value,
+        { monospace: true },
+      );
     }
 
     return this.renderRowValue('Value', extension.value);

@@ -36,6 +36,7 @@ graph TD;
   pv-certificates-viewer --> pv-circular-progress
   pv-button-split --> pv-button
   pv-certificate-viewer --> pv-text-hider
+  pv-certificate-viewer --> pv-button-split
   pv-certificate-viewer --> pv-certificate-summary
   pv-text-hider --> pv-button
   style pv-certificates-viewer fill:#f9f,stroke:#333,stroke-width:4px
