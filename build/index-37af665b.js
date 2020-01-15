@@ -27804,6 +27804,7 @@ var EnumOIDs;
     EnumOIDs["ExtendedKeyUsage"] = "2.5.29.37";
     EnumOIDs["CertificatePolicies"] = "2.5.29.32";
     EnumOIDs["AuthorityKeyIdentifier"] = "2.5.29.35";
+    EnumOIDs["SubjectKeyIdentifier"] = "2.5.29.14";
     EnumOIDs["CertificateAuthorityInformationAccess"] = "1.3.6.1.5.5.7.1.1";
     EnumOIDs["CRLDistributionPoints"] = "2.5.29.31";
     EnumOIDs["SubjectAlternativeName"] = "2.5.29.17";
