@@ -15,7 +15,12 @@ import * as dateFormatter from '../../utils/date_formatter';
 
 export class CertificateSummary {
   @Prop() certificate: Certificate;
-  @Prop() showIssuer: boolean = true;
+  @Prop() showIssuer?: boolean = true;
+  /**
+   * Issuer DN link.
+   * NOTE: HTML component attribute must be `issuer-dn-link`.
+   */
+  @Prop() issuerDnLink?: string;
 
   renderDN(item: Certificate['subject'] | Certificate['issuer']) {
     return Object.keys(item).map((keyName) => {
@@ -83,7 +88,13 @@ export class CertificateSummary {
           {this.showIssuer && (
             <div class="basic_col stroke_border">
               <p class="text_grey b3 dn_row">
-                Issuer DN:
+                {this.issuerDnLink ? (
+                  <a href={this.issuerDnLink} target="_blank" class="text_primary">
+                    Issuer DN
+                  </a>
+                ) : (
+                  'Issuer DN'
+                )}:
               </p>
               <table class="table_attributes">
                 <tbody>

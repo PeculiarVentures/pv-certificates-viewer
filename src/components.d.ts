@@ -31,7 +31,11 @@ export namespace Components {
   }
   interface PvCertificateSummary {
     'certificate': Certificate;
-    'showIssuer': boolean;
+    /**
+    * Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`.
+    */
+    'issuerDnLink'?: string;
+    'showIssuer'?: boolean;
   }
   interface PvCertificateViewer {
     /**
@@ -52,6 +56,10 @@ export namespace Components {
     * If `true` - component will show split-button to download certificate as PEM or DER.
     */
     'download'?: boolean;
+    /**
+    * Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`.
+    */
+    'issuerDnLink'?: string;
     /**
     * Subject Key Identifier extension children link. NOTE: `{{subjectKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `subject-key-id-children-link`.
     * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
@@ -166,6 +174,10 @@ declare namespace LocalJSX {
   }
   interface PvCertificateSummary {
     'certificate'?: Certificate;
+    /**
+    * Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`.
+    */
+    'issuerDnLink'?: string;
     'showIssuer'?: boolean;
   }
   interface PvCertificateViewer {
@@ -187,6 +199,10 @@ declare namespace LocalJSX {
     * If `true` - component will show split-button to download certificate as PEM or DER.
     */
     'download'?: boolean;
+    /**
+    * Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`.
+    */
+    'issuerDnLink'?: string;
     /**
     * Subject Key Identifier extension children link. NOTE: `{{subjectKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `subject-key-id-children-link`.
     * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}

@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property      | Attribute     | Description | Type          | Default     |
-| ------------- | ------------- | ----------- | ------------- | ----------- |
-| `certificate` | --            |             | `Certificate` | `undefined` |
-| `showIssuer`  | `show-issuer` |             | `boolean`     | `true`      |
+| Property       | Attribute        | Description                                                              | Type          | Default     |
+| -------------- | ---------------- | ------------------------------------------------------------------------ | ------------- | ----------- |
+| `certificate`  | --               |                                                                          | `Certificate` | `undefined` |
+| `issuerDnLink` | `issuer-dn-link` | Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`. | `string`      | `undefined` |
+| `showIssuer`   | `show-issuer`    |                                                                          | `boolean`     | `true`      |
 
 
 ## Dependencies

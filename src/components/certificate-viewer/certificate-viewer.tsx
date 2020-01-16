@@ -54,6 +54,11 @@ export class CertificateViewer {
    *  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
    */
   @Prop() subjectKeyIdChildrenLink?: string;
+  /**
+   * Issuer DN link.
+   * NOTE: HTML component attribute must be `issuer-dn-link`.
+   */
+  @Prop() issuerDnLink?: string;
 
   @State() isDecodeInProcess: boolean = true;
 
@@ -521,7 +526,10 @@ export class CertificateViewer {
         {this.renderRowTitle('Basic Information')}
         <tr>
           <td colSpan={2}>
-            <pv-certificate-summary certificate={this.certificateDecoded} />
+            <pv-certificate-summary
+              certificate={this.certificateDecoded}
+              issuerDnLink={this.issuerDnLink}
+            />
           </td>
         </tr>
 
