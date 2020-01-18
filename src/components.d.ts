@@ -65,6 +65,11 @@ export namespace Components {
     * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
     */
     'subjectKeyIdChildrenLink'?: string;
+    /**
+    * Subject Key Identifier extension siblings link. NOTE: `{{subjectKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `subject-key-id-siblings-link`.
+    * @example  https://some.com/{{subjectKeyId}}
+    */
+    'subjectKeyIdSiblingsLink'?: string;
   }
   interface PvCertificatesViewer {
     /**
@@ -208,6 +213,11 @@ declare namespace LocalJSX {
     * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
     */
     'subjectKeyIdChildrenLink'?: string;
+    /**
+    * Subject Key Identifier extension siblings link. NOTE: `{{subjectKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `subject-key-id-siblings-link`.
+    * @example  https://some.com/{{subjectKeyId}}
+    */
+    'subjectKeyIdSiblingsLink'?: string;
   }
   interface PvCertificatesViewer {
     /**

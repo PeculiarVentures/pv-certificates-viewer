@@ -55,6 +55,14 @@ export class CertificateViewer {
    */
   @Prop() subjectKeyIdChildrenLink?: string;
   /**
+   * Subject Key Identifier extension siblings link.
+   * NOTE: `{{subjectKeyId}}` will be replaced to value from the extension.
+   * NOTE: HTML component attribute must be `subject-key-id-siblings-link`.
+   * @example
+   *  https://some.com/{{subjectKeyId}}
+   */
+  @Prop() subjectKeyIdSiblingsLink?: string;
+  /**
    * Issuer DN link.
    * NOTE: HTML component attribute must be `issuer-dn-link`.
    */
@@ -92,6 +100,11 @@ export class CertificateViewer {
 
   getSubjectKeyIdChildrenLink(extension: IExtensionSubjectKeyIdentifier) {
     return this.subjectKeyIdChildrenLink
+      ?.replace('{{subjectKeyId}}', extension.value);
+  }
+
+  getSubjectKeyIdSiblingsLink(extension: IExtensionSubjectKeyIdentifier) {
+    return this.subjectKeyIdSiblingsLink
       ?.replace('{{subjectKeyId}}', extension.value);
   }
 
@@ -438,6 +451,7 @@ export class CertificateViewer {
 
       case EnumOIDs.SubjectKeyIdentifier: {
         const childrenLink = this.getSubjectKeyIdChildrenLink(extension);
+        const siblingsLink = this.getSubjectKeyIdSiblingsLink(extension);
 
         return this.renderRowValue(
           'Value',
@@ -448,6 +462,11 @@ export class CertificateViewer {
             childrenLink && (
               <span>
                 &nbsp;[<a class="text_primary" href={childrenLink} target="_blank">children</a>]
+              </span>
+            ),
+            siblingsLink && (
+              <span>
+                &nbsp;[<a class="text_primary" href={siblingsLink} target="_blank">siblings</a>]
               </span>
             ),
           ],

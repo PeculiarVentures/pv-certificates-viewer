@@ -15,6 +15,7 @@
 | `download`                 | `download`                     | If `true` - component will show split-button to download certificate as PEM or DER.                                                                                                           | `boolean` | `undefined` |
 | `issuerDnLink`             | `issuer-dn-link`               | Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`.                                                                                                                      | `string`  | `undefined` |
 | `subjectKeyIdChildrenLink` | `subject-key-id-children-link` | Subject Key Identifier extension children link. NOTE: `{{subjectKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `subject-key-id-children-link`. | `string`  | `undefined` |
+| `subjectKeyIdSiblingsLink` | `subject-key-id-siblings-link` | Subject Key Identifier extension siblings link. NOTE: `{{subjectKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `subject-key-id-siblings-link`. | `string`  | `undefined` |
 
 
 ## Dependencies
