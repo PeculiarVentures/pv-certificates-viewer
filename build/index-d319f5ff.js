@@ -7046,23 +7046,23 @@ class Basic {
 }
 Basic.algorithmOIDs = {
     '1.2.840.113549.1.1.5': {
-        name: 'RSASSA-PKCS1-v1_5',
+        name: 'RSA',
         hash: 'SHA-1',
     },
     '1.2.840.113549.1.1.11': {
-        name: 'RSASSA-PKCS1-v1_5',
+        name: 'RSA',
         hash: 'SHA-256',
     },
     '1.2.840.113549.1.1.12': {
-        name: 'RSASSA-PKCS1-v1_5',
+        name: 'RSA',
         hash: 'SHA-384',
     },
     '1.2.840.113549.1.1.13': {
-        name: 'RSASSA-PKCS1-v1_5',
+        name: 'RSA',
         hash: 'SHA-512',
     },
     '1.2.840.113549.1.1.14': {
-        name: 'RSASSA-PKCS1-v1_5',
+        name: 'RSA',
         hash: 'SHA-224',
     },
     '1.2.840.10045.4.1': {
@@ -7092,6 +7092,9 @@ Basic.algorithmOIDs = {
     '1.2.840.10045.4.3.4': {
         name: 'ECDSA',
         hash: 'SHA-512',
+    },
+    '1.3.101.112': {
+        name: 'Ed25519ph',
     },
 };
 Basic.subjectOIDs = {
@@ -28022,37 +28025,39 @@ class Certificate$1 extends Basic {
                 .algorithm
                 .algorithmId,
         };
-        if (pkijsSchema.subjectPublicKeyInfo.parsedKey) {
-            if (pkijsSchema.subjectPublicKeyInfo.algorithm.algorithmId === '1.2.840.10045.2.1') {
-                this.publicKey.algorithm.name = 'EC';
-                this.publicKey.algorithm.namedCurve = pkijsSchema
+        const subjectPublicKeyAlgorithmId = pkijsSchema.subjectPublicKeyInfo.algorithm.algorithmId;
+        if (subjectPublicKeyAlgorithmId === '1.2.840.10045.2.1') {
+            this.publicKey.algorithm.name = 'EC';
+            this.publicKey.algorithm.namedCurve = pkijsSchema
+                .subjectPublicKeyInfo
+                .toJSON()
+                .crv;
+        }
+        else if (subjectPublicKeyAlgorithmId === '1.2.840.113549.1.1.1') {
+            this.publicKey.algorithm.name = 'RSA';
+            if ('modulus' in pkijsSchema.subjectPublicKeyInfo.parsedKey) {
+                this.publicKey.algorithm.modulusBits = pkijsSchema
                     .subjectPublicKeyInfo
-                    .toJSON()
-                    .crv;
+                    .parsedKey
+                    .modulus
+                    .valueBlock
+                    .valueHex
+                    .byteLength << 3;
             }
-            else {
-                this.publicKey.algorithm.name = 'RSA';
-                if ('modulus' in pkijsSchema.subjectPublicKeyInfo.parsedKey) {
-                    this.publicKey.algorithm.modulusBits = pkijsSchema
-                        .subjectPublicKeyInfo
-                        .parsedKey
-                        .modulus
-                        .valueBlock
-                        .valueHex
-                        .byteLength << 3;
-                }
-                if ('publicExponent' in pkijsSchema.subjectPublicKeyInfo.parsedKey) {
-                    this.publicKey.algorithm.publicExponent = pkijsSchema
-                        .subjectPublicKeyInfo
-                        .parsedKey
-                        .publicExponent
-                        .valueBlock
-                        .valueHex
-                        .byteLength === 3
-                        ? 65537
-                        : 3;
-                }
+            if ('publicExponent' in pkijsSchema.subjectPublicKeyInfo.parsedKey) {
+                this.publicKey.algorithm.publicExponent = pkijsSchema
+                    .subjectPublicKeyInfo
+                    .parsedKey
+                    .publicExponent
+                    .valueBlock
+                    .valueHex
+                    .byteLength === 3
+                    ? 65537
+                    : 3;
             }
+        }
+        else if (subjectPublicKeyAlgorithmId === '1.3.101.112') {
+            this.publicKey.algorithm.name = 'EdDSA';
         }
         // decode signature
         this.signature = {
