@@ -33,6 +33,10 @@ const CertificateViewer = class {
         var _a;
         return (_a = this.subjectKeyIdChildrenLink) === null || _a === void 0 ? void 0 : _a.replace('{{subjectKeyId}}', extension.value);
     }
+    getSubjectKeyIdSiblingsLink(extension) {
+        var _a;
+        return (_a = this.subjectKeyIdSiblingsLink) === null || _a === void 0 ? void 0 : _a.replace('{{subjectKeyId}}', extension.value);
+    }
     renderRowTitle(title) {
         return (h("tr", { class: "title" }, h("td", { colSpan: 2, class: "h6 text_black" }, title)));
     }
@@ -174,9 +178,11 @@ const CertificateViewer = class {
             }
             case EnumOIDs.SubjectKeyIdentifier: {
                 const childrenLink = this.getSubjectKeyIdChildrenLink(extension);
+                const siblingsLink = this.getSubjectKeyIdSiblingsLink(extension);
                 return this.renderRowValue('Value', [
                     h("span", null, extension.value),
                     childrenLink && (h("span", null, "\u00A0[", h("a", { class: "text_primary", href: childrenLink, target: "_blank" }, "children"), "]")),
+                    siblingsLink && (h("span", null, "\u00A0[", h("a", { class: "text_primary", href: siblingsLink, target: "_blank" }, "siblings"), "]")),
                 ], { monospace: true });
             }
         }
