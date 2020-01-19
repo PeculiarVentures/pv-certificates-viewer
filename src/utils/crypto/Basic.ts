@@ -12,25 +12,25 @@ export default class Basic {
   schema: asn1js.LocalBaseBlock;
   fingerprints: Record<string, string> = {};
 
-  static algorithmOIDs: Record<string, { name: string; hash: string }> = {
+  static algorithmOIDs: Record<string, { name: string; hash?: string }> = {
     '1.2.840.113549.1.1.5': {
-      name: 'RSASSA-PKCS1-v1_5',
+      name: 'RSA',
       hash: 'SHA-1',
     },
     '1.2.840.113549.1.1.11': {
-      name: 'RSASSA-PKCS1-v1_5',
+      name: 'RSA',
       hash: 'SHA-256',
     },
     '1.2.840.113549.1.1.12': {
-      name: 'RSASSA-PKCS1-v1_5',
+      name: 'RSA',
       hash: 'SHA-384',
     },
     '1.2.840.113549.1.1.13': {
-      name: 'RSASSA-PKCS1-v1_5',
+      name: 'RSA',
       hash: 'SHA-512',
     },
     '1.2.840.113549.1.1.14': {
-      name: 'RSASSA-PKCS1-v1_5',
+      name: 'RSA',
       hash: 'SHA-224',
     },
     '1.2.840.10045.4.1': {
@@ -60,6 +60,9 @@ export default class Basic {
     '1.2.840.10045.4.3.4': {
       name: 'ECDSA',
       hash: 'SHA-512',
+    },
+    '1.3.101.112': {
+      name: 'Ed25519ph',
     },
   };
 

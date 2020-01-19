@@ -415,39 +415,41 @@ export default class Certificate extends Basic {
         .algorithmId,
     };
 
-    if (pkijsSchema.subjectPublicKeyInfo.parsedKey) {
-      if (pkijsSchema.subjectPublicKeyInfo.algorithm.algorithmId === '1.2.840.10045.2.1') {
-        this.publicKey.algorithm.name = 'EC';
+    const subjectPublicKeyAlgorithmId = pkijsSchema.subjectPublicKeyInfo.algorithm.algorithmId;
 
-        this.publicKey.algorithm.namedCurve = pkijsSchema
+    if (subjectPublicKeyAlgorithmId === '1.2.840.10045.2.1') {
+      this.publicKey.algorithm.name = 'EC';
+
+      this.publicKey.algorithm.namedCurve = pkijsSchema
+        .subjectPublicKeyInfo
+        .toJSON()
+        .crv;
+    } else if (subjectPublicKeyAlgorithmId === '1.2.840.113549.1.1.1') {
+      this.publicKey.algorithm.name = 'RSA';
+
+      if ('modulus' in pkijsSchema.subjectPublicKeyInfo.parsedKey) {
+        this.publicKey.algorithm.modulusBits = pkijsSchema
           .subjectPublicKeyInfo
-          .toJSON()
-          .crv;
-      } else {
-        this.publicKey.algorithm.name = 'RSA';
-
-        if ('modulus' in pkijsSchema.subjectPublicKeyInfo.parsedKey) {
-          this.publicKey.algorithm.modulusBits = pkijsSchema
-            .subjectPublicKeyInfo
-            .parsedKey
-            .modulus
-            .valueBlock
-            .valueHex
-            .byteLength << 3;
-        }
-
-        if ('publicExponent' in pkijsSchema.subjectPublicKeyInfo.parsedKey) {
-          this.publicKey.algorithm.publicExponent = pkijsSchema
-            .subjectPublicKeyInfo
-            .parsedKey
-            .publicExponent
-            .valueBlock
-            .valueHex
-            .byteLength === 3
-              ? 65537
-              : 3;
-        }
+          .parsedKey
+          .modulus
+          .valueBlock
+          .valueHex
+          .byteLength << 3;
       }
+
+      if ('publicExponent' in pkijsSchema.subjectPublicKeyInfo.parsedKey) {
+        this.publicKey.algorithm.publicExponent = pkijsSchema
+          .subjectPublicKeyInfo
+          .parsedKey
+          .publicExponent
+          .valueBlock
+          .valueHex
+          .byteLength === 3
+            ? 65537
+            : 3;
+      }
+    } else if (subjectPublicKeyAlgorithmId === '1.3.101.112') {
+      this.publicKey.algorithm.name = 'EdDSA';
     }
 
     // decode signature
