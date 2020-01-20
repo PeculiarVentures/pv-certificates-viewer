@@ -393,7 +393,7 @@ export default class Certificate extends Basic {
 
     // decode validity days
     if (this.notAfter) {
-      this.validity = dateFormatter.fromNow(this.notAfter);
+      this.validity = dateFormatter.diff(this.notBefore, this.notAfter);
     }
 
     // decode public key
