@@ -648,7 +648,7 @@ export default class Certificate extends Basic {
               oid: ext.extnID as EnumOIDs.ANY,
               value: Convert.ToHex(
                 ext
-                  .extnValue
+                  .parsedValue
                   .valueBlock
                   .valueHex,
               ),
@@ -718,7 +718,7 @@ export default class Certificate extends Basic {
             oid: ext.extnID as EnumOIDs.ANY,
             value: Convert.ToHex(
               ext
-                .extnValue
+                .parsedValue
                 .valueBlock
                 .valueHex,
             ),
