@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 export const short = (date: string | number | Date) => (
-  dayjs(date).format('ddd, MMM D, YYYY h:mm A')
+  new Date(date).toUTCString()
 );
 
 export const diff = (
