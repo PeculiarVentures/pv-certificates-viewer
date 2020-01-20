@@ -1,6 +1,6 @@
 import { r as registerInstance, h } from './core-b3a1a540.js';
-import { C as Certificate, E as EnumOIDs } from './index-d319f5ff.js';
-import { s as short } from './date_formatter-80b284a6.js';
+import { C as Certificate, E as EnumOIDs } from './index-f626d8b9.js';
+import { s as short } from './date_formatter-c88cce71.js';
 
 const CertificateViewer = class {
     constructor(hostRef) {
