@@ -7,15 +7,15 @@
 
 ## Properties
 
-| Property                   | Attribute                      | Description                                                                                                                                                                                   | Type      | Default     |
-| -------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `authKeyIdParentLink`      | `auth-key-id-parent-link`      | Authority Key Identifier extension parent link. NOTE: `{{authKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `auth-key-id-parent-link`.         | `string`  | `undefined` |
-| `authKeyIdSiblingsLink`    | `auth-key-id-siblings-link`    | Authority Key Identifier extension siblings link. NOTE: `{{authKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `auth-key-id-siblings-link`.     | `string`  | `undefined` |
-| `certificate`              | `certificate`                  | The certificate value for decode and show details. Use PEM or DER.                                                                                                                            | `string`  | `undefined` |
-| `download`                 | `download`                     | If `true` - component will show split-button to download certificate as PEM or DER.                                                                                                           | `boolean` | `undefined` |
-| `issuerDnLink`             | `issuer-dn-link`               | Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`.                                                                                                                      | `string`  | `undefined` |
-| `subjectKeyIdChildrenLink` | `subject-key-id-children-link` | Subject Key Identifier extension children link. NOTE: `{{subjectKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `subject-key-id-children-link`. | `string`  | `undefined` |
-| `subjectKeyIdSiblingsLink` | `subject-key-id-siblings-link` | Subject Key Identifier extension siblings link. NOTE: `{{subjectKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `subject-key-id-siblings-link`. | `string`  | `undefined` |
+| Property                   | Attribute                      | Description                                                                                                                       | Type      | Default     |
+| -------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `authKeyIdParentLink`      | `auth-key-id-parent-link`      | Authority Key Identifier extension parent link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.    | `string`  | `undefined` |
+| `authKeyIdSiblingsLink`    | `auth-key-id-siblings-link`    | Authority Key Identifier extension siblings link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.  | `string`  | `undefined` |
+| `certificate`              | `certificate`                  | The certificate value for decode and show details. Use PEM or DER.                                                                | `string`  | `undefined` |
+| `download`                 | `download`                     | If `true` - component will show split-button to download certificate as PEM or DER.                                               | `boolean` | `undefined` |
+| `issuerDnLink`             | `issuer-dn-link`               | Issuer DN link.                                                                                                                   | `string`  | `undefined` |
+| `subjectKeyIdChildrenLink` | `subject-key-id-children-link` | Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension. | `string`  | `undefined` |
+| `subjectKeyIdSiblingsLink` | `subject-key-id-siblings-link` | Subject Key Identifier extension siblings link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension. | `string`  | `undefined` |
 
 
 ## Dependencies

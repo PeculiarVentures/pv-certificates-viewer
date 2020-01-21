@@ -32,39 +32,38 @@ export class CertificateViewer {
   @Prop() download?: boolean;
   /**
    * Authority Key Identifier extension parent link.
-   * NOTE: `{{authKeyId}}` will be replaced to value from the extension.
-   * NOTE: HTML component attribute must be `auth-key-id-parent-link`.
+   * <br />
+   * **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
    * @example
    *  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
    */
   @Prop() authKeyIdParentLink?: string;
   /**
    * Authority Key Identifier extension siblings link.
-   * NOTE: `{{authKeyId}}` will be replaced to value from the extension.
-   * NOTE: HTML component attribute must be `auth-key-id-siblings-link`.
+   * <br />
+   * **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
    * @example
    *  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
    */
   @Prop() authKeyIdSiblingsLink?: string;
   /**
    * Subject Key Identifier extension children link.
-   * NOTE: `{{subjectKeyId}}` will be replaced to value from the extension.
-   * NOTE: HTML component attribute must be `subject-key-id-children-link`.
+   * <br />
+   * **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
    * @example
    *  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
    */
   @Prop() subjectKeyIdChildrenLink?: string;
   /**
    * Subject Key Identifier extension siblings link.
-   * NOTE: `{{subjectKeyId}}` will be replaced to value from the extension.
-   * NOTE: HTML component attribute must be `subject-key-id-siblings-link`.
+   * <br />
+   * **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
    * @example
    *  https://some.com/{{subjectKeyId}}
    */
   @Prop() subjectKeyIdSiblingsLink?: string;
   /**
    * Issuer DN link.
-   * NOTE: HTML component attribute must be `issuer-dn-link`.
    */
   @Prop() issuerDnLink?: string;
 

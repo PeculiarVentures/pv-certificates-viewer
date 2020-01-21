@@ -39,12 +39,12 @@ export namespace Components {
   }
   interface PvCertificateViewer {
     /**
-    * Authority Key Identifier extension parent link. NOTE: `{{authKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `auth-key-id-parent-link`.
+    * Authority Key Identifier extension parent link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
     * @example  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
     */
     'authKeyIdParentLink'?: string;
     /**
-    * Authority Key Identifier extension siblings link. NOTE: `{{authKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `auth-key-id-siblings-link`.
+    * Authority Key Identifier extension siblings link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
     * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
     */
     'authKeyIdSiblingsLink'?: string;
@@ -57,23 +57,23 @@ export namespace Components {
     */
     'download'?: boolean;
     /**
-    * Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`.
+    * Issuer DN link.
     */
     'issuerDnLink'?: string;
     /**
-    * Subject Key Identifier extension children link. NOTE: `{{subjectKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `subject-key-id-children-link`.
+    * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
     * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
     */
     'subjectKeyIdChildrenLink'?: string;
     /**
-    * Subject Key Identifier extension siblings link. NOTE: `{{subjectKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `subject-key-id-siblings-link`.
+    * Subject Key Identifier extension siblings link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
     * @example  https://some.com/{{subjectKeyId}}
     */
     'subjectKeyIdSiblingsLink'?: string;
   }
   interface PvCertificatesViewer {
     /**
-    * List of certificates values for decode and show in the list. NOTE: If you do not provide a "name" value when invocing the component it will take the first Subject CN value. NOTE: If you do not provide a "tests" this column will be ommited from the rendered page. NOTE: If the supplied certificates are self-signed the issuer column will be ommited.
+    * List of certificates values for decode and show in the list. <br /> **NOTE**: If you do not provide a `name` value when invocing the component it will take the first Subject CN value. <br /> **NOTE**: If you do not provide a `tests` this column will be ommited from the rendered page. <br /> **NOTE**: If the supplied certificates are self-signed the issuer column will be ommited.
     */
     'certificates': ICertificate[];
     /**
@@ -187,12 +187,12 @@ declare namespace LocalJSX {
   }
   interface PvCertificateViewer {
     /**
-    * Authority Key Identifier extension parent link. NOTE: `{{authKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `auth-key-id-parent-link`.
+    * Authority Key Identifier extension parent link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
     * @example  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
     */
     'authKeyIdParentLink'?: string;
     /**
-    * Authority Key Identifier extension siblings link. NOTE: `{{authKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `auth-key-id-siblings-link`.
+    * Authority Key Identifier extension siblings link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
     * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
     */
     'authKeyIdSiblingsLink'?: string;
@@ -205,23 +205,23 @@ declare namespace LocalJSX {
     */
     'download'?: boolean;
     /**
-    * Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`.
+    * Issuer DN link.
     */
     'issuerDnLink'?: string;
     /**
-    * Subject Key Identifier extension children link. NOTE: `{{subjectKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `subject-key-id-children-link`.
+    * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
     * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
     */
     'subjectKeyIdChildrenLink'?: string;
     /**
-    * Subject Key Identifier extension siblings link. NOTE: `{{subjectKeyId}}` will be replaced to value from the extension. NOTE: HTML component attribute must be `subject-key-id-siblings-link`.
+    * Subject Key Identifier extension siblings link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
     * @example  https://some.com/{{subjectKeyId}}
     */
     'subjectKeyIdSiblingsLink'?: string;
   }
   interface PvCertificatesViewer {
     /**
-    * List of certificates values for decode and show in the list. NOTE: If you do not provide a "name" value when invocing the component it will take the first Subject CN value. NOTE: If you do not provide a "tests" this column will be ommited from the rendered page. NOTE: If the supplied certificates are self-signed the issuer column will be ommited.
+    * List of certificates values for decode and show in the list. <br /> **NOTE**: If you do not provide a `name` value when invocing the component it will take the first Subject CN value. <br /> **NOTE**: If you do not provide a `tests` this column will be ommited from the rendered page. <br /> **NOTE**: If the supplied certificates are self-signed the issuer column will be ommited.
     */
     'certificates'?: ICertificate[];
     /**
