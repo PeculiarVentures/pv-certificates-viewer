@@ -67,6 +67,8 @@ Web-component to decode and display certificates details table like done on both
 </body>
 ```
 
+All properties you can find on the [page](https://github.com/PeculiarVentures/pv-certificates-viewer/tree/master/src/components/certificates-viewer#properties).
+
 ### pv-certificate-viewer
 
 Web-component to decode and display certificate details such as the subject, issuer, signature, public key info, and extensions.
@@ -78,6 +80,8 @@ Web-component to decode and display certificate details such as the subject, iss
   />
 </body>
 ```
+
+All properties you can find on the [page](https://github.com/PeculiarVentures/pv-certificates-viewer/tree/master/src/components/certificate-viewer#properties).
 
 ## Theaming
 
