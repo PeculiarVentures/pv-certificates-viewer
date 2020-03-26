@@ -9,8 +9,11 @@ body {
 }
 
 a {
-  text-decoration: none;
   color: #4da3fc;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 ul {
@@ -25,6 +28,10 @@ header {
   justify-content: space-between;
   align-items: center;
   color: #fff;
+}
+
+header a {
+  padding: 0 5px;
 }
 
 section {
