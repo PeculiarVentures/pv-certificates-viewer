@@ -7,10 +7,13 @@ const CertificatesViewer = class {
         registerInstance(this, hostRef);
         /**
          * List of certificates values for decode and show in the list.
-         * NOTE: If you do not provide a "name" value when
+         * <br />
+         * **NOTE**: If you do not provide a `name` value when
          * invocing the component it will take the first Subject CN value.
-         * NOTE: If you do not provide a "tests" this column will be ommited from the rendered page.
-         * NOTE: If the supplied certificates are self-signed the issuer column will be ommited.
+         * <br />
+         * **NOTE**: If you do not provide a `tests` this column will be ommited from the rendered page.
+         * <br />
+         * **NOTE**: If the supplied certificates are self-signed the issuer column will be ommited.
          */
         this.certificates = [];
         /**
