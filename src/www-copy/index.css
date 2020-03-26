@@ -1,0 +1,32 @@
+* {
+  font-family: 'Open Sans', Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  color: #0d091a;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #4da3fc;
+}
+
+ul {
+  list-style-position: inside;
+}
+
+header {
+  background: #111111;
+  padding: 0 20px;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+section {
+  padding: 20px;
+}

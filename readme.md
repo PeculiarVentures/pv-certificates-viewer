@@ -83,6 +83,11 @@ Web-component to decode and display certificate details such as the subject, iss
 
 All properties you can find on the [page](https://github.com/PeculiarVentures/pv-certificates-viewer/tree/master/src/components/certificate-viewer#properties).
 
+## Examples
+
+- [Certificates viewer](https://peculiarventures.github.io/pv-certificates-viewer/certificates-example.html)
+- [Certificate viewer](https://peculiarventures.github.io/pv-certificates-viewer/certificate-example.html)
+
 ## Theming
 
 This component use CSS variables to work with themes. You can customize colors declaring it in your main CSS file:
