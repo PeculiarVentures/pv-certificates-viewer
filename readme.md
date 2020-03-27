@@ -28,9 +28,9 @@ Put a script and link tag in the head of your index.html
 
 ```html
 <head>
-  <script type="module" src="https://peculiarventures.github.io/pv-certificates-viewer/build/pv-certificates-viewer.esm.js"></script>
-  <script nomodule src="https://peculiarventures.github.io/pv-certificates-viewer/build/pv-certificates-viewer.js"></script>
-  <link rel="stylesheet" href="https://peculiarventures.github.io/pv-certificates-viewer/build/pv-certificates-viewer.css">
+  <script type="module" src="https://understandingwebpki.com/build/pv-certificates-viewer.esm.js"></script>
+  <script nomodule src="https://understandingwebpki.com/build/pv-certificates-viewer.js"></script>
+  <link rel="stylesheet" href="https://understandingwebpki.com/build/pv-certificates-viewer.css">
 </head>
 ```
 
@@ -85,9 +85,9 @@ All properties you can find on the [page](https://github.com/PeculiarVentures/pv
 
 ## Examples
 
-- [Root CAs](https://peculiarventures.github.io/pv-certificates-viewer/examples.html#root-cas)
-- [Subordinate CAs](https://peculiarventures.github.io/pv-certificates-viewer/examples.html#subordinate-cas)
-- [Certificate details](https://peculiarventures.github.io/pv-certificates-viewer/examples.html#certificate-details)
+- [Root CAs](https://understandingwebpki.com/examples.html#root-cas)
+- [Subordinate CAs](https://understandingwebpki.com/examples.html#subordinate-cas)
+- [Certificate details](https://understandingwebpki.com/examples.html#certificate-details)
 
 ## Theming
 
