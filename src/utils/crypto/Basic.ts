@@ -230,19 +230,17 @@ export default class Basic {
 
   static validation = {
     isHex: (value: string) => /^\s*(?:[0-9A-Fa-f][0-9A-Fa-f]\s*)+$/.test(value),
-    isPem: (value: string) => /-----BEGIN.+-----/.test(value),
+    isPem: (value: string) => /-----BEGIN [^-]+-----([A-Za-z0-9+\/=\s]+)-----END [^-]+-----|begin-base64[^\n]+\n([A-Za-z0-9+\/=\s]+)====/
+      .test(value),
+    isBase64: (value: string) => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
+      .test(value),
   };
 
   static base64Clear(base64: string) {
-    const res = atob(base64.replace(/[\s\r\n]/g, ''));
-
-    if (Basic.validation.isPem(res)) {
-      return atob(res
-        .replace(/-----.+-----/g, '')
-        .replace(/[\s\r\n]/g, ''));
-    }
-
-    return res;
+    return base64
+      .replace(/.*base64,/, '')
+      .replace(/-----.+-----/g, '')
+      .replace(/[\s\r\n]/g, '');
   }
 
   static pemTagCertificate(base64: string) {
@@ -258,7 +256,10 @@ export default class Basic {
   }
 
   static formatHex(value: string) {
-    return value.replace(/(.{32})/g, '$1\n').replace(/(.{4})/g, '$1 ').trim();
+    return value
+      .replace(/(.{32})/g, '$1\n')
+      .replace(/(.{4})/g, '$1 ')
+      .trim();
   }
 
   constructor(value: string, name?: string) {
@@ -269,12 +270,15 @@ export default class Basic {
   }
 
   private init() {
+    const value = Basic.base64Clear(this.input);
     let certificateBuffer: ArrayBuffer;
 
-    if (Basic.validation.isHex(this.input)) {
-      certificateBuffer = Convert.FromHex(this.input);
+    if (Basic.validation.isHex(value)) {
+      certificateBuffer = Convert.FromHex(value);
+    } else if (Basic.validation.isBase64(value) || Basic.validation.isPem(value)) {
+      certificateBuffer = Convert.FromBase64(value);
     } else {
-      certificateBuffer = Convert.FromBase64(this.input);
+      certificateBuffer = Convert.FromBinary(this.input);
     }
 
     this.schema = asn1js.fromBER(certificateBuffer).result;

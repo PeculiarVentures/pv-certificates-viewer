@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  width: 100%;
+  font-size: 0;
+}
+
+.input_paste {
+  min-height: 300px;
+  width: 100%;
+  border-radius: 3px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 14px;
+  font-size: 14px;
+  font-family: monospace;
+  resize: vertical;
+}
+
+.controls {
+  margin-top: 10px;
+}
+
+.button:not(:first-child) {
+  margin-left: 10px;
+}
+
+.viewer {
+  margin-top: 64px;
+}
+
+.input_file {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: block;
+  position: absolute;
+}

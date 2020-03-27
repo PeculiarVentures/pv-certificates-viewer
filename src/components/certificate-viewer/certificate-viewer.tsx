@@ -1,4 +1,4 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Prop, State, Watch } from '@stencil/core';
 
 import {
   Certificate,
@@ -8,6 +8,8 @@ import {
   IExtensionSubjectKeyIdentifier,
 } from '../../utils/crypto';
 import * as dateFormatter from '../../utils/date_formatter';
+
+export type CertificateProp = string | Certificate;
 
 @Component({
   tag: 'pv-certificate-viewer',
@@ -25,7 +27,7 @@ export class CertificateViewer {
   /**
    * The certificate value for decode and show details. Use PEM or DER.
    */
-  @Prop() certificate: string;
+  @Prop() certificate: CertificateProp;
   /**
    * If `true` - component will show split-button to download certificate as PEM or DER.
    */
@@ -69,45 +71,76 @@ export class CertificateViewer {
 
   @State() isDecodeInProcess: boolean = true;
 
-  async componentWillLoad() {
-    if (this.certificate) {
+  componentWillLoad() {
+    this.decodeCertificate(this.certificate);
+  }
+
+  private async decodeCertificate(certificate: CertificateProp) {
+    this.isDecodeInProcess = true;
+
+    if (certificate instanceof Certificate) {
+      this.certificateDecoded = certificate;
+    }
+
+    if (typeof certificate === 'string') {
       try {
-        this.certificateDecoded = new Certificate(this.certificate, undefined, true);
-
-        await this.certificateDecoded.getFingerprint('SHA-1');
-        await this.certificateDecoded.getFingerprint('SHA-256');
-
+        this.certificateDecoded = new Certificate(certificate, undefined, true);
       } catch (error) {
-        console.error(error);
-
         this.certificateDecodeError = error;
+
+        console.error(error);
       }
+    }
+
+    if (this.certificateDecoded) {
+      await this.certificateDecoded.getFingerprint('SHA-1');
+      await this.certificateDecoded.getFingerprint('SHA-256');
     }
 
     this.isDecodeInProcess = false;
   }
 
-  getAuthKeyIdParentLink(extension: IExtensionAuthorityKeyIdentifier) {
+  /**
+   * Rerun decodeCertificate if previuos value not equal current value
+   */
+  @Watch('certificate')
+  watchCertificateAndDecode(newValue: CertificateProp, oldValue: CertificateProp) {
+    if (typeof newValue === 'string' && typeof oldValue === 'string') {
+      if (newValue !== oldValue) {
+        this.decodeCertificate(newValue);
+      }
+
+      return;
+    }
+
+    if (newValue instanceof Certificate && oldValue instanceof Certificate) {
+      if (newValue.serialNumber !== oldValue.serialNumber) {
+        this.decodeCertificate(newValue);
+      }
+    }
+  }
+
+  private getAuthKeyIdParentLink(extension: IExtensionAuthorityKeyIdentifier) {
     return this.authKeyIdParentLink
       ?.replace('{{authKeyId}}', extension.value.keyIdentifier);
   }
 
-  getAuthKeyIdSiblingsLink(extension: IExtensionAuthorityKeyIdentifier) {
+  private getAuthKeyIdSiblingsLink(extension: IExtensionAuthorityKeyIdentifier) {
     return this.authKeyIdSiblingsLink
       ?.replace('{{authKeyId}}', extension.value.keyIdentifier);
   }
 
-  getSubjectKeyIdChildrenLink(extension: IExtensionSubjectKeyIdentifier) {
+  private getSubjectKeyIdChildrenLink(extension: IExtensionSubjectKeyIdentifier) {
     return this.subjectKeyIdChildrenLink
       ?.replace('{{subjectKeyId}}', extension.value);
   }
 
-  getSubjectKeyIdSiblingsLink(extension: IExtensionSubjectKeyIdentifier) {
+  private getSubjectKeyIdSiblingsLink(extension: IExtensionSubjectKeyIdentifier) {
     return this.subjectKeyIdSiblingsLink
       ?.replace('{{subjectKeyId}}', extension.value);
   }
 
-  renderRowTitle(title: string) {
+  private renderRowTitle(title: string) {
     return (
       <tr class="title">
         <td colSpan={2} class="h6 text_black">
@@ -117,7 +150,7 @@ export class CertificateViewer {
     );
   }
 
-  renderRowValue(
+  private renderRowValue(
     title: string,
     value: string | number | any[],
     options: { monospace?: boolean; collapse?: boolean; align?: 'middle' } = {},
@@ -169,7 +202,7 @@ export class CertificateViewer {
     );
   }
 
-  renderRowExtensionValue(extension: TExtension) {
+  private renderRowExtensionValue(extension: TExtension) {
     switch (extension.oid) {
       case EnumOIDs.BasicConstraints: {
         return [
@@ -498,7 +531,7 @@ export class CertificateViewer {
     return this.renderRowValue('Value', extension.value);
   }
 
-  renderMiscellaneous() {
+  private renderMiscellaneous() {
     if (!this.download) {
       return null;
     }
@@ -523,7 +556,7 @@ export class CertificateViewer {
     ];
   }
 
-  renderErrorState() {
+  private renderErrorState() {
     return (
       <div class="status_wrapper">
         <p class="b1 interaction_text text_black">
@@ -533,7 +566,7 @@ export class CertificateViewer {
     );
   }
 
-  renderEmptyState() {
+  private renderEmptyState() {
     return (
       <div class="status_wrapper">
         <p class="b1 interaction_text text_black">
