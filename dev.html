@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>PV Certificates Viewer</title>
+  <meta name="description" content="PV Certificate Viewer makes it easy for you to display certificate related details in your web application. Web components for viewing lists of certificates and certificates">
+  <meta name="keywords" content="pv-certificates-viewer, crypto, decoding, certificate, web-component">
+
+  <script type="module" src="./build/pv-certificates-viewer.esm.js"></script>
+  <script nomodule src="./build/pv-certificates-viewer.js"></script>
+  <link rel="stylesheet" href="./build/pv-certificates-viewer.css">
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <pv-certificate-viewer
+    certificate="MIIF9TCCBXugAwIBAgIQDHkuyYxFORs4xwpH6sgpljAKBggqhkjOPQQDAzB0MQsw
+    CQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3d3cu
+    ZGlnaWNlcnQuY29tMTMwMQYDVQQDEypEaWdpQ2VydCBFQ0MgRXh0ZW5kZWQgVmFs
+    aWRhdGlvbiBTZXJ2ZXIgQ0EwHhcNMTkxMjAzMDAwMDAwWhcNMjExMjA3MTIwMDAw
+    WjCBkDEdMBsGA1UEDwwUUHJpdmF0ZSBPcmdhbml6YXRpb24xEzARBgsrBgEEAYI3
+    PAIBAxMCR0IxETAPBgNVBAUTCDEyMjk4NzA1MQswCQYDVQQGEwJHQjEPMA0GA1UE
+    BxMGTG9uZG9uMRAwDgYDVQQKEwdDeW50aGlhMRcwFQYDVQQDEw5zc2wuY3ludGhp
+    YS5yZTB2MBAGByqGSM49AgEGBSuBBAAiA2IABCDjEsTGFVpDG5vGH0dTJgqoOQfT
+    90m0gyJCYO/ui6+gHer7BZpOsajSd+0z6Web/mvqBJDClRhLMlgh92IK2BkvdRpd
+    3C46JGwhC4XwuO8VYKmkjTTyjpEKWyKAZyOSC6OCA7MwggOvMB8GA1UdIwQYMBaA
+    FPgl2aY5x8OBhyU+MFSRGCFAmxedMB0GA1UdDgQWBBQciaPcvvuHmnyX9pZvM16a
+    CY0NkjA1BgNVHREELjAsgg5zc2wuY3ludGhpYS5yZYIKY3ludGhpYS5yZYIOd3d3
+    LmN5bnRoaWEucmUwDgYDVR0PAQH/BAQDAgeAMB0GA1UdJQQWMBQGCCsGAQUFBwMB
+    BggrBgEFBQcDAjCBnwYDVR0fBIGXMIGUMEigRqBEhkJodHRwOi8vY3JsMy5kaWdp
+    Y2VydC5jb20vRGlnaUNlcnRFQ0NFeHRlbmRlZFZhbGlkYXRpb25TZXJ2ZXJDQS5j
+    cmwwSKBGoESGQmh0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEVDQ0V4
+    dGVuZGVkVmFsaWRhdGlvblNlcnZlckNBLmNybDBLBgNVHSAERDBCMDcGCWCGSAGG
+    /WwCATAqMCgGCCsGAQUFBwIBFhxodHRwczovL3d3dy5kaWdpY2VydC5jb20vQ1BT
+    MAcGBWeBDAEBMIGHBggrBgEFBQcBAQR7MHkwJAYIKwYBBQUHMAGGGGh0dHA6Ly9v
+    Y3NwLmRpZ2ljZXJ0LmNvbTBRBggrBgEFBQcwAoZFaHR0cDovL2NhY2VydHMuZGln
+    aWNlcnQuY29tL0RpZ2lDZXJ0RUNDRXh0ZW5kZWRWYWxpZGF0aW9uU2VydmVyQ0Eu
+    Y3J0MAwGA1UdEwEB/wQCMAAwggF+BgorBgEEAdZ5AgQCBIIBbgSCAWoBaAB3AKS5
+    CZC0GFgUh7sTosxncAo8NZgE+RvfuON3zQ7IDdwQAAABbs2vL5wAAAQDAEgwRgIh
+    ANBHJBPm1DPovTMWskKNxTMzq5qdn+zTaQElIKM+/GkKAiEAzOT02JaFRs5xU9mj
+    ecsFZZxTGO2mCtXt9K+L9oTJMiMAdQBWFAaaL9fC7NP14b1Esj7HRna5vJkRXMDv
+    lJhV1onQ3QAAAW7NrzAcAAAEAwBGMEQCIDyNyd+tqFO0yW0uRr7UafrdhV5gAANn
+    foUMvKAi9cNpAiA6a+QJTBMgshSG86Fru2xviLhYpFhuisi6LoFS4ez5kAB2AO5L
+    vbd1zmC64UJpH6vhnmajD35fsHLYgwDEe4l6qP3LAAABbs2vL+sAAAQDAEcwRQIh
+    AJpOfbCGS4wBFEUrvDcE7DJJHV5DrdhTICb8rgepXf1oAiAZQvlSAbgoABN7H6nY
+    69f6p80NsHrw2frTAjVkY9oDNzAKBggqhkjOPQQDAwNoADBlAjEAzdlXxYgMLjI2
+    9gRt4eOo3QQoVz13hHYgdRdn0lWRkJWY8XASSYqTqshXOjMEuiyYAjAFxDRAq65I
+    7rYhfXusduRsqzNBSaod88C7EhhUGpg2/m+jxLr65MN3oIVEoWzY++g="
+    download
+    auth-key-id-parent-link="https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}"
+    auth-key-id-siblings-link="https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}"
+    subject-key-id-children-link="https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}"
+    issuer-dn-link="https://censys.io/authorities/c84b15b1407a8ae01328560073d4e387403639d5e527c377524dd05715433702"
+  />
+</body>
+</html>

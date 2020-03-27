@@ -6974,13 +6974,10 @@ class Basic {
         this.init();
     }
     static base64Clear(base64) {
-        const res = atob(base64.replace(/[\s\r\n]/g, ''));
-        if (Basic.validation.isPem(res)) {
-            return atob(res
-                .replace(/-----.+-----/g, '')
-                .replace(/[\s\r\n]/g, ''));
-        }
-        return res;
+        return base64
+            .replace(/.*base64,/, '')
+            .replace(/-----.+-----/g, '')
+            .replace(/[\s\r\n]/g, '');
     }
     static pemTagCertificate(base64) {
         return `-----BEGIN CERTIFICATE-----\n${base64}\n-----END CERTIFICATE-----`;
@@ -6992,15 +6989,21 @@ class Basic {
         return `-----BEGIN NEW CERTIFICATE REQUEST-----\n${base64}\n-----END NEW CERTIFICATE REQUEST-----`;
     }
     static formatHex(value) {
-        return value.replace(/(.{32})/g, '$1\n').replace(/(.{4})/g, '$1 ').trim();
+        return value
+            .replace(/(.{32})/g, '$1\n')
+            .replace(/(.{4})/g, '$1 ')
+            .trim();
     }
     init() {
         let certificateBuffer;
         if (Basic.validation.isHex(this.input)) {
             certificateBuffer = Convert.FromHex(this.input);
         }
+        else if (Basic.validation.isBase64(this.input)) {
+            certificateBuffer = Convert.FromBase64(Basic.base64Clear(this.input));
+        }
         else {
-            certificateBuffer = Convert.FromBase64(this.input);
+            certificateBuffer = Convert.FromBinary(this.input);
         }
         this.schema = fromBER(certificateBuffer).result;
         this.base64 = Convert.ToBase64(certificateBuffer);
@@ -7154,6 +7157,10 @@ Basic.subjectOIDs = {
         short: 'T',
         long: 'Title',
     },
+    '2.5.4.97': {
+        short: 'OI',
+        long: 'Organization Identifier',
+    },
     '1.2.840.113549.1.9.8': {
         long: 'Unstructured Address',
     },
@@ -7255,7 +7262,7 @@ Basic.logs = {
 };
 Basic.validation = {
     isHex: (value) => /^\s*(?:[0-9A-Fa-f][0-9A-Fa-f]\s*)+$/.test(value),
-    isPem: (value) => /-----BEGIN.+-----/.test(value),
+    isBase64: (value) => /-----BEGIN [^-]+-----([A-Za-z0-9+\/=\s]+)-----END [^-]+-----|begin-base64[^\n]+\n([A-Za-z0-9+\/=\s]+)====/.test(value),
 };
 
 //**************************************************************************************
@@ -27815,6 +27822,7 @@ var EnumOIDs;
     EnumOIDs["NameConstraints"] = "2.5.29.30";
     EnumOIDs["CertificateTransparency"] = "1.3.6.1.4.1.11129.2.4.2";
     EnumOIDs["CertificateTemplate"] = "1.3.6.1.4.1.311.21.7";
+    EnumOIDs["QualifiedCertificateStatements"] = "1.3.6.1.5.5.7.1.3";
     EnumOIDs["ANY"] = "";
 })(EnumOIDs || (EnumOIDs = {}));
 class Certificate$1 extends Basic {
@@ -28275,15 +28283,36 @@ class Certificate$1 extends Basic {
                         };
                         return this.extensions.push(extension);
                     }
+                    if (ext.extnID === EnumOIDs.QualifiedCertificateStatements) {
+                        const extension = {
+                            name: OIDs[ext.extnID] || '',
+                            critical: ext.critical,
+                            oid: EnumOIDs.QualifiedCertificateStatements,
+                            value: ext.parsedValue.values.map(value => ({
+                                name: OIDs[value.id] || '',
+                                oid: value.id,
+                            })),
+                        };
+                        return this.extensions.push(extension);
+                    }
                     const extension = {
                         name: OIDs[ext.extnID] || '',
                         critical: ext.critical,
                         oid: ext.extnID,
-                        value: Convert.ToHex(ext
+                        value: null,
+                    };
+                    if (ext.parsedValue) {
+                        extension.value = Convert.ToHex(ext
                             .parsedValue
                             .valueBlock
-                            .valueHex),
-                    };
+                            .valueHex);
+                    }
+                    else {
+                        extension.value = Convert.ToHex(ext
+                            .extnValue
+                            .valueBlock
+                            .valueHex);
+                    }
                     this.extensions.push(extension);
                 });
             }
