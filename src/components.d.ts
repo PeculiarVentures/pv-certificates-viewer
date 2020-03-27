@@ -14,6 +14,9 @@ import {
   Certificate,
 } from './utils/crypto';
 import {
+  CertificateProp,
+} from './components/certificate-viewer/certificate-viewer';
+import {
   ICertificate,
 } from './components/certificates-viewer/certificates-viewer';
 
@@ -29,6 +32,7 @@ export namespace Components {
     'fill': 'stroke' | 'fill';
     'onClick': (event: MouseEvent) => void;
   }
+  interface PvCertificateDecoder {}
   interface PvCertificateSummary {
     'certificate': Certificate;
     /**
@@ -51,7 +55,7 @@ export namespace Components {
     /**
     * The certificate value for decode and show details. Use PEM or DER.
     */
-    'certificate': string;
+    'certificate': CertificateProp;
     /**
     * If `true` - component will show split-button to download certificate as PEM or DER.
     */
@@ -118,6 +122,12 @@ declare global {
     new (): HTMLPvButtonSplitElement;
   };
 
+  interface HTMLPvCertificateDecoderElement extends Components.PvCertificateDecoder, HTMLStencilElement {}
+  var HTMLPvCertificateDecoderElement: {
+    prototype: HTMLPvCertificateDecoderElement;
+    new (): HTMLPvCertificateDecoderElement;
+  };
+
   interface HTMLPvCertificateSummaryElement extends Components.PvCertificateSummary, HTMLStencilElement {}
   var HTMLPvCertificateSummaryElement: {
     prototype: HTMLPvCertificateSummaryElement;
@@ -156,6 +166,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'pv-button': HTMLPvButtonElement;
     'pv-button-split': HTMLPvButtonSplitElement;
+    'pv-certificate-decoder': HTMLPvCertificateDecoderElement;
     'pv-certificate-summary': HTMLPvCertificateSummaryElement;
     'pv-certificate-viewer': HTMLPvCertificateViewerElement;
     'pv-certificates-viewer': HTMLPvCertificatesViewerElement;
@@ -177,6 +188,7 @@ declare namespace LocalJSX {
     'fill'?: 'stroke' | 'fill';
     'onClick'?: (event: MouseEvent) => void;
   }
+  interface PvCertificateDecoder {}
   interface PvCertificateSummary {
     'certificate'?: Certificate;
     /**
@@ -199,7 +211,7 @@ declare namespace LocalJSX {
     /**
     * The certificate value for decode and show details. Use PEM or DER.
     */
-    'certificate'?: string;
+    'certificate'?: CertificateProp;
     /**
     * If `true` - component will show split-button to download certificate as PEM or DER.
     */
@@ -254,6 +266,7 @@ declare namespace LocalJSX {
   interface IntrinsicElements {
     'pv-button': PvButton;
     'pv-button-split': PvButtonSplit;
+    'pv-certificate-decoder': PvCertificateDecoder;
     'pv-certificate-summary': PvCertificateSummary;
     'pv-certificate-viewer': PvCertificateViewer;
     'pv-certificates-viewer': PvCertificatesViewer;
@@ -271,6 +284,7 @@ declare module "@stencil/core" {
     interface IntrinsicElements {
       'pv-button': LocalJSX.PvButton & JSXBase.HTMLAttributes<HTMLPvButtonElement>;
       'pv-button-split': LocalJSX.PvButtonSplit & JSXBase.HTMLAttributes<HTMLPvButtonSplitElement>;
+      'pv-certificate-decoder': LocalJSX.PvCertificateDecoder & JSXBase.HTMLAttributes<HTMLPvCertificateDecoderElement>;
       'pv-certificate-summary': LocalJSX.PvCertificateSummary & JSXBase.HTMLAttributes<HTMLPvCertificateSummaryElement>;
       'pv-certificate-viewer': LocalJSX.PvCertificateViewer & JSXBase.HTMLAttributes<HTMLPvCertificateViewerElement>;
       'pv-certificates-viewer': LocalJSX.PvCertificatesViewer & JSXBase.HTMLAttributes<HTMLPvCertificatesViewerElement>;
