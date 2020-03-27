@@ -6995,12 +6995,13 @@ class Basic {
             .trim();
     }
     init() {
+        const value = Basic.base64Clear(this.input);
         let certificateBuffer;
-        if (Basic.validation.isHex(this.input)) {
-            certificateBuffer = Convert.FromHex(this.input);
+        if (Basic.validation.isHex(value)) {
+            certificateBuffer = Convert.FromHex(value);
         }
-        else if (Basic.validation.isBase64(this.input)) {
-            certificateBuffer = Convert.FromBase64(Basic.base64Clear(this.input));
+        else if (Basic.validation.isBase64(value) || Basic.validation.isPem(value)) {
+            certificateBuffer = Convert.FromBase64(value);
         }
         else {
             certificateBuffer = Convert.FromBinary(this.input);
@@ -7262,7 +7263,10 @@ Basic.logs = {
 };
 Basic.validation = {
     isHex: (value) => /^\s*(?:[0-9A-Fa-f][0-9A-Fa-f]\s*)+$/.test(value),
-    isBase64: (value) => /-----BEGIN [^-]+-----([A-Za-z0-9+\/=\s]+)-----END [^-]+-----|begin-base64[^\n]+\n([A-Za-z0-9+\/=\s]+)====/.test(value),
+    isPem: (value) => /-----BEGIN [^-]+-----([A-Za-z0-9+\/=\s]+)-----END [^-]+-----|begin-base64[^\n]+\n([A-Za-z0-9+\/=\s]+)====/
+        .test(value),
+    isBase64: (value) => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
+        .test(value),
 };
 
 //**************************************************************************************
