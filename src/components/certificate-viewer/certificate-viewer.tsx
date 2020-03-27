@@ -472,6 +472,19 @@ export class CertificateViewer {
           { monospace: true },
         );
       }
+
+      case EnumOIDs.QualifiedCertificateStatements: {
+        return extension.value.map((statement, index) => (
+          this.renderRowValue(
+            `Statement ${index + 1}`,
+            [
+              <p>
+                {statement.name} ({statement.oid})
+              </p>,
+            ],
+          )
+        ));
+      }
     }
 
     if (typeof extension.value === 'string') {

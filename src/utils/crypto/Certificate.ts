@@ -38,6 +38,7 @@ export enum EnumOIDs {
   NameConstraints = '2.5.29.30',
   CertificateTransparency = '1.3.6.1.4.1.11129.2.4.2',
   CertificateTemplate = '1.3.6.1.4.1.311.21.7',
+  QualifiedCertificateStatements = '1.3.6.1.5.5.7.1.3',
   ANY = '',
 }
 
@@ -136,6 +137,12 @@ export interface IExtensionSubjectKeyIdentifier
     string
   > {}
 
+interface IExtensionQualifiedCertificateStatements
+  extends IExtensionBasic<
+    EnumOIDs.QualifiedCertificateStatements,
+    { oid: string, name: string; }[]
+  > {}
+
 export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionBasicConstraints
   | IExtensionKeyUsage
@@ -149,7 +156,8 @@ export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionNameConstraints
   | IExtensionNetscapeCertificateType
   | IExtensionCertificateTransparency
-  | IExtensionSubjectKeyIdentifier;
+  | IExtensionSubjectKeyIdentifier
+  | IExtensionQualifiedCertificateStatements;
 
 export default class Certificate extends Basic {
   notBefore?: Date;
@@ -712,17 +720,38 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
+          if (ext.extnID === EnumOIDs.QualifiedCertificateStatements) {
+            const extension: IExtensionQualifiedCertificateStatements = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.QualifiedCertificateStatements,
+              value: ext.parsedValue.values.map(value => ({
+                name: OIDS[value.id] || '',
+                oid: value.id,
+              })),
+            };
+
+            return this.extensions.push(extension);
+          }
+
           const extension = {
             name: OIDS[ext.extnID] || '',
             critical: ext.critical,
             oid: ext.extnID as EnumOIDs.ANY,
-            value: Convert.ToHex(
-              ext
-                .parsedValue
-                .valueBlock
-                .valueHex,
-            ),
+            value: null,
           };
+
+          if (ext.parsedValue) {
+            extension.value = Convert.ToHex(ext
+              .parsedValue
+              .valueBlock
+              .valueHex);
+          } else {
+            extension.value = Convert.ToHex(ext
+              .extnValue
+              .valueBlock
+              .valueHex);
+          }
 
           this.extensions.push(extension);
         });

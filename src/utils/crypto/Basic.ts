@@ -123,6 +123,10 @@ export default class Basic {
       short: 'T',
       long: 'Title',
     },
+    '2.5.4.97': {
+      short: 'OI',
+      long: 'Organization Identifier',
+    },
     '1.2.840.113549.1.9.8': {
       long: 'Unstructured Address',
     },
