@@ -1,5 +1,5 @@
 import { r as registerInstance, h } from './core-b3a1a540.js';
-import { C as Certificate, E as EnumOIDs } from './index-b3437be3.js';
+import { C as Certificate, E as EnumOIDs } from './index-23444b4b.js';
 import { s as short } from './date_formatter-c4acc49f.js';
 
 const CertificateViewer = class {
@@ -214,6 +214,12 @@ const CertificateViewer = class {
                 return extension.value.map((statement, index) => (this.renderRowValue(`Statement ${index + 1}`, [
                     h("p", null, statement.name, " (", statement.oid, ")"),
                 ])));
+            }
+            case EnumOIDs.CAKeyCertIndexPair: {
+                return [
+                    this.renderRowValue('Certificate Index', extension.value.certificateIndex),
+                    this.renderRowValue('Key Index', extension.value.keyIndex),
+                ];
             }
         }
         if (typeof extension.value === 'string') {
