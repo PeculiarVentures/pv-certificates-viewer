@@ -518,6 +518,19 @@ export class CertificateViewer {
           )
         ));
       }
+
+      case EnumOIDs.CAKeyCertIndexPair: {
+        return [
+          this.renderRowValue(
+            'Certificate Index',
+            extension.value.certificateIndex,
+          ),
+          this.renderRowValue(
+            'Key Index',
+            extension.value.keyIndex,
+          ),
+        ];
+      }
     }
 
     if (typeof extension.value === 'string') {

@@ -39,6 +39,7 @@ export enum EnumOIDs {
   CertificateTransparency = '1.3.6.1.4.1.11129.2.4.2',
   CertificateTemplate = '1.3.6.1.4.1.311.21.7',
   QualifiedCertificateStatements = '1.3.6.1.5.5.7.1.3',
+  CAKeyCertIndexPair = '1.3.6.1.4.1.311.21.1',
   ANY = '',
 }
 
@@ -143,6 +144,12 @@ interface IExtensionQualifiedCertificateStatements
     { oid: string, name: string; }[]
   > {}
 
+interface IExtensionCAKeyCertIndexPair
+  extends IExtensionBasic<
+    EnumOIDs.CAKeyCertIndexPair,
+    { certificateIndex: number; keyIndex: number; }
+  > {}
+
 export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionBasicConstraints
   | IExtensionKeyUsage
@@ -157,7 +164,8 @@ export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionNetscapeCertificateType
   | IExtensionCertificateTransparency
   | IExtensionSubjectKeyIdentifier
-  | IExtensionQualifiedCertificateStatements;
+  | IExtensionQualifiedCertificateStatements
+  | IExtensionCAKeyCertIndexPair;
 
 export default class Certificate extends Basic {
   notBefore?: Date;
@@ -729,6 +737,17 @@ export default class Certificate extends Basic {
                 name: OIDS[value.id] || '',
                 oid: value.id,
               })),
+            };
+
+            return this.extensions.push(extension);
+          }
+
+          if (ext.extnID === EnumOIDs.CAKeyCertIndexPair) {
+            const extension: IExtensionCAKeyCertIndexPair = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.CAKeyCertIndexPair,
+              value: ext.parsedValue,
             };
 
             return this.extensions.push(extension);
