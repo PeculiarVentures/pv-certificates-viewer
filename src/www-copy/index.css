@@ -30,7 +30,17 @@ header {
   color: #fff;
 }
 
-header a {
+header > a {
+  text-decoration: none;
+  color: #fff;
+  transition: opacity 200ms;
+}
+
+header > a:hover {
+  opacity: .6;
+}
+
+nav a {
   padding: 0 5px;
 }
 
