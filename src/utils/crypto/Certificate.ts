@@ -797,10 +797,20 @@ export default class Certificate extends Basic {
   }
 
   downloadAsPEM = () => {
-    downloadFromBuffer(this.pem, 'text/plain', this.commonName, 'crt');
+    downloadFromBuffer(
+      Convert.FromString(this.pem),
+      'application/x-x509-user-cert',
+      this.commonName,
+      'crt',
+    );
   }
 
   downloadAsDER = () => {
-    downloadFromBuffer(this.hex, 'application/octet-stream', this.commonName, 'crt');
+    downloadFromBuffer(
+      Convert.FromString(this.hex),
+      'application/x-x509-user-cert',
+      this.commonName,
+      'crt',
+    );
   }
 }
