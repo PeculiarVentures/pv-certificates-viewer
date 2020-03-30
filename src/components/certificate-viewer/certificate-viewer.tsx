@@ -531,6 +531,13 @@ export class CertificateViewer {
           ),
         ];
       }
+
+      case EnumOIDs.EnrollCerttypeExtension: {
+        return this.renderRowValue(
+          'Value',
+          extension.value,
+        );
+      }
     }
 
     if (typeof extension.value === 'string') {

@@ -40,6 +40,7 @@ export enum EnumOIDs {
   CertificateTemplate = '1.3.6.1.4.1.311.21.7',
   QualifiedCertificateStatements = '1.3.6.1.5.5.7.1.3',
   CAKeyCertIndexPair = '1.3.6.1.4.1.311.21.1',
+  EnrollCerttypeExtension = '1.3.6.1.4.1.311.20.2',
   ANY = '',
 }
 
@@ -150,6 +151,12 @@ interface IExtensionCAKeyCertIndexPair
     { certificateIndex: number; keyIndex: number; }
   > {}
 
+interface IExtensionEnrollCerttypeExtension
+  extends IExtensionBasic<
+    EnumOIDs.EnrollCerttypeExtension,
+    string
+  > {}
+
 export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionBasicConstraints
   | IExtensionKeyUsage
@@ -165,7 +172,8 @@ export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionCertificateTransparency
   | IExtensionSubjectKeyIdentifier
   | IExtensionQualifiedCertificateStatements
-  | IExtensionCAKeyCertIndexPair;
+  | IExtensionCAKeyCertIndexPair
+  | IExtensionEnrollCerttypeExtension;
 
 export default class Certificate extends Basic {
   notBefore?: Date;
@@ -753,6 +761,17 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
+          if (ext.extnID === EnumOIDs.EnrollCerttypeExtension) {
+            const extension: IExtensionEnrollCerttypeExtension = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.EnrollCerttypeExtension,
+              value: ext.parsedValue.valueBlock.value,
+            };
+
+            return this.extensions.push(extension);
+          }
+
           const extension = {
             name: OIDS[ext.extnID] || '',
             critical: ext.critical,
@@ -799,18 +818,18 @@ export default class Certificate extends Basic {
   downloadAsPEM = () => {
     downloadFromBuffer(
       Convert.FromString(this.pem),
-      'application/x-x509-user-cert',
+      'application/pkix-cert',
       this.commonName,
-      'crt',
+      'cer',
     );
   }
 
   downloadAsDER = () => {
     downloadFromBuffer(
       Convert.FromString(this.hex),
-      'application/x-x509-user-cert',
+      'application/pkix-cert',
       this.commonName,
-      'crt',
+      'cer',
     );
   }
 }

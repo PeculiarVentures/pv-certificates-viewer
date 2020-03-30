@@ -135,7 +135,7 @@ export class CertificateDecoder {
             <input
               type="file"
               class="input_file"
-              accept="application/pkix-cert, application/x-x509-ca-cert, application/x-x509-user-cert"
+              accept="application/pkix-cert,application/x-x509-ca-cert,application/x-x509-user-cert"
               onChange={this.onChangeInputFile}
             />
           </pv-button>
