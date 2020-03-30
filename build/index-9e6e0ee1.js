@@ -25531,7 +25531,7 @@ class Certificate
  * ```js
  *    import { downloadFromBuffer } from 'ui-utils';
  *
- *    downloadFromBuffer(arrayBufferValue, 'applciation/pdf', 'myFile', 'pdf', 100);
+ *    downloadFromBuffer(arrayBufferValue, 'applciation/pdf', 'myFile', 'pdf');
  * ```
  */
 function downloadFromBuffer(value, mime = 'application/octet-stream', name, extension) {
@@ -25557,33 +25557,6 @@ function downloadFromBuffer(value, mime = 'application/octet-stream', name, exte
         document.body.removeChild(frame);
         res();
     }, 100));
-    // const fileName = `${name}.${extension}`;
-    // let key = '';
-    // if (typeof value !== 'string') {
-    //   const blob = new Blob([value], { type: mime });
-    //   if (navigator.msSaveBlob) { // IE10+ : (has Blob, but not a[download] or URL)
-    //     navigator.msSaveBlob(blob, fileName);
-    //     return new Promise(res => setTimeout(res, delay));
-    //   }
-    //   key = window.URL.createObjectURL(blob);
-    // } else {
-    //   key = `data:${mime};charset=utf-8,${encodeURIComponent(value)}`;
-    // }
-    // const link = document.createElement('a');
-    // link.style.display = 'none';
-    // link.href = key;
-    // link.target = key;
-    // link.download = fileName;
-    // document.body.appendChild(link);
-    // link.dispatchEvent(new MouseEvent('click'));
-    // document.body.removeChild(link);
-    // const revokeObjectURL = (resolve: () => void) => {
-    //   if (/^blob:/.test(key)) {
-    //     window.URL.revokeObjectURL(key);
-    //   }
-    //   resolve();
-    // };
-    // return new Promise(resolve => setTimeout(() => revokeObjectURL(resolve), delay));
 }
 
 const OIDs = {
@@ -27850,6 +27823,7 @@ var EnumOIDs;
     EnumOIDs["CertificateTemplate"] = "1.3.6.1.4.1.311.21.7";
     EnumOIDs["QualifiedCertificateStatements"] = "1.3.6.1.5.5.7.1.3";
     EnumOIDs["CAKeyCertIndexPair"] = "1.3.6.1.4.1.311.21.1";
+    EnumOIDs["EnrollCerttypeExtension"] = "1.3.6.1.4.1.311.20.2";
     EnumOIDs["ANY"] = "";
 })(EnumOIDs || (EnumOIDs = {}));
 class Certificate$1 extends Basic {
@@ -27860,10 +27834,10 @@ class Certificate$1 extends Basic {
         this.version = 0;
         this.isRoot = false;
         this.downloadAsPEM = () => {
-            downloadFromBuffer(this.pem, 'application/x-x509-user-cert', this.commonName, 'crt');
+            downloadFromBuffer(Convert.FromString(this.pem), 'application/pkix-cert', this.commonName, 'cer');
         };
         this.downloadAsDER = () => {
-            downloadFromBuffer(this.hex, 'application/x-x509-user-cert', this.commonName, 'crt');
+            downloadFromBuffer(Convert.FromString(this.hex), 'application/pkix-cert', this.commonName, 'cer');
         };
         this.decode(fullDecode);
     }
@@ -28328,6 +28302,15 @@ class Certificate$1 extends Basic {
                             critical: ext.critical,
                             oid: EnumOIDs.CAKeyCertIndexPair,
                             value: ext.parsedValue,
+                        };
+                        return this.extensions.push(extension);
+                    }
+                    if (ext.extnID === EnumOIDs.EnrollCerttypeExtension) {
+                        const extension = {
+                            name: OIDs[ext.extnID] || '',
+                            critical: ext.critical,
+                            oid: EnumOIDs.EnrollCerttypeExtension,
+                            value: ext.parsedValue.valueBlock.value,
                         };
                         return this.extensions.push(extension);
                     }

@@ -1,5 +1,5 @@
 import { r as registerInstance, h } from './core-b3a1a540.js';
-import { C as Certificate, E as EnumOIDs } from './index-dcfd8acc.js';
+import { C as Certificate, E as EnumOIDs } from './index-9e6e0ee1.js';
 import { s as short } from './date_formatter-c4acc49f.js';
 
 const CertificateViewer = class {
@@ -220,6 +220,9 @@ const CertificateViewer = class {
                     this.renderRowValue('Certificate Index', extension.value.certificateIndex),
                     this.renderRowValue('Key Index', extension.value.keyIndex),
                 ];
+            }
+            case EnumOIDs.EnrollCerttypeExtension: {
+                return this.renderRowValue('Value', extension.value);
             }
         }
         if (typeof extension.value === 'string') {

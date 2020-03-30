@@ -25531,37 +25531,32 @@ class Certificate
  * ```js
  *    import { downloadFromBuffer } from 'ui-utils';
  *
- *    downloadFromBuffer(arrayBufferValue, 'applciation/pdf', 'myFile', 'pdf', 100);
+ *    downloadFromBuffer(arrayBufferValue, 'applciation/pdf', 'myFile', 'pdf');
  * ```
  */
-function downloadFromBuffer(value, mime, name, extension, delay) {
-    const fileName = `${name}.${extension}`;
-    let key = '';
-    if (typeof value !== 'string') {
-        const blob = new Blob([value], { type: mime });
-        if (navigator.msSaveBlob) { // IE10+ : (has Blob, but not a[download] or URL)
-            navigator.msSaveBlob(blob, fileName);
-            return new Promise(res => setTimeout(res, delay || 0));
-        }
-        key = window.URL.createObjectURL(blob);
+function downloadFromBuffer(value, mime = 'application/octet-stream', name, extension) {
+    const blob = new Blob([value], { type: mime });
+    if (navigator.msSaveBlob) { // IE10+ : (has Blob, but not a[download] or URL)
+        navigator.msSaveBlob(blob, `${name}.${extension}`);
+        return new Promise(res => setTimeout(res, 100));
     }
-    else {
-        key = `data:${mime};charset=utf-8,${encodeURIComponent(value)}`;
-    }
+    const blobURL = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
+    const frame = document.createElement('iframe');
+    frame.name = blobURL;
     link.style.display = 'none';
-    link.href = key;
-    link.download = fileName;
+    document.body.appendChild(frame);
+    link.style.display = 'none';
+    link.href = blobURL;
+    link.target = blobURL;
+    link.download = `${name}.${extension}`;
     document.body.appendChild(link);
     link.dispatchEvent(new MouseEvent('click'));
     document.body.removeChild(link);
-    const revokeObjectURL = (resolve) => {
-        if (/^blob:/.test(key)) {
-            window.URL.revokeObjectURL(key);
-        }
-        resolve();
-    };
-    return new Promise(resolve => setTimeout(() => revokeObjectURL(resolve), delay || 0));
+    return new Promise(res => setTimeout(() => {
+        document.body.removeChild(frame);
+        res();
+    }, 100));
 }
 
 const OIDs = {
@@ -27838,10 +27833,10 @@ class Certificate$1 extends Basic {
         this.version = 0;
         this.isRoot = false;
         this.downloadAsPEM = () => {
-            downloadFromBuffer(this.pem, 'text/plain', this.commonName, 'crt');
+            downloadFromBuffer(Convert.FromString(this.pem), 'application/pkix-cert', this.commonName, 'cer');
         };
         this.downloadAsDER = () => {
-            downloadFromBuffer(this.hex, 'application/octet-stream', this.commonName, 'crt');
+            downloadFromBuffer(Convert.FromString(this.hex), 'application/pkix-cert', this.commonName, 'cer');
         };
         this.decode(fullDecode);
     }
@@ -28100,6 +28095,7 @@ class Certificate$1 extends Basic {
          */
         this.version = pkijsSchema.version + 1;
         if (fullDecode) {
+            console.log(pkijsSchema.extensions);
             // decode extensions
             if (pkijsSchema.extensions) {
                 pkijsSchema.extensions.forEach((ext) => {

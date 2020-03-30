@@ -25531,7 +25531,7 @@ class Certificate
  * ```js
  *    import { downloadFromBuffer } from 'ui-utils';
  *
- *    downloadFromBuffer(arrayBufferValue, 'applciation/pdf', 'myFile', 'pdf', 100);
+ *    downloadFromBuffer(arrayBufferValue, 'applciation/pdf', 'myFile', 'pdf');
  * ```
  */
 function downloadFromBuffer(value, mime = 'application/octet-stream', name, extension) {
@@ -27833,10 +27833,10 @@ class Certificate$1 extends Basic {
         this.version = 0;
         this.isRoot = false;
         this.downloadAsPEM = () => {
-            downloadFromBuffer(Convert.FromString(this.pem), 'application/x-x509-user-cert', this.commonName, 'crt');
+            downloadFromBuffer(Convert.FromString(this.pem), 'application/pkix-cert', this.commonName, 'cer');
         };
         this.downloadAsDER = () => {
-            downloadFromBuffer(Convert.FromString(this.hex), 'application/x-x509-user-cert', this.commonName, 'crt');
+            downloadFromBuffer(Convert.FromString(this.hex), 'application/pkix-cert', this.commonName, 'cer');
         };
         this.decode(fullDecode);
     }
