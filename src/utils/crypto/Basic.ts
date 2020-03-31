@@ -2,6 +2,7 @@ import * as asn1js from 'asn1js';
 import { Convert } from 'pvtsutils';
 import _AttributeTypeAndValue from 'pkijs/src/AttributeTypeAndValue';
 import _AlgorithmIdentifier from 'pkijs/src/AlgorithmIdentifier';
+import validator from '../validator';
 
 export default class Basic {
   input: string;
@@ -228,14 +229,6 @@ export default class Basic {
     '9e4ff73dc3ce220b69217c899e468076abf8d78636d5ccfc85a31a75628ba88b': 'WoSign CT #1',
   };
 
-  static validation = {
-    isHex: (value: string) => /^\s*(?:[0-9A-Fa-f][0-9A-Fa-f]\s*)+$/.test(value),
-    isPem: (value: string) => /-----BEGIN [^-]+-----([A-Za-z0-9+\/=\s]+)-----END [^-]+-----|begin-base64[^\n]+\n([A-Za-z0-9+\/=\s]+)====/
-      .test(value),
-    isBase64: (value: string) => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
-      .test(value),
-  };
-
   static base64Clear(base64: string) {
     return base64
       .replace(/.*base64,/, '')
@@ -273,9 +266,9 @@ export default class Basic {
     const value = Basic.base64Clear(this.input);
     let certificateBuffer: ArrayBuffer;
 
-    if (Basic.validation.isHex(value)) {
+    if (validator.isHex(value)) {
       certificateBuffer = Convert.FromHex(value);
-    } else if (Basic.validation.isBase64(value) || Basic.validation.isPem(value)) {
+    } else if (validator.isBase64(value) || validator.isPem(value)) {
       certificateBuffer = Convert.FromBase64(value);
     } else {
       certificateBuffer = Convert.FromBinary(this.input);

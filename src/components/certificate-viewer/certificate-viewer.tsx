@@ -7,6 +7,7 @@ import {
   IExtensionAuthorityKeyIdentifier,
   IExtensionSubjectKeyIdentifier,
 } from '../../utils/crypto';
+import validator from '../../utils/validator';
 import * as dateFormatter from '../../utils/date_formatter';
 
 export type CertificateProp = string | Certificate;
@@ -246,7 +247,19 @@ export class CertificateViewer {
                 <p>
                   {value.name} ({value.oid})
                 </p>,
-                <a class="text_primary" href={value.value} target="_blank">{value.value}</a>,
+                validator.isUrl(value.value) ? (
+                  <a
+                    class="text_primary"
+                    href={value.value}
+                    target="_blank"
+                  >
+                      {value.value}
+                  </a>
+                ) : (
+                  <p>
+                    {value.value}
+                  </p>
+                ),
               ],
             )
           )),
@@ -519,7 +532,7 @@ export class CertificateViewer {
         ));
       }
 
-      case EnumOIDs.CAKeyCertIndexPair: {
+      case EnumOIDs.MicrosoftCARenewal: {
         return [
           this.renderRowValue(
             'Certificate Index',
@@ -532,7 +545,7 @@ export class CertificateViewer {
         ];
       }
 
-      case EnumOIDs.EnrollCerttypeExtension: {
+      case EnumOIDs.MicrosoftCertificateType: {
         return this.renderRowValue(
           'Value',
           extension.value,

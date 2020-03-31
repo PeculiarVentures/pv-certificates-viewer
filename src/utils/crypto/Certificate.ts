@@ -39,8 +39,8 @@ export enum EnumOIDs {
   CertificateTransparency = '1.3.6.1.4.1.11129.2.4.2',
   CertificateTemplate = '1.3.6.1.4.1.311.21.7',
   QualifiedCertificateStatements = '1.3.6.1.5.5.7.1.3',
-  CAKeyCertIndexPair = '1.3.6.1.4.1.311.21.1',
-  EnrollCerttypeExtension = '1.3.6.1.4.1.311.20.2',
+  MicrosoftCARenewal = '1.3.6.1.4.1.311.21.1',
+  MicrosoftCertificateType = '1.3.6.1.4.1.311.20.2',
   ANY = '',
 }
 
@@ -145,15 +145,15 @@ interface IExtensionQualifiedCertificateStatements
     { oid: string, name: string; }[]
   > {}
 
-interface IExtensionCAKeyCertIndexPair
+interface IExtensionMicrosoftCARenewal
   extends IExtensionBasic<
-    EnumOIDs.CAKeyCertIndexPair,
+    EnumOIDs.MicrosoftCARenewal,
     { certificateIndex: number; keyIndex: number; }
   > {}
 
-interface IExtensionEnrollCerttypeExtension
+interface IExtensionMicrosoftCertificateType
   extends IExtensionBasic<
-    EnumOIDs.EnrollCerttypeExtension,
+    EnumOIDs.MicrosoftCertificateType,
     string
   > {}
 
@@ -172,8 +172,8 @@ export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionCertificateTransparency
   | IExtensionSubjectKeyIdentifier
   | IExtensionQualifiedCertificateStatements
-  | IExtensionCAKeyCertIndexPair
-  | IExtensionEnrollCerttypeExtension;
+  | IExtensionMicrosoftCARenewal
+  | IExtensionMicrosoftCertificateType;
 
 export default class Certificate extends Basic {
   notBefore?: Date;
@@ -750,22 +750,22 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
-          if (ext.extnID === EnumOIDs.CAKeyCertIndexPair) {
-            const extension: IExtensionCAKeyCertIndexPair = {
+          if (ext.extnID === EnumOIDs.MicrosoftCARenewal) {
+            const extension: IExtensionMicrosoftCARenewal = {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
-              oid: EnumOIDs.CAKeyCertIndexPair,
+              oid: EnumOIDs.MicrosoftCARenewal,
               value: ext.parsedValue,
             };
 
             return this.extensions.push(extension);
           }
 
-          if (ext.extnID === EnumOIDs.EnrollCerttypeExtension) {
-            const extension: IExtensionEnrollCerttypeExtension = {
+          if (ext.extnID === EnumOIDs.MicrosoftCertificateType) {
+            const extension: IExtensionMicrosoftCertificateType = {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
-              oid: EnumOIDs.EnrollCerttypeExtension,
+              oid: EnumOIDs.MicrosoftCertificateType,
               value: ext.parsedValue.valueBlock.value,
             };
 
