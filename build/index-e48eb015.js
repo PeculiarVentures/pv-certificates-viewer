@@ -6966,6 +6966,17 @@ function isEqual(bytes1, bytes2) {
     return true;
 }
 
+const validator = {
+    isHex: (value) => /^\s*(?:[0-9A-Fa-f][0-9A-Fa-f]\s*)+$/
+        .test(value),
+    isPem: (value) => /-----BEGIN [^-]+-----([A-Za-z0-9+\/=\s]+)-----END [^-]+-----|begin-base64[^\n]+\n([A-Za-z0-9+\/=\s]+)====/
+        .test(value),
+    isBase64: (value) => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
+        .test(value),
+    isUrl: (value) => /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
+        .test(value),
+};
+
 class Basic {
     constructor(value, name) {
         this.fingerprints = {};
@@ -6997,10 +7008,10 @@ class Basic {
     init() {
         const value = Basic.base64Clear(this.input);
         let certificateBuffer;
-        if (Basic.validation.isHex(value)) {
+        if (validator.isHex(value)) {
             certificateBuffer = Convert.FromHex(value);
         }
-        else if (Basic.validation.isBase64(value) || Basic.validation.isPem(value)) {
+        else if (validator.isBase64(value) || validator.isPem(value)) {
             certificateBuffer = Convert.FromBase64(value);
         }
         else {
@@ -7260,13 +7271,6 @@ Basic.logs = {
     '41b2dc2e89e63ce4af1ba7bb29bf68c6dee6f9f1cc047e30dffae3b3ba259263': 'WoSign',
     '63d0006026dde10bb0601f452446965ee2b6ea2cd4fbc95ac866a550af9075b7': 'WoSign 2',
     '9e4ff73dc3ce220b69217c899e468076abf8d78636d5ccfc85a31a75628ba88b': 'WoSign CT #1',
-};
-Basic.validation = {
-    isHex: (value) => /^\s*(?:[0-9A-Fa-f][0-9A-Fa-f]\s*)+$/.test(value),
-    isPem: (value) => /-----BEGIN [^-]+-----([A-Za-z0-9+\/=\s]+)-----END [^-]+-----|begin-base64[^\n]+\n([A-Za-z0-9+\/=\s]+)====/
-        .test(value),
-    isBase64: (value) => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
-        .test(value),
 };
 
 //**************************************************************************************
@@ -26595,21 +26599,21 @@ const OIDs = {
     '1.3.6.1.4.1.311.17.2': 'Local Machine Keyset',
     '1.3.6.1.4.1.311.17.3': 'PKCS12 Extended Attributes',
     '1.3.6.1.4.1.311.20.1': 'Auto Enroll Ctl Usage',
-    '1.3.6.1.4.1.311.20.2': 'Enroll Certtype Extension',
+    '1.3.6.1.4.1.311.20.2': 'Microsoft Certificate Type',
     '1.3.6.1.4.1.311.20.2.1': 'Enrollment Agent',
     '1.3.6.1.4.1.311.20.2.2': 'Smartcard Logon',
     '1.3.6.1.4.1.311.20.2.3': 'Universal Principal Name',
     '1.3.6.1.4.1.311.20.3': 'Cert Manifold',
-    '1.3.6.1.4.1.311.21.1': 'CA Key Cert Index Pair',
-    '1.3.6.1.4.1.311.21.2': 'Cert Srv Previous Cert Hash',
+    '1.3.6.1.4.1.311.21.1': 'Microsoft Certification Authority Renewal',
+    '1.3.6.1.4.1.311.21.2': 'Microsoft Certificate Previous Hash',
     '1.3.6.1.4.1.311.21.3': 'CRL Virtual Base',
     '1.3.6.1.4.1.311.21.4': 'CRL Next Publish',
     '1.3.6.1.4.1.311.21.5': 'Ca Exchange',
     '1.3.6.1.4.1.311.21.6': 'Key Recovery',
-    '1.3.6.1.4.1.311.21.7': 'Certificate Template',
+    '1.3.6.1.4.1.311.21.7': 'Microsoft Certificate Template',
     '1.3.6.1.4.1.311.21.8': 'Enterprize OID Root',
     '1.3.6.1.4.1.311.21.9': 'Rdn Dummy Signer',
-    '1.3.6.1.4.1.311.21.10': 'Application Cert Policies',
+    '1.3.6.1.4.1.311.21.10': 'Microsoft Certificate Policies',
     '1.3.6.1.4.1.311.21.11': 'Application Policy Mappings',
     '1.3.6.1.4.1.311.21.12': 'Application Policy Constraints',
     '1.3.6.1.4.1.311.21.13': 'Archived Key',
@@ -26768,8 +26772,8 @@ const OIDs = {
     '1.3.6.1.5.5.7.1.12': 'Logo Type',
     '1.3.6.1.5.5.7.1.13': 'Wlan SSID',
     '1.3.6.1.5.5.7.2': 'Policy Qualifier Ids',
-    '1.3.6.1.5.5.7.2.1': 'CPS',
-    '1.3.6.1.5.5.7.2.2': 'Unotice',
+    '1.3.6.1.5.5.7.2.1': 'Certificate Policy Statement',
+    '1.3.6.1.5.5.7.2.2': 'User Notice',
     '1.3.6.1.5.5.7.2.3': 'Text Notice',
     '1.3.6.1.5.5.7.3': 'Key Purpose',
     '1.3.6.1.5.5.7.3.1': 'Server Authentication',
@@ -27823,6 +27827,7 @@ var EnumOIDs;
     EnumOIDs["CertificateTemplate"] = "1.3.6.1.4.1.311.21.7";
     EnumOIDs["QualifiedCertificateStatements"] = "1.3.6.1.5.5.7.1.3";
     EnumOIDs["CAKeyCertIndexPair"] = "1.3.6.1.4.1.311.21.1";
+    EnumOIDs["EnrollCerttypeExtension"] = "1.3.6.1.4.1.311.20.2";
     EnumOIDs["ANY"] = "";
 })(EnumOIDs || (EnumOIDs = {}));
 class Certificate$1 extends Basic {
@@ -28305,6 +28310,15 @@ class Certificate$1 extends Basic {
                         };
                         return this.extensions.push(extension);
                     }
+                    if (ext.extnID === EnumOIDs.EnrollCerttypeExtension) {
+                        const extension = {
+                            name: OIDs[ext.extnID] || '',
+                            critical: ext.critical,
+                            oid: EnumOIDs.EnrollCerttypeExtension,
+                            value: ext.parsedValue.valueBlock.value,
+                        };
+                        return this.extensions.push(extension);
+                    }
                     const extension = {
                         name: OIDs[ext.extnID] || '',
                         critical: ext.critical,
@@ -28344,4 +28358,4 @@ class Certificate$1 extends Basic {
     }
 }
 
-export { Certificate$1 as C, EnumOIDs as E };
+export { Certificate$1 as C, EnumOIDs as E, validator as v };

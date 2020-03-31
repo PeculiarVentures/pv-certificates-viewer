@@ -26768,8 +26768,8 @@ const OIDs = {
     '1.3.6.1.5.5.7.1.12': 'Logo Type',
     '1.3.6.1.5.5.7.1.13': 'Wlan SSID',
     '1.3.6.1.5.5.7.2': 'Policy Qualifier Ids',
-    '1.3.6.1.5.5.7.2.1': 'CPS',
-    '1.3.6.1.5.5.7.2.2': 'Unotice',
+    '1.3.6.1.5.5.7.2.1': 'Certificate Policy Statement',
+    '1.3.6.1.5.5.7.2.2': 'User Notice',
     '1.3.6.1.5.5.7.2.3': 'Text Notice',
     '1.3.6.1.5.5.7.3': 'Key Purpose',
     '1.3.6.1.5.5.7.3.1': 'Server Authentication',
@@ -27823,6 +27823,7 @@ var EnumOIDs;
     EnumOIDs["CertificateTemplate"] = "1.3.6.1.4.1.311.21.7";
     EnumOIDs["QualifiedCertificateStatements"] = "1.3.6.1.5.5.7.1.3";
     EnumOIDs["CAKeyCertIndexPair"] = "1.3.6.1.4.1.311.21.1";
+    EnumOIDs["EnrollCerttypeExtension"] = "1.3.6.1.4.1.311.20.2";
     EnumOIDs["ANY"] = "";
 })(EnumOIDs || (EnumOIDs = {}));
 class Certificate$1 extends Basic {
@@ -28301,6 +28302,15 @@ class Certificate$1 extends Basic {
                             critical: ext.critical,
                             oid: EnumOIDs.CAKeyCertIndexPair,
                             value: ext.parsedValue,
+                        };
+                        return this.extensions.push(extension);
+                    }
+                    if (ext.extnID === EnumOIDs.EnrollCerttypeExtension) {
+                        const extension = {
+                            name: OIDs[ext.extnID] || '',
+                            critical: ext.critical,
+                            oid: EnumOIDs.EnrollCerttypeExtension,
+                            value: ext.parsedValue.valueBlock.value,
                         };
                         return this.extensions.push(extension);
                     }

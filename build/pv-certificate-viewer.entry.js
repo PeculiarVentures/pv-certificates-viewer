@@ -1,5 +1,5 @@
 import { r as registerInstance, h } from './core-b3a1a540.js';
-import { C as Certificate, E as EnumOIDs } from './index-9e6e0ee1.js';
+import { C as Certificate, E as EnumOIDs, v as validator } from './index-de02f17b.js';
 import { s as short } from './date_formatter-c4acc49f.js';
 
 const CertificateViewer = class {
@@ -113,7 +113,7 @@ const CertificateViewer = class {
                     ]))),
                     extension.value.qualifiers.map((value, index) => (this.renderRowValue(`Qualifier ${index + 1}`, [
                         h("p", null, value.name, " (", value.oid, ")"),
-                        h("a", { class: "text_primary", href: value.value, target: "_blank" }, value.value),
+                        validator.isUrl(value.value) ? (h("a", { class: "text_primary", href: value.value, target: "_blank" }, value.value)) : (h("p", null, value.value)),
                     ]))),
                 ];
             }
@@ -215,13 +215,13 @@ const CertificateViewer = class {
                     h("p", null, statement.name, " (", statement.oid, ")"),
                 ])));
             }
-            case EnumOIDs.CAKeyCertIndexPair: {
+            case EnumOIDs.MicrosoftCARenewal: {
                 return [
                     this.renderRowValue('Certificate Index', extension.value.certificateIndex),
                     this.renderRowValue('Key Index', extension.value.keyIndex),
                 ];
             }
-            case EnumOIDs.EnrollCerttypeExtension: {
+            case EnumOIDs.MicrosoftCertificateType: {
                 return this.renderRowValue('Value', extension.value);
             }
         }
