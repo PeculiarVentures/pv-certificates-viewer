@@ -12,6 +12,7 @@ import _DistributionPoint from 'pkijs/src/DistributionPoint';
 import _AccessDescription from 'pkijs/src/AccessDescription';
 import _AltName from 'pkijs/src/AltName';
 import _NameConstraints from 'pkijs/src/NameConstraints';
+import _SubjectDirectoryAttributes from 'pkijs/src/SubjectDirectoryAttributes';
 import { Convert } from 'pvtsutils';
 import * as asn1js from 'asn1js';
 
@@ -41,6 +42,7 @@ export enum EnumOIDs {
   QualifiedCertificateStatements = '1.3.6.1.5.5.7.1.3',
   MicrosoftCARenewal = '1.3.6.1.4.1.311.21.1',
   MicrosoftCertificateType = '1.3.6.1.4.1.311.20.2',
+  SubjectDirectoryAttributes = '2.5.29.9',
   ANY = '',
 }
 
@@ -157,6 +159,12 @@ interface IExtensionMicrosoftCertificateType
     string
   > {}
 
+interface IExtensionSubjectDirectoryAttributes
+  extends IExtensionBasic<
+    EnumOIDs.SubjectDirectoryAttributes,
+    { oid: string, name: string; value: string[]; }[]
+  > {}
+
 export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionBasicConstraints
   | IExtensionKeyUsage
@@ -173,7 +181,8 @@ export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionSubjectKeyIdentifier
   | IExtensionQualifiedCertificateStatements
   | IExtensionMicrosoftCARenewal
-  | IExtensionMicrosoftCertificateType;
+  | IExtensionMicrosoftCertificateType
+  | IExtensionSubjectDirectoryAttributes;
 
 export default class Certificate extends Basic {
   notBefore?: Date;
@@ -665,6 +674,27 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
+          if (ext.parsedValue instanceof _SubjectDirectoryAttributes) {
+            const extension: IExtensionSubjectDirectoryAttributes = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.SubjectDirectoryAttributes,
+              value: ext.parsedValue.attributes.map(attribute => ({
+                name: OIDS[attribute.type],
+                oid: attribute.type,
+                value: attribute['values'].map((value) => {
+                  if (value.toDate) {
+                    return value.toDate();
+                  }
+
+                  return null;
+                }),
+              })),
+            };
+
+            return this.extensions.push(extension);
+          }
+
           if (ext.parsedValue instanceof asn1js.OctetString) {
             const extension = {
               name: OIDS[ext.extnID] || '',
@@ -780,11 +810,17 @@ export default class Certificate extends Basic {
           };
 
           if (ext.parsedValue) {
-            extension.value = Convert.ToHex(ext
-              .parsedValue
-              .valueBlock
-              .valueHex);
-          } else {
+            if (ext.parsedValue?.valueBlock?.valueHex) {
+              extension.value = Convert.ToHex(ext
+                .parsedValue
+                .valueBlock
+                .valueHex);
+            } else {
+              console.log(`Unsupported extension "${ext.extnID}"`);
+            }
+          }
+
+          if (ext.extnValue?.valueBlock?.valueHex) {
             extension.value = Convert.ToHex(ext
               .extnValue
               .valueBlock

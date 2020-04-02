@@ -551,6 +551,24 @@ export class CertificateViewer {
           extension.value,
         );
       }
+
+      case EnumOIDs.SubjectDirectoryAttributes: {
+        return extension.value.map((attribute, index) => (
+          this.renderRowValue(
+            `Attribute ${index + 1}`,
+            [
+              <p>
+                {attribute.name} ({attribute.oid})
+              </p>,
+              attribute.value.map(value => (
+                <p>
+                  {dateFormatter.short(value)}
+                </p>
+              )),
+            ],
+          )
+        ));
+      }
     }
 
     if (typeof extension.value === 'string') {
