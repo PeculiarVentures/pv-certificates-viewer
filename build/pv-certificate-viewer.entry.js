@@ -1,5 +1,5 @@
 import { r as registerInstance, h } from './core-b3a1a540.js';
-import { C as Certificate, E as EnumOIDs, v as validator } from './index-de02f17b.js';
+import { C as Certificate, E as EnumOIDs, v as validator } from './index-39413a3a.js';
 import { s as short } from './date_formatter-c4acc49f.js';
 
 const CertificateViewer = class {
@@ -223,6 +223,12 @@ const CertificateViewer = class {
             }
             case EnumOIDs.MicrosoftCertificateType: {
                 return this.renderRowValue('Value', extension.value);
+            }
+            case EnumOIDs.SubjectDirectoryAttributes: {
+                return extension.value.map((attribute, index) => (this.renderRowValue(`Attribute ${index + 1}`, [
+                    h("p", null, attribute.name, " (", attribute.oid, ")"),
+                    attribute.value.map(value => (h("p", null, short(value)))),
+                ])));
             }
         }
         if (typeof extension.value === 'string') {

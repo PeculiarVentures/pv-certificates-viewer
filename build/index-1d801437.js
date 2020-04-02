@@ -27826,8 +27826,8 @@ var EnumOIDs;
     EnumOIDs["CertificateTransparency"] = "1.3.6.1.4.1.11129.2.4.2";
     EnumOIDs["CertificateTemplate"] = "1.3.6.1.4.1.311.21.7";
     EnumOIDs["QualifiedCertificateStatements"] = "1.3.6.1.5.5.7.1.3";
-    EnumOIDs["CAKeyCertIndexPair"] = "1.3.6.1.4.1.311.21.1";
-    EnumOIDs["EnrollCerttypeExtension"] = "1.3.6.1.4.1.311.20.2";
+    EnumOIDs["MicrosoftCARenewal"] = "1.3.6.1.4.1.311.21.1";
+    EnumOIDs["MicrosoftCertificateType"] = "1.3.6.1.4.1.311.20.2";
     EnumOIDs["ANY"] = "";
 })(EnumOIDs || (EnumOIDs = {}));
 class Certificate$1 extends Basic {
@@ -28100,10 +28100,10 @@ class Certificate$1 extends Basic {
          */
         this.version = pkijsSchema.version + 1;
         if (fullDecode) {
-            console.log(pkijsSchema.extensions);
             // decode extensions
             if (pkijsSchema.extensions) {
                 pkijsSchema.extensions.forEach((ext) => {
+                    var _a, _b, _c, _d;
                     if (ext.parsedValue instanceof BasicConstraints) {
                         const extension = {
                             name: OIDs[ext.extnID] || '',
@@ -28301,20 +28301,20 @@ class Certificate$1 extends Basic {
                         };
                         return this.extensions.push(extension);
                     }
-                    if (ext.extnID === EnumOIDs.CAKeyCertIndexPair) {
+                    if (ext.extnID === EnumOIDs.MicrosoftCARenewal) {
                         const extension = {
                             name: OIDs[ext.extnID] || '',
                             critical: ext.critical,
-                            oid: EnumOIDs.CAKeyCertIndexPair,
+                            oid: EnumOIDs.MicrosoftCARenewal,
                             value: ext.parsedValue,
                         };
                         return this.extensions.push(extension);
                     }
-                    if (ext.extnID === EnumOIDs.EnrollCerttypeExtension) {
+                    if (ext.extnID === EnumOIDs.MicrosoftCertificateType) {
                         const extension = {
                             name: OIDs[ext.extnID] || '',
                             critical: ext.critical,
-                            oid: EnumOIDs.EnrollCerttypeExtension,
+                            oid: EnumOIDs.MicrosoftCertificateType,
                             value: ext.parsedValue.valueBlock.value,
                         };
                         return this.extensions.push(extension);
@@ -28326,12 +28326,17 @@ class Certificate$1 extends Basic {
                         value: null,
                     };
                     if (ext.parsedValue) {
-                        extension.value = Convert.ToHex(ext
-                            .parsedValue
-                            .valueBlock
-                            .valueHex);
+                        if ((_b = (_a = ext.parsedValue) === null || _a === void 0 ? void 0 : _a.valueBlock) === null || _b === void 0 ? void 0 : _b.valueHex) {
+                            extension.value = Convert.ToHex(ext
+                                .parsedValue
+                                .valueBlock
+                                .valueHex);
+                        }
+                        else {
+                            console.log(`Unsupported extension "${ext.extnID}"`);
+                        }
                     }
-                    else {
+                    if ((_d = (_c = ext.extnValue) === null || _c === void 0 ? void 0 : _c.valueBlock) === null || _d === void 0 ? void 0 : _d.valueHex) {
                         extension.value = Convert.ToHex(ext
                             .extnValue
                             .valueBlock

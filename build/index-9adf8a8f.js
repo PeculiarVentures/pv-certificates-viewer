@@ -26599,21 +26599,21 @@ const OIDs = {
     '1.3.6.1.4.1.311.17.2': 'Local Machine Keyset',
     '1.3.6.1.4.1.311.17.3': 'PKCS12 Extended Attributes',
     '1.3.6.1.4.1.311.20.1': 'Auto Enroll Ctl Usage',
-    '1.3.6.1.4.1.311.20.2': 'Enroll Certtype Extension',
+    '1.3.6.1.4.1.311.20.2': 'Microsoft Certificate Type',
     '1.3.6.1.4.1.311.20.2.1': 'Enrollment Agent',
     '1.3.6.1.4.1.311.20.2.2': 'Smartcard Logon',
     '1.3.6.1.4.1.311.20.2.3': 'Universal Principal Name',
     '1.3.6.1.4.1.311.20.3': 'Cert Manifold',
-    '1.3.6.1.4.1.311.21.1': 'CA Key Cert Index Pair',
-    '1.3.6.1.4.1.311.21.2': 'Cert Srv Previous Cert Hash',
+    '1.3.6.1.4.1.311.21.1': 'Microsoft Certification Authority Renewal',
+    '1.3.6.1.4.1.311.21.2': 'Microsoft Certificate Previous Hash',
     '1.3.6.1.4.1.311.21.3': 'CRL Virtual Base',
     '1.3.6.1.4.1.311.21.4': 'CRL Next Publish',
     '1.3.6.1.4.1.311.21.5': 'Ca Exchange',
     '1.3.6.1.4.1.311.21.6': 'Key Recovery',
-    '1.3.6.1.4.1.311.21.7': 'Certificate Template',
+    '1.3.6.1.4.1.311.21.7': 'Microsoft Certificate Template',
     '1.3.6.1.4.1.311.21.8': 'Enterprize OID Root',
     '1.3.6.1.4.1.311.21.9': 'Rdn Dummy Signer',
-    '1.3.6.1.4.1.311.21.10': 'Application Cert Policies',
+    '1.3.6.1.4.1.311.21.10': 'Microsoft Certificate Policies',
     '1.3.6.1.4.1.311.21.11': 'Application Policy Mappings',
     '1.3.6.1.4.1.311.21.12': 'Application Policy Constraints',
     '1.3.6.1.4.1.311.21.13': 'Archived Key',
@@ -27826,8 +27826,8 @@ var EnumOIDs;
     EnumOIDs["CertificateTransparency"] = "1.3.6.1.4.1.11129.2.4.2";
     EnumOIDs["CertificateTemplate"] = "1.3.6.1.4.1.311.21.7";
     EnumOIDs["QualifiedCertificateStatements"] = "1.3.6.1.5.5.7.1.3";
-    EnumOIDs["CAKeyCertIndexPair"] = "1.3.6.1.4.1.311.21.1";
-    EnumOIDs["EnrollCerttypeExtension"] = "1.3.6.1.4.1.311.20.2";
+    EnumOIDs["MicrosoftCARenewal"] = "1.3.6.1.4.1.311.21.1";
+    EnumOIDs["MicrosoftCertificateType"] = "1.3.6.1.4.1.311.20.2";
     EnumOIDs["ANY"] = "";
 })(EnumOIDs || (EnumOIDs = {}));
 class Certificate$1 extends Basic {
@@ -28100,10 +28100,10 @@ class Certificate$1 extends Basic {
          */
         this.version = pkijsSchema.version + 1;
         if (fullDecode) {
-            console.log(pkijsSchema.extensions);
             // decode extensions
             if (pkijsSchema.extensions) {
                 pkijsSchema.extensions.forEach((ext) => {
+                    var _a, _b, _c, _d;
                     if (ext.parsedValue instanceof BasicConstraints) {
                         const extension = {
                             name: OIDs[ext.extnID] || '',
@@ -28301,20 +28301,20 @@ class Certificate$1 extends Basic {
                         };
                         return this.extensions.push(extension);
                     }
-                    if (ext.extnID === EnumOIDs.CAKeyCertIndexPair) {
+                    if (ext.extnID === EnumOIDs.MicrosoftCARenewal) {
                         const extension = {
                             name: OIDs[ext.extnID] || '',
                             critical: ext.critical,
-                            oid: EnumOIDs.CAKeyCertIndexPair,
+                            oid: EnumOIDs.MicrosoftCARenewal,
                             value: ext.parsedValue,
                         };
                         return this.extensions.push(extension);
                     }
-                    if (ext.extnID === EnumOIDs.EnrollCerttypeExtension) {
+                    if (ext.extnID === EnumOIDs.MicrosoftCertificateType) {
                         const extension = {
                             name: OIDs[ext.extnID] || '',
                             critical: ext.critical,
-                            oid: EnumOIDs.EnrollCerttypeExtension,
+                            oid: EnumOIDs.MicrosoftCertificateType,
                             value: ext.parsedValue.valueBlock.value,
                         };
                         return this.extensions.push(extension);
@@ -28325,17 +28325,20 @@ class Certificate$1 extends Basic {
                         oid: ext.extnID,
                         value: null,
                     };
-                    if (ext.parsedValue) {
+                    if ((_b = (_a = ext.parsedValue) === null || _a === void 0 ? void 0 : _a.valueBlock) === null || _b === void 0 ? void 0 : _b.valueHex) {
                         extension.value = Convert.ToHex(ext
                             .parsedValue
                             .valueBlock
                             .valueHex);
                     }
-                    else {
+                    if ((_d = (_c = ext.extnValue) === null || _c === void 0 ? void 0 : _c.valueBlock) === null || _d === void 0 ? void 0 : _d.valueHex) {
                         extension.value = Convert.ToHex(ext
                             .extnValue
                             .valueBlock
                             .valueHex);
+                    }
+                    if (!extension.value) {
+                        console.log(`Need to add handler for extension with oid "${ext.extnID}"`);
                     }
                     this.extensions.push(extension);
                 });
