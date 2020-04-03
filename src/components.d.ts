@@ -32,7 +32,12 @@ export namespace Components {
     'fill': 'stroke' | 'fill';
     'onClick': (event: MouseEvent) => void;
   }
-  interface PvCertificateDecoder {}
+  interface PvCertificateDecoder {
+    /**
+    * The example certificate value for decode and show details. Use PEM or DER.
+    */
+    'certificateExample'?: string;
+  }
   interface PvCertificateSummary {
     'certificate': Certificate;
     /**
@@ -188,7 +193,12 @@ declare namespace LocalJSX {
     'fill'?: 'stroke' | 'fill';
     'onClick'?: (event: MouseEvent) => void;
   }
-  interface PvCertificateDecoder {}
+  interface PvCertificateDecoder {
+    /**
+    * The example certificate value for decode and show details. Use PEM or DER.
+    */
+    'certificateExample'?: string;
+  }
   interface PvCertificateSummary {
     'certificate'?: Certificate;
     /**

@@ -28,6 +28,7 @@
 ### Used by
 
  - [pv-button-split](../button-split)
+ - [pv-certificate-decoder](../certificate-decoder)
  - [pv-certificates-viewer](../certificates-viewer)
  - [pv-text-hider](../text-hider)
 
@@ -35,6 +36,7 @@
 ```mermaid
 graph TD;
   pv-button-split --> pv-button
+  pv-certificate-decoder --> pv-button
   pv-certificates-viewer --> pv-button
   pv-text-hider --> pv-button
   style pv-button fill:#f9f,stroke:#333,stroke-width:4px
