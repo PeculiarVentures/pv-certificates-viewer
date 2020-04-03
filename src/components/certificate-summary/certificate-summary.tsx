@@ -1,7 +1,7 @@
 import { Component, Host, h, Prop } from '@stencil/core';
 
 import { Certificate } from '../../utils/crypto';
-import * as dateFormatter from '../../utils/date_formatter';
+import * as dateFormatter from '../../utils/dateFormatter';
 
 @Component({
   tag: 'pv-certificate-summary',

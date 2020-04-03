@@ -8,7 +8,7 @@ import {
   IExtensionSubjectKeyIdentifier,
 } from '../../utils/crypto';
 import validator from '../../utils/validator';
-import * as dateFormatter from '../../utils/date_formatter';
+import * as dateFormatter from '../../utils/dateFormatter';
 
 export type CertificateProp = string | Certificate;
 

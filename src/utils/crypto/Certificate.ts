@@ -16,7 +16,7 @@ import _SubjectDirectoryAttributes from 'pkijs/src/SubjectDirectoryAttributes';
 import { Convert } from 'pvtsutils';
 import * as asn1js from 'asn1js';
 
-import * as dateFormatter from '../../utils/date_formatter';
+import * as dateFormatter from '../dateFormatter';
 import downloadFromBuffer from  '../downloadFromBuffer';
 import OIDS from  '../../constants/oids';
 import SANs from '../../constants/san_types';
