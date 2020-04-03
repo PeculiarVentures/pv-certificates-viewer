@@ -37,6 +37,7 @@
   "dependencies": {
     "asn1js": "^2.0.26",
     "dayjs": "^1.8.17",
+    "history": "^4.10.1",
     "pkijs": "^2.1.82",
     "pvtsutils": "^1.0.6"
   }
