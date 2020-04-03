@@ -1,6 +1,6 @@
 import { r as registerInstance, h, H as Host } from './core-b3a1a540.js';
-import { C as Certificate } from './index-39413a3a.js';
-import './date_formatter-c4acc49f.js';
+import { C as Certificate } from './index-c6eb5e76.js';
+import './dateFormatter-4b2e583b.js';
 
 const CertificatesViewer = class {
     constructor(hostRef) {

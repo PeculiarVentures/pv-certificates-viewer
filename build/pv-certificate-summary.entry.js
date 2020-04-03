@@ -1,5 +1,5 @@
 import { r as registerInstance, h, H as Host } from './core-b3a1a540.js';
-import { s as short } from './date_formatter-c4acc49f.js';
+import { s as short } from './dateFormatter-4b2e583b.js';
 
 const CertificateSummary = class {
     constructor(hostRef) {
