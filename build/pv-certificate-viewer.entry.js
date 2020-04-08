@@ -1,5 +1,5 @@
 import { r as registerInstance, h } from './core-b3a1a540.js';
-import { C as Certificate, E as EnumOIDs, v as validator } from './index-c6eb5e76.js';
+import { C as Certificate, E as EnumOIDs, v as validator } from './index-8ae6a430.js';
 import { s as short } from './dateFormatter-4b2e583b.js';
 
 const CertificateViewer = class {
@@ -229,6 +229,13 @@ const CertificateViewer = class {
                     h("p", null, attribute.name, " (", attribute.oid, ")"),
                     attribute.value.map(value => (h("p", null, short(value)))),
                 ])));
+            }
+            case EnumOIDs.AdobeTimestamp: {
+                return [
+                    this.renderRowValue('Version', extension.value.version),
+                    this.renderRowValue('Location', [(h("a", { class: "text_primary", href: extension.value.location, target: "_blank" }, extension.value.location))]),
+                    this.renderRowValue('Require Auth', (extension.value.requiresAuth || false).toString()),
+                ];
             }
         }
         if (typeof extension.value === 'string') {
