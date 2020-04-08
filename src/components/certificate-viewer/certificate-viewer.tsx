@@ -569,6 +569,27 @@ export class CertificateViewer {
           )
         ));
       }
+
+      case EnumOIDs.AdobeTimestamp: {
+        return [
+          this.renderRowValue(
+            'Version',
+            extension.value.version,
+          ),
+          this.renderRowValue(
+            'Location',
+            [(
+              <a class="text_primary" href={extension.value.location} target="_blank">
+                {extension.value.location}
+              </a>
+            )],
+          ),
+          this.renderRowValue(
+            'Require Auth',
+            (extension.value.requiresAuth || false).toString(),
+          ),
+        ];
+      }
     }
 
     if (typeof extension.value === 'string') {

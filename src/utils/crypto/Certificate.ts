@@ -1,18 +1,3 @@
-import _Certificate from 'pkijs/src/Certificate';
-import _Extension from 'pkijs/src/Extension';
-import _GeneralSubtree from 'pkijs/src/GeneralSubtree';
-import _GeneralName from 'pkijs/src/GeneralName';
-import _BasicConstraints from 'pkijs/src/BasicConstraints';
-import _ExtKeyUsage from 'pkijs/src/ExtKeyUsage';
-import _AuthorityKeyIdentifier from 'pkijs/src/AuthorityKeyIdentifier';
-import _InfoAccess from 'pkijs/src/InfoAccess';
-import _CRLDistributionPoints from 'pkijs/src/CRLDistributionPoints';
-import _CertificatePolicies from 'pkijs/src/CertificatePolicies';
-import _DistributionPoint from 'pkijs/src/DistributionPoint';
-import _AccessDescription from 'pkijs/src/AccessDescription';
-import _AltName from 'pkijs/src/AltName';
-import _NameConstraints from 'pkijs/src/NameConstraints';
-import _SubjectDirectoryAttributes from 'pkijs/src/SubjectDirectoryAttributes';
 import { Convert } from 'pvtsutils';
 import * as asn1js from 'asn1js';
 
@@ -21,6 +6,7 @@ import downloadFromBuffer from  '../downloadFromBuffer';
 import OIDS from  '../../constants/oids';
 import SANs from '../../constants/san_types';
 
+import * as pkijs from './pkijs';
 import Basic from './Basic';
 
 interface ISubject extends Record<string, { nameLong: string; oid: string; value: string; }> {}
@@ -43,6 +29,7 @@ export enum EnumOIDs {
   MicrosoftCARenewal = '1.3.6.1.4.1.311.21.1',
   MicrosoftCertificateType = '1.3.6.1.4.1.311.20.2',
   SubjectDirectoryAttributes = '2.5.29.9',
+  AdobeTimestamp = '1.2.840.113583.1.1.9.1',
   ANY = '',
 }
 
@@ -89,7 +76,7 @@ interface IExtensionCertificatePolicies
 interface IExtensionCRLDistributionPoints
   extends IExtensionBasic<
     EnumOIDs.CRLDistributionPoints,
-    _DistributionPoint[]
+    pkijs.DistributionPoint[]
   > {}
 
 interface IExtensionCertificateAuthorityInformationAccess
@@ -165,6 +152,12 @@ interface IExtensionSubjectDirectoryAttributes
     { oid: string, name: string; value: string[]; }[]
   > {}
 
+interface IExtensionAdobeTimestamp
+  extends IExtensionBasic<
+    EnumOIDs.AdobeTimestamp,
+    { version: number, location: string; requiresAuth?: boolean; }
+  > {}
+
 export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionBasicConstraints
   | IExtensionKeyUsage
@@ -182,7 +175,8 @@ export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionQualifiedCertificateStatements
   | IExtensionMicrosoftCARenewal
   | IExtensionMicrosoftCertificateType
-  | IExtensionSubjectDirectoryAttributes;
+  | IExtensionSubjectDirectoryAttributes
+  | IExtensionAdobeTimestamp;
 
 export default class Certificate extends Basic {
   notBefore?: Date;
@@ -223,7 +217,7 @@ export default class Certificate extends Basic {
     return Certificate.pemTagCertificate(base64.replace(/(.{64})/g, '$1\n'));
   }
 
-  static getExtensionNetscapeCertType(extension: _Extension): string[] {
+  static getExtensionNetscapeCertType(extension: pkijs.Extension): string[] {
     const usages = [];
     // parse key usage BitString
     const bitString = asn1js.fromBER(extension.extnValue.valueBlock.valueHex).result;
@@ -272,7 +266,7 @@ export default class Certificate extends Basic {
     return usages;
   }
 
-  static getExtensionKeyUsage(extension: _Extension): string[] {
+  static getExtensionKeyUsage(extension: pkijs.Extension): string[] {
     const usages = [];
     // parse key usage BitString
     const valueHex = new Uint8Array(extension.parsedValue.valueBlock.valueHex);
@@ -340,7 +334,7 @@ export default class Certificate extends Basic {
     return `${ip}/${mask}`;
   }
 
-  static decodeSANs(altNames: (_GeneralSubtree | _GeneralName)[]) {
+  static decodeSANs(altNames: (pkijs.GeneralSubtree | pkijs.GeneralName)[]) {
     return altNames.map((altName) => {
       const altNameBase = 'base' in altName ? altName.base : altName;
       const item = {
@@ -384,7 +378,7 @@ export default class Certificate extends Basic {
   private decode(fullDecode: boolean = false) {
     this.pem = Certificate.base64ToPem(this.base64);
 
-    const pkijsSchema = new _Certificate({
+    const pkijsSchema = new pkijs.Certificate({
       schema: this.schema,
     });
 
@@ -522,8 +516,15 @@ export default class Certificate extends Basic {
     if (fullDecode) {
       // decode extensions
       if (pkijsSchema.extensions) {
-        pkijsSchema.extensions.forEach((ext: _Extension) => {
-          if (ext.parsedValue instanceof _BasicConstraints) {
+        pkijsSchema.extensions.forEach((ext: pkijs.Extension) => {
+          // console.log(ext);
+
+          // const result = asn1js.fromBER(ext.extnValue.valueBlock.valueHex);
+          // console.log(toBase64(arrayBufferToString(ext.extnValue.valueBlock.valueHex)));
+          // console.log(result);
+          // console.log(ext);
+
+          if (ext.parsedValue instanceof pkijs.BasicConstraints) {
             const extension: IExtensionBasicConstraints = {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
@@ -539,7 +540,7 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
-          if (ext.parsedValue instanceof _ExtKeyUsage) {
+          if (ext.parsedValue instanceof pkijs.ExtKeyUsage) {
             const extension: IExtensionExtendedKeyUsage = {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
@@ -553,7 +554,7 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
-          if (ext.parsedValue instanceof _CertificatePolicies) {
+          if (ext.parsedValue instanceof pkijs.CertificatePolicies) {
             const policies = [];
             const qualifiers = [];
 
@@ -593,7 +594,7 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
-          if (ext.parsedValue instanceof _AuthorityKeyIdentifier) {
+          if (ext.parsedValue instanceof pkijs.AuthorityKeyIdentifier) {
             const extension: IExtensionAuthorityKeyIdentifier = {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
@@ -622,7 +623,7 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
-          if (ext.parsedValue instanceof _CRLDistributionPoints) {
+          if (ext.parsedValue instanceof pkijs.CRLDistributionPoints) {
             const extension: IExtensionCRLDistributionPoints = {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
@@ -633,7 +634,7 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
-          if (ext.parsedValue instanceof _InfoAccess) {
+          if (ext.parsedValue instanceof pkijs.InfoAccess) {
             const extension: IExtensionCertificateAuthorityInformationAccess = {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
@@ -649,7 +650,7 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
-          if (ext.parsedValue instanceof _AltName) {
+          if (ext.parsedValue instanceof pkijs.AltName) {
             const extension: IExtensionSubjectAlternativeName = {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
@@ -660,7 +661,7 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
-          if (ext.parsedValue instanceof _NameConstraints) {
+          if (ext.parsedValue instanceof pkijs.NameConstraints) {
             const extension: IExtensionNameConstraints = {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
@@ -674,7 +675,7 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
-          if (ext.parsedValue instanceof _SubjectDirectoryAttributes) {
+          if (ext.parsedValue instanceof pkijs.SubjectDirectoryAttributes) {
             const extension: IExtensionSubjectDirectoryAttributes = {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
@@ -797,6 +798,30 @@ export default class Certificate extends Basic {
               critical: ext.critical,
               oid: EnumOIDs.MicrosoftCertificateType,
               value: ext.parsedValue.valueBlock.value,
+            };
+
+            return this.extensions.push(extension);
+          }
+
+          if (ext.extnID === EnumOIDs.AdobeTimestamp) {
+            /**
+             * https://www.adobe.com/devnet-docs/etk_deprecated/tools/DigSig/oids.html
+             */
+            const { offset, result } = asn1js.fromBER(ext.extnValue.valueBlock.valueHex);
+
+            if (offset === -1) {
+              return;
+            }
+
+            const extension: IExtensionAdobeTimestamp = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.AdobeTimestamp,
+              value: {
+                version: result['valueBlock'].value[0]?.valueBlock.valueDec,
+                location: Convert.ToString(result['valueBlock'].value[1]?.valueBlock.valueHex),
+                requiresAuth: result['valueBlock'].value[2]?.valueBlock.value,
+              },
             };
 
             return this.extensions.push(extension);
