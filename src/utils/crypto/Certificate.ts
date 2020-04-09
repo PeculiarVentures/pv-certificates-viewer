@@ -517,13 +517,6 @@ export default class Certificate extends Basic {
       // decode extensions
       if (pkijsSchema.extensions) {
         pkijsSchema.extensions.forEach((ext: pkijs.Extension) => {
-          // console.log(ext);
-
-          // const result = asn1js.fromBER(ext.extnValue.valueBlock.valueHex);
-          // console.log(toBase64(arrayBufferToString(ext.extnValue.valueBlock.valueHex)));
-          // console.log(result);
-          // console.log(ext);
-
           if (ext.parsedValue instanceof pkijs.BasicConstraints) {
             const extension: IExtensionBasicConstraints = {
               name: OIDS[ext.extnID] || '',
