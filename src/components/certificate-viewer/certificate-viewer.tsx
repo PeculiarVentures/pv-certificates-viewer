@@ -642,7 +642,7 @@ export class CertificateViewer {
     return (
       <div class="status_wrapper">
         <p class="b1 interaction_text text_black">
-          There is no certificate specified.
+          There is no certificate available.
         </p>
       </div>
     );

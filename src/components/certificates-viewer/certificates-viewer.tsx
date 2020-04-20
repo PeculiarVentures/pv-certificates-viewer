@@ -406,7 +406,7 @@ export class CertificatesViewer {
           class="b1 text_black stroke_border status_wrapper"
           colSpan={5}
         >
-          There is no certificates specified.
+          There are no certificates available.
         </td>
       </tr>
     );
