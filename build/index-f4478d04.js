@@ -28105,12 +28105,7 @@ class Certificate$1 extends Basic {
             // decode extensions
             if (pkijsSchema.extensions) {
                 pkijsSchema.extensions.forEach((ext) => {
-                    // console.log(ext);
                     var _a, _b, _c, _d, _e, _f, _g;
-                    // const result = asn1js.fromBER(ext.extnValue.valueBlock.valueHex);
-                    // console.log(toBase64(arrayBufferToString(ext.extnValue.valueBlock.valueHex)));
-                    // console.log(result);
-                    // console.log(ext);
                     if (ext.parsedValue instanceof BasicConstraints) {
                         const extension = {
                             name: OIDs[ext.extnID] || '',

@@ -1,5 +1,5 @@
 import { r as registerInstance, h, H as Host } from './core-b3a1a540.js';
-import { C as Certificate } from './index-8ae6a430.js';
+import { C as Certificate } from './index-f4478d04.js';
 import './dateFormatter-4b2e583b.js';
 
 const CertificatesViewer = class {
@@ -178,7 +178,7 @@ const CertificatesViewer = class {
         return (h("div", { class: "search_section stroke_border" }, h("input", { onInput: this.onSearchChange, type: "search", value: "", class: "input_search fill_white stroke_border text_black", disabled: !this.certificatesDecoded.length, placeholder: "Search" })));
     }
     renderEmptyState() {
-        return (h("tr", { class: "stroke_border" }, h("td", { class: "b1 text_black stroke_border status_wrapper", colSpan: 5 }, "There is no certificates specified.")));
+        return (h("tr", { class: "stroke_border" }, h("td", { class: "b1 text_black stroke_border status_wrapper", colSpan: 5 }, "There are no certificates available.")));
     }
     renderEmptySearchState() {
         return (h("tr", { class: "stroke_border" }, h("td", { class: "b1 text_black stroke_border status_wrapper", colSpan: 5 }, "No results found for \"", this.search, "\"")));

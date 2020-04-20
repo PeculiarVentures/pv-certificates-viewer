@@ -1,5 +1,5 @@
 import { r as registerInstance, h } from './core-b3a1a540.js';
-import { C as Certificate, E as EnumOIDs, v as validator } from './index-8ae6a430.js';
+import { C as Certificate, E as EnumOIDs, v as validator } from './index-f4478d04.js';
 import { s as short } from './dateFormatter-4b2e583b.js';
 
 const CertificateViewer = class {
@@ -259,7 +259,7 @@ const CertificateViewer = class {
         return (h("div", { class: "status_wrapper" }, h("p", { class: "b1 interaction_text text_black" }, "There is error for certificate decode.")));
     }
     renderEmptyState() {
-        return (h("div", { class: "status_wrapper" }, h("p", { class: "b1 interaction_text text_black" }, "There is no certificate specified.")));
+        return (h("div", { class: "status_wrapper" }, h("p", { class: "b1 interaction_text text_black" }, "There is no certificate available.")));
     }
     render() {
         if (this.certificateDecodeError) {
