@@ -24,19 +24,21 @@
     "loader/"
   ],
   "scripts": {
-    "build": "stencil build --docs",
-    "start": "stencil build --dev --watch --serve",
+    "build": "npm run clean && stencil build --docs",
+    "start": "npm run clean && stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
     "deploy.gh-pages": "gh-pages -d www",
-    "lint": "tslint --format stylish 'src/**/*.{ts,tsx}'"
+    "lint": "tslint --format stylish 'src/**/*.{ts,tsx}'",
+    "clean": "rimraf dist loader www"
   },
   "devDependencies": {
     "@stencil/core": "^1.12.7",
     "@types/asn1js": "0.0.1",
     "@types/pkijs": "0.0.2",
     "gh-pages": "^2.2.0",
+    "rimraf": "^3.0.2",
     "tslint": "^6.1.2",
     "tslint-config-airbnb": "^5.11.2",
     "tslint-eslint-rules": "^5.4.0",
