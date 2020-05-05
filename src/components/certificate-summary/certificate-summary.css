@@ -1,3 +1,6 @@
+@import '../../styles/reset.css';
+@import '../../styles/system.css';
+
 :host {
   display: block;
   width: 100%;
@@ -15,7 +18,7 @@
   width: 1px;
   top: 0;
   bottom: 0;
-  background-color: rgba(var(--pv-color-border-rgb), 0.5);
+  background-color: rgba(var(--peculiar-color-border-rgb), 0.5);
 }
 
 .basic_wrapper::before {
@@ -95,7 +98,7 @@
   .basic_col {
     padding: 20px 0;
     width: 100% !important;
-    border-bottom: 1px solid rgba(var(--pv-color-border-rgb), 0.5);
+    border-bottom: 1px solid rgba(var(--peculiar-color-border-rgb), 0.5);
   }
 
   .basic_col::after {

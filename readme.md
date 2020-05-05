@@ -1,4 +1,4 @@
-# pv-certificates-viewer
+# @peculiar/certificates-viewer
 
 [![CircleCI](https://circleci.com/gh/PeculiarVentures/pv-certificates-viewer.svg?style=svg)](https://circleci.com/gh/PeculiarVentures/pv-certificates-viewer)
 
@@ -28,9 +28,9 @@ Put a script and link tag in the head of your index.html
 
 ```html
 <head>
-  <script type="module" src="https://understandingwebpki.com/build/pv-certificates-viewer.esm.js"></script>
-  <script nomodule src="https://understandingwebpki.com/build/pv-certificates-viewer.js"></script>
-  <link rel="stylesheet" href="https://understandingwebpki.com/build/pv-certificates-viewer.css">
+  <script type="module" src="https://unpkg.com/@peculiar/certificates-viewer@latest/dist/peculiar/peculiar.esm.js"></script>
+  <script nomodule src="https://unpkg.com/@peculiar/certificates-viewer@latest/dist/peculiar/peculiar.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/@peculiar/certificates-viewer@latest/dist/peculiar/peculiar.css">
 </head>
 ```
 
@@ -38,14 +38,14 @@ Then you can use the element anywhere in your template, JSX, html, etc.
 
 ## Usage
 
-### pv-certificates-viewer
+### peculiar-certificates-viewer
 
 Web-component to decode and display certificates details table like done on both the [google](https://pki.goog/) and [amazon](https://www.amazontrust.com/repository/) Certificate Authority repository pages.
 
 ```html
 <body>
   <script>
-    var pvCertificatesViewer = document.createElement('pv-certificates-viewer');
+    var pvCertificatesViewer = document.createElement('peculiar-certificates-viewer');
 
     pvCertificatesViewer.certificates = [
       {
@@ -69,13 +69,13 @@ Web-component to decode and display certificates details table like done on both
 
 All properties you can find on the [page](https://github.com/PeculiarVentures/pv-certificates-viewer/tree/master/src/components/certificates-viewer#properties).
 
-### pv-certificate-viewer
+### peculiar-certificate-viewer
 
 Web-component to decode and display certificate details such as the subject, issuer, signature, public key info, and extensions.
 
 ```html
 <body>
-  <pv-certificate-viewer
+  <peculiar-certificate-viewer
     certificate="MIIFWjCCA0KgAwIBAgIQbkepxUtHDA3sM9CJuRz04TANBgkqhkiG9w0BAQwFADBHMQswCQYDVQQGEwJVUzEiMCAGA1UEChMZR29vZ2xlIFRydXN0IFNlcnZpY2VzIExMQzEUMBIGA1UEAxMLR1RTIFJvb3QgUjEwHhcNMTYwNjIyMDAwMDAwWhcNMzYwNjIyMDAwMDAwWjBHMQswCQYDVQQGEwJVUzEiMCAGA1UEChMZR29vZ2xlIFRydXN0IFNlcnZpY2VzIExMQzEUMBIGA1UEAxMLR1RTIFJvb3QgUjEwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQC2EQKLHuOhd5s73L+UPreVp0A8of2C+X0yBoJx9vaMf/vo27xqLpeXo4xL+Sv2sfnOhB2x+cWX3u+58qPpvBKJXqeqUqv4IyfLpLGcY9vXmX7wCl7raKb0xlpHDU0QM+NOsROjyBhsS+z8CZDfnWQpJSMHobTSPS5g4M/SCYe7zUjwTcLCeoiKu7rPWRnWr4+wB7CeMfGCwcDfLqZtbBkOtdh+JhpFAz2weaSUKK0PfyblqAj+lug8aJRT7oM6iCsVlgmy4HqMLnXWnOunVmSPlk9orj2XwoSPwLxAwAtcvfaHszVsrBhQf4TgTM2S0yDpM7xSma8ytSmzJSq0SPly4cpk9+aCEI3oncKKiPo4Zor8Y/kB+Xj9e1x3+naH+uzfsQ55lVe0vSbv1gHR6xYKu44LtcXFilWr06zqkUspzBmkMiVOKvFlRNACzqrOSbTqn3yDsEB750Orp2yjj32JgfpMpf/VjsPOS+C12LOORc92wO1AK/1TD7Cn1TsNsYqiA94xrcx36m97PtbfkSIS5r762DL8EGMUUXLeXdYWk70paDPvOmbsB4om3xPXV2V4J95eSRQAogB/mqghtqmxlbCluQ0WEdrHbEg8QOB+DVrNVjzRlwW5y0vtOUucxD/SVRNuJLDWcfr0wbrM7Rv1/oFB2ACYPTrIrnqYNxgFlQIDAQABo0IwQDAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQU5K8rJnEaK0gnhS9SZizv8IkTcT4wDQYJKoZIhvcNAQEMBQADggIBADiWCu49tJYeX++dnAsznyvgyv3SjgofQXSlfKqE1OXyHuY3UjKcC9FhHb8owbZEKTV1d5iyfNm9dKyKaOOpMQkpAWBz40d8U6iQSifvS9efk+eCNs6aaAyC58/UEBZvXw6ZXPYfcX3v73svfuo21pdwCxXu11xWajOl40k4DLh9+42FpLFZXvRq4d2h9mREruZRgyFmxhE+885H7pwoHyXa/6xmld01D1zvICxi/ZG6qcz8WpyTgYMpl0p8WnK0OdC3d8t5/Wk6kjftbjhlRn7pYL15iJdfOBL07q9bgsiG1eGZbYwE8na6SfZu6W0eX6DvJ4J2QPim01hcDyxC2kLGe4g0x8HYRZvBPsVhHdljUEn2NIVq4BjFbkerQUIpm/ZgDdIx02OYI5NaAIFItO/Nis3Jz5nu2Z6qNuFoS3FJFDYoOj0dzpqPJeaAcWErtXvM+SUWgeExX6GjfhaknBZqlxi9dnKlC54dNuYvoS++cJEPqOba+MSSQGwlfnuzCdyyF62ARPBopY+Udf90WuioAnwMCeKpSwughQtiue+hMZL77/ZRBIls6Kl0obsXs7X9SQ98POyDGCBDTtWTurQ0sR8WNh8M5mQ5Fkzc4P4dyKliPUDqysU0ArSuiYgzNdwsE3PYJ/HQcu51OyLemGhmW/HGY0dVHLqlCFF1pkgl"
   />
 </body>
@@ -96,12 +96,12 @@ This component use CSS variables to work with themes. You can customize colors d
 
 ```css
 :root {
-  --pv-color-black-rgb: 42, 49, 52;
-  --pv-color-white-rgb: 255, 255, 255;
-  --pv-color-grey-rgb: 134, 145, 150;
-  --pv-color-border-rgb: 209, 213, 217;
-  --pv-color-primary-rgb: 53, 132, 247;
-  --pv-color-attention-rgb: 247, 168, 49;
+  --peculiar-color-black-rgb: 42, 49, 52;
+  --peculiar-color-white-rgb: 255, 255, 255;
+  --peculiar-color-grey-rgb: 134, 145, 150;
+  --peculiar-color-border-rgb: 209, 213, 217;
+  --peculiar-color-primary-rgb: 53, 132, 247;
+  --peculiar-color-attention-rgb: 247, 168, 49;
 }
 ```
 

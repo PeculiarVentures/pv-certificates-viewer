@@ -6,11 +6,8 @@ export interface IAction {
 }
 
 @Component({
-  tag: 'pv-button-split',
-  styleUrls: [
-    '../../styles/system.css',
-    'button-split.css',
-  ],
+  tag: 'peculiar-button-split',
+  styleUrl: 'button-split.css',
   shadow: true,
 })
 export class ButtonSplit {
@@ -40,13 +37,13 @@ export class ButtonSplit {
     return (
       <div class="active_split_container fill_white">
         {this.actions.map(action => (
-          <pv-button
+          <peculiar-button
             fill="fill"
             class="button_split_action"
             onClick={this.onClickActiveButton.bind(this, action.onClick)}
           >
             {action.text}
-          </pv-button>
+          </peculiar-button>
         ))}
       </div>
     );
@@ -55,14 +52,14 @@ export class ButtonSplit {
   render() {
     return (
       <Host>
-        <pv-button
+        <peculiar-button
           fill={this.fill}
           onClick={this.onClick}
           class="button_split"
         >
           <slot></slot>
-        </pv-button>
-        <pv-button
+        </peculiar-button>
+        <peculiar-button
           fill={this.fill}
           onClick={this.onClickSplitButton}
           class="button_split_with_icon"
@@ -78,7 +75,7 @@ export class ButtonSplit {
               d="M5.459.124c.934.001 1.442.994.84 1.644L4.425 3.794c-.44.475-1.244.475-1.684 0L.862 1.764C.26 1.115.77.12 1.705.122l3.754.003z"
             />
           </svg>
-        </pv-button>
+        </peculiar-button>
         {this.renderActiveSplitState()}
       </Host>
     );

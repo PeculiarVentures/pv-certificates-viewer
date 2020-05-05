@@ -1,4 +1,4 @@
-# pv-certificate-summary
+# peculiar-certificate-summary
 
 
 
@@ -18,15 +18,15 @@
 
 ### Used by
 
- - [pv-certificate-viewer](../certificate-viewer)
- - [pv-certificates-viewer](../certificates-viewer)
+ - [peculiar-certificate-viewer](../certificate-viewer)
+ - [peculiar-certificates-viewer](../certificates-viewer)
 
 ### Graph
 ```mermaid
 graph TD;
-  pv-certificate-viewer --> pv-certificate-summary
-  pv-certificates-viewer --> pv-certificate-summary
-  style pv-certificate-summary fill:#f9f,stroke:#333,stroke-width:4px
+  peculiar-certificate-viewer --> peculiar-certificate-summary
+  peculiar-certificates-viewer --> peculiar-certificate-summary
+  style peculiar-certificate-summary fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

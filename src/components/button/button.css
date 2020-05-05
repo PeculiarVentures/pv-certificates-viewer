@@ -1,3 +1,5 @@
+@import '../../styles/system.css';
+
 :host {
   display: inline-block;
   width: auto;
@@ -14,8 +16,8 @@
   box-sizing: border-box;
 
   /**
-   * @prop --pv-button-padding-start: Left padding of the button
-   * @prop --pv-button-padding-end: Right padding of the button
+   * @prop --peculiar-button-padding-start: Left padding of the button
+   * @prop --peculiar-button-padding-end: Right padding of the button
   */
 }
 
@@ -56,7 +58,7 @@
   background: inherit;
   border: none;
   border-radius: inherit;
-  padding: 0 var(--pv-button-padding-end) 0 var(--pv-button-padding-start);
+  padding: 0 var(--peculiar-button-padding-end) 0 var(--peculiar-button-padding-start);
   transition: box-shadow 200ms;
 }
 
@@ -72,7 +74,7 @@
 
 /* Focus state */
 .button_native:focus {
-  box-shadow: 0 4px 10px 0 rgba(var(--pv-color-black-rgb), 0.15);
+  box-shadow: 0 4px 10px 0 rgba(var(--peculiar-color-black-rgb), 0.15);
 }
 
 /* Hover state */

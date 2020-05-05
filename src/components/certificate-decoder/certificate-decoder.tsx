@@ -5,12 +5,8 @@ import history from '../../utils/history';
 import { Certificate } from '../../utils/crypto';
 
 @Component({
-  tag: 'pv-certificate-decoder',
-  styleUrls: [
-    '../../styles/reset.css',
-    '../../styles/system.css',
-    'certificate-decoder.css',
-  ],
+  tag: 'peculiar-certificate-decoder',
+  styleUrl: 'certificate-decoder.css',
   shadow: true,
 })
 export class CertificateDecoder {
@@ -116,14 +112,14 @@ export class CertificateDecoder {
           onDrop={this.onDropFile}
         />
         <div class="controls">
-          <pv-button
+          <peculiar-button
             fill="fill"
             class="button"
             onClick={this.onClickDecode}
           >
             Decode
-          </pv-button>
-          <pv-button class="button">
+          </peculiar-button>
+          <peculiar-button class="button">
             Choose file
             <input
               type="file"
@@ -132,24 +128,24 @@ export class CertificateDecoder {
               onChange={this.onChangeInputFile}
               value=""
             />
-          </pv-button>
-          <pv-button
+          </peculiar-button>
+          <peculiar-button
             class="button"
             onClick={this.onClickClear}
           >
             Clear
-          </pv-button>
+          </peculiar-button>
           {this.certificateExample && (
-            <pv-button
+            <peculiar-button
               class="button"
               onClick={this.onClickExample}
             >
               Example
-            </pv-button>
+            </peculiar-button>
           )}
         </div>
         {this.certificateDecoded && (
-          <pv-certificate-viewer
+          <peculiar-certificate-viewer
             certificate={this.certificateDecoded}
             class="viewer"
             download

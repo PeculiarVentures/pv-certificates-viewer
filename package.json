@@ -1,7 +1,16 @@
 {
-  "name": "pv-certificates-viewer",
-  "version": "0.0.1",
-  "description": "PV Certificates Viewer",
+  "name": "@peculiar/certificates-viewer",
+  "version": "0.0.2",
+  "description": "Web components for viewing lists of certificates and certificates",
+  "keywords": [
+    "certificates-viewer",
+    "certificate-viewer",
+    "certificate",
+    "decoding",
+    "web-component",
+    "webpki",
+    "pki"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "es2015": "dist/esm/index.mjs",
@@ -9,7 +18,7 @@
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/pv-certificates-viewer/pv-certificates-viewer.js",
+  "unpkg": "dist/@peculiar/certificates-viewer/peculiar.js",
   "files": [
     "dist/",
     "loader/"
@@ -24,21 +33,27 @@
     "lint": "tslint --format stylish 'src/**/*.{ts,tsx}'"
   },
   "devDependencies": {
-    "@stencil/core": "^1.8.1",
+    "@stencil/core": "^1.12.7",
     "@types/asn1js": "0.0.1",
     "@types/pkijs": "0.0.2",
-    "gh-pages": "^2.1.1",
-    "tslint": "^6.1.0",
+    "gh-pages": "^2.2.0",
+    "tslint": "^6.1.2",
     "tslint-config-airbnb": "^5.11.2",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-stencil": "^1.0.1"
   },
-  "license": "MIT",
   "dependencies": {
     "asn1js": "^2.0.26",
     "dayjs": "^1.8.26",
     "history": "^4.10.1",
-    "pkijs": "^2.1.82",
-    "pvtsutils": "^1.0.6"
+    "pkijs": "^2.1.88",
+    "pvtsutils": "^1.0.10"
+  },
+  "license": "MIT",
+  "author": "PeculiarVentures Team",
+  "homepage": "https://understandingwebpki.com/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeculiarVentures/pv-certificates-viewer.git"
   }
 }

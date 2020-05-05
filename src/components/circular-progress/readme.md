@@ -1,4 +1,4 @@
-# pv-circular-progress
+# peculiar-circular-progress
 
 
 
@@ -17,13 +17,13 @@
 
 ### Used by
 
- - [pv-certificates-viewer](../certificates-viewer)
+ - [peculiar-certificates-viewer](../certificates-viewer)
 
 ### Graph
 ```mermaid
 graph TD;
-  pv-certificates-viewer --> pv-circular-progress
-  style pv-circular-progress fill:#f9f,stroke:#333,stroke-width:4px
+  peculiar-certificates-viewer --> peculiar-circular-progress
+  style peculiar-circular-progress fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

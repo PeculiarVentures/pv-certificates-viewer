@@ -1,3 +1,5 @@
+@import '../../styles/system.css';
+
 :host {
   display: inline-block;
   vertical-align: top;
@@ -29,7 +31,7 @@
   left: 0;
   width: 100%;
   border-radius: 2px;
-  box-shadow: 0px 2px 1px rgb(var(--pv-color-white-rgb)), 0px 0px 10px rgba(var(--pv-color-black-rgb), 0.0241168);
+  box-shadow: 0px 2px 1px rgb(var(--peculiar-color-white-rgb)), 0px 0px 10px rgba(var(--peculiar-color-black-rgb), 0.0241168);
   z-index: 1;
 }
 

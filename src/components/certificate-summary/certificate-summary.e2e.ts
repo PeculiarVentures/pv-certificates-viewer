@@ -1,12 +1,12 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('pv-certificate-summary', () => {
+describe('peculiar-certificate-summary', () => {
   it('renders', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<pv-certificate-summary></pv-certificate-summary>');
+    await page.setContent('<peculiar-certificate-summary></peculiar-certificate-summary>');
 
-    const element = await page.find('pv-certificate-summary');
+    const element = await page.find('peculiar-certificate-summary');
 
     expect(element).toHaveClass('hydrated');
   });

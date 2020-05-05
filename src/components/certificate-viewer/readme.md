@@ -1,4 +1,4 @@
-# pv-certificate-viewer
+# peculiar-certificate-viewer
 
 
 
@@ -22,26 +22,26 @@
 
 ### Used by
 
- - [pv-certificate-decoder](../certificate-decoder)
- - [pv-certificates-viewer](../certificates-viewer)
+ - [peculiar-certificate-decoder](../certificate-decoder)
+ - [peculiar-certificates-viewer](../certificates-viewer)
 
 ### Depends on
 
-- [pv-text-hider](../text-hider)
-- [pv-button-split](../button-split)
-- [pv-certificate-summary](../certificate-summary)
+- [peculiar-text-hider](../text-hider)
+- [peculiar-button-split](../button-split)
+- [peculiar-certificate-summary](../certificate-summary)
 
 ### Graph
 ```mermaid
 graph TD;
-  pv-certificate-viewer --> pv-text-hider
-  pv-certificate-viewer --> pv-button-split
-  pv-certificate-viewer --> pv-certificate-summary
-  pv-text-hider --> pv-button
-  pv-button-split --> pv-button
-  pv-certificate-decoder --> pv-certificate-viewer
-  pv-certificates-viewer --> pv-certificate-viewer
-  style pv-certificate-viewer fill:#f9f,stroke:#333,stroke-width:4px
+  peculiar-certificate-viewer --> peculiar-text-hider
+  peculiar-certificate-viewer --> peculiar-button-split
+  peculiar-certificate-viewer --> peculiar-certificate-summary
+  peculiar-text-hider --> peculiar-button
+  peculiar-button-split --> peculiar-button
+  peculiar-certificate-decoder --> peculiar-certificate-viewer
+  peculiar-certificates-viewer --> peculiar-certificate-viewer
+  style peculiar-certificate-viewer fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

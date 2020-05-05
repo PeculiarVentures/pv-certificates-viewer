@@ -1,7 +1,7 @@
 import { Component, Host, h, Element, Prop } from '@stencil/core';
 
 @Component({
-  tag: 'pv-highlight-words',
+  tag: 'peculiar-highlight-words',
   styleUrl: 'highlight-words.css',
   shadow: true,
 })

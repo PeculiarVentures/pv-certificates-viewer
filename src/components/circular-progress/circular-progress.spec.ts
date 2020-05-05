@@ -1,6 +1,6 @@
 import { CircularProgress } from './circular-progress';
 
-describe('pv-circular-progress', () => {
+describe('peculiar-circular-progress', () => {
   it('builds', () => {
     expect(new CircularProgress()).toBeTruthy();
   });

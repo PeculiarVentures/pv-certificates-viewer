@@ -13,12 +13,8 @@ import * as dateFormatter from '../../utils/dateFormatter';
 export type CertificateProp = string | Certificate;
 
 @Component({
-  tag: 'pv-certificate-viewer',
-  styleUrls: [
-    '../../styles/reset.css',
-    '../../styles/system.css',
-    'certificate-viewer.css',
-  ],
+  tag: 'peculiar-certificate-viewer',
+  styleUrl: 'certificate-viewer.css',
   shadow: true,
 })
 export class CertificateViewer {
@@ -168,9 +164,9 @@ export class CertificateViewer {
 
     if (options.collapse) {
       valueElem = (
-        <pv-text-hider>
+        <peculiar-text-hider>
           {value}
-        </pv-text-hider>
+        </peculiar-text-hider>
       );
     } else {
       valueElem = Array.isArray(value)
@@ -613,7 +609,7 @@ export class CertificateViewer {
       this.renderRowValue(
         'Download',
         [(
-          <pv-button-split
+          <peculiar-button-split
             onClick={this.certificateDecoded.downloadAsPEM.bind(this)}
             actions={[{
               text: 'Download DER',
@@ -621,7 +617,7 @@ export class CertificateViewer {
             }]}
           >
             Download PEM
-          </pv-button-split>
+          </peculiar-button-split>
         )],
         { align: 'middle' },
       ),
@@ -662,7 +658,7 @@ export class CertificateViewer {
         {this.renderRowTitle('Basic Information')}
         <tr>
           <td colSpan={2}>
-            <pv-certificate-summary
+            <peculiar-certificate-summary
               certificate={this.certificateDecoded}
               issuerDnLink={this.issuerDnLink}
             />

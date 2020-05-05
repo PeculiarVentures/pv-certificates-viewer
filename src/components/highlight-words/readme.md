@@ -1,4 +1,4 @@
-# pv-highlight-words
+# peculiar-highlight-words
 
 
 
@@ -16,13 +16,13 @@
 
 ### Used by
 
- - [pv-certificates-viewer](../certificates-viewer)
+ - [peculiar-certificates-viewer](../certificates-viewer)
 
 ### Graph
 ```mermaid
 graph TD;
-  pv-certificates-viewer --> pv-highlight-words
-  style pv-highlight-words fill:#f9f,stroke:#333,stroke-width:4px
+  peculiar-certificates-viewer --> peculiar-highlight-words
+  style peculiar-highlight-words fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
