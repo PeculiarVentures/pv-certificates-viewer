@@ -1,4 +1,6 @@
-import { r as registerInstance, h, H as Host, c as getElement } from './core-b3a1a540.js';
+import { r as registerInstance, h, H as Host, g as getElement } from './index-f2b7af1d.js';
+
+const highlightWordsCss = ":host{display:inline-block}::slotted(mark){background-color:rgba(var(--peculiar-color-attention-rgb), 0.4)}";
 
 const HighlightWords = class {
     constructor(hostRef) {
@@ -28,7 +30,7 @@ const HighlightWords = class {
         return (h(Host, null, h("slot", null)));
     }
     get host() { return getElement(this); }
-    static get style() { return ":host {\n  display: inline-block;\n}\n\n::slotted(mark) {\n  background-color: rgba(var(--pv-color-attention-rgb), 0.4);\n}"; }
 };
+HighlightWords.style = highlightWordsCss;
 
-export { HighlightWords as pv_highlight_words };
+export { HighlightWords as peculiar_highlight_words };

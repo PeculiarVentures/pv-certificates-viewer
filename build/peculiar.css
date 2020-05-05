@@ -1,0 +1,13 @@
+:root {
+  /* Colors */
+  --peculiar-color-black-rgb: 42, 49, 52;
+  --peculiar-color-white-rgb: 255, 255, 255;
+  --peculiar-color-grey-rgb: 134, 145, 150;
+  --peculiar-color-border-rgb: 209, 213, 217;
+  --peculiar-color-primary-rgb: 53, 132, 247;
+  --peculiar-color-attention-rgb: 247, 168, 49;
+
+  /* Button component */
+  --peculiar-button-padding-end: 5px;
+  --peculiar-button-padding-start: 5px;
+}

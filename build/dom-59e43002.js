@@ -1,3 +1,6 @@
+/*
+ Stencil Client Platform v1.12.7 | MIT Licensed | https://stenciljs.com
+ */
 (function(){
 var aa=new Set("annotation-xml color-profile font-face font-face-src font-face-uri font-face-format font-face-name missing-glyph".split(" "));function g(a){var b=aa.has(a);a=/^[a-z][.0-9_a-z]*-[\-.0-9_a-z]*$/.test(a);return !b&&a}function l(a){var b=a.isConnected;if(void 0!==b)return b;for(;a&&!(a.__CE_isImportDocument||a instanceof Document);)a=a.parentNode||(window.ShadowRoot&&a instanceof ShadowRoot?a.host:void 0);return !(!a||!(a.__CE_isImportDocument||a instanceof Document))}
   function n(a,b){for(;b&&b!==a&&!b.nextSibling;)b=b.parentNode;return b&&b!==a?b.nextSibling:null}
@@ -29,50 +32,13 @@ var aa=new Set("annotation-xml color-profile font-face font-face-src font-face-u
   a,b);d!==e&&c.attributeChangedCallback(this,b,d,e,a);});ua?b(HTMLElement.prototype,ua):ma?b(Element.prototype,ma):console.warn("Custom Elements: `Element#insertAdjacentElement` was not patched.");va?d(HTMLElement.prototype,va):na?d(Element.prototype,na):console.warn("Custom Elements: `Element#insertAdjacentHTML` was not patched.");Y(c,Element.prototype,{h:oa,append:pa});Aa(c);}var Z=window.customElements;if(!Z||Z.forcePolyfill||"function"!=typeof Z.define||"function"!=typeof Z.get){var X=new u;xa();ya();Y(X,DocumentFragment.prototype,{h:ka,append:la});za();Ba();document.__CE_hasRegistry=!0;var customElements=new E(X);Object.defineProperty(window,"customElements",{configurable:!0,enumerable:!0,value:customElements});}}).call(self);
 
 // Polyfill document.baseURI
-if (typeof document.baseURI !== 'string') {
-  Object.defineProperty(Document.prototype, 'baseURI', {
-    enumerable: true,
-    configurable: true,
-    get: function () {
-      var base = document.querySelector('base');
-      if (base) {
-        return base.href;
-      }
-      return document.URL;
-    }
-  });
-}
+"string"!==typeof document.baseURI&&Object.defineProperty(Document.prototype,"baseURI",{enumerable:!0,configurable:!0,get:function(){var a=document.querySelector("base");return a&&a.href?a.href:document.URL}});
 
 // Polyfill CustomEvent
-if (typeof window.CustomEvent !== 'function') {
-  window.CustomEvent = function CustomEvent(event, params) {
-    params = params || { bubbles: false, cancelable: false, detail: undefined };
-    var evt = document.createEvent( 'CustomEvent' );
-    evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
-    return evt;
-  };
-  window.CustomEvent.prototype = window.Event.prototype;
-}
+"function"!==typeof window.CustomEvent&&(window.CustomEvent=function(c,a){a=a||{bubbles:!1,cancelable:!1,detail:void 0};var b=document.createEvent("CustomEvent");b.initCustomEvent(c,a.bubbles,a.cancelable,a.detail);return b},window.CustomEvent.prototype=window.Event.prototype);
 
 // Event.composedPath
-(function(E, d, w) {
-  if(!E.composedPath) {
-    E.composedPath = function() {
-      if (this.path) {
-        return this.path;
-      }
-    var target = this.target;
-
-    this.path = [];
-    while (target.parentNode !== null) {
-      this.path.push(target);
-      target = target.parentNode;
-    }
-    this.path.push(d, w);
-    return this.path;
-    };
-  }
-})(Event.prototype, document, window);
+(function(b,c,d){b.composedPath||(b.composedPath=function(){if(this.path)return this.path;var a=this.target;for(this.path=[];null!==a.parentNode;)this.path.push(a),a=a.parentNode;this.path.push(c,d);return this.path});})(Event.prototype,document,window);
 
 /*!
 Element.closest and Element.matches
@@ -89,18 +55,7 @@ Element.getRootNode()
 /*!
 Element.isConnected()
 */
-(function(prototype) {
-  if (!("isConnected" in prototype)) {
-    Object.defineProperty(prototype, 'isConnected', {
-      configurable: true,
-      enumerable: true,
-      get: function() {
-        var root = this.getRootNode({composed: true});
-        return root && root.nodeType === 9;
-      }
-    });
-  }
-})(Element.prototype);
+(function(a){"isConnected"in a||Object.defineProperty(a,"isConnected",{configurable:!0,enumerable:!0,get:function(){var a=this.getRootNode({composed:!0});return a&&9===a.nodeType}});})(Element.prototype);
 
 /*!
 Element.remove()
@@ -115,23 +70,4 @@ Element.classList
 /*!
 DOMTokenList
 */
-(function(prototype){
-  try {
-    document.body.classList.add();
-  } catch (e) {
-    var originalAdd = prototype.add;
-    var originalRemove = prototype.remove;
-
-    prototype.add = function() {
-      for (var i = 0; i < arguments.length; i++) {
-        originalAdd.call(this, arguments[i]);
-      }
-    };
-
-    prototype.remove = function() {
-      for (var i = 0; i < arguments.length; i++) {
-        originalRemove.call(this, arguments[i]);
-      }
-    };
-  }
-}(DOMTokenList.prototype));
+(function(b){try{document.body.classList.add();}catch(e){var c=b.add,d=b.remove;b.add=function(){for(var a=0;a<arguments.length;a++)c.call(this,arguments[a]);};b.remove=function(){for(var a=0;a<arguments.length;a++)d.call(this,arguments[a]);};}})(DOMTokenList.prototype);

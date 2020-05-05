@@ -1,4 +1,4 @@
-import { d as diff } from './dateFormatter-4b2e583b.js';
+import { d as diff } from './dateFormatter-5adc0276.js';
 
 //**************************************************************************************
 /**
@@ -6797,6 +6797,10 @@ function fromJSON(json)
 //endregion
 //**************************************************************************************
 
+/**
+ * Copyright (c) 2019, Peculiar Ventures, All rights reserved.
+ */
+
 function PrepareBuffer(buffer) {
     if (typeof Buffer !== "undefined" && Buffer.isBuffer(buffer)) {
         return new Uint8Array(buffer);
@@ -6928,6 +6932,31 @@ class Convert {
     }
 }
 
+class BufferSourceConverter {
+    static toArrayBuffer(data) {
+        const buf = this.toUint8Array(data);
+        if (buf.byteOffset || buf.length) {
+            return buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.length);
+        }
+        return buf.buffer;
+    }
+    static toUint8Array(data) {
+        if (typeof Buffer !== "undefined" && Buffer.isBuffer(data)) {
+            return new Uint8Array(data);
+        }
+        if (ArrayBuffer.isView(data)) {
+            return new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
+        }
+        if (data instanceof ArrayBuffer) {
+            return new Uint8Array(data);
+        }
+        throw new TypeError("The provided value is not of type '(ArrayBuffer or ArrayBufferView)'");
+    }
+    static isBufferSource(data) {
+        return ArrayBuffer.isView(data) || data instanceof ArrayBuffer;
+    }
+}
+
 function assign(target, ...sources) {
     const res = arguments[0];
     for (let i = 1; i < arguments.length; i++) {
@@ -6943,8 +6972,8 @@ function combine(...buf) {
     const res = new Uint8Array(totalByteLength);
     let currentPos = 0;
     buf.map((item) => new Uint8Array(item)).forEach((arr) => {
-        for (let i = 0; i < arr.length; i++) {
-            res[currentPos++] = arr[i];
+        for (const item2 of arr) {
+            res[currentPos++] = item2;
         }
     });
     return res.buffer;
@@ -9557,6 +9586,6803 @@ const SANs = {
 
 //**************************************************************************************
 /**
+ * Making UTC date from local date
+ * @param {Date} date Date to convert from
+ * @returns {Date}
+ */
+function getUTCDate$1(date)
+{
+	// noinspection NestedFunctionCallJS, MagicNumberJS
+	return new Date(date.getTime() + (date.getTimezoneOffset() * 60000));
+}
+//**************************************************************************************
+// noinspection FunctionWithMultipleReturnPointsJS
+/**
+ * Get value for input parameters, or set a default value
+ * @param {Object} parameters
+ * @param {string} name
+ * @param defaultValue
+ */
+function getParametersValue$1(parameters, name, defaultValue)
+{
+	// noinspection ConstantOnRightSideOfComparisonJS, NonBlockStatementBodyJS
+	if((parameters instanceof Object) === false)
+		return defaultValue;
+	
+	// noinspection NonBlockStatementBodyJS
+	if(name in parameters)
+		return parameters[name];
+	
+	return defaultValue;
+}
+//**************************************************************************************
+/**
+ * Converts "ArrayBuffer" into a hexdecimal string
+ * @param {ArrayBuffer} inputBuffer
+ * @param {number} [inputOffset=0]
+ * @param {number} [inputLength=inputBuffer.byteLength]
+ * @param {boolean} [insertSpace=false]
+ * @returns {string}
+ */
+function bufferToHexCodes$1(inputBuffer, inputOffset = 0, inputLength = (inputBuffer.byteLength - inputOffset), insertSpace = false)
+{
+	let result = "";
+	
+	for(const item of (new Uint8Array(inputBuffer, inputOffset, inputLength)))
+	{
+		// noinspection ChainedFunctionCallJS
+		const str = item.toString(16).toUpperCase();
+		
+		// noinspection ConstantOnRightSideOfComparisonJS, NonBlockStatementBodyJS
+		if(str.length === 1)
+			result += "0";
+		
+		result += str;
+		
+		// noinspection NonBlockStatementBodyJS
+		if(insertSpace)
+			result += " ";
+	}
+	
+	return result.trim();
+}
+//**************************************************************************************
+// noinspection JSValidateJSDoc, FunctionWithMultipleReturnPointsJS
+/**
+ * Check input "ArrayBuffer" for common functions
+ * @param {LocalBaseBlock} baseBlock
+ * @param {ArrayBuffer} inputBuffer
+ * @param {number} inputOffset
+ * @param {number} inputLength
+ * @returns {boolean}
+ */
+function checkBufferParams$1(baseBlock, inputBuffer, inputOffset, inputLength)
+{
+	// noinspection ConstantOnRightSideOfComparisonJS
+	if((inputBuffer instanceof ArrayBuffer) === false)
+	{
+		// noinspection JSUndefinedPropertyAssignment
+		baseBlock.error = "Wrong parameter: inputBuffer must be \"ArrayBuffer\"";
+		return false;
+	}
+	
+	// noinspection ConstantOnRightSideOfComparisonJS
+	if(inputBuffer.byteLength === 0)
+	{
+		// noinspection JSUndefinedPropertyAssignment
+		baseBlock.error = "Wrong parameter: inputBuffer has zero length";
+		return false;
+	}
+	
+	// noinspection ConstantOnRightSideOfComparisonJS
+	if(inputOffset < 0)
+	{
+		// noinspection JSUndefinedPropertyAssignment
+		baseBlock.error = "Wrong parameter: inputOffset less than zero";
+		return false;
+	}
+	
+	// noinspection ConstantOnRightSideOfComparisonJS
+	if(inputLength < 0)
+	{
+		// noinspection JSUndefinedPropertyAssignment
+		baseBlock.error = "Wrong parameter: inputLength less than zero";
+		return false;
+	}
+	
+	// noinspection ConstantOnRightSideOfComparisonJS
+	if((inputBuffer.byteLength - inputOffset - inputLength) < 0)
+	{
+		// noinspection JSUndefinedPropertyAssignment
+		baseBlock.error = "End of input reached before message was fully decoded (inconsistent offset and length values)";
+		return false;
+	}
+	
+	return true;
+}
+//**************************************************************************************
+// noinspection FunctionWithMultipleReturnPointsJS
+/**
+ * Convert number from 2^base to 2^10
+ * @param {Uint8Array} inputBuffer
+ * @param {number} inputBase
+ * @returns {number}
+ */
+function utilFromBase$1(inputBuffer, inputBase)
+{
+	let result = 0;
+	
+	// noinspection ConstantOnRightSideOfComparisonJS, NonBlockStatementBodyJS
+	if(inputBuffer.length === 1)
+		return inputBuffer[0];
+	
+	// noinspection ConstantOnRightSideOfComparisonJS, NonBlockStatementBodyJS
+	for(let i = (inputBuffer.length - 1); i >= 0; i--)
+		result += inputBuffer[(inputBuffer.length - 1) - i] * Math.pow(2, inputBase * i);
+	
+	return result;
+}
+//**************************************************************************************
+// noinspection FunctionWithMultipleLoopsJS, FunctionWithMultipleReturnPointsJS
+/**
+ * Convert number from 2^10 to 2^base
+ * @param {!number} value The number to convert
+ * @param {!number} base The base for 2^base
+ * @param {number} [reserved=0] Pre-defined number of bytes in output array (-1 = limited by function itself)
+ * @returns {ArrayBuffer}
+ */
+function utilToBase$1(value, base, reserved = (-1))
+{
+	const internalReserved = reserved;
+	let internalValue = value;
+	
+	let result = 0;
+	let biggest = Math.pow(2, base);
+	
+	// noinspection ConstantOnRightSideOfComparisonJS
+	for(let i = 1; i < 8; i++)
+	{
+		if(value < biggest)
+		{
+			let retBuf;
+			
+			// noinspection ConstantOnRightSideOfComparisonJS
+			if(internalReserved < 0)
+			{
+				retBuf = new ArrayBuffer(i);
+				result = i;
+			}
+			else
+			{
+				// noinspection NonBlockStatementBodyJS
+				if(internalReserved < i)
+					return (new ArrayBuffer(0));
+				
+				retBuf = new ArrayBuffer(internalReserved);
+				
+				result = internalReserved;
+			}
+			
+			const retView = new Uint8Array(retBuf);
+			
+			// noinspection ConstantOnRightSideOfComparisonJS
+			for(let j = (i - 1); j >= 0; j--)
+			{
+				const basis = Math.pow(2, j * base);
+				
+				retView[result - j - 1] = Math.floor(internalValue / basis);
+				internalValue -= (retView[result - j - 1]) * basis;
+			}
+			
+			return retBuf;
+		}
+		
+		biggest *= Math.pow(2, base);
+	}
+	
+	return new ArrayBuffer(0);
+}
+//**************************************************************************************
+// noinspection FunctionWithMultipleLoopsJS
+/**
+ * Concatenate two ArrayBuffers
+ * @param {...ArrayBuffer} buffers Set of ArrayBuffer
+ */
+function utilConcatBuf$1(...buffers)
+{
+	//region Initial variables
+	let outputLength = 0;
+	let prevLength = 0;
+	//endregion
+	
+	//region Calculate output length
+	
+	// noinspection NonBlockStatementBodyJS
+	for(const buffer of buffers)
+		outputLength += buffer.byteLength;
+	//endregion
+	
+	const retBuf = new ArrayBuffer(outputLength);
+	const retView = new Uint8Array(retBuf);
+	
+	for(const buffer of buffers)
+	{
+		// noinspection NestedFunctionCallJS
+		retView.set(new Uint8Array(buffer), prevLength);
+		prevLength += buffer.byteLength;
+	}
+	
+	return retBuf;
+}
+//**************************************************************************************
+// noinspection FunctionWithMultipleLoopsJS
+/**
+ * Concatenate two Uint8Array
+ * @param {...Uint8Array} views Set of Uint8Array
+ */
+function utilConcatView$1(...views)
+{
+	//region Initial variables
+	let outputLength = 0;
+	let prevLength = 0;
+	//endregion
+	
+	//region Calculate output length
+	// noinspection NonBlockStatementBodyJS
+	for(const view of views)
+		outputLength += view.length;
+	//endregion
+	
+	const retBuf = new ArrayBuffer(outputLength);
+	const retView = new Uint8Array(retBuf);
+	
+	for(const view of views)
+	{
+		retView.set(view, prevLength);
+		prevLength += view.length;
+	}
+	
+	return retView;
+}
+//**************************************************************************************
+// noinspection FunctionWithMultipleLoopsJS
+/**
+ * Decoding of "two complement" values
+ * The function must be called in scope of instance of "hexBlock" class ("valueHex" and "warnings" properties must be present)
+ * @returns {number}
+ */
+function utilDecodeTC$1()
+{
+	const buf = new Uint8Array(this.valueHex);
+	
+	// noinspection ConstantOnRightSideOfComparisonJS
+	if(this.valueHex.byteLength >= 2)
+	{
+		//noinspection JSBitwiseOperatorUsage, ConstantOnRightSideOfComparisonJS, LocalVariableNamingConventionJS, MagicNumberJS, NonShortCircuitBooleanExpressionJS
+		const condition1 = (buf[0] === 0xFF) && (buf[1] & 0x80);
+		// noinspection ConstantOnRightSideOfComparisonJS, LocalVariableNamingConventionJS, MagicNumberJS, NonShortCircuitBooleanExpressionJS
+		const condition2 = (buf[0] === 0x00) && ((buf[1] & 0x80) === 0x00);
+		
+		// noinspection NonBlockStatementBodyJS
+		if(condition1 || condition2)
+			this.warnings.push("Needlessly long format");
+	}
+	
+	//region Create big part of the integer
+	const bigIntBuffer = new ArrayBuffer(this.valueHex.byteLength);
+	const bigIntView = new Uint8Array(bigIntBuffer);
+	// noinspection NonBlockStatementBodyJS
+	for(let i = 0; i < this.valueHex.byteLength; i++)
+		bigIntView[i] = 0;
+	
+	// noinspection MagicNumberJS, NonShortCircuitBooleanExpressionJS
+	bigIntView[0] = (buf[0] & 0x80); // mask only the biggest bit
+	
+	const bigInt = utilFromBase$1(bigIntView, 8);
+	//endregion
+	
+	//region Create small part of the integer
+	const smallIntBuffer = new ArrayBuffer(this.valueHex.byteLength);
+	const smallIntView = new Uint8Array(smallIntBuffer);
+	// noinspection NonBlockStatementBodyJS
+	for(let j = 0; j < this.valueHex.byteLength; j++)
+		smallIntView[j] = buf[j];
+	
+	// noinspection MagicNumberJS
+	smallIntView[0] &= 0x7F; // mask biggest bit
+	
+	const smallInt = utilFromBase$1(smallIntView, 8);
+	//endregion
+	
+	return (smallInt - bigInt);
+}
+//**************************************************************************************
+// noinspection FunctionWithMultipleLoopsJS, FunctionWithMultipleReturnPointsJS
+/**
+ * Encode integer value to "two complement" format
+ * @param {number} value Value to encode
+ * @returns {ArrayBuffer}
+ */
+function utilEncodeTC$1(value)
+{
+	// noinspection ConstantOnRightSideOfComparisonJS, ConditionalExpressionJS
+	const modValue = (value < 0) ? (value * (-1)) : value;
+	let bigInt = 128;
+	
+	// noinspection ConstantOnRightSideOfComparisonJS
+	for(let i = 1; i < 8; i++)
+	{
+		if(modValue <= bigInt)
+		{
+			// noinspection ConstantOnRightSideOfComparisonJS
+			if(value < 0)
+			{
+				const smallInt = bigInt - modValue;
+				
+				const retBuf = utilToBase$1(smallInt, 8, i);
+				const retView = new Uint8Array(retBuf);
+				
+				// noinspection MagicNumberJS
+				retView[0] |= 0x80;
+				
+				return retBuf;
+			}
+			
+			let retBuf = utilToBase$1(modValue, 8, i);
+			let retView = new Uint8Array(retBuf);
+			
+			//noinspection JSBitwiseOperatorUsage, MagicNumberJS, NonShortCircuitBooleanExpressionJS
+			if(retView[0] & 0x80)
+			{
+				//noinspection JSCheckFunctionSignatures
+				const tempBuf = retBuf.slice(0);
+				const tempView = new Uint8Array(tempBuf);
+				
+				retBuf = new ArrayBuffer(retBuf.byteLength + 1);
+				// noinspection ReuseOfLocalVariableJS
+				retView = new Uint8Array(retBuf);
+				
+				// noinspection NonBlockStatementBodyJS
+				for(let k = 0; k < tempBuf.byteLength; k++)
+					retView[k + 1] = tempView[k];
+				
+				// noinspection MagicNumberJS
+				retView[0] = 0x00;
+			}
+			
+			return retBuf;
+		}
+		
+		bigInt *= Math.pow(2, 8);
+	}
+	
+	return (new ArrayBuffer(0));
+}
+//**************************************************************************************
+// noinspection FunctionWithMultipleReturnPointsJS, ParameterNamingConventionJS
+/**
+ * Compare two array buffers
+ * @param {!ArrayBuffer} inputBuffer1
+ * @param {!ArrayBuffer} inputBuffer2
+ * @returns {boolean}
+ */
+function isEqualBuffer$1(inputBuffer1, inputBuffer2)
+{
+	// noinspection NonBlockStatementBodyJS
+	if(inputBuffer1.byteLength !== inputBuffer2.byteLength)
+		return false;
+	
+	// noinspection LocalVariableNamingConventionJS
+	const view1 = new Uint8Array(inputBuffer1);
+	// noinspection LocalVariableNamingConventionJS
+	const view2 = new Uint8Array(inputBuffer2);
+	
+	for(let i = 0; i < view1.length; i++)
+	{
+		// noinspection NonBlockStatementBodyJS
+		if(view1[i] !== view2[i])
+			return false;
+	}
+	
+	return true;
+}
+//**************************************************************************************
+// noinspection FunctionWithMultipleReturnPointsJS
+/**
+ * Pad input number with leade "0" if needed
+ * @returns {string}
+ * @param {number} inputNumber
+ * @param {number} fullLength
+ */
+function padNumber$1(inputNumber, fullLength)
+{
+	const str = inputNumber.toString(10);
+	
+	// noinspection NonBlockStatementBodyJS
+	if(fullLength < str.length)
+		return "";
+	
+	const dif = fullLength - str.length;
+	
+	const padding = new Array(dif);
+	// noinspection NonBlockStatementBodyJS
+	for(let i = 0; i < dif; i++)
+		padding[i] = "0";
+	
+	const paddingString = padding.join("");
+	
+	return paddingString.concat(str);
+}
+//**************************************************************************************
+const base64Template$1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+const base64UrlTemplate$1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_=";
+//**************************************************************************************
+// noinspection FunctionWithMultipleLoopsJS, OverlyComplexFunctionJS, FunctionTooLongJS, FunctionNamingConventionJS
+/**
+ * Encode string into BASE64 (or "base64url")
+ * @param {string} input
+ * @param {boolean} useUrlTemplate If "true" then output would be encoded using "base64url"
+ * @param {boolean} skipPadding Skip BASE-64 padding or not
+ * @param {boolean} skipLeadingZeros Skip leading zeros in input data or not
+ * @returns {string}
+ */
+function toBase64$1(input, useUrlTemplate = false, skipPadding = false, skipLeadingZeros = false)
+{
+	let i = 0;
+	
+	// noinspection LocalVariableNamingConventionJS
+	let flag1 = 0;
+	// noinspection LocalVariableNamingConventionJS
+	let flag2 = 0;
+	
+	let output = "";
+	
+	// noinspection ConditionalExpressionJS
+	const template = (useUrlTemplate) ? base64UrlTemplate$1 : base64Template$1;
+	
+	if(skipLeadingZeros)
+	{
+		let nonZeroPosition = 0;
+		
+		for(let i = 0; i < input.length; i++)
+		{
+			// noinspection ConstantOnRightSideOfComparisonJS
+			if(input.charCodeAt(i) !== 0)
+			{
+				nonZeroPosition = i;
+				// noinspection BreakStatementJS
+				break;
+			}
+		}
+		
+		// noinspection AssignmentToFunctionParameterJS
+		input = input.slice(nonZeroPosition);
+	}
+	
+	while(i < input.length)
+	{
+		// noinspection LocalVariableNamingConventionJS, IncrementDecrementResultUsedJS
+		const chr1 = input.charCodeAt(i++);
+		// noinspection NonBlockStatementBodyJS
+		if(i >= input.length)
+			flag1 = 1;
+		// noinspection LocalVariableNamingConventionJS, IncrementDecrementResultUsedJS
+		const chr2 = input.charCodeAt(i++);
+		// noinspection NonBlockStatementBodyJS
+		if(i >= input.length)
+			flag2 = 1;
+		// noinspection LocalVariableNamingConventionJS, IncrementDecrementResultUsedJS
+		const chr3 = input.charCodeAt(i++);
+		
+		// noinspection LocalVariableNamingConventionJS
+		const enc1 = chr1 >> 2;
+		// noinspection LocalVariableNamingConventionJS, MagicNumberJS, NonShortCircuitBooleanExpressionJS
+		const enc2 = ((chr1 & 0x03) << 4) | (chr2 >> 4);
+		// noinspection LocalVariableNamingConventionJS, MagicNumberJS, NonShortCircuitBooleanExpressionJS
+		let enc3 = ((chr2 & 0x0F) << 2) | (chr3 >> 6);
+		// noinspection LocalVariableNamingConventionJS, MagicNumberJS, NonShortCircuitBooleanExpressionJS
+		let enc4 = chr3 & 0x3F;
+		
+		// noinspection ConstantOnRightSideOfComparisonJS
+		if(flag1 === 1)
+		{
+			// noinspection NestedAssignmentJS, AssignmentResultUsedJS, MagicNumberJS
+			enc3 = enc4 = 64;
+		}
+		else
+		{
+			// noinspection ConstantOnRightSideOfComparisonJS
+			if(flag2 === 1)
+			{
+				// noinspection MagicNumberJS
+				enc4 = 64;
+			}
+		}
+		
+		// noinspection NonBlockStatementBodyJS
+		if(skipPadding)
+		{
+			// noinspection ConstantOnRightSideOfComparisonJS, NonBlockStatementBodyJS, MagicNumberJS
+			if(enc3 === 64)
+				output += `${template.charAt(enc1)}${template.charAt(enc2)}`;
+			else
+			{
+				// noinspection ConstantOnRightSideOfComparisonJS, NonBlockStatementBodyJS, MagicNumberJS
+				if(enc4 === 64)
+					output += `${template.charAt(enc1)}${template.charAt(enc2)}${template.charAt(enc3)}`;
+				else
+					output += `${template.charAt(enc1)}${template.charAt(enc2)}${template.charAt(enc3)}${template.charAt(enc4)}`;
+			}
+		}
+		else
+			output += `${template.charAt(enc1)}${template.charAt(enc2)}${template.charAt(enc3)}${template.charAt(enc4)}`;
+	}
+	
+	return output;
+}
+//**************************************************************************************
+// noinspection FunctionWithMoreThanThreeNegationsJS, FunctionWithMultipleLoopsJS, OverlyComplexFunctionJS, FunctionNamingConventionJS
+/**
+ * Decode string from BASE64 (or "base64url")
+ * @param {string} input
+ * @param {boolean} [useUrlTemplate=false] If "true" then output would be encoded using "base64url"
+ * @param {boolean} [cutTailZeros=false] If "true" then cut tailing zeroz from function result
+ * @returns {string}
+ */
+function fromBase64$1(input, useUrlTemplate = false, cutTailZeros = false)
+{
+	// noinspection ConditionalExpressionJS
+	const template = (useUrlTemplate) ? base64UrlTemplate$1 : base64Template$1;
+	
+	//region Aux functions
+	// noinspection FunctionWithMultipleReturnPointsJS, NestedFunctionJS
+	function indexof(toSearch)
+	{
+		// noinspection ConstantOnRightSideOfComparisonJS, MagicNumberJS
+		for(let i = 0; i < 64; i++)
+		{
+			// noinspection NonBlockStatementBodyJS
+			if(template.charAt(i) === toSearch)
+				return i;
+		}
+		
+		// noinspection MagicNumberJS
+		return 64;
+	}
+	
+	// noinspection NestedFunctionJS
+	function test(incoming)
+	{
+		// noinspection ConstantOnRightSideOfComparisonJS, ConditionalExpressionJS, MagicNumberJS
+		return ((incoming === 64) ? 0x00 : incoming);
+	}
+	//endregion
+	
+	let i = 0;
+	
+	let output = "";
+	
+	while(i < input.length)
+	{
+		// noinspection NestedFunctionCallJS, LocalVariableNamingConventionJS, IncrementDecrementResultUsedJS
+		const enc1 = indexof(input.charAt(i++));
+		// noinspection NestedFunctionCallJS, LocalVariableNamingConventionJS, ConditionalExpressionJS, MagicNumberJS, IncrementDecrementResultUsedJS
+		const enc2 = (i >= input.length) ? 0x00 : indexof(input.charAt(i++));
+		// noinspection NestedFunctionCallJS, LocalVariableNamingConventionJS, ConditionalExpressionJS, MagicNumberJS, IncrementDecrementResultUsedJS
+		const enc3 = (i >= input.length) ? 0x00 : indexof(input.charAt(i++));
+		// noinspection NestedFunctionCallJS, LocalVariableNamingConventionJS, ConditionalExpressionJS, MagicNumberJS, IncrementDecrementResultUsedJS
+		const enc4 = (i >= input.length) ? 0x00 : indexof(input.charAt(i++));
+		
+		// noinspection LocalVariableNamingConventionJS, NonShortCircuitBooleanExpressionJS
+		const chr1 = (test(enc1) << 2) | (test(enc2) >> 4);
+		// noinspection LocalVariableNamingConventionJS, MagicNumberJS, NonShortCircuitBooleanExpressionJS
+		const chr2 = ((test(enc2) & 0x0F) << 4) | (test(enc3) >> 2);
+		// noinspection LocalVariableNamingConventionJS, MagicNumberJS, NonShortCircuitBooleanExpressionJS
+		const chr3 = ((test(enc3) & 0x03) << 6) | test(enc4);
+		
+		output += String.fromCharCode(chr1);
+		
+		// noinspection ConstantOnRightSideOfComparisonJS, NonBlockStatementBodyJS, MagicNumberJS
+		if(enc3 !== 64)
+			output += String.fromCharCode(chr2);
+		
+		// noinspection ConstantOnRightSideOfComparisonJS, NonBlockStatementBodyJS, MagicNumberJS
+		if(enc4 !== 64)
+			output += String.fromCharCode(chr3);
+	}
+	
+	if(cutTailZeros)
+	{
+		const outputLength = output.length;
+		let nonZeroStart = (-1);
+		
+		// noinspection ConstantOnRightSideOfComparisonJS
+		for(let i = (outputLength - 1); i >= 0; i--)
+		{
+			// noinspection ConstantOnRightSideOfComparisonJS
+			if(output.charCodeAt(i) !== 0)
+			{
+				nonZeroStart = i;
+				// noinspection BreakStatementJS
+				break;
+			}
+		}
+		
+		// noinspection NonBlockStatementBodyJS, NegatedIfStatementJS
+		if(nonZeroStart !== (-1))
+			output = output.slice(0, nonZeroStart + 1);
+		else
+			output = "";
+	}
+	
+	return output;
+}
+//**************************************************************************************
+function arrayBufferToString$1(buffer)
+{
+	let resultString = "";
+	const view = new Uint8Array(buffer);
+	
+	// noinspection NonBlockStatementBodyJS
+	for(const element of view)
+		resultString += String.fromCharCode(element);
+	
+	return resultString;
+}
+//**************************************************************************************
+function stringToArrayBuffer$1(str)
+{
+	const stringLength = str.length;
+	
+	const resultBuffer = new ArrayBuffer(stringLength);
+	const resultView = new Uint8Array(resultBuffer);
+	
+	// noinspection NonBlockStatementBodyJS
+	for(let i = 0; i < stringLength; i++)
+		resultView[i] = str.charCodeAt(i);
+	
+	return resultBuffer;
+}
+//**************************************************************************************
+const log2$1 = Math.log(2);
+//**************************************************************************************
+// noinspection FunctionNamingConventionJS
+/**
+ * Get nearest to input length power of 2
+ * @param {number} length Current length of existing array
+ * @returns {number}
+ */
+function nearestPowerOf2$1(length)
+{
+	const base = (Math.log(length) / log2$1);
+	
+	const floor = Math.floor(base);
+	const round = Math.round(base);
+	
+	// noinspection ConditionalExpressionJS
+	return ((floor === round) ? floor : round);
+}
+//**************************************************************************************
+/**
+ * Delete properties by name from specified object
+ * @param {Object} object Object to delete properties from
+ * @param {Array.<string>} propsArray Array of properties names
+ */
+function clearProps$1(object, propsArray)
+{
+	for(const prop of propsArray)
+		delete object[prop];
+}
+//**************************************************************************************
+
+/* eslint-disable indent */
+//**************************************************************************************
+//region Declaration of global variables
+//**************************************************************************************
+const powers2$1 = [new Uint8Array([1])];
+const digitsString$1 = "0123456789";
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration for "LocalBaseBlock" class
+//**************************************************************************************
+/**
+ * Class used as a base block for all remaining ASN.1 classes
+ * @typedef LocalBaseBlock
+ * @interface
+ * @property {number} blockLength
+ * @property {string} error
+ * @property {Array.<string>} warnings
+ * @property {ArrayBuffer} valueBeforeDecode
+ */
+class LocalBaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalBaseBlock" class
+	 * @param {Object} [parameters={}]
+	 * @property {ArrayBuffer} [valueBeforeDecode]
+	 */
+	constructor(parameters = {})
+	{
+		/**
+		 * @type {number} blockLength
+		 */
+		this.blockLength = getParametersValue$1(parameters, "blockLength", 0);
+		/**
+		 * @type {string} error
+		 */
+		this.error = getParametersValue$1(parameters, "error", "");
+		/**
+		 * @type {Array.<string>} warnings
+		 */
+		this.warnings = getParametersValue$1(parameters, "warnings", []);
+		//noinspection JSCheckFunctionSignatures
+		/**
+		 * @type {ArrayBuffer} valueBeforeDecode
+		 */
+		if("valueBeforeDecode" in parameters)
+			this.valueBeforeDecode = parameters.valueBeforeDecode.slice(0);
+		else
+			this.valueBeforeDecode = new ArrayBuffer(0);
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "baseBlock";
+	}
+	//**********************************************************************************
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {{blockName: string, blockLength: number, error: string, warnings: Array.<string>, valueBeforeDecode: string}}
+	 */
+	toJSON()
+	{
+		return {
+			blockName: this.constructor.blockName(),
+			blockLength: this.blockLength,
+			error: this.error,
+			warnings: this.warnings,
+			valueBeforeDecode: bufferToHexCodes$1(this.valueBeforeDecode, 0, this.valueBeforeDecode.byteLength)
+		};
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Description for "HexBlock" class
+//**************************************************************************************
+/**
+ * Class used as a base block for all remaining ASN.1 classes
+ * @extends LocalBaseBlock
+ * @typedef HexBlock
+ * @property {number} blockLength
+ * @property {string} error
+ * @property {Array.<string>} warnings
+ * @property {ArrayBuffer} valueBeforeDecode
+ * @property {boolean} isHexOnly
+ * @property {ArrayBuffer} valueHex
+ */
+//noinspection JSUnusedLocalSymbols
+const HexBlock$1 = BaseClass => class LocalHexBlockMixin extends BaseClass
+{
+	//**********************************************************************************
+	//noinspection JSUnusedGlobalSymbols
+	/**
+	 * Constructor for "HexBlock" class
+	 * @param {Object} [parameters={}]
+	 * @property {ArrayBuffer} [valueHex]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		/**
+		 * @type {boolean}
+		 */
+		this.isHexOnly = getParametersValue$1(parameters, "isHexOnly", false);
+		/**
+		 * @type {ArrayBuffer}
+		 */
+		if("valueHex" in parameters)
+			this.valueHex = parameters.valueHex.slice(0);
+		else
+			this.valueHex = new ArrayBuffer(0);
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "hexBlock";
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		//region Basic check for parameters
+		//noinspection JSCheckFunctionSignatures
+		if(checkBufferParams$1(this, inputBuffer, inputOffset, inputLength) === false)
+			return (-1);
+		//endregion
+
+		//region Getting Uint8Array from ArrayBuffer
+		const intBuffer = new Uint8Array(inputBuffer, inputOffset, inputLength);
+		//endregion
+
+		//region Initial checks
+		if(intBuffer.length === 0)
+		{
+			this.warnings.push("Zero buffer length");
+			return inputOffset;
+		}
+		//endregion
+
+		//region Copy input buffer to internal buffer
+		this.valueHex = inputBuffer.slice(inputOffset, inputOffset + inputLength);
+		//endregion
+
+		this.blockLength = inputLength;
+
+		return (inputOffset + inputLength);
+	}
+	//**********************************************************************************
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		if(this.isHexOnly !== true)
+		{
+			this.error = "Flag \"isHexOnly\" is not set, abort";
+			return new ArrayBuffer(0);
+		}
+
+		if(sizeOnly === true)
+			return new ArrayBuffer(this.valueHex.byteLength);
+
+		//noinspection JSCheckFunctionSignatures
+		return this.valueHex.slice(0);
+	}
+	//**********************************************************************************
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {Object}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.blockName = this.constructor.blockName();
+		object.isHexOnly = this.isHexOnly;
+		object.valueHex = bufferToHexCodes$1(this.valueHex, 0, this.valueHex.byteLength);
+
+		return object;
+	}
+	//**********************************************************************************
+};
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of identification block class
+//**************************************************************************************
+class LocalIdentificationBlock$1 extends HexBlock$1(LocalBaseBlock$1)
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalBaseBlock" class
+	 * @param {Object} [parameters={}]
+	 * @property {Object} [idBlock]
+	 */
+	constructor(parameters = {})
+	{
+		super();
+
+		if("idBlock" in parameters)
+		{
+			//region Properties from hexBlock class
+			this.isHexOnly = getParametersValue$1(parameters.idBlock, "isHexOnly", false);
+			this.valueHex = getParametersValue$1(parameters.idBlock, "valueHex", new ArrayBuffer(0));
+			//endregion
+
+			this.tagClass = getParametersValue$1(parameters.idBlock, "tagClass", (-1));
+			this.tagNumber = getParametersValue$1(parameters.idBlock, "tagNumber", (-1));
+			this.isConstructed = getParametersValue$1(parameters.idBlock, "isConstructed", false);
+		}
+		else
+		{
+			this.tagClass = (-1);
+			this.tagNumber = (-1);
+			this.isConstructed = false;
+		}
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "identificationBlock";
+	}
+	//**********************************************************************************
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		//region Initial variables
+		let firstOctet = 0;
+		let retBuf;
+		let retView;
+		//endregion
+
+		switch(this.tagClass)
+		{
+			case 1:
+				firstOctet |= 0x00; // UNIVERSAL
+				break;
+			case 2:
+				firstOctet |= 0x40; // APPLICATION
+				break;
+			case 3:
+				firstOctet |= 0x80; // CONTEXT-SPECIFIC
+				break;
+			case 4:
+				firstOctet |= 0xC0; // PRIVATE
+				break;
+			default:
+				this.error = "Unknown tag class";
+				return (new ArrayBuffer(0));
+		}
+
+		if(this.isConstructed)
+			firstOctet |= 0x20;
+
+		if((this.tagNumber < 31) && (!this.isHexOnly))
+		{
+			retBuf = new ArrayBuffer(1);
+			retView = new Uint8Array(retBuf);
+
+			if(!sizeOnly)
+			{
+				let number = this.tagNumber;
+				number &= 0x1F;
+				firstOctet |= number;
+
+				retView[0] = firstOctet;
+			}
+
+			return retBuf;
+		}
+
+		if(this.isHexOnly === false)
+		{
+			const encodedBuf = utilToBase$1(this.tagNumber, 7);
+			const encodedView = new Uint8Array(encodedBuf);
+			const size = encodedBuf.byteLength;
+
+			retBuf = new ArrayBuffer(size + 1);
+			retView = new Uint8Array(retBuf);
+			retView[0] = (firstOctet | 0x1F);
+
+			if(!sizeOnly)
+			{
+				for(let i = 0; i < (size - 1); i++)
+					retView[i + 1] = encodedView[i] | 0x80;
+
+				retView[size] = encodedView[size - 1];
+			}
+
+			return retBuf;
+		}
+
+		retBuf = new ArrayBuffer(this.valueHex.byteLength + 1);
+		retView = new Uint8Array(retBuf);
+
+		retView[0] = (firstOctet | 0x1F);
+
+		if(sizeOnly === false)
+		{
+			const curView = new Uint8Array(this.valueHex);
+
+			for(let i = 0; i < (curView.length - 1); i++)
+				retView[i + 1] = curView[i] | 0x80;
+
+			retView[this.valueHex.byteLength] = curView[curView.length - 1];
+		}
+
+		return retBuf;
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number}
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		//region Basic check for parameters
+		//noinspection JSCheckFunctionSignatures
+		if(checkBufferParams$1(this, inputBuffer, inputOffset, inputLength) === false)
+			return (-1);
+		//endregion
+
+		//region Getting Uint8Array from ArrayBuffer
+		const intBuffer = new Uint8Array(inputBuffer, inputOffset, inputLength);
+		//endregion
+
+		//region Initial checks
+		if(intBuffer.length === 0)
+		{
+			this.error = "Zero buffer length";
+			return (-1);
+		}
+		//endregion
+
+		//region Find tag class
+		const tagClassMask = intBuffer[0] & 0xC0;
+
+		switch(tagClassMask)
+		{
+			case 0x00:
+				this.tagClass = (1); // UNIVERSAL
+				break;
+			case 0x40:
+				this.tagClass = (2); // APPLICATION
+				break;
+			case 0x80:
+				this.tagClass = (3); // CONTEXT-SPECIFIC
+				break;
+			case 0xC0:
+				this.tagClass = (4); // PRIVATE
+				break;
+			default:
+				this.error = "Unknown tag class";
+				return (-1);
+		}
+		//endregion
+
+		//region Find it's constructed or not
+		this.isConstructed = (intBuffer[0] & 0x20) === 0x20;
+		//endregion
+
+		//region Find tag number
+		this.isHexOnly = false;
+
+		const tagNumberMask = intBuffer[0] & 0x1F;
+
+		//region Simple case (tag number < 31)
+		if(tagNumberMask !== 0x1F)
+		{
+			this.tagNumber = (tagNumberMask);
+			this.blockLength = 1;
+		}
+		//endregion
+		//region Tag number bigger or equal to 31
+		else
+		{
+			let count = 1;
+
+			this.valueHex = new ArrayBuffer(255);
+			let tagNumberBufferMaxLength = 255;
+			let intTagNumberBuffer = new Uint8Array(this.valueHex);
+
+			//noinspection JSBitwiseOperatorUsage
+			while(intBuffer[count] & 0x80)
+			{
+				intTagNumberBuffer[count - 1] = intBuffer[count] & 0x7F;
+				count++;
+
+				if(count >= intBuffer.length)
+				{
+					this.error = "End of input reached before message was fully decoded";
+					return (-1);
+				}
+
+				//region In case if tag number length is greater than 255 bytes (rare but possible case)
+				if(count === tagNumberBufferMaxLength)
+				{
+					tagNumberBufferMaxLength += 255;
+
+					const tempBuffer = new ArrayBuffer(tagNumberBufferMaxLength);
+					const tempBufferView = new Uint8Array(tempBuffer);
+
+					for(let i = 0; i < intTagNumberBuffer.length; i++)
+						tempBufferView[i] = intTagNumberBuffer[i];
+
+					this.valueHex = new ArrayBuffer(tagNumberBufferMaxLength);
+					intTagNumberBuffer = new Uint8Array(this.valueHex);
+				}
+				//endregion
+			}
+
+			this.blockLength = (count + 1);
+			intTagNumberBuffer[count - 1] = intBuffer[count] & 0x7F; // Write last byte to buffer
+
+			//region Cut buffer
+			const tempBuffer = new ArrayBuffer(count);
+			const tempBufferView = new Uint8Array(tempBuffer);
+
+			for(let i = 0; i < count; i++)
+				tempBufferView[i] = intTagNumberBuffer[i];
+
+			this.valueHex = new ArrayBuffer(count);
+			intTagNumberBuffer = new Uint8Array(this.valueHex);
+			intTagNumberBuffer.set(tempBufferView);
+			//endregion
+
+			//region Try to convert long tag number to short form
+			if(this.blockLength <= 9)
+				this.tagNumber = utilFromBase$1(intTagNumberBuffer, 7);
+			else
+			{
+				this.isHexOnly = true;
+				this.warnings.push("Tag too long, represented as hex-coded");
+			}
+			//endregion
+		}
+		//endregion
+		//endregion
+
+		//region Check if constructed encoding was using for primitive type
+		if(((this.tagClass === 1)) &&
+			(this.isConstructed))
+		{
+			switch(this.tagNumber)
+			{
+				case 1:  // Boolean
+				case 2:  // REAL
+				case 5:  // Null
+				case 6:  // OBJECT IDENTIFIER
+				case 9:  // REAL
+				case 13: // RELATIVE OBJECT IDENTIFIER
+				case 14: // Time
+				case 23:
+				case 24:
+				case 31:
+				case 32:
+				case 33:
+				case 34:
+					this.error = "Constructed encoding used for primitive type";
+					return (-1);
+				default:
+			}
+		}
+		//endregion
+
+		return (inputOffset + this.blockLength); // Return current offset in input buffer
+	}
+	//**********************************************************************************
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {{blockName: string,
+	 *  tagClass: number,
+	 *  tagNumber: number,
+	 *  isConstructed: boolean,
+	 *  isHexOnly: boolean,
+	 *  valueHex: ArrayBuffer,
+	 *  blockLength: number,
+	 *  error: string, warnings: Array.<string>,
+	 *  valueBeforeDecode: string}}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.blockName = this.constructor.blockName();
+		object.tagClass = this.tagClass;
+		object.tagNumber = this.tagNumber;
+		object.isConstructed = this.isConstructed;
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of length block class
+//**************************************************************************************
+class LocalLengthBlock$1 extends LocalBaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalLengthBlock" class
+	 * @param {Object} [parameters={}]
+	 * @property {Object} [lenBlock]
+	 */
+	constructor(parameters = {})
+	{
+		super();
+
+		if("lenBlock" in parameters)
+		{
+			this.isIndefiniteForm = getParametersValue$1(parameters.lenBlock, "isIndefiniteForm", false);
+			this.longFormUsed = getParametersValue$1(parameters.lenBlock, "longFormUsed", false);
+			this.length = getParametersValue$1(parameters.lenBlock, "length", 0);
+		}
+		else
+		{
+			this.isIndefiniteForm = false;
+			this.longFormUsed = false;
+			this.length = 0;
+		}
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "lengthBlock";
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number}
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		//region Basic check for parameters
+		//noinspection JSCheckFunctionSignatures
+		if(checkBufferParams$1(this, inputBuffer, inputOffset, inputLength) === false)
+			return (-1);
+		//endregion
+
+		//region Getting Uint8Array from ArrayBuffer
+		const intBuffer = new Uint8Array(inputBuffer, inputOffset, inputLength);
+		//endregion
+
+		//region Initial checks
+		if(intBuffer.length === 0)
+		{
+			this.error = "Zero buffer length";
+			return (-1);
+		}
+
+		if(intBuffer[0] === 0xFF)
+		{
+			this.error = "Length block 0xFF is reserved by standard";
+			return (-1);
+		}
+		//endregion
+
+		//region Check for length form type
+		this.isIndefiniteForm = intBuffer[0] === 0x80;
+		//endregion
+
+		//region Stop working in case of indefinite length form
+		if(this.isIndefiniteForm === true)
+		{
+			this.blockLength = 1;
+			return (inputOffset + this.blockLength);
+		}
+		//endregion
+
+		//region Check is long form of length encoding using
+		this.longFormUsed = !!(intBuffer[0] & 0x80);
+		//endregion
+
+		//region Stop working in case of short form of length value
+		if(this.longFormUsed === false)
+		{
+			this.length = (intBuffer[0]);
+			this.blockLength = 1;
+			return (inputOffset + this.blockLength);
+		}
+		//endregion
+
+		//region Calculate length value in case of long form
+		const count = intBuffer[0] & 0x7F;
+
+		if(count > 8) // Too big length value
+		{
+			this.error = "Too big integer";
+			return (-1);
+		}
+
+		if((count + 1) > intBuffer.length)
+		{
+			this.error = "End of input reached before message was fully decoded";
+			return (-1);
+		}
+
+		const lengthBufferView = new Uint8Array(count);
+
+		for(let i = 0; i < count; i++)
+			lengthBufferView[i] = intBuffer[i + 1];
+
+		if(lengthBufferView[count - 1] === 0x00)
+			this.warnings.push("Needlessly long encoded length");
+
+		this.length = utilFromBase$1(lengthBufferView, 8);
+
+		if(this.longFormUsed && (this.length <= 127))
+			this.warnings.push("Unneccesary usage of long length form");
+
+		this.blockLength = count + 1;
+		//endregion
+
+		return (inputOffset + this.blockLength); // Return current offset in input buffer
+	}
+	//**********************************************************************************
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		//region Initial variables
+		let retBuf;
+		let retView;
+		//endregion
+
+		if(this.length > 127)
+			this.longFormUsed = true;
+
+		if(this.isIndefiniteForm)
+		{
+			retBuf = new ArrayBuffer(1);
+
+			if(sizeOnly === false)
+			{
+				retView = new Uint8Array(retBuf);
+				retView[0] = 0x80;
+			}
+
+			return retBuf;
+		}
+
+		if(this.longFormUsed === true)
+		{
+			const encodedBuf = utilToBase$1(this.length, 8);
+
+			if(encodedBuf.byteLength > 127)
+			{
+				this.error = "Too big length";
+				return (new ArrayBuffer(0));
+			}
+
+			retBuf = new ArrayBuffer(encodedBuf.byteLength + 1);
+
+			if(sizeOnly === true)
+				return retBuf;
+
+			const encodedView = new Uint8Array(encodedBuf);
+			retView = new Uint8Array(retBuf);
+
+			retView[0] = encodedBuf.byteLength | 0x80;
+
+			for(let i = 0; i < encodedBuf.byteLength; i++)
+				retView[i + 1] = encodedView[i];
+
+			return retBuf;
+		}
+
+		retBuf = new ArrayBuffer(1);
+
+		if(sizeOnly === false)
+		{
+			retView = new Uint8Array(retBuf);
+
+			retView[0] = this.length;
+		}
+
+		return retBuf;
+	}
+	//**********************************************************************************
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {{blockName, blockLength, error, warnings, valueBeforeDecode}|{blockName: string, blockLength: number, error: string, warnings: Array.<string>, valueBeforeDecode: string}}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.blockName = this.constructor.blockName();
+		object.isIndefiniteForm = this.isIndefiniteForm;
+		object.longFormUsed = this.longFormUsed;
+		object.length = this.length;
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of value block class
+//**************************************************************************************
+class ValueBlock$1 extends LocalBaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "ValueBlock" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "valueBlock";
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedLocalSymbols,JSUnusedLocalSymbols,JSUnusedLocalSymbols
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number}
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		//region Throw an exception for a function which needs to be specified in extended classes
+		throw TypeError("User need to make a specific function in a class which extends \"ValueBlock\"");
+		//endregion
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedLocalSymbols
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		//region Throw an exception for a function which needs to be specified in extended classes
+		throw TypeError("User need to make a specific function in a class which extends \"ValueBlock\"");
+		//endregion
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of basic ASN.1 block class
+//**************************************************************************************
+class BaseBlock$1 extends LocalBaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "BaseBlock" class
+	 * @param {Object} [parameters={}]
+	 * @property {Object} [primitiveSchema]
+	 * @property {string} [name]
+	 * @property {boolean} [optional]
+	 * @param valueBlockType Type of value block
+	 */
+	constructor(parameters = {}, valueBlockType = ValueBlock$1)
+	{
+		super(parameters);
+
+		if("name" in parameters)
+			this.name = parameters.name;
+		if("optional" in parameters)
+			this.optional = parameters.optional;
+		if("primitiveSchema" in parameters)
+			this.primitiveSchema = parameters.primitiveSchema;
+
+		this.idBlock = new LocalIdentificationBlock$1(parameters);
+		this.lenBlock = new LocalLengthBlock$1(parameters);
+		this.valueBlock = new valueBlockType(parameters);
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "BaseBlock";
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number}
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		const resultOffset = this.valueBlock.fromBER(inputBuffer, inputOffset, (this.lenBlock.isIndefiniteForm === true) ? inputLength : this.lenBlock.length);
+		if(resultOffset === (-1))
+		{
+			this.error = this.valueBlock.error;
+			return resultOffset;
+		}
+
+		if(this.idBlock.error.length === 0)
+			this.blockLength += this.idBlock.blockLength;
+
+		if(this.lenBlock.error.length === 0)
+			this.blockLength += this.lenBlock.blockLength;
+
+		if(this.valueBlock.error.length === 0)
+			this.blockLength += this.valueBlock.blockLength;
+
+		return resultOffset;
+	}
+	//**********************************************************************************
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		let retBuf;
+
+		const idBlockBuf = this.idBlock.toBER(sizeOnly);
+		const valueBlockSizeBuf = this.valueBlock.toBER(true);
+
+		this.lenBlock.length = valueBlockSizeBuf.byteLength;
+		const lenBlockBuf = this.lenBlock.toBER(sizeOnly);
+
+		retBuf = utilConcatBuf$1(idBlockBuf, lenBlockBuf);
+
+		let valueBlockBuf;
+
+		if(sizeOnly === false)
+			valueBlockBuf = this.valueBlock.toBER(sizeOnly);
+		else
+			valueBlockBuf = new ArrayBuffer(this.lenBlock.length);
+
+		retBuf = utilConcatBuf$1(retBuf, valueBlockBuf);
+
+		if(this.lenBlock.isIndefiniteForm === true)
+		{
+			const indefBuf = new ArrayBuffer(2);
+
+			if(sizeOnly === false)
+			{
+				const indefView = new Uint8Array(indefBuf);
+
+				indefView[0] = 0x00;
+				indefView[1] = 0x00;
+			}
+
+			retBuf = utilConcatBuf$1(retBuf, indefBuf);
+		}
+
+		return retBuf;
+	}
+	//**********************************************************************************
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {{blockName, blockLength, error, warnings, valueBeforeDecode}|{blockName: string, blockLength: number, error: string, warnings: Array.<string>, valueBeforeDecode: string}}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.idBlock = this.idBlock.toJSON();
+		object.lenBlock = this.lenBlock.toJSON();
+		object.valueBlock = this.valueBlock.toJSON();
+
+		if("name" in this)
+			object.name = this.name;
+		if("optional" in this)
+			object.optional = this.optional;
+		if("primitiveSchema" in this)
+			object.primitiveSchema = this.primitiveSchema.toJSON();
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of basic block for all PRIMITIVE types
+//**************************************************************************************
+class LocalPrimitiveValueBlock$1 extends ValueBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalPrimitiveValueBlock" class
+	 * @param {Object} [parameters={}]
+	 * @property {ArrayBuffer} [valueBeforeDecode]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		//region Variables from "hexBlock" class
+		if("valueHex" in parameters)
+			this.valueHex = parameters.valueHex.slice(0);
+		else
+			this.valueHex = new ArrayBuffer(0);
+
+		this.isHexOnly = getParametersValue$1(parameters, "isHexOnly", true);
+		//endregion
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number}
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		//region Basic check for parameters
+		//noinspection JSCheckFunctionSignatures
+		if(checkBufferParams$1(this, inputBuffer, inputOffset, inputLength) === false)
+			return (-1);
+		//endregion
+
+		//region Getting Uint8Array from ArrayBuffer
+		const intBuffer = new Uint8Array(inputBuffer, inputOffset, inputLength);
+		//endregion
+
+		//region Initial checks
+		if(intBuffer.length === 0)
+		{
+			this.warnings.push("Zero buffer length");
+			return inputOffset;
+		}
+		//endregion
+
+		//region Copy input buffer into internal buffer
+		this.valueHex = new ArrayBuffer(intBuffer.length);
+		const valueHexView = new Uint8Array(this.valueHex);
+
+		for(let i = 0; i < intBuffer.length; i++)
+			valueHexView[i] = intBuffer[i];
+		//endregion
+
+		this.blockLength = inputLength;
+
+		return (inputOffset + inputLength);
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedLocalSymbols
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		return this.valueHex.slice(0);
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "PrimitiveValueBlock";
+	}
+	//**********************************************************************************
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {{blockName, blockLength, error, warnings, valueBeforeDecode}|{blockName: string, blockLength: number, error: string, warnings: Array.<string>, valueBeforeDecode: string}}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.valueHex = bufferToHexCodes$1(this.valueHex, 0, this.valueHex.byteLength);
+		object.isHexOnly = this.isHexOnly;
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+class Primitive$1 extends BaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "Primitive" class
+	 * @param {Object} [parameters={}]
+	 * @property {ArrayBuffer} [valueHex]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters, LocalPrimitiveValueBlock$1);
+
+		this.idBlock.isConstructed = false;
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "PRIMITIVE";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of basic block for all CONSTRUCTED types
+//**************************************************************************************
+class LocalConstructedValueBlock$1 extends ValueBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalConstructedValueBlock" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.value = getParametersValue$1(parameters, "value", []);
+		this.isIndefiniteForm = getParametersValue$1(parameters, "isIndefiniteForm", false);
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number}
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		//region Store initial offset and length
+		const initialOffset = inputOffset;
+		const initialLength = inputLength;
+		//endregion
+
+		//region Basic check for parameters
+		//noinspection JSCheckFunctionSignatures
+		if(checkBufferParams$1(this, inputBuffer, inputOffset, inputLength) === false)
+			return (-1);
+		//endregion
+
+		//region Getting Uint8Array from ArrayBuffer
+		const intBuffer = new Uint8Array(inputBuffer, inputOffset, inputLength);
+		//endregion
+
+		//region Initial checks
+		if(intBuffer.length === 0)
+		{
+			this.warnings.push("Zero buffer length");
+			return inputOffset;
+		}
+		//endregion
+
+		//region Aux function
+		function checkLen(indefiniteLength, length)
+		{
+			if(indefiniteLength === true)
+				return 1;
+
+			return length;
+		}
+		//endregion
+
+		let currentOffset = inputOffset;
+
+		while(checkLen(this.isIndefiniteForm, inputLength) > 0)
+		{
+			const returnObject = LocalFromBER$1(inputBuffer, currentOffset, inputLength);
+			if(returnObject.offset === (-1))
+			{
+				this.error = returnObject.result.error;
+				this.warnings.concat(returnObject.result.warnings);
+				return (-1);
+			}
+
+			currentOffset = returnObject.offset;
+
+			this.blockLength += returnObject.result.blockLength;
+			inputLength -= returnObject.result.blockLength;
+
+			this.value.push(returnObject.result);
+
+			if((this.isIndefiniteForm === true) && (returnObject.result.constructor.blockName() === EndOfContent$1.blockName()))
+				break;
+		}
+
+		if(this.isIndefiniteForm === true)
+		{
+			if(this.value[this.value.length - 1].constructor.blockName() === EndOfContent$1.blockName())
+				this.value.pop();
+			else
+				this.warnings.push("No EndOfContent block encoded");
+		}
+
+		//region Copy "inputBuffer" to "valueBeforeDecode"
+		this.valueBeforeDecode = inputBuffer.slice(initialOffset, initialOffset + initialLength);
+		//endregion
+
+		return currentOffset;
+	}
+	//**********************************************************************************
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		let retBuf = new ArrayBuffer(0);
+
+		for(let i = 0; i < this.value.length; i++)
+		{
+			const valueBuf = this.value[i].toBER(sizeOnly);
+			retBuf = utilConcatBuf$1(retBuf, valueBuf);
+		}
+
+		return retBuf;
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "ConstructedValueBlock";
+	}
+	//**********************************************************************************
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {{blockName, blockLength, error, warnings, valueBeforeDecode}|{blockName: string, blockLength: number, error: string, warnings: Array.<string>, valueBeforeDecode: string}}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.isIndefiniteForm = this.isIndefiniteForm;
+		object.value = [];
+		for(let i = 0; i < this.value.length; i++)
+			object.value.push(this.value[i].toJSON());
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+class Constructed$1 extends BaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "Constructed" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters, LocalConstructedValueBlock$1);
+
+		this.idBlock.isConstructed = true;
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "CONSTRUCTED";
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number}
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		this.valueBlock.isIndefiniteForm = this.lenBlock.isIndefiniteForm;
+
+		const resultOffset = this.valueBlock.fromBER(inputBuffer, inputOffset, (this.lenBlock.isIndefiniteForm === true) ? inputLength : this.lenBlock.length);
+		if(resultOffset === (-1))
+		{
+			this.error = this.valueBlock.error;
+			return resultOffset;
+		}
+
+		if(this.idBlock.error.length === 0)
+			this.blockLength += this.idBlock.blockLength;
+
+		if(this.lenBlock.error.length === 0)
+			this.blockLength += this.lenBlock.blockLength;
+
+		if(this.valueBlock.error.length === 0)
+			this.blockLength += this.valueBlock.blockLength;
+
+		return resultOffset;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of ASN.1 EndOfContent type class
+//**************************************************************************************
+class LocalEndOfContentValueBlock$1 extends ValueBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalEndOfContentValueBlock" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedLocalSymbols,JSUnusedLocalSymbols
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number}
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		//region There is no "value block" for EndOfContent type and we need to return the same offset
+		return inputOffset;
+		//endregion
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedLocalSymbols
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		return new ArrayBuffer(0);
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "EndOfContentValueBlock";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+class EndOfContent$1 extends BaseBlock$1
+{
+	//**********************************************************************************
+	constructor(paramaters = {})
+	{
+		super(paramaters, LocalEndOfContentValueBlock$1);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 0; // EndOfContent
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "EndOfContent";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of ASN.1 Boolean type class
+//**************************************************************************************
+class LocalBooleanValueBlock$1 extends ValueBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalBooleanValueBlock" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+		
+		this.value = getParametersValue$1(parameters, "value", false);
+		this.isHexOnly = getParametersValue$1(parameters, "isHexOnly", false);
+		
+		if("valueHex" in parameters)
+			this.valueHex = parameters.valueHex.slice(0);
+		else
+		{
+			this.valueHex = new ArrayBuffer(1);
+			if(this.value === true)
+			{
+				const view = new Uint8Array(this.valueHex);
+				view[0] = 0xFF;
+			}
+		}
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		//region Basic check for parameters
+		//noinspection JSCheckFunctionSignatures
+		if(checkBufferParams$1(this, inputBuffer, inputOffset, inputLength) === false)
+			return (-1);
+		//endregion
+
+		//region Getting Uint8Array from ArrayBuffer
+		const intBuffer = new Uint8Array(inputBuffer, inputOffset, inputLength);
+		//endregion
+
+		if(inputLength > 1)
+			this.warnings.push("Boolean value encoded in more then 1 octet");
+
+		this.isHexOnly = true;
+
+		//region Copy input buffer to internal array
+		this.valueHex = new ArrayBuffer(intBuffer.length);
+		const view = new Uint8Array(this.valueHex);
+
+		for(let i = 0; i < intBuffer.length; i++)
+			view[i] = intBuffer[i];
+		//endregion
+		
+		if(utilDecodeTC$1.call(this) !== 0 )
+			this.value = true;
+		else
+			this.value = false;
+
+		this.blockLength = inputLength;
+
+		return (inputOffset + inputLength);
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedLocalSymbols
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		return this.valueHex;
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "BooleanValueBlock";
+	}
+	//**********************************************************************************
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {{blockName, blockLength, error, warnings, valueBeforeDecode}|{blockName: string, blockLength: number, error: string, warnings: Array.<string>, valueBeforeDecode: string}}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.value = this.value;
+		object.isHexOnly = this.isHexOnly;
+		object.valueHex = bufferToHexCodes$1(this.valueHex, 0, this.valueHex.byteLength);
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+class Boolean$1 extends BaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "Boolean" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters, LocalBooleanValueBlock$1);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 1; // Boolean
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "Boolean";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of ASN.1 Sequence and Set type classes
+//**************************************************************************************
+class Sequence$1 extends Constructed$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "Sequence" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 16; // Sequence
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "Sequence";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+class Set$1 extends Constructed$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "Set" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 17; // Set
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "Set";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of ASN.1 Null type class
+//**************************************************************************************
+class Null$1 extends BaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "Null" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters, LocalBaseBlock$1); // We will not have a call to "Null value block" because of specified "fromBER" and "toBER" functions
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 5; // Null
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "Null";
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedLocalSymbols
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		if(this.lenBlock.length > 0)
+			this.warnings.push("Non-zero length of value block for Null type");
+
+		if(this.idBlock.error.length === 0)
+			this.blockLength += this.idBlock.blockLength;
+
+		if(this.lenBlock.error.length === 0)
+			this.blockLength += this.lenBlock.blockLength;
+		
+		this.blockLength += inputLength;
+		
+		if((inputOffset + inputLength) > inputBuffer.byteLength)
+		{
+			this.error = "End of input reached before message was fully decoded (inconsistent offset and length values)";
+			return (-1);
+		}
+		
+		return (inputOffset + inputLength);
+	}
+	//**********************************************************************************
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		const retBuf = new ArrayBuffer(2);
+
+		if(sizeOnly === true)
+			return retBuf;
+
+		const retView = new Uint8Array(retBuf);
+		retView[0] = 0x05;
+		retView[1] = 0x00;
+
+		return retBuf;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of ASN.1 OctetString type class
+//**************************************************************************************
+class LocalOctetStringValueBlock$1 extends HexBlock$1(LocalConstructedValueBlock$1)
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalOctetStringValueBlock" class
+	 * @param {Object} [parameters={}]
+	 * @property {ArrayBuffer} [valueHex]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.isConstructed = getParametersValue$1(parameters, "isConstructed", false);
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		let resultOffset = 0;
+
+		if(this.isConstructed === true)
+		{
+			this.isHexOnly = false;
+
+			resultOffset = LocalConstructedValueBlock$1.prototype.fromBER.call(this, inputBuffer, inputOffset, inputLength);
+			if(resultOffset === (-1))
+				return resultOffset;
+
+			for(let i = 0; i < this.value.length; i++)
+			{
+				const currentBlockName = this.value[i].constructor.blockName();
+
+				if(currentBlockName === EndOfContent$1.blockName())
+				{
+					if(this.isIndefiniteForm === true)
+						break;
+					else
+					{
+						this.error = "EndOfContent is unexpected, OCTET STRING may consists of OCTET STRINGs only";
+						return (-1);
+					}
+				}
+
+				if(currentBlockName !== OctetString$1.blockName())
+				{
+					this.error = "OCTET STRING may consists of OCTET STRINGs only";
+					return (-1);
+				}
+			}
+		}
+		else
+		{
+			this.isHexOnly = true;
+
+			resultOffset = super.fromBER(inputBuffer, inputOffset, inputLength);
+			this.blockLength = inputLength;
+		}
+
+		return resultOffset;
+	}
+	//**********************************************************************************
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		if(this.isConstructed === true)
+			return LocalConstructedValueBlock$1.prototype.toBER.call(this, sizeOnly);
+
+		let retBuf = new ArrayBuffer(this.valueHex.byteLength);
+
+		if(sizeOnly === true)
+			return retBuf;
+
+		if(this.valueHex.byteLength === 0)
+			return retBuf;
+
+		retBuf = this.valueHex.slice(0);
+
+		return retBuf;
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "OctetStringValueBlock";
+	}
+	//**********************************************************************************
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.isConstructed = this.isConstructed;
+		object.isHexOnly = this.isHexOnly;
+		object.valueHex = bufferToHexCodes$1(this.valueHex, 0, this.valueHex.byteLength);
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+class OctetString$1 extends BaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "OctetString" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters, LocalOctetStringValueBlock$1);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 4; // OctetString
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		this.valueBlock.isConstructed = this.idBlock.isConstructed;
+		this.valueBlock.isIndefiniteForm = this.lenBlock.isIndefiniteForm;
+
+		//region Ability to encode empty OCTET STRING
+		if(inputLength === 0)
+		{
+			if(this.idBlock.error.length === 0)
+				this.blockLength += this.idBlock.blockLength;
+
+			if(this.lenBlock.error.length === 0)
+				this.blockLength += this.lenBlock.blockLength;
+
+			return inputOffset;
+		}
+		//endregion
+
+		return super.fromBER(inputBuffer, inputOffset, inputLength);
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "OctetString";
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedGlobalSymbols
+	/**
+	 * Checking that two OCTETSTRINGs are equal
+	 * @param {OctetString} octetString
+	 */
+	isEqual(octetString)
+	{
+		//region Check input type
+		if((octetString instanceof OctetString$1) === false)
+			return false;
+		//endregion
+
+		//region Compare two JSON strings
+		if(JSON.stringify(this) !== JSON.stringify(octetString))
+			return false;
+		//endregion
+
+		return true;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of ASN.1 BitString type class
+//**************************************************************************************
+class LocalBitStringValueBlock$1 extends HexBlock$1(LocalConstructedValueBlock$1)
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalBitStringValueBlock" class
+	 * @param {Object} [parameters={}]
+	 * @property {ArrayBuffer} [valueHex]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.unusedBits = getParametersValue$1(parameters, "unusedBits", 0);
+		this.isConstructed = getParametersValue$1(parameters, "isConstructed", false);
+		this.blockLength = this.valueHex.byteLength;
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		//region Ability to decode zero-length BitString value
+		if(inputLength === 0)
+			return inputOffset;
+		//endregion
+
+		let resultOffset = (-1);
+
+		//region If the BISTRING supposed to be a constructed value
+		if(this.isConstructed === true)
+		{
+			resultOffset = LocalConstructedValueBlock$1.prototype.fromBER.call(this, inputBuffer, inputOffset, inputLength);
+			if(resultOffset === (-1))
+				return resultOffset;
+
+			for(let i = 0; i < this.value.length; i++)
+			{
+				const currentBlockName = this.value[i].constructor.blockName();
+
+				if(currentBlockName === EndOfContent$1.blockName())
+				{
+					if(this.isIndefiniteForm === true)
+						break;
+					else
+					{
+						this.error = "EndOfContent is unexpected, BIT STRING may consists of BIT STRINGs only";
+						return (-1);
+					}
+				}
+
+				if(currentBlockName !== BitString$1.blockName())
+				{
+					this.error = "BIT STRING may consists of BIT STRINGs only";
+					return (-1);
+				}
+
+				if((this.unusedBits > 0) && (this.value[i].valueBlock.unusedBits > 0))
+				{
+					this.error = "Usign of \"unused bits\" inside constructive BIT STRING allowed for least one only";
+					return (-1);
+				}
+
+				this.unusedBits = this.value[i].valueBlock.unusedBits;
+				if(this.unusedBits > 7)
+				{
+					this.error = "Unused bits for BitString must be in range 0-7";
+					return (-1);
+				}
+			}
+
+			return resultOffset;
+		}
+		//endregion
+		//region If the BitString supposed to be a primitive value
+		//region Basic check for parameters
+		//noinspection JSCheckFunctionSignatures
+		if(checkBufferParams$1(this, inputBuffer, inputOffset, inputLength) === false)
+			return (-1);
+		//endregion
+
+		const intBuffer = new Uint8Array(inputBuffer, inputOffset, inputLength);
+
+		this.unusedBits = intBuffer[0];
+		
+		if(this.unusedBits > 7)
+		{
+			this.error = "Unused bits for BitString must be in range 0-7";
+			return (-1);
+		}
+
+		//region Copy input buffer to internal buffer
+		this.valueHex = new ArrayBuffer(intBuffer.length - 1);
+		const view = new Uint8Array(this.valueHex);
+		for(let i = 0; i < (inputLength - 1); i++)
+			view[i] = intBuffer[i + 1];
+		//endregion
+
+		this.blockLength = intBuffer.length;
+
+		return (inputOffset + inputLength);
+		//endregion
+	}
+	//**********************************************************************************
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		if(this.isConstructed === true)
+			return LocalConstructedValueBlock$1.prototype.toBER.call(this, sizeOnly);
+
+		if(sizeOnly === true)
+			return (new ArrayBuffer(this.valueHex.byteLength + 1));
+
+		if(this.valueHex.byteLength === 0)
+			return (new ArrayBuffer(0));
+
+		const curView = new Uint8Array(this.valueHex);
+
+		const retBuf = new ArrayBuffer(this.valueHex.byteLength + 1);
+		const retView = new Uint8Array(retBuf);
+
+		retView[0] = this.unusedBits;
+
+		for(let i = 0; i < this.valueHex.byteLength; i++)
+			retView[i + 1] = curView[i];
+
+		return retBuf;
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "BitStringValueBlock";
+	}
+	//**********************************************************************************
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {{blockName, blockLength, error, warnings, valueBeforeDecode}|{blockName: string, blockLength: number, error: string, warnings: Array.<string>, valueBeforeDecode: string}}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.unusedBits = this.unusedBits;
+		object.isConstructed = this.isConstructed;
+		object.isHexOnly = this.isHexOnly;
+		object.valueHex = bufferToHexCodes$1(this.valueHex, 0, this.valueHex.byteLength);
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+class BitString$1 extends BaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "BitString" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters, LocalBitStringValueBlock$1);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 3; // BitString
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "BitString";
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		//region Ability to encode empty BitString
+		if(inputLength === 0)
+			return inputOffset;
+		//endregion
+
+		this.valueBlock.isConstructed = this.idBlock.isConstructed;
+		this.valueBlock.isIndefiniteForm = this.lenBlock.isIndefiniteForm;
+
+		return super.fromBER(inputBuffer, inputOffset, inputLength);
+	}
+	//**********************************************************************************
+	/**
+	 * Checking that two BITSTRINGs are equal
+	 * @param {BitString} bitString
+	 */
+	isEqual(bitString)
+	{
+		//region Check input type
+		if((bitString instanceof BitString$1) === false)
+			return false;
+		//endregion
+
+		//region Compare two JSON strings
+		if(JSON.stringify(this) !== JSON.stringify(bitString))
+			return false;
+		//endregion
+
+		return true;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of ASN.1 Integer type class
+//**************************************************************************************
+/**
+ * @extends ValueBlock
+ */
+class LocalIntegerValueBlock$1 extends HexBlock$1(ValueBlock$1)
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalIntegerValueBlock" class
+	 * @param {Object} [parameters={}]
+	 * @property {ArrayBuffer} [valueHex]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		if("value" in parameters)
+			this.valueDec = parameters.value;
+	}
+	//**********************************************************************************
+	/**
+	 * Setter for "valueHex"
+	 * @param {ArrayBuffer} _value
+	 */
+	set valueHex(_value)
+	{
+		this._valueHex = _value.slice(0);
+
+		if(_value.byteLength >= 4)
+		{
+			this.warnings.push("Too big Integer for decoding, hex only");
+			this.isHexOnly = true;
+			this._valueDec = 0;
+		}
+		else
+		{
+			this.isHexOnly = false;
+
+			if(_value.byteLength > 0)
+				this._valueDec = utilDecodeTC$1.call(this);
+		}
+	}
+	//**********************************************************************************
+	/**
+	 * Getter for "valueHex"
+	 * @returns {ArrayBuffer}
+	 */
+	get valueHex()
+	{
+		return this._valueHex;
+	}
+	//**********************************************************************************
+	/**
+	 * Getter for "valueDec"
+	 * @param {number} _value
+	 */
+	set valueDec(_value)
+	{
+		this._valueDec = _value;
+
+		this.isHexOnly = false;
+		this._valueHex = utilEncodeTC$1(_value);
+	}
+	//**********************************************************************************
+	/**
+	 * Getter for "valueDec"
+	 * @returns {number}
+	 */
+	get valueDec()
+	{
+		return this._valueDec;
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from DER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 DER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 DER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @param {number} [expectedLength=0] Expected length of converted "valueHex" buffer
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromDER(inputBuffer, inputOffset, inputLength, expectedLength = 0)
+	{
+		const offset = this.fromBER(inputBuffer, inputOffset, inputLength);
+		if(offset === (-1))
+			return offset;
+
+		const view = new Uint8Array(this._valueHex);
+
+		if((view[0] === 0x00) && ((view[1] & 0x80) !== 0))
+		{
+			const updatedValueHex = new ArrayBuffer(this._valueHex.byteLength - 1);
+			const updatedView = new Uint8Array(updatedValueHex);
+
+			updatedView.set(new Uint8Array(this._valueHex, 1, this._valueHex.byteLength - 1));
+
+			this._valueHex = updatedValueHex.slice(0);
+		}
+		else
+		{
+			if(expectedLength !== 0)
+			{
+				if(this._valueHex.byteLength < expectedLength)
+				{
+					if((expectedLength - this._valueHex.byteLength) > 1)
+						expectedLength = this._valueHex.byteLength + 1;
+					
+					const updatedValueHex = new ArrayBuffer(expectedLength);
+					const updatedView = new Uint8Array(updatedValueHex);
+
+					updatedView.set(view, expectedLength - this._valueHex.byteLength);
+
+					this._valueHex = updatedValueHex.slice(0);
+				}
+			}
+		}
+
+		return offset;
+	}
+	//**********************************************************************************
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (DER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toDER(sizeOnly = false)
+	{
+		const view = new Uint8Array(this._valueHex);
+
+		switch(true)
+		{
+			case ((view[0] & 0x80) !== 0):
+				{
+					const updatedValueHex = new ArrayBuffer(this._valueHex.byteLength + 1);
+					const updatedView = new Uint8Array(updatedValueHex);
+
+					updatedView[0] = 0x00;
+					updatedView.set(view, 1);
+
+					this._valueHex = updatedValueHex.slice(0);
+				}
+				break;
+			case ((view[0] === 0x00) && ((view[1] & 0x80) === 0)):
+				{
+					const updatedValueHex = new ArrayBuffer(this._valueHex.byteLength - 1);
+					const updatedView = new Uint8Array(updatedValueHex);
+
+					updatedView.set(new Uint8Array(this._valueHex, 1, this._valueHex.byteLength - 1));
+
+					this._valueHex = updatedValueHex.slice(0);
+				}
+				break;
+			default:
+		}
+
+		return this.toBER(sizeOnly);
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		const resultOffset = super.fromBER(inputBuffer, inputOffset, inputLength);
+		if(resultOffset === (-1))
+			return resultOffset;
+
+		this.blockLength = inputLength;
+
+		return (inputOffset + inputLength);
+	}
+	//**********************************************************************************
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		//noinspection JSCheckFunctionSignatures
+		return this.valueHex.slice(0);
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "IntegerValueBlock";
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedGlobalSymbols
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {Object}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.valueDec = this.valueDec;
+
+		return object;
+	}
+	//**********************************************************************************
+	/**
+	 * Convert current value to decimal string representation
+	 */
+	toString()
+	{
+		//region Aux functions
+		function viewAdd(first, second)
+		{
+			//region Initial variables
+			const c = new Uint8Array([0]);
+			
+			let firstView = new Uint8Array(first);
+			let secondView = new Uint8Array(second);
+			
+			let firstViewCopy = firstView.slice(0);
+			const firstViewCopyLength = firstViewCopy.length - 1;
+			let secondViewCopy = secondView.slice(0);
+			const secondViewCopyLength = secondViewCopy.length - 1;
+			
+			let value = 0;
+			
+			const max = (secondViewCopyLength < firstViewCopyLength) ? firstViewCopyLength : secondViewCopyLength;
+			
+			let counter = 0;
+			//endregion
+			
+			for(let i = max; i >= 0; i--, counter++)
+			{
+				switch(true)
+				{
+					case (counter < secondViewCopy.length):
+						value = firstViewCopy[firstViewCopyLength - counter] + secondViewCopy[secondViewCopyLength - counter] + c[0];
+						break;
+					default:
+						value = firstViewCopy[firstViewCopyLength - counter] + c[0];
+				}
+				
+				c[0] = value / 10;
+				
+				switch(true)
+				{
+					case (counter >= firstViewCopy.length):
+						firstViewCopy = utilConcatView$1(new Uint8Array([value % 10]), firstViewCopy);
+						break;
+					default:
+						firstViewCopy[firstViewCopyLength - counter] = value % 10;
+				}
+			}
+			
+			if(c[0] > 0)
+				firstViewCopy = utilConcatView$1(c, firstViewCopy);
+			
+			return firstViewCopy.slice(0);
+		}
+		
+		function power2(n)
+		{
+			if(n >= powers2$1.length)
+			{
+				for(let p = powers2$1.length; p <= n; p++)
+				{
+					const c = new Uint8Array([0]);
+					let digits = (powers2$1[p - 1]).slice(0);
+					
+					for(let i = (digits.length - 1); i >=0; i--)
+					{
+						const newValue = new Uint8Array([(digits[i] << 1) + c[0]]);
+						c[0] = newValue[0] / 10;
+						digits[i] = newValue[0] % 10;
+					}
+					
+					if (c[0] > 0)
+						digits = utilConcatView$1(c, digits);
+					
+					powers2$1.push(digits);
+				}
+			}
+			
+			return powers2$1[n];
+		}
+		
+		function viewSub(first, second)
+		{
+			//region Initial variables
+			let b = 0;
+			
+			let firstView = new Uint8Array(first);
+			let secondView = new Uint8Array(second);
+			
+			let firstViewCopy = firstView.slice(0);
+			const firstViewCopyLength = firstViewCopy.length - 1;
+			let secondViewCopy = secondView.slice(0);
+			const secondViewCopyLength = secondViewCopy.length - 1;
+			
+			let value;
+			
+			let counter = 0;
+			//endregion
+			
+			for(let i = secondViewCopyLength; i >= 0; i--, counter++)
+			{
+				value = firstViewCopy[firstViewCopyLength - counter] - secondViewCopy[secondViewCopyLength - counter] - b;
+				
+				switch(true)
+				{
+					case (value < 0):
+						b = 1;
+						firstViewCopy[firstViewCopyLength - counter] = value + 10;
+						break;
+					default:
+						b = 0;
+						firstViewCopy[firstViewCopyLength - counter] = value;
+				}
+			}
+			
+			if(b > 0)
+			{
+				for(let i = (firstViewCopyLength - secondViewCopyLength + 1); i >= 0; i--, counter++)
+				{
+					value = firstViewCopy[firstViewCopyLength - counter] - b;
+					
+					if(value < 0)
+					{
+						b = 1;
+						firstViewCopy[firstViewCopyLength - counter] = value + 10;
+					}
+					else
+					{
+						b = 0;
+						firstViewCopy[firstViewCopyLength - counter] = value;
+						break;
+					}
+				}
+			}
+			
+			return firstViewCopy.slice();
+		}
+		//endregion
+		
+		//region Initial variables
+		const firstBit = (this._valueHex.byteLength * 8) - 1;
+		
+		let digits = new Uint8Array((this._valueHex.byteLength * 8) / 3);
+		let bitNumber = 0;
+		let currentByte;
+		
+		const asn1View = new Uint8Array(this._valueHex);
+		
+		let result = "";
+		
+		let flag = false;
+		//endregion
+		
+		//region Calculate number
+		for(let byteNumber = (this._valueHex.byteLength - 1); byteNumber >= 0; byteNumber--)
+		{
+			currentByte = asn1View[byteNumber];
+			
+			for(let i = 0; i < 8; i++)
+			{
+				if((currentByte & 1) === 1)
+				{
+					switch(bitNumber)
+					{
+						case firstBit:
+							digits = viewSub(power2(bitNumber), digits);
+							result = "-";
+							break;
+						default:
+							digits = viewAdd(digits, power2(bitNumber));
+					}
+				}
+				
+				bitNumber++;
+				currentByte >>= 1;
+			}
+		}
+		//endregion
+		
+		//region Print number
+		for(let i = 0; i < digits.length; i++)
+		{
+			if(digits[i])
+				flag = true;
+			
+			if(flag)
+				result += digitsString$1.charAt(digits[i]);
+		}
+		
+		if(flag === false)
+			result += digitsString$1.charAt(0);
+		//endregion
+		
+		return result;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+class Integer$1 extends BaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "Integer" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters, LocalIntegerValueBlock$1);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 2; // Integer
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "Integer";
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedGlobalSymbols
+	/**
+	 * Compare two Integer object, or Integer and ArrayBuffer objects
+	 * @param {!Integer|ArrayBuffer} otherValue
+	 * @returns {boolean}
+	 */
+	isEqual(otherValue)
+	{
+		if(otherValue instanceof Integer$1)
+		{
+			if(this.valueBlock.isHexOnly && otherValue.valueBlock.isHexOnly) // Compare two ArrayBuffers
+				return isEqualBuffer$1(this.valueBlock.valueHex, otherValue.valueBlock.valueHex);
+
+			if(this.valueBlock.isHexOnly === otherValue.valueBlock.isHexOnly)
+				return (this.valueBlock.valueDec === otherValue.valueBlock.valueDec);
+
+			return false;
+		}
+		
+		if(otherValue instanceof ArrayBuffer)
+			return isEqualBuffer$1(this.valueBlock.valueHex, otherValue);
+
+		return false;
+	}
+	//**********************************************************************************
+	/**
+	 * Convert current Integer value from BER into DER format
+	 * @returns {Integer}
+	 */
+	convertToDER()
+	{
+		const integer = new Integer$1({ valueHex: this.valueBlock.valueHex });
+		integer.valueBlock.toDER();
+
+		return integer;
+	}
+	//**********************************************************************************
+	/**
+	 * Convert current Integer value from DER to BER format
+	 * @returns {Integer}
+	 */
+	convertFromDER()
+	{
+		const expectedLength = (this.valueBlock.valueHex.byteLength % 2) ? (this.valueBlock.valueHex.byteLength + 1) : this.valueBlock.valueHex.byteLength;
+		const integer = new Integer$1({ valueHex: this.valueBlock.valueHex });
+		integer.valueBlock.fromDER(integer.valueBlock.valueHex, 0, integer.valueBlock.valueHex.byteLength, expectedLength);
+		
+		return integer;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of ASN.1 Enumerated type class
+//**************************************************************************************
+class Enumerated$1 extends Integer$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "Enumerated" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 10; // Enumerated
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "Enumerated";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of ASN.1 ObjectIdentifier type class
+//**************************************************************************************
+class LocalSidValueBlock$1 extends HexBlock$1(LocalBaseBlock$1)
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalSidValueBlock" class
+	 * @param {Object} [parameters={}]
+	 * @property {number} [valueDec]
+	 * @property {boolean} [isFirstSid]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.valueDec = getParametersValue$1(parameters, "valueDec", -1);
+		this.isFirstSid = getParametersValue$1(parameters, "isFirstSid", false);
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "sidBlock";
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		if(inputLength === 0)
+			return inputOffset;
+
+		//region Basic check for parameters
+		//noinspection JSCheckFunctionSignatures
+		if(checkBufferParams$1(this, inputBuffer, inputOffset, inputLength) === false)
+			return (-1);
+		//endregion
+
+		const intBuffer = new Uint8Array(inputBuffer, inputOffset, inputLength);
+
+		this.valueHex = new ArrayBuffer(inputLength);
+		let view = new Uint8Array(this.valueHex);
+
+		for(let i = 0; i < inputLength; i++)
+		{
+			view[i] = intBuffer[i] & 0x7F;
+
+			this.blockLength++;
+
+			if((intBuffer[i] & 0x80) === 0x00)
+				break;
+		}
+
+		//region Ajust size of valueHex buffer
+		const tempValueHex = new ArrayBuffer(this.blockLength);
+		const tempView = new Uint8Array(tempValueHex);
+
+		for(let i = 0; i < this.blockLength; i++)
+			tempView[i] = view[i];
+
+		//noinspection JSCheckFunctionSignatures
+		this.valueHex = tempValueHex.slice(0);
+		view = new Uint8Array(this.valueHex);
+		//endregion
+
+		if((intBuffer[this.blockLength - 1] & 0x80) !== 0x00)
+		{
+			this.error = "End of input reached before message was fully decoded";
+			return (-1);
+		}
+
+		if(view[0] === 0x00)
+			this.warnings.push("Needlessly long format of SID encoding");
+
+		if(this.blockLength <= 8)
+			this.valueDec = utilFromBase$1(view, 7);
+		else
+		{
+			this.isHexOnly = true;
+			this.warnings.push("Too big SID for decoding, hex only");
+		}
+
+		return (inputOffset + this.blockLength);
+	}
+	//**********************************************************************************
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		//region Initial variables
+		let retBuf;
+		let retView;
+		//endregion
+
+		if(this.isHexOnly)
+		{
+			if(sizeOnly === true)
+				return (new ArrayBuffer(this.valueHex.byteLength));
+
+			const curView = new Uint8Array(this.valueHex);
+
+			retBuf = new ArrayBuffer(this.blockLength);
+			retView = new Uint8Array(retBuf);
+
+			for(let i = 0; i < (this.blockLength - 1); i++)
+				retView[i] = curView[i] | 0x80;
+
+			retView[this.blockLength - 1] = curView[this.blockLength - 1];
+
+			return retBuf;
+		}
+
+		const encodedBuf = utilToBase$1(this.valueDec, 7);
+		if(encodedBuf.byteLength === 0)
+		{
+			this.error = "Error during encoding SID value";
+			return (new ArrayBuffer(0));
+		}
+
+		retBuf = new ArrayBuffer(encodedBuf.byteLength);
+
+		if(sizeOnly === false)
+		{
+			const encodedView = new Uint8Array(encodedBuf);
+			retView = new Uint8Array(retBuf);
+
+			for(let i = 0; i < (encodedBuf.byteLength - 1); i++)
+				retView[i] = encodedView[i] | 0x80;
+
+			retView[encodedBuf.byteLength - 1] = encodedView[encodedBuf.byteLength - 1];
+		}
+
+		return retBuf;
+	}
+	//**********************************************************************************
+	/**
+	 * Create string representation of current SID block
+	 * @returns {string}
+	 */
+	toString()
+	{
+		let result = "";
+
+		if(this.isHexOnly === true)
+			result = bufferToHexCodes$1(this.valueHex, 0, this.valueHex.byteLength);
+		else
+		{
+			if(this.isFirstSid)
+			{
+				let sidValue = this.valueDec;
+
+				if(this.valueDec <= 39)
+					result = "0.";
+				else
+				{
+					if(this.valueDec <= 79)
+					{
+						result = "1.";
+						sidValue -= 40;
+					}
+					else
+					{
+						result = "2.";
+						sidValue -= 80;
+					}
+				}
+
+				result += sidValue.toString();
+			}
+			else
+				result = this.valueDec.toString();
+		}
+
+		return result;
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedGlobalSymbols
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {Object}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.valueDec = this.valueDec;
+		object.isFirstSid = this.isFirstSid;
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+class LocalObjectIdentifierValueBlock$1 extends ValueBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalObjectIdentifierValueBlock" class
+	 * @param {Object} [parameters={}]
+	 * @property {ArrayBuffer} [valueHex]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.fromString(getParametersValue$1(parameters, "value", ""));
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		let resultOffset = inputOffset;
+
+		while(inputLength > 0)
+		{
+			const sidBlock = new LocalSidValueBlock$1();
+			resultOffset = sidBlock.fromBER(inputBuffer, resultOffset, inputLength);
+			if(resultOffset === (-1))
+			{
+				this.blockLength = 0;
+				this.error = sidBlock.error;
+				return resultOffset;
+			}
+
+			if(this.value.length === 0)
+				sidBlock.isFirstSid = true;
+
+			this.blockLength += sidBlock.blockLength;
+			inputLength -= sidBlock.blockLength;
+
+			this.value.push(sidBlock);
+		}
+
+		return resultOffset;
+	}
+	//**********************************************************************************
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		let retBuf = new ArrayBuffer(0);
+
+		for(let i = 0; i < this.value.length; i++)
+		{
+			const valueBuf = this.value[i].toBER(sizeOnly);
+			if(valueBuf.byteLength === 0)
+			{
+				this.error = this.value[i].error;
+				return (new ArrayBuffer(0));
+			}
+
+			retBuf = utilConcatBuf$1(retBuf, valueBuf);
+		}
+
+		return retBuf;
+	}
+	//**********************************************************************************
+	/**
+	 * Create "LocalObjectIdentifierValueBlock" class from string
+	 * @param {string} string Input string to convert from
+	 * @returns {boolean}
+	 */
+	fromString(string)
+	{
+		this.value = []; // Clear existing SID values
+
+		let pos1 = 0;
+		let pos2 = 0;
+
+		let sid = "";
+
+		let flag = false;
+
+		do
+		{
+			pos2 = string.indexOf(".", pos1);
+			if(pos2 === (-1))
+				sid = string.substr(pos1);
+			else
+				sid = string.substr(pos1, pos2 - pos1);
+
+			pos1 = pos2 + 1;
+
+			if(flag)
+			{
+				const sidBlock = this.value[0];
+
+				let plus = 0;
+
+				switch(sidBlock.valueDec)
+				{
+					case 0:
+						break;
+					case 1:
+						plus = 40;
+						break;
+					case 2:
+						plus = 80;
+						break;
+					default:
+						this.value = []; // clear SID array
+						return false; // ???
+				}
+
+				const parsedSID = parseInt(sid, 10);
+				if(isNaN(parsedSID))
+					return true;
+
+				sidBlock.valueDec = parsedSID + plus;
+
+				flag = false;
+			}
+			else
+			{
+				const sidBlock = new LocalSidValueBlock$1();
+				sidBlock.valueDec = parseInt(sid, 10);
+				if(isNaN(sidBlock.valueDec))
+					return true;
+
+				if(this.value.length === 0)
+				{
+					sidBlock.isFirstSid = true;
+					flag = true;
+				}
+
+				this.value.push(sidBlock);
+			}
+		} while(pos2 !== (-1));
+
+		return true;
+	}
+	//**********************************************************************************
+	/**
+	 * Converts "LocalObjectIdentifierValueBlock" class to string
+	 * @returns {string}
+	 */
+	toString()
+	{
+		let result = "";
+		let isHexOnly = false;
+
+		for(let i = 0; i < this.value.length; i++)
+		{
+			isHexOnly = this.value[i].isHexOnly;
+
+			let sidStr = this.value[i].toString();
+
+			if(i !== 0)
+				result = `${result}.`;
+
+			if(isHexOnly)
+			{
+				sidStr = `{${sidStr}}`;
+
+				if(this.value[i].isFirstSid)
+					result = `2.{${sidStr} - 80}`;
+				else
+					result += sidStr;
+			}
+			else
+				result += sidStr;
+		}
+
+		return result;
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "ObjectIdentifierValueBlock";
+	}
+	//**********************************************************************************
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {Object}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.value = this.toString();
+		object.sidArray = [];
+		for(let i = 0; i < this.value.length; i++)
+			object.sidArray.push(this.value[i].toJSON());
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends BaseBlock
+ */
+class ObjectIdentifier$1 extends BaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "ObjectIdentifier" class
+	 * @param {Object} [parameters={}]
+	 * @property {ArrayBuffer} [valueHex]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters, LocalObjectIdentifierValueBlock$1);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 6; // OBJECT IDENTIFIER
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "ObjectIdentifier";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of all string's classes
+//**************************************************************************************
+class LocalUtf8StringValueBlock$1 extends HexBlock$1(LocalBaseBlock$1)
+{
+	//**********************************************************************************
+	//noinspection JSUnusedGlobalSymbols
+	/**
+	 * Constructor for "LocalUtf8StringValueBlock" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.isHexOnly = true;
+		this.value = ""; // String representation of decoded ArrayBuffer
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "Utf8StringValueBlock";
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedGlobalSymbols
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {Object}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.value = this.value;
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends BaseBlock
+ */
+class Utf8String$1 extends BaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "Utf8String" class
+	 * @param {Object} [parameters={}]
+	 * @property {ArrayBuffer} [valueHex]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters, LocalUtf8StringValueBlock$1);
+
+		if("value" in parameters)
+			this.fromString(parameters.value);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 12; // Utf8String
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "Utf8String";
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		const resultOffset = this.valueBlock.fromBER(inputBuffer, inputOffset, (this.lenBlock.isIndefiniteForm === true) ? inputLength : this.lenBlock.length);
+		if(resultOffset === (-1))
+		{
+			this.error = this.valueBlock.error;
+			return resultOffset;
+		}
+
+		this.fromBuffer(this.valueBlock.valueHex);
+
+		if(this.idBlock.error.length === 0)
+			this.blockLength += this.idBlock.blockLength;
+
+		if(this.lenBlock.error.length === 0)
+			this.blockLength += this.lenBlock.blockLength;
+
+		if(this.valueBlock.error.length === 0)
+			this.blockLength += this.valueBlock.blockLength;
+
+		return resultOffset;
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting ArrayBuffer into ASN.1 internal string
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 */
+	fromBuffer(inputBuffer)
+	{
+		this.valueBlock.value = String.fromCharCode.apply(null, new Uint8Array(inputBuffer));
+
+		try
+		{
+			//noinspection JSDeprecatedSymbols
+			this.valueBlock.value = decodeURIComponent(escape(this.valueBlock.value));
+		}
+		catch(ex)
+		{
+			this.warnings.push(`Error during "decodeURIComponent": ${ex}, using raw string`);
+		}
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting JavaScript string into ASN.1 internal class
+	 * @param {!string} inputString ASN.1 BER encoded array
+	 */
+	fromString(inputString)
+	{
+		//noinspection JSDeprecatedSymbols
+		const str = unescape(encodeURIComponent(inputString));
+		const strLen = str.length;
+
+		this.valueBlock.valueHex = new ArrayBuffer(strLen);
+		const view = new Uint8Array(this.valueBlock.valueHex);
+
+		for(let i = 0; i < strLen; i++)
+			view[i] = str.charCodeAt(i);
+
+		this.valueBlock.value = inputString;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//region Declaration of ASN.1 RelativeObjectIdentifier type class
+//**************************************************************************************
+class LocalRelativeSidValueBlock$1 extends HexBlock$1(LocalBaseBlock$1)
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalRelativeSidValueBlock" class
+	 * @param {Object} [parameters={}]
+	 * @property {number} [valueDec]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.valueDec = getParametersValue$1(parameters, "valueDec", -1);
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "relativeSidBlock";
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		if (inputLength === 0)
+			return inputOffset;
+
+		//region Basic check for parameters
+		//noinspection JSCheckFunctionSignatures
+		if (checkBufferParams$1(this, inputBuffer, inputOffset, inputLength) === false)
+			return (-1);
+		//endregion
+
+		const intBuffer = new Uint8Array(inputBuffer, inputOffset, inputLength);
+
+		this.valueHex = new ArrayBuffer(inputLength);
+		let view = new Uint8Array(this.valueHex);
+
+		for (let i = 0; i < inputLength; i++)
+		{
+			view[i] = intBuffer[i] & 0x7F;
+
+			this.blockLength++;
+
+			if ((intBuffer[i] & 0x80) === 0x00)
+				break;
+		}
+
+		//region Ajust size of valueHex buffer
+		const tempValueHex = new ArrayBuffer(this.blockLength);
+		const tempView = new Uint8Array(tempValueHex);
+
+		for (let i = 0; i < this.blockLength; i++)
+			tempView[i] = view[i];
+
+		//noinspection JSCheckFunctionSignatures
+		this.valueHex = tempValueHex.slice(0);
+		view = new Uint8Array(this.valueHex);
+		//endregion
+
+		if ((intBuffer[this.blockLength - 1] & 0x80) !== 0x00)
+		{
+			this.error = "End of input reached before message was fully decoded";
+			return (-1);
+		}
+
+		if (view[0] === 0x00)
+			this.warnings.push("Needlessly long format of SID encoding");
+
+		if (this.blockLength <= 8)
+			this.valueDec = utilFromBase$1(view, 7);
+		else
+		{
+			this.isHexOnly = true;
+			this.warnings.push("Too big SID for decoding, hex only");
+		}
+
+		return (inputOffset + this.blockLength);
+	}
+	//**********************************************************************************
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		//region Initial variables
+		let retBuf;
+		let retView;
+		//endregion
+
+		if (this.isHexOnly)
+		{
+			if (sizeOnly === true)
+				return (new ArrayBuffer(this.valueHex.byteLength));
+
+			const curView = new Uint8Array(this.valueHex);
+
+			retBuf = new ArrayBuffer(this.blockLength);
+			retView = new Uint8Array(retBuf);
+
+			for (let i = 0; i < (this.blockLength - 1); i++)
+				retView[i] = curView[i] | 0x80;
+
+			retView[this.blockLength - 1] = curView[this.blockLength - 1];
+
+			return retBuf;
+		}
+
+		const encodedBuf = utilToBase$1(this.valueDec, 7);
+		if (encodedBuf.byteLength === 0)
+		{
+			this.error = "Error during encoding SID value";
+			return (new ArrayBuffer(0));
+		}
+
+		retBuf = new ArrayBuffer(encodedBuf.byteLength);
+
+		if (sizeOnly === false)
+		{
+			const encodedView = new Uint8Array(encodedBuf);
+			retView = new Uint8Array(retBuf);
+
+			for (let i = 0; i < (encodedBuf.byteLength - 1); i++)
+				retView[i] = encodedView[i] | 0x80;
+
+			retView[encodedBuf.byteLength - 1] = encodedView[encodedBuf.byteLength - 1];
+		}
+
+		return retBuf;
+	}
+	//**********************************************************************************
+	/**
+	 * Create string representation of current SID block
+	 * @returns {string}
+	 */
+	toString()
+	{
+		let result = "";
+
+		if (this.isHexOnly === true)
+			result = bufferToHexCodes$1(this.valueHex, 0, this.valueHex.byteLength);
+		else {
+			result = this.valueDec.toString();
+		}
+
+		return result;
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedGlobalSymbols
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {Object}
+	 */
+	toJSON()
+	{
+		let object = {};
+
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try {
+			object = super.toJSON();
+		} catch (ex) {}
+		//endregion
+
+		object.valueDec = this.valueDec;
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+class LocalRelativeObjectIdentifierValueBlock$1 extends ValueBlock$1 {
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalRelativeObjectIdentifierValueBlock" class
+	 * @param {Object} [parameters={}]
+	 * @property {ArrayBuffer} [valueHex]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.fromString(getParametersValue$1(parameters, "value", ""));
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		let resultOffset = inputOffset;
+
+		while (inputLength > 0)
+		{
+			const sidBlock = new LocalRelativeSidValueBlock$1();
+			resultOffset = sidBlock.fromBER(inputBuffer, resultOffset, inputLength);
+			if (resultOffset === (-1))
+			{
+				this.blockLength = 0;
+				this.error = sidBlock.error;
+				return resultOffset;
+			}
+
+			this.blockLength += sidBlock.blockLength;
+			inputLength -= sidBlock.blockLength;
+
+			this.value.push(sidBlock);
+		}
+
+		return resultOffset;
+	}
+	//**********************************************************************************
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		let retBuf = new ArrayBuffer(0);
+
+		for (let i = 0; i < this.value.length; i++)
+		{
+			const valueBuf = this.value[i].toBER(sizeOnly);
+			if (valueBuf.byteLength === 0)
+			{
+				this.error = this.value[i].error;
+				return (new ArrayBuffer(0));
+			}
+
+			retBuf = utilConcatBuf$1(retBuf, valueBuf);
+		}
+
+		return retBuf;
+	}
+	//**********************************************************************************
+	/**
+	 * Create "LocalRelativeObjectIdentifierValueBlock" class from string
+	 * @param {string} string Input string to convert from
+	 * @returns {boolean}
+	 */
+	fromString(string)
+	{
+		this.value = []; // Clear existing SID values
+
+		let pos1 = 0;
+		let pos2 = 0;
+
+		let sid = "";
+
+		do
+		{
+			pos2 = string.indexOf(".", pos1);
+			if (pos2 === (-1))
+				sid = string.substr(pos1);
+			else
+				sid = string.substr(pos1, pos2 - pos1);
+
+			pos1 = pos2 + 1;
+
+			const sidBlock = new LocalRelativeSidValueBlock$1();
+			sidBlock.valueDec = parseInt(sid, 10);
+			if (isNaN(sidBlock.valueDec))
+				return true;
+
+			this.value.push(sidBlock);
+
+		} while (pos2 !== (-1));
+
+		return true;
+	}
+	//**********************************************************************************
+	/**
+	 * Converts "LocalRelativeObjectIdentifierValueBlock" class to string
+	 * @returns {string}
+	 */
+	toString()
+	{
+		let result = "";
+		let isHexOnly = false;
+
+		for (let i = 0; i < this.value.length; i++)
+		{
+			isHexOnly = this.value[i].isHexOnly;
+
+			let sidStr = this.value[i].toString();
+
+			if (i !== 0)
+				result = `${result}.`;
+
+			if (isHexOnly)
+			{
+				sidStr = `{${sidStr}}`;
+				result += sidStr;
+			} else
+				result += sidStr;
+		}
+
+		return result;
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "RelativeObjectIdentifierValueBlock";
+	}
+	//**********************************************************************************
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {Object}
+	 */
+	toJSON()
+	{
+		let object = {};
+
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		} catch (ex) {}
+		//endregion
+
+		object.value = this.toString();
+		object.sidArray = [];
+		for (let i = 0; i < this.value.length; i++)
+			object.sidArray.push(this.value[i].toJSON());
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends BaseBlock
+ */
+class RelativeObjectIdentifier$1 extends BaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "RelativeObjectIdentifier" class
+	 * @param {Object} [parameters={}]
+	 * @property {ArrayBuffer} [valueHex]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters, LocalRelativeObjectIdentifierValueBlock$1);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 13; // RELATIVE OBJECT IDENTIFIER
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "RelativeObjectIdentifier";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+/**
+ * @extends LocalBaseBlock
+ * @extends HexBlock
+ */
+class LocalBmpStringValueBlock$1 extends HexBlock$1(LocalBaseBlock$1)
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalBmpStringValueBlock" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.isHexOnly = true;
+		this.value = "";
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "BmpStringValueBlock";
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedGlobalSymbols
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {Object}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.value = this.value;
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends BaseBlock
+ */
+class BmpString$1 extends BaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "BmpString" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters, LocalBmpStringValueBlock$1);
+
+		if("value" in parameters)
+			this.fromString(parameters.value);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 30; // BmpString
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "BmpString";
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		const resultOffset = this.valueBlock.fromBER(inputBuffer, inputOffset, (this.lenBlock.isIndefiniteForm === true) ? inputLength : this.lenBlock.length);
+		if(resultOffset === (-1))
+		{
+			this.error = this.valueBlock.error;
+			return resultOffset;
+		}
+
+		this.fromBuffer(this.valueBlock.valueHex);
+
+		if(this.idBlock.error.length === 0)
+			this.blockLength += this.idBlock.blockLength;
+
+		if(this.lenBlock.error.length === 0)
+			this.blockLength += this.lenBlock.blockLength;
+
+		if(this.valueBlock.error.length === 0)
+			this.blockLength += this.valueBlock.blockLength;
+
+		return resultOffset;
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting ArrayBuffer into ASN.1 internal string
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 */
+	fromBuffer(inputBuffer)
+	{
+		//noinspection JSCheckFunctionSignatures
+		const copyBuffer = inputBuffer.slice(0);
+		const valueView = new Uint8Array(copyBuffer);
+
+		for(let i = 0; i < valueView.length; i += 2)
+		{
+			const temp = valueView[i];
+
+			valueView[i] = valueView[i + 1];
+			valueView[i + 1] = temp;
+		}
+
+		this.valueBlock.value = String.fromCharCode.apply(null, new Uint16Array(copyBuffer));
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting JavaScript string into ASN.1 internal class
+	 * @param {!string} inputString ASN.1 BER encoded array
+	 */
+	fromString(inputString)
+	{
+		const strLength = inputString.length;
+
+		this.valueBlock.valueHex = new ArrayBuffer(strLength * 2);
+		const valueHexView = new Uint8Array(this.valueBlock.valueHex);
+
+		for(let i = 0; i < strLength; i++)
+		{
+			const codeBuf = utilToBase$1(inputString.charCodeAt(i), 8);
+			const codeView = new Uint8Array(codeBuf);
+			if(codeView.length > 2)
+				continue;
+
+			const dif = 2 - codeView.length;
+
+			for(let j = (codeView.length - 1); j >= 0; j--)
+				valueHexView[i * 2 + j + dif] = codeView[j];
+		}
+
+		this.valueBlock.value = inputString;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+class LocalUniversalStringValueBlock$1 extends HexBlock$1(LocalBaseBlock$1)
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalUniversalStringValueBlock" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.isHexOnly = true;
+		this.value = "";
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "UniversalStringValueBlock";
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedGlobalSymbols
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {Object}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.value = this.value;
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends BaseBlock
+ */
+class UniversalString$1 extends BaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "UniversalString" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters, LocalUniversalStringValueBlock$1);
+
+		if("value" in parameters)
+			this.fromString(parameters.value);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 28; // UniversalString
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "UniversalString";
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		const resultOffset = this.valueBlock.fromBER(inputBuffer, inputOffset, (this.lenBlock.isIndefiniteForm === true) ? inputLength : this.lenBlock.length);
+		if(resultOffset === (-1))
+		{
+			this.error = this.valueBlock.error;
+			return resultOffset;
+		}
+
+		this.fromBuffer(this.valueBlock.valueHex);
+
+		if(this.idBlock.error.length === 0)
+			this.blockLength += this.idBlock.blockLength;
+
+		if(this.lenBlock.error.length === 0)
+			this.blockLength += this.lenBlock.blockLength;
+
+		if(this.valueBlock.error.length === 0)
+			this.blockLength += this.valueBlock.blockLength;
+
+		return resultOffset;
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting ArrayBuffer into ASN.1 internal string
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 */
+	fromBuffer(inputBuffer)
+	{
+		//noinspection JSCheckFunctionSignatures
+		const copyBuffer = inputBuffer.slice(0);
+		const valueView = new Uint8Array(copyBuffer);
+
+		for(let i = 0; i < valueView.length; i += 4)
+		{
+			valueView[i] = valueView[i + 3];
+			valueView[i + 1] = valueView[i + 2];
+			valueView[i + 2] = 0x00;
+			valueView[i + 3] = 0x00;
+		}
+
+		this.valueBlock.value = String.fromCharCode.apply(null, new Uint32Array(copyBuffer));
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting JavaScript string into ASN.1 internal class
+	 * @param {!string} inputString ASN.1 BER encoded array
+	 */
+	fromString(inputString)
+	{
+		const strLength = inputString.length;
+
+		this.valueBlock.valueHex = new ArrayBuffer(strLength * 4);
+		const valueHexView = new Uint8Array(this.valueBlock.valueHex);
+
+		for(let i = 0; i < strLength; i++)
+		{
+			const codeBuf = utilToBase$1(inputString.charCodeAt(i), 8);
+			const codeView = new Uint8Array(codeBuf);
+			if(codeView.length > 4)
+				continue;
+
+			const dif = 4 - codeView.length;
+
+			for(let j = (codeView.length - 1); j >= 0; j--)
+				valueHexView[i * 4 + j + dif] = codeView[j];
+		}
+
+		this.valueBlock.value = inputString;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+class LocalSimpleStringValueBlock$1 extends HexBlock$1(LocalBaseBlock$1)
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalSimpleStringValueBlock" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.value = "";
+		this.isHexOnly = true;
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "SimpleStringValueBlock";
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedGlobalSymbols
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {Object}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.value = this.value;
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends BaseBlock
+ */
+class LocalSimpleStringBlock$1 extends BaseBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "LocalSimpleStringBlock" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters, LocalSimpleStringValueBlock$1);
+
+		if("value" in parameters)
+			this.fromString(parameters.value);
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "SIMPLESTRING";
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		const resultOffset = this.valueBlock.fromBER(inputBuffer, inputOffset, (this.lenBlock.isIndefiniteForm === true) ? inputLength : this.lenBlock.length);
+		if(resultOffset === (-1))
+		{
+			this.error = this.valueBlock.error;
+			return resultOffset;
+		}
+
+		this.fromBuffer(this.valueBlock.valueHex);
+
+		if(this.idBlock.error.length === 0)
+			this.blockLength += this.idBlock.blockLength;
+
+		if(this.lenBlock.error.length === 0)
+			this.blockLength += this.lenBlock.blockLength;
+
+		if(this.valueBlock.error.length === 0)
+			this.blockLength += this.valueBlock.blockLength;
+
+		return resultOffset;
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting ArrayBuffer into ASN.1 internal string
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 */
+	fromBuffer(inputBuffer)
+	{
+		this.valueBlock.value = String.fromCharCode.apply(null, new Uint8Array(inputBuffer));
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting JavaScript string into ASN.1 internal class
+	 * @param {!string} inputString ASN.1 BER encoded array
+	 */
+	fromString(inputString)
+	{
+		const strLen = inputString.length;
+
+		this.valueBlock.valueHex = new ArrayBuffer(strLen);
+		const view = new Uint8Array(this.valueBlock.valueHex);
+
+		for(let i = 0; i < strLen; i++)
+			view[i] = inputString.charCodeAt(i);
+
+		this.valueBlock.value = inputString;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends LocalSimpleStringBlock
+ */
+class NumericString$1 extends LocalSimpleStringBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "NumericString" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 18; // NumericString
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "NumericString";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends LocalSimpleStringBlock
+ */
+class PrintableString$1 extends LocalSimpleStringBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "PrintableString" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 19; // PrintableString
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "PrintableString";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends LocalSimpleStringBlock
+ */
+class TeletexString$1 extends LocalSimpleStringBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "TeletexString" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 20; // TeletexString
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "TeletexString";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends LocalSimpleStringBlock
+ */
+class VideotexString$1 extends LocalSimpleStringBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "VideotexString" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 21; // VideotexString
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "VideotexString";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends LocalSimpleStringBlock
+ */
+class IA5String$1 extends LocalSimpleStringBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "IA5String" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 22; // IA5String
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "IA5String";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends LocalSimpleStringBlock
+ */
+class GraphicString$1 extends LocalSimpleStringBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "GraphicString" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 25; // GraphicString
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "GraphicString";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends LocalSimpleStringBlock
+ */
+class VisibleString$1 extends LocalSimpleStringBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "VisibleString" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 26; // VisibleString
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "VisibleString";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends LocalSimpleStringBlock
+ */
+class GeneralString$1 extends LocalSimpleStringBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "GeneralString" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 27; // GeneralString
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "GeneralString";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends LocalSimpleStringBlock
+ */
+class CharacterString$1 extends LocalSimpleStringBlock$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "CharacterString" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 29; // CharacterString
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "CharacterString";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of all date and time classes
+//**************************************************************************************
+/**
+ * @extends VisibleString
+ */
+class UTCTime$1 extends VisibleString$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "UTCTime" class
+	 * @param {Object} [parameters={}]
+	 * @property {string} [value] String representatio of the date
+	 * @property {Date} [valueDate] JavaScript "Date" object
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.year = 0;
+		this.month = 0;
+		this.day = 0;
+		this.hour = 0;
+		this.minute = 0;
+		this.second = 0;
+
+		//region Create UTCTime from ASN.1 UTC string value
+		if("value" in parameters)
+		{
+			this.fromString(parameters.value);
+
+			this.valueBlock.valueHex = new ArrayBuffer(parameters.value.length);
+			const view = new Uint8Array(this.valueBlock.valueHex);
+
+			for(let i = 0; i < parameters.value.length; i++)
+				view[i] = parameters.value.charCodeAt(i);
+		}
+		//endregion
+		//region Create GeneralizedTime from JavaScript Date type
+		if("valueDate" in parameters)
+		{
+			this.fromDate(parameters.valueDate);
+			this.valueBlock.valueHex = this.toBuffer();
+		}
+		//endregion
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 23; // UTCTime
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		const resultOffset = this.valueBlock.fromBER(inputBuffer, inputOffset, (this.lenBlock.isIndefiniteForm === true) ? inputLength : this.lenBlock.length);
+		if(resultOffset === (-1))
+		{
+			this.error = this.valueBlock.error;
+			return resultOffset;
+		}
+
+		this.fromBuffer(this.valueBlock.valueHex);
+
+		if(this.idBlock.error.length === 0)
+			this.blockLength += this.idBlock.blockLength;
+
+		if(this.lenBlock.error.length === 0)
+			this.blockLength += this.lenBlock.blockLength;
+
+		if(this.valueBlock.error.length === 0)
+			this.blockLength += this.valueBlock.blockLength;
+
+		return resultOffset;
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting ArrayBuffer into ASN.1 internal string
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 */
+	fromBuffer(inputBuffer)
+	{
+		this.fromString(String.fromCharCode.apply(null, new Uint8Array(inputBuffer)));
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting ASN.1 internal string into ArrayBuffer
+	 * @returns {ArrayBuffer}
+	 */
+	toBuffer()
+	{
+		const str = this.toString();
+
+		const buffer = new ArrayBuffer(str.length);
+		const view = new Uint8Array(buffer);
+
+		for(let i = 0; i < str.length; i++)
+			view[i] = str.charCodeAt(i);
+
+		return buffer;
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting "Date" object into ASN.1 internal string
+	 * @param {!Date} inputDate JavaScript "Date" object
+	 */
+	fromDate(inputDate)
+	{
+		this.year = inputDate.getUTCFullYear();
+		this.month = inputDate.getUTCMonth() + 1;
+		this.day = inputDate.getUTCDate();
+		this.hour = inputDate.getUTCHours();
+		this.minute = inputDate.getUTCMinutes();
+		this.second = inputDate.getUTCSeconds();
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedGlobalSymbols
+	/**
+	 * Function converting ASN.1 internal string into "Date" object
+	 * @returns {Date}
+	 */
+	toDate()
+	{
+		return (new Date(Date.UTC(this.year, this.month - 1, this.day, this.hour, this.minute, this.second)));
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting JavaScript string into ASN.1 internal class
+	 * @param {!string} inputString ASN.1 BER encoded array
+	 */
+	fromString(inputString)
+	{
+		//region Parse input string
+		const parser = /(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})Z/ig;
+		const parserArray = parser.exec(inputString);
+		if(parserArray === null)
+		{
+			this.error = "Wrong input string for convertion";
+			return;
+		}
+		//endregion
+
+		//region Store parsed values
+		const year = parseInt(parserArray[1], 10);
+		if(year >= 50)
+			this.year = 1900 + year;
+		else
+			this.year = 2000 + year;
+
+		this.month = parseInt(parserArray[2], 10);
+		this.day = parseInt(parserArray[3], 10);
+		this.hour = parseInt(parserArray[4], 10);
+		this.minute = parseInt(parserArray[5], 10);
+		this.second = parseInt(parserArray[6], 10);
+		//endregion
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting ASN.1 internal class into JavaScript string
+	 * @returns {string}
+	 */
+	toString()
+	{
+		const outputArray = new Array(7);
+
+		outputArray[0] = padNumber$1(((this.year < 2000) ? (this.year - 1900) : (this.year - 2000)), 2);
+		outputArray[1] = padNumber$1(this.month, 2);
+		outputArray[2] = padNumber$1(this.day, 2);
+		outputArray[3] = padNumber$1(this.hour, 2);
+		outputArray[4] = padNumber$1(this.minute, 2);
+		outputArray[5] = padNumber$1(this.second, 2);
+		outputArray[6] = "Z";
+
+		return outputArray.join("");
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "UTCTime";
+	}
+	//**********************************************************************************
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {Object}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.year = this.year;
+		object.month = this.month;
+		object.day = this.day;
+		object.hour = this.hour;
+		object.minute = this.minute;
+		object.second = this.second;
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends VisibleString
+ */
+class GeneralizedTime$1 extends VisibleString$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "GeneralizedTime" class
+	 * @param {Object} [parameters={}]
+	 * @property {string} [value] String representatio of the date
+	 * @property {Date} [valueDate] JavaScript "Date" object
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.year = 0;
+		this.month = 0;
+		this.day = 0;
+		this.hour = 0;
+		this.minute = 0;
+		this.second = 0;
+		this.millisecond = 0;
+
+		//region Create UTCTime from ASN.1 UTC string value
+		if("value" in parameters)
+		{
+			this.fromString(parameters.value);
+
+			this.valueBlock.valueHex = new ArrayBuffer(parameters.value.length);
+			const view = new Uint8Array(this.valueBlock.valueHex);
+
+			for(let i = 0; i < parameters.value.length; i++)
+				view[i] = parameters.value.charCodeAt(i);
+		}
+		//endregion
+		//region Create GeneralizedTime from JavaScript Date type
+		if("valueDate" in parameters)
+		{
+			this.fromDate(parameters.valueDate);
+			this.valueBlock.valueHex = this.toBuffer();
+		}
+		//endregion
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 24; // GeneralizedTime
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		const resultOffset = this.valueBlock.fromBER(inputBuffer, inputOffset, (this.lenBlock.isIndefiniteForm === true) ? inputLength : this.lenBlock.length);
+		if(resultOffset === (-1))
+		{
+			this.error = this.valueBlock.error;
+			return resultOffset;
+		}
+
+		this.fromBuffer(this.valueBlock.valueHex);
+
+		if(this.idBlock.error.length === 0)
+			this.blockLength += this.idBlock.blockLength;
+
+		if(this.lenBlock.error.length === 0)
+			this.blockLength += this.lenBlock.blockLength;
+
+		if(this.valueBlock.error.length === 0)
+			this.blockLength += this.valueBlock.blockLength;
+
+		return resultOffset;
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting ArrayBuffer into ASN.1 internal string
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 */
+	fromBuffer(inputBuffer)
+	{
+		this.fromString(String.fromCharCode.apply(null, new Uint8Array(inputBuffer)));
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting ASN.1 internal string into ArrayBuffer
+	 * @returns {ArrayBuffer}
+	 */
+	toBuffer()
+	{
+		const str = this.toString();
+
+		const buffer = new ArrayBuffer(str.length);
+		const view = new Uint8Array(buffer);
+
+		for(let i = 0; i < str.length; i++)
+			view[i] = str.charCodeAt(i);
+
+		return buffer;
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting "Date" object into ASN.1 internal string
+	 * @param {!Date} inputDate JavaScript "Date" object
+	 */
+	fromDate(inputDate)
+	{
+		this.year = inputDate.getUTCFullYear();
+		this.month = inputDate.getUTCMonth() + 1;
+		this.day = inputDate.getUTCDate();
+		this.hour = inputDate.getUTCHours();
+		this.minute = inputDate.getUTCMinutes();
+		this.second = inputDate.getUTCSeconds();
+		this.millisecond = inputDate.getUTCMilliseconds();
+	}
+	//**********************************************************************************
+	//noinspection JSUnusedGlobalSymbols
+	/**
+	 * Function converting ASN.1 internal string into "Date" object
+	 * @returns {Date}
+	 */
+	toDate()
+	{
+		return (new Date(Date.UTC(this.year, this.month - 1, this.day, this.hour, this.minute, this.second, this.millisecond)));
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting JavaScript string into ASN.1 internal class
+	 * @param {!string} inputString ASN.1 BER encoded array
+	 */
+	fromString(inputString)
+	{
+		//region Initial variables
+		let isUTC = false;
+
+		let timeString = "";
+		let dateTimeString = "";
+		let fractionPart = 0;
+
+		let parser;
+
+		let hourDifference = 0;
+		let minuteDifference = 0;
+		//endregion
+
+		//region Convert as UTC time
+		if(inputString[inputString.length - 1] === "Z")
+		{
+			timeString = inputString.substr(0, inputString.length - 1);
+
+			isUTC = true;
+		}
+		//endregion
+		//region Convert as local time
+		else
+		{
+			//noinspection JSPrimitiveTypeWrapperUsage
+			const number = new Number(inputString[inputString.length - 1]);
+
+			if(isNaN(number.valueOf()))
+				throw new Error("Wrong input string for convertion");
+
+			timeString = inputString;
+		}
+		//endregion
+
+		//region Check that we do not have a "+" and "-" symbols inside UTC time
+		if(isUTC)
+		{
+			if(timeString.indexOf("+") !== (-1))
+				throw new Error("Wrong input string for convertion");
+
+			if(timeString.indexOf("-") !== (-1))
+				throw new Error("Wrong input string for convertion");
+		}
+		//endregion
+		//region Get "UTC time difference" in case of local time
+		else
+		{
+			let multiplier = 1;
+			let differencePosition = timeString.indexOf("+");
+			let differenceString = "";
+
+			if(differencePosition === (-1))
+			{
+				differencePosition = timeString.indexOf("-");
+				multiplier = (-1);
+			}
+
+			if(differencePosition !== (-1))
+			{
+				differenceString = timeString.substr(differencePosition + 1);
+				timeString = timeString.substr(0, differencePosition);
+
+				if((differenceString.length !== 2) && (differenceString.length !== 4))
+					throw new Error("Wrong input string for convertion");
+
+				//noinspection JSPrimitiveTypeWrapperUsage
+				let number = new Number(differenceString.substr(0, 2));
+
+				if(isNaN(number.valueOf()))
+					throw new Error("Wrong input string for convertion");
+
+				hourDifference = multiplier * number;
+
+				if(differenceString.length === 4)
+				{
+					//noinspection JSPrimitiveTypeWrapperUsage
+					number = new Number(differenceString.substr(2, 2));
+
+					if(isNaN(number.valueOf()))
+						throw new Error("Wrong input string for convertion");
+
+					minuteDifference = multiplier * number;
+				}
+			}
+		}
+		//endregion
+
+		//region Get position of fraction point
+		let fractionPointPosition = timeString.indexOf("."); // Check for "full stop" symbol
+		if(fractionPointPosition === (-1))
+			fractionPointPosition = timeString.indexOf(","); // Check for "comma" symbol
+		//endregion
+
+		//region Get fraction part
+		if(fractionPointPosition !== (-1))
+		{
+			//noinspection JSPrimitiveTypeWrapperUsage
+			const fractionPartCheck = new Number(`0${timeString.substr(fractionPointPosition)}`);
+
+			if(isNaN(fractionPartCheck.valueOf()))
+				throw new Error("Wrong input string for convertion");
+
+			fractionPart = fractionPartCheck.valueOf();
+
+			dateTimeString = timeString.substr(0, fractionPointPosition);
+		}
+		else
+			dateTimeString = timeString;
+		//endregion
+
+		//region Parse internal date
+		switch(true)
+		{
+			case (dateTimeString.length === 8): // "YYYYMMDD"
+				parser = /(\d{4})(\d{2})(\d{2})/ig;
+				if(fractionPointPosition !== (-1))
+					throw new Error("Wrong input string for convertion"); // Here we should not have a "fraction point"
+				break;
+			case (dateTimeString.length === 10): // "YYYYMMDDHH"
+				parser = /(\d{4})(\d{2})(\d{2})(\d{2})/ig;
+
+				if(fractionPointPosition !== (-1))
+				{
+					let fractionResult = 60 * fractionPart;
+					this.minute = Math.floor(fractionResult);
+
+					fractionResult = 60 * (fractionResult - this.minute);
+					this.second = Math.floor(fractionResult);
+
+					fractionResult = 1000 * (fractionResult - this.second);
+					this.millisecond = Math.floor(fractionResult);
+				}
+				break;
+			case (dateTimeString.length === 12): // "YYYYMMDDHHMM"
+				parser = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})/ig;
+
+				if(fractionPointPosition !== (-1))
+				{
+					let fractionResult = 60 * fractionPart;
+					this.second = Math.floor(fractionResult);
+
+					fractionResult = 1000 * (fractionResult - this.second);
+					this.millisecond = Math.floor(fractionResult);
+				}
+				break;
+			case (dateTimeString.length === 14): // "YYYYMMDDHHMMSS"
+				parser = /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/ig;
+
+				if(fractionPointPosition !== (-1))
+				{
+					const fractionResult = 1000 * fractionPart;
+					this.millisecond = Math.floor(fractionResult);
+				}
+				break;
+			default:
+				throw new Error("Wrong input string for convertion");
+		}
+		//endregion
+
+		//region Put parsed values at right places
+		const parserArray = parser.exec(dateTimeString);
+		if(parserArray === null)
+			throw new Error("Wrong input string for convertion");
+
+		for(let j = 1; j < parserArray.length; j++)
+		{
+			switch(j)
+			{
+				case 1:
+					this.year = parseInt(parserArray[j], 10);
+					break;
+				case 2:
+					this.month = parseInt(parserArray[j], 10);
+					break;
+				case 3:
+					this.day = parseInt(parserArray[j], 10);
+					break;
+				case 4:
+					this.hour = parseInt(parserArray[j], 10) + hourDifference;
+					break;
+				case 5:
+					this.minute = parseInt(parserArray[j], 10) + minuteDifference;
+					break;
+				case 6:
+					this.second = parseInt(parserArray[j], 10);
+					break;
+				default:
+					throw new Error("Wrong input string for convertion");
+			}
+		}
+		//endregion
+
+		//region Get final date
+		if(isUTC === false)
+		{
+			const tempDate = new Date(this.year, this.month, this.day, this.hour, this.minute, this.second, this.millisecond);
+
+			this.year = tempDate.getUTCFullYear();
+			this.month = tempDate.getUTCMonth();
+			this.day = tempDate.getUTCDay();
+			this.hour = tempDate.getUTCHours();
+			this.minute = tempDate.getUTCMinutes();
+			this.second = tempDate.getUTCSeconds();
+			this.millisecond = tempDate.getUTCMilliseconds();
+		}
+		//endregion
+	}
+	//**********************************************************************************
+	/**
+	 * Function converting ASN.1 internal class into JavaScript string
+	 * @returns {string}
+	 */
+	toString()
+	{
+		const outputArray = [];
+
+		outputArray.push(padNumber$1(this.year, 4));
+		outputArray.push(padNumber$1(this.month, 2));
+		outputArray.push(padNumber$1(this.day, 2));
+		outputArray.push(padNumber$1(this.hour, 2));
+		outputArray.push(padNumber$1(this.minute, 2));
+		outputArray.push(padNumber$1(this.second, 2));
+		if(this.millisecond !== 0)
+		{
+			outputArray.push(".");
+			outputArray.push(padNumber$1(this.millisecond, 3));
+		}
+		outputArray.push("Z");
+
+		return outputArray.join("");
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "GeneralizedTime";
+	}
+	//**********************************************************************************
+	/**
+	 * Convertion for the block to JSON object
+	 * @returns {Object}
+	 */
+	toJSON()
+	{
+		let object = {};
+		
+		//region Seems at the moment (Sep 2016) there is no way how to check method is supported in "super" object
+		try
+		{
+			object = super.toJSON();
+		}
+		catch(ex){}
+		//endregion
+
+		object.year = this.year;
+		object.month = this.month;
+		object.day = this.day;
+		object.hour = this.hour;
+		object.minute = this.minute;
+		object.second = this.second;
+		object.millisecond = this.millisecond;
+
+		return object;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends Utf8String
+ */
+class DATE$1 extends Utf8String$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "DATE" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 31; // DATE
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "DATE";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends Utf8String
+ */
+class TimeOfDay$1 extends Utf8String$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "TimeOfDay" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 32; // TimeOfDay
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "TimeOfDay";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends Utf8String
+ */
+class DateTime$1 extends Utf8String$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "DateTime" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 33; // DateTime
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "DateTime";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends Utf8String
+ */
+class Duration$1 extends Utf8String$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "Duration" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 34; // Duration
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "Duration";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+/**
+ * @extends Utf8String
+ */
+class TIME$1 extends Utf8String$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "Time" class
+	 * @param {Object} [parameters={}]
+	 */
+	constructor(parameters = {})
+	{
+		super(parameters);
+
+		this.idBlock.tagClass = 1; // UNIVERSAL
+		this.idBlock.tagNumber = 14; // Time
+	}
+	//**********************************************************************************
+	/**
+	 * Aux function, need to get a block name. Need to have it here for inhiritence
+	 * @returns {string}
+	 */
+	static blockName()
+	{
+		return "TIME";
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of special ASN.1 schema type Choice
+//**************************************************************************************
+class Choice$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "Choice" class
+	 * @param {Object} [parameters={}]
+	 * @property {Array} [value] Array of ASN.1 types for make a choice from
+	 * @property {boolean} [optional]
+	 */
+	constructor(parameters = {})
+	{
+		this.value = getParametersValue$1(parameters, "value", []);
+		this.optional = getParametersValue$1(parameters, "optional", false);
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of special ASN.1 schema type Any
+//**************************************************************************************
+class Any$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "Any" class
+	 * @param {Object} [parameters={}]
+	 * @property {string} [name]
+	 * @property {boolean} [optional]
+	 */
+	constructor(parameters = {})
+	{
+		this.name = getParametersValue$1(parameters, "name", "");
+		this.optional = getParametersValue$1(parameters, "optional", false);
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of special ASN.1 schema type Repeated
+//**************************************************************************************
+class Repeated$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "Repeated" class
+	 * @param {Object} [parameters={}]
+	 * @property {string} [name]
+	 * @property {boolean} [optional]
+	 */
+	constructor(parameters = {})
+	{
+		this.name = getParametersValue$1(parameters, "name", "");
+		this.optional = getParametersValue$1(parameters, "optional", false);
+		this.value = getParametersValue$1(parameters, "value", new Any$1());
+		this.local = getParametersValue$1(parameters, "local", false); // Could local or global array to store elements
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Declaration of special ASN.1 schema type RawData
+//**************************************************************************************
+/**
+ * @description Special class providing ability to have "toBER/fromBER" for raw ArrayBuffer
+ */
+class RawData$1
+{
+	//**********************************************************************************
+	/**
+	 * Constructor for "Repeated" class
+	 * @param {Object} [parameters={}]
+	 * @property {string} [name]
+	 * @property {boolean} [optional]
+	 */
+	constructor(parameters = {})
+	{
+		this.data = getParametersValue$1(parameters, "data", new ArrayBuffer(0));
+	}
+	//**********************************************************************************
+	/**
+	 * Base function for converting block from BER encoded array of bytes
+	 * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+	 * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+	 * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+	 * @returns {number} Offset after least decoded byte
+	 */
+	fromBER(inputBuffer, inputOffset, inputLength)
+	{
+		this.data = inputBuffer.slice(inputOffset, inputLength);
+		return (inputOffset + inputLength);
+	}
+	//**********************************************************************************
+	/**
+	 * Encoding of current ASN.1 block into ASN.1 encoded array (BER rules)
+	 * @param {boolean} [sizeOnly=false] Flag that we need only a size of encoding, not a real array of bytes
+	 * @returns {ArrayBuffer}
+	 */
+	toBER(sizeOnly = false)
+	{
+		return this.data;
+	}
+	//**********************************************************************************
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Major ASN.1 BER decoding function
+//**************************************************************************************
+/**
+ * Internal library function for decoding ASN.1 BER
+ * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array
+ * @param {!number} inputOffset Offset in ASN.1 BER encoded array where decoding should be started
+ * @param {!number} inputLength Maximum length of array of bytes which can be using in this function
+ * @returns {{offset: number, result: Object}}
+ */
+function LocalFromBER$1(inputBuffer, inputOffset, inputLength)
+{
+	const incomingOffset = inputOffset; // Need to store initial offset since "inputOffset" is changing in the function
+
+	//region Local function changing a type for ASN.1 classes
+	function localChangeType(inputObject, newType)
+	{
+		if(inputObject instanceof newType)
+			return inputObject;
+
+		const newObject = new newType();
+		newObject.idBlock = inputObject.idBlock;
+		newObject.lenBlock = inputObject.lenBlock;
+		newObject.warnings = inputObject.warnings;
+		//noinspection JSCheckFunctionSignatures
+		newObject.valueBeforeDecode = inputObject.valueBeforeDecode.slice(0);
+
+		return newObject;
+	}
+	//endregion
+
+	//region Create a basic ASN.1 type since we need to return errors and warnings from the function
+	let returnObject = new BaseBlock$1({}, Object);
+	//endregion
+
+	//region Basic check for parameters
+	const baseBlock = new LocalBaseBlock$1();
+	if(checkBufferParams$1(baseBlock, inputBuffer, inputOffset, inputLength) === false)
+	{
+		returnObject.error = baseBlock.error;
+		return {
+			offset: (-1),
+			result: returnObject
+		};
+	}
+	//endregion
+
+	//region Getting Uint8Array from ArrayBuffer
+	const intBuffer = new Uint8Array(inputBuffer, inputOffset, inputLength);
+	//endregion
+
+	//region Initial checks
+	if(intBuffer.length === 0)
+	{
+		this.error = "Zero buffer length";
+		return {
+			offset: (-1),
+			result: returnObject
+		};
+	}
+	//endregion
+
+	//region Decode indentifcation block of ASN.1 BER structure
+	let resultOffset = returnObject.idBlock.fromBER(inputBuffer, inputOffset, inputLength);
+	returnObject.warnings.concat(returnObject.idBlock.warnings);
+	if(resultOffset === (-1))
+	{
+		returnObject.error = returnObject.idBlock.error;
+		return {
+			offset: (-1),
+			result: returnObject
+		};
+	}
+
+	inputOffset = resultOffset;
+	inputLength -= returnObject.idBlock.blockLength;
+	//endregion
+
+	//region Decode length block of ASN.1 BER structure
+	resultOffset = returnObject.lenBlock.fromBER(inputBuffer, inputOffset, inputLength);
+	returnObject.warnings.concat(returnObject.lenBlock.warnings);
+	if(resultOffset === (-1))
+	{
+		returnObject.error = returnObject.lenBlock.error;
+		return {
+			offset: (-1),
+			result: returnObject
+		};
+	}
+
+	inputOffset = resultOffset;
+	inputLength -= returnObject.lenBlock.blockLength;
+	//endregion
+
+	//region Check for usign indefinite length form in encoding for primitive types
+	if((returnObject.idBlock.isConstructed === false) &&
+		(returnObject.lenBlock.isIndefiniteForm === true))
+	{
+		returnObject.error = "Indefinite length form used for primitive encoding form";
+		return {
+			offset: (-1),
+			result: returnObject
+		};
+	}
+	//endregion
+
+	//region Switch ASN.1 block type
+	let newASN1Type = BaseBlock$1;
+
+	switch(returnObject.idBlock.tagClass)
+	{
+		//region UNIVERSAL
+		case 1:
+			//region Check for reserved tag numbers
+			if((returnObject.idBlock.tagNumber >= 37) &&
+				(returnObject.idBlock.isHexOnly === false))
+			{
+				returnObject.error = "UNIVERSAL 37 and upper tags are reserved by ASN.1 standard";
+				return {
+					offset: (-1),
+					result: returnObject
+				};
+			}
+			//endregion
+
+			switch(returnObject.idBlock.tagNumber)
+			{
+				//region EndOfContent type
+				case 0:
+					//region Check for EndOfContent type
+					if((returnObject.idBlock.isConstructed === true) &&
+						(returnObject.lenBlock.length > 0))
+					{
+						returnObject.error = "Type [UNIVERSAL 0] is reserved";
+						return {
+							offset: (-1),
+							result: returnObject
+						};
+					}
+					//endregion
+
+					newASN1Type = EndOfContent$1;
+
+					break;
+				//endregion
+				//region Boolean type
+				case 1:
+					newASN1Type = Boolean$1;
+					break;
+				//endregion
+				//region Integer type
+				case 2:
+					newASN1Type = Integer$1;
+					break;
+				//endregion
+				//region BitString type
+				case 3:
+					newASN1Type = BitString$1;
+					break;
+				//endregion
+				//region OctetString type
+				case 4:
+					newASN1Type = OctetString$1;
+					break;
+				//endregion
+				//region Null type
+				case 5:
+					newASN1Type = Null$1;
+					break;
+				//endregion
+				//region OBJECT IDENTIFIER type
+				case 6:
+					newASN1Type = ObjectIdentifier$1;
+					break;
+				//endregion
+				//region Enumerated type
+				case 10:
+					newASN1Type = Enumerated$1;
+					break;
+				//endregion
+				//region Utf8String type
+				case 12:
+					newASN1Type = Utf8String$1;
+					break;
+				//endregion
+				//region Time type
+				//region RELATIVE OBJECT IDENTIFIER type
+				case 13:
+					newASN1Type = RelativeObjectIdentifier$1;
+					break;
+				//endregion
+				case 14:
+					newASN1Type = TIME$1;
+					break;
+				//endregion
+				//region ASN.1 reserved type
+				case 15:
+					returnObject.error = "[UNIVERSAL 15] is reserved by ASN.1 standard";
+					return {
+						offset: (-1),
+						result: returnObject
+					};
+				//endregion
+				//region Sequence type
+				case 16:
+					newASN1Type = Sequence$1;
+					break;
+				//endregion
+				//region Set type
+				case 17:
+					newASN1Type = Set$1;
+					break;
+				//endregion
+				//region NumericString type
+				case 18:
+					newASN1Type = NumericString$1;
+					break;
+				//endregion
+				//region PrintableString type
+				case 19:
+					newASN1Type = PrintableString$1;
+					break;
+				//endregion
+				//region TeletexString type
+				case 20:
+					newASN1Type = TeletexString$1;
+					break;
+				//endregion
+				//region VideotexString type
+				case 21:
+					newASN1Type = VideotexString$1;
+					break;
+				//endregion
+				//region IA5String type
+				case 22:
+					newASN1Type = IA5String$1;
+					break;
+				//endregion
+				//region UTCTime type
+				case 23:
+					newASN1Type = UTCTime$1;
+					break;
+				//endregion
+				//region GeneralizedTime type
+				case 24:
+					newASN1Type = GeneralizedTime$1;
+					break;
+				//endregion
+				//region GraphicString type
+				case 25:
+					newASN1Type = GraphicString$1;
+					break;
+				//endregion
+				//region VisibleString type
+				case 26:
+					newASN1Type = VisibleString$1;
+					break;
+				//endregion
+				//region GeneralString type
+				case 27:
+					newASN1Type = GeneralString$1;
+					break;
+				//endregion
+				//region UniversalString type
+				case 28:
+					newASN1Type = UniversalString$1;
+					break;
+				//endregion
+				//region CharacterString type
+				case 29:
+					newASN1Type = CharacterString$1;
+					break;
+				//endregion
+				//region BmpString type
+				case 30:
+					newASN1Type = BmpString$1;
+					break;
+				//endregion
+				//region DATE type
+				case 31:
+					newASN1Type = DATE$1;
+					break;
+				//endregion
+				//region TimeOfDay type
+				case 32:
+					newASN1Type = TimeOfDay$1;
+					break;
+				//endregion
+				//region Date-Time type
+				case 33:
+					newASN1Type = DateTime$1;
+					break;
+				//endregion
+				//region Duration type
+				case 34:
+					newASN1Type = Duration$1;
+					break;
+				//endregion
+				//region default
+				default:
+					{
+						let newObject;
+
+						if(returnObject.idBlock.isConstructed === true)
+							newObject = new Constructed$1();
+						else
+							newObject = new Primitive$1();
+
+						newObject.idBlock = returnObject.idBlock;
+						newObject.lenBlock = returnObject.lenBlock;
+						newObject.warnings = returnObject.warnings;
+
+						returnObject = newObject;
+
+						resultOffset = returnObject.fromBER(inputBuffer, inputOffset, inputLength);
+					}
+				//endregion
+			}
+			break;
+		//endregion
+		//region All other tag classes
+		case 2: // APPLICATION
+		case 3: // CONTEXT-SPECIFIC
+		case 4: // PRIVATE
+		default:
+			{
+				if(returnObject.idBlock.isConstructed === true)
+					newASN1Type = Constructed$1;
+				else
+					newASN1Type = Primitive$1;
+			}
+		//endregion
+	}
+	//endregion
+
+	//region Change type and perform BER decoding
+	returnObject = localChangeType(returnObject, newASN1Type);
+	resultOffset = returnObject.fromBER(inputBuffer, inputOffset, (returnObject.lenBlock.isIndefiniteForm === true) ? inputLength : returnObject.lenBlock.length);
+	//endregion
+
+	//region Coping incoming buffer for entire ASN.1 block
+	returnObject.valueBeforeDecode = inputBuffer.slice(incomingOffset, incomingOffset + returnObject.blockLength);
+	//endregion
+
+	return {
+		offset: resultOffset,
+		result: returnObject
+	};
+}
+//**************************************************************************************
+/**
+ * Major function for decoding ASN.1 BER array into internal library structuries
+ * @param {!ArrayBuffer} inputBuffer ASN.1 BER encoded array of bytes
+ */
+function fromBER$1(inputBuffer)
+{
+	if(inputBuffer.byteLength === 0)
+	{
+		const result = new BaseBlock$1({}, Object);
+		result.error = "Input buffer has zero length";
+
+		return {
+			offset: (-1),
+			result
+		};
+	}
+
+	return LocalFromBER$1(inputBuffer, 0, inputBuffer.byteLength);
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Major scheme verification function
+//**************************************************************************************
+/**
+ * Compare of two ASN.1 object trees
+ * @param {!Object} root Root of input ASN.1 object tree
+ * @param {!Object} inputData Input ASN.1 object tree
+ * @param {!Object} inputSchema Input ASN.1 schema to compare with
+ * @return {{verified: boolean}|{verified:boolean, result: Object}}
+ */
+function compareSchema$1(root, inputData, inputSchema)
+{
+	//region Special case for Choice schema element type
+	if(inputSchema instanceof Choice$1)
+	{
+		const choiceResult = false;
+
+		for(let j = 0; j < inputSchema.value.length; j++)
+		{
+			const result = compareSchema$1(root, inputData, inputSchema.value[j]);
+			if(result.verified === true)
+			{
+				return {
+					verified: true,
+					result: root
+				};
+			}
+		}
+
+		if(choiceResult === false)
+		{
+			const _result = {
+				verified: false,
+				result: {
+					error: "Wrong values for Choice type"
+				}
+			};
+
+			if(inputSchema.hasOwnProperty("name"))
+				_result.name = inputSchema.name;
+
+			return _result;
+		}
+	}
+	//endregion
+
+	//region Special case for Any schema element type
+	if(inputSchema instanceof Any$1)
+	{
+		//region Add named component of ASN.1 schema
+		if(inputSchema.hasOwnProperty("name"))
+			root[inputSchema.name] = inputData;
+		//endregion
+
+		return {
+			verified: true,
+			result: root
+		};
+	}
+	//endregion
+
+	//region Initial check
+	if((root instanceof Object) === false)
+	{
+		return {
+			verified: false,
+			result: { error: "Wrong root object" }
+		};
+	}
+
+	if((inputData instanceof Object) === false)
+	{
+		return {
+			verified: false,
+			result: { error: "Wrong ASN.1 data" }
+		};
+	}
+
+	if((inputSchema instanceof Object) === false)
+	{
+		return {
+			verified: false,
+			result: { error: "Wrong ASN.1 schema" }
+		};
+	}
+
+	if(("idBlock" in inputSchema) === false)
+	{
+		return {
+			verified: false,
+			result: { error: "Wrong ASN.1 schema" }
+		};
+	}
+	//endregion
+
+	//region Comparing idBlock properties in ASN.1 data and ASN.1 schema
+	//region Encode and decode ASN.1 schema idBlock
+	/// <remarks>This encoding/decoding is neccessary because could be an errors in schema definition</remarks>
+	if(("fromBER" in inputSchema.idBlock) === false)
+	{
+		return {
+			verified: false,
+			result: { error: "Wrong ASN.1 schema" }
+		};
+	}
+
+	if(("toBER" in inputSchema.idBlock) === false)
+	{
+		return {
+			verified: false,
+			result: { error: "Wrong ASN.1 schema" }
+		};
+	}
+
+	const encodedId = inputSchema.idBlock.toBER(false);
+	if(encodedId.byteLength === 0)
+	{
+		return {
+			verified: false,
+			result: { error: "Error encoding idBlock for ASN.1 schema" }
+		};
+	}
+
+	const decodedOffset = inputSchema.idBlock.fromBER(encodedId, 0, encodedId.byteLength);
+	if(decodedOffset === (-1))
+	{
+		return {
+			verified: false,
+			result: { error: "Error decoding idBlock for ASN.1 schema" }
+		};
+	}
+	//endregion
+
+	//region tagClass
+	if(inputSchema.idBlock.hasOwnProperty("tagClass") === false)
+	{
+		return {
+			verified: false,
+			result: { error: "Wrong ASN.1 schema" }
+		};
+	}
+
+	if(inputSchema.idBlock.tagClass !== inputData.idBlock.tagClass)
+	{
+		return {
+			verified: false,
+			result: root
+		};
+	}
+	//endregion
+	//region tagNumber
+	if(inputSchema.idBlock.hasOwnProperty("tagNumber") === false)
+	{
+		return {
+			verified: false,
+			result: { error: "Wrong ASN.1 schema" }
+		};
+	}
+
+	if(inputSchema.idBlock.tagNumber !== inputData.idBlock.tagNumber)
+	{
+		return {
+			verified: false,
+			result: root
+		};
+	}
+	//endregion
+	//region isConstructed
+	if(inputSchema.idBlock.hasOwnProperty("isConstructed") === false)
+	{
+		return {
+			verified: false,
+			result: { error: "Wrong ASN.1 schema" }
+		};
+	}
+
+	if(inputSchema.idBlock.isConstructed !== inputData.idBlock.isConstructed)
+	{
+		return {
+			verified: false,
+			result: root
+		};
+	}
+	//endregion
+	//region isHexOnly
+	if(("isHexOnly" in inputSchema.idBlock) === false) // Since 'isHexOnly' is an inhirited property
+	{
+		return {
+			verified: false,
+			result: { error: "Wrong ASN.1 schema" }
+		};
+	}
+
+	if(inputSchema.idBlock.isHexOnly !== inputData.idBlock.isHexOnly)
+	{
+		return {
+			verified: false,
+			result: root
+		};
+	}
+	//endregion
+	//region valueHex
+	if(inputSchema.idBlock.isHexOnly === true)
+	{
+		if(("valueHex" in inputSchema.idBlock) === false) // Since 'valueHex' is an inhirited property
+		{
+			return {
+				verified: false,
+				result: { error: "Wrong ASN.1 schema" }
+			};
+		}
+
+		const schemaView = new Uint8Array(inputSchema.idBlock.valueHex);
+		const asn1View = new Uint8Array(inputData.idBlock.valueHex);
+
+		if(schemaView.length !== asn1View.length)
+		{
+			return {
+				verified: false,
+				result: root
+			};
+		}
+
+		for(let i = 0; i < schemaView.length; i++)
+		{
+			if(schemaView[i] !== asn1View[1])
+			{
+				return {
+					verified: false,
+					result: root
+				};
+			}
+		}
+	}
+	//endregion
+	//endregion
+
+	//region Add named component of ASN.1 schema
+	if(inputSchema.hasOwnProperty("name"))
+	{
+		inputSchema.name = inputSchema.name.replace(/^\s+|\s+$/g, "");
+		if(inputSchema.name !== "")
+			root[inputSchema.name] = inputData;
+	}
+	//endregion
+
+	//region Getting next ASN.1 block for comparition
+	if(inputSchema.idBlock.isConstructed === true)
+	{
+		let admission = 0;
+		let result = { verified: false };
+
+		let maxLength = inputSchema.valueBlock.value.length;
+
+		if(maxLength > 0)
+		{
+			if(inputSchema.valueBlock.value[0] instanceof Repeated$1)
+				maxLength = inputData.valueBlock.value.length;
+		}
+
+		//region Special case when constructive value has no elements
+		if(maxLength === 0)
+		{
+			return {
+				verified: true,
+				result: root
+			};
+		}
+		//endregion
+
+		//region Special case when "inputData" has no values and "inputSchema" has all optional values
+		if((inputData.valueBlock.value.length === 0) &&
+			(inputSchema.valueBlock.value.length !== 0))
+		{
+			let _optional = true;
+
+			for(let i = 0; i < inputSchema.valueBlock.value.length; i++)
+				_optional = _optional && (inputSchema.valueBlock.value[i].optional || false);
+
+			if(_optional === true)
+			{
+				return {
+					verified: true,
+					result: root
+				};
+			}
+
+			//region Delete early added name of block
+			if(inputSchema.hasOwnProperty("name"))
+			{
+				inputSchema.name = inputSchema.name.replace(/^\s+|\s+$/g, "");
+				if(inputSchema.name !== "")
+					delete root[inputSchema.name];
+			}
+			//endregion
+
+			root.error = "Inconsistent object length";
+
+			return {
+				verified: false,
+				result: root
+			};
+		}
+		//endregion
+
+		for(let i = 0; i < maxLength; i++)
+		{
+			//region Special case when there is an "optional" element of ASN.1 schema at the end
+			if((i - admission) >= inputData.valueBlock.value.length)
+			{
+				if(inputSchema.valueBlock.value[i].optional === false)
+				{
+					const _result = {
+						verified: false,
+						result: root
+					};
+
+					root.error = "Inconsistent length between ASN.1 data and schema";
+
+					//region Delete early added name of block
+					if(inputSchema.hasOwnProperty("name"))
+					{
+						inputSchema.name = inputSchema.name.replace(/^\s+|\s+$/g, "");
+						if(inputSchema.name !== "")
+						{
+							delete root[inputSchema.name];
+							_result.name = inputSchema.name;
+						}
+					}
+					//endregion
+
+					return _result;
+				}
+			}
+			//endregion
+			else
+			{
+				//region Special case for Repeated type of ASN.1 schema element
+				if(inputSchema.valueBlock.value[0] instanceof Repeated$1)
+				{
+					result = compareSchema$1(root, inputData.valueBlock.value[i], inputSchema.valueBlock.value[0].value);
+					if(result.verified === false)
+					{
+						if(inputSchema.valueBlock.value[0].optional === true)
+							admission++;
+						else
+						{
+							//region Delete early added name of block
+							if(inputSchema.hasOwnProperty("name"))
+							{
+								inputSchema.name = inputSchema.name.replace(/^\s+|\s+$/g, "");
+								if(inputSchema.name !== "")
+									delete root[inputSchema.name];
+							}
+							//endregion
+
+							return result;
+						}
+					}
+
+					if(("name" in inputSchema.valueBlock.value[0]) && (inputSchema.valueBlock.value[0].name.length > 0))
+					{
+						let arrayRoot = {};
+
+						if(("local" in inputSchema.valueBlock.value[0]) && (inputSchema.valueBlock.value[0].local === true))
+							arrayRoot = inputData;
+						else
+							arrayRoot = root;
+
+						if(typeof arrayRoot[inputSchema.valueBlock.value[0].name] === "undefined")
+							arrayRoot[inputSchema.valueBlock.value[0].name] = [];
+
+						arrayRoot[inputSchema.valueBlock.value[0].name].push(inputData.valueBlock.value[i]);
+					}
+				}
+				//endregion
+				else
+				{
+					result = compareSchema$1(root, inputData.valueBlock.value[i - admission], inputSchema.valueBlock.value[i]);
+					if(result.verified === false)
+					{
+						if(inputSchema.valueBlock.value[i].optional === true)
+							admission++;
+						else
+						{
+							//region Delete early added name of block
+							if(inputSchema.hasOwnProperty("name"))
+							{
+								inputSchema.name = inputSchema.name.replace(/^\s+|\s+$/g, "");
+								if(inputSchema.name !== "")
+									delete root[inputSchema.name];
+							}
+							//endregion
+
+							return result;
+						}
+					}
+				}
+			}
+		}
+
+		if(result.verified === false) // The situation may take place if last element is "optional" and verification failed
+		{
+			const _result = {
+				verified: false,
+				result: root
+			};
+
+			//region Delete early added name of block
+			if(inputSchema.hasOwnProperty("name"))
+			{
+				inputSchema.name = inputSchema.name.replace(/^\s+|\s+$/g, "");
+				if(inputSchema.name !== "")
+				{
+					delete root[inputSchema.name];
+					_result.name = inputSchema.name;
+				}
+			}
+			//endregion
+
+			return _result;
+		}
+
+		return {
+			verified: true,
+			result: root
+		};
+	}
+	//endregion
+	//region Ability to parse internal value for primitive-encoded value (value of OctetString, for example)
+	if(("primitiveSchema" in inputSchema) &&
+		("valueHex" in inputData.valueBlock))
+	{
+		//region Decoding of raw ASN.1 data
+		const asn1 = fromBER$1(inputData.valueBlock.valueHex);
+		if(asn1.offset === (-1))
+		{
+			const _result = {
+				verified: false,
+				result: asn1.result
+			};
+
+			//region Delete early added name of block
+			if(inputSchema.hasOwnProperty("name"))
+			{
+				inputSchema.name = inputSchema.name.replace(/^\s+|\s+$/g, "");
+				if(inputSchema.name !== "")
+				{
+					delete root[inputSchema.name];
+					_result.name = inputSchema.name;
+				}
+			}
+			//endregion
+
+			return _result;
+		}
+		//endregion
+
+		return compareSchema$1(root, asn1.result, inputSchema.primitiveSchema);
+	}
+
+	return {
+		verified: true,
+		result: root
+	};
+	//endregion
+}
+//**************************************************************************************
+//noinspection JSUnusedGlobalSymbols
+/**
+ * ASN.1 schema verification for ArrayBuffer data
+ * @param {!ArrayBuffer} inputBuffer Input BER-encoded ASN.1 data
+ * @param {!Object} inputSchema Input ASN.1 schema to verify against to
+ * @return {{verified: boolean}|{verified:boolean, result: Object}}
+ */
+function verifySchema$1(inputBuffer, inputSchema)
+{
+	//region Initial check
+	if((inputSchema instanceof Object) === false)
+	{
+		return {
+			verified: false,
+			result: { error: "Wrong ASN.1 schema type" }
+		};
+	}
+	//endregion
+
+	//region Decoding of raw ASN.1 data
+	const asn1 = fromBER$1(inputBuffer);
+	if(asn1.offset === (-1))
+	{
+		return {
+			verified: false,
+			result: asn1.result
+		};
+	}
+	//endregion
+
+	//region Compare ASN.1 struct with input schema
+	return compareSchema$1(asn1.result, asn1.result, inputSchema);
+	//endregion
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+//region Major function converting JSON to ASN.1 objects
+//**************************************************************************************
+//noinspection JSUnusedGlobalSymbols
+/**
+ * Converting from JSON to ASN.1 objects
+ * @param {string|Object} json JSON string or object to convert to ASN.1 objects
+ */
+function fromJSON$1(json)
+{
+	// TODO Implement
+}
+//**************************************************************************************
+//endregion
+//**************************************************************************************
+
+//**************************************************************************************
+/**
  * Class from RFC5280
  */
 class AlgorithmIdentifier
@@ -9575,14 +16401,14 @@ class AlgorithmIdentifier
 		 * @type {string}
 		 * @desc ObjectIdentifier for algorithm (string representation)
 		 */
-		this.algorithmId = getParametersValue(parameters, "algorithmId", AlgorithmIdentifier.defaultValues("algorithmId"));
+		this.algorithmId = getParametersValue$1(parameters, "algorithmId", AlgorithmIdentifier.defaultValues("algorithmId"));
 
 		if("algorithmParams" in parameters)
 			/**
 			 * @type {Object}
 			 * @desc Any algorithm parameters
 			 */
-			this.algorithmParams = getParametersValue(parameters, "algorithmParams", AlgorithmIdentifier.defaultValues("algorithmParams"));
+			this.algorithmParams = getParametersValue$1(parameters, "algorithmParams", AlgorithmIdentifier.defaultValues("algorithmParams"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -9602,7 +16428,7 @@ class AlgorithmIdentifier
 			case "algorithmId":
 				return "";
 			case "algorithmParams":
-				return new Any();
+				return new Any$1();
 			default:
 				throw new Error(`Invalid member name for AlgorithmIdentifier class: ${memberName}`);
 		}
@@ -9620,7 +16446,7 @@ class AlgorithmIdentifier
 			case "algorithmId":
 				return (memberValue === "");
 			case "algorithmParams":
-				return (memberValue instanceof Any);
+				return (memberValue instanceof Any$1);
 			default:
 				throw new Error(`Invalid member name for AlgorithmIdentifier class: ${memberName}`);
 		}
@@ -9646,14 +16472,14 @@ class AlgorithmIdentifier
 		 * @property {string} algorithmIdentifier ObjectIdentifier for the algorithm
 		 * @property {string} algorithmParams Any algorithm parameters
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			optional: (names.optional || false),
 			value: [
-				new ObjectIdentifier({ name: (names.algorithmIdentifier || "") }),
-				new Any({ name: (names.algorithmParams || ""), optional: true })
+				new ObjectIdentifier$1({ name: (names.algorithmIdentifier || "") }),
+				new Any$1({ name: (names.algorithmParams || ""), optional: true })
 			]
 		}));
 	}
@@ -9665,14 +16491,14 @@ class AlgorithmIdentifier
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"algorithm",
 			"params"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			AlgorithmIdentifier.schema({
 				names: {
@@ -9702,13 +16528,13 @@ class AlgorithmIdentifier
 		//region Create array for output sequence
 		const outputArray = [];
 		
-		outputArray.push(new ObjectIdentifier({ value: this.algorithmId }));
-		if(("algorithmParams" in this) && ((this.algorithmParams instanceof Any) === false))
+		outputArray.push(new ObjectIdentifier$1({ value: this.algorithmId }));
+		if(("algorithmParams" in this) && ((this.algorithmParams instanceof Any$1) === false))
 			outputArray.push(this.algorithmParams);
 		//endregion
 		
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -9724,7 +16550,7 @@ class AlgorithmIdentifier
 			algorithmId: this.algorithmId
 		};
 
-		if(("algorithmParams" in this) && ((this.algorithmParams instanceof Any) === false))
+		if(("algorithmParams" in this) && ((this.algorithmParams instanceof Any$1) === false))
 			object.algorithmParams = this.algorithmParams.toJSON();
 
 		return object;
@@ -9785,17 +16611,17 @@ class ECPublicKey
 		 * @type {ArrayBuffer}
 		 * @desc type
 		 */
-		this.x = getParametersValue(parameters, "x", ECPublicKey.defaultValues("x"));
+		this.x = getParametersValue$1(parameters, "x", ECPublicKey.defaultValues("x"));
 		/**
 		 * @type {ArrayBuffer}
 		 * @desc values
 		 */
-		this.y = getParametersValue(parameters, "y", ECPublicKey.defaultValues("y"));
+		this.y = getParametersValue$1(parameters, "y", ECPublicKey.defaultValues("y"));
 		/**
 		 * @type {string}
 		 * @desc namedCurve
 		 */
-		this.namedCurve = getParametersValue(parameters, "namedCurve", ECPublicKey.defaultValues("namedCurve"));
+		this.namedCurve = getParametersValue$1(parameters, "namedCurve", ECPublicKey.defaultValues("namedCurve"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -9837,7 +16663,7 @@ class ECPublicKey
 		{
 			case "x":
 			case "y":
-				return (isEqualBuffer(memberValue, ECPublicKey.defaultValues(memberName)));
+				return (isEqualBuffer$1(memberValue, ECPublicKey.defaultValues(memberName)));
 			case "namedCurve":
 				return (memberValue === "");
 			default:
@@ -9852,7 +16678,7 @@ class ECPublicKey
 	 */
 	static schema(parameters = {})
 	{
-		return new RawData();
+		return new RawData$1();
 	}
 	//**********************************************************************************
 	/**
@@ -9902,7 +16728,7 @@ class ECPublicKey
 	 */
 	toSchema()
 	{
-		return new RawData({ data: utilConcatBuf(
+		return new RawData$1({ data: utilConcatBuf$1(
 			(new Uint8Array([0x04])).buffer,
 			this.x,
 			this.y
@@ -9934,8 +16760,8 @@ class ECPublicKey
 
 		return {
 			crv: crvName,
-			x: toBase64(arrayBufferToString(this.x), true, true, false),
-			y: toBase64(arrayBufferToString(this.y), true, true, false)
+			x: toBase64$1(arrayBufferToString$1(this.x), true, true, false),
+			y: toBase64$1(arrayBufferToString$1(this.y), true, true, false)
 		};
 	}
 	//**********************************************************************************
@@ -9971,7 +16797,7 @@ class ECPublicKey
 
 		if("x" in json)
 		{
-			const convertBuffer = stringToArrayBuffer(fromBase64(json.x, true));
+			const convertBuffer = stringToArrayBuffer$1(fromBase64$1(json.x, true));
 			
 			if(convertBuffer.byteLength < coodinateLength)
 			{
@@ -9988,7 +16814,7 @@ class ECPublicKey
 
 		if("y" in json)
 		{
-			const convertBuffer = stringToArrayBuffer(fromBase64(json.y, true));
+			const convertBuffer = stringToArrayBuffer$1(fromBase64$1(json.y, true));
 			
 			if(convertBuffer.byteLength < coodinateLength)
 			{
@@ -10028,12 +16854,12 @@ class RSAPublicKey
 		 * @type {Integer}
 		 * @desc Modulus part of RSA public key
 		 */
-		this.modulus = getParametersValue(parameters, "modulus", RSAPublicKey.defaultValues("modulus"));
+		this.modulus = getParametersValue$1(parameters, "modulus", RSAPublicKey.defaultValues("modulus"));
 		/**
 		 * @type {Integer}
 		 * @desc Public exponent of RSA public key
 		 */
-		this.publicExponent = getParametersValue(parameters, "publicExponent", RSAPublicKey.defaultValues("publicExponent"));
+		this.publicExponent = getParametersValue$1(parameters, "publicExponent", RSAPublicKey.defaultValues("publicExponent"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -10055,9 +16881,9 @@ class RSAPublicKey
 		switch(memberName)
 		{
 			case "modulus":
-				return new Integer();
+				return new Integer$1();
 			case "publicExponent":
-				return new Integer();
+				return new Integer$1();
 			default:
 				throw new Error(`Invalid member name for RSAPublicKey class: ${memberName}`);
 		}
@@ -10084,13 +16910,13 @@ class RSAPublicKey
 		 * @property {string} utcTimeName Name for "utcTimeName" choice
 		 * @property {string} generalTimeName Name for "generalTimeName" choice
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Integer({ name: (names.modulus || "") }),
-				new Integer({ name: (names.publicExponent || "") })
+				new Integer$1({ name: (names.modulus || "") }),
+				new Integer$1({ name: (names.publicExponent || "") })
 			]
 		}));
 	}
@@ -10102,14 +16928,14 @@ class RSAPublicKey
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"modulus",
 			"publicExponent"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			RSAPublicKey.schema({
 				names: {
@@ -10136,7 +16962,7 @@ class RSAPublicKey
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: [
 				this.modulus.convertToDER(),
 				this.publicExponent
@@ -10152,8 +16978,8 @@ class RSAPublicKey
 	toJSON()
 	{
 		return {
-			n: toBase64(arrayBufferToString(this.modulus.valueBlock.valueHex), true, true, true),
-			e: toBase64(arrayBufferToString(this.publicExponent.valueBlock.valueHex), true, true, true)
+			n: toBase64$1(arrayBufferToString$1(this.modulus.valueBlock.valueHex), true, true, true),
+			e: toBase64$1(arrayBufferToString$1(this.publicExponent.valueBlock.valueHex), true, true, true)
 		};
 	}
 	//**********************************************************************************
@@ -10165,14 +16991,14 @@ class RSAPublicKey
 	{
 		if("n" in json)
 		{
-			const array = stringToArrayBuffer(fromBase64(json.n, true));
-			this.modulus = new Integer({ valueHex: array.slice(0, Math.pow(2, nearestPowerOf2(array.byteLength))) });
+			const array = stringToArrayBuffer$1(fromBase64$1(json.n, true));
+			this.modulus = new Integer$1({ valueHex: array.slice(0, Math.pow(2, nearestPowerOf2$1(array.byteLength))) });
 		}
 		else
 			throw new Error("Absent mandatory parameter \"n\"");
 
 		if("e" in json)
-			this.publicExponent = new Integer({ valueHex: stringToArrayBuffer(fromBase64(json.e, true)).slice(0, 3) });
+			this.publicExponent = new Integer$1({ valueHex: stringToArrayBuffer$1(fromBase64$1(json.e, true)).slice(0, 3) });
 		else
 			throw new Error("Absent mandatory parameter \"e\"");
 	}
@@ -10199,19 +17025,19 @@ class PublicKeyInfo
 		 * @type {AlgorithmIdentifier}
 		 * @desc Algorithm identifier
 		 */
-		this.algorithm = getParametersValue(parameters, "algorithm", PublicKeyInfo.defaultValues("algorithm"));
+		this.algorithm = getParametersValue$1(parameters, "algorithm", PublicKeyInfo.defaultValues("algorithm"));
 		/**
 		 * @type {BitString}
 		 * @desc Subject public key value
 		 */
-		this.subjectPublicKey = getParametersValue(parameters, "subjectPublicKey", PublicKeyInfo.defaultValues("subjectPublicKey"));
+		this.subjectPublicKey = getParametersValue$1(parameters, "subjectPublicKey", PublicKeyInfo.defaultValues("subjectPublicKey"));
 		
 		if("parsedKey" in parameters)
 			/**
 			 * @type {ECPublicKey|RSAPublicKey}
 			 * @desc Parsed public key value
 			 */
-			this.parsedKey = getParametersValue(parameters, "parsedKey", PublicKeyInfo.defaultValues("parsedKey"));
+			this.parsedKey = getParametersValue$1(parameters, "parsedKey", PublicKeyInfo.defaultValues("parsedKey"));
 		//endregion
 		
 		//region If input argument array contains "schema" for this object
@@ -10235,7 +17061,7 @@ class PublicKeyInfo
 			case "algorithm":
 				return new AlgorithmIdentifier();
 			case "subjectPublicKey":
-				return new BitString();
+				return new BitString$1();
 			default:
 				throw new Error(`Invalid member name for PublicKeyInfo class: ${memberName}`);
 		}
@@ -10262,13 +17088,13 @@ class PublicKeyInfo
 		 * @property {string} [algorithm]
 		 * @property {string} [subjectPublicKey]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 		
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
 				AlgorithmIdentifier.schema(names.algorithm || {}),
-				new BitString({ name: (names.subjectPublicKey || "") })
+				new BitString$1({ name: (names.subjectPublicKey || "") })
 			]
 		}));
 	}
@@ -10280,14 +17106,14 @@ class PublicKeyInfo
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"algorithm",
 			"subjectPublicKey"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			PublicKeyInfo.schema({
 				names: {
@@ -10314,7 +17140,7 @@ class PublicKeyInfo
 			case "1.2.840.10045.2.1": // ECDSA
 				if("algorithmParams" in this.algorithm)
 				{
-					if(this.algorithm.algorithmParams.constructor.blockName() === ObjectIdentifier.blockName())
+					if(this.algorithm.algorithmParams.constructor.blockName() === ObjectIdentifier$1.blockName())
 					{
 						try
 						{
@@ -10329,7 +17155,7 @@ class PublicKeyInfo
 				break;
 			case "1.2.840.113549.1.1.1": // RSA
 				{
-					const publicKeyASN1 = fromBER(this.subjectPublicKey.valueBlock.valueHex);
+					const publicKeyASN1 = fromBER$1(this.subjectPublicKey.valueBlock.valueHex);
 					if(publicKeyASN1.offset !== (-1))
 					{
 						try
@@ -10352,7 +17178,7 @@ class PublicKeyInfo
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: [
 				this.algorithm.toSchema(),
 				this.subjectPublicKey
@@ -10415,7 +17241,7 @@ class PublicKeyInfo
 					
 					this.algorithm = new AlgorithmIdentifier({
 						algorithmId: "1.2.840.10045.2.1",
-						algorithmParams: new ObjectIdentifier({ value: this.parsedKey.namedCurve })
+						algorithmParams: new ObjectIdentifier$1({ value: this.parsedKey.namedCurve })
 					});
 					break;
 				case "RSA":
@@ -10423,14 +17249,14 @@ class PublicKeyInfo
 					
 					this.algorithm = new AlgorithmIdentifier({
 						algorithmId: "1.2.840.113549.1.1.1",
-						algorithmParams: new Null()
+						algorithmParams: new Null$1()
 					});
 					break;
 				default:
 					throw new Error(`Invalid value for "kty" parameter: ${json.kty}`);
 			}
 			
-			this.subjectPublicKey = new BitString({ valueHex: this.parsedKey.toSchema().toBER(false) });
+			this.subjectPublicKey = new BitString$1({ valueHex: this.parsedKey.toSchema().toBER(false) });
 		}
 	}
 	//**********************************************************************************
@@ -10464,7 +17290,7 @@ class PublicKeyInfo
 			 */
 			exportedKey =>
 			{
-				const asn1 = fromBER(exportedKey);
+				const asn1 = fromBER$1(exportedKey);
 				try
 				{
 					_this.fromSchema(asn1.result);
@@ -10504,12 +17330,12 @@ class Attribute {
 		 * @type {string}
 		 * @desc ObjectIdentifier for attribute (string representation)
 		 */
-		this.type = getParametersValue(parameters, "type", Attribute.defaultValues("type"));
+		this.type = getParametersValue$1(parameters, "type", Attribute.defaultValues("type"));
 		/**
 		 * @type {Array}
 		 * @desc Any attribute values
 		 */
-		this.values = getParametersValue(parameters, "values", Attribute.defaultValues("values"));
+		this.values = getParametersValue$1(parameters, "values", Attribute.defaultValues("values"));
 		//endregion
 		
 		//region If input argument array contains "schema" for this object
@@ -10576,18 +17402,18 @@ class Attribute {
 		 * @property {string} [setName]
 		 * @property {string} [values]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 		
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new ObjectIdentifier({ name: (names.type || "") }),
-				new Set({
+				new ObjectIdentifier$1({ name: (names.type || "") }),
+				new Set$1({
 					name: (names.setName || ""),
 					value: [
-						new Repeated({
+						new Repeated$1({
 							name: (names.values || ""),
-							value: new Any()
+							value: new Any$1()
 						})
 					]
 				})
@@ -10602,14 +17428,14 @@ class Attribute {
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"type",
 			"values"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			Attribute.schema({
 				names: {
@@ -10636,10 +17462,10 @@ class Attribute {
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: [
-				new ObjectIdentifier({ value: this.type }),
-				new Set({
+				new ObjectIdentifier$1({ value: this.type }),
+				new Set$1({
 					value: this.values
 				})
 			]
@@ -10681,26 +17507,26 @@ class ECPrivateKey
 		 * @type {number}
 		 * @desc version
 		 */
-		this.version = getParametersValue(parameters, "version", ECPrivateKey.defaultValues("version"));
+		this.version = getParametersValue$1(parameters, "version", ECPrivateKey.defaultValues("version"));
 		/**
 		 * @type {OctetString}
 		 * @desc privateKey
 		 */
-		this.privateKey = getParametersValue(parameters, "privateKey", ECPrivateKey.defaultValues("privateKey"));
+		this.privateKey = getParametersValue$1(parameters, "privateKey", ECPrivateKey.defaultValues("privateKey"));
 
 		if("namedCurve" in parameters)
 			/**
 			 * @type {string}
 			 * @desc namedCurve
 			 */
-			this.namedCurve = getParametersValue(parameters, "namedCurve", ECPrivateKey.defaultValues("namedCurve"));
+			this.namedCurve = getParametersValue$1(parameters, "namedCurve", ECPrivateKey.defaultValues("namedCurve"));
 
 		if("publicKey" in parameters)
 			/**
 			 * @type {ECPublicKey}
 			 * @desc publicKey
 			 */
-			this.publicKey = getParametersValue(parameters, "publicKey", ECPrivateKey.defaultValues("publicKey"));
+			this.publicKey = getParametersValue$1(parameters, "publicKey", ECPrivateKey.defaultValues("publicKey"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -10724,7 +17550,7 @@ class ECPrivateKey
 			case "version":
 				return 1;
 			case "privateKey":
-				return new OctetString();
+				return new OctetString$1();
 			case "namedCurve":
 				return "";
 			case "publicKey":
@@ -10784,31 +17610,31 @@ class ECPrivateKey
 		 * @property {string} [namedCurve]
 		 * @property {string} [publicKey]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Integer({ name: (names.version || "") }),
-				new OctetString({ name: (names.privateKey || "") }),
-				new Constructed({
+				new Integer$1({ name: (names.version || "") }),
+				new OctetString$1({ name: (names.privateKey || "") }),
+				new Constructed$1({
 					optional: true,
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 0 // [0]
 					},
 					value: [
-						new ObjectIdentifier({ name: (names.namedCurve || "") })
+						new ObjectIdentifier$1({ name: (names.namedCurve || "") })
 					]
 				}),
-				new Constructed({
+				new Constructed$1({
 					optional: true,
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 1 // [1]
 					},
 					value: [
-						new BitString({ name: (names.publicKey || "") })
+						new BitString$1({ name: (names.publicKey || "") })
 					]
 				})
 			]
@@ -10822,7 +17648,7 @@ class ECPrivateKey
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"version",
 			"privateKey",
 			"namedCurve",
@@ -10831,7 +17657,7 @@ class ECPrivateKey
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			ECPrivateKey.schema({
 				names: {
@@ -10872,37 +17698,37 @@ class ECPrivateKey
 	toSchema()
 	{
 		const outputArray = [
-			new Integer({ value: this.version }),
+			new Integer$1({ value: this.version }),
 			this.privateKey
 		];
 
 		if("namedCurve" in this)
 		{
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 0 // [0]
 				},
 				value: [
-					new ObjectIdentifier({ value: this.namedCurve })
+					new ObjectIdentifier$1({ value: this.namedCurve })
 				]
 			}));
 		}
 
 		if("publicKey" in this)
 		{
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 1 // [1]
 				},
 				value: [
-					new BitString({ valueHex: this.publicKey.toSchema().toBER(false) })
+					new BitString$1({ valueHex: this.publicKey.toSchema().toBER(false) })
 				]
 			}));
 		}
 
-		return new Sequence({
+		return new Sequence$1({
 			value: outputArray
 		});
 	}
@@ -10934,7 +17760,7 @@ class ECPrivateKey
 
 		const privateKeyJSON = {
 			crv: crvName,
-			d: toBase64(arrayBufferToString(this.privateKey.valueBlock.valueHex), true, true, false)
+			d: toBase64$1(arrayBufferToString$1(this.privateKey.valueBlock.valueHex), true, true, false)
 		};
 
 		if("publicKey" in this)
@@ -10980,7 +17806,7 @@ class ECPrivateKey
 
 		if("d" in json)
 		{
-			const convertBuffer = stringToArrayBuffer(fromBase64(json.d, true));
+			const convertBuffer = stringToArrayBuffer$1(fromBase64$1(json.d, true));
 			
 			if(convertBuffer.byteLength < coodinateLength)
 			{
@@ -10989,10 +17815,10 @@ class ECPrivateKey
 				const convertBufferView = new Uint8Array(convertBuffer);
 				view.set(convertBufferView, 1);
 				
-				this.privateKey = new OctetString({ valueHex: buffer });
+				this.privateKey = new OctetString$1({ valueHex: buffer });
 			}
 			else
-				this.privateKey = new OctetString({ valueHex: convertBuffer.slice(0, coodinateLength) });
+				this.privateKey = new OctetString$1({ valueHex: convertBuffer.slice(0, coodinateLength) });
 		}
 		else
 			throw new Error("Absent mandatory parameter \"d\"");
@@ -11023,17 +17849,17 @@ class OtherPrimeInfo
 		 * @type {Integer}
 		 * @desc prime
 		 */
-		this.prime = getParametersValue(parameters, "prime", OtherPrimeInfo.defaultValues("prime"));
+		this.prime = getParametersValue$1(parameters, "prime", OtherPrimeInfo.defaultValues("prime"));
 		/**
 		 * @type {Integer}
 		 * @desc exponent
 		 */
-		this.exponent = getParametersValue(parameters, "exponent", OtherPrimeInfo.defaultValues("exponent"));
+		this.exponent = getParametersValue$1(parameters, "exponent", OtherPrimeInfo.defaultValues("exponent"));
 		/**
 		 * @type {Integer}
 		 * @desc coefficient
 		 */
-		this.coefficient = getParametersValue(parameters, "coefficient", OtherPrimeInfo.defaultValues("coefficient"));
+		this.coefficient = getParametersValue$1(parameters, "coefficient", OtherPrimeInfo.defaultValues("coefficient"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -11055,11 +17881,11 @@ class OtherPrimeInfo
 		switch(memberName)
 		{
 			case "prime":
-				return new Integer();
+				return new Integer$1();
 			case "exponent":
-				return new Integer();
+				return new Integer$1();
 			case "coefficient":
-				return new Integer();
+				return new Integer$1();
 			default:
 				throw new Error(`Invalid member name for OtherPrimeInfo class: ${memberName}`);
 		}
@@ -11089,14 +17915,14 @@ class OtherPrimeInfo
 		 * @property {string} exponent
 		 * @property {string} coefficient
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Integer({ name: (names.prime || "") }),
-				new Integer({ name: (names.exponent || "") }),
-				new Integer({ name: (names.coefficient || "") })
+				new Integer$1({ name: (names.prime || "") }),
+				new Integer$1({ name: (names.exponent || "") }),
+				new Integer$1({ name: (names.coefficient || "") })
 			]
 		}));
 	}
@@ -11108,7 +17934,7 @@ class OtherPrimeInfo
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"prime",
 			"exponent",
 			"coefficient"
@@ -11116,7 +17942,7 @@ class OtherPrimeInfo
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			OtherPrimeInfo.schema({
 				names: {
@@ -11145,7 +17971,7 @@ class OtherPrimeInfo
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: [
 				this.prime.convertToDER(),
 				this.exponent.convertToDER(),
@@ -11162,9 +17988,9 @@ class OtherPrimeInfo
 	toJSON()
 	{
 		return {
-			r: toBase64(arrayBufferToString(this.prime.valueBlock.valueHex), true, true),
-			d: toBase64(arrayBufferToString(this.exponent.valueBlock.valueHex), true, true),
-			t: toBase64(arrayBufferToString(this.coefficient.valueBlock.valueHex), true, true)
+			r: toBase64$1(arrayBufferToString$1(this.prime.valueBlock.valueHex), true, true),
+			d: toBase64$1(arrayBufferToString$1(this.exponent.valueBlock.valueHex), true, true),
+			t: toBase64$1(arrayBufferToString$1(this.coefficient.valueBlock.valueHex), true, true)
 		};
 	}
 	//**********************************************************************************
@@ -11175,17 +18001,17 @@ class OtherPrimeInfo
 	fromJSON(json)
 	{
 		if("r" in json)
-			this.prime = new Integer({ valueHex: stringToArrayBuffer(fromBase64(json.r, true)) });
+			this.prime = new Integer$1({ valueHex: stringToArrayBuffer$1(fromBase64$1(json.r, true)) });
 		else
 			throw new Error("Absent mandatory parameter \"r\"");
 
 		if("d" in json)
-			this.exponent = new Integer({ valueHex: stringToArrayBuffer(fromBase64(json.d, true)) });
+			this.exponent = new Integer$1({ valueHex: stringToArrayBuffer$1(fromBase64$1(json.d, true)) });
 		else
 			throw new Error("Absent mandatory parameter \"d\"");
 
 		if("t" in json)
-			this.coefficient = new Integer({ valueHex: stringToArrayBuffer(fromBase64(json.t, true)) });
+			this.coefficient = new Integer$1({ valueHex: stringToArrayBuffer$1(fromBase64$1(json.t, true)) });
 		else
 			throw new Error("Absent mandatory parameter \"t\"");
 	}
@@ -11212,54 +18038,54 @@ class RSAPrivateKey
 		 * @type {number}
 		 * @desc version
 		 */
-		this.version = getParametersValue(parameters, "version", RSAPrivateKey.defaultValues("version"));
+		this.version = getParametersValue$1(parameters, "version", RSAPrivateKey.defaultValues("version"));
 		/**
 		 * @type {Integer}
 		 * @desc modulus
 		 */
-		this.modulus = getParametersValue(parameters, "modulus", RSAPrivateKey.defaultValues("modulus"));
+		this.modulus = getParametersValue$1(parameters, "modulus", RSAPrivateKey.defaultValues("modulus"));
 		/**
 		 * @type {Integer}
 		 * @desc publicExponent
 		 */
-		this.publicExponent = getParametersValue(parameters, "publicExponent", RSAPrivateKey.defaultValues("publicExponent"));
+		this.publicExponent = getParametersValue$1(parameters, "publicExponent", RSAPrivateKey.defaultValues("publicExponent"));
 		/**
 		 * @type {Integer}
 		 * @desc privateExponent
 		 */
-		this.privateExponent = getParametersValue(parameters, "privateExponent", RSAPrivateKey.defaultValues("privateExponent"));
+		this.privateExponent = getParametersValue$1(parameters, "privateExponent", RSAPrivateKey.defaultValues("privateExponent"));
 		/**
 		 * @type {Integer}
 		 * @desc prime1
 		 */
-		this.prime1 = getParametersValue(parameters, "prime1", RSAPrivateKey.defaultValues("prime1"));
+		this.prime1 = getParametersValue$1(parameters, "prime1", RSAPrivateKey.defaultValues("prime1"));
 		/**
 		 * @type {Integer}
 		 * @desc prime2
 		 */
-		this.prime2 = getParametersValue(parameters, "prime2", RSAPrivateKey.defaultValues("prime2"));
+		this.prime2 = getParametersValue$1(parameters, "prime2", RSAPrivateKey.defaultValues("prime2"));
 		/**
 		 * @type {Integer}
 		 * @desc exponent1
 		 */
-		this.exponent1 = getParametersValue(parameters, "exponent1", RSAPrivateKey.defaultValues("exponent1"));
+		this.exponent1 = getParametersValue$1(parameters, "exponent1", RSAPrivateKey.defaultValues("exponent1"));
 		/**
 		 * @type {Integer}
 		 * @desc exponent2
 		 */
-		this.exponent2 = getParametersValue(parameters, "exponent2", RSAPrivateKey.defaultValues("exponent2"));
+		this.exponent2 = getParametersValue$1(parameters, "exponent2", RSAPrivateKey.defaultValues("exponent2"));
 		/**
 		 * @type {Integer}
 		 * @desc coefficient
 		 */
-		this.coefficient = getParametersValue(parameters, "coefficient", RSAPrivateKey.defaultValues("coefficient"));
+		this.coefficient = getParametersValue$1(parameters, "coefficient", RSAPrivateKey.defaultValues("coefficient"));
 
 		if("otherPrimeInfos" in parameters)
 			/**
 			 * @type {Array.<OtherPrimeInfo>}
 			 * @desc otherPrimeInfos
 			 */
-			this.otherPrimeInfos = getParametersValue(parameters, "otherPrimeInfos", RSAPrivateKey.defaultValues("otherPrimeInfos"));
+			this.otherPrimeInfos = getParametersValue$1(parameters, "otherPrimeInfos", RSAPrivateKey.defaultValues("otherPrimeInfos"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -11283,21 +18109,21 @@ class RSAPrivateKey
 			case "version":
 				return 0;
 			case "modulus":
-				return new Integer();
+				return new Integer$1();
 			case "publicExponent":
-				return new Integer();
+				return new Integer$1();
 			case "privateExponent":
-				return new Integer();
+				return new Integer$1();
 			case "prime1":
-				return new Integer();
+				return new Integer$1();
 			case "prime2":
-				return new Integer();
+				return new Integer$1();
 			case "exponent1":
-				return new Integer();
+				return new Integer$1();
 			case "exponent2":
-				return new Integer();
+				return new Integer$1();
 			case "coefficient":
-				return new Integer();
+				return new Integer$1();
 			case "otherPrimeInfos":
 				return [];
 			default:
@@ -11346,24 +18172,24 @@ class RSAPrivateKey
 		 * @property {string} [otherPrimeInfosName]
 		 * @property {Object} [otherPrimeInfo]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Integer({ name: (names.version || "") }),
-				new Integer({ name: (names.modulus || "") }),
-				new Integer({ name: (names.publicExponent || "") }),
-				new Integer({ name: (names.privateExponent || "") }),
-				new Integer({ name: (names.prime1 || "") }),
-				new Integer({ name: (names.prime2 || "") }),
-				new Integer({ name: (names.exponent1 || "") }),
-				new Integer({ name: (names.exponent2 || "") }),
-				new Integer({ name: (names.coefficient || "") }),
-				new Sequence({
+				new Integer$1({ name: (names.version || "") }),
+				new Integer$1({ name: (names.modulus || "") }),
+				new Integer$1({ name: (names.publicExponent || "") }),
+				new Integer$1({ name: (names.privateExponent || "") }),
+				new Integer$1({ name: (names.prime1 || "") }),
+				new Integer$1({ name: (names.prime2 || "") }),
+				new Integer$1({ name: (names.exponent1 || "") }),
+				new Integer$1({ name: (names.exponent2 || "") }),
+				new Integer$1({ name: (names.coefficient || "") }),
+				new Sequence$1({
 					optional: true,
 					value: [
-						new Repeated({
+						new Repeated$1({
 							name: (names.otherPrimeInfosName || ""),
 							value: OtherPrimeInfo.schema(names.otherPrimeInfo || {})
 						})
@@ -11380,7 +18206,7 @@ class RSAPrivateKey
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"version",
 			"modulus",
 			"publicExponent",
@@ -11395,7 +18221,7 @@ class RSAPrivateKey
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			RSAPrivateKey.schema({
 				names: {
@@ -11446,7 +18272,7 @@ class RSAPrivateKey
 		//region Create array for output sequence
 		const outputArray = [];
 		
-		outputArray.push(new Integer({ value: this.version }));
+		outputArray.push(new Integer$1({ value: this.version }));
 		outputArray.push(this.modulus.convertToDER());
 		outputArray.push(this.publicExponent);
 		outputArray.push(this.privateExponent.convertToDER());
@@ -11458,14 +18284,14 @@ class RSAPrivateKey
 		
 		if("otherPrimeInfos" in this)
 		{
-			outputArray.push(new Sequence({
+			outputArray.push(new Sequence$1({
 				value: Array.from(this.otherPrimeInfos, element => element.toSchema())
 			}));
 		}
 		//endregion
 		
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -11478,14 +18304,14 @@ class RSAPrivateKey
 	toJSON()
 	{
 		const jwk = {
-			n: toBase64(arrayBufferToString(this.modulus.valueBlock.valueHex), true, true, true),
-			e: toBase64(arrayBufferToString(this.publicExponent.valueBlock.valueHex), true, true, true),
-			d: toBase64(arrayBufferToString(this.privateExponent.valueBlock.valueHex), true, true, true),
-			p: toBase64(arrayBufferToString(this.prime1.valueBlock.valueHex), true, true, true),
-			q: toBase64(arrayBufferToString(this.prime2.valueBlock.valueHex), true, true, true),
-			dp: toBase64(arrayBufferToString(this.exponent1.valueBlock.valueHex), true, true, true),
-			dq: toBase64(arrayBufferToString(this.exponent2.valueBlock.valueHex), true, true, true),
-			qi: toBase64(arrayBufferToString(this.coefficient.valueBlock.valueHex), true, true, true)
+			n: toBase64$1(arrayBufferToString$1(this.modulus.valueBlock.valueHex), true, true, true),
+			e: toBase64$1(arrayBufferToString$1(this.publicExponent.valueBlock.valueHex), true, true, true),
+			d: toBase64$1(arrayBufferToString$1(this.privateExponent.valueBlock.valueHex), true, true, true),
+			p: toBase64$1(arrayBufferToString$1(this.prime1.valueBlock.valueHex), true, true, true),
+			q: toBase64$1(arrayBufferToString$1(this.prime2.valueBlock.valueHex), true, true, true),
+			dp: toBase64$1(arrayBufferToString$1(this.exponent1.valueBlock.valueHex), true, true, true),
+			dq: toBase64$1(arrayBufferToString$1(this.exponent2.valueBlock.valueHex), true, true, true),
+			qi: toBase64$1(arrayBufferToString$1(this.coefficient.valueBlock.valueHex), true, true, true)
 		};
 
 		if("otherPrimeInfos" in this)
@@ -11501,42 +18327,42 @@ class RSAPrivateKey
 	fromJSON(json)
 	{
 		if("n" in json)
-			this.modulus = new Integer({ valueHex: stringToArrayBuffer(fromBase64(json.n, true, true)) });
+			this.modulus = new Integer$1({ valueHex: stringToArrayBuffer$1(fromBase64$1(json.n, true, true)) });
 		else
 			throw new Error("Absent mandatory parameter \"n\"");
 
 		if("e" in json)
-			this.publicExponent = new Integer({ valueHex: stringToArrayBuffer(fromBase64(json.e, true, true)) });
+			this.publicExponent = new Integer$1({ valueHex: stringToArrayBuffer$1(fromBase64$1(json.e, true, true)) });
 		else
 			throw new Error("Absent mandatory parameter \"e\"");
 
 		if("d" in json)
-			this.privateExponent = new Integer({ valueHex: stringToArrayBuffer(fromBase64(json.d, true, true)) });
+			this.privateExponent = new Integer$1({ valueHex: stringToArrayBuffer$1(fromBase64$1(json.d, true, true)) });
 		else
 			throw new Error("Absent mandatory parameter \"d\"");
 
 		if("p" in json)
-			this.prime1 = new Integer({ valueHex: stringToArrayBuffer(fromBase64(json.p, true, true)) });
+			this.prime1 = new Integer$1({ valueHex: stringToArrayBuffer$1(fromBase64$1(json.p, true, true)) });
 		else
 			throw new Error("Absent mandatory parameter \"p\"");
 
 		if("q" in json)
-			this.prime2 = new Integer({ valueHex: stringToArrayBuffer(fromBase64(json.q, true, true)) });
+			this.prime2 = new Integer$1({ valueHex: stringToArrayBuffer$1(fromBase64$1(json.q, true, true)) });
 		else
 			throw new Error("Absent mandatory parameter \"q\"");
 
 		if("dp" in json)
-			this.exponent1 = new Integer({ valueHex: stringToArrayBuffer(fromBase64(json.dp, true, true)) });
+			this.exponent1 = new Integer$1({ valueHex: stringToArrayBuffer$1(fromBase64$1(json.dp, true, true)) });
 		else
 			throw new Error("Absent mandatory parameter \"dp\"");
 
 		if("dq" in json)
-			this.exponent2 = new Integer({ valueHex: stringToArrayBuffer(fromBase64(json.dq, true, true)) });
+			this.exponent2 = new Integer$1({ valueHex: stringToArrayBuffer$1(fromBase64$1(json.dq, true, true)) });
 		else
 			throw new Error("Absent mandatory parameter \"dq\"");
 
 		if("qi" in json)
-			this.coefficient = new Integer({ valueHex: stringToArrayBuffer(fromBase64(json.qi, true, true)) });
+			this.coefficient = new Integer$1({ valueHex: stringToArrayBuffer$1(fromBase64$1(json.qi, true, true)) });
 		else
 			throw new Error("Absent mandatory parameter \"qi\"");
 
@@ -11566,31 +18392,31 @@ class PrivateKeyInfo
 		 * @type {number}
 		 * @desc version
 		 */
-		this.version = getParametersValue(parameters, "version", PrivateKeyInfo.defaultValues("version"));
+		this.version = getParametersValue$1(parameters, "version", PrivateKeyInfo.defaultValues("version"));
 		/**
 		 * @type {AlgorithmIdentifier}
 		 * @desc privateKeyAlgorithm
 		 */
-		this.privateKeyAlgorithm = getParametersValue(parameters, "privateKeyAlgorithm", PrivateKeyInfo.defaultValues("privateKeyAlgorithm"));
+		this.privateKeyAlgorithm = getParametersValue$1(parameters, "privateKeyAlgorithm", PrivateKeyInfo.defaultValues("privateKeyAlgorithm"));
 		/**
 		 * @type {OctetString}
 		 * @desc privateKey
 		 */
-		this.privateKey = getParametersValue(parameters, "privateKey", PrivateKeyInfo.defaultValues("privateKey"));
+		this.privateKey = getParametersValue$1(parameters, "privateKey", PrivateKeyInfo.defaultValues("privateKey"));
 
 		if("attributes" in parameters)
 			/**
 			 * @type {Array.<Attribute>}
 			 * @desc attributes
 			 */
-			this.attributes = getParametersValue(parameters, "attributes", PrivateKeyInfo.defaultValues("attributes"));
+			this.attributes = getParametersValue$1(parameters, "attributes", PrivateKeyInfo.defaultValues("attributes"));
 
 		if("parsedKey" in parameters)
 			/**
 			 * @type {ECPrivateKey|RSAPrivateKey}
 			 * @desc Parsed public key value
 			 */
-			this.parsedKey = getParametersValue(parameters, "parsedKey", PrivateKeyInfo.defaultValues("parsedKey"));
+			this.parsedKey = getParametersValue$1(parameters, "parsedKey", PrivateKeyInfo.defaultValues("parsedKey"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -11616,7 +18442,7 @@ class PrivateKeyInfo
 			case "privateKeyAlgorithm":
 				return new AlgorithmIdentifier();
 			case "privateKey":
-				return new OctetString();
+				return new OctetString$1();
 			case "attributes":
 				return [];
 			case "parsedKey":
@@ -11657,22 +18483,22 @@ class PrivateKeyInfo
 		 * @property {string} [privateKey]
 		 * @property {string} [attributes]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Integer({ name: (names.version || "") }),
+				new Integer$1({ name: (names.version || "") }),
 				AlgorithmIdentifier.schema(names.privateKeyAlgorithm || {}),
-				new OctetString({ name: (names.privateKey || "") }),
-				new Constructed({
+				new OctetString$1({ name: (names.privateKey || "") }),
+				new Constructed$1({
 					optional: true,
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 0 // [0]
 					},
 					value: [
-						new Repeated({
+						new Repeated$1({
 							name: (names.attributes || ""),
 							value: Attribute.schema()
 						})
@@ -11689,7 +18515,7 @@ class PrivateKeyInfo
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"version",
 			"privateKeyAlgorithm",
 			"privateKey",
@@ -11698,7 +18524,7 @@ class PrivateKeyInfo
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			PrivateKeyInfo.schema({
 				names: {
@@ -11730,7 +18556,7 @@ class PrivateKeyInfo
 		{
 			case "1.2.840.113549.1.1.1": // RSA
 				{
-					const privateKeyASN1 = fromBER(this.privateKey.valueBlock.valueHex);
+					const privateKeyASN1 = fromBER$1(this.privateKey.valueBlock.valueHex);
 					if(privateKeyASN1.offset !== (-1))
 						this.parsedKey = new RSAPrivateKey({ schema: privateKeyASN1.result });
 				}
@@ -11738,9 +18564,9 @@ class PrivateKeyInfo
 			case "1.2.840.10045.2.1": // ECDSA
 				if("algorithmParams" in this.privateKeyAlgorithm)
 				{
-					if(this.privateKeyAlgorithm.algorithmParams instanceof ObjectIdentifier)
+					if(this.privateKeyAlgorithm.algorithmParams instanceof ObjectIdentifier$1)
 					{
-						const privateKeyASN1 = fromBER(this.privateKey.valueBlock.valueHex);
+						const privateKeyASN1 = fromBER$1(this.privateKey.valueBlock.valueHex);
 						if(privateKeyASN1.offset !== (-1))
 						{
 							this.parsedKey = new ECPrivateKey({
@@ -11764,14 +18590,14 @@ class PrivateKeyInfo
 	{
 		//region Create array for output sequence
 		const outputArray = [
-			new Integer({ value: this.version }),
+			new Integer$1({ value: this.version }),
 			this.privateKeyAlgorithm.toSchema(),
 			this.privateKey
 		];
 
 		if("attributes" in this)
 		{
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				optional: true,
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
@@ -11783,7 +18609,7 @@ class PrivateKeyInfo
 		//endregion
 		
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -11849,7 +18675,7 @@ class PrivateKeyInfo
 
 					this.privateKeyAlgorithm = new AlgorithmIdentifier({
 						algorithmId: "1.2.840.10045.2.1",
-						algorithmParams: new ObjectIdentifier({ value: this.parsedKey.namedCurve })
+						algorithmParams: new ObjectIdentifier$1({ value: this.parsedKey.namedCurve })
 					});
 					break;
 				case "RSA":
@@ -11857,14 +18683,14 @@ class PrivateKeyInfo
 
 					this.privateKeyAlgorithm = new AlgorithmIdentifier({
 						algorithmId: "1.2.840.113549.1.1.1",
-						algorithmParams: new Null()
+						algorithmParams: new Null$1()
 					});
 					break;
 				default:
 					throw new Error(`Invalid value for "kty" parameter: ${json.kty}`);
 			}
 
-			this.privateKey = new OctetString({ valueHex: this.parsedKey.toSchema().toBER(false) });
+			this.privateKey = new OctetString$1({ valueHex: this.parsedKey.toSchema().toBER(false) });
 		}
 	}
 	//**********************************************************************************
@@ -11890,12 +18716,12 @@ class EncryptedContentInfo
 		 * @type {string}
 		 * @desc contentType
 		 */
-		this.contentType = getParametersValue(parameters, "contentType", EncryptedContentInfo.defaultValues("contentType"));
+		this.contentType = getParametersValue$1(parameters, "contentType", EncryptedContentInfo.defaultValues("contentType"));
 		/**
 		 * @type {AlgorithmIdentifier}
 		 * @desc contentEncryptionAlgorithm
 		 */
-		this.contentEncryptionAlgorithm = getParametersValue(parameters, "contentEncryptionAlgorithm", EncryptedContentInfo.defaultValues("contentEncryptionAlgorithm"));
+		this.contentEncryptionAlgorithm = getParametersValue$1(parameters, "contentEncryptionAlgorithm", EncryptedContentInfo.defaultValues("contentEncryptionAlgorithm"));
 
 		if("encryptedContent" in parameters)
 		{
@@ -11911,7 +18737,7 @@ class EncryptedContentInfo
 				//region Divide OCTETSTRING value down to small pieces
 				if(this.encryptedContent.idBlock.isConstructed === false)
 				{
-					const constrString = new OctetString({
+					const constrString = new OctetString$1({
 						idBlock: { isConstructed: true },
 						isConstructed: true
 					});
@@ -11928,7 +18754,7 @@ class EncryptedContentInfo
 						for(let i = 0; i < _view.length; i++)
 							_view[i] = pieceView[i];
 						
-						constrString.valueBlock.value.push(new OctetString({ valueHex: _array }));
+						constrString.valueBlock.value.push(new OctetString$1({ valueHex: _array }));
 						
 						length -= pieceView.length;
 						offset += pieceView.length;
@@ -11960,7 +18786,7 @@ class EncryptedContentInfo
 			case "contentEncryptionAlgorithm":
 				return new AlgorithmIdentifier();
 			case "encryptedContent":
-				return new OctetString();
+				return new OctetString$1();
 			default:
 				throw new Error(`Invalid member name for EncryptedContentInfo class: ${memberName}`);
 		}
@@ -12013,30 +18839,30 @@ class EncryptedContentInfo
 		 * @property {string} [contentEncryptionAlgorithm]
 		 * @property {string} [encryptedContent]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new ObjectIdentifier({ name: (names.contentType || "") }),
+				new ObjectIdentifier$1({ name: (names.contentType || "") }),
 				AlgorithmIdentifier.schema(names.contentEncryptionAlgorithm || {}),
 				// The CHOICE we need because "EncryptedContent" could have either "constructive"
 				// or "primitive" form of encoding and we need to handle both variants
-				new Choice({
+				new Choice$1({
 					value: [
-						new Constructed({
+						new Constructed$1({
 							name: (names.encryptedContent || ""),
 							idBlock: {
 								tagClass: 3, // CONTEXT-SPECIFIC
 								tagNumber: 0 // [0]
 							},
 							value: [
-								new Repeated({
-									value: new OctetString()
+								new Repeated$1({
+									value: new OctetString$1()
 								})
 							]
 						}),
-						new Primitive({
+						new Primitive$1({
 							name: (names.encryptedContent || ""),
 							idBlock: {
 								tagClass: 3, // CONTEXT-SPECIFIC
@@ -12056,7 +18882,7 @@ class EncryptedContentInfo
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"contentType",
 			"contentEncryptionAlgorithm",
 			"encryptedContent"
@@ -12064,7 +18890,7 @@ class EncryptedContentInfo
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			EncryptedContentInfo.schema({
 				names: {
@@ -12110,7 +18936,7 @@ class EncryptedContentInfo
 
 		const outputArray = [];
 
-		outputArray.push(new ObjectIdentifier({ value: this.contentType }));
+		outputArray.push(new ObjectIdentifier$1({ value: this.contentType }));
 		outputArray.push(this.contentEncryptionAlgorithm.toSchema());
 
 		if("encryptedContent" in this)
@@ -12129,7 +18955,7 @@ class EncryptedContentInfo
 		//endregion
 
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			lenBlock: sequenceLengthBlock,
 			value: outputArray
 		}));
@@ -12175,22 +19001,22 @@ class RSASSAPSSParams
 		 * @type {AlgorithmIdentifier}
 		 * @desc Algorithms of hashing (DEFAULT sha1)
 		 */
-		this.hashAlgorithm = getParametersValue(parameters, "hashAlgorithm", RSASSAPSSParams.defaultValues("hashAlgorithm"));
+		this.hashAlgorithm = getParametersValue$1(parameters, "hashAlgorithm", RSASSAPSSParams.defaultValues("hashAlgorithm"));
 		/**
 		 * @type {AlgorithmIdentifier}
 		 * @desc Algorithm of "mask generaion function (MGF)" (DEFAULT mgf1SHA1)
 		 */
-		this.maskGenAlgorithm = getParametersValue(parameters, "maskGenAlgorithm", RSASSAPSSParams.defaultValues("maskGenAlgorithm"));
+		this.maskGenAlgorithm = getParametersValue$1(parameters, "maskGenAlgorithm", RSASSAPSSParams.defaultValues("maskGenAlgorithm"));
 		/**
 		 * @type {number}
 		 * @desc Salt length (DEFAULT 20)
 		 */
-		this.saltLength = getParametersValue(parameters, "saltLength", RSASSAPSSParams.defaultValues("saltLength"));
+		this.saltLength = getParametersValue$1(parameters, "saltLength", RSASSAPSSParams.defaultValues("saltLength"));
 		/**
 		 * @type {number}
 		 * @desc (DEFAULT 1)
 		 */
-		this.trailerField = getParametersValue(parameters, "trailerField", RSASSAPSSParams.defaultValues("trailerField"));
+		this.trailerField = getParametersValue$1(parameters, "trailerField", RSASSAPSSParams.defaultValues("trailerField"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -12210,14 +19036,14 @@ class RSASSAPSSParams
 			case "hashAlgorithm":
 				return new AlgorithmIdentifier({
 					algorithmId: "1.3.14.3.2.26", // SHA-1
-					algorithmParams: new Null()
+					algorithmParams: new Null$1()
 				});
 			case "maskGenAlgorithm":
 				return new AlgorithmIdentifier({
 					algorithmId: "1.2.840.113549.1.1.8", // MGF1
 					algorithmParams: (new AlgorithmIdentifier({
 						algorithmId: "1.3.14.3.2.26", // SHA-1
-						algorithmParams: new Null()
+						algorithmParams: new Null$1()
 					})).toSchema()
 				});
 			case "saltLength":
@@ -12254,12 +19080,12 @@ class RSASSAPSSParams
 		 * @property {string} [saltLength]
 		 * @property {string} [trailerField]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Constructed({
+				new Constructed$1({
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 0 // [0]
@@ -12267,7 +19093,7 @@ class RSASSAPSSParams
 					optional: true,
 					value: [AlgorithmIdentifier.schema(names.hashAlgorithm || {})]
 				}),
-				new Constructed({
+				new Constructed$1({
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 1 // [1]
@@ -12275,21 +19101,21 @@ class RSASSAPSSParams
 					optional: true,
 					value: [AlgorithmIdentifier.schema(names.maskGenAlgorithm || {})]
 				}),
-				new Constructed({
+				new Constructed$1({
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 2 // [2]
 					},
 					optional: true,
-					value: [new Integer({ name: (names.saltLength || "") })]
+					value: [new Integer$1({ name: (names.saltLength || "") })]
 				}),
-				new Constructed({
+				new Constructed$1({
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 3 // [3]
 					},
 					optional: true,
-					value: [new Integer({ name: (names.trailerField || "") })]
+					value: [new Integer$1({ name: (names.trailerField || "") })]
 				})
 			]
 		}));
@@ -12302,7 +19128,7 @@ class RSASSAPSSParams
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"hashAlgorithm",
 			"maskGenAlgorithm",
 			"saltLength",
@@ -12311,7 +19137,7 @@ class RSASSAPSSParams
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			RSASSAPSSParams.schema({
 				names: {
@@ -12361,7 +19187,7 @@ class RSASSAPSSParams
 		
 		if(!this.hashAlgorithm.isEqual(RSASSAPSSParams.defaultValues("hashAlgorithm")))
 		{
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 0 // [0]
@@ -12372,7 +19198,7 @@ class RSASSAPSSParams
 		
 		if(!this.maskGenAlgorithm.isEqual(RSASSAPSSParams.defaultValues("maskGenAlgorithm")))
 		{
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 1 // [1]
@@ -12383,29 +19209,29 @@ class RSASSAPSSParams
 		
 		if(this.saltLength !== RSASSAPSSParams.defaultValues("saltLength"))
 		{
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 2 // [2]
 				},
-				value: [new Integer({ value: this.saltLength })]
+				value: [new Integer$1({ value: this.saltLength })]
 			}));
 		}
 		
 		if(this.trailerField !== RSASSAPSSParams.defaultValues("trailerField"))
 		{
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 3 // [3]
 				},
-				value: [new Integer({ value: this.trailerField })]
+				value: [new Integer$1({ value: this.trailerField })]
 			}));
 		}
 		//endregion
 		
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -12456,26 +19282,26 @@ class PBKDF2Params
 		 * @type {Object}
 		 * @desc salt
 		 */
-		this.salt = getParametersValue(parameters, "salt", PBKDF2Params.defaultValues("salt"));
+		this.salt = getParametersValue$1(parameters, "salt", PBKDF2Params.defaultValues("salt"));
 		/**
 		 * @type {number}
 		 * @desc iterationCount
 		 */
-		this.iterationCount = getParametersValue(parameters, "iterationCount", PBKDF2Params.defaultValues("iterationCount"));
+		this.iterationCount = getParametersValue$1(parameters, "iterationCount", PBKDF2Params.defaultValues("iterationCount"));
 		
 		if("keyLength" in parameters)
 			/**
 			 * @type {number}
 			 * @desc keyLength
 			 */
-			this.keyLength = getParametersValue(parameters, "keyLength", PBKDF2Params.defaultValues("keyLength"));
+			this.keyLength = getParametersValue$1(parameters, "keyLength", PBKDF2Params.defaultValues("keyLength"));
 		
 		if("prf" in parameters)
 			/**
 			 * @type {AlgorithmIdentifier}
 			 * @desc prf
 			 */
-			this.prf = getParametersValue(parameters, "prf", PBKDF2Params.defaultValues("prf"));
+			this.prf = getParametersValue$1(parameters, "prf", PBKDF2Params.defaultValues("prf"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -12501,7 +19327,7 @@ class PBKDF2Params
 			case "prf":
 				return new AlgorithmIdentifier({
 					algorithmId: "1.3.14.3.2.26", // SHA-1
-					algorithmParams: new Null()
+					algorithmParams: new Null$1()
 				});
 			default:
 				throw new Error(`Invalid member name for PBKDF2Params class: ${memberName}`);
@@ -12537,19 +19363,19 @@ class PBKDF2Params
 		 * @property {string} [keyLength]
 		 * @property {string} [prf]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Choice({
+				new Choice$1({
 					value: [
-						new OctetString({ name: (names.saltPrimitive || "") }),
+						new OctetString$1({ name: (names.saltPrimitive || "") }),
 						AlgorithmIdentifier.schema(names.saltConstructed || {})
 					]
 				}),
-				new Integer({ name: (names.iterationCount || "") }),
-				new Integer({
+				new Integer$1({ name: (names.iterationCount || "") }),
+				new Integer$1({
 					name: (names.keyLength || ""),
 					optional: true
 				}),
@@ -12569,7 +19395,7 @@ class PBKDF2Params
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"salt",
 			"iterationCount",
 			"keyLength",
@@ -12578,7 +19404,7 @@ class PBKDF2Params
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			PBKDF2Params.schema({
 				names: {
@@ -12626,12 +19452,12 @@ class PBKDF2Params
 		const outputArray = [];
 		
 		outputArray.push(this.salt);
-		outputArray.push(new Integer({ value: this.iterationCount }));
+		outputArray.push(new Integer$1({ value: this.iterationCount }));
 		
 		if("keyLength" in this)
 		{
 			if(PBKDF2Params.defaultValues("keyLength") !== this.keyLength)
-				outputArray.push(new Integer({ value: this.keyLength }));
+				outputArray.push(new Integer$1({ value: this.keyLength }));
 		}
 		
 		if("prf" in this)
@@ -12642,7 +19468,7 @@ class PBKDF2Params
 		//endregion 
 		
 		//region Construct and return new ASN.1 schema for this object 
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion 
@@ -12696,12 +19522,12 @@ class PBES2Params
 		 * @type {AlgorithmIdentifier}
 		 * @desc keyDerivationFunc
 		 */
-		this.keyDerivationFunc = getParametersValue(parameters, "keyDerivationFunc", PBES2Params.defaultValues("keyDerivationFunc"));
+		this.keyDerivationFunc = getParametersValue$1(parameters, "keyDerivationFunc", PBES2Params.defaultValues("keyDerivationFunc"));
 		/**
 		 * @type {AlgorithmIdentifier}
 		 * @desc encryptionScheme
 		 */
-		this.encryptionScheme = getParametersValue(parameters, "encryptionScheme", PBES2Params.defaultValues("encryptionScheme"));
+		this.encryptionScheme = getParametersValue$1(parameters, "encryptionScheme", PBES2Params.defaultValues("encryptionScheme"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -12748,9 +19574,9 @@ class PBES2Params
 		 * @property {string} [keyDerivationFunc]
 		 * @property {string} [encryptionScheme]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
 				AlgorithmIdentifier.schema(names.keyDerivationFunc || {}),
@@ -12766,14 +19592,14 @@ class PBES2Params
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"keyDerivationFunc",
 			"encryptionScheme"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			PBES2Params.schema({
 				names: {
@@ -12808,7 +19634,7 @@ class PBES2Params
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: [
 				this.keyDerivationFunc.toSchema(),
 				this.encryptionScheme.toSchema()
@@ -13044,17 +19870,17 @@ class CryptoEngine
 		 * @type {Object}
 		 * @desc Usually here we are expecting "window.crypto" or an equivalent from custom "crypto engine"
 		 */
-		this.crypto = getParametersValue(parameters, "crypto", {});
+		this.crypto = getParametersValue$1(parameters, "crypto", {});
 		/**
 		 * @type {Object}
 		 * @desc Usually here we are expecting "window.crypto.subtle" or an equivalent from custom "crypto engine"
 		 */
-		this.subtle = getParametersValue(parameters, "subtle", {});
+		this.subtle = getParametersValue$1(parameters, "subtle", {});
 		/**
 		 * @type {string}
 		 * @desc Name of the "crypto engine"
 		 */
-		this.name = getParametersValue(parameters, "name", "");
+		this.name = getParametersValue$1(parameters, "name", "");
 		//endregion
 	}
 	//**********************************************************************************
@@ -13084,7 +19910,7 @@ class CryptoEngine
 				return this.subtle.importKey("raw", keyData, algorithm, extractable, keyUsages);
 			case "spki":
 				{
-					const asn1 = fromBER(keyData);
+					const asn1 = fromBER$1(keyData);
 					if(asn1.offset === (-1))
 						return Promise.reject("Incorrect keyData");
 
@@ -13154,7 +19980,7 @@ class CryptoEngine
 											jwk.alg = "RS512";
 											break;
 										default:
-											return Promise.reject(`Incorrect public key algorithm: ${publicKeyInfo.algorithm.algorithmId}`);
+											return Promise.reject(`Incorrect hash algorithm: ${algorithm.hash.name.toUpperCase()}`);
 									}
 								}
 								//endregion
@@ -13218,7 +20044,7 @@ class CryptoEngine
 											jwk.alg = "RSA-OAEP-512";
 											break;
 										default:
-											return Promise.reject(`Incorrect public key algorithm: ${publicKeyInfo.algorithm.algorithmId}`);
+											return Promise.reject(`Incorrect hash algorithm: ${algorithm.hash.name.toUpperCase()}`);
 									}
 								}
 								
@@ -13240,7 +20066,7 @@ class CryptoEngine
 					const privateKeyInfo = new PrivateKeyInfo();
 
 					//region Parse "PrivateKeyInfo" object
-					const asn1 = fromBER(keyData);
+					const asn1 = fromBER$1(keyData);
 					if(asn1.offset === (-1))
 						return Promise.reject("Incorrect keyData");
 
@@ -13409,7 +20235,7 @@ class CryptoEngine
 		if(this.name.toLowerCase() === "safari")
 		{
 			// Try to use both ways - import using ArrayBuffer and pure JWK (for Safari Technology Preview)
-			return Promise.resolve().then(() => this.subtle.importKey("jwk", stringToArrayBuffer(JSON.stringify(jwk)), algorithm, extractable, keyUsages))
+			return Promise.resolve().then(() => this.subtle.importKey("jwk", stringToArrayBuffer$1(JSON.stringify(jwk)), algorithm, extractable, keyUsages))
 				.then(result => result, () => this.subtle.importKey("jwk", jwk, algorithm, extractable, keyUsages));
 		}
 		//endregion
@@ -13434,7 +20260,7 @@ class CryptoEngine
 			{
 				// Some additional checks for Safari Technology Preview
 				if(result instanceof ArrayBuffer)
-					return JSON.parse(arrayBufferToString(result));
+					return JSON.parse(arrayBufferToString$1(result));
 				
 				return result;
 			});
@@ -14670,11 +21496,11 @@ class CryptoEngine
 		const contentView = new Uint8Array(parameters.contentToEncrypt);
 		
 		const pbkdf2Params = new PBKDF2Params({
-			salt: new OctetString({ valueHex: saltBuffer }),
+			salt: new OctetString$1({ valueHex: saltBuffer }),
 			iterationCount: parameters.iterationCount,
 			prf: new AlgorithmIdentifier({
 				algorithmId: hmacOID,
-				algorithmParams: new Null()
+				algorithmParams: new Null$1()
 			})
 		});
 		//endregion
@@ -14736,7 +21562,7 @@ class CryptoEngine
 				}),
 				encryptionScheme: new AlgorithmIdentifier({
 					algorithmId: contentEncryptionOID,
-					algorithmParams: new OctetString({ valueHex: ivBuffer })
+					algorithmParams: new OctetString$1({ valueHex: ivBuffer })
 				})
 			});
 			
@@ -14746,7 +21572,7 @@ class CryptoEngine
 					algorithmId: "1.2.840.113549.1.5.13", // pkcs5PBES2
 					algorithmParams: pbes2Parameters.toSchema()
 				}),
-				encryptedContent: new OctetString({ valueHex: result })
+				encryptedContent: new OctetString$1({ valueHex: result })
 			});
 		}, error =>
 			Promise.reject(error)
@@ -14868,7 +21694,7 @@ class CryptoEngine
 			else
 			{
 				for(const content of parameters.encryptedContentInfo.encryptedContent.valueBlock.value)
-					dataBuffer = utilConcatBuf(dataBuffer, content.valueBlock.valueHex);
+					dataBuffer = utilConcatBuf$1(dataBuffer, content.valueBlock.valueHex);
 			}
 			//endregion
 			
@@ -15118,7 +21944,7 @@ class CryptoEngine
 						
 						paramsObject.hashAlgorithm = new AlgorithmIdentifier({
 							algorithmId: hashAlgorithmOID,
-							algorithmParams: new Null()
+							algorithmParams: new Null$1()
 						});
 						
 						paramsObject.maskGenAlgorithm = new AlgorithmIdentifier({
@@ -15334,7 +22160,7 @@ class CryptoEngine
 			
 			if(publicKey.algorithm.name === "ECDSA")
 			{
-				const asn1 = fromBER(signatureValue);
+				const asn1 = fromBER$1(signatureValue);
 				// noinspection JSCheckFunctionSignatures
 				signatureValue = createECDSASignatureFromCMS(asn1.result);
 			}
@@ -15605,16 +22431,16 @@ function createCMSECDSASignature(signatureBuffer)
 	const rView = new Uint8Array(rBuffer);
 	rView.set(new Uint8Array(signatureBuffer, 0, length));
 	
-	const rInteger = new Integer({ valueHex: rBuffer });
+	const rInteger = new Integer$1({ valueHex: rBuffer });
 	
 	const sBuffer = new ArrayBuffer(length);
 	const sView = new Uint8Array(sBuffer);
 	sView.set(new Uint8Array(signatureBuffer, length, length));
 	
-	const sInteger = new Integer({ valueHex: sBuffer });
+	const sInteger = new Integer$1({ valueHex: sBuffer });
 	//endregion
 	
-	return (new Sequence({
+	return (new Sequence$1({
 		value: [
 			rInteger.convertToDER(),
 			sInteger.convertToDER()
@@ -15668,16 +22494,16 @@ function stringPrep(inputString)
 function createECDSASignatureFromCMS(cmsSignature)
 {
 	//region Check input variables
-	if((cmsSignature instanceof Sequence) === false)
+	if((cmsSignature instanceof Sequence$1) === false)
 		return new ArrayBuffer(0);
 	
 	if(cmsSignature.valueBlock.value.length !== 2)
 		return new ArrayBuffer(0);
 	
-	if((cmsSignature.valueBlock.value[0] instanceof Integer) === false)
+	if((cmsSignature.valueBlock.value[0] instanceof Integer$1) === false)
 		return new ArrayBuffer(0);
 	
-	if((cmsSignature.valueBlock.value[1] instanceof Integer) === false)
+	if((cmsSignature.valueBlock.value[1] instanceof Integer$1) === false)
 		return new ArrayBuffer(0);
 	//endregion
 	
@@ -15702,7 +22528,7 @@ function createECDSASignatureFromCMS(cmsSignature)
 				rValueViewCorrected.set(rValueView, 1);
 				rValueViewCorrected[0] = 0x00; // In order to be sure we do not have any garbage here
 				
-				return utilConcatBuf(rValueBufferCorrected, sValue.valueBlock.valueHex);
+				return utilConcatBuf$1(rValueBufferCorrected, sValue.valueBlock.valueHex);
 			}
 		case (rValue.valueBlock.valueHex.byteLength > sValue.valueBlock.valueHex.byteLength):
 			{
@@ -15719,7 +22545,7 @@ function createECDSASignatureFromCMS(cmsSignature)
 				sValueViewCorrected.set(sValueView, 1);
 				sValueViewCorrected[0] = 0x00; // In order to be sure we do not have any garbage here
 				
-				return utilConcatBuf(rValue.valueBlock.valueHex, sValueBufferCorrected);
+				return utilConcatBuf$1(rValue.valueBlock.valueHex, sValueBufferCorrected);
 			}
 		default:
 			{
@@ -15744,14 +22570,14 @@ function createECDSASignatureFromCMS(cmsSignature)
 					sValueViewCorrected.set(sValueView, 1);
 					sValueViewCorrected[0] = 0x00; // In order to be sure we do not have any garbage here
 					
-					return utilConcatBuf(rValueBufferCorrected, sValueBufferCorrected);
+					return utilConcatBuf$1(rValueBufferCorrected, sValueBufferCorrected);
 				}
 				//endregion
 			}
 	}
 	//endregion
 	
-	return utilConcatBuf(rValue.valueBlock.valueHex, sValue.valueBlock.valueHex);
+	return utilConcatBuf$1(rValue.valueBlock.valueHex, sValue.valueBlock.valueHex);
 }
 //**************************************************************************************
 /**
@@ -15826,9 +22652,9 @@ function kdfWithCounter(hashFunction, Zbuffer, Counter, SharedInfo)
 	//endregion
 	
 	//region Create a combined ArrayBuffer for digesting
-	combinedBuffer = utilConcatBuf(combinedBuffer, Zbuffer);
-	combinedBuffer = utilConcatBuf(combinedBuffer, counterBuffer);
-	combinedBuffer = utilConcatBuf(combinedBuffer, SharedInfo);
+	combinedBuffer = utilConcatBuf$1(combinedBuffer, Zbuffer);
+	combinedBuffer = utilConcatBuf$1(combinedBuffer, counterBuffer);
+	combinedBuffer = utilConcatBuf$1(combinedBuffer, SharedInfo);
 	//endregion
 	
 	//region Return digest of combined ArrayBuffer and information about current counter
@@ -15924,7 +22750,7 @@ function kdf(hashFunction, Zbuffer, keydatalen, SharedInfo)
 			{
 				if(result.counter === currentCounter)
 				{
-					combinedBuffer = utilConcatBuf(combinedBuffer, result.result);
+					combinedBuffer = utilConcatBuf$1(combinedBuffer, result.result);
 					found = true;
 					break;
 				}
@@ -15977,12 +22803,12 @@ class AttributeTypeAndValue
 		 * @type {string}
 		 * @desc type
 		 */
-		this.type = getParametersValue(parameters, "type", AttributeTypeAndValue.defaultValues("type"));
+		this.type = getParametersValue$1(parameters, "type", AttributeTypeAndValue.defaultValues("type"));
 		/**
 		 * @type {Object}
 		 * @desc Value of the AttributeTypeAndValue class
 		 */
-		this.value = getParametersValue(parameters, "value", AttributeTypeAndValue.defaultValues("value"));
+		this.value = getParametersValue$1(parameters, "value", AttributeTypeAndValue.defaultValues("value"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -16033,13 +22859,13 @@ class AttributeTypeAndValue
 		 * @property {string} [type] Name for "type" element
 		 * @property {string} [value] Name for "value" element
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new ObjectIdentifier({ name: (names.type || "") }),
-				new Any({ name: (names.value || "") })
+				new ObjectIdentifier$1({ name: (names.type || "") }),
+				new Any$1({ name: (names.value || "") })
 			]
 		}));
 	}
@@ -16056,14 +22882,14 @@ class AttributeTypeAndValue
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"type",
 			"typeValue"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			AttributeTypeAndValue.schema({
 				names: {
@@ -16091,9 +22917,9 @@ class AttributeTypeAndValue
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: [
-				new ObjectIdentifier({ value: this.type }),
+				new ObjectIdentifier$1({ value: this.type }),
 				this.value
 			]
 		}));
@@ -16126,18 +22952,18 @@ class AttributeTypeAndValue
 	isEqual(compareTo)
 	{
 		const stringBlockNames = [
-			Utf8String.blockName(),
-			BmpString.blockName(),
-			UniversalString.blockName(),
-			NumericString.blockName(),
-			PrintableString.blockName(),
-			TeletexString.blockName(),
-			VideotexString.blockName(),
-			IA5String.blockName(),
-			GraphicString.blockName(),
-			VisibleString.blockName(),
-			GeneralString.blockName(),
-			CharacterString.blockName()
+			Utf8String$1.blockName(),
+			BmpString$1.blockName(),
+			UniversalString$1.blockName(),
+			NumericString$1.blockName(),
+			PrintableString$1.blockName(),
+			TeletexString$1.blockName(),
+			VideotexString$1.blockName(),
+			IA5String$1.blockName(),
+			GraphicString$1.blockName(),
+			VisibleString$1.blockName(),
+			GeneralString$1.blockName(),
+			CharacterString$1.blockName()
 		];
 
 		if(compareTo.constructor.blockName() === AttributeTypeAndValue.blockName())
@@ -16172,7 +22998,7 @@ class AttributeTypeAndValue
 			}
 			else // Comparing as two ArrayBuffers
 			{
-				if(isEqualBuffer(this.value.valueBeforeDecode, compareTo.value.valueBeforeDecode) === false)
+				if(isEqualBuffer$1(this.value.valueBeforeDecode, compareTo.value.valueBeforeDecode) === false)
 					return false;
 			}
 
@@ -16180,7 +23006,7 @@ class AttributeTypeAndValue
 		}
 
 		if(compareTo instanceof ArrayBuffer)
-			return isEqualBuffer(this.value.valueBeforeDecode, compareTo);
+			return isEqualBuffer$1(this.value.valueBeforeDecode, compareTo);
 
 		return false;
 	}
@@ -16209,12 +23035,12 @@ class RelativeDistinguishedNames
 		 * @type {Array.<AttributeTypeAndValue>}
 		 * @desc Array of "type and value" objects
 		 */
-		this.typesAndValues = getParametersValue(parameters, "typesAndValues", RelativeDistinguishedNames.defaultValues("typesAndValues"));
+		this.typesAndValues = getParametersValue$1(parameters, "typesAndValues", RelativeDistinguishedNames.defaultValues("typesAndValues"));
 		/**
 		 * @type {ArrayBuffer}
 		 * @desc Value of the RDN before decoding from schema
 		 */
-		this.valueBeforeDecode = getParametersValue(parameters, "valueBeforeDecode", RelativeDistinguishedNames.defaultValues("valueBeforeDecode"));
+		this.valueBeforeDecode = getParametersValue$1(parameters, "valueBeforeDecode", RelativeDistinguishedNames.defaultValues("valueBeforeDecode"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -16281,16 +23107,16 @@ class RelativeDistinguishedNames
 		 * @property {string} [repeatedSet] Name for "repeatedSet" block
 		 * @property {string} [typeAndValue] Name for "typeAndValue" block
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Repeated({
+				new Repeated$1({
 					name: (names.repeatedSequence || ""),
-					value: new Set({
+					value: new Set$1({
 						value: [
-							new Repeated({
+							new Repeated$1({
 								name: (names.repeatedSet || ""),
 								value: AttributeTypeAndValue.schema(names.typeAndValue || {})
 							})
@@ -16308,14 +23134,14 @@ class RelativeDistinguishedNames
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"RDN",
 			"typesAndValues"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			RelativeDistinguishedNames.schema({
 				names: {
@@ -16347,14 +23173,14 @@ class RelativeDistinguishedNames
 		//region Decode stored TBS value
 		if(this.valueBeforeDecode.byteLength === 0) // No stored encoded array, create "from scratch"
 		{
-			return (new Sequence({
-				value: [new Set({
+			return (new Sequence$1({
+				value: [new Set$1({
 					value: Array.from(this.typesAndValues, element => element.toSchema())
 				})]
 			}));
 		}
 
-		const asn1 = fromBER(this.valueBeforeDecode);
+		const asn1 = fromBER$1(this.valueBeforeDecode);
 		//endregion
 
 		//region Construct and return new ASN.1 schema for this object
@@ -16395,7 +23221,7 @@ class RelativeDistinguishedNames
 		}
 
 		if(compareTo instanceof ArrayBuffer)
-			return isEqualBuffer(this.valueBeforeDecode, compareTo);
+			return isEqualBuffer$1(this.valueBeforeDecode, compareTo);
 
 		return false;
 	}
@@ -16424,12 +23250,12 @@ class Time
 		 * @type {number}
 		 * @desc 0 - UTCTime; 1 - GeneralizedTime; 2 - empty value
 		 */
-		this.type = getParametersValue(parameters, "type", Time.defaultValues("type"));
+		this.type = getParametersValue$1(parameters, "type", Time.defaultValues("type"));
 		/**
 		 * @type {Date}
 		 * @desc Value of the TIME class
 		 */
-		this.value = getParametersValue(parameters, "value", Time.defaultValues("value"));
+		this.value = getParametersValue$1(parameters, "value", Time.defaultValues("value"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -16477,13 +23303,13 @@ class Time
 		 * @property {string} [utcTimeName] Name for "utcTimeName" choice
 		 * @property {string} [generalTimeName] Name for "generalTimeName" choice
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Choice({
+		return (new Choice$1({
 			optional,
 			value: [
-				new UTCTime({ name: (names.utcTimeName || "") }),
-				new GeneralizedTime({ name: (names.generalTimeName || "") })
+				new UTCTime$1({ name: (names.utcTimeName || "") }),
+				new GeneralizedTime$1({ name: (names.generalTimeName || "") })
 			]
 		}));
 	}
@@ -16495,14 +23321,14 @@ class Time
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"utcTimeName",
 			"generalTimeName"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema, schema, Time.schema({
+		const asn1 = compareSchema$1(schema, schema, Time.schema({
 			names: {
 				utcTimeName: "utcTimeName",
 				generalTimeName: "generalTimeName"
@@ -16537,9 +23363,9 @@ class Time
 		let result = {};
 
 		if(this.type === 0)
-			result = new UTCTime({ valueDate: this.value });
+			result = new UTCTime$1({ valueDate: this.value });
 		if(this.type === 1)
-			result = new GeneralizedTime({ valueDate: this.value });
+			result = new GeneralizedTime$1({ valueDate: this.value });
 
 		return result;
 		//endregion
@@ -16579,7 +23405,7 @@ class SubjectDirectoryAttributes
 		 * @type {Array.<Attribute>}
 		 * @desc attributes
 		 */
-		this.attributes = getParametersValue(parameters, "attributes", SubjectDirectoryAttributes.defaultValues("attributes"));
+		this.attributes = getParametersValue$1(parameters, "attributes", SubjectDirectoryAttributes.defaultValues("attributes"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -16622,12 +23448,12 @@ class SubjectDirectoryAttributes
 		 * @property {string} [utcTimeName] Name for "utcTimeName" choice
 		 * @property {string} [generalTimeName] Name for "generalTimeName" choice
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Repeated({
+				new Repeated$1({
 					name: (names.attributes || ""),
 					value: Attribute.schema()
 				})
@@ -16642,13 +23468,13 @@ class SubjectDirectoryAttributes
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"attributes"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			SubjectDirectoryAttributes.schema({
 				names: {
@@ -16673,7 +23499,7 @@ class SubjectDirectoryAttributes
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: Array.from(this.attributes, element => element.toSchema())
 		}));
 		//endregion
@@ -16713,14 +23539,14 @@ class PrivateKeyUsagePeriod
 			 * @type {Date}
 			 * @desc notBefore
 			 */
-			this.notBefore = getParametersValue(parameters, "notBefore", PrivateKeyUsagePeriod.defaultValues("notBefore"));
+			this.notBefore = getParametersValue$1(parameters, "notBefore", PrivateKeyUsagePeriod.defaultValues("notBefore"));
 
 		if("notAfter" in parameters)
 			/**
 			 * @type {Date}
 			 * @desc notAfter
 			 */
-			this.notAfter = getParametersValue(parameters, "notAfter", PrivateKeyUsagePeriod.defaultValues("notAfter"));
+			this.notAfter = getParametersValue$1(parameters, "notAfter", PrivateKeyUsagePeriod.defaultValues("notAfter"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -16770,12 +23596,12 @@ class PrivateKeyUsagePeriod
 		 * @property {string} [notBefore]
 		 * @property {string} [notAfter]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Primitive({
+				new Primitive$1({
 					name: (names.notBefore || ""),
 					optional: true,
 					idBlock: {
@@ -16783,7 +23609,7 @@ class PrivateKeyUsagePeriod
 						tagNumber: 0 // [0]
 					}
 				}),
-				new Primitive({
+				new Primitive$1({
 					name: (names.notAfter || ""),
 					optional: true,
 					idBlock: {
@@ -16802,14 +23628,14 @@ class PrivateKeyUsagePeriod
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"notBefore",
 			"notAfter"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			PrivateKeyUsagePeriod.schema({
 				names: {
@@ -16826,14 +23652,14 @@ class PrivateKeyUsagePeriod
 		//region Get internal properties from parsed schema
 		if("notBefore" in asn1.result)
 		{
-			const localNotBefore = new GeneralizedTime();
+			const localNotBefore = new GeneralizedTime$1();
 			localNotBefore.fromBuffer(asn1.result.notBefore.valueBlock.valueHex);
 			this.notBefore = localNotBefore.toDate();
 		}
 
 		if("notAfter" in asn1.result)
 		{
-			const localNotAfter = new GeneralizedTime({ valueHex: asn1.result.notAfter.valueBlock.valueHex });
+			const localNotAfter = new GeneralizedTime$1({ valueHex: asn1.result.notAfter.valueBlock.valueHex });
 			localNotAfter.fromBuffer(asn1.result.notAfter.valueBlock.valueHex);
 			this.notAfter = localNotAfter.toDate();
 		}
@@ -16851,29 +23677,29 @@ class PrivateKeyUsagePeriod
 		
 		if("notBefore" in this)
 		{
-			outputArray.push(new Primitive({
+			outputArray.push(new Primitive$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 0 // [0]
 				},
-				valueHex: (new GeneralizedTime({ valueDate: this.notBefore })).valueBlock.valueHex
+				valueHex: (new GeneralizedTime$1({ valueDate: this.notBefore })).valueBlock.valueHex
 			}));
 		}
 		
 		if("notAfter" in this)
 		{
-			outputArray.push(new Primitive({
+			outputArray.push(new Primitive$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 1 // [1]
 				},
-				valueHex: (new GeneralizedTime({ valueDate: this.notAfter })).valueBlock.valueHex
+				valueHex: (new GeneralizedTime$1({ valueDate: this.notAfter })).valueBlock.valueHex
 			}));
 		}
 		//endregion
 		
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -16934,12 +23760,12 @@ function builtInStandardAttributes(parameters = {}, optional = false)
 	 * @property {string} [personal_name]
 	 * @property {string} [organizational_unit_names]
 	 */
-	const names = getParametersValue(parameters, "names", {});
+	const names = getParametersValue$1(parameters, "names", {});
 
-	return (new Sequence({
+	return (new Sequence$1({
 		optional,
 		value: [
-			new Constructed({
+			new Constructed$1({
 				optional: true,
 				idBlock: {
 					tagClass: 2, // APPLICATION-SPECIFIC
@@ -16947,15 +23773,15 @@ function builtInStandardAttributes(parameters = {}, optional = false)
 				},
 				name: (names.country_name || ""),
 				value: [
-					new Choice({
+					new Choice$1({
 						value: [
-							new NumericString(),
-							new PrintableString()
+							new NumericString$1(),
+							new PrintableString$1()
 						]
 					})
 				]
 			}),
-			new Constructed({
+			new Constructed$1({
 				optional: true,
 				idBlock: {
 					tagClass: 2, // APPLICATION-SPECIFIC
@@ -16963,15 +23789,15 @@ function builtInStandardAttributes(parameters = {}, optional = false)
 				},
 				name: (names.administration_domain_name || ""),
 				value: [
-					new Choice({
+					new Choice$1({
 						value: [
-							new NumericString(),
-							new PrintableString()
+							new NumericString$1(),
+							new PrintableString$1()
 						]
 					})
 				]
 			}),
-			new Primitive({
+			new Primitive$1({
 				optional: true,
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
@@ -16980,7 +23806,7 @@ function builtInStandardAttributes(parameters = {}, optional = false)
 				name: (names.network_address || ""),
 				isHexOnly: true
 			}),
-			new Primitive({
+			new Primitive$1({
 				optional: true,
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
@@ -16989,7 +23815,7 @@ function builtInStandardAttributes(parameters = {}, optional = false)
 				name: (names.terminal_identifier || ""),
 				isHexOnly: true
 			}),
-			new Constructed({
+			new Constructed$1({
 				optional: true,
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
@@ -16997,15 +23823,15 @@ function builtInStandardAttributes(parameters = {}, optional = false)
 				},
 				name: (names.private_domain_name || ""),
 				value: [
-					new Choice({
+					new Choice$1({
 						value: [
-							new NumericString(),
-							new PrintableString()
+							new NumericString$1(),
+							new PrintableString$1()
 						]
 					})
 				]
 			}),
-			new Primitive({
+			new Primitive$1({
 				optional: true,
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
@@ -17014,7 +23840,7 @@ function builtInStandardAttributes(parameters = {}, optional = false)
 				name: (names.organization_name || ""),
 				isHexOnly: true
 			}),
-			new Primitive({
+			new Primitive$1({
 				optional: true,
 				name: (names.numeric_user_identifier || ""),
 				idBlock: {
@@ -17023,7 +23849,7 @@ function builtInStandardAttributes(parameters = {}, optional = false)
 				},
 				isHexOnly: true
 			}),
-			new Constructed({
+			new Constructed$1({
 				optional: true,
 				name: (names.personal_name || ""),
 				idBlock: {
@@ -17031,14 +23857,14 @@ function builtInStandardAttributes(parameters = {}, optional = false)
 					tagNumber: 5 // [5]
 				},
 				value: [
-					new Primitive({
+					new Primitive$1({
 						idBlock: {
 							tagClass: 3, // CONTEXT-SPECIFIC
 							tagNumber: 0 // [0]
 						},
 						isHexOnly: true
 					}),
-					new Primitive({
+					new Primitive$1({
 						optional: true,
 						idBlock: {
 							tagClass: 3, // CONTEXT-SPECIFIC
@@ -17046,7 +23872,7 @@ function builtInStandardAttributes(parameters = {}, optional = false)
 						},
 						isHexOnly: true
 					}),
-					new Primitive({
+					new Primitive$1({
 						optional: true,
 						idBlock: {
 							tagClass: 3, // CONTEXT-SPECIFIC
@@ -17054,7 +23880,7 @@ function builtInStandardAttributes(parameters = {}, optional = false)
 						},
 						isHexOnly: true
 					}),
-					new Primitive({
+					new Primitive$1({
 						optional: true,
 						idBlock: {
 							tagClass: 3, // CONTEXT-SPECIFIC
@@ -17064,7 +23890,7 @@ function builtInStandardAttributes(parameters = {}, optional = false)
 					})
 				]
 			}),
-			new Constructed({
+			new Constructed$1({
 				optional: true,
 				name: (names.organizational_unit_names || ""),
 				idBlock: {
@@ -17072,8 +23898,8 @@ function builtInStandardAttributes(parameters = {}, optional = false)
 					tagNumber: 6 // [6]
 				},
 				value: [
-					new Repeated({
-						value: new PrintableString()
+					new Repeated$1({
+						value: new PrintableString$1()
 					})
 				]
 			})
@@ -17088,11 +23914,11 @@ function builtInStandardAttributes(parameters = {}, optional = false)
  */
 function builtInDomainDefinedAttributes(optional = false)
 {
-	return (new Sequence({
+	return (new Sequence$1({
 		optional,
 		value: [
-			new PrintableString(),
-			new PrintableString()
+			new PrintableString$1(),
+			new PrintableString$1()
 		]
 	}));
 }
@@ -17104,10 +23930,10 @@ function builtInDomainDefinedAttributes(optional = false)
  */
 function extensionAttributes(optional = false)
 {
-	return (new Set({
+	return (new Set$1({
 		optional,
 		value: [
-			new Primitive({
+			new Primitive$1({
 				optional: true,
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
@@ -17115,13 +23941,13 @@ function extensionAttributes(optional = false)
 				},
 				isHexOnly: true
 			}),
-			new Constructed({
+			new Constructed$1({
 				optional: true,
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 1 // [1]
 				},
-				value: [new Any()]
+				value: [new Any$1()]
 			})
 		]
 	}));
@@ -17149,12 +23975,12 @@ class GeneralName
 		 * @type {number}
 		 * @desc value type - from a tagged value (0 for "otherName", 1 for "rfc822Name" etc.)
 		 */
-		this.type = getParametersValue(parameters, "type", GeneralName.defaultValues("type"));
+		this.type = getParametersValue$1(parameters, "type", GeneralName.defaultValues("type"));
 		/**
 		 * @type {Object}
 		 * @desc asn1js object having GeneralName value (type depends on "type" value)
 		 */
-		this.value = getParametersValue(parameters, "value", GeneralName.defaultValues("value"));
+		this.value = getParametersValue$1(parameters, "value", GeneralName.defaultValues("value"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -17226,42 +24052,42 @@ class GeneralName
 		 * @property {Object} [directoryName]
 		 * @property {Object} [builtInStandardAttributes]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Choice({
+		return (new Choice$1({
 			value: [
-				new Constructed({
+				new Constructed$1({
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 0 // [0]
 					},
 					name: (names.blockName || ""),
 					value: [
-						new ObjectIdentifier(),
-						new Constructed({
+						new ObjectIdentifier$1(),
+						new Constructed$1({
 							idBlock: {
 								tagClass: 3, // CONTEXT-SPECIFIC
 								tagNumber: 0 // [0]
 							},
-							value: [new Any()]
+							value: [new Any$1()]
 						})
 					]
 				}),
-				new Primitive({
+				new Primitive$1({
 					name: (names.blockName || ""),
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 1 // [1]
 					}
 				}),
-				new Primitive({
+				new Primitive$1({
 					name: (names.blockName || ""),
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 2 // [2]
 					}
 				}),
-				new Constructed({
+				new Constructed$1({
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 3 // [3]
@@ -17273,7 +24099,7 @@ class GeneralName
 						extensionAttributes(true)
 					]
 				}),
-				new Constructed({
+				new Constructed$1({
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 4 // [4]
@@ -17281,65 +24107,65 @@ class GeneralName
 					name: (names.blockName || ""),
 					value: [RelativeDistinguishedNames.schema(names.directoryName || {})]
 				}),
-				new Constructed({
+				new Constructed$1({
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 5 // [5]
 					},
 					name: (names.blockName || ""),
 					value: [
-						new Constructed({
+						new Constructed$1({
 							optional: true,
 							idBlock: {
 								tagClass: 3, // CONTEXT-SPECIFIC
 								tagNumber: 0 // [0]
 							},
 							value: [
-								new Choice({
+								new Choice$1({
 									value: [
-										new TeletexString(),
-										new PrintableString(),
-										new UniversalString(),
-										new Utf8String(),
-										new BmpString()
+										new TeletexString$1(),
+										new PrintableString$1(),
+										new UniversalString$1(),
+										new Utf8String$1(),
+										new BmpString$1()
 									]
 								})
 							]
 						}),
-						new Constructed({
+						new Constructed$1({
 							idBlock: {
 								tagClass: 3, // CONTEXT-SPECIFIC
 								tagNumber: 1 // [1]
 							},
 							value: [
-								new Choice({
+								new Choice$1({
 									value: [
-										new TeletexString(),
-										new PrintableString(),
-										new UniversalString(),
-										new Utf8String(),
-										new BmpString()
+										new TeletexString$1(),
+										new PrintableString$1(),
+										new UniversalString$1(),
+										new Utf8String$1(),
+										new BmpString$1()
 									]
 								})
 							]
 						})
 					]
 				}),
-				new Primitive({
+				new Primitive$1({
 					name: (names.blockName || ""),
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 6 // [6]
 					}
 				}),
-				new Primitive({
+				new Primitive$1({
 					name: (names.blockName || ""),
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 7 // [7]
 					}
 				}),
-				new Primitive({
+				new Primitive$1({
 					name: (names.blockName || ""),
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
@@ -17357,7 +24183,7 @@ class GeneralName
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"blockName",
 			"otherName",
 			"rfc822Name",
@@ -17372,7 +24198,7 @@ class GeneralName
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			GeneralName.schema({
 				names: {
@@ -17417,7 +24243,7 @@ class GeneralName
 
 					const valueBER = value.toBER(false);
 
-					this.value = fromBER(valueBER).result.valueBlock.value;
+					this.value = fromBER$1(valueBER).result.valueBlock.value;
 				}
 				break;
 			case 3: // x400Address
@@ -17430,7 +24256,7 @@ class GeneralName
 				this.value = asn1.result.ediPartyName;
 				break;
 			case 7: // iPAddress
-				this.value = new OctetString({ valueHex: asn1.result.blockName.valueBlock.valueHex });
+				this.value = new OctetString$1({ valueHex: asn1.result.blockName.valueBlock.valueHex });
 				break;
 			case 8: // registeredID
 				{
@@ -17441,7 +24267,7 @@ class GeneralName
 
 					const valueBER = value.toBER(false);
 
-					this.value = fromBER(valueBER).result.valueBlock.toString(); // Getting a string representation of the ObjectIdentifier
+					this.value = fromBER$1(valueBER).result.valueBlock.toString(); // Getting a string representation of the ObjectIdentifier
 				}
 				break;
 			default:
@@ -17461,7 +24287,7 @@ class GeneralName
 			case 0:
 			case 3:
 			case 5:
-				return new Constructed({
+				return new Constructed$1({
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: this.type
@@ -17474,7 +24300,7 @@ class GeneralName
 			case 2:
 			case 6:
 				{
-					const value = new IA5String({ value: this.value });
+					const value = new IA5String$1({ value: this.value });
 
 					value.idBlock.tagClass = 3;
 					value.idBlock.tagNumber = this.type;
@@ -17482,7 +24308,7 @@ class GeneralName
 					return value;
 				}
 			case 4:
-				return new Constructed({
+				return new Constructed$1({
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 4
@@ -17500,7 +24326,7 @@ class GeneralName
 				}
 			case 8:
 				{
-					const value = new ObjectIdentifier({ value: this.value });
+					const value = new ObjectIdentifier$1({ value: this.value });
 
 					value.idBlock.tagClass = 3;
 					value.idBlock.tagNumber = this.type;
@@ -17560,7 +24386,7 @@ class AltName
 		 * @type {Array.<GeneralName>}
 		 * @desc Array of alternative names in GeneralName type
 		 */
-		this.altNames = getParametersValue(parameters, "altNames", AltName.defaultValues("altNames"));
+		this.altNames = getParametersValue$1(parameters, "altNames", AltName.defaultValues("altNames"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -17602,12 +24428,12 @@ class AltName
 		 * @property {string} [blockName]
 		 * @property {string} [altNames]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Repeated({
+				new Repeated$1({
 					name: (names.altNames || ""),
 					value: GeneralName.schema()
 				})
@@ -17622,13 +24448,13 @@ class AltName
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"altNames"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			AltName.schema({
 				names: {
@@ -17654,7 +24480,7 @@ class AltName
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: Array.from(this.altNames, element => element.toSchema())
 		}));
 		//endregion
@@ -17695,14 +24521,14 @@ class BasicConstraints
 		 * @type {boolean}
 		 * @desc cA
 		 */
-		this.cA = getParametersValue(parameters, "cA", false);
+		this.cA = getParametersValue$1(parameters, "cA", false);
 
 		if("pathLenConstraint" in parameters)
 			/**
 			 * @type {number|Integer}
 			 * @desc pathLenConstraint
 			 */
-			this.pathLenConstraint = getParametersValue(parameters, "pathLenConstraint", 0);
+			this.pathLenConstraint = getParametersValue$1(parameters, "pathLenConstraint", 0);
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -17747,16 +24573,16 @@ class BasicConstraints
 		 * @property {string} [cA]
 		 * @property {string} [pathLenConstraint]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Boolean({
+				new Boolean$1({
 					optional: true,
 					name: (names.cA || "")
 				}),
-				new Integer({
+				new Integer$1({
 					optional: true,
 					name: (names.pathLenConstraint || "")
 				})
@@ -17771,14 +24597,14 @@ class BasicConstraints
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"cA",
 			"pathLenConstraint"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			BasicConstraints.schema({
 				names: {
@@ -17816,19 +24642,19 @@ class BasicConstraints
 		const outputArray = [];
 		
 		if(this.cA !== BasicConstraints.defaultValues("cA"))
-			outputArray.push(new Boolean({ value: this.cA }));
+			outputArray.push(new Boolean$1({ value: this.cA }));
 		
 		if("pathLenConstraint" in this)
 		{
-			if(this.pathLenConstraint instanceof Integer)
+			if(this.pathLenConstraint instanceof Integer$1)
 				outputArray.push(this.pathLenConstraint);
 			else
-				outputArray.push(new Integer({ value: this.pathLenConstraint }));
+				outputArray.push(new Integer$1({ value: this.pathLenConstraint }));
 		}
 		//endregion
 		
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -17847,7 +24673,7 @@ class BasicConstraints
 
 		if("pathLenConstraint" in this)
 		{
-			if(this.pathLenConstraint instanceof Integer)
+			if(this.pathLenConstraint instanceof Integer$1)
 				object.pathLenConstraint = this.pathLenConstraint.toJSON();
 			else
 				object.pathLenConstraint = this.pathLenConstraint;
@@ -17879,38 +24705,38 @@ class IssuingDistributionPoint
 			 * @type {Array.<GeneralName>|RelativeDistinguishedNames}
 			 * @desc distributionPoint
 			 */
-			this.distributionPoint = getParametersValue(parameters, "distributionPoint", IssuingDistributionPoint.defaultValues("distributionPoint"));
+			this.distributionPoint = getParametersValue$1(parameters, "distributionPoint", IssuingDistributionPoint.defaultValues("distributionPoint"));
 
 		/**
 		 * @type {boolean}
 		 * @desc onlyContainsUserCerts
 		 */
-		this.onlyContainsUserCerts = getParametersValue(parameters, "onlyContainsUserCerts", IssuingDistributionPoint.defaultValues("onlyContainsUserCerts"));
+		this.onlyContainsUserCerts = getParametersValue$1(parameters, "onlyContainsUserCerts", IssuingDistributionPoint.defaultValues("onlyContainsUserCerts"));
 
 		/**
 		 * @type {boolean}
 		 * @desc onlyContainsCACerts
 		 */
-		this.onlyContainsCACerts = getParametersValue(parameters, "onlyContainsCACerts", IssuingDistributionPoint.defaultValues("onlyContainsCACerts"));
+		this.onlyContainsCACerts = getParametersValue$1(parameters, "onlyContainsCACerts", IssuingDistributionPoint.defaultValues("onlyContainsCACerts"));
 
 		if("onlySomeReasons" in parameters)
 			/**
 			 * @type {number}
 			 * @desc onlySomeReasons
 			 */
-			this.onlySomeReasons = getParametersValue(parameters, "onlySomeReasons", IssuingDistributionPoint.defaultValues("onlySomeReasons"));
+			this.onlySomeReasons = getParametersValue$1(parameters, "onlySomeReasons", IssuingDistributionPoint.defaultValues("onlySomeReasons"));
 
 		/**
 		 * @type {boolean}
 		 * @desc indirectCRL
 		 */
-		this.indirectCRL = getParametersValue(parameters, "indirectCRL", IssuingDistributionPoint.defaultValues("indirectCRL"));
+		this.indirectCRL = getParametersValue$1(parameters, "indirectCRL", IssuingDistributionPoint.defaultValues("indirectCRL"));
 
 		/**
 		 * @type {boolean}
 		 * @desc onlyContainsAttributeCerts
 		 */
-		this.onlyContainsAttributeCerts = getParametersValue(parameters, "onlyContainsAttributeCerts", IssuingDistributionPoint.defaultValues("onlyContainsAttributeCerts"));
+		this.onlyContainsAttributeCerts = getParametersValue$1(parameters, "onlyContainsAttributeCerts", IssuingDistributionPoint.defaultValues("onlyContainsAttributeCerts"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -17985,34 +24811,34 @@ class IssuingDistributionPoint
 		 * @property {string} [indirectCRL]
 		 * @property {string} [onlyContainsAttributeCerts]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 		
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Constructed({
+				new Constructed$1({
 					optional: true,
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 0 // [0]
 					},
 					value: [
-						new Choice({
+						new Choice$1({
 							value: [
-								new Constructed({
+								new Constructed$1({
 									name: (names.distributionPoint || ""),
 									idBlock: {
 										tagClass: 3, // CONTEXT-SPECIFIC
 										tagNumber: 0 // [0]
 									},
 									value: [
-										new Repeated({
+										new Repeated$1({
 											name: (names.distributionPointNames || ""),
 											value: GeneralName.schema()
 										})
 									]
 								}),
-								new Constructed({
+								new Constructed$1({
 									name: (names.distributionPoint || ""),
 									idBlock: {
 										tagClass: 3, // CONTEXT-SPECIFIC
@@ -18024,7 +24850,7 @@ class IssuingDistributionPoint
 						})
 					]
 				}),
-				new Primitive({
+				new Primitive$1({
 					name: (names.onlyContainsUserCerts || ""),
 					optional: true,
 					idBlock: {
@@ -18032,7 +24858,7 @@ class IssuingDistributionPoint
 						tagNumber: 1 // [1]
 					}
 				}), // IMPLICIT boolean value
-				new Primitive({
+				new Primitive$1({
 					name: (names.onlyContainsCACerts || ""),
 					optional: true,
 					idBlock: {
@@ -18040,7 +24866,7 @@ class IssuingDistributionPoint
 						tagNumber: 2 // [2]
 					}
 				}), // IMPLICIT boolean value
-				new Primitive({
+				new Primitive$1({
 					name: (names.onlySomeReasons || ""),
 					optional: true,
 					idBlock: {
@@ -18048,7 +24874,7 @@ class IssuingDistributionPoint
 						tagNumber: 3 // [3]
 					}
 				}), // IMPLICIT bitstring value
-				new Primitive({
+				new Primitive$1({
 					name: (names.indirectCRL || ""),
 					optional: true,
 					idBlock: {
@@ -18056,7 +24882,7 @@ class IssuingDistributionPoint
 						tagNumber: 4 // [4]
 					}
 				}), // IMPLICIT boolean value
-				new Primitive({
+				new Primitive$1({
 					name: (names.onlyContainsAttributeCerts || ""),
 					optional: true,
 					idBlock: {
@@ -18075,7 +24901,7 @@ class IssuingDistributionPoint
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"distributionPoint",
 			"distributionPointNames",
 			"onlyContainsUserCerts",
@@ -18087,7 +24913,7 @@ class IssuingDistributionPoint
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			IssuingDistributionPoint.schema({
 				names: {
@@ -18117,7 +24943,7 @@ class IssuingDistributionPoint
 				case (asn1.result.distributionPoint.idBlock.tagNumber === 1): // RDN variant
 					{
 						this.distributionPoint = new RelativeDistinguishedNames({
-							schema: new Sequence({
+							schema: new Sequence$1({
 								value: asn1.result.distributionPoint.valueBlock.value
 							})
 						});
@@ -18175,7 +25001,7 @@ class IssuingDistributionPoint
 			
 			if(this.distributionPoint instanceof Array)
 			{
-				value = new Constructed({
+				value = new Constructed$1({
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 0 // [0]
@@ -18191,7 +25017,7 @@ class IssuingDistributionPoint
 				value.idBlock.tagNumber = 1; // [1]
 			}
 			
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 0 // [0]
@@ -18202,7 +25028,7 @@ class IssuingDistributionPoint
 		
 		if(this.onlyContainsUserCerts !== IssuingDistributionPoint.defaultValues("onlyContainsUserCerts"))
 		{
-			outputArray.push(new Primitive({
+			outputArray.push(new Primitive$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 1 // [1]
@@ -18213,7 +25039,7 @@ class IssuingDistributionPoint
 		
 		if(this.onlyContainsCACerts !== IssuingDistributionPoint.defaultValues("onlyContainsCACerts"))
 		{
-			outputArray.push(new Primitive({
+			outputArray.push(new Primitive$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 2 // [2]
@@ -18229,7 +25055,7 @@ class IssuingDistributionPoint
 			
 			view[0] = this.onlySomeReasons;
 			
-			outputArray.push(new Primitive({
+			outputArray.push(new Primitive$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 3 // [3]
@@ -18240,7 +25066,7 @@ class IssuingDistributionPoint
 		
 		if(this.indirectCRL !== IssuingDistributionPoint.defaultValues("indirectCRL"))
 		{
-			outputArray.push(new Primitive({
+			outputArray.push(new Primitive$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 4 // [4]
@@ -18251,7 +25077,7 @@ class IssuingDistributionPoint
 		
 		if(this.onlyContainsAttributeCerts !== IssuingDistributionPoint.defaultValues("onlyContainsAttributeCerts"))
 		{
-			outputArray.push(new Primitive({
+			outputArray.push(new Primitive$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 5 // [5]
@@ -18262,7 +25088,7 @@ class IssuingDistributionPoint
 		//endregion
 		
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -18324,7 +25150,7 @@ class GeneralNames
 		 * @type {Array.<GeneralName>}
 		 * @desc Array of "general names"
 		 */
-		this.names = getParametersValue(parameters, "names", GeneralNames.defaultValues("names"));
+		this.names = getParametersValue$1(parameters, "names", GeneralNames.defaultValues("names"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -18367,13 +25193,13 @@ class GeneralNames
 		 * @property {string} utcTimeName Name for "utcTimeName" choice
 		 * @property {string} generalTimeName Name for "generalTimeName" choice
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 		
-		return (new Sequence({
+		return (new Sequence$1({
 			optional,
 			name: (names.blockName || ""),
 			value: [
-				new Repeated({
+				new Repeated$1({
 					name: (names.generalNames || ""),
 					value: GeneralName.schema()
 				})
@@ -18388,14 +25214,14 @@ class GeneralNames
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"names",
 			"generalNames"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			GeneralNames.schema({
 				names: {
@@ -18421,7 +25247,7 @@ class GeneralNames
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: Array.from(this.names, element => element.toSchema())
 		}));
 		//endregion
@@ -18460,20 +25286,20 @@ class GeneralSubtree
 		 * @type {GeneralName}
 		 * @desc base
 		 */
-		this.base = getParametersValue(parameters, "base", GeneralSubtree.defaultValues("base"));
+		this.base = getParametersValue$1(parameters, "base", GeneralSubtree.defaultValues("base"));
 
 		/**
 		 * @type {number|Integer}
 		 * @desc base
 		 */
-		this.minimum = getParametersValue(parameters, "minimum", GeneralSubtree.defaultValues("minimum"));
+		this.minimum = getParametersValue$1(parameters, "minimum", GeneralSubtree.defaultValues("minimum"));
 
 		if("maximum" in parameters)
 			/**
 			 * @type {number|Integer}
 			 * @desc minimum
 			 */
-			this.maximum = getParametersValue(parameters, "maximum", GeneralSubtree.defaultValues("maximum"));
+			this.maximum = getParametersValue$1(parameters, "maximum", GeneralSubtree.defaultValues("maximum"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -18526,27 +25352,27 @@ class GeneralSubtree
 		 * @property {string} [minimum]
 		 * @property {string} [maximum]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
 				GeneralName.schema(names.base || {}),
-				new Constructed({
+				new Constructed$1({
 					optional: true,
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 0 // [0]
 					},
-					value: [new Integer({ name: (names.minimum || "") })]
+					value: [new Integer$1({ name: (names.minimum || "") })]
 				}),
-				new Constructed({
+				new Constructed$1({
 					optional: true,
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 1 // [1]
 					},
-					value: [new Integer({ name: (names.maximum || "") })]
+					value: [new Integer$1({ name: (names.maximum || "") })]
 				})
 			]
 		}));
@@ -18559,7 +25385,7 @@ class GeneralSubtree
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"base",
 			"minimum",
 			"maximum"
@@ -18567,7 +25393,7 @@ class GeneralSubtree
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			GeneralSubtree.schema({
 				names: {
@@ -18622,12 +25448,12 @@ class GeneralSubtree
 		{
 			let valueMinimum = 0;
 			
-			if(this.minimum instanceof Integer)
+			if(this.minimum instanceof Integer$1)
 				valueMinimum = this.minimum;
 			else
-				valueMinimum = new Integer({ value: this.minimum });
+				valueMinimum = new Integer$1({ value: this.minimum });
 			
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				optional: true,
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
@@ -18641,12 +25467,12 @@ class GeneralSubtree
 		{
 			let valueMaximum = 0;
 			
-			if(this.maximum instanceof Integer)
+			if(this.maximum instanceof Integer$1)
 				valueMaximum = this.maximum;
 			else
-				valueMaximum = new Integer({ value: this.maximum });
+				valueMaximum = new Integer$1({ value: this.maximum });
 			
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				optional: true,
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
@@ -18658,7 +25484,7 @@ class GeneralSubtree
 		//endregion
 		
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -18716,14 +25542,14 @@ class NameConstraints
 			 * @type {Array.<GeneralSubtree>}
 			 * @desc permittedSubtrees
 			 */
-			this.permittedSubtrees = getParametersValue(parameters, "permittedSubtrees", NameConstraints.defaultValues("permittedSubtrees"));
+			this.permittedSubtrees = getParametersValue$1(parameters, "permittedSubtrees", NameConstraints.defaultValues("permittedSubtrees"));
 
 		if("excludedSubtrees" in parameters)
 			/**
 			 * @type {Array.<GeneralSubtree>}
 			 * @desc excludedSubtrees
 			 */
-			this.excludedSubtrees = getParametersValue(parameters, "excludedSubtrees", NameConstraints.defaultValues("excludedSubtrees"));
+			this.excludedSubtrees = getParametersValue$1(parameters, "excludedSubtrees", NameConstraints.defaultValues("excludedSubtrees"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -18770,32 +25596,32 @@ class NameConstraints
 		 * @property {string} [permittedSubtrees]
 		 * @property {string} [excludedSubtrees]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Constructed({
+				new Constructed$1({
 					optional: true,
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 0 // [0]
 					},
 					value: [
-						new Repeated({
+						new Repeated$1({
 							name: (names.permittedSubtrees || ""),
 							value: GeneralSubtree.schema()
 						})
 					]
 				}),
-				new Constructed({
+				new Constructed$1({
 					optional: true,
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 1 // [1]
 					},
 					value: [
-						new Repeated({
+						new Repeated$1({
 							name: (names.excludedSubtrees || ""),
 							value: GeneralSubtree.schema()
 						})
@@ -18812,14 +25638,14 @@ class NameConstraints
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"permittedSubtrees",
 			"excludedSubtrees"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			NameConstraints.schema({
 				names: {
@@ -18853,7 +25679,7 @@ class NameConstraints
 		
 		if("permittedSubtrees" in this)
 		{
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 0 // [0]
@@ -18864,7 +25690,7 @@ class NameConstraints
 		
 		if("excludedSubtrees" in this)
 		{
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 1 // [1]
@@ -18875,7 +25701,7 @@ class NameConstraints
 		//endregion
 		
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -18924,21 +25750,21 @@ class DistributionPoint
 			 * @type {Array.<GeneralName>}
 			 * @desc distributionPoint
 			 */
-			this.distributionPoint = getParametersValue(parameters, "distributionPoint", DistributionPoint.defaultValues("distributionPoint"));
+			this.distributionPoint = getParametersValue$1(parameters, "distributionPoint", DistributionPoint.defaultValues("distributionPoint"));
 
 		if("reasons" in parameters)
 			/**
 			 * @type {BitString}
 			 * @desc values
 			 */
-			this.reasons = getParametersValue(parameters, "reasons", DistributionPoint.defaultValues("reasons"));
+			this.reasons = getParametersValue$1(parameters, "reasons", DistributionPoint.defaultValues("reasons"));
 
 		if("cRLIssuer" in parameters)
 			/**
 			 * @type {Array.<GeneralName>}
 			 * @desc cRLIssuer
 			 */
-			this.cRLIssuer = getParametersValue(parameters, "cRLIssuer", DistributionPoint.defaultValues("cRLIssuer"));
+			this.cRLIssuer = getParametersValue$1(parameters, "cRLIssuer", DistributionPoint.defaultValues("cRLIssuer"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -18958,7 +25784,7 @@ class DistributionPoint
 			case "distributionPoint":
 				return [];
 			case "reasons":
-				return new BitString();
+				return new BitString$1();
 			case "cRLIssuer":
 				return [];
 			default:
@@ -19006,21 +25832,21 @@ class DistributionPoint
 		 * @property {string} [cRLIssuer]
 		 * @property {string} [cRLIssuerNames]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Constructed({
+				new Constructed$1({
 					optional: true,
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 0 // [0]
 					},
 					value: [
-						new Choice({
+						new Choice$1({
 							value: [
-								new Constructed({
+								new Constructed$1({
 									name: (names.distributionPoint || ""),
 									optional: true,
 									idBlock: {
@@ -19028,13 +25854,13 @@ class DistributionPoint
 										tagNumber: 0 // [0]
 									},
 									value: [
-										new Repeated({
+										new Repeated$1({
 											name: (names.distributionPointNames || ""),
 											value: GeneralName.schema()
 										})
 									]
 								}),
-								new Constructed({
+								new Constructed$1({
 									name: (names.distributionPoint || ""),
 									optional: true,
 									idBlock: {
@@ -19047,7 +25873,7 @@ class DistributionPoint
 						})
 					]
 				}),
-				new Primitive({
+				new Primitive$1({
 					name: (names.reasons || ""),
 					optional: true,
 					idBlock: {
@@ -19055,7 +25881,7 @@ class DistributionPoint
 						tagNumber: 1 // [1]
 					}
 				}), // IMPLICIT bitstring value
-				new Constructed({
+				new Constructed$1({
 					name: (names.cRLIssuer || ""),
 					optional: true,
 					idBlock: {
@@ -19063,7 +25889,7 @@ class DistributionPoint
 						tagNumber: 2 // [2]
 					},
 					value: [
-						new Repeated({
+						new Repeated$1({
 							name: (names.cRLIssuerNames || ""),
 							value: GeneralName.schema()
 						})
@@ -19080,7 +25906,7 @@ class DistributionPoint
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"distributionPoint",
 			"distributionPointNames",
 			"reasons",
@@ -19090,7 +25916,7 @@ class DistributionPoint
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			DistributionPoint.schema({
 				names: {
@@ -19116,7 +25942,7 @@ class DistributionPoint
 			if(asn1.result.distributionPoint.idBlock.tagNumber === 1) // RDN variant
 			{
 				this.distributionPoint = new RelativeDistinguishedNames({
-					schema: new Sequence({
+					schema: new Sequence$1({
 						value: asn1.result.distributionPoint.valueBlock.value
 					})
 				});
@@ -19124,7 +25950,7 @@ class DistributionPoint
 		}
 
 		if("reasons" in asn1.result)
-			this.reasons = new BitString({ valueHex: asn1.result.reasons.valueBlock.valueHex });
+			this.reasons = new BitString$1({ valueHex: asn1.result.reasons.valueBlock.valueHex });
 
 		if("cRLIssuer" in asn1.result)
 			this.cRLIssuer = Array.from(asn1.result.cRLIssuerNames, element => new GeneralName({ schema: element }));
@@ -19146,7 +25972,7 @@ class DistributionPoint
 			
 			if(this.distributionPoint instanceof Array)
 			{
-				internalValue = new Constructed({
+				internalValue = new Constructed$1({
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 0 // [0]
@@ -19156,7 +25982,7 @@ class DistributionPoint
 			}
 			else
 			{
-				internalValue = new Constructed({
+				internalValue = new Constructed$1({
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 1 // [1]
@@ -19165,7 +25991,7 @@ class DistributionPoint
 				});
 			}
 			
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 0 // [0]
@@ -19176,7 +26002,7 @@ class DistributionPoint
 		
 		if("reasons" in this)
 		{
-			outputArray.push(new Primitive({
+			outputArray.push(new Primitive$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 1 // [1]
@@ -19187,7 +26013,7 @@ class DistributionPoint
 		
 		if("cRLIssuer" in this)
 		{
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 2 // [2]
@@ -19198,7 +26024,7 @@ class DistributionPoint
 		//endregion
 		
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -19251,7 +26077,7 @@ class CRLDistributionPoints
 		 * @type {Array.<DistributionPoint>}
 		 * @desc distributionPoints
 		 */
-		this.distributionPoints = getParametersValue(parameters, "distributionPoints", CRLDistributionPoints.defaultValues("distributionPoints"));
+		this.distributionPoints = getParametersValue$1(parameters, "distributionPoints", CRLDistributionPoints.defaultValues("distributionPoints"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -19293,12 +26119,12 @@ class CRLDistributionPoints
 		 * @property {string} [blockName]
 		 * @property {string} [distributionPoints]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Repeated({
+				new Repeated$1({
 					name: (names.distributionPoints || ""),
 					value: DistributionPoint.schema()
 				})
@@ -19313,13 +26139,13 @@ class CRLDistributionPoints
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"distributionPoints"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			CRLDistributionPoints.schema({
 				names: {
@@ -19344,7 +26170,7 @@ class CRLDistributionPoints
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: Array.from(this.distributionPoints, element => element.toSchema())
 		}));
 		//endregion
@@ -19383,12 +26209,12 @@ class PolicyQualifierInfo
 		 * @type {string}
 		 * @desc policyQualifierId
 		 */
-		this.policyQualifierId = getParametersValue(parameters, "policyQualifierId", PolicyQualifierInfo.defaultValues("policyQualifierId"));
+		this.policyQualifierId = getParametersValue$1(parameters, "policyQualifierId", PolicyQualifierInfo.defaultValues("policyQualifierId"));
 		/**
 		 * @type {Object}
 		 * @desc qualifier
 		 */
-		this.qualifier = getParametersValue(parameters, "qualifier", PolicyQualifierInfo.defaultValues("qualifier"));
+		this.qualifier = getParametersValue$1(parameters, "qualifier", PolicyQualifierInfo.defaultValues("qualifier"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -19408,7 +26234,7 @@ class PolicyQualifierInfo
 			case "policyQualifierId":
 				return "";
 			case "qualifier":
-				return new Any();
+				return new Any$1();
 			default:
 				throw new Error(`Invalid member name for PolicyQualifierInfo class: ${memberName}`);
 		}
@@ -19441,13 +26267,13 @@ class PolicyQualifierInfo
 		 * @property {string} [policyQualifierId]
 		 * @property {string} [qualifier]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new ObjectIdentifier({ name: (names.policyQualifierId || "") }),
-				new Any({ name: (names.qualifier || "") })
+				new ObjectIdentifier$1({ name: (names.policyQualifierId || "") }),
+				new Any$1({ name: (names.qualifier || "") })
 			]
 		}));
 	}
@@ -19459,14 +26285,14 @@ class PolicyQualifierInfo
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"policyQualifierId",
 			"qualifier"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			PolicyQualifierInfo.schema({
 				names: {
@@ -19493,9 +26319,9 @@ class PolicyQualifierInfo
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: [
-				new ObjectIdentifier({ value: this.policyQualifierId }),
+				new ObjectIdentifier$1({ value: this.policyQualifierId }),
 				this.qualifier
 			]
 		}));
@@ -19536,14 +26362,14 @@ class PolicyInformation
 		 * @type {string}
 		 * @desc policyIdentifier
 		 */
-		this.policyIdentifier = getParametersValue(parameters, "policyIdentifier", PolicyInformation.defaultValues("policyIdentifier"));
+		this.policyIdentifier = getParametersValue$1(parameters, "policyIdentifier", PolicyInformation.defaultValues("policyIdentifier"));
 
 		if("policyQualifiers" in parameters)
 			/**
 			 * @type {Array.<PolicyQualifierInfo>}
 			 * @desc Value of the TIME class
 			 */
-			this.policyQualifiers = getParametersValue(parameters, "policyQualifiers", PolicyInformation.defaultValues("policyQualifiers"));
+			this.policyQualifiers = getParametersValue$1(parameters, "policyQualifiers", PolicyInformation.defaultValues("policyQualifiers"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -19593,16 +26419,16 @@ class PolicyInformation
 		 * @property {string} [policyIdentifier]
 		 * @property {string} [policyQualifiers]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new ObjectIdentifier({ name: (names.policyIdentifier || "") }),
-				new Sequence({
+				new ObjectIdentifier$1({ name: (names.policyIdentifier || "") }),
+				new Sequence$1({
 					optional: true,
 					value: [
-						new Repeated({
+						new Repeated$1({
 							name: (names.policyQualifiers || ""),
 							value: PolicyQualifierInfo.schema()
 						})
@@ -19619,14 +26445,14 @@ class PolicyInformation
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"policyIdentifier",
 			"policyQualifiers"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			PolicyInformation.schema({
 				names: {
@@ -19657,18 +26483,18 @@ class PolicyInformation
 		//region Create array for output sequence
 		const outputArray = [];
 		
-		outputArray.push(new ObjectIdentifier({ value: this.policyIdentifier }));
+		outputArray.push(new ObjectIdentifier$1({ value: this.policyIdentifier }));
 		
 		if("policyQualifiers" in this)
 		{
-			outputArray.push(new Sequence({
+			outputArray.push(new Sequence$1({
 				value: Array.from(this.policyQualifiers, element => element.toSchema())
 			}));
 		}
 		//endregion
 		
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -19712,7 +26538,7 @@ class CertificatePolicies
 		 * @type {Array.<PolicyInformation>}
 		 * @desc certificatePolicies
 		 */
-		this.certificatePolicies = getParametersValue(parameters, "certificatePolicies", CertificatePolicies.defaultValues("certificatePolicies"));
+		this.certificatePolicies = getParametersValue$1(parameters, "certificatePolicies", CertificatePolicies.defaultValues("certificatePolicies"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -19754,12 +26580,12 @@ class CertificatePolicies
 		 * @property {string} [blockName]
 		 * @property {string} [certificatePolicies]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Repeated({
+				new Repeated$1({
 					name: (names.certificatePolicies || ""),
 					value: PolicyInformation.schema()
 				})
@@ -19774,13 +26600,13 @@ class CertificatePolicies
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"certificatePolicies"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			CertificatePolicies.schema({
 				names: {
@@ -19805,7 +26631,7 @@ class CertificatePolicies
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: Array.from(this.certificatePolicies, element => element.toSchema())
 		}));
 		//endregion
@@ -19844,12 +26670,12 @@ class PolicyMapping
 		 * @type {string}
 		 * @desc issuerDomainPolicy
 		 */
-		this.issuerDomainPolicy = getParametersValue(parameters, "issuerDomainPolicy", PolicyMapping.defaultValues("issuerDomainPolicy"));
+		this.issuerDomainPolicy = getParametersValue$1(parameters, "issuerDomainPolicy", PolicyMapping.defaultValues("issuerDomainPolicy"));
 		/**
 		 * @type {string}
 		 * @desc subjectDomainPolicy
 		 */
-		this.subjectDomainPolicy = getParametersValue(parameters, "subjectDomainPolicy", PolicyMapping.defaultValues("subjectDomainPolicy"));
+		this.subjectDomainPolicy = getParametersValue$1(parameters, "subjectDomainPolicy", PolicyMapping.defaultValues("subjectDomainPolicy"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -19896,13 +26722,13 @@ class PolicyMapping
 		 * @property {string} [issuerDomainPolicy]
 		 * @property {string} [subjectDomainPolicy]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new ObjectIdentifier({ name: (names.issuerDomainPolicy || "") }),
-				new ObjectIdentifier({ name: (names.subjectDomainPolicy || "") })
+				new ObjectIdentifier$1({ name: (names.issuerDomainPolicy || "") }),
+				new ObjectIdentifier$1({ name: (names.subjectDomainPolicy || "") })
 			]
 		}));
 	}
@@ -19914,14 +26740,14 @@ class PolicyMapping
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"issuerDomainPolicy",
 			"subjectDomainPolicy"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			PolicyMapping.schema({
 				names: {
@@ -19948,10 +26774,10 @@ class PolicyMapping
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: [
-				new ObjectIdentifier({ value: this.issuerDomainPolicy }),
-				new ObjectIdentifier({ value: this.subjectDomainPolicy })
+				new ObjectIdentifier$1({ value: this.issuerDomainPolicy }),
+				new ObjectIdentifier$1({ value: this.subjectDomainPolicy })
 			]
 		}));
 		//endregion
@@ -19991,7 +26817,7 @@ class PolicyMappings
 		 * @type {Array.<PolicyMapping>}
 		 * @desc mappings
 		 */
-		this.mappings = getParametersValue(parameters, "mappings", PolicyMappings.defaultValues("mappings"));
+		this.mappings = getParametersValue$1(parameters, "mappings", PolicyMappings.defaultValues("mappings"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -20034,12 +26860,12 @@ class PolicyMappings
 		 * @property {string} [utcTimeName] Name for "utcTimeName" choice
 		 * @property {string} [generalTimeName] Name for "generalTimeName" choice
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Repeated({
+				new Repeated$1({
 					name: (names.mappings || ""),
 					value: PolicyMapping.schema()
 				})
@@ -20054,13 +26880,13 @@ class PolicyMappings
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"mappings"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			PolicyMappings.schema({
 				names: {
@@ -20085,7 +26911,7 @@ class PolicyMappings
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: Array.from(this.mappings, element => element.toSchema())
 		}));
 		//endregion
@@ -20125,21 +26951,21 @@ class AuthorityKeyIdentifier
 			 * @type {OctetString}
 			 * @desc keyIdentifier
 			 */
-			this.keyIdentifier = getParametersValue(parameters, "keyIdentifier", AuthorityKeyIdentifier.defaultValues("keyIdentifier"));
+			this.keyIdentifier = getParametersValue$1(parameters, "keyIdentifier", AuthorityKeyIdentifier.defaultValues("keyIdentifier"));
 
 		if("authorityCertIssuer" in parameters)
 			/**
 			 * @type {Array.<GeneralName>}
 			 * @desc authorityCertIssuer
 			 */
-			this.authorityCertIssuer = getParametersValue(parameters, "authorityCertIssuer", AuthorityKeyIdentifier.defaultValues("authorityCertIssuer"));
+			this.authorityCertIssuer = getParametersValue$1(parameters, "authorityCertIssuer", AuthorityKeyIdentifier.defaultValues("authorityCertIssuer"));
 
 		if("authorityCertSerialNumber" in parameters)
 			/**
 			 * @type {Integer}
 			 * @desc authorityCertIssuer
 			 */
-			this.authorityCertSerialNumber = getParametersValue(parameters, "authorityCertSerialNumber", AuthorityKeyIdentifier.defaultValues("authorityCertSerialNumber"));
+			this.authorityCertSerialNumber = getParametersValue$1(parameters, "authorityCertSerialNumber", AuthorityKeyIdentifier.defaultValues("authorityCertSerialNumber"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -20157,11 +26983,11 @@ class AuthorityKeyIdentifier
 		switch(memberName)
 		{
 			case "keyIdentifier":
-				return new OctetString();
+				return new OctetString$1();
 			case "authorityCertIssuer":
 				return [];
 			case "authorityCertSerialNumber":
-				return new Integer();
+				return new Integer$1();
 			default:
 				throw new Error(`Invalid member name for AuthorityKeyIdentifier class: ${memberName}`);
 		}
@@ -20194,12 +27020,12 @@ class AuthorityKeyIdentifier
 		 * @property {string} [authorityCertIssuer]
 		 * @property {string} [authorityCertSerialNumber]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Primitive({
+				new Primitive$1({
 					name: (names.keyIdentifier || ""),
 					optional: true,
 					idBlock: {
@@ -20207,20 +27033,20 @@ class AuthorityKeyIdentifier
 						tagNumber: 0 // [0]
 					}
 				}),
-				new Constructed({
+				new Constructed$1({
 					optional: true,
 					idBlock: {
 						tagClass: 3, // CONTEXT-SPECIFIC
 						tagNumber: 1 // [1]
 					},
 					value: [
-						new Repeated({
+						new Repeated$1({
 							name: (names.authorityCertIssuer || ""),
 							value: GeneralName.schema()
 						})
 					]
 				}),
-				new Primitive({
+				new Primitive$1({
 					name: (names.authorityCertSerialNumber || ""),
 					optional: true,
 					idBlock: {
@@ -20239,7 +27065,7 @@ class AuthorityKeyIdentifier
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"keyIdentifier",
 			"authorityCertIssuer",
 			"authorityCertSerialNumber"
@@ -20247,7 +27073,7 @@ class AuthorityKeyIdentifier
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			AuthorityKeyIdentifier.schema({
 				names: {
@@ -20264,13 +27090,13 @@ class AuthorityKeyIdentifier
 
 		//region Get internal properties from parsed schema
 		if("keyIdentifier" in asn1.result)
-			this.keyIdentifier = new OctetString({ valueHex: asn1.result.keyIdentifier.valueBlock.valueHex });
+			this.keyIdentifier = new OctetString$1({ valueHex: asn1.result.keyIdentifier.valueBlock.valueHex });
 
 		if("authorityCertIssuer" in asn1.result)
 			this.authorityCertIssuer = Array.from(asn1.result.authorityCertIssuer, element => new GeneralName({ schema: element }));
 
 		if("authorityCertSerialNumber" in asn1.result)
-			this.authorityCertSerialNumber = new Integer({ valueHex: asn1.result.authorityCertSerialNumber.valueBlock.valueHex });
+			this.authorityCertSerialNumber = new Integer$1({ valueHex: asn1.result.authorityCertSerialNumber.valueBlock.valueHex });
 		//endregion
 	}
 	//**********************************************************************************
@@ -20285,7 +27111,7 @@ class AuthorityKeyIdentifier
 		
 		if("keyIdentifier" in this)
 		{
-			outputArray.push(new Primitive({
+			outputArray.push(new Primitive$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 0 // [0]
@@ -20296,7 +27122,7 @@ class AuthorityKeyIdentifier
 		
 		if("authorityCertIssuer" in this)
 		{
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 1 // [1]
@@ -20307,7 +27133,7 @@ class AuthorityKeyIdentifier
 		
 		if("authorityCertSerialNumber" in this)
 		{
-			outputArray.push(new Primitive({
+			outputArray.push(new Primitive$1({
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 2 // [2]
@@ -20318,7 +27144,7 @@ class AuthorityKeyIdentifier
 		//endregion
 		
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -20367,14 +27193,14 @@ class PolicyConstraints
 			 * @type {number}
 			 * @desc requireExplicitPolicy
 			 */
-			this.requireExplicitPolicy = getParametersValue(parameters, "requireExplicitPolicy", PolicyConstraints.defaultValues("requireExplicitPolicy"));
+			this.requireExplicitPolicy = getParametersValue$1(parameters, "requireExplicitPolicy", PolicyConstraints.defaultValues("requireExplicitPolicy"));
 
 		if("inhibitPolicyMapping" in parameters)
 			/**
 			 * @type {number}
 			 * @desc Value of the TIME class
 			 */
-			this.inhibitPolicyMapping = getParametersValue(parameters, "inhibitPolicyMapping", PolicyConstraints.defaultValues("inhibitPolicyMapping"));
+			this.inhibitPolicyMapping = getParametersValue$1(parameters, "inhibitPolicyMapping", PolicyConstraints.defaultValues("inhibitPolicyMapping"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -20423,12 +27249,12 @@ class PolicyConstraints
 		 * @property {string} [requireExplicitPolicy]
 		 * @property {string} [inhibitPolicyMapping]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Primitive({
+				new Primitive$1({
 					name: (names.requireExplicitPolicy || ""),
 					optional: true,
 					idBlock: {
@@ -20436,7 +27262,7 @@ class PolicyConstraints
 						tagNumber: 0 // [0]
 					}
 				}), // IMPLICIT integer value
-				new Primitive({
+				new Primitive$1({
 					name: (names.inhibitPolicyMapping || ""),
 					optional: true,
 					idBlock: {
@@ -20455,14 +27281,14 @@ class PolicyConstraints
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"requireExplicitPolicy",
 			"inhibitPolicyMapping"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			PolicyConstraints.schema({
 				names: {
@@ -20485,7 +27311,7 @@ class PolicyConstraints
 			field1.idBlock.tagNumber = 2; // INTEGER
 
 			const ber1 = field1.toBER(false);
-			const int1 = fromBER(ber1);
+			const int1 = fromBER$1(ber1);
 
 			this.requireExplicitPolicy = int1.result.valueBlock.valueDec;
 		}
@@ -20498,7 +27324,7 @@ class PolicyConstraints
 			field2.idBlock.tagNumber = 2; // INTEGER
 
 			const ber2 = field2.toBER(false);
-			const int2 = fromBER(ber2);
+			const int2 = fromBER$1(ber2);
 
 			this.inhibitPolicyMapping = int2.result.valueBlock.valueDec;
 		}
@@ -20516,7 +27342,7 @@ class PolicyConstraints
 		
 		if("requireExplicitPolicy" in this)
 		{
-			const int1 = new Integer({ value: this.requireExplicitPolicy });
+			const int1 = new Integer$1({ value: this.requireExplicitPolicy });
 			
 			int1.idBlock.tagClass = 3; // CONTEXT-SPECIFIC
 			int1.idBlock.tagNumber = 0; // [0]
@@ -20526,7 +27352,7 @@ class PolicyConstraints
 		
 		if("inhibitPolicyMapping" in this)
 		{
-			const int2 = new Integer({ value: this.inhibitPolicyMapping });
+			const int2 = new Integer$1({ value: this.inhibitPolicyMapping });
 			
 			int2.idBlock.tagClass = 3; // CONTEXT-SPECIFIC
 			int2.idBlock.tagNumber = 1; // [1]
@@ -20536,7 +27362,7 @@ class PolicyConstraints
 		//endregion
 		
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -20581,7 +27407,7 @@ class ExtKeyUsage
 		 * @type {Array.<string>}
 		 * @desc keyPurposes
 		 */
-		this.keyPurposes = getParametersValue(parameters, "keyPurposes", ExtKeyUsage.defaultValues("keyPurposes"));
+		this.keyPurposes = getParametersValue$1(parameters, "keyPurposes", ExtKeyUsage.defaultValues("keyPurposes"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -20625,14 +27451,14 @@ class ExtKeyUsage
 		 * @property {string} [blockName]
 		 * @property {string} [keyPurposes]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Repeated({
+				new Repeated$1({
 					name: (names.keyPurposes || ""),
-					value: new ObjectIdentifier()
+					value: new ObjectIdentifier$1()
 				})
 			]
 		}));
@@ -20645,13 +27471,13 @@ class ExtKeyUsage
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"keyPurposes"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			ExtKeyUsage.schema({
 				names: {
@@ -20676,8 +27502,8 @@ class ExtKeyUsage
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
-			value: Array.from(this.keyPurposes, element => new ObjectIdentifier({ value: element }))
+		return (new Sequence$1({
+			value: Array.from(this.keyPurposes, element => new ObjectIdentifier$1({ value: element }))
 		}));
 		//endregion
 	}
@@ -20715,12 +27541,12 @@ class AccessDescription
 		 * @type {string}
 		 * @desc The type and format of the information are specified by the accessMethod field. This profile defines two accessMethod OIDs: id-ad-caIssuers and id-ad-ocsp
 		 */
-		this.accessMethod = getParametersValue(parameters, "accessMethod", AccessDescription.defaultValues("accessMethod"));
+		this.accessMethod = getParametersValue$1(parameters, "accessMethod", AccessDescription.defaultValues("accessMethod"));
 		/**
 		 * @type {GeneralName}
 		 * @desc The accessLocation field specifies the location of the information
 		 */
-		this.accessLocation = getParametersValue(parameters, "accessLocation", AccessDescription.defaultValues("accessLocation"));
+		this.accessLocation = getParametersValue$1(parameters, "accessLocation", AccessDescription.defaultValues("accessLocation"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -20767,12 +27593,12 @@ class AccessDescription
 		 * @property {string} [accessMethod]
 		 * @property {string} [accessLocation]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new ObjectIdentifier({ name: (names.accessMethod || "") }),
+				new ObjectIdentifier$1({ name: (names.accessMethod || "") }),
 				GeneralName.schema(names.accessLocation || {})
 			]
 		}));
@@ -20785,14 +27611,14 @@ class AccessDescription
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"accessMethod",
 			"accessLocation"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			AccessDescription.schema({
 				names: {
@@ -20823,9 +27649,9 @@ class AccessDescription
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: [
-				new ObjectIdentifier({ value: this.accessMethod }),
+				new ObjectIdentifier$1({ value: this.accessMethod }),
 				this.accessLocation.toSchema()
 			]
 		}));
@@ -20866,7 +27692,7 @@ class InfoAccess
 		 * @type {Array.<AccessDescription>}
 		 * @desc accessDescriptions
 		 */
-		this.accessDescriptions = getParametersValue(parameters, "accessDescriptions", InfoAccess.defaultValues("accessDescriptions"));
+		this.accessDescriptions = getParametersValue$1(parameters, "accessDescriptions", InfoAccess.defaultValues("accessDescriptions"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -20909,12 +27735,12 @@ class InfoAccess
 		 * @property {string} [blockName]
 		 * @property {string} [accessDescriptions]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Repeated({
+				new Repeated$1({
 					name: (names.accessDescriptions || ""),
 					value: AccessDescription.schema()
 				})
@@ -20929,13 +27755,13 @@ class InfoAccess
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"accessDescriptions"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			InfoAccess.schema({
 				names: {
@@ -20960,7 +27786,7 @@ class InfoAccess
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: Array.from(this.accessDescriptions, element => element.toSchema())
 		}));
 		//endregion
@@ -25314,37 +32140,37 @@ class SignedCertificateTimestamp
 		 * @type {number}
 		 * @desc version
 		 */
-		this.version = getParametersValue(parameters, "version", SignedCertificateTimestamp.defaultValues("version"));
+		this.version = getParametersValue$1(parameters, "version", SignedCertificateTimestamp.defaultValues("version"));
 		/**
 		 * @type {ArrayBuffer}
 		 * @desc logID
 		 */
-		this.logID = getParametersValue(parameters, "logID", SignedCertificateTimestamp.defaultValues("logID"));
+		this.logID = getParametersValue$1(parameters, "logID", SignedCertificateTimestamp.defaultValues("logID"));
 		/**
 		 * @type {Date}
 		 * @desc timestamp
 		 */
-		this.timestamp = getParametersValue(parameters, "timestamp", SignedCertificateTimestamp.defaultValues("timestamp"));
+		this.timestamp = getParametersValue$1(parameters, "timestamp", SignedCertificateTimestamp.defaultValues("timestamp"));
 		/**
 		 * @type {ArrayBuffer}
 		 * @desc extensions
 		 */
-		this.extensions = getParametersValue(parameters, "extensions", SignedCertificateTimestamp.defaultValues("extensions"));
+		this.extensions = getParametersValue$1(parameters, "extensions", SignedCertificateTimestamp.defaultValues("extensions"));
 		/**
 		 * @type {string}
 		 * @desc hashAlgorithm
 		 */
-		this.hashAlgorithm = getParametersValue(parameters, "hashAlgorithm", SignedCertificateTimestamp.defaultValues("hashAlgorithm"));
+		this.hashAlgorithm = getParametersValue$1(parameters, "hashAlgorithm", SignedCertificateTimestamp.defaultValues("hashAlgorithm"));
 		/**
 		 * @type {string}
 		 * @desc signatureAlgorithm
 		 */
-		this.signatureAlgorithm = getParametersValue(parameters, "signatureAlgorithm", SignedCertificateTimestamp.defaultValues("signatureAlgorithm"));
+		this.signatureAlgorithm = getParametersValue$1(parameters, "signatureAlgorithm", SignedCertificateTimestamp.defaultValues("signatureAlgorithm"));
 		/**
 		 * @type {Object}
 		 * @desc signature
 		 */
-		this.signature = getParametersValue(parameters, "signature", SignedCertificateTimestamp.defaultValues("signature"));
+		this.signature = getParametersValue$1(parameters, "signature", SignedCertificateTimestamp.defaultValues("signature"));
 		//endregion
 		
 		//region If input argument array contains "schema" for this object
@@ -25377,7 +32203,7 @@ class SignedCertificateTimestamp
 			case "signatureAlgorithm":
 				return "";
 			case "signature":
-				return new Any();
+				return new Any$1();
 			default:
 				throw new Error(`Invalid member name for SignedCertificateTimestamp class: ${memberName}`);
 		}
@@ -25389,7 +32215,7 @@ class SignedCertificateTimestamp
 	 */
 	fromSchema(schema)
 	{
-		if((schema instanceof RawData) === false)
+		if((schema instanceof RawData$1) === false)
 			throw new Error("Object's schema was not verified against input data for SignedCertificateTimestamp");
 		
 		const seqStream = new SeqStream({
@@ -25414,7 +32240,7 @@ class SignedCertificateTimestamp
 		if(this.version === 0)
 		{
 			this.logID = (new Uint8Array(stream.getBlock(32))).buffer.slice(0);
-			this.timestamp = new Date(utilFromBase(new Uint8Array(stream.getBlock(8)), 8));
+			this.timestamp = new Date(utilFromBase$1(new Uint8Array(stream.getBlock(8)), 8));
 			
 			//region Extensions
 			const extensionsLength = stream.getUint16();
@@ -25474,7 +32300,7 @@ class SignedCertificateTimestamp
 			const signatureLength = stream.getUint16();
 			const signatureData = (new Uint8Array(stream.getBlock(signatureLength))).buffer.slice(0);
 			
-			const asn1 = fromBER(signatureData);
+			const asn1 = fromBER$1(signatureData);
 			if(asn1.offset === (-1))
 				throw new Error("Object's stream was not correct for SignedCertificateTimestamp");
 			
@@ -25494,7 +32320,7 @@ class SignedCertificateTimestamp
 	{
 		const stream = this.toStream();
 		
-		return new RawData({ data: stream.stream.buffer });
+		return new RawData$1({ data: stream.stream.buffer });
 	}
 	//**********************************************************************************
 	/**
@@ -25512,7 +32338,7 @@ class SignedCertificateTimestamp
 		const timeBuffer = new ArrayBuffer(8);
 		const timeView = new Uint8Array(timeBuffer);
 		
-		const baseArray = utilToBase(this.timestamp.valueOf(), 8);
+		const baseArray = utilToBase$1(this.timestamp.valueOf(), 8);
 		timeView.set(new Uint8Array(baseArray), 8 - baseArray.byteLength);
 		
 		stream.appendView(timeView);
@@ -25590,9 +32416,9 @@ class SignedCertificateTimestamp
 	{
 		return {
 			version: this.version,
-			logID: bufferToHexCodes(this.logID),
+			logID: bufferToHexCodes$1(this.logID),
 			timestamp: this.timestamp,
-			extensions: bufferToHexCodes(this.extensions),
+			extensions: bufferToHexCodes$1(this.extensions),
 			hashAlgorithm: this.hashAlgorithm,
 			signatureAlgorithm: this.signatureAlgorithm,
 			signature: this.signature.toJSON()
@@ -25611,7 +32437,7 @@ class SignedCertificateTimestamp
 	async verify(logs, data, dataType = 0)
 	{
 		//region Initial variables
-		let logId = toBase64(arrayBufferToString(this.logID));
+		let logId = toBase64$1(arrayBufferToString$1(this.logID));
 		
 		let publicKeyBase64 = null;
 		let publicKeyInfo;
@@ -25632,7 +32458,7 @@ class SignedCertificateTimestamp
 		if(publicKeyBase64 === null)
 			throw new Error(`Public key not found for CT with logId: ${logId}`);
 		
-		const asn1 = fromBER(stringToArrayBuffer(fromBase64(publicKeyBase64)));
+		const asn1 = fromBER$1(stringToArrayBuffer$1(fromBase64$1(publicKeyBase64)));
 		if(asn1.offset === (-1))
 			throw new Error(`Incorrect key value for CT Log with logId: ${logId}`);
 		
@@ -25646,7 +32472,7 @@ class SignedCertificateTimestamp
 		const timeBuffer = new ArrayBuffer(8);
 		const timeView = new Uint8Array(timeBuffer);
 		
-		const baseArray = utilToBase(this.timestamp.valueOf(), 8);
+		const baseArray = utilToBase$1(this.timestamp.valueOf(), 8);
 		timeView.set(new Uint8Array(baseArray), 8 - baseArray.byteLength);
 		
 		stream.appendView(timeView);
@@ -25695,7 +32521,7 @@ class SignedCertificateTimestampList
 		 * @type {Array.<SignedCertificateTimestamp>}
 		 * @desc timestamps
 		 */
-		this.timestamps = getParametersValue(parameters, "timestamps", SignedCertificateTimestampList.defaultValues("timestamps"));
+		this.timestamps = getParametersValue$1(parameters, "timestamps", SignedCertificateTimestampList.defaultValues("timestamps"));
 		//endregion
 		
 		//region If input argument array contains "schema" for this object
@@ -25753,12 +32579,12 @@ class SignedCertificateTimestampList
 		 * @property {string} [blockName]
 		 * @property {string} [optional]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 		
 		if(("optional" in names) === false)
 			names.optional = false;
 		
-		return (new OctetString({
+		return (new OctetString$1({
 			name: (names.blockName || "SignedCertificateTimestampList"),
 			optional: names.optional
 		}));
@@ -25771,7 +32597,7 @@ class SignedCertificateTimestampList
 	fromSchema(schema)
 	{
 		//region Check the schema is valid
-		if((schema instanceof OctetString) === false)
+		if((schema instanceof OctetString$1) === false)
 			throw new Error("Object's schema was not verified against input data for SignedCertificateTimestampList");
 		//endregion
 		
@@ -25821,7 +32647,7 @@ class SignedCertificateTimestampList
 			stream.appendView(timestamp.stream.view);
 		//endregion
 		
-		return new OctetString({ valueHex: stream.stream.buffer.slice(0) });
+		return new OctetString$1({ valueHex: stream.stream.buffer.slice(0) });
 	}
 	//**********************************************************************************
 	/**
@@ -25947,21 +32773,21 @@ class CertificateTemplate
 		 * @type {string}
 		 * @desc templateID
 		 */
-		this.templateID = getParametersValue(parameters, "templateID", CertificateTemplate.defaultValues("templateID"));
+		this.templateID = getParametersValue$1(parameters, "templateID", CertificateTemplate.defaultValues("templateID"));
 
 		if("templateMajorVersion" in parameters)
 			/**
 			 * @type {number}
 			 * @desc templateMajorVersion
 			 */
-			this.templateMajorVersion = getParametersValue(parameters, "templateMajorVersion", CertificateTemplate.defaultValues("templateMajorVersion"));
+			this.templateMajorVersion = getParametersValue$1(parameters, "templateMajorVersion", CertificateTemplate.defaultValues("templateMajorVersion"));
 
 		if("templateMinorVersion" in parameters)
 			/**
 			 * @type {number}
 			 * @desc templateMinorVersion
 			 */
-			this.templateMinorVersion = getParametersValue(parameters, "templateMinorVersion", CertificateTemplate.defaultValues("templateMinorVersion"));
+			this.templateMinorVersion = getParametersValue$1(parameters, "templateMinorVersion", CertificateTemplate.defaultValues("templateMinorVersion"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -26012,17 +32838,17 @@ class CertificateTemplate
 		 * @property {string} [templateMajorVersion]
 		 * @property {string} [templateMinorVersion]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new ObjectIdentifier({ name: (names.templateID || "") }),
-				new Integer({
+				new ObjectIdentifier$1({ name: (names.templateID || "") }),
+				new Integer$1({
 					name: (names.templateMajorVersion || ""),
 					optional: true
 				}),
-				new Integer({
+				new Integer$1({
 					name: (names.templateMinorVersion || ""),
 					optional: true
 				}),
@@ -26037,7 +32863,7 @@ class CertificateTemplate
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"templateID",
 			"templateMajorVersion",
 			"templateMinorVersion"
@@ -26045,7 +32871,7 @@ class CertificateTemplate
 		//endregion
 
 		//region Check the schema is valid
-		let asn1 = compareSchema(schema,
+		let asn1 = compareSchema$1(schema,
 			schema,
 			CertificateTemplate.schema({
 				names: {
@@ -26080,17 +32906,17 @@ class CertificateTemplate
 		//region Create array for output sequence
 		const outputArray = [];
 
-		outputArray.push(new ObjectIdentifier({ value: this.templateID }));
+		outputArray.push(new ObjectIdentifier$1({ value: this.templateID }));
 
 		if("templateMajorVersion" in this)
-			outputArray.push(new Integer({ value: this.templateMajorVersion }));
+			outputArray.push(new Integer$1({ value: this.templateMajorVersion }));
 
 		if("templateMinorVersion" in this)
-			outputArray.push(new Integer({ value: this.templateMinorVersion }));
+			outputArray.push(new Integer$1({ value: this.templateMinorVersion }));
 		//endregion
 
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -26137,13 +32963,13 @@ class CAVersion
 		 * @type {number}
 		 * @desc certificateIndex
 		 */
-		this.certificateIndex = getParametersValue(parameters, "certificateIndex", CAVersion.defaultValues("certificateIndex"));
+		this.certificateIndex = getParametersValue$1(parameters, "certificateIndex", CAVersion.defaultValues("certificateIndex"));
 
 		/**
 		 * @type {number}
 		 * @desc keyIndex
 		 */
-		this.keyIndex = getParametersValue(parameters, "keyIndex", CAVersion.defaultValues("keyIndex"));
+		this.keyIndex = getParametersValue$1(parameters, "keyIndex", CAVersion.defaultValues("keyIndex"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -26181,7 +33007,7 @@ class CAVersion
 	 */
 	static schema(parameters = {})
 	{
-		return (new Integer());
+		return (new Integer$1());
 	}
 	//**********************************************************************************
 	/**
@@ -26191,7 +33017,7 @@ class CAVersion
 	fromSchema(schema)
 	{
 		//region Check the schema is valid
-		if(schema.constructor.blockName() !== Integer.blockName())
+		if(schema.constructor.blockName() !== Integer$1.blockName())
 			throw new Error("Object's schema was not verified against input data for CAVersion");
 		//endregion
 
@@ -26277,8 +33103,8 @@ class CAVersion
 		//endregion
 
 		//region Construct and return new ASN.1 schema for this object
-		return (new Integer({
-			valueHex: utilConcatBuf(keyIndexBuffer, certificateIndexBuffer)
+		return (new Integer$1({
+			valueHex: utilConcatBuf$1(keyIndexBuffer, certificateIndexBuffer)
 		}));
 		//endregion
 	}
@@ -26316,14 +33142,14 @@ class QCStatement
 		/**
 		 * @type {string}
 		 */
-		this.id = getParametersValue(parameters, "id", QCStatement.defaultValues("id"));
+		this.id = getParametersValue$1(parameters, "id", QCStatement.defaultValues("id"));
 
 		if("type" in parameters)
 		{
 			/**
 			 * @type {*} Any data described by "id"
 			 */
-			this.type = getParametersValue(parameters, "type", QCStatement.defaultValues("type"));
+			this.type = getParametersValue$1(parameters, "type", QCStatement.defaultValues("type"));
 		}
 		//endregion
 
@@ -26344,7 +33170,7 @@ class QCStatement
 			case "id":
 				return "";
 			case "type":
-				return new Null();
+				return new Null$1();
 			default:
 				throw new Error(`Invalid member name for QCStatement class: ${memberName}`);
 		}
@@ -26362,7 +33188,7 @@ class QCStatement
 			case "id":
 				return (memberValue === "");
 			case "type":
-				return (memberValue instanceof Null);
+				return (memberValue instanceof Null$1);
 			default:
 				throw new Error(`Invalid member name for QCStatement class: ${memberName}`);
 		}
@@ -26390,13 +33216,13 @@ class QCStatement
 		 * @property {string} [id]
 		 * @property {string} [type]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new ObjectIdentifier({ name: (names.id || "") }),
-				new Any({
+				new ObjectIdentifier$1({ name: (names.id || "") }),
+				new Any$1({
 					name: (names.type || ""),
 					optional: true
 				})
@@ -26411,14 +33237,14 @@ class QCStatement
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"id",
 			"type"
 		]);
 		//endregion
 
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			QCStatement.schema({
 				names: {
@@ -26447,14 +33273,14 @@ class QCStatement
 	toSchema()
 	{
 		const value = [
-			new ObjectIdentifier({ value: this.id })
+			new ObjectIdentifier$1({ value: this.id })
 		];
 
 		if("type" in this)
 			value.push(this.type);
 
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value
 		}));
 		//endregion
@@ -26495,7 +33321,7 @@ class QCStatements
 		/**
 		 * @type {Array<QCStatement>}
 		 */
-		this.values = getParametersValue(parameters, "values", QCStatements.defaultValues("values"));
+		this.values = getParametersValue$1(parameters, "values", QCStatements.defaultValues("values"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -26553,12 +33379,12 @@ class QCStatements
 		 * @property {string} [blockName]
 		 * @property {string} [values]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new Repeated({
+				new Repeated$1({
 					name: (names.values || ""),
 					value: QCStatement.schema(names.value || {})
 				}),
@@ -26573,13 +33399,13 @@ class QCStatements
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"values"
 		]);
 		//endregion
 
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			QCStatements.schema({
 				names: {
@@ -26604,7 +33430,7 @@ class QCStatements
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: Array.from(this.values, element => element.toSchema())
 		}));
 		//endregion
@@ -26643,18 +33469,18 @@ class Extension
 		 * @type {string}
 		 * @desc extnID
 		 */
-		this.extnID = getParametersValue(parameters, "extnID", Extension.defaultValues("extnID"));
+		this.extnID = getParametersValue$1(parameters, "extnID", Extension.defaultValues("extnID"));
 		/**
 		 * @type {boolean}
 		 * @desc critical
 		 */
-		this.critical = getParametersValue(parameters, "critical", Extension.defaultValues("critical"));
+		this.critical = getParametersValue$1(parameters, "critical", Extension.defaultValues("critical"));
 		/**
 		 * @type {OctetString}
 		 * @desc extnValue
 		 */
 		if("extnValue" in parameters)
-			this.extnValue = new OctetString({ valueHex: parameters.extnValue });
+			this.extnValue = new OctetString$1({ valueHex: parameters.extnValue });
 		else
 			this.extnValue = Extension.defaultValues("extnValue");
 
@@ -26663,7 +33489,7 @@ class Extension
 			 * @type {Object}
 			 * @desc parsedValue
 			 */
-			this.parsedValue = getParametersValue(parameters, "parsedValue", Extension.defaultValues("parsedValue"));
+			this.parsedValue = getParametersValue$1(parameters, "parsedValue", Extension.defaultValues("parsedValue"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -26685,7 +33511,7 @@ class Extension
 			case "critical":
 				return false;
 			case "extnValue":
-				return new OctetString();
+				return new OctetString$1();
 			case "parsedValue":
 				return {};
 			default:
@@ -26717,17 +33543,17 @@ class Extension
 		 * @property {string} [critical]
 		 * @property {string} [extnValue]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
-				new ObjectIdentifier({ name: (names.extnID || "") }),
-				new Boolean({
+				new ObjectIdentifier$1({ name: (names.extnID || "") }),
+				new Boolean$1({
 					name: (names.critical || ""),
 					optional: true
 				}),
-				new OctetString({ name: (names.extnValue || "") })
+				new OctetString$1({ name: (names.extnValue || "") })
 			]
 		}));
 	}
@@ -26739,7 +33565,7 @@ class Extension
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"extnID",
 			"critical",
 			"extnValue"
@@ -26747,7 +33573,7 @@ class Extension
 		//endregion
 		
 		//region Check the schema is valid
-		let asn1 = compareSchema(schema,
+		let asn1 = compareSchema$1(schema,
 			schema,
 			Extension.schema({
 				names: {
@@ -26769,7 +33595,7 @@ class Extension
 		this.extnValue = asn1.result.extnValue;
 
 		//region Get "parsedValue" for well-known extensions
-		asn1 = fromBER(this.extnValue.valueBlock.valueHex);
+		asn1 = fromBER$1(this.extnValue.valueBlock.valueHex);
 		if(asn1.offset === (-1))
 			return;
 
@@ -27017,16 +33843,16 @@ class Extension
 		//region Create array for output sequence
 		const outputArray = [];
 
-		outputArray.push(new ObjectIdentifier({ value: this.extnID }));
+		outputArray.push(new ObjectIdentifier$1({ value: this.extnID }));
 
 		if(this.critical !== Extension.defaultValues("critical"))
-			outputArray.push(new Boolean({ value: this.critical }));
+			outputArray.push(new Boolean$1({ value: this.critical }));
 
 		outputArray.push(this.extnValue);
 		//endregion
 
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -27077,7 +33903,7 @@ class Extensions
 		 * @type {Array.<Extension>}
 		 * @desc type
 		 */
-		this.extensions = getParametersValue(parameters, "extensions", Extensions.defaultValues("extensions"));
+		this.extensions = getParametersValue$1(parameters, "extensions", Extensions.defaultValues("extensions"));
 		//endregion
 
 		//region If input argument array contains "schema" for this object
@@ -27121,13 +33947,13 @@ class Extensions
 		 * @property {string} [extensions]
 		 * @property {string} [extension]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 
-		return (new Sequence({
+		return (new Sequence$1({
 			optional,
 			name: (names.blockName || ""),
 			value: [
-				new Repeated({
+				new Repeated$1({
 					name: (names.extensions || ""),
 					value: Extension.schema(names.extension || {})
 				})
@@ -27142,13 +33968,13 @@ class Extensions
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"extensions"
 		]);
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			Extensions.schema({
 				names: {
@@ -27173,7 +33999,7 @@ class Extensions
 	toSchema()
 	{
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: Array.from(this.extensions, element => element.toSchema())
 		}));
 		//endregion
@@ -27228,22 +34054,22 @@ function tbsCertificate(parameters = {})
 	 * @property {string} [tbsCertificateSubjectUniqueID]
 	 * @property {string} [extensions]
 	 */
-	const names = getParametersValue(parameters, "names", {});
+	const names = getParametersValue$1(parameters, "names", {});
 	
-	return (new Sequence({
+	return (new Sequence$1({
 		name: (names.blockName || "tbsCertificate"),
 		value: [
-			new Constructed({
+			new Constructed$1({
 				optional: true,
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 0 // [0]
 				},
 				value: [
-					new Integer({ name: (names.tbsCertificateVersion || "tbsCertificate.version") }) // EXPLICIT integer value
+					new Integer$1({ name: (names.tbsCertificateVersion || "tbsCertificate.version") }) // EXPLICIT integer value
 				]
 			}),
-			new Integer({ name: (names.tbsCertificateSerialNumber || "tbsCertificate.serialNumber") }),
+			new Integer$1({ name: (names.tbsCertificateSerialNumber || "tbsCertificate.serialNumber") }),
 			AlgorithmIdentifier.schema(names.signature || {
 				names: {
 					blockName: "tbsCertificate.signature"
@@ -27254,7 +34080,7 @@ function tbsCertificate(parameters = {})
 					blockName: "tbsCertificate.issuer"
 				}
 			}),
-			new Sequence({
+			new Sequence$1({
 				name: (names.tbsCertificateValidity || "tbsCertificate.validity"),
 				value: [
 					Time.schema(names.notBefore || {
@@ -27281,7 +34107,7 @@ function tbsCertificate(parameters = {})
 					blockName: "tbsCertificate.subjectPublicKeyInfo"
 				}
 			}),
-			new Primitive({
+			new Primitive$1({
 				name: (names.tbsCertificateIssuerUniqueID || "tbsCertificate.issuerUniqueID"),
 				optional: true,
 				idBlock: {
@@ -27289,7 +34115,7 @@ function tbsCertificate(parameters = {})
 					tagNumber: 1 // [1]
 				}
 			}), // IMPLICIT bistring value
-			new Primitive({
+			new Primitive$1({
 				name: (names.tbsCertificateSubjectUniqueID || "tbsCertificate.subjectUniqueID"),
 				optional: true,
 				idBlock: {
@@ -27297,7 +34123,7 @@ function tbsCertificate(parameters = {})
 					tagNumber: 2 // [2]
 				}
 			}), // IMPLICIT bistring value
-			new Constructed({
+			new Constructed$1({
 				optional: true,
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
@@ -27331,79 +34157,79 @@ class Certificate
 		 * @type {ArrayBuffer}
 		 * @desc ToBeSigned (TBS) part of the certificate
 		 */
-		this.tbs = getParametersValue(parameters, "tbs", Certificate.defaultValues("tbs"));
+		this.tbs = getParametersValue$1(parameters, "tbs", Certificate.defaultValues("tbs"));
 		/**
 		 * @type {number}
 		 * @desc Version number
 		 */
-		this.version = getParametersValue(parameters, "version", Certificate.defaultValues("version"));
+		this.version = getParametersValue$1(parameters, "version", Certificate.defaultValues("version"));
 		/**
 		 * @type {Integer}
 		 * @desc Serial number of the certificate
 		 */
-		this.serialNumber = getParametersValue(parameters, "serialNumber", Certificate.defaultValues("serialNumber"));
+		this.serialNumber = getParametersValue$1(parameters, "serialNumber", Certificate.defaultValues("serialNumber"));
 		/**
 		 * @type {AlgorithmIdentifier}
 		 * @desc This field contains the algorithm identifier for the algorithm used by the CA to sign the certificate
 		 */
-		this.signature = getParametersValue(parameters, "signature", Certificate.defaultValues("signature"));
+		this.signature = getParametersValue$1(parameters, "signature", Certificate.defaultValues("signature"));
 		/**
 		 * @type {RelativeDistinguishedNames}
 		 * @desc The issuer field identifies the entity that has signed and issued the certificate
 		 */
-		this.issuer = getParametersValue(parameters, "issuer", Certificate.defaultValues("issuer"));
+		this.issuer = getParametersValue$1(parameters, "issuer", Certificate.defaultValues("issuer"));
 		/**
 		 * @type {Time}
 		 * @desc The date on which the certificate validity period begins
 		 */
-		this.notBefore = getParametersValue(parameters, "notBefore", Certificate.defaultValues("notBefore"));
+		this.notBefore = getParametersValue$1(parameters, "notBefore", Certificate.defaultValues("notBefore"));
 		/**
 		 * @type {Time}
 		 * @desc The date on which the certificate validity period ends
 		 */
-		this.notAfter = getParametersValue(parameters, "notAfter", Certificate.defaultValues("notAfter"));
+		this.notAfter = getParametersValue$1(parameters, "notAfter", Certificate.defaultValues("notAfter"));
 		/**
 		 * @type {RelativeDistinguishedNames}
 		 * @desc The subject field identifies the entity associated with the public key stored in the subject public key field
 		 */
-		this.subject = getParametersValue(parameters, "subject", Certificate.defaultValues("subject"));
+		this.subject = getParametersValue$1(parameters, "subject", Certificate.defaultValues("subject"));
 		/**
 		 * @type {PublicKeyInfo}
 		 * @desc This field is used to carry the public key and identify the algorithm with which the key is used
 		 */
-		this.subjectPublicKeyInfo = getParametersValue(parameters, "subjectPublicKeyInfo", Certificate.defaultValues("subjectPublicKeyInfo"));
+		this.subjectPublicKeyInfo = getParametersValue$1(parameters, "subjectPublicKeyInfo", Certificate.defaultValues("subjectPublicKeyInfo"));
 		
 		if("issuerUniqueID" in parameters)
 			/**
 			 * @type {ArrayBuffer}
 			 * @desc The subject and issuer unique identifiers are present in the certificate to handle the possibility of reuse of subject and/or issuer names over time
 			 */
-			this.issuerUniqueID = getParametersValue(parameters, "issuerUniqueID", Certificate.defaultValues("issuerUniqueID"));
+			this.issuerUniqueID = getParametersValue$1(parameters, "issuerUniqueID", Certificate.defaultValues("issuerUniqueID"));
 		
 		if("subjectUniqueID" in parameters)
 			/**
 			 * @type {ArrayBuffer}
 			 * @desc The subject and issuer unique identifiers are present in the certificate to handle the possibility of reuse of subject and/or issuer names over time
 			 */
-			this.subjectUniqueID = getParametersValue(parameters, "subjectUniqueID", Certificate.defaultValues("subjectUniqueID"));
+			this.subjectUniqueID = getParametersValue$1(parameters, "subjectUniqueID", Certificate.defaultValues("subjectUniqueID"));
 		
 		if("extensions" in parameters)
 			/**
 			 * @type {Array}
 			 * @desc If present, this field is a SEQUENCE of one or more certificate extensions
 			 */
-			this.extensions = getParametersValue(parameters, "extensions", Certificate.defaultValues("extensions"));
+			this.extensions = getParametersValue$1(parameters, "extensions", Certificate.defaultValues("extensions"));
 		
 		/**
 		 * @type {AlgorithmIdentifier}
 		 * @desc The signatureAlgorithm field contains the identifier for the cryptographic algorithm used by the CA to sign this certificate
 		 */
-		this.signatureAlgorithm = getParametersValue(parameters, "signatureAlgorithm", Certificate.defaultValues("signatureAlgorithm"));
+		this.signatureAlgorithm = getParametersValue$1(parameters, "signatureAlgorithm", Certificate.defaultValues("signatureAlgorithm"));
 		/**
 		 * @type {BitString}
 		 * @desc The signatureValue field contains a digital signature computed upon the ASN.1 DER encoded tbsCertificate
 		 */
-		this.signatureValue = getParametersValue(parameters, "signatureValue", Certificate.defaultValues("signatureValue"));
+		this.signatureValue = getParametersValue$1(parameters, "signatureValue", Certificate.defaultValues("signatureValue"));
 		//endregion
 		
 		//region If input argument array contains "schema" for this object
@@ -27425,7 +34251,7 @@ class Certificate
 			case "version":
 				return 0;
 			case "serialNumber":
-				return new Integer();
+				return new Integer$1();
 			case "signature":
 				return new AlgorithmIdentifier();
 			case "issuer":
@@ -27447,7 +34273,7 @@ class Certificate
 			case "signatureAlgorithm":
 				return new AlgorithmIdentifier();
 			case "signatureValue":
-				return new BitString();
+				return new BitString$1();
 			default:
 				throw new Error(`Invalid member name for Certificate class: ${memberName}`);
 		}
@@ -27476,9 +34302,9 @@ class Certificate
 		 * @property {string} [signatureAlgorithm]
 		 * @property {string} [signatureValue]
 		 */
-		const names = getParametersValue(parameters, "names", {});
+		const names = getParametersValue$1(parameters, "names", {});
 		
-		return (new Sequence({
+		return (new Sequence$1({
 			name: (names.blockName || ""),
 			value: [
 				tbsCertificate(names.tbsCertificate),
@@ -27487,7 +34313,7 @@ class Certificate
 						blockName: "signatureAlgorithm"
 					}
 				}),
-				new BitString({ name: (names.signatureValue || "signatureValue") })
+				new BitString$1({ name: (names.signatureValue || "signatureValue") })
 			]
 		}));
 	}
@@ -27499,7 +34325,7 @@ class Certificate
 	fromSchema(schema)
 	{
 		//region Clear input data first
-		clearProps(schema, [
+		clearProps$1(schema, [
 			"tbsCertificate",
 			"tbsCertificate.extensions",
 			"tbsCertificate.version",
@@ -27518,7 +34344,7 @@ class Certificate
 		//endregion
 		
 		//region Check the schema is valid
-		const asn1 = compareSchema(schema,
+		const asn1 = compareSchema$1(schema,
 			schema,
 			Certificate.schema({
 				names: {
@@ -27573,14 +34399,14 @@ class Certificate
 		
 		if(("version" in this) && (this.version !== Certificate.defaultValues("version")))
 		{
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				optional: true,
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 0 // [0]
 				},
 				value: [
-					new Integer({ value: this.version }) // EXPLICIT integer value
+					new Integer$1({ value: this.version }) // EXPLICIT integer value
 				]
 			}));
 		}
@@ -27589,7 +34415,7 @@ class Certificate
 		outputArray.push(this.signature.toSchema());
 		outputArray.push(this.issuer.toSchema());
 		
-		outputArray.push(new Sequence({
+		outputArray.push(new Sequence$1({
 			value: [
 				this.notBefore.toSchema(),
 				this.notAfter.toSchema()
@@ -27601,7 +34427,7 @@ class Certificate
 		
 		if("issuerUniqueID" in this)
 		{
-			outputArray.push(new Primitive({
+			outputArray.push(new Primitive$1({
 				optional: true,
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
@@ -27612,7 +34438,7 @@ class Certificate
 		}
 		if("subjectUniqueID" in this)
 		{
-			outputArray.push(new Primitive({
+			outputArray.push(new Primitive$1({
 				optional: true,
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
@@ -27624,13 +34450,13 @@ class Certificate
 		
 		if("extensions" in this)
 		{
-			outputArray.push(new Constructed({
+			outputArray.push(new Constructed$1({
 				optional: true,
 				idBlock: {
 					tagClass: 3, // CONTEXT-SPECIFIC
 					tagNumber: 3 // [3]
 				},
-				value: [new Sequence({
+				value: [new Sequence$1({
 					value: Array.from(this.extensions, element => element.toSchema())
 				})]
 			}));
@@ -27638,7 +34464,7 @@ class Certificate
 		//endregion
 		
 		//region Create and return output sequence
-		return (new Sequence({
+		return (new Sequence$1({
 			value: outputArray
 		}));
 		//endregion
@@ -27658,7 +34484,7 @@ class Certificate
 			if(this.tbs.length === 0) // No stored certificate TBS part
 				return Certificate.schema().value[0];
 			
-			tbsSchema = fromBER(this.tbs).result;
+			tbsSchema = fromBER$1(this.tbs).result;
 		}
 		//endregion
 		//region Create TBS schema via assembling from TBS parts
@@ -27667,7 +34493,7 @@ class Certificate
 		//endregion
 		
 		//region Construct and return new ASN.1 schema for this object
-		return (new Sequence({
+		return (new Sequence$1({
 			value: [
 				tbsSchema,
 				this.signatureAlgorithm.toSchema(),
@@ -27684,7 +34510,7 @@ class Certificate
 	toJSON()
 	{
 		const object = {
-			tbs: bufferToHexCodes(this.tbs, 0, this.tbs.byteLength),
+			tbs: bufferToHexCodes$1(this.tbs, 0, this.tbs.byteLength),
 			serialNumber: this.serialNumber.toJSON(),
 			signature: this.signature.toJSON(),
 			issuer: this.issuer.toJSON(),
@@ -27700,10 +34526,10 @@ class Certificate
 			object.version = this.version;
 		
 		if("issuerUniqueID" in this)
-			object.issuerUniqueID = bufferToHexCodes(this.issuerUniqueID, 0, this.issuerUniqueID.byteLength);
+			object.issuerUniqueID = bufferToHexCodes$1(this.issuerUniqueID, 0, this.issuerUniqueID.byteLength);
 		
 		if("subjectUniqueID" in this)
-			object.subjectUniqueID = bufferToHexCodes(this.subjectUniqueID, 0, this.subjectUniqueID.byteLength);
+			object.subjectUniqueID = bufferToHexCodes$1(this.subjectUniqueID, 0, this.subjectUniqueID.byteLength);
 		
 		if("extensions" in this)
 			object.extensions = Array.from(this.extensions, element => element.toJSON());
@@ -27778,7 +34604,7 @@ class Certificate
 		
 		sequence = sequence.then(result =>
 		{
-			this.signatureValue = new BitString({ valueHex: result });
+			this.signatureValue = new BitString$1({ valueHex: result });
 		});
 		//endregion
 		
