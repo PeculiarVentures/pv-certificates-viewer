@@ -1,4 +1,4 @@
-# pv-certificate-decoder
+# peculiar-certificate-decoder
 
 
 
@@ -16,20 +16,20 @@
 
 ### Depends on
 
-- [pv-button](../button)
-- [pv-certificate-viewer](../certificate-viewer)
+- [peculiar-button](../button)
+- [peculiar-certificate-viewer](../certificate-viewer)
 
 ### Graph
 ```mermaid
 graph TD;
-  pv-certificate-decoder --> pv-button
-  pv-certificate-decoder --> pv-certificate-viewer
-  pv-certificate-viewer --> pv-text-hider
-  pv-certificate-viewer --> pv-button-split
-  pv-certificate-viewer --> pv-certificate-summary
-  pv-text-hider --> pv-button
-  pv-button-split --> pv-button
-  style pv-certificate-decoder fill:#f9f,stroke:#333,stroke-width:4px
+  peculiar-certificate-decoder --> peculiar-button
+  peculiar-certificate-decoder --> peculiar-certificate-viewer
+  peculiar-certificate-viewer --> peculiar-text-hider
+  peculiar-certificate-viewer --> peculiar-button-split
+  peculiar-certificate-viewer --> peculiar-certificate-summary
+  peculiar-text-hider --> peculiar-button
+  peculiar-button-split --> peculiar-button
+  style peculiar-certificate-decoder fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

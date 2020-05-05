@@ -1,4 +1,4 @@
-# pv-certificates-viewer
+# peculiar-certificates-viewer
 
 
 
@@ -18,28 +18,28 @@
 
 ### Depends on
 
-- [pv-certificate-summary](../certificate-summary)
-- [pv-button](../button)
-- [pv-highlight-words](../highlight-words)
-- [pv-button-split](../button-split)
-- [pv-certificate-viewer](../certificate-viewer)
-- [pv-circular-progress](../circular-progress)
+- [peculiar-certificate-summary](../certificate-summary)
+- [peculiar-button](../button)
+- [peculiar-highlight-words](../highlight-words)
+- [peculiar-button-split](../button-split)
+- [peculiar-certificate-viewer](../certificate-viewer)
+- [peculiar-circular-progress](../circular-progress)
 
 ### Graph
 ```mermaid
 graph TD;
-  pv-certificates-viewer --> pv-certificate-summary
-  pv-certificates-viewer --> pv-button
-  pv-certificates-viewer --> pv-highlight-words
-  pv-certificates-viewer --> pv-button-split
-  pv-certificates-viewer --> pv-certificate-viewer
-  pv-certificates-viewer --> pv-circular-progress
-  pv-button-split --> pv-button
-  pv-certificate-viewer --> pv-text-hider
-  pv-certificate-viewer --> pv-button-split
-  pv-certificate-viewer --> pv-certificate-summary
-  pv-text-hider --> pv-button
-  style pv-certificates-viewer fill:#f9f,stroke:#333,stroke-width:4px
+  peculiar-certificates-viewer --> peculiar-certificate-summary
+  peculiar-certificates-viewer --> peculiar-button
+  peculiar-certificates-viewer --> peculiar-highlight-words
+  peculiar-certificates-viewer --> peculiar-button-split
+  peculiar-certificates-viewer --> peculiar-certificate-viewer
+  peculiar-certificates-viewer --> peculiar-circular-progress
+  peculiar-button-split --> peculiar-button
+  peculiar-certificate-viewer --> peculiar-text-hider
+  peculiar-certificate-viewer --> peculiar-button-split
+  peculiar-certificate-viewer --> peculiar-certificate-summary
+  peculiar-text-hider --> peculiar-button
+  style peculiar-certificates-viewer fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

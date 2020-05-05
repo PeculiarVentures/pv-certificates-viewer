@@ -4,12 +4,8 @@ import { Certificate } from '../../utils/crypto';
 import * as dateFormatter from '../../utils/dateFormatter';
 
 @Component({
-  tag: 'pv-certificate-summary',
-  styleUrls: [
-    '../../styles/reset.css',
-    '../../styles/system.css',
-    'certificate-summary.css',
-  ],
+  tag: 'peculiar-certificate-summary',
+  styleUrl: 'certificate-summary.css',
   shadow: true,
 })
 

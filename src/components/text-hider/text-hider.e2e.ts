@@ -1,12 +1,12 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('pv-text-hider', () => {
+describe('peculiar-text-hider', () => {
   it('renders', async () => {
     const page = await newE2EPage();
 
-    await page.setContent('<pv-text-hider></pv-text-hider>');
+    await page.setContent('<peculiar-text-hider></peculiar-text-hider>');
 
-    const element = await page.find('pv-text-hider');
+    const element = await page.find('peculiar-text-hider');
 
     expect(element).toHaveClass('hydrated');
   });

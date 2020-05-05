@@ -1,4 +1,4 @@
-# pv-button-split
+# peculiar-button-split
 
 
 
@@ -18,20 +18,20 @@
 
 ### Used by
 
- - [pv-certificate-viewer](../certificate-viewer)
- - [pv-certificates-viewer](../certificates-viewer)
+ - [peculiar-certificate-viewer](../certificate-viewer)
+ - [peculiar-certificates-viewer](../certificates-viewer)
 
 ### Depends on
 
-- [pv-button](../button)
+- [peculiar-button](../button)
 
 ### Graph
 ```mermaid
 graph TD;
-  pv-button-split --> pv-button
-  pv-certificate-viewer --> pv-button-split
-  pv-certificates-viewer --> pv-button-split
-  style pv-button-split fill:#f9f,stroke:#333,stroke-width:4px
+  peculiar-button-split --> peculiar-button
+  peculiar-certificate-viewer --> peculiar-button-split
+  peculiar-certificates-viewer --> peculiar-button-split
+  style peculiar-button-split fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

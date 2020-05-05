@@ -1,3 +1,6 @@
+@import '../../styles/reset.css';
+@import '../../styles/system.css';
+
 :host {
   display: block;
   width: 100%;
@@ -5,7 +8,7 @@
   min-width: 300px;
   overflow: auto;
   position: relative;
-  background: rgb(var(--pv-color-white-rgb));
+  background: rgb(var(--peculiar-color-white-rgb));
 }
 
 table {
@@ -15,7 +18,7 @@ table {
 }
 
 table thead {
-  background-color: rgba(var(--pv-color-primary-rgb), 0.07);
+  background-color: rgba(var(--peculiar-color-primary-rgb), 0.07);
 }
 
 table tr td {
@@ -76,11 +79,11 @@ table tr.expanded td {
 
 .expanded {
   border-bottom-color: transparent;
-  background-color: rgba(var(--pv-color-primary-rgb), 0.04);
+  background-color: rgba(var(--peculiar-color-primary-rgb), 0.04);
 }
 
 table tr.expanded_summary {
-  background-color: rgba(var(--pv-color-primary-rgb), 0.04);
+  background-color: rgba(var(--peculiar-color-primary-rgb), 0.04);
 }
 
 /* Second row */
@@ -108,7 +111,7 @@ table tr.expanded_summary td {
   overflow: auto;
   padding: 10px;
   text-align: center;
-  background: rgba(var(--pv-color-black-rgb), 0.9);
+  background: rgba(var(--peculiar-color-black-rgb), 0.9);
   animation: fadeIn 300ms;
 }
 
@@ -132,7 +135,7 @@ table tr.expanded_summary td {
 }
 
 .modal_title {
-  background-color: rgba(var(--pv-color-primary-rgb), 0.07);
+  background-color: rgba(var(--peculiar-color-primary-rgb), 0.07);
   border-bottom-width: 1px;
   border-bottom-style: solid;
   padding: 17px 60px 17px 20px;
@@ -176,7 +179,7 @@ table tr.expanded_summary td {
 
 /* Search */
 .search_section {
-  background-color: rgba(var(--pv-color-primary-rgb), 0.07);
+  background-color: rgba(var(--peculiar-color-primary-rgb), 0.07);
   height: 50px;
   padding: 10px;
   border-width: 1px 1px 0 1px;
@@ -194,7 +197,7 @@ table tr.expanded_summary td {
 }
 
 .input_search::placeholder {
-  color: rgb(var(--pv-color-border-rgb));
+  color: rgb(var(--peculiar-color-border-rgb));
 }
 
 .loading_container {
@@ -203,14 +206,14 @@ table tr.expanded_summary td {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(var(--pv-color-black-rgb), 0.3);
+  background: rgba(var(--peculiar-color-black-rgb), 0.3);
   display: flex;
   align-items: center;
 }
 
 @media (hover: hover) {
   table tbody tr:not(.expanded_summary):hover {
-    background-color: rgba(var(--pv-color-primary-rgb), 0.04);
+    background-color: rgba(var(--peculiar-color-primary-rgb), 0.04);
   }
 }
 
@@ -241,7 +244,7 @@ table tr.expanded_summary td {
     padding-left: 0;
     padding-right: 0;
     border-width: 1px 0 0 0 ! important;
-    border-color: rgba(var(--pv-color-border-rgb), 0.5) ! important;
+    border-color: rgba(var(--peculiar-color-border-rgb), 0.5) ! important;
   }
 
   table tr.expanded_summary td {

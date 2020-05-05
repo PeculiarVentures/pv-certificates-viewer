@@ -1,11 +1,8 @@
 import { Component, h, Prop, Host } from '@stencil/core';
 
 @Component({
-  tag: 'pv-button',
-  styleUrls: [
-    '../../styles/system.css',
-    'button.css',
-  ],
+  tag: 'peculiar-button',
+  styleUrl: 'button.css',
   shadow: true,
 })
 export class Button {

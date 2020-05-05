@@ -17,12 +17,8 @@ interface ICertificateDecoded extends Certificate {
 }
 
 @Component({
-  tag: 'pv-certificates-viewer',
-  styleUrls: [
-    '../../styles/reset.css',
-    '../../styles/system.css',
-    'certificates-viewer.css',
-  ],
+  tag: 'peculiar-certificates-viewer',
+  styleUrl: 'certificates-viewer.css',
   shadow: true,
 })
 export class CertificatesViewer {
@@ -166,7 +162,7 @@ export class CertificatesViewer {
     return (
       <tr class="expanded_summary stroke_border">
         <td colSpan={colSpan} class="stroke_border">
-          <pv-certificate-summary
+          <peculiar-certificate-summary
             certificate={certificate}
             showIssuer={!certificate.isRoot}
           />
@@ -184,37 +180,37 @@ export class CertificatesViewer {
 
     if (tests.valid) {
       elems.push((
-        <pv-button
+        <peculiar-button
           class="button_table_action"
           href={tests.valid}
           target="_blank"
         >
           Valid
-        </pv-button>
+        </peculiar-button>
       ));
     }
 
     if (tests.revoked) {
       elems.push((
-        <pv-button
+        <peculiar-button
           class="button_table_action"
           href={tests.revoked}
           target="_blank"
         >
           Revoked
-        </pv-button>
+        </peculiar-button>
       ));
     }
 
     if (tests.expired) {
       elems.push((
-        <pv-button
+        <peculiar-button
           class="button_table_action"
           href={tests.expired}
           target="_blank"
         >
           Expired
-        </pv-button>
+        </peculiar-button>
       ));
     }
 
@@ -264,9 +260,9 @@ export class CertificatesViewer {
                 Issuer:
               </span>
               <span class="content">
-                <pv-highlight-words search={searchHighlight}>
+                <peculiar-highlight-words search={searchHighlight}>
                   {issuerValue}
-                </pv-highlight-words>
+                </peculiar-highlight-words>
               </span>
             </td>
           )}
@@ -275,9 +271,9 @@ export class CertificatesViewer {
               Name:
             </span>
             <span class="content">
-              <pv-highlight-words search={searchHighlight}>
+              <peculiar-highlight-words search={searchHighlight}>
                 {certificate.commonName}
-              </pv-highlight-words>
+              </peculiar-highlight-words>
             </span>
           </td>
           <td class="b3 stroke_border">
@@ -285,9 +281,9 @@ export class CertificatesViewer {
               Public Key:
             </span>
             <span class="content">
-              <pv-highlight-words search={searchHighlight}>
+              <peculiar-highlight-words search={searchHighlight}>
                 {publicKeyValue}
-              </pv-highlight-words>
+              </peculiar-highlight-words>
             </span>
           </td>
           <td class="b3 stroke_border">
@@ -295,9 +291,9 @@ export class CertificatesViewer {
               Fingerprint (SHA-1):
             </span>
             <span class="content monospace">
-              <pv-highlight-words search={searchHighlight}>
+              <peculiar-highlight-words search={searchHighlight}>
                 {certificate.fingerprints['SHA-1']}
-              </pv-highlight-words>
+              </peculiar-highlight-words>
             </span>
           </td>
           <td class="align_center stroke_border">
@@ -305,13 +301,13 @@ export class CertificatesViewer {
               Actions:
             </span>
             <span class="content">
-              <pv-button
+              <peculiar-button
                 onClick={this.onClickDetails.bind(this, certificate.base64)}
                 class="button_table_action"
               >
                 Details
-              </pv-button>
-              <pv-button-split
+              </peculiar-button>
+              <peculiar-button-split
                 onClick={this.onClickDownload.bind(this, certificate, 'PEM')}
                 actions={[{
                   text: 'Download DER',
@@ -320,7 +316,7 @@ export class CertificatesViewer {
                 class="button_table_action"
               >
                 Download PEM
-              </pv-button-split>
+              </peculiar-button-split>
             </span>
           </td>
           {this.isHasTests && (
@@ -372,7 +368,7 @@ export class CertificatesViewer {
               </svg>
             </button>
           </div>
-          <pv-certificate-viewer
+          <peculiar-certificate-viewer
             certificate={this.certificateSelectedForDetails}
           />
         </div>
@@ -428,7 +424,7 @@ export class CertificatesViewer {
   renderLoadingState() {
     return (
       <div class="loading_container">
-        <pv-circular-progress />
+        <peculiar-circular-progress />
       </div>
     );
   }

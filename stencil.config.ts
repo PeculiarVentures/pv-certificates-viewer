@@ -1,7 +1,7 @@
 import { Config } from '@stencil/core';
 
 export const config: Config = {
-  namespace: 'pv-certificates-viewer',
+  namespace: 'peculiar',
   globalStyle: 'src/global/variables.css',
   devServer: {
     port: 3000,

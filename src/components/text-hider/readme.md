@@ -1,4 +1,4 @@
-# pv-text-hider
+# peculiar-text-hider
 
 
 
@@ -23,18 +23,18 @@
 
 ### Used by
 
- - [pv-certificate-viewer](../certificate-viewer)
+ - [peculiar-certificate-viewer](../certificate-viewer)
 
 ### Depends on
 
-- [pv-button](../button)
+- [peculiar-button](../button)
 
 ### Graph
 ```mermaid
 graph TD;
-  pv-text-hider --> pv-button
-  pv-certificate-viewer --> pv-text-hider
-  style pv-text-hider fill:#f9f,stroke:#333,stroke-width:4px
+  peculiar-text-hider --> peculiar-button
+  peculiar-certificate-viewer --> peculiar-text-hider
+  style peculiar-text-hider fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

@@ -1,12 +1,8 @@
 import { Component, Host, h, Prop, Event, EventEmitter, Listen } from '@stencil/core';
 
 @Component({
-  tag: 'pv-text-hider',
-  styleUrls: [
-    '../../styles/reset.css',
-    '../../styles/system.css',
-    'text-hider.css',
-  ],
+  tag: 'peculiar-text-hider',
+  styleUrl: 'text-hider.css',
   shadow: true,
 })
 export class TextHider {
@@ -30,7 +26,7 @@ export class TextHider {
             <slot></slot>
           </div>
           <div class="action">
-            <pv-button
+            <peculiar-button
               onClick={this.textExpand.emit}
               class={{
                 button_action: true,
@@ -53,7 +49,7 @@ export class TextHider {
                   d="M5.459.124c.934.001 1.442.994.84 1.644L4.425 3.794c-.44.475-1.244.475-1.684 0L.862 1.764C.26 1.115.77.12 1.705.122l3.754.003z"
                 />
               </svg>
-            </pv-button>
+            </peculiar-button>
           </div>
         </div>
       </Host>
