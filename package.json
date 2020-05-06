@@ -1,6 +1,6 @@
 {
   "name": "@peculiar/certificates-viewer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Web components for viewing lists of certificates and certificates",
   "keywords": [
     "certificates-viewer",
@@ -31,7 +31,8 @@
     "generate": "stencil generate",
     "deploy.gh-pages": "gh-pages -d www",
     "lint": "tslint --format stylish 'src/**/*.{ts,tsx}'",
-    "clean": "rimraf dist loader www"
+    "clean": "rimraf dist loader www",
+    "release": "standard-version"
   },
   "devDependencies": {
     "@stencil/core": "^1.12.7",
@@ -39,6 +40,7 @@
     "@types/pkijs": "0.0.2",
     "gh-pages": "^2.2.0",
     "rimraf": "^3.0.2",
+    "standard-version": "^7.1.0",
     "tslint": "^6.1.2",
     "tslint-config-airbnb": "^5.11.2",
     "tslint-eslint-rules": "^5.4.0",
