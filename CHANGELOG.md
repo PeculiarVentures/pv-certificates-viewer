@@ -7,6 +7,20 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
+* **package:** Added prepublish script ([752d94d](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/752d94d7b6a8634bcc07d0302b804c199c0a6aee))
+
+### 0.0.3 (2020-05-06)
+
+### Bug Fixes
+
+* **crypto:** Fixed extension parse, fixed dependencies copies ([d0b8f4f](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/d0b8f4f0405699c42664534adeec408c66deb206))
+
+
+### 0.0.1 (2020-05-05)
+
+
+### Features
+
 * **button:** Added description for styles vars ([bdb92f5](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/bdb92f511af0f70e1de291a747c97e2c7a2bdde6))
 * **cert details:** Starting create cert details component ([2124193](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/2124193802f8393efa6b337fc74ea2b045fe1eb8))
 * **cert viewer:** Added option for show download button ([f61ce2f](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/f61ce2f1b48101478c4a1c3b584fa13838d126a5))
@@ -43,7 +57,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **highlight-words:** Added component and usage demo. ([41b5cfe](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/41b5cfeaf257a09dc13ac5a5e94f42266cc2f1bc))
 * **lint:** Added tslint config and modules for run lint ([13b4f81](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/13b4f8182d35bb4b0b6c126c5c3fe2b5fc93c3c2))
 * **list viewer:** Added check for self signed ([7f27f6f](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/7f27f6fefb076dcbf8faa808004c28c9f3394270))
-* **package:** Added prepublish script ([752d94d](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/752d94d7b6a8634bcc07d0302b804c199c0a6aee))
 * **package:** Added script for clean ([cda3b71](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/cda3b717f017f06e520913ebc64332d53d7186e6))
 * **package:** Prepared package for publish to  npm ([0a2dc96](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/0a2dc9670e8b66d4a892d3598f65a38970198241))
 * **search:** Added search ([94e654d](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/94e654d0357000034ffbd11f61c3197c981c2306))
@@ -87,9 +100,3 @@ All notable changes to this project will be documented in this file. See [standa
 * **summary:** Fixed attributes styles ([637d998](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/637d99800a62e5a5a9589da75d3ad75284499d88))
 * **text-hide:** Removed console.log. ([5ae3048](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/5ae30481da6ae0ccb3fe89deea8ae9f7a0275621))
 * **ui:** Fixed cell content jump on expand. ([4d3b55e](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/4d3b55eaf5d8dbe470a3de1cbe95a8f575baf532))
-
-### 0.0.3 (2020-05-06)
-
-### Bug Fixes
-
-* **crypto:** Fixed extension parse, fixed dependencies copies ([d0b8f4f](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/d0b8f4f0405699c42664534adeec408c66deb206))
