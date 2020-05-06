@@ -32,7 +32,8 @@
     "deploy.gh-pages": "gh-pages -d www",
     "lint": "tslint --format stylish 'src/**/*.{ts,tsx}'",
     "clean": "rimraf dist loader www",
-    "release": "standard-version"
+    "release": "standard-version",
+    "prepublish": "npm run build"
   },
   "devDependencies": {
     "@stencil/core": "^1.12.7",
