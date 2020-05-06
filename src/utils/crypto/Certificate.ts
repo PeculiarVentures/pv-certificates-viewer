@@ -820,6 +820,7 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
+
           const extension = {
             name: OIDS[ext.extnID] || '',
             critical: ext.critical,
@@ -827,18 +828,14 @@ export default class Certificate extends Basic {
             value: null,
           };
 
-          if (ext.parsedValue) {
-            if (ext.parsedValue?.valueBlock?.valueHex) {
-              extension.value = Convert.ToHex(ext
-                .parsedValue
-                .valueBlock
-                .valueHex);
-            } else {
-              console.log(`Unsupported extension "${ext.extnID}"`);
-            }
-          }
-
-          if (ext.extnValue?.valueBlock?.valueHex) {
+          if (ext.parsedValue?.valueBlock?.valueHex) {
+            extension.value = Convert.ToHex(ext
+              .parsedValue
+              .valueBlock
+              .valueHex);
+          } else if (ext.parsedValue) {
+            console.log(`Unsupported extension "${ext.extnID}"`);
+          } else if (ext.extnValue?.valueBlock?.valueHex) {
             extension.value = Convert.ToHex(ext
               .extnValue
               .valueBlock

@@ -45,7 +45,7 @@
     "tslint-stencil": "^1.0.1"
   },
   "dependencies": {
-    "asn1js": "^2.0.26",
+    "asn1js": "latest",
     "dayjs": "^1.8.26",
     "history": "^4.10.1",
     "pkijs": "^2.1.88",
