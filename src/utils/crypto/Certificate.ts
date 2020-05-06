@@ -820,7 +820,6 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
-
           const extension = {
             name: OIDS[ext.extnID] || '',
             critical: ext.critical,
