@@ -346,7 +346,7 @@ export default class Certificate extends Basic {
       switch (item.type) {
         case 4: {
           item.value = altNameBase.value.typesAndValues.map(i => ({
-            name: OIDS[i.type],
+            name: OIDS[i.type] || i.type,
             oid: i.type,
             value: i.value.valueBlock.value,
           }));
