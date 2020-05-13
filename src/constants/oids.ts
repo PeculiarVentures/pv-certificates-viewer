@@ -2231,6 +2231,8 @@ const OIDs: Record<string, string> = {
   '1.3.6.1.4.1.44947.1.1.1': 'Let\'s Encrypt',
   '1.3.6.1.4.1.4329.7.2.4': 'SslTlsCerts',
   '1.3.6.1.4.1.4329.7': 'Siemens Public Key Infrastructure',
+  '1.3.6.1.4.1.52266.1': 'Legal Entity Identifier',
+  '1.3.6.1.4.1.52266.2': 'Role',
 };
 
 export default OIDs;

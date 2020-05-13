@@ -9,7 +9,7 @@ import SANs from '../../constants/san_types';
 import * as pkijs from './pkijs';
 import Basic from './Basic';
 
-interface ISubject extends Record<string, { nameLong: string; oid: string; value: string; }> {}
+interface ISubject extends Record<string, { oid: string; value: string; }> {}
 
 export enum EnumOIDs {
   BasicConstraints = '2.5.29.19',

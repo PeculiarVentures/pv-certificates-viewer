@@ -149,6 +149,12 @@ export default class Basic {
     '1.3.6.1.4.1.311.60.2.1.2': {
       long: 'Inc. State / Province',
     },
+    '1.3.6.1.4.1.4710.1.3.2': {
+      long: 'CIF',
+    },
+    '1.3.6.1.4.1.18838.1.1': {
+      long: 'NIF',
+    },
   };
 
   static logs = {
@@ -299,11 +305,14 @@ export default class Basic {
     const data = {};
 
     subjects.forEach((subject) => {
-      const type = Basic.subjectOIDs[subject.type.toString()];
-      const name = type && type.short ? type.short : subject.type.toString();
+      let name = subject.type.toString();
+      const type = Basic.subjectOIDs[name];
+
+      if (type) {
+        name = type.short || type.long;
+      }
 
       data[name] = {
-        nameLong: type ? type.long : '',
         oid: subject.type.toString(),
         value: subject.value.valueBlock.value.toString(),
       };
