@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.5 (2020-05-14)
+
+
+### Features
+
+* **crypto:** Added GLEIF oids ([d734ed4](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/d734ed4497899ba70ed1288c0d55c23dba8b66b4))
+* **oids:** Added few oids for "etsi" group ([f273c62](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/f273c62b573284ac9c2fe1b5ff80bc53fc24f0ed))
+* **crypto:** Added support for decode "gleif" extensions ([a5b362e](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/a5b362e0c8acb95352300609486cef57f43e7671))
+
+
+### Bug Fixes
+
+* **crypto:** Fixed https://github.com/PeculiarVentures/pv-certificates-viewer/issues/49 ([821b70e](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/821b70e3b4cdb4f9f3c88530000ae0e957e4ba16))
+
+
 ### 0.0.4 (2020-05-06)
 
 
