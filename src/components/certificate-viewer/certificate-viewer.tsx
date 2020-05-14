@@ -586,6 +586,14 @@ export class CertificateViewer {
           ),
         ];
       }
+
+      case EnumOIDs.LEI:
+      case EnumOIDs.Role: {
+        return this.renderRowValue(
+          'Value',
+          extension.value,
+        );
+      }
     }
 
     if (typeof extension.value === 'string') {

@@ -30,6 +30,8 @@ export enum EnumOIDs {
   MicrosoftCertificateType = '1.3.6.1.4.1.311.20.2',
   SubjectDirectoryAttributes = '2.5.29.9',
   AdobeTimestamp = '1.2.840.113583.1.1.9.1',
+  LEI = '1.3.6.1.4.1.52266.1',
+  Role = '1.3.6.1.4.1.52266.2',
   ANY = '',
 }
 
@@ -158,6 +160,18 @@ interface IExtensionAdobeTimestamp
     { version: number, location: string; requiresAuth?: boolean; }
   > {}
 
+interface IExtensionLEI
+  extends IExtensionBasic<
+    EnumOIDs.LEI,
+    string
+  > {}
+
+interface IExtensionRole
+  extends IExtensionBasic<
+    EnumOIDs.Role,
+    string
+  > {}
+
 export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionBasicConstraints
   | IExtensionKeyUsage
@@ -176,7 +190,9 @@ export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionMicrosoftCARenewal
   | IExtensionMicrosoftCertificateType
   | IExtensionSubjectDirectoryAttributes
-  | IExtensionAdobeTimestamp;
+  | IExtensionAdobeTimestamp
+  | IExtensionLEI
+  | IExtensionRole;
 
 export default class Certificate extends Basic {
   notBefore?: Date;
@@ -796,6 +812,36 @@ export default class Certificate extends Basic {
             return this.extensions.push(extension);
           }
 
+          if (ext.extnID === EnumOIDs.LEI) {
+            const extension: IExtensionLEI = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.LEI,
+              value: Convert.ToUtf8String(ext
+                .extnValue
+                .valueBlock
+                .valueHex,
+              ).replace(/[\u0000-\u001f]/g, ''),
+            };
+
+            return this.extensions.push(extension);
+          }
+
+          if (ext.extnID === EnumOIDs.Role) {
+            const extension: IExtensionRole = {
+              name: OIDS[ext.extnID] || '',
+              critical: ext.critical,
+              oid: EnumOIDs.Role,
+              value: Convert.ToUtf8String(ext
+                .extnValue
+                .valueBlock
+                .valueHex,
+              ).replace(/[\u0000-\u001f]/g, ''),
+            };
+
+            return this.extensions.push(extension);
+          }
+
           if (ext.extnID === EnumOIDs.AdobeTimestamp) {
             /**
              * https://www.adobe.com/devnet-docs/etk_deprecated/tools/DigSig/oids.html
@@ -831,14 +877,16 @@ export default class Certificate extends Basic {
             extension.value = Convert.ToHex(ext
               .parsedValue
               .valueBlock
-              .valueHex);
+              .valueHex,
+            );
           } else if (ext.parsedValue) {
             console.log(`Unsupported extension "${ext.extnID}"`);
           } else if (ext.extnValue?.valueBlock?.valueHex) {
             extension.value = Convert.ToHex(ext
               .extnValue
               .valueBlock
-              .valueHex);
+              .valueHex,
+            );
           }
 
           this.extensions.push(extension);
