@@ -1,11 +1,7 @@
-* {
-  font-family: 'Open Sans', Arial, sans-serif;
-  box-sizing: border-box;
-}
-
 body {
   color: #0d091a;
   margin: 0;
+  font-family: var(--peculiar-font-family);
 }
 
 a {
