@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.7 (2020-05-15)
+
+
+### Features
+
+* **components:** Added typography component ([b1f9639](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/b1f96392bf94186ba9cc043599ded9ad94d52b85))
+* **styles:** Added scss instead css, updated global styles ([075dfbd](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/075dfbdb2392a14ae409bad8210df9dd54f4edec))
+* **components:** Used typography instead tags, updated styles using ([a090f07](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/a090f07916cf7213f7f5a0ad2df190e6fa6e0bb0))
+* **styles:** Updated local reset styles ([97db91b](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/97db91bbceb7a18fd8a1fd30f5c7b470cf0803e5))
+
+
+### Bug Fixes
+
+* **test:** Removed unused test files ([0fffee5](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/0fffee53c4135fbbe1707e93939f0d5a781991bf))
+
+
 ### 0.0.5 (2020-05-14)
 
 

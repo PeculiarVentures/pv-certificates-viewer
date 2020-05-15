@@ -29,17 +29,13 @@ export class PeculiarTypography {
   @Prop() monospace?: boolean;
 
   render() {
-    const {
-      type = 'b3',
-      color = 'dark',
-    } = this;
-    const TagType = type && type.includes('h') ? type : 'p';
+    const TagType = this.type && this.type.includes('h') ? this.type : 'p';
 
     return (
       <Host
         class={{
-          [`peculiar_${type}`]: true,
-          [`peculiar_color_${color}`]: true,
+          [`peculiar_${this.type || 'b3'}`]: true,
+          [`peculiar_color_${this.color || 'dark'}`]: true,
           [`align_${this.align}`]: !!this.align,
         }}
       >

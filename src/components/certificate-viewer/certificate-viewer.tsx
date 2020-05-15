@@ -313,7 +313,9 @@ export class CertificateViewer {
                   {value.name} ({value.oid})
                 </peculiar-typography>,
                 value.type === 6 ? (
-                  <a class="peculiar_color_primary" href={value.value} target="_blank">{value.value}</a>
+                  <a class="peculiar_color_primary" href={value.value} target="_blank">
+                    {value.value}
+                  </a>
                 ) : (
                   value.value
                 ),
@@ -449,12 +451,16 @@ export class CertificateViewer {
               </span>,
               parentLink && (
                 <span>
-                  &nbsp;[<a class="peculiar_color_primary" href={parentLink} target="_blank">parents</a>]
+                  &nbsp;[<a class="peculiar_color_primary" href={parentLink} target="_blank">
+                    parents
+                  </a>]
                 </span>
               ),
               siblingsLink && (
                 <span>
-                  &nbsp;[<a class="peculiar_color_primary" href={siblingsLink} target="_blank">siblings</a>]
+                  &nbsp;[<a class="peculiar_color_primary" href={siblingsLink} target="_blank">
+                    siblings
+                  </a>]
                 </span>
               ),
             ],
@@ -510,12 +516,16 @@ export class CertificateViewer {
             </span>,
             childrenLink && (
               <span>
-                &nbsp;[<a class="peculiar_color_primary" href={childrenLink} target="_blank">children</a>]
+                &nbsp;[<a class="peculiar_color_primary" href={childrenLink} target="_blank">
+                  children
+                </a>]
               </span>
             ),
             siblingsLink && (
               <span>
-                &nbsp;[<a class="peculiar_color_primary" href={siblingsLink} target="_blank">siblings</a>]
+                &nbsp;[<a class="peculiar_color_primary" href={siblingsLink} target="_blank">
+                  siblings
+                </a>]
               </span>
             ),
           ],
