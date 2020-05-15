@@ -6,8 +6,8 @@ import { Certificate } from '../../utils/crypto';
 
 @Component({
   tag: 'peculiar-certificate-decoder',
-  styleUrl: 'certificate-decoder.css',
-  shadow: true,
+  styleUrl: 'certificate-decoder.scss',
+  scoped: true,
 })
 export class CertificateDecoder {
   private inputPaste?: HTMLTextAreaElement;
@@ -107,7 +107,7 @@ export class CertificateDecoder {
       <Host>
         <textarea
           placeholder="Certificate DER or PEM"
-          class="input_paste fill_white stroke_border text_black"
+          class="input_paste peculiar_fill_light peculiar_stroke_grey_3 peculiar_color_dark"
           ref={el => this.inputPaste = el}
           onDrop={this.onDropFile}
         />

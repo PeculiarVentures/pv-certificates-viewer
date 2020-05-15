@@ -14,8 +14,8 @@ export type CertificateProp = string | Certificate;
 
 @Component({
   tag: 'peculiar-certificate-viewer',
-  styleUrl: 'certificate-viewer.css',
-  shadow: true,
+  styleUrl: 'certificate-viewer.scss',
+  scoped: true,
 })
 export class CertificateViewer {
   certificateDecoded: Certificate;
@@ -140,8 +140,12 @@ export class CertificateViewer {
   private renderRowTitle(title: string) {
     return (
       <tr class="title">
-        <td colSpan={2} class="h6 text_black">
-          {title}
+        <td colSpan={2}>
+          <peculiar-typography
+            type="h6"
+          >
+            {title}
+          </peculiar-typography>
         </td>
       </tr>
     );
@@ -178,22 +182,26 @@ export class CertificateViewer {
       <tr>
         <td
           class={{
-            b3: true,
-            text_grey: true,
             vertical_align_top: options.align !== 'middle',
             vertical_align_middle: options.align === 'middle',
           }}
         >
-          {title}:
+          <peculiar-typography
+            color="grey_5"
+          >
+            {title}:
+          </peculiar-typography>
         </td>
         <td
           class={{
-            b3: true,
-            text_black: true,
             monospace: options.monospace,
           }}
         >
-          {valueElem}
+          <peculiar-typography
+            monospace={options.monospace}
+          >
+            {valueElem}
+          </peculiar-typography>
         </td>
       </tr>
     );
@@ -217,9 +225,9 @@ export class CertificateViewer {
         return this.renderRowValue(
           'Values',
           extension.value.map(value => (
-            <p class="b3 text_black">
+            <peculiar-typography>
               {value.name} ({value.oid})
-            </p>
+            </peculiar-typography>
           )),
         );
       }
@@ -230,9 +238,9 @@ export class CertificateViewer {
             this.renderRowValue(
               `Policy ${index + 1}`,
               [
-                <p>
+                <peculiar-typography>
                   {value.name} ({value.oid})
-                </p>,
+                </peculiar-typography>,
               ],
             )
           )),
@@ -240,21 +248,21 @@ export class CertificateViewer {
             this.renderRowValue(
               `Qualifier ${index + 1}`,
               [
-                <p>
+                <peculiar-typography>
                   {value.name} ({value.oid})
-                </p>,
+                </peculiar-typography>,
                 validator.isUrl(value.value) ? (
                   <a
-                    class="text_primary"
+                    class="peculiar_color_primary"
                     href={value.value}
                     target="_blank"
                   >
                       {value.value}
                   </a>
                 ) : (
-                  <p>
+                  <peculiar-typography>
                     {value.value}
-                  </p>
+                  </peculiar-typography>
                 ),
               ],
             )
@@ -273,22 +281,22 @@ export class CertificateViewer {
             return value.distributionPoint.map((valuePoint) => {
               if (valuePoint.type === 6) {
                 return (
-                  <p class="b3">
+                  <peculiar-typography>
                     <a
-                      class="text_primary"
+                      class="peculiar_color_primary"
                       href={valuePoint.value}
                       target="_blank"
                     >
                       {valuePoint.value}
                     </a>
-                  </p>
+                  </peculiar-typography>
                 );
               }
 
               return (
-                <p class="b3 text_black">
+                <peculiar-typography>
                   {valuePoint.value}
-                </p>
+                </peculiar-typography>
               );
             });
           }),
@@ -301,11 +309,11 @@ export class CertificateViewer {
             this.renderRowValue(
               `Method ${index + 1}`,
               [
-                <p>
+                <peculiar-typography>
                   {value.name} ({value.oid})
-                </p>,
+                </peculiar-typography>,
                 value.type === 6 ? (
-                  <a class="text_primary" href={value.value} target="_blank">{value.value}</a>
+                  <a class="peculiar_color_primary" href={value.value} target="_blank">{value.value}</a>
                 ) : (
                   value.value
                 ),
@@ -321,46 +329,46 @@ export class CertificateViewer {
             extension.value.permitted.map((value) => {
               if (value.type === 2) {
                 return (
-                  <p class="b3">
+                  <peculiar-typography>
                     <a
-                      class="text_primary"
+                      class="peculiar_color_primary"
                       href={`https://censys.io/ipv4?q=${value.value}`}
                       target="_blank"
                     >
                       {value.value}
                     </a>
-                  </p>
+                  </peculiar-typography>
                 );
               }
 
               if (value.type === 7) {
                 return (
-                  <p class="b3">
+                  <peculiar-typography>
                     <a
-                      class="text_primary"
+                      class="peculiar_color_primary"
                       href={`https://censys.io/ipv4?q=${value.value}`}
                       target="_blank"
                     >
                       {value.value}
                     </a>
-                  </p>
+                  </peculiar-typography>
                 );
               }
 
               if (value.type === 4) {
                 return (
-                  <p class="b3">
+                  <peculiar-typography>
                     {value.value
                       .map(valueType => `${valueType.name}=${valueType.value}`).join(', ')
                     }
-                  </p>
+                  </peculiar-typography>
                 );
               }
 
               return (
-                <p class="b3 text_black">
+                <peculiar-typography>
                   {value.value}
-                </p>
+                </peculiar-typography>
               );
             }),
           ),
@@ -374,46 +382,46 @@ export class CertificateViewer {
             extension.value.map((value) => {
               if (value.type === 2) {
                 return (
-                  <p class="b3">
+                  <peculiar-typography>
                     <a
-                      class="text_primary"
+                      class="peculiar_color_primary"
                       href={`https://censys.io/ipv4?q=${value.value}`}
                       target="_blank"
                     >
                       {value.value}
                     </a>
-                  </p>
+                  </peculiar-typography>
                 );
               }
 
               if (value.type === 7) {
                 return (
-                  <p class="b3">
+                  <peculiar-typography>
                     <a
-                      class="text_primary"
+                      class="peculiar_color_primary"
                       href={`https://censys.io/ipv4?q=${value.value}`}
                       target="_blank"
                     >
                       {value.value}
                     </a>
-                  </p>
+                  </peculiar-typography>
                 );
               }
 
               if (value.type === 4) {
                 return (
-                  <p class="b3">
+                  <peculiar-typography>
                     {value.value
                       .map(valueType => `${valueType.name}=${valueType.value}`).join(', ')
                     }
-                  </p>
+                  </peculiar-typography>
                 );
               }
 
               return (
-                <p class="b3 text_black">
+                <peculiar-typography>
                   {value.value}
-                </p>
+                </peculiar-typography>
               );
             }),
           ),
@@ -441,12 +449,12 @@ export class CertificateViewer {
               </span>,
               parentLink && (
                 <span>
-                  &nbsp;[<a class="text_primary" href={parentLink} target="_blank">parents</a>]
+                  &nbsp;[<a class="peculiar_color_primary" href={parentLink} target="_blank">parents</a>]
                 </span>
               ),
               siblingsLink && (
                 <span>
-                  &nbsp;[<a class="text_primary" href={siblingsLink} target="_blank">siblings</a>]
+                  &nbsp;[<a class="peculiar_color_primary" href={siblingsLink} target="_blank">siblings</a>]
                 </span>
               ),
             ],
@@ -502,12 +510,12 @@ export class CertificateViewer {
             </span>,
             childrenLink && (
               <span>
-                &nbsp;[<a class="text_primary" href={childrenLink} target="_blank">children</a>]
+                &nbsp;[<a class="peculiar_color_primary" href={childrenLink} target="_blank">children</a>]
               </span>
             ),
             siblingsLink && (
               <span>
-                &nbsp;[<a class="text_primary" href={siblingsLink} target="_blank">siblings</a>]
+                &nbsp;[<a class="peculiar_color_primary" href={siblingsLink} target="_blank">siblings</a>]
               </span>
             ),
           ],
@@ -520,9 +528,9 @@ export class CertificateViewer {
           this.renderRowValue(
             `Statement ${index + 1}`,
             [
-              <p>
+              <peculiar-typography>
                 {statement.name} ({statement.oid})
-              </p>,
+              </peculiar-typography>,
             ],
           )
         ));
@@ -553,13 +561,13 @@ export class CertificateViewer {
           this.renderRowValue(
             `Attribute ${index + 1}`,
             [
-              <p>
+              <peculiar-typography>
                 {attribute.name} ({attribute.oid})
-              </p>,
+              </peculiar-typography>,
               attribute.value.map(value => (
-                <p>
+                <peculiar-typography>
                   {dateFormatter.short(value)}
-                </p>
+                </peculiar-typography>
               )),
             ],
           )
@@ -575,7 +583,7 @@ export class CertificateViewer {
           this.renderRowValue(
             'Location',
             [(
-              <a class="text_primary" href={extension.value.location} target="_blank">
+              <a class="peculiar_color_primary" href={extension.value.location} target="_blank">
                 {extension.value.location}
               </a>
             )],
@@ -635,9 +643,12 @@ export class CertificateViewer {
   private renderErrorState() {
     return (
       <div class="status_wrapper">
-        <p class="b1 interaction_text text_black">
+        <peculiar-typography
+          type="b1"
+          class="interaction_text"
+        >
           There is error for certificate decode.
-        </p>
+        </peculiar-typography>
       </div>
     );
   }
@@ -645,9 +656,12 @@ export class CertificateViewer {
   private renderEmptyState() {
     return (
       <div class="status_wrapper">
-        <p class="b1 interaction_text text_black">
+        <peculiar-typography
+          type="b1"
+          class="interaction_text"
+        >
           There is no certificate available.
-        </p>
+        </peculiar-typography>
       </div>
     );
   }

@@ -18,8 +18,8 @@ interface ICertificateDecoded extends Certificate {
 
 @Component({
   tag: 'peculiar-certificates-viewer',
-  styleUrl: 'certificates-viewer.css',
-  shadow: true,
+  styleUrl: 'certificates-viewer.scss',
+  scoped: true,
 })
 export class CertificatesViewer {
   /**
@@ -160,8 +160,8 @@ export class CertificatesViewer {
     }
 
     return (
-      <tr class="expanded_summary stroke_border">
-        <td colSpan={colSpan} class="stroke_border">
+      <tr class="expanded_summary peculiar_stroke_grey_3">
+        <td colSpan={colSpan} class="peculiar_stroke_grey_3">
           <peculiar-certificate-summary
             certificate={certificate}
             showIssuer={!certificate.isRoot}
@@ -248,58 +248,73 @@ export class CertificatesViewer {
       content.push([
         <tr
           class={{
-            stroke_border: true,
+            peculiar_stroke_grey_3: true,
             expanded: isExpandedRow,
           }}
           onClick={this.onClickRow.bind(this, certificate.serialNumber)}
           key={certificate.serialNumber}
         >
           {!this.isHasRoots && (
-            <td class="b3 stroke_border">
-              <span class="mobile_title text_grey align_left b3">
+            <td class="peculiar_stroke_grey_3">
+              <peculiar-typography
+                class="mobile_title"
+                color="grey_5"
+              >
                 Issuer:
-              </span>
-              <span class="content">
+              </peculiar-typography>
+              <peculiar-typography class="content">
                 <peculiar-highlight-words search={searchHighlight}>
                   {issuerValue}
                 </peculiar-highlight-words>
-              </span>
+              </peculiar-typography>
             </td>
           )}
-          <td class="b3 stroke_border">
-            <span class="mobile_title text_grey align_left b3">
+          <td class="peculiar_stroke_grey_3">
+            <peculiar-typography
+              class="mobile_title"
+              color="grey_5"
+            >
               Name:
-            </span>
-            <span class="content">
+            </peculiar-typography>
+            <peculiar-typography class="content">
               <peculiar-highlight-words search={searchHighlight}>
                 {certificate.commonName}
               </peculiar-highlight-words>
-            </span>
+            </peculiar-typography>
           </td>
-          <td class="b3 stroke_border">
-            <span class="mobile_title text_grey align_left b3">
+          <td class="peculiar_stroke_grey_3">
+            <peculiar-typography
+              class="mobile_title"
+              color="grey_5"
+            >
               Public Key:
-            </span>
-            <span class="content">
+            </peculiar-typography>
+            <peculiar-typography class="content">
               <peculiar-highlight-words search={searchHighlight}>
                 {publicKeyValue}
               </peculiar-highlight-words>
-            </span>
+            </peculiar-typography>
           </td>
-          <td class="b3 stroke_border">
-            <span class="mobile_title text_grey align_left b3">
+          <td class="peculiar_stroke_grey_3">
+            <peculiar-typography
+              class="mobile_title"
+              color="grey_5"
+            >
               Fingerprint (SHA-1):
-            </span>
-            <span class="content monospace">
+            </peculiar-typography>
+            <peculiar-typography class="content" monospace={true}>
               <peculiar-highlight-words search={searchHighlight}>
-                {certificate.fingerprints['SHA-1']}
+              {certificate.fingerprints['SHA-1']}
               </peculiar-highlight-words>
-            </span>
+            </peculiar-typography>
           </td>
-          <td class="align_center stroke_border">
-            <span class="mobile_title text_grey align_left b3">
+          <td class="align_center peculiar_stroke_grey_3">
+            <peculiar-typography
+              class="mobile_title"
+              color="grey_5"
+            >
               Actions:
-            </span>
+            </peculiar-typography>
             <span class="content">
               <peculiar-button
                 onClick={this.onClickDetails.bind(this, certificate.base64)}
@@ -320,10 +335,13 @@ export class CertificatesViewer {
             </span>
           </td>
           {this.isHasTests && (
-            <td class="align_center stroke_border">
-              <span class="mobile_title text_grey align_left b3">
+            <td class="align_center peculiar_stroke_grey_3">
+              <peculiar-typography
+                class="mobile_title"
+                color="grey_5"
+              >
                 Test URLs:
-              </span>
+              </peculiar-typography>
               <span class="content">
                 {this.renderCertificateTests(certificate.tests)}
               </span>
@@ -344,11 +362,13 @@ export class CertificatesViewer {
 
     return  (
       <div class="modal_wrapper">
-        <div class="modal_content fill_white">
-          <div class="modal_title stroke_border">
-            <h4 class="h4 text_black">
+        <div class="modal_content peculiar_fill_light">
+          <div class="modal_title peculiar_stroke_grey_3">
+            <peculiar-typography
+              type="h4"
+            >
               Certificate details
-            </h4>
+            </peculiar-typography>
             <button
               class="modal_close"
               onClick={this.onClickModalClose}
@@ -358,7 +378,6 @@ export class CertificatesViewer {
                 height="30"
                 viewBox="0 0 30 30"
                 xmlns="http://www.w3.org/2000/svg"
-                class="svg_fill_black"
               >
                 <path
                   fill-rule="evenodd"
@@ -382,12 +401,12 @@ export class CertificatesViewer {
     }
 
     return (
-      <div class="search_section stroke_border">
+      <div class="search_section peculiar_stroke_grey_3">
         <input
           onInput={this.onSearchChange}
           type="search"
           value=""
-          class="input_search fill_white stroke_border text_black"
+          class="input_search peculiar_fill_light peculiar_stroke_grey_3 peculiar_color_dark"
           disabled={!this.certificatesDecoded.length}
           placeholder="Search"
         />
@@ -397,12 +416,17 @@ export class CertificatesViewer {
 
   renderEmptyState() {
     return (
-      <tr class="stroke_border">
+      <tr class="peculiar_stroke_grey_3">
         <td
-          class="b1 text_black stroke_border status_wrapper"
+          class="peculiar_stroke_grey_3 status_wrapper"
           colSpan={5}
         >
-          There are no certificates available.
+          <peculiar-typography
+            type="b1"
+            align="center"
+          >
+            There are no certificates available.
+          </peculiar-typography>
         </td>
       </tr>
     );
@@ -410,12 +434,17 @@ export class CertificatesViewer {
 
   renderEmptySearchState() {
     return (
-      <tr class="stroke_border">
+      <tr class="peculiar_stroke_grey_3">
         <td
-          class="b1 text_black stroke_border status_wrapper"
+          class="peculiar_stroke_grey_3 status_wrapper"
           colSpan={5}
         >
-          No results found for "{this.search}"
+          <peculiar-typography
+            type="b1"
+            align="center"
+          >
+            No results found for "{this.search}"
+          </peculiar-typography>
         </td>
       </tr>
     );
@@ -458,32 +487,62 @@ export class CertificatesViewer {
         {this.renderSearch()}
         <table
           class={{
-            text_black: true,
+            peculiar_color_dark: true,
             m_extra: this.isHasTests || !this.isHasRoots,
           }}
         >
           <thead>
-            <tr class="stroke_border">
+            <tr class="peculiar_stroke_grey_3">
               {!this.isHasRoots && (
-                <th class="h7 stroke_border col_issuer">
-                  Issuer
+                <th class="peculiar_stroke_grey_3 col_issuer">
+                  <peculiar-typography
+                    type="h7"
+                    align="left"
+                  >
+                    Issuer
+                  </peculiar-typography>
                 </th>
               )}
-              <th class="h7 stroke_border col_name">
-                Name
+              <th class="peculiar_stroke_grey_3 col_name">
+                <peculiar-typography
+                  type="h7"
+                  align="left"
+                >
+                  Name
+                </peculiar-typography>
               </th>
-              <th class="h7 stroke_border col_public_key">
-                Public Key
+              <th class="peculiar_stroke_grey_3 col_public_key">
+                <peculiar-typography
+                  type="h7"
+                  align="left"
+                >
+                  Public Key
+                </peculiar-typography>
               </th>
-              <th class="h7 stroke_border col_fingerprint">
-                Fingerprint (SHA-1)
+              <th class="peculiar_stroke_grey_3 col_fingerprint">
+                <peculiar-typography
+                  type="h7"
+                  align="left"
+                >
+                  Fingerprint (SHA-1)
+                </peculiar-typography>
               </th>
-              <th class="align_center h7 stroke_border col_actions">
-                Actions
+              <th class="peculiar_stroke_grey_3 col_actions">
+                <peculiar-typography
+                  type="h7"
+                  align="center"
+                >
+                  Actions
+                </peculiar-typography>
               </th>
               {this.isHasTests && (
-                <th class="align_center h7 stroke_border col_tests">
-                  Test URLs
+                <th class="peculiar_stroke_grey_3 col_tests">
+                  <peculiar-typography
+                    type="h7"
+                    align="center"
+                  >
+                    Test URLs
+                  </peculiar-typography>
                 </th>
               )}
             </tr>

@@ -2,7 +2,7 @@ import { Component, h, Prop, Host } from '@stencil/core';
 
 @Component({
   tag: 'peculiar-button',
-  styleUrl: 'button.css',
+  styleUrl: 'button.scss',
   shadow: true,
 })
 export class Button {
@@ -23,12 +23,12 @@ export class Button {
     return (
       <Host
         class={{
-          b3: true,
+          peculiar_b3: true,
           button: true,
           button_stroke: this.fill === 'stroke',
-          text_primary: this.fill === 'stroke',
-          text_white: this.fill === 'fill',
-          fill_primary: this.fill === 'fill',
+          peculiar_color_primary: this.fill === 'stroke',
+          peculiar_color_light: this.fill === 'fill',
+          peculiar_fill_primary: this.fill === 'fill',
           button_disabled: this.disabled,
         }}
       >

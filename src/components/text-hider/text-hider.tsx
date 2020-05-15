@@ -2,8 +2,8 @@ import { Component, Host, h, Prop, Event, EventEmitter, Listen } from '@stencil/
 
 @Component({
   tag: 'peculiar-text-hider',
-  styleUrl: 'text-hider.css',
-  shadow: true,
+  styleUrl: 'text-hider.scss',
+  scoped: true,
 })
 export class TextHider {
   @Prop({ mutable: true, reflect: true }) opened: boolean = false;
@@ -39,8 +39,6 @@ export class TextHider {
                 xmlns="http://www.w3.org/2000/svg"
                 class={{
                   expand_icon: true,
-                  svg_fill_white: this.opened,
-                  svg_fill_primary: !this.opened,
                 }}
               >
                 <path

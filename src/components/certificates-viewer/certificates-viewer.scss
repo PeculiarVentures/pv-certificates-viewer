@@ -1,14 +1,11 @@
-@import '../../styles/reset.css';
-@import '../../styles/system.css';
-
 :host {
   display: block;
   width: 100%;
   word-wrap: break-word;
-  min-width: 300px;
+  min-width: 280px;
   overflow: auto;
   position: relative;
-  background: rgb(var(--peculiar-color-white-rgb));
+  background: rgb(var(--peculiar-color-light-rgb));
 }
 
 table {
@@ -31,14 +28,12 @@ table tbody tr:not(.expanded_summary) {
 
 table th {
   padding: 15px 10px;
-  text-align: left;
   border-width: 1px;
   border-style: solid;
 }
 
 table td {
   padding: 8px 10px;
-  text-align: left;
   border-width: 1px;
   border-style: solid;
 }
@@ -111,7 +106,7 @@ table tr.expanded_summary td {
   overflow: auto;
   padding: 10px;
   text-align: center;
-  background: rgba(var(--peculiar-color-black-rgb), 0.9);
+  background: rgba(var(--peculiar-color-dark-rgb), 0.9);
   animation: fadeIn 300ms;
 }
 
@@ -155,10 +150,15 @@ table tr.expanded_summary td {
   right: 0;
   padding: 0 12px;
   transition: opacity 100ms;
-}
+  outline: none;
 
-.modal_close:hover {
-  opacity: 0.6;
+  &:hover {
+    opacity: 0.6;
+  }
+
+  svg {
+    fill: rgb(var(--peculiar-color-dark-rgb));
+  }
 }
 
 .button_table_action {
@@ -194,10 +194,11 @@ table tr.expanded_summary td {
   border-style: solid;
   padding: 0 14px;
   font-size: 12px;
-}
+  outline: none;
 
-.input_search::placeholder {
-  color: rgb(var(--peculiar-color-border-rgb));
+  &::placeholder {
+    color: rgb(var(--peculiar-color-grey_3-rgb));
+  }
 }
 
 .loading_container {
@@ -206,9 +207,13 @@ table tr.expanded_summary td {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(var(--peculiar-color-black-rgb), 0.3);
+  background: rgba(var(--peculiar-color-dark-rgb), 0.3);
   display: flex;
   align-items: center;
+}
+
+.align_center {
+  text-align: center;
 }
 
 @media (hover: hover) {
@@ -244,7 +249,7 @@ table tr.expanded_summary td {
     padding-left: 0;
     padding-right: 0;
     border-width: 1px 0 0 0 ! important;
-    border-color: rgba(var(--peculiar-color-border-rgb), 0.5) ! important;
+    border-color: rgba(var(--peculiar-color-grey_3-rgb), 0.5) ! important;
   }
 
   table tr.expanded_summary td {
@@ -287,5 +292,9 @@ table tr.expanded_summary td {
   .search_section {
     height: 60px;
     padding: 15px;
+  }
+
+  .align_center {
+    text-align: inherit;
   }
 }

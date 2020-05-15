@@ -7,8 +7,8 @@ export interface IAction {
 
 @Component({
   tag: 'peculiar-button-split',
-  styleUrl: 'button-split.css',
-  shadow: true,
+  styleUrl: 'button-split.scss',
+  scoped: true,
 })
 export class ButtonSplit {
   @Prop() onClick: (event: MouseEvent) => void;
@@ -35,7 +35,7 @@ export class ButtonSplit {
     }
 
     return (
-      <div class="active_split_container fill_white">
+      <div class="active_split_container peculiar_fill_light">
         {this.actions.map(action => (
           <peculiar-button
             fill="fill"
@@ -67,7 +67,7 @@ export class ButtonSplit {
           <svg
             viewBox="0 0 7 5"
             xmlns="http://www.w3.org/2000/svg"
-            class="button_split_icon svg_fill_primary"
+            class="button_split_icon"
           >
             <path
               fill-rule="evenodd"

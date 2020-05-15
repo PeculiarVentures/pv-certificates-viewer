@@ -1,5 +1,3 @@
-@import '../../styles/system.css';
-
 :host {
   display: inline-block;
   width: auto;
@@ -15,10 +13,8 @@
   font-kerning: none;
   box-sizing: border-box;
 
-  /**
-   * @prop --peculiar-button-padding-start: Left padding of the button
-   * @prop --peculiar-button-padding-end: Right padding of the button
-  */
+  --peculiar-button-padding-end: 5px;
+  --peculiar-button-padding-start: 5px;
 }
 
 :host(.button) {
@@ -74,7 +70,7 @@
 
 /* Focus state */
 .button_native:focus {
-  box-shadow: 0 4px 10px 0 rgba(var(--peculiar-color-black-rgb), 0.15);
+  box-shadow: 0 4px 10px 0 rgba(var(--peculiar-color-dark-rgb), 0.15);
 }
 
 /* Hover state */

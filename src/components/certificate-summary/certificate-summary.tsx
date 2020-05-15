@@ -5,12 +5,13 @@ import * as dateFormatter from '../../utils/dateFormatter';
 
 @Component({
   tag: 'peculiar-certificate-summary',
-  styleUrl: 'certificate-summary.css',
-  shadow: true,
+  styleUrl: 'certificate-summary.scss',
+  scoped: true,
 })
 
 export class CertificateSummary {
   @Prop() certificate: Certificate;
+
   @Prop() showIssuer?: boolean = true;
   /**
    * Issuer DN link.
@@ -22,8 +23,16 @@ export class CertificateSummary {
     return Object.keys(item).map((keyName) => {
       return (
         <tr class="dn_row">
-          <td class="dn_name b3 text_black">{keyName}</td>
-          <td class="dn_value b3 text_black">{item[keyName].value}</td>
+          <td class="dn_name">
+            <peculiar-typography>
+              {keyName}
+            </peculiar-typography>
+          </td>
+          <td class="dn_value">
+            <peculiar-typography>
+              {item[keyName].value}
+            </peculiar-typography>
+          </td>
         </tr>
       );
     });
@@ -31,36 +40,72 @@ export class CertificateSummary {
 
   renderMetaData(item: Certificate) {
     return ([
-      <p class="meta_row">
-        <span class="meta_name text_grey b3">Serial number:</span>
-        <span class="meta_value b3 text_black monospace">
+      <div class="meta_row">
+        <peculiar-typography
+          class="meta_name"
+          color="grey_5"
+        >
+          Serial number:
+        </peculiar-typography>
+        <peculiar-typography
+          class="meta_value"
+          monospace={true}
+        >
           {item.serialNumber}
-        </span>
-      </p>,
-      <p class="meta_row">
-        <span class="meta_name text_grey b3">Version:</span>
-        <span class="meta_value b3 text_black">
+        </peculiar-typography>
+      </div>,
+      <div class="meta_row">
+        <peculiar-typography
+          class="meta_name"
+          color="grey_5"
+        >
+          Version:
+        </peculiar-typography>
+        <peculiar-typography
+          class="meta_value"
+        >
           {item.version}
-        </span>
-      </p>,
-      <p class="meta_row">
-        <span class="meta_name text_grey b3">Validity:</span>
-        <span class="meta_value b3 text_black">
+        </peculiar-typography>
+      </div>,
+      <div class="meta_row">
+        <peculiar-typography
+          class="meta_name"
+          color="grey_5"
+        >
+          Validity:
+        </peculiar-typography>
+        <peculiar-typography
+          class="meta_value"
+        >
           {item.validity}
-        </span>
-      </p>,
-      <p class="meta_row">
-        <span class="meta_name text_grey b3">Issued:</span>
-        <span class="meta_value b3 text_black">
+        </peculiar-typography>
+      </div>,
+      <div class="meta_row">
+        <peculiar-typography
+          class="meta_name"
+          color="grey_5"
+        >
+          Issued:
+        </peculiar-typography>
+        <peculiar-typography
+          class="meta_value"
+        >
           {dateFormatter.short(item.notBefore)}
-        </span>
-      </p>,
-      <p class="meta_row">
-        <span class="meta_name text_grey b3">Expired:</span>
-        <span class="meta_value b3 text_black">
+        </peculiar-typography>
+      </div>,
+      <div class="meta_row">
+        <peculiar-typography
+          class="meta_name"
+          color="grey_5"
+        >
+          Expired:
+        </peculiar-typography>
+        <peculiar-typography
+          class="meta_value"
+        >
           {dateFormatter.short(item.notAfter)}
-        </span>
-      </p>,
+        </peculiar-typography>
+      </div>,
     ]);
   }
 
@@ -72,9 +117,12 @@ export class CertificateSummary {
           is_only: !this.showIssuer,
         }}>
           <div class="basic_col">
-            <p class="text_grey b3 dn_row">
+            <peculiar-typography
+              class="dn_row"
+              color="grey_5"
+            >
               Subject DN:
-            </p>
+            </peculiar-typography>
             <table class="table_attributes">
               <tbody>
                 {this.renderDN(this.certificate.subject)}
@@ -82,16 +130,19 @@ export class CertificateSummary {
             </table>
           </div>
           {this.showIssuer && (
-            <div class="basic_col stroke_border">
-              <p class="text_grey b3 dn_row">
+            <div class="basic_col peculiar_stroke_grey_3">
+              <peculiar-typography
+                class="dn_row"
+                color="grey_5"
+              >
                 {this.issuerDnLink ? (
-                  <a href={this.issuerDnLink} target="_blank" class="text_primary">
+                  <a href={this.issuerDnLink} target="_blank" class="peculiar_color_primary">
                     Issuer DN
                   </a>
                 ) : (
                   'Issuer DN'
                 )}:
-              </p>
+              </peculiar-typography>
               <table class="table_attributes">
                 <tbody>
                   {this.renderDN(this.certificate.issuer)}

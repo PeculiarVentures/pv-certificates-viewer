@@ -99,6 +99,25 @@ export namespace Components {
     interface PeculiarTextHider {
         "opened": boolean;
     }
+    interface PeculiarTypography {
+        /**
+          * Text align.
+         */
+        "align"?: "left" | "center" | "right";
+        /**
+          * Component color from theme.
+         */
+        "color": ColorType;
+        /**
+          * If `true`, the text will not wrap, but instead will truncate with a text overflow ellipsis.
+         */
+        "ellipsis"?: boolean;
+        "monospace"?: boolean;
+        /**
+          * Typography type.
+         */
+        "type": "h4" | "h6" | "h7" | "b1" | "b3";
+    }
 }
 declare global {
     interface HTMLPeculiarButtonElement extends Components.PeculiarButton, HTMLStencilElement {
@@ -155,6 +174,12 @@ declare global {
         prototype: HTMLPeculiarTextHiderElement;
         new (): HTMLPeculiarTextHiderElement;
     };
+    interface HTMLPeculiarTypographyElement extends Components.PeculiarTypography, HTMLStencilElement {
+    }
+    var HTMLPeculiarTypographyElement: {
+        prototype: HTMLPeculiarTypographyElement;
+        new (): HTMLPeculiarTypographyElement;
+    };
     interface HTMLElementTagNameMap {
         "peculiar-button": HTMLPeculiarButtonElement;
         "peculiar-button-split": HTMLPeculiarButtonSplitElement;
@@ -165,6 +190,7 @@ declare global {
         "peculiar-circular-progress": HTMLPeculiarCircularProgressElement;
         "peculiar-highlight-words": HTMLPeculiarHighlightWordsElement;
         "peculiar-text-hider": HTMLPeculiarTextHiderElement;
+        "peculiar-typography": HTMLPeculiarTypographyElement;
     }
 }
 declare namespace LocalJSX {
@@ -258,6 +284,25 @@ declare namespace LocalJSX {
         "onTextExpand"?: (event: CustomEvent<any>) => void;
         "opened"?: boolean;
     }
+    interface PeculiarTypography {
+        /**
+          * Text align.
+         */
+        "align"?: "left" | "center" | "right";
+        /**
+          * Component color from theme.
+         */
+        "color"?: ColorType;
+        /**
+          * If `true`, the text will not wrap, but instead will truncate with a text overflow ellipsis.
+         */
+        "ellipsis"?: boolean;
+        "monospace"?: boolean;
+        /**
+          * Typography type.
+         */
+        "type"?: "h4" | "h6" | "h7" | "b1" | "b3";
+    }
     interface IntrinsicElements {
         "peculiar-button": PeculiarButton;
         "peculiar-button-split": PeculiarButtonSplit;
@@ -268,6 +313,7 @@ declare namespace LocalJSX {
         "peculiar-circular-progress": PeculiarCircularProgress;
         "peculiar-highlight-words": PeculiarHighlightWords;
         "peculiar-text-hider": PeculiarTextHider;
+        "peculiar-typography": PeculiarTypography;
     }
 }
 export { LocalJSX as JSX };
@@ -283,6 +329,7 @@ declare module "@stencil/core" {
             "peculiar-circular-progress": LocalJSX.PeculiarCircularProgress & JSXBase.HTMLAttributes<HTMLPeculiarCircularProgressElement>;
             "peculiar-highlight-words": LocalJSX.PeculiarHighlightWords & JSXBase.HTMLAttributes<HTMLPeculiarHighlightWordsElement>;
             "peculiar-text-hider": LocalJSX.PeculiarTextHider & JSXBase.HTMLAttributes<HTMLPeculiarTextHiderElement>;
+            "peculiar-typography": LocalJSX.PeculiarTypography & JSXBase.HTMLAttributes<HTMLPeculiarTypographyElement>;
         }
     }
 }

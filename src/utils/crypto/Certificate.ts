@@ -493,6 +493,8 @@ export default class Certificate extends Basic {
       }
     } else if (subjectPublicKeyAlgorithmId === '1.3.101.112') {
       this.publicKey.algorithm.name = 'EdDSA';
+    } else {
+      this.publicKey.algorithm.name = subjectPublicKeyAlgorithmId;
     }
 
     // decode signature

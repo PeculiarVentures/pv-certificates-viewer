@@ -2,7 +2,7 @@ import { Component, Host, h, Element, Prop } from '@stencil/core';
 
 @Component({
   tag: 'peculiar-highlight-words',
-  styleUrl: 'highlight-words.css',
+  styleUrl: 'highlight-words.scss',
   shadow: true,
 })
 export class HighlightWords {

@@ -15,14 +15,6 @@
 | `target`   | `target`   |             | `string`             | `undefined` |
 
 
-## CSS Custom Properties
-
-| Name                              | Description                 |
-| --------------------------------- | --------------------------- |
-| `--peculiar-button-padding-end`   | Right padding of the button |
-| `--peculiar-button-padding-start` | Left padding of the button  |
-
-
 ## Dependencies
 
 ### Used by

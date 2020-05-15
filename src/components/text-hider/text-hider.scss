@@ -1,6 +1,3 @@
-@import '../../styles/reset.css';
-@import '../../styles/system.css';
-
 :host {
   display: block;
   width: 100%;
@@ -36,8 +33,12 @@
   width: 7px;
   height: 5px;
   display: inline-block;
+  fill: rgb(var(--peculiar-color-primary-rgb));
 }
 
-.m_opened .expand_icon {
-  transform: rotate(180deg);
+.m_opened {
+  .expand_icon {
+    transform: rotate(180deg);
+    fill: rgb(var(--peculiar-color-light-rgb));
+  }
 }

@@ -20,6 +20,7 @@
 
 - [peculiar-certificate-summary](../certificate-summary)
 - [peculiar-button](../button)
+- [peculiar-typography](../typography)
 - [peculiar-highlight-words](../highlight-words)
 - [peculiar-button-split](../button-split)
 - [peculiar-certificate-viewer](../certificate-viewer)
@@ -30,11 +31,14 @@
 graph TD;
   peculiar-certificates-viewer --> peculiar-certificate-summary
   peculiar-certificates-viewer --> peculiar-button
+  peculiar-certificates-viewer --> peculiar-typography
   peculiar-certificates-viewer --> peculiar-highlight-words
   peculiar-certificates-viewer --> peculiar-button-split
   peculiar-certificates-viewer --> peculiar-certificate-viewer
   peculiar-certificates-viewer --> peculiar-circular-progress
+  peculiar-certificate-summary --> peculiar-typography
   peculiar-button-split --> peculiar-button
+  peculiar-certificate-viewer --> peculiar-typography
   peculiar-certificate-viewer --> peculiar-text-hider
   peculiar-certificate-viewer --> peculiar-button-split
   peculiar-certificate-viewer --> peculiar-certificate-summary
