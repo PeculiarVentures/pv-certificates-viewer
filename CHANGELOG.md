@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.8 (2020-05-15)
+
+
+### Features
+
+* **components:** Added possibility using mobile force ([a79dca3](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/a79dca3f9a99173f48d6bd0403f493cea1849de1))
+
 ### 0.0.7 (2020-05-15)
 
 
