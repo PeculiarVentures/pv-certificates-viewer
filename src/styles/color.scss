@@ -1,0 +1,16 @@
+@import './theme.default';
+@import './functions.color';
+
+@each $name, $value in $colors {
+  .peculiar_stroke_#{$name} {
+    border-color: rgb(var(--peculiar-color-#{$name}-rgb));
+  }
+
+  .peculiar_fill_#{$name} {
+    background-color: rgb(var(--peculiar-color-#{$name}-rgb));
+  }
+
+  .peculiar_color_#{$name} {
+    color: rgb(var(--peculiar-color-#{$name}-rgb));
+  }
+}

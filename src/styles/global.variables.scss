@@ -1,0 +1,9 @@
+@import './theme.default';
+@import './functions.color';
+
+body {
+  @each $name, $value in $colors {
+    --peculiar-color-#{$name}-rgb: #{color-to-rgb-list($value)};
+  }
+  --peculiar-font-family: 'Open Sans', 'Arial', sans-serif;
+}

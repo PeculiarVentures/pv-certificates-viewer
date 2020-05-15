@@ -1,11 +1,16 @@
 import { Config } from '@stencil/core';
+import { sass } from '@stencil/sass';
 
 export const config: Config = {
   namespace: 'peculiar',
-  globalStyle: 'src/global/variables.css',
+  globalStyle: 'src/global/bundle.scss',
   devServer: {
+    openBrowser: false,
     port: 3000,
   },
+  plugins: [
+    sass(),
+  ],
   outputTargets: [
     {
       type: 'dist',

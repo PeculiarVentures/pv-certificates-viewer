@@ -95,14 +95,12 @@ This component use CSS variables to work with themes. You can customize colors d
 
 
 ```css
-:root {
-  --peculiar-color-black-rgb: 42, 49, 52;
-  --peculiar-color-white-rgb: 255, 255, 255;
-  --peculiar-color-grey-rgb: 134, 145, 150;
-  --peculiar-color-border-rgb: 209, 213, 217;
-  --peculiar-color-primary-rgb: 53, 132, 247;
+body {
+  --peculiar-color-dark-rgb: 42, 49, 52;
+  --peculiar-color-light-rgb: 255, 255, 255;
+  --peculiar-color-grey_3-rgb: 209, 213, 217;
+  --peculiar-color-grey_5-rgb: 134, 145, 150;
   --peculiar-color-attention-rgb: 247, 168, 49;
+  --peculiar-color-primary-rgb: 53, 132, 247;
 }
 ```
-
-Check out the [variables.css](https://github.com/PeculiarVentures/pv-certificates-viewer/blob/master/src/global/variables.css) to discover all the theme variables that you can customize.
