@@ -1,0 +1,35 @@
+:host {
+  display: block;
+}
+
+.typography_native {
+  margin: 0;
+  padding: 0;
+  font-family: var(--peculiar-font-family);
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  word-break: break-word;
+}
+
+:host(.align_left) {
+  text-align: left;
+}
+
+:host(.align_center) {
+  text-align: center;
+}
+
+:host(.align_right) {
+  text-align: right;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.monospace {
+  font-family: monospace;
+}
