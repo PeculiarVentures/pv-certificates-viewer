@@ -8,6 +8,10 @@
   background: rgb(var(--peculiar-color-light-rgb));
 }
 
+th, td {
+  border: none;
+}
+
 table {
   width: 100%;
   margin-bottom: 30px;

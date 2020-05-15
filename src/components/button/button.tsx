@@ -24,20 +24,20 @@ export class Button {
       <Host
         class={{
           peculiar_b3: true,
-          button: true,
-          button_stroke: this.fill === 'stroke',
+          peculiar_button: true,
+          peculiar_button_stroke: this.fill === 'stroke',
           peculiar_color_primary: this.fill === 'stroke',
           peculiar_color_light: this.fill === 'fill',
           peculiar_fill_primary: this.fill === 'fill',
-          button_disabled: this.disabled,
+          peculiar_button_disabled: this.disabled,
         }}
       >
         <TagType
           {...attrs}
           disabled={this.disabled}
-          class="button_native"
+          class="peculiar_button_native"
         >
-          <span class="button_inner">
+          <span class="peculiar_button_inner">
             <slot></slot>
           </span>
         </TagType>

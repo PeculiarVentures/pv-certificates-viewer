@@ -17,17 +17,17 @@
   --peculiar-button-padding-start: 5px;
 }
 
-:host(.button) {
+:host(.peculiar_button) {
   height: 30px;
   border-radius: 2px;
 }
 
-:host(.button_stroke) {
+:host(.peculiar_button_stroke) {
   border-width: 1px;
   border-style: solid;
 }
 
-.button_native {
+.peculiar_button_native {
   font-family: inherit;
   font-size: inherit;
   font-style: inherit;
@@ -58,29 +58,29 @@
   transition: box-shadow 200ms;
 }
 
-.button_inner {
+.peculiar_button_inner {
   transition: opacity 200ms;
 }
 
 /* Disabled state */
-:host(.button_disabled) {
+:host(.peculiar_button_disabled) {
   opacity: .5;
   pointer-events: none;
 }
 
 /* Focus state */
-.button_native:focus {
+.peculiar_button_native:focus {
   box-shadow: 0 4px 10px 0 rgba(var(--peculiar-color-dark-rgb), 0.15);
 }
 
 /* Hover state */
 @media (hover: hover) {
-  .button_native:hover .button_inner {
+  .peculiar_button_native:hover .peculiar_button_inner {
     opacity: 0.6;
   }
 }
 
 /* Active state */
-.button_native:active .button_inner {
+.peculiar_button_native:active .peculiar_button_inner {
   opacity: 1;
 }
