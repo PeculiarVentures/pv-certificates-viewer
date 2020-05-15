@@ -12,6 +12,7 @@
 | `certificate`  | --               |                                                                          | `Certificate` | `undefined` |
 | `issuerDnLink` | `issuer-dn-link` | Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`. | `string`      | `undefined` |
 | `showIssuer`   | `show-issuer`    |                                                                          | `boolean`     | `true`      |
+| `view`         | `view`           | Choose view type instead @media.                                         | `"mobile"`    | `undefined` |
 
 
 ## Dependencies

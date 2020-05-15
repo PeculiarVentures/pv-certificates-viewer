@@ -19,6 +19,11 @@ export class CertificateSummary {
    */
   @Prop() issuerDnLink?: string;
 
+  /**
+   * Choose view type instead @media.
+   */
+  @Prop() view?: 'mobile';
+
   renderDN(item: Certificate['subject'] | Certificate['issuer']) {
     return Object.keys(item).map((keyName) => {
       return (
@@ -111,11 +116,15 @@ export class CertificateSummary {
 
   render() {
     return (
-      <Host>
-        <div class={{
-          basic_wrapper: true,
-          is_only: !this.showIssuer,
-        }}>
+      <Host
+        data-view={this.view}
+      >
+        <div
+          class={{
+            basic_wrapper: true,
+            is_only: !this.showIssuer,
+          }}
+        >
           <div class="basic_col">
             <peculiar-typography
               class="dn_row"

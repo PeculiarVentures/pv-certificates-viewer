@@ -16,6 +16,7 @@
 | `issuerDnLink`             | `issuer-dn-link`               | Issuer DN link.                                                                                                                   | `string`                | `undefined` |
 | `subjectKeyIdChildrenLink` | `subject-key-id-children-link` | Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension. | `string`                | `undefined` |
 | `subjectKeyIdSiblingsLink` | `subject-key-id-siblings-link` | Subject Key Identifier extension siblings link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension. | `string`                | `undefined` |
+| `view`                     | `view`                         | Choose view type instead @media.                                                                                                  | `"mobile"`              | `undefined` |
 
 
 ## Dependencies

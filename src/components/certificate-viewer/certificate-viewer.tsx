@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, Watch } from '@stencil/core';
+import { Component, h, Prop, State, Watch, Host } from '@stencil/core';
 
 import {
   Certificate,
@@ -65,6 +65,11 @@ export class CertificateViewer {
    * Issuer DN link.
    */
   @Prop() issuerDnLink?: string;
+
+  /**
+   * Choose view type instead @media.
+   */
+  @Prop() view?: 'mobile';
 
   @State() isDecodeInProcess: boolean = true;
 
@@ -686,72 +691,77 @@ export class CertificateViewer {
     }
 
     return (
-      <table>
-        {this.renderRowTitle('Basic Information')}
-        <tr>
-          <td colSpan={2}>
-            <peculiar-certificate-summary
-              certificate={this.certificateDecoded}
-              issuerDnLink={this.issuerDnLink}
-            />
-          </td>
-        </tr>
-
-        {this.renderRowTitle('Public Key Info')}
-        {this.renderRowValue('Algorithm', this.certificateDecoded.publicKey.algorithm.name)}
-        {this.renderRowValue(
-          'Modulus Bits',
-          this.certificateDecoded.publicKey.algorithm.modulusBits,
-        )}
-        {this.renderRowValue(
-          'Public Exponent',
-          this.certificateDecoded.publicKey.algorithm.publicExponent,
-        )}
-        {this.renderRowValue('Named Curve', this.certificateDecoded.publicKey.algorithm.namedCurve)}
-        {this.renderRowValue(
-          'Value',
-          this.certificateDecoded.publicKey.value,
-          { monospace: true, collapse: true },
-        )}
-
-        {this.renderRowTitle('Signature')}
-        {this.renderRowValue('Algorithm', this.certificateDecoded.signature.algorithm.name)}
-        {this.renderRowValue('Hash', this.certificateDecoded.signature.algorithm.hash)}
-        {this.renderRowValue(
-          'Value',
-          this.certificateDecoded.signature.value,
-          { monospace: true, collapse: true },
-        )}
-
-        {this.renderRowTitle('Fingerprints')}
-        {this.renderRowValue(
-          'SHA-256',
-          this.certificateDecoded.fingerprints['SHA-256'],
-          { monospace: true },
-        )}
-        {this.renderRowValue(
-          'SHA-1',
-          this.certificateDecoded.fingerprints['SHA-1'],
-          { monospace: true },
-        )}
-
-        {this.renderRowTitle('Extensions')}
-        {this.certificateDecoded.extensions.map(extension => ([
-          this.renderRowValue(
-            'Name',
-            extension.name ? `${extension.name} (${extension.oid})` : extension.oid,
-          ),
-          this.renderRowValue('Critical', String(extension.critical)),
-          this.renderRowExtensionValue(extension),
+      <Host
+        data-view={this.view}
+      >
+        <table>
+          {this.renderRowTitle('Basic Information')}
           <tr>
-            <td colSpan={2} class="divider">
-              <span class="bg_fill"></span>
+            <td colSpan={2}>
+              <peculiar-certificate-summary
+                certificate={this.certificateDecoded}
+                issuerDnLink={this.issuerDnLink}
+                view={this.view}
+              />
             </td>
-          </tr>,
-        ]))}
+          </tr>
 
-        {this.renderMiscellaneous()}
-      </table>
+          {this.renderRowTitle('Public Key Info')}
+          {this.renderRowValue('Algorithm', this.certificateDecoded.publicKey.algorithm.name)}
+          {this.renderRowValue(
+            'Modulus Bits',
+            this.certificateDecoded.publicKey.algorithm.modulusBits,
+          )}
+          {this.renderRowValue(
+            'Public Exponent',
+            this.certificateDecoded.publicKey.algorithm.publicExponent,
+          )}
+          {this.renderRowValue('Named Curve', this.certificateDecoded.publicKey.algorithm.namedCurve)}
+          {this.renderRowValue(
+            'Value',
+            this.certificateDecoded.publicKey.value,
+            { monospace: true, collapse: true },
+          )}
+
+          {this.renderRowTitle('Signature')}
+          {this.renderRowValue('Algorithm', this.certificateDecoded.signature.algorithm.name)}
+          {this.renderRowValue('Hash', this.certificateDecoded.signature.algorithm.hash)}
+          {this.renderRowValue(
+            'Value',
+            this.certificateDecoded.signature.value,
+            { monospace: true, collapse: true },
+          )}
+
+          {this.renderRowTitle('Fingerprints')}
+          {this.renderRowValue(
+            'SHA-256',
+            this.certificateDecoded.fingerprints['SHA-256'],
+            { monospace: true },
+          )}
+          {this.renderRowValue(
+            'SHA-1',
+            this.certificateDecoded.fingerprints['SHA-1'],
+            { monospace: true },
+          )}
+
+          {this.renderRowTitle('Extensions')}
+          {this.certificateDecoded.extensions.map(extension => ([
+            this.renderRowValue(
+              'Name',
+              extension.name ? `${extension.name} (${extension.oid})` : extension.oid,
+            ),
+            this.renderRowValue('Critical', String(extension.critical)),
+            this.renderRowExtensionValue(extension),
+            <tr>
+              <td colSpan={2} class="divider">
+                <span class="bg_fill"></span>
+              </td>
+            </tr>,
+          ]))}
+
+          {this.renderMiscellaneous()}
+        </table>
+      </Host>
     );
   }
 }

@@ -34,6 +34,10 @@ export namespace Components {
          */
         "issuerDnLink"?: string;
         "showIssuer"?: boolean;
+        /**
+          * Choose view type instead @media.
+         */
+        "view"?: "mobile";
     }
     interface PeculiarCertificateViewer {
         /**
@@ -68,6 +72,10 @@ export namespace Components {
           * @example  https://some.com/{{subjectKeyId}}
          */
         "subjectKeyIdSiblingsLink"?: string;
+        /**
+          * Choose view type instead @media.
+         */
+        "view"?: "mobile";
     }
     interface PeculiarCertificatesViewer {
         /**
@@ -218,6 +226,10 @@ declare namespace LocalJSX {
          */
         "issuerDnLink"?: string;
         "showIssuer"?: boolean;
+        /**
+          * Choose view type instead @media.
+         */
+        "view"?: "mobile";
     }
     interface PeculiarCertificateViewer {
         /**
@@ -252,6 +264,10 @@ declare namespace LocalJSX {
           * @example  https://some.com/{{subjectKeyId}}
          */
         "subjectKeyIdSiblingsLink"?: string;
+        /**
+          * Choose view type instead @media.
+         */
+        "view"?: "mobile";
     }
     interface PeculiarCertificatesViewer {
         /**

@@ -123,3 +123,29 @@ table tr:last-child .divider {
     max-width: none;
   }
 }
+
+:host([data-view="mobile"]) {
+  table, tr, td {
+    display: block;
+  }
+
+  table td:last-child,
+  table td:first-child {
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 100%;
+  }
+
+  table .title + tr td {
+    padding-top: 5px;
+  }
+
+  table .title + tr td:first-child {
+    padding-top: 15px;
+  }
+
+  table td.monospace {
+    width: 100%;
+    max-width: none;
+  }
+}

@@ -136,3 +136,47 @@ td {
     padding: 5px 0;
   }
 }
+
+:host([data-view="mobile"]) {
+  .basic_wrapper::before,
+  .basic_wrapper::after {
+    content: none;
+  }
+
+  .basic_col {
+    padding: 20px 0;
+    width: 100% !important;
+    border-bottom: 1px solid rgba(var(--peculiar-color-grey_3-rgb), 0.5);
+  }
+
+  .basic_col::after {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    width: 100%;
+  }
+
+  .basic_meta {
+    width: 100%;
+    padding: 20px 0;
+    min-width: auto;
+  }
+
+  .basic_wrapper::before,
+  .basic_wrapper::after {
+    content: none;
+  }
+
+  .meta_row:not(:last-child) {
+    margin-bottom: 0;
+  }
+
+  .meta_name,
+  .meta_value {
+    width: 100%;
+    padding: 5px 0;
+  }
+}
+
