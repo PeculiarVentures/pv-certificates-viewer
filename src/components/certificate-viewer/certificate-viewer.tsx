@@ -716,7 +716,10 @@ export class CertificateViewer {
             'Public Exponent',
             this.certificateDecoded.publicKey.algorithm.publicExponent,
           )}
-          {this.renderRowValue('Named Curve', this.certificateDecoded.publicKey.algorithm.namedCurve)}
+          {this.renderRowValue(
+            'Named Curve',
+            this.certificateDecoded.publicKey.algorithm.namedCurve,
+          )}
           {this.renderRowValue(
             'Value',
             this.certificateDecoded.publicKey.value,
