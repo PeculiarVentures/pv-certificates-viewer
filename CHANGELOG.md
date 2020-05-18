@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.9 (2020-05-18)
+
+
+### Features
+
+* **oids:** Added QCP oids ([8b27011](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/8b270115f18172feeabbb28e8bdd7f60d6d36f05))
+* **viewer:** Added LEI extension link ([aebb45b](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/aebb45b578222fdd64428da95809037d56da4f82))
+
+
 ### 0.0.8 (2020-05-15)
 
 
