@@ -160,7 +160,7 @@ interface IExtensionAdobeTimestamp
     { version: number, location: string; requiresAuth?: boolean; }
   > {}
 
-interface IExtensionLEI
+export interface IExtensionLEI
   extends IExtensionBasic<
     EnumOIDs.LEI,
     string

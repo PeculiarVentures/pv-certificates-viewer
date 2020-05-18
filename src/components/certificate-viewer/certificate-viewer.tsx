@@ -6,6 +6,7 @@ import {
   EnumOIDs,
   IExtensionAuthorityKeyIdentifier,
   IExtensionSubjectKeyIdentifier,
+  IExtensionLEI,
 } from '../../utils/crypto';
 import validator from '../../utils/validator';
 import * as dateFormatter from '../../utils/dateFormatter';
@@ -140,6 +141,10 @@ export class CertificateViewer {
   private getSubjectKeyIdSiblingsLink(extension: IExtensionSubjectKeyIdentifier) {
     return this.subjectKeyIdSiblingsLink
       ?.replace('{{subjectKeyId}}', extension.value);
+  }
+
+  private getLEILink(extension: IExtensionLEI) {
+    return `https://www.gleif.org/lei/${extension.value}`;
   }
 
   private renderRowTitle(title: string) {
@@ -610,7 +615,19 @@ export class CertificateViewer {
         ];
       }
 
-      case EnumOIDs.LEI:
+      case EnumOIDs.LEI: {
+        const leiLink = this.getLEILink(extension);
+
+        return this.renderRowValue(
+          'Value',
+          [(
+            <a class="peculiar_color_primary" href={leiLink} target="_blank">
+              {extension.value}
+            </a>
+          )],
+        );
+      }
+
       case EnumOIDs.Role: {
         return this.renderRowValue(
           'Value',

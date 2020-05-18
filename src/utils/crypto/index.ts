@@ -5,4 +5,5 @@ export {
   EnumOIDs,
   IExtensionAuthorityKeyIdentifier,
   IExtensionSubjectKeyIdentifier,
+  IExtensionLEI,
 } from './Certificate';
