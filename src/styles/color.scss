@@ -3,14 +3,17 @@
 
 @each $name, $value in $colors {
   .peculiar_stroke_#{$name} {
-    border-color: rgb(var(--peculiar-color-#{$name}-rgb));
+    border-color: $value;
+    border-color: rgb(var(--peculiar-color-#{$name}-rgb, #{color-to-rgb-list($value)}));
   }
 
   .peculiar_fill_#{$name} {
-    background-color: rgb(var(--peculiar-color-#{$name}-rgb));
+    background-color: $value;
+    background-color: rgb(var(--peculiar-color-#{$name}-rgb, #{color-to-rgb-list($value)}));
   }
 
   .peculiar_color_#{$name} {
-    color: rgb(var(--peculiar-color-#{$name}-rgb));
+    color: $value;
+    color: rgb(var(--peculiar-color-#{$name}-rgb, #{color-to-rgb-list($value)}));
   }
 }
