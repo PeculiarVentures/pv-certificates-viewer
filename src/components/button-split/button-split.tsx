@@ -15,27 +15,27 @@ export class ButtonSplit {
   @Prop() fill: 'stroke' | 'fill' = 'stroke';
   @Prop() actions: IAction[] = [];
 
-  @State() activeSplit: boolean = false;
+  @State() open: boolean = false;
 
   onClickSplitButton = (event: MouseEvent) => {
     event.stopPropagation();
 
-    this.activeSplit = !this.activeSplit;
+    this.open = !this.open;
   }
 
   onClickActiveButton(action: IAction['onClick'], event: MouseEvent) {
-    this.activeSplit = false;
+    this.open = false;
 
     action(event);
   }
 
   renderActiveSplitState() {
-    if (!this.activeSplit) {
+    if (!this.open) {
       return null;
     }
 
     return (
-      <div class="active_split_container peculiar_fill_light">
+      <div class="button_split_container peculiar_fill_light">
         {this.actions.map(action => (
           <peculiar-button
             fill="fill"
@@ -62,7 +62,10 @@ export class ButtonSplit {
         <peculiar-button
           fill={this.fill}
           onClick={this.onClickSplitButton}
-          class="button_split_with_icon"
+          class={{
+            button_split_with_icon: true,
+            m_open: this.open,
+          }}
         >
           <svg
             viewBox="0 0 7 5"
