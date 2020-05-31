@@ -1,6 +1,6 @@
 import { Component, Host, h, Prop } from '@stencil/core';
 
-import { Certificate } from '../../utils/crypto';
+import { X509Certificate } from '../../utils/crypto';
 import * as dateFormatter from '../../utils/dateFormatter';
 
 @Component({
@@ -10,7 +10,7 @@ import * as dateFormatter from '../../utils/dateFormatter';
 })
 
 export class CertificateSummary {
-  @Prop() certificate: Certificate;
+  @Prop() certificate: X509Certificate;
 
   @Prop() showIssuer?: boolean = true;
   /**
@@ -24,7 +24,7 @@ export class CertificateSummary {
    */
   @Prop() view?: 'mobile';
 
-  renderDN(item: Certificate['subject'] | Certificate['issuer']) {
+  renderDN(item: X509Certificate['subject'] | X509Certificate['issuer']) {
     return Object.keys(item).map((keyName) => {
       return (
         <tr class="dn_row">
@@ -43,7 +43,7 @@ export class CertificateSummary {
     });
   }
 
-  renderMetaData(item: Certificate) {
+  renderMetaData(item: X509Certificate) {
     return ([
       <div class="meta_row">
         <peculiar-typography

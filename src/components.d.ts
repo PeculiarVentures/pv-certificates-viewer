@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { IAction, } from "./components/button-split/button-split";
-import { Certificate, } from "./utils/crypto";
+import { X509Certificate, } from "./utils/crypto";
 import { CertificateProp, } from "./components/certificate-viewer/certificate-viewer";
 import { ICertificate, } from "./components/certificates-viewer/certificates-viewer";
 export namespace Components {
@@ -28,7 +28,7 @@ export namespace Components {
         "certificateExample"?: string;
     }
     interface PeculiarCertificateSummary {
-        "certificate": Certificate;
+        "certificate": X509Certificate;
         /**
           * Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`.
          */
@@ -220,7 +220,7 @@ declare namespace LocalJSX {
         "certificateExample"?: string;
     }
     interface PeculiarCertificateSummary {
-        "certificate"?: Certificate;
+        "certificate"?: X509Certificate;
         /**
           * Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`.
          */

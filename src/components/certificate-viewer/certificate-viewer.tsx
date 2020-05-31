@@ -1,7 +1,7 @@
 import { Component, h, Prop, State, Watch, Host } from '@stencil/core';
 
 import {
-  Certificate,
+  X509Certificate,
   TExtension,
   EnumOIDs,
   IExtensionAuthorityKeyIdentifier,
@@ -11,7 +11,7 @@ import {
 import validator from '../../utils/validator';
 import * as dateFormatter from '../../utils/dateFormatter';
 
-export type CertificateProp = string | Certificate;
+export type CertificateProp = string | X509Certificate;
 
 @Component({
   tag: 'peculiar-certificate-viewer',
@@ -19,7 +19,7 @@ export type CertificateProp = string | Certificate;
   scoped: true,
 })
 export class CertificateViewer {
-  certificateDecoded: Certificate;
+  certificateDecoded: X509Certificate;
   certificateDecodeError: Error;
 
   /**
@@ -81,13 +81,13 @@ export class CertificateViewer {
   private async decodeCertificate(certificate: CertificateProp) {
     this.isDecodeInProcess = true;
 
-    if (certificate instanceof Certificate) {
+    if (certificate instanceof X509Certificate) {
       this.certificateDecoded = certificate;
     }
 
     if (typeof certificate === 'string') {
       try {
-        this.certificateDecoded = new Certificate(certificate, undefined, true);
+        this.certificateDecoded = new X509Certificate(certificate, undefined, true);
       } catch (error) {
         this.certificateDecodeError = error;
 
@@ -116,7 +116,7 @@ export class CertificateViewer {
       return;
     }
 
-    if (newValue instanceof Certificate && oldValue instanceof Certificate) {
+    if (newValue instanceof X509Certificate && oldValue instanceof X509Certificate) {
       if (newValue.serialNumber !== oldValue.serialNumber) {
         this.decodeCertificate(newValue);
       }

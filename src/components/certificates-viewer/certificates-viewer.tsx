@@ -1,6 +1,6 @@
 import { Component, h, Prop, State, Watch, Host } from '@stencil/core';
 
-import { Certificate } from '../../utils/crypto';
+import { X509Certificate } from '../../utils/crypto';
 
 export interface ICertificate {
   value: string;
@@ -12,7 +12,7 @@ export interface ICertificate {
   };
 }
 
-interface ICertificateDecoded extends Certificate {
+interface ICertificateDecoded extends X509Certificate {
   tests?: ICertificate['tests'];
 }
 
@@ -44,7 +44,7 @@ export class CertificatesViewer {
 
   @State() search: string = '';
   @State() certificatesDecoded: ICertificateDecoded[] = [];
-  @State() expandedRow: Certificate['serialNumber'] | null;
+  @State() expandedRow: X509Certificate['serialNumber'] | null;
   @State() certificateSelectedForDetails: string | null;
   @State() isDecodeInProcess: boolean = true;
 
@@ -74,7 +74,7 @@ export class CertificatesViewer {
 
     for (const certificate of this.certificates) {
       try {
-        const cert = new Certificate(certificate.value, certificate.name);
+        const cert = new X509Certificate(certificate.value, certificate.name);
 
         await cert.getFingerprint('SHA-1');
 
@@ -120,7 +120,7 @@ export class CertificatesViewer {
     this.certificatesDecoded = data;
   }
 
-  onClickDownload(certificate: Certificate, downloadType: 'PEM' | 'DER', event: MouseEvent) {
+  onClickDownload(certificate: X509Certificate, downloadType: 'PEM' | 'DER', event: MouseEvent) {
     event.stopPropagation();
 
     if (downloadType === 'PEM') {
@@ -140,7 +140,7 @@ export class CertificatesViewer {
     this.certificateSelectedForDetails = null;
   }
 
-  onClickRow(serialNumber: Certificate['serialNumber']) {
+  onClickRow(serialNumber: X509Certificate['serialNumber']) {
     const isExpandedRowClicked = this.expandedRow === serialNumber;
 
     this.expandedRow = isExpandedRowClicked
@@ -148,7 +148,7 @@ export class CertificatesViewer {
       : serialNumber;
   }
 
-  renderExpandedRow(certificate: Certificate) {
+  renderExpandedRow(certificate: X509Certificate) {
     let colSpan = 4;
 
     if (this.isHasTests) {

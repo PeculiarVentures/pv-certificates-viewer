@@ -5,7 +5,7 @@ import _AlgorithmIdentifier from 'pkijs/src/AlgorithmIdentifier';
 
 import validator from '../validator';
 
-export default class Basic {
+export class Basic {
   input: string;
   name?: string;
   base64: string;

@@ -2,7 +2,7 @@ import { Component, Host, h, State, Prop } from '@stencil/core';
 
 import readFile from '../../utils/readFile';
 import history from '../../utils/history';
-import { Certificate } from '../../utils/crypto';
+import { X509Certificate } from '../../utils/crypto';
 
 @Component({
   tag: 'peculiar-certificate-decoder',
@@ -17,7 +17,7 @@ export class CertificateDecoder {
    */
   @Prop() certificateExample?: string;
 
-  @State() certificateDecoded: Certificate;
+  @State() certificateDecoded: X509Certificate;
 
   componentDidLoad() {
     const parsedHash = history.parseHash(window.location.search);
@@ -84,7 +84,7 @@ export class CertificateDecoder {
 
   decode(certificate: string) {
     try {
-      const decoded = new Certificate(certificate, undefined, true);
+      const decoded = new X509Certificate(certificate, undefined, true);
 
       this.certificateDecoded = decoded;
       this.inputPaste.value = decoded.pem;

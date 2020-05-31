@@ -5,9 +5,10 @@ import * as dateFormatter from '../dateFormatter';
 import downloadFromBuffer from  '../downloadFromBuffer';
 import OIDS from  '../../constants/oids';
 import SANs from '../../constants/san_types';
+import * as crypto from '../../crypto';
 
 import * as pkijs from './pkijs';
-import Basic from './Basic';
+import { Basic } from './Basic';
 
 interface ISubject extends Record<string, { oid: string; value: string; }> {}
 
@@ -194,7 +195,7 @@ export type TExtension = IExtensionBasic<EnumOIDs.ANY, string>
   | IExtensionLEI
   | IExtensionRole;
 
-export default class Certificate extends Basic {
+export class X509Certificate extends Basic {
   notBefore?: Date;
   notAfter?: Date;
   validity: string = '';
@@ -230,7 +231,7 @@ export default class Certificate extends Basic {
   }
 
   static base64ToPem(base64: string) {
-    return Certificate.pemTagCertificate(base64.replace(/(.{64})/g, '$1\n'));
+    return X509Certificate.pemTagCertificate(base64.replace(/(.{64})/g, '$1\n'));
   }
 
   static getExtensionNetscapeCertType(extension: pkijs.Extension): string[] {
@@ -371,7 +372,7 @@ export default class Certificate extends Basic {
         }
 
         case 7: {
-          item.value = Certificate.decodeIP(
+          item.value = X509Certificate.decodeIP(
             Convert.ToHex(
               altNameBase.value.valueBlock.valueHex,
             ),
@@ -392,32 +393,35 @@ export default class Certificate extends Basic {
   }
 
   private decode(fullDecode: boolean = false) {
-    this.pem = Certificate.base64ToPem(this.base64);
+    this.pem = X509Certificate.base64ToPem(this.base64);
 
     const pkijsSchema = new pkijs.Certificate({
       schema: this.schema,
     });
 
+    console.log(pkijsSchema);
+    console.log(new crypto.X509Certificate(Convert.FromBase64(this.base64)));
+
     // Start decode
     // decode subject
     if (pkijsSchema.subject) {
       if (Array.isArray(pkijsSchema.subject)) {
-        this.subject = Certificate.prepareSubject(pkijsSchema.subject);
+        this.subject = X509Certificate.prepareSubject(pkijsSchema.subject);
       }
 
       if (Array.isArray(pkijsSchema.subject.typesAndValues)) {
-        this.subject = Certificate.prepareSubject(pkijsSchema.subject.typesAndValues);
+        this.subject = X509Certificate.prepareSubject(pkijsSchema.subject.typesAndValues);
       }
     }
 
     // decode issuer
     if (pkijsSchema.issuer) {
       if (Array.isArray(pkijsSchema.issuer)) {
-        this.issuer = Certificate.prepareSubject(pkijsSchema.issuer);
+        this.issuer = X509Certificate.prepareSubject(pkijsSchema.issuer);
       }
 
       if (Array.isArray(pkijsSchema.issuer.typesAndValues)) {
-        this.issuer = Certificate.prepareSubject(pkijsSchema.issuer.typesAndValues);
+        this.issuer = X509Certificate.prepareSubject(pkijsSchema.issuer.typesAndValues);
       }
     }
 
@@ -499,7 +503,7 @@ export default class Certificate extends Basic {
 
     // decode signature
     this.signature = {
-      algorithm: Certificate.prepareAlgorithm(pkijsSchema.signatureAlgorithm),
+      algorithm: X509Certificate.prepareAlgorithm(pkijsSchema.signatureAlgorithm),
       value: Convert.ToHex(
         pkijsSchema
           .signatureValue
@@ -666,7 +670,7 @@ export default class Certificate extends Basic {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
               oid: EnumOIDs.SubjectAlternativeName,
-              value: Certificate.decodeSANs(ext.parsedValue.altNames),
+              value: X509Certificate.decodeSANs(ext.parsedValue.altNames),
             };
 
             return this.extensions.push(extension);
@@ -678,8 +682,8 @@ export default class Certificate extends Basic {
               critical: ext.critical,
               oid: EnumOIDs.NameConstraints,
               value: {
-                permitted: Certificate.decodeSANs(ext.parsedValue.permittedSubtrees || []),
-                excluded: Certificate.decodeSANs(ext.parsedValue.excludedSubtrees || []),
+                permitted: X509Certificate.decodeSANs(ext.parsedValue.permittedSubtrees || []),
+                excluded: X509Certificate.decodeSANs(ext.parsedValue.excludedSubtrees || []),
               },
             };
 
@@ -728,7 +732,7 @@ export default class Certificate extends Basic {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
               oid: EnumOIDs.KeyUsage,
-              value: Certificate.getExtensionKeyUsage(ext),
+              value: X509Certificate.getExtensionKeyUsage(ext),
             };
 
             return this.extensions.push(extension);
@@ -739,7 +743,7 @@ export default class Certificate extends Basic {
               name: OIDS[ext.extnID] || '',
               critical: ext.critical,
               oid: EnumOIDs.NetscapeCertificateType,
-              value: Certificate.getExtensionNetscapeCertType(ext),
+              value: X509Certificate.getExtensionNetscapeCertType(ext),
             };
 
             return this.extensions.push(extension);
@@ -766,7 +770,7 @@ export default class Certificate extends Basic {
 
                 return {
                   logID,
-                  name: Certificate.logs[logID],
+                  name: X509Certificate.logs[logID],
                   timestamp: timestamp.timestamp,
                   version: timestamp.version + 1,
                   hashAlgorithm: timestamp.hashAlgorithm,
