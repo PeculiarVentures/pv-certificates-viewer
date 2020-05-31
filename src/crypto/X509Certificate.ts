@@ -16,72 +16,85 @@ import { Convert } from 'pvtsutils';
 
 import { HashedAlgorithm } from './types';
 import { cryptoProvider } from './provider';
-import { Name } from './name';
+import { Name, INameJSON } from './name';
 import { Extension } from './extension';
 import { AsnData } from './asn_data';
 
+export interface ISignature {
+  algorithm: HashedAlgorithm;
+  value: BufferSource;
+}
+
 export class X509Certificate extends AsnData<Certificate> {
   public readonly serialNumber: string;
-  public readonly subject: any[];
-  public readonly issuer: any[];
+  public readonly subject: INameJSON[];
+  public readonly issuer: INameJSON[];
   public readonly notBefore: Date;
   public readonly notAfter: Date;
-  public readonly signatureAlgorithm: HashedAlgorithm;
-  public readonly extensions: Extension[] = [];
+  public extensions: Extension[];
+  public readonly version: number;
+  public signature: ISignature;
+  public publicKey: CryptoKey;
 
   public constructor(raw: BufferSource) {
     super(raw, Certificate);
 
-    const tbs = this.asn.tbsCertificate;
+    const { tbsCertificate } = this.asn;
 
-    this.serialNumber = Convert.ToHex(tbs.serialNumber);
-    this.subject = new Name(tbs.subject).toJSON();
-    this.issuer = new Name(tbs.issuer).toJSON();
-    this.signatureAlgorithm = this.getSignatureAlgorithm();
+    this.serialNumber = Convert.ToHex(tbsCertificate.serialNumber);
+    this.subject = new Name(tbsCertificate.subject).toJSON();
+    this.issuer = new Name(tbsCertificate.issuer).toJSON();
+    this.version = tbsCertificate.version + 1;
 
-    const notBefore = tbs.validity.notBefore.utcTime || tbs.validity.notBefore.generalTime;
+    const notBefore = tbsCertificate.validity.notBefore.utcTime
+      || tbsCertificate.validity.notBefore.generalTime;
 
     if (!notBefore) {
       throw new Error("Cannot get 'notBefore' value");
     }
+
     this.notBefore = notBefore;
 
-    const notAfter = tbs.validity.notAfter.utcTime || tbs.validity.notAfter.generalTime;
+    const notAfter = tbsCertificate.validity.notAfter.utcTime
+      || tbsCertificate.validity.notAfter.generalTime;
 
     if (!notAfter) {
       throw new Error("Cannot get 'notAfter' value");
     }
-    this.notAfter = notAfter;
 
-    if (tbs.extensions) {
-      this.extensions = tbs.extensions.map(o => new Extension(AsnConvert.serialize(o)));
+    this.notAfter = notAfter;
+  }
+
+  public parseExtensions() {
+    const { tbsCertificate } = this.asn;
+
+    if (tbsCertificate.extensions) {
+      this.extensions = tbsCertificate.extensions
+        .map(e => new Extension(AsnConvert.serialize(e)));
     }
   }
 
-  public async getPublicKey(crypto?: Crypto): Promise<CryptoKey>;
-  public async getPublicKey(algorithm: Algorithm, keyUsages: KeyUsage[], crypto?: Crypto): Promise<CryptoKey>;
-  public async getPublicKey(...args: any[]) {
-    let algorithm: Algorithm = this.getSignatureAlgorithm();
-    let keyUsages: KeyUsage[] = ['verify'];
-    let crypto = cryptoProvider.get();
-
-    if (args.length > 1) {
-      // alg, usages, crypto?
-      algorithm = args[0] || algorithm;
-      keyUsages = args[1] || keyUsages;
-      crypto = args[2] || crypto;
-    } else {
-      // crypto?
-      crypto = args[0] || crypto;
-    }
-
+  public async parsePublicKey() {
+    const signatureAlgorithm = this.getSignatureAlgorithm();
+    const keyUsages: KeyUsage[] = ['verify'];
+    const crypto = cryptoProvider.get();
     const spki = AsnConvert.serialize(this.asn.tbsCertificate.subjectPublicKeyInfo);
 
-    return crypto.subtle.importKey('spki', spki, algorithm as any, true, keyUsages);
+    this.publicKey = await crypto.subtle
+      .importKey('spki', spki, signatureAlgorithm, true, keyUsages);
   }
 
-  public getSignatureAlgorithm(): HashedAlgorithm {
-    const signatureAlgorithm = this.asn.signatureAlgorithm;
+  public parseSignature() {
+    const { signatureValue } = this.asn;
+
+    this.signature = {
+      algorithm: this.getSignatureAlgorithm(),
+      value: signatureValue,
+    };
+  }
+
+  private getSignatureAlgorithm(): HashedAlgorithm {
+    const { signatureAlgorithm } = this.asn;
 
     switch (signatureAlgorithm.algorithm) {
       case id_sha1WithRSAEncryption:
@@ -107,27 +120,19 @@ export class X509Certificate extends AsnData<Certificate> {
 
   public async verify(date = new Date(), crypto = cryptoProvider.get()) {
     const tbs = AsnConvert.serialize(this.asn.tbsCertificate);
-    const publicKey = await this.getPublicKey();
-    const ok = await crypto.subtle.verify(this.signatureAlgorithm as any, publicKey, this.asn.signatureValue, tbs);
+    const ok = await crypto.subtle
+      .verify(this.signature.algorithm, this.publicKey, this.asn.signatureValue, tbs);
     const time = date.getTime();
 
     return ok && this.notBefore.getTime() < time && time < this.notAfter.getTime();
   }
 
-  public async getThumbprint(crypto?: Crypto): Promise<ArrayBuffer>;
-  public async getThumbprint(algorithm: globalThis.AlgorithmIdentifier, crypto?: Crypto): Promise<ArrayBuffer>;
-  public async getThumbprint(...args: any[]) {
-    let crypto = cryptoProvider.get();
-    let algorithm = 'SHA-1';
+  public async getThumbprint(
+    algorithm: globalThis.AlgorithmIdentifier = 'SHA-1',
+  ): Promise<ArrayBuffer> {
+    const crypto = cryptoProvider.get();
 
-    if (args.length === 1 && !args[0]?.subtle) {
-      // crypto?
-      algorithm = args[0] || algorithm;
-      crypto = args[1] || crypto;
-    } else {
-      crypto = args[0] || crypto;
-    }
-
-    return await crypto.subtle.digest(algorithm, this.rawData);
+    return crypto.subtle
+      .digest(algorithm, this.rawData);
   }
 }

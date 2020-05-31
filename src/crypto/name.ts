@@ -16,6 +16,12 @@ const names: Record<string, string> = {
   '2.5.4.12': 'T',
 };
 
+export interface INameJSON {
+  type: string;
+  name: string;
+  value: string;
+}
+
 export class Name {
   private asn = new AsnName();
 
@@ -25,7 +31,7 @@ export class Name {
       : AsnConvert.parse(data, AsnName);
   }
 
-  public toJSON() {
+  public toJSON(): INameJSON[] {
     const res = [];
 
     this.asn.forEach(o => (

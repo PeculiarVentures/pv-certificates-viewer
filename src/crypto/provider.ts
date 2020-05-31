@@ -1,5 +1,4 @@
 export class CryptoProvider extends Map<string, Crypto> {
-
   public static DEFAULT = 'default';
 
   public static isCryptoKeyPair(data: any): data is CryptoKeyPair {
