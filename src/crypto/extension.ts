@@ -23,8 +23,8 @@ import {
   id_ce_cRLReasons,
   CRLReason,
 
-  // id_ce_extKeyUsage,
-  // ExtendedKeyUsage,
+  id_ce_extKeyUsage,
+  ExtendedKeyUsage,
 
   id_ce_inhibitAnyPolicy,
   InhibitAnyPolicy,
@@ -61,11 +61,22 @@ import {
   QCStatements,
 } from '@peculiar/asn1-x509-qualified';
 import {
+  id_certificateTemplate,
   CertificateTemplate,
 
-  // id_enrollCertType,
-  // EnrollCertType,
+  id_enrollCertType,
+  EnrollCertTypeChoice,
+
+  id_caVersion,
+  CaVersion,
 } from '@peculiar/asn1-x509-microsoft';
+import {
+  id_netscapeComment,
+  NetscapeComment,
+
+  id_netscapeCertType,
+  NetscapeCertType,
+} from '@peculiar/asn1-x509-netscape';
 import { AsnParser } from '@peculiar/asn1-schema';
 
 import { AsnData } from './asn_data';
@@ -100,9 +111,9 @@ export class Extension extends AsnData<AsnExtension>{
       case id_ce_cRLReasons:
         this.value = AsnParser.parse(this.asn.extnValue, CRLReason);
         break;
-      // case id_ce_extKeyUsage:
-      //   this.value = AsnParser.parse(this.asn.extnValue, ExtendedKeyUsage);
-      //   break;
+      case id_ce_extKeyUsage:
+        this.value = AsnParser.parse(this.asn.extnValue, ExtendedKeyUsage);
+        break;
       case id_ce_inhibitAnyPolicy:
         this.value = AsnParser.parse(this.asn.extnValue, InhibitAnyPolicy);
         break;
@@ -136,12 +147,21 @@ export class Extension extends AsnData<AsnExtension>{
       case id_pe_qcStatements:
         this.value = AsnParser.parse(this.asn.extnValue, QCStatements);
         break;
-      case '1.3.6.1.4.1.311.21.7':
+      case id_certificateTemplate:
         this.value = AsnParser.parse(this.asn.extnValue, CertificateTemplate);
         break;
-      // case id_enrollCertType:
-      //   this.value = AsnParser.parse(this.asn.extnValue, EnrollCertType);
-      //   break;
+      case id_enrollCertType:
+        this.value = AsnParser.parse(this.asn.extnValue, EnrollCertTypeChoice);
+        break;
+      case id_netscapeComment:
+        this.value = AsnParser.parse(this.asn.extnValue, NetscapeComment);
+        break;
+      case id_netscapeCertType:
+        this.value = AsnParser.parse(this.asn.extnValue, NetscapeCertType);
+        break;
+      case id_caVersion:
+        this.value = AsnParser.parse(this.asn.extnValue, CaVersion);
+        break;
 
       default:
         this.value = this.asn.extnValue;
