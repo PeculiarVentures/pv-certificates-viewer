@@ -63,6 +63,9 @@ export class X509Certificate extends AsnData<Certificate> {
     }
 
     this.notAfter = notAfter;
+
+    this.parseExtensions();
+    this.parseSignature();
   }
 
   public parseExtensions() {

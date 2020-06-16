@@ -77,7 +77,7 @@ import {
   id_netscapeCertType,
   NetscapeCertType,
 } from '@peculiar/asn1-x509-netscape';
-import { AsnParser } from '@peculiar/asn1-schema';
+import { AsnParser, OctetString } from '@peculiar/asn1-schema';
 
 import { AsnData } from './asn_data';
 
@@ -161,6 +161,9 @@ export class Extension extends AsnData<AsnExtension>{
         break;
       case id_caVersion:
         this.value = AsnParser.parse(this.asn.extnValue, CaVersion);
+        break;
+      case '1.3.6.1.4.1.11129.2.4.2':
+        this.value = AsnParser.parse(this.asn.extnValue, OctetString);
         break;
 
       default:
