@@ -9,7 +9,7 @@ import SANs from '../../constants/san_types';
 import * as pkijs from './pkijs';
 import Basic from './Basic';
 
-interface ISubject extends Record<string, { oid: string; value: string; }> {}
+interface ISubject extends Record<string, { oid: string; value: string[]; }> {}
 
 export enum EnumOIDs {
   BasicConstraints = '2.5.29.19',
@@ -904,11 +904,11 @@ export default class Certificate extends Basic {
 
     if (this.subject) {
       if (this.subject.CN) {
-        return this.subject.CN.value;
+        return this.subject.CN.value[0];
       }
 
       if (this.subject.E) {
-        return this.subject.E.value;
+        return this.subject.E.value[0];
       }
     }
 
