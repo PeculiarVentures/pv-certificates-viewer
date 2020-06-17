@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.10 (2020-06-17)
+
+
+### Features
+
+* **oids:** Added ASP.NET oid ([2bed11c](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/2bed11c79a4951bfe8512b5235bf8c2bbaa4236d))
+* **oids:** Added GlobalSign oids ([ace8d5c](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/ace8d5c1b1428431d33088126518480310b034c5))
+* **oids:** Added EKUs oids ([57fa33a](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/57fa33a2992e2a917f959460c73983abfaf0f841))
+* **button-split:** Added possibility close menu using click anywhere ([498da93](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/498da932cb97621a1ca397aa5ff5ee20e9dc58d1))
+* **crypto:** Added support parse and show same subject/issuer names ([147198a](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/147198a4cb65ff35bb2f3667dc25c08fb3687ac5))
+
+
 ### 0.0.9 (2020-05-18)
 
 
