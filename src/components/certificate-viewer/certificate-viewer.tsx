@@ -672,6 +672,29 @@ export class CertificateViewer {
     ];
   }
 
+  private renderExtensions() {
+    if (!this.certificateDecoded.extensions.length) {
+      return null;
+    }
+
+    return [
+      this.renderRowTitle('Extensions'),
+      this.certificateDecoded.extensions.map(extension => ([
+        this.renderRowValue(
+          'Name',
+          extension.name ? `${extension.name} (${extension.oid})` : extension.oid,
+        ),
+        this.renderRowValue('Critical', String(extension.critical)),
+        this.renderRowExtensionValue(extension),
+        <tr>
+          <td colSpan={2} class="divider">
+            <span class="bg_fill"></span>
+          </td>
+        </tr>,
+      ])),
+    ];
+  }
+
   private renderErrorState() {
     return (
       <div class="status_wrapper">
@@ -764,20 +787,7 @@ export class CertificateViewer {
             { monospace: true },
           )}
 
-          {this.renderRowTitle('Extensions')}
-          {this.certificateDecoded.extensions.map(extension => ([
-            this.renderRowValue(
-              'Name',
-              extension.name ? `${extension.name} (${extension.oid})` : extension.oid,
-            ),
-            this.renderRowValue('Critical', String(extension.critical)),
-            this.renderRowExtensionValue(extension),
-            <tr>
-              <td colSpan={2} class="divider">
-                <span class="bg_fill"></span>
-              </td>
-            </tr>,
-          ]))}
+          {this.renderExtensions()}
 
           {this.renderMiscellaneous()}
         </table>
