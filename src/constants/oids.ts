@@ -960,6 +960,7 @@ const OIDs: Record<string, string> = {
   '1.2.840.113635.100.6.1.1': 'Apple Certificate Extension Apple Signing',
   '1.2.840.113635.100.6.1.2': 'Apple Certificate Extension ADC Developer Signing',
   '1.2.840.113635.100.6.1.3': 'Apple Certificate Extension ADC Apple Signing',
+  '1.2.840.113635.100.6.2.3': 'Apple Application Integration',
   '1.2.840.114021.1.6.1': 'Identrus unknown policy Identifier',
   '1.2.840.114021.4.1': 'Identrus OCSP',
   '1.3.6.1.4.1.188.7.1.1': 'Ascom',
@@ -1132,6 +1133,12 @@ const OIDs: Record<string, string> = {
   '1.3.6.1.4.1.4146.1.81': 'GlobalSign EDI Server Policy',
   '1.3.6.1.4.1.4146.1.90': 'GlobalSign TPM Root Policy',
   '1.3.6.1.4.1.4146.1.95': 'GlobalSign OCSP Policy',
+  //
+  // https://developers.yubico.com/PIV/Introduction/PIV_attestation.html
+  '1.3.6.1.4.1.41482.3.3': 'YubiKey Firmware Version',
+  '1.3.6.1.4.1.41482.3.7': 'YubiKey Serial Number',
+  '1.3.6.1.4.1.41482.3.8': 'YubiKey PIN Touch Policy',
+  '1.3.6.1.4.1.41482.3.9': 'YubiKey Formfactor',
   //
   '1.3.6.1.4.1.4788.2.202.1': 'D-TRUSTEV policy',
   '1.3.6.1.4.1.5309.1': 'Edel Web Policy',
