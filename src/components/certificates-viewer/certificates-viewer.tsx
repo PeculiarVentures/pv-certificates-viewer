@@ -227,7 +227,7 @@ export class CertificatesViewer {
       const isExpandedRow = certificate.serialNumber === this.expandedRow;
       const publicKeyValue = `${certificate.publicKey.algorithm.name} ${certificate.publicKey.algorithm.modulusBits || certificate.publicKey.algorithm.namedCurve}`;
       const issuerValue = certificate.issuer && certificate.issuer.CN
-        ? certificate.issuer.CN.value
+        ? certificate.issuer.CN.value.join(', ')
         : '';
 
       if (this.filterWithSearch && this.search) {

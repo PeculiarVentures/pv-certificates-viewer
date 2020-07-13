@@ -25,9 +25,11 @@ export class CertificateSummary {
   @Prop() view?: 'mobile';
 
   renderDN(item: X509Certificate['subject'] | X509Certificate['issuer']) {
-    return Object.keys(item).map((keyName) => {
-      return (
-        <tr class="dn_row">
+    return Object.keys(item).map(keyName => (
+      item[keyName].value.map(value => (
+        <tr
+          class="dn_row"
+        >
           <td class="dn_name">
             <peculiar-typography>
               {keyName}
@@ -35,12 +37,12 @@ export class CertificateSummary {
           </td>
           <td class="dn_value">
             <peculiar-typography>
-              {item[keyName].value}
+              {value}
             </peculiar-typography>
           </td>
         </tr>
-      );
-    });
+      ))
+    ));
   }
 
   renderMetaData(item: X509Certificate) {

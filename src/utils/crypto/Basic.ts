@@ -312,10 +312,16 @@ export class Basic {
         name = type.short || type.long;
       }
 
-      data[name] = {
-        oid: subject.type.toString(),
-        value: subject.value.valueBlock.value.toString(),
-      };
+      const value = subject.value.valueBlock.value.toString();
+
+      if (data[name]) {
+        data[name].value.push(value);
+      } else {
+        data[name] = {
+          oid: subject.type.toString(),
+          value: [value],
+        };
+      }
     });
 
     return data;
