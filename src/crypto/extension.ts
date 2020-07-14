@@ -77,13 +77,54 @@ import {
   id_netscapeCertType,
   NetscapeCertType,
 } from '@peculiar/asn1-x509-netscape';
-import { AsnParser, OctetString } from '@peculiar/asn1-schema';
+import { AsnParser } from '@peculiar/asn1-schema';
+import {
+  id_lei,
+  LeiChoice,
+
+  id_lei_roles,
+  LeiRoles,
+} from '@peculiar/asn1-lei';
+import {
+  id_certificateTransparency,
+  CertificateTransparency,
+} from '@peculiar/asn1-cert-transparency';
+import {
+  id_adbe_timestamp,
+  Timestamp,
+
+  id_adbe_archiveRevInfo,
+  ArchiveRevInfo,
+} from '@peculiar/asn1-adobe-acrobat';
 
 import { AsnData } from './asn_data';
 
 export class Extension extends AsnData<AsnExtension>{
-  public readonly value: ArrayBuffer
-    | any;
+  public readonly value: AuthorityInfoAccessSyntax
+    | AuthorityKeyIdentifier
+    | BasicConstraints
+    | CertificateIssuer
+    | CertificatePolicies
+    | CRLDistributionPoints
+    | CRLReason
+    | ExtendedKeyUsage
+    | InhibitAnyPolicy
+    | InvalidityDate
+    | NameConstraints
+    | PolicyConstraints
+    | PolicyMappings
+    | SubjectDirectoryAttributes
+    | SubjectKeyIdentifier
+    | QCStatements
+    | CertificateTemplate
+    | EnrollCertTypeChoice
+    | NetscapeComment
+    | LeiChoice
+    | LeiRoles
+    | CertificateTransparency
+    | Timestamp
+    | ArchiveRevInfo
+    | string;
 
   public constructor(raw: BufferSource) {
     super(raw, AsnExtension);
@@ -162,15 +203,26 @@ export class Extension extends AsnData<AsnExtension>{
       case id_caVersion:
         this.value = AsnParser.parse(this.asn.extnValue, CaVersion);
         break;
-      case '1.3.6.1.4.1.11129.2.4.2':
-        this.value = AsnParser.parse(this.asn.extnValue, OctetString);
+      case id_certificateTransparency:
+        this.value = AsnParser.parse(this.asn.extnValue, CertificateTransparency);
         break;
-
+      case id_lei:
+        this.value = AsnParser.parse(this.asn.extnValue, LeiChoice);
+        break;
+      case id_lei_roles:
+        this.value = AsnParser.parse(this.asn.extnValue, LeiRoles);
+        break;
+      case id_adbe_timestamp:
+        this.value = AsnParser.parse(this.asn.extnValue, Timestamp);
+        break;
+      case id_adbe_archiveRevInfo:
+        this.value = AsnParser.parse(this.asn.extnValue, ArchiveRevInfo);
+        break;
       default:
-        this.value = this.asn.extnValue;
+        this.value = Convert.ToHex(this.asn.extnValue);
 
         console.log(this.asn.extnID);
-        console.log(Convert.ToHex(this.value));
+        console.log(this.value);
     }
   }
 }

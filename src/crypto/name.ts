@@ -14,6 +14,10 @@ const names: Record<string, string> = {
   '2.5.4.8': 'ST',
   '2.5.4.4': 'SN',
   '2.5.4.12': 'T',
+  '2.5.4.15': 'businessCategory',
+  '1.3.6.1.4.1.311.60.2.1.3': 'jurisdictionCountry',
+  '2.5.4.5': 'serialNumber',
+  '2.5.4.97': 'OI',
 };
 
 export interface INameJSON {
@@ -23,10 +27,10 @@ export interface INameJSON {
 }
 
 export class Name {
-  private asn = new AsnName();
+  #asn = new AsnName();
 
   public constructor(data: BufferSource | AsnName) {
-    this.asn = data instanceof AsnName
+    this.#asn = data instanceof AsnName
       ? data
       : AsnConvert.parse(data, AsnName);
   }
@@ -34,7 +38,7 @@ export class Name {
   public toJSON(): INameJSON[] {
     const res = [];
 
-    this.asn.forEach(o => (
+    this.#asn.forEach(o => (
       o.forEach((a) => {
         res.push({
           type: a.type,
