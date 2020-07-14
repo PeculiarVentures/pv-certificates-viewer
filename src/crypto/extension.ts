@@ -99,32 +99,34 @@ import {
 
 import { AsnData } from './asn_data';
 
-export class Extension extends AsnData<AsnExtension>{
-  public readonly value: AuthorityInfoAccessSyntax
-    | AuthorityKeyIdentifier
-    | BasicConstraints
-    | CertificateIssuer
-    | CertificatePolicies
-    | CRLDistributionPoints
-    | CRLReason
-    | ExtendedKeyUsage
-    | InhibitAnyPolicy
-    | InvalidityDate
-    | NameConstraints
-    | PolicyConstraints
-    | PolicyMappings
-    | SubjectDirectoryAttributes
-    | SubjectKeyIdentifier
-    | QCStatements
-    | CertificateTemplate
-    | EnrollCertTypeChoice
-    | NetscapeComment
-    | LeiChoice
-    | LeiRoles
-    | CertificateTransparency
-    | Timestamp
-    | ArchiveRevInfo
-    | string;
+export type TExtensionValue = AuthorityInfoAccessSyntax
+  | AuthorityKeyIdentifier
+  | BasicConstraints
+  | CertificateIssuer
+  | CertificatePolicies
+  | CRLDistributionPoints
+  | CRLReason
+  | ExtendedKeyUsage
+  | InhibitAnyPolicy
+  | InvalidityDate
+  | NameConstraints
+  | PolicyConstraints
+  | PolicyMappings
+  | SubjectDirectoryAttributes
+  | SubjectKeyIdentifier
+  | QCStatements
+  | CertificateTemplate
+  | EnrollCertTypeChoice
+  | NetscapeComment
+  | LeiChoice
+  | LeiRoles
+  | CertificateTransparency
+  | Timestamp
+  | ArchiveRevInfo
+  | string;
+
+export class Extension extends AsnData<AsnExtension> {
+  public readonly value: TExtensionValue;
 
   public constructor(raw: BufferSource) {
     super(raw, AsnExtension);

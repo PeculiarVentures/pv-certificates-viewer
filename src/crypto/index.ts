@@ -1,1 +1,1 @@
-export * from './X509Certificate';
+export * from './x509_certificate';
