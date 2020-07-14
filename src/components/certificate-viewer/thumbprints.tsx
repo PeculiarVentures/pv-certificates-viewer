@@ -1,7 +1,7 @@
 import { Convert } from 'pvtsutils';
 
-import { rowTitle } from './rowTitle';
-import { rowValue } from './rowValue';
+import { rowTitle } from './row_title';
+import { rowValue } from './row_value';
 
 export function thumbprints(thumbprints: Record<string, ArrayBuffer>) {
   if (!thumbprints) {
@@ -10,7 +10,7 @@ export function thumbprints(thumbprints: Record<string, ArrayBuffer>) {
 
   return [
     rowTitle('Thumbprints'),
-    ...Object.keys(thumbprints).map(name => (
+    Object.keys(thumbprints).map(name => (
       rowValue(
         name,
         Convert.ToHex(thumbprints[name]),

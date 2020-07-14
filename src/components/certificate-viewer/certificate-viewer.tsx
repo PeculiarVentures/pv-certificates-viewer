@@ -4,10 +4,11 @@ import {
   X509Certificate,
 } from '../../crypto';
 
-import { rowTitle } from './rowTitle';
-import { publicKey } from './publicKey';
+import { rowTitle } from './row_title';
+import { publicKey } from './public_key';
 import { signature } from './signature';
 import { thumbprints } from './thumbprints';
+import { extensions } from './extensions';
 
 export type CertificateProp = string | X509Certificate;
 
@@ -200,6 +201,8 @@ export class CertificateViewer {
           {signature(this.certificateDecoded.signature)}
 
           {thumbprints(this.certificateDecoded.thumbprints)}
+
+          {extensions(this.certificateDecoded.extensions)}
         </table>
       </Host>
     );
