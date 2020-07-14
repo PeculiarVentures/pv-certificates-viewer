@@ -32,7 +32,7 @@ export class X509Certificate extends AsnData<Certificate> {
   public readonly validity: string;
   public extensions: Extension[];
   public readonly version: number;
-  public thumprints: Record<string, ArrayBuffer> = {};
+  public thumbprints: Record<string, ArrayBuffer> = {};
 
   private static base64Clear(base64: string) {
     return base64
@@ -149,6 +149,6 @@ export class X509Certificate extends AsnData<Certificate> {
     const crypto = cryptoProvider.get();
     const thumbprint = await crypto.subtle.digest(algorithm, this.raw);
 
-    this.thumprints[algorithm as any] = thumbprint;
+    this.thumbprints[algorithm as any] = thumbprint;
   }
 }
