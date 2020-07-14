@@ -5,7 +5,6 @@ import * as dateFormatter from '../dateFormatter';
 import downloadFromBuffer from  '../downloadFromBuffer';
 import OIDS from  '../../constants/oids';
 import SANs from '../../constants/san_types';
-import * as crypto from '../../crypto';
 
 import * as pkijs from './pkijs';
 import { Basic } from './Basic';
@@ -398,9 +397,6 @@ export class X509Certificate extends Basic {
     const pkijsSchema = new pkijs.Certificate({
       schema: this.schema,
     });
-
-    console.log('pkijs', pkijsSchema);
-    console.log('asn1-schema', new crypto.X509Certificate(Convert.FromBase64(this.base64)));
 
     // Start decode
     // decode subject
