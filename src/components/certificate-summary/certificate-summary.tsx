@@ -1,6 +1,6 @@
 import { Component, Host, h, Prop } from '@stencil/core';
 
-import { X509Certificate } from '../../utils/crypto';
+import { X509Certificate } from '../../crypto';
 import * as dateFormatter from '../../utils/dateFormatter';
 
 @Component({
@@ -24,24 +24,24 @@ export class CertificateSummary {
    */
   @Prop() view?: 'mobile';
 
-  renderDN(item: X509Certificate['subject'] | X509Certificate['issuer']) {
-    return Object.keys(item).map(keyName => (
-      item[keyName].value.map(value => (
-        <tr
-          class="dn_row"
-        >
-          <td class="dn_name">
-            <peculiar-typography>
-              {keyName}
-            </peculiar-typography>
-          </td>
-          <td class="dn_value">
-            <peculiar-typography>
-              {value}
-            </peculiar-typography>
-          </td>
-        </tr>
-      ))
+  renderDN(dns: X509Certificate['subject'] | X509Certificate['issuer']) {
+    return dns.map(dn => (
+      <tr
+        class="dn_row"
+      >
+        <td class="dn_name">
+          <peculiar-typography
+            color="grey_5"
+          >
+            {dn.name || dn.type}
+          </peculiar-typography>
+        </td>
+        <td class="dn_value">
+          <peculiar-typography>
+            {dn.value}
+          </peculiar-typography>
+        </td>
+      </tr>
     ));
   }
 
@@ -130,7 +130,6 @@ export class CertificateSummary {
           <div class="basic_col">
             <peculiar-typography
               class="dn_row"
-              color="grey_5"
             >
               Subject DN:
             </peculiar-typography>
@@ -144,7 +143,6 @@ export class CertificateSummary {
             <div class="basic_col peculiar_stroke_grey_3">
               <peculiar-typography
                 class="dn_row"
-                color="grey_5"
               >
                 {this.issuerDnLink ? (
                   <a href={this.issuerDnLink} target="_blank" class="peculiar_color_primary">
