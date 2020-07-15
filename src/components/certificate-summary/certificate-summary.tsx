@@ -1,7 +1,7 @@
 import { Component, Host, h, Prop } from '@stencil/core';
 
 import { X509Certificate } from '../../crypto';
-import * as dateFormatter from '../../utils/dateFormatter';
+import * as dateFormatter from '../../utils/date_formatter';
 
 @Component({
   tag: 'peculiar-certificate-summary',

@@ -1,8 +1,8 @@
 import { Component, Host, h, State, Prop } from '@stencil/core';
 
-import readFile from '../../utils/readFile';
+import readFile from '../../utils/read_file';
 import history from '../../utils/history';
-import { X509Certificate } from '../../utils/crypto';
+import { X509Certificate } from '../../crypto';
 
 @Component({
   tag: 'peculiar-certificate-decoder',
@@ -84,14 +84,14 @@ export class CertificateDecoder {
 
   decode(certificate: string) {
     try {
-      const decoded = new X509Certificate(certificate, undefined, true);
+      const decoded = new X509Certificate(certificate);
 
       this.certificateDecoded = decoded;
-      this.inputPaste.value = decoded.pem;
+      this.inputPaste.value = decoded.export('pem');
 
       history.replace({
         search: history.queryStringify({
-          cert: decoded.base64,
+          cert: decoded.export('base64'),
         }),
       });
     } catch (error) {

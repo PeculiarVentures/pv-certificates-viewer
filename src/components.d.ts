@@ -5,20 +5,20 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { IAction, } from "./components/button-split/button-split";
-import { X509Certificate, } from "./utils/crypto";
-import { CertificateProp, } from "./components/certificate-viewer/certificate-viewer";
-import { ICertificate, } from "./components/certificates-viewer/certificates-viewer";
+import { IAction } from "./components/button-split/button-split";
+import { X509Certificate } from "./crypto";
+import { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
+import { ICertificate } from "./components/certificates-viewer/certificates-viewer";
 export namespace Components {
     interface PeculiarButton {
         "disabled"?: boolean;
-        "fill"?: "stroke" | "fill";
+        "fill"?: 'stroke' | 'fill';
         "href"?: string;
         "target"?: string;
     }
     interface PeculiarButtonSplit {
         "actions": IAction[];
-        "fill": "stroke" | "fill";
+        "fill": 'stroke' | 'fill';
         "onClick": (event: MouseEvent) => void;
     }
     interface PeculiarCertificateDecoder {
@@ -37,7 +37,7 @@ export namespace Components {
         /**
           * Choose view type instead @media.
          */
-        "view"?: "mobile";
+        "view"?: 'mobile';
     }
     interface PeculiarCertificateViewer {
         /**
@@ -75,7 +75,7 @@ export namespace Components {
         /**
           * Choose view type instead @media.
          */
-        "view"?: "mobile";
+        "view"?: 'mobile';
     }
     interface PeculiarCertificatesViewer {
         /**
@@ -111,7 +111,7 @@ export namespace Components {
         /**
           * Text align.
          */
-        "align"?: "left" | "center" | "right";
+        "align"?: 'left' | 'center' | 'right';
         /**
           * Component color from theme.
          */
@@ -124,7 +124,7 @@ export namespace Components {
         /**
           * Typography type.
          */
-        "type": "h4" | "h6" | "h7" | "b1" | "b3";
+        "type": 'h4' | 'h6' | 'h7' | 'b1' | 'b3';
     }
 }
 declare global {
@@ -204,13 +204,13 @@ declare global {
 declare namespace LocalJSX {
     interface PeculiarButton {
         "disabled"?: boolean;
-        "fill"?: "stroke" | "fill";
+        "fill"?: 'stroke' | 'fill';
         "href"?: string;
         "target"?: string;
     }
     interface PeculiarButtonSplit {
         "actions"?: IAction[];
-        "fill"?: "stroke" | "fill";
+        "fill"?: 'stroke' | 'fill';
         "onClick"?: (event: MouseEvent) => void;
     }
     interface PeculiarCertificateDecoder {
@@ -229,7 +229,7 @@ declare namespace LocalJSX {
         /**
           * Choose view type instead @media.
          */
-        "view"?: "mobile";
+        "view"?: 'mobile';
     }
     interface PeculiarCertificateViewer {
         /**
@@ -267,7 +267,7 @@ declare namespace LocalJSX {
         /**
           * Choose view type instead @media.
          */
-        "view"?: "mobile";
+        "view"?: 'mobile';
     }
     interface PeculiarCertificatesViewer {
         /**
@@ -304,7 +304,7 @@ declare namespace LocalJSX {
         /**
           * Text align.
          */
-        "align"?: "left" | "center" | "right";
+        "align"?: 'left' | 'center' | 'right';
         /**
           * Component color from theme.
          */
@@ -317,7 +317,7 @@ declare namespace LocalJSX {
         /**
           * Typography type.
          */
-        "type"?: "h4" | "h6" | "h7" | "b1" | "b3";
+        "type"?: 'h4' | 'h6' | 'h7' | 'b1' | 'b3';
     }
     interface IntrinsicElements {
         "peculiar-button": PeculiarButton;

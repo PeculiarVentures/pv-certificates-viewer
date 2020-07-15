@@ -163,7 +163,7 @@ export class CertificatesViewer {
       <tr class="expanded_summary peculiar_stroke_grey_3">
         <td colSpan={colSpan} class="peculiar_stroke_grey_3">
           <peculiar-certificate-summary
-            certificate={certificate}
+            certificate={certificate as any}
             showIssuer={!certificate.isRoot}
           />
         </td>
