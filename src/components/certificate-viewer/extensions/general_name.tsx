@@ -1,14 +1,15 @@
-import { GeneralName, Name, OtherName } from '@peculiar/asn1-x509';
+import { GeneralName, Name, OtherName, DisplayText } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
+import { AsnParser } from '@peculiar/asn1-schema';
 
 import { rowValue } from '../row_value';
 import OIDs from '../../../constants/oids';
 
 const names: Record<keyof GeneralName, string> = {
   otherName: 'Other Name',
-  rfc822Name: 'RFC-822 Name',
+  rfc822Name: 'RFC 822 Name',
   dNSName: 'DNS Name',
-  x400Address: 'x400 Address',
+  x400Address: 'X400 Address',
   directoryName: 'Directory Name',
   ediPartyName: 'Edi Party Name ',
   uniformResourceIdentifier: 'URI',
@@ -42,9 +43,11 @@ export function generalName(generalName: GeneralName) {
     }
 
     if (value instanceof OtherName) {
+      const text = AsnParser.parse(value.value, DisplayText);
+
       return rowValue(
         OIDs[value.typeId],
-        Convert.ToString(value.value),
+        text.toString(),
       );
     }
 

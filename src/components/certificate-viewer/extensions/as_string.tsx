@@ -9,6 +9,7 @@ export function asString(extension: Extension, value: string) {
     rowValue(
       'Value',
       value,
+      { monospace: true },
     ),
   );
 }

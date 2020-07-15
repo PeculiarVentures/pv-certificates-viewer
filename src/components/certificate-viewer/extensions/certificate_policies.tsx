@@ -30,10 +30,7 @@ export function certificatePolicies(extension: Extension, value: CertificatePoli
           data.push(
             rowValue(
               'Value',
-              value.ia5String
-                || value.utf8String
-                || value.visibleString
-                || value.bmpString,
+              value.toString(),
             ),
           );
         }
@@ -45,10 +42,7 @@ export function certificatePolicies(extension: Extension, value: CertificatePoli
             data.push(
               rowValue(
                 'Value',
-                value.explicitText.ia5String
-                  || value.explicitText.utf8String
-                  || value.explicitText.visibleString
-                  || value.explicitText.bmpString,
+                value.explicitText.toString(),
               ),
             );
           }

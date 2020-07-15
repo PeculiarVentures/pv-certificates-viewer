@@ -1,7 +1,7 @@
 import { h } from '@stencil/core';
 import { CertificateTransparency } from '@peculiar/asn1-cert-transparency';
 
-import * as dateFormatter from '../../../utils/dateFormatter';
+import * as dateFormatter from '../../../utils/date_formatter';
 import { Extension } from '../../../crypto/extension';
 import { rowValue } from '../row_value';
 import logs from '../../../constants/logs';

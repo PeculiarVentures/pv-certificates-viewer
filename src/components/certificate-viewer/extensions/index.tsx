@@ -9,9 +9,18 @@ import {
   SubjectAlternativeName,
   CertificatePolicies,
   NameConstraints,
+  CRLReason,
 } from '@peculiar/asn1-x509';
 import { CertificateTransparency } from '@peculiar/asn1-cert-transparency';
-import { CertificateTemplate, EnrollCertTypeChoice, CaVersion } from '@peculiar/asn1-x509-microsoft';
+import {
+  CertificateTemplate,
+  EnrollCertTypeChoice,
+  CaVersion,
+} from '@peculiar/asn1-x509-microsoft';
+import { QCStatements } from '@peculiar/asn1-x509-qualified';
+import { NetscapeComment, NetscapeCertType } from '@peculiar/asn1-x509-netscape';
+import { LeiRoles, LeiChoice } from '@peculiar/asn1-lei';
+import { Timestamp, ArchiveRevInfo } from '@peculiar/asn1-adobe-acrobat';
 
 import { rowTitle } from '../row_title';
 import { Extension } from '../../../crypto/extension';
@@ -32,16 +41,14 @@ import { nameConstraints } from './name_constraints';
 import { certificateTemplate } from './certificate_template';
 import { enrollCertType } from './enroll_cert_type';
 import { caVersion } from './ca_version';
-import { QCStatements } from '@peculiar/asn1-x509-qualified';
 import { qcStatements } from './qc_statements';
-import { NetscapeComment, NetscapeCertType } from '@peculiar/asn1-x509-netscape';
 import { netscapeComment } from './netscape_comment';
 import { netscapeCertType } from './netscape_cert_type';
-import { LeiRoles, LeiChoice } from '@peculiar/asn1-lei';
 import { leiRoles } from './lei_roles';
 import { lei } from './lei';
-import { Timestamp } from '@peculiar/asn1-adobe-acrobat';
 import { timestamp } from './timestamp';
+import { archiveRevInfo } from './archive_rev_info';
+import { crlReason } from './crl_reason';
 
 export function extensions(extensions: Extension[]) {
   if (!extensions || !extensions.length) {
@@ -132,13 +139,21 @@ export function extensions(extensions: Extension[]) {
           return timestamp(extension, extension.value);
         }
 
+        if (extension.value instanceof ArchiveRevInfo) {
+          return archiveRevInfo(extension, extension.value);
+        }
+
+        if (extension.value instanceof CRLReason) {
+          return crlReason(extension, extension.value);
+        }
+
         if (typeof extension.value === 'string') {
           return asString(extension, extension.value);
         }
 
         return basic(extension);
       } catch (error) {
-        console.error(error);
+        console.error('Error render extension:', extension.asn.extnID);
 
         return null;
       }
