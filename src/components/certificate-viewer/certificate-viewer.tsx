@@ -9,6 +9,7 @@ import { publicKey } from './public_key';
 import { signature } from './signature';
 import { thumbprints } from './thumbprints';
 import { extensions } from './extensions';
+import { miscellaneous } from './miscellaneous';
 
 export type CertificateProp = string | X509Certificate;
 
@@ -203,6 +204,8 @@ export class CertificateViewer {
           {thumbprints(this.certificateDecoded.thumbprints)}
 
           {extensions(this.certificateDecoded.extensions)}
+
+          {miscellaneous(this.certificateDecoded)}
         </table>
       </Host>
     );

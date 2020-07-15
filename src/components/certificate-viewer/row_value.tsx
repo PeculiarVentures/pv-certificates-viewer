@@ -1,4 +1,5 @@
 import { h } from '@stencil/core';
+
 import isLink from '../../utils/is_link';
 
 export function rowValue(
