@@ -1,4 +1,4 @@
-import { CRLReason, CRLReasons } from '@peculiar/asn1-x509';
+import { CRLReason } from '@peculiar/asn1-x509';
 
 import { rowValue } from '../row_value';
 import { Extension } from '../../../crypto/extension';
@@ -10,7 +10,7 @@ export function crlReason(extension: Extension, value: CRLReason) {
     extension,
     rowValue(
       'Reason',
-      CRLReasons[value.reason],
+      value.toJSON(),
     ),
   );
 }
