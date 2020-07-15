@@ -1,6 +1,6 @@
 {
   "name": "@peculiar/certificates-viewer",
-  "version": "0.0.10",
+  "version": "1.0.0-beta.1",
   "description": "Web components for viewing lists of certificates and certificates",
   "keywords": [
     "certificates-viewer",
