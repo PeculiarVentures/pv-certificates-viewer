@@ -6,10 +6,16 @@ import { Download } from '../../utils/download';
 import { rowTitle } from './row_title';
 
 export function miscellaneous(certificate: X509Certificate) {
-  const onClickAsPem = () =>
-    Download.certificate.asPEM(certificate.export('pem'), '1');
-  const onClickAsDer = () =>
-    Download.certificate.asDER(certificate.export('hex'), '2');
+  const onClickDownloadAsPem = () =>
+    Download.certificate.asPEM(
+      certificate.export('pem'),
+      certificate.commonName,
+    );
+  const onClickDownloadAsDer = () =>
+    Download.certificate.asDER(
+      certificate.export('hex'),
+      certificate.commonName,
+    );
 
   return [
     rowTitle('Miscellaneous'),
@@ -25,10 +31,10 @@ export function miscellaneous(certificate: X509Certificate) {
       </td>
       <td>
         <peculiar-button-split
-          onClick={onClickAsPem}
+          onClick={onClickDownloadAsPem}
           actions={[{
             text: 'Download DER',
-            onClick: onClickAsDer,
+            onClick: onClickDownloadAsDer,
           }]}
         >
           Download PEM

@@ -96,7 +96,7 @@ export class CertificateViewer {
     } catch (error) {
       this.certificateDecodeError = error;
 
-      console.error(error);
+      console.error('Error certificate parse:', error);
     }
 
     this.isDecodeInProcess = false;
@@ -205,7 +205,7 @@ export class CertificateViewer {
 
           {extensions(this.certificateDecoded.extensions)}
 
-          {miscellaneous(this.certificateDecoded)}
+          {this.download && miscellaneous(this.certificateDecoded)}
         </table>
       </Host>
     );

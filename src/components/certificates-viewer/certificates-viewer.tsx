@@ -1,6 +1,8 @@
 import { Component, h, Prop, State, Watch, Host } from '@stencil/core';
 
-import { X509Certificate } from '../../utils/crypto';
+import { X509Certificate } from '../../crypto';
+import OIDs from '../../constants/oids';
+import { Download } from '../../utils/download';
 
 export interface ICertificate {
   value: string;
@@ -12,8 +14,10 @@ export interface ICertificate {
   };
 }
 
-interface ICertificateDecoded extends X509Certificate {
+interface ICertificateDecoded {
+  body: X509Certificate;
   tests?: ICertificate['tests'];
+  name?: string;
 }
 
 @Component({
@@ -44,8 +48,8 @@ export class CertificatesViewer {
 
   @State() search: string = '';
   @State() certificatesDecoded: ICertificateDecoded[] = [];
-  @State() expandedRow: X509Certificate['serialNumber'] | null;
-  @State() certificateSelectedForDetails: string | null;
+  @State() expandedRow?: string;
+  @State() certificateSelectedForDetails?: X509Certificate;
   @State() isDecodeInProcess: boolean = true;
 
   private isHasTests: boolean = false;
@@ -74,16 +78,17 @@ export class CertificatesViewer {
 
     for (const certificate of this.certificates) {
       try {
-        const cert = new X509Certificate(certificate.value, certificate.name);
+        const decoded = new X509Certificate(certificate.value);
 
-        await cert.getFingerprint('SHA-1');
+        await decoded.getThumbprint('SHA-1');
 
-        data.push(Object.assign(
-          cert,
-          { tests: certificate.tests },
-        ));
+        data.push({
+          body: decoded,
+          tests: certificate.tests,
+          name: certificate.name,
+        });
 
-        if (!this.isHasRoots && cert.isRoot) {
+        if (!this.isHasRoots && decoded.isRoot) {
           this.isHasRoots = true;
         }
 
@@ -96,7 +101,7 @@ export class CertificatesViewer {
           }
         }
       } catch (error) {
-        console.error(error);
+        console.error('Error certificate parse:', error);
       }
     }
 
@@ -120,31 +125,39 @@ export class CertificatesViewer {
     this.certificatesDecoded = data;
   }
 
-  onClickDownload(certificate: X509Certificate, downloadType: 'PEM' | 'DER', event: MouseEvent) {
-    event.stopPropagation();
+  onClickDownloadAsPem(certificate: ICertificateDecoded, e: MouseEvent) {
+    e.stopPropagation();
 
-    if (downloadType === 'PEM') {
-      return certificate.downloadAsPEM();
-    }
-
-    return certificate.downloadAsDER();
+    Download.certificate.asPEM(
+      certificate.body.export('pem'),
+      certificate.name || certificate.body.commonName,
+    );
   }
 
-  onClickDetails = (value: string, event: MouseEvent) => {
-    event.stopPropagation();
+  onClickDownloadAsDer(certificate: ICertificateDecoded, e: MouseEvent) {
+    e.stopPropagation();
 
-    this.certificateSelectedForDetails = value;
+    Download.certificate.asPEM(
+      certificate.body.export('hex'),
+      certificate.name || certificate.body.commonName,
+    );
+  }
+
+  onClickDetails = (certificate: X509Certificate, e: MouseEvent) => {
+    e.stopPropagation();
+
+    this.certificateSelectedForDetails = certificate;
   }
 
   onClickModalClose = () => {
-    this.certificateSelectedForDetails = null;
+    this.certificateSelectedForDetails = undefined;
   }
 
-  onClickRow(serialNumber: X509Certificate['serialNumber']) {
+  onClickRow(serialNumber: string) {
     const isExpandedRowClicked = this.expandedRow === serialNumber;
 
     this.expandedRow = isExpandedRowClicked
-      ? null
+      ? undefined
       : serialNumber;
   }
 
@@ -163,7 +176,7 @@ export class CertificatesViewer {
       <tr class="expanded_summary peculiar_stroke_grey_3">
         <td colSpan={colSpan} class="peculiar_stroke_grey_3">
           <peculiar-certificate-summary
-            certificate={certificate as any}
+            certificate={certificate}
             showIssuer={!certificate.isRoot}
           />
         </td>
@@ -224,18 +237,17 @@ export class CertificatesViewer {
     const content = [];
 
     this.certificatesDecoded.forEach((certificate) => {
-      const isExpandedRow = certificate.serialNumber === this.expandedRow;
-      const publicKeyValue = `${certificate.publicKey.algorithm.name} ${certificate.publicKey.algorithm.modulusBits || certificate.publicKey.algorithm.namedCurve}`;
-      const issuerValue = certificate.issuer && certificate.issuer.CN
-        ? certificate.issuer.CN.value.join(', ')
-        : '';
+      const isExpandedRow = certificate.body.serialNumber === this.expandedRow;
+      const publicKeyValue = OIDs[certificate.body.signature.algorithm]
+        || certificate.body.signature.algorithm;
 
       if (this.filterWithSearch && this.search) {
         const certificateStringForSearch = [
           publicKeyValue,
-          issuerValue,
-          certificate.commonName,
-          certificate.fingerprints['SHA-1'],
+          certificate.body.issuerCommonName,
+          certificate.name,
+          certificate.body.commonName,
+          certificate.body.thumbprints['SHA-1'],
         ]
           .join(' ')
           .toLowerCase();
@@ -251,8 +263,8 @@ export class CertificatesViewer {
             peculiar_stroke_grey_3: true,
             expanded: isExpandedRow,
           }}
-          onClick={this.onClickRow.bind(this, certificate.serialNumber)}
-          key={certificate.serialNumber}
+          onClick={this.onClickRow.bind(this, certificate.body.serialNumber)}
+          key={certificate.body.serialNumber}
         >
           {!this.isHasRoots && (
             <td class="peculiar_stroke_grey_3">
@@ -264,7 +276,7 @@ export class CertificatesViewer {
               </peculiar-typography>
               <peculiar-typography class="content">
                 <peculiar-highlight-words search={searchHighlight}>
-                  {issuerValue}
+                  {certificate.body.issuerCommonName}
                 </peculiar-highlight-words>
               </peculiar-typography>
             </td>
@@ -278,7 +290,7 @@ export class CertificatesViewer {
             </peculiar-typography>
             <peculiar-typography class="content">
               <peculiar-highlight-words search={searchHighlight}>
-                {certificate.commonName}
+                {certificate.name || certificate.body.commonName}
               </peculiar-highlight-words>
             </peculiar-typography>
           </td>
@@ -304,7 +316,7 @@ export class CertificatesViewer {
             </peculiar-typography>
             <peculiar-typography class="content" monospace={true}>
               <peculiar-highlight-words search={searchHighlight}>
-              {certificate.fingerprints['SHA-1']}
+                {certificate.body.thumbprints['SHA-1']}
               </peculiar-highlight-words>
             </peculiar-typography>
           </td>
@@ -317,16 +329,16 @@ export class CertificatesViewer {
             </peculiar-typography>
             <span class="content">
               <peculiar-button
-                onClick={this.onClickDetails.bind(this, certificate.base64)}
+                onClick={this.onClickDetails.bind(this, certificate.body)}
                 class="button_table_action"
               >
                 Details
               </peculiar-button>
               <peculiar-button-split
-                onClick={this.onClickDownload.bind(this, certificate, 'PEM')}
+                onClick={this.onClickDownloadAsPem.bind(this, certificate)}
                 actions={[{
                   text: 'Download DER',
-                  onClick: this.onClickDownload.bind(this, certificate, 'DER'),
+                  onClick: this.onClickDownloadAsDer.bind(this, certificate),
                 }]}
                 class="button_table_action"
               >
@@ -348,7 +360,7 @@ export class CertificatesViewer {
             </td>
           )}
         </tr>,
-        isExpandedRow && this.renderExpandedRow(certificate),
+        isExpandedRow && this.renderExpandedRow(certificate.body),
       ]);
     });
 
