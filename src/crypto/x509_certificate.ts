@@ -32,7 +32,7 @@ export class X509Certificate extends AsnData<Certificate> {
   public readonly validity: string;
   public extensions: Extension[];
   public readonly version: number;
-  public thumbprints: Record<string, ArrayBuffer> = {};
+  public thumbprints: Record<string, string> = {};
 
   private static base64Clear(base64: string) {
     return base64
@@ -156,6 +156,50 @@ export class X509Certificate extends AsnData<Certificate> {
     const crypto = cryptoProvider.get();
     const thumbprint = await crypto.subtle.digest(algorithm, this.raw);
 
-    this.thumbprints[algorithm as any] = thumbprint;
+    this.thumbprints[algorithm as any] = Convert.ToHex(thumbprint);
+  }
+
+  public get commonName(): string {
+    if (!this.subject) {
+      return '';
+    }
+
+    for (let i = 0; i < this.subject.length; i += 1) {
+      const name = this.subject[i];
+
+      if (name.name === 'CN') {
+        return name.value;
+      }
+
+      if (name.name === 'E') {
+        return name.value;
+      }
+    }
+
+    return;
+  }
+
+  public get issuerCommonName(): string {
+    if (!this.issuer) {
+      return '';
+    }
+
+    for (let i = 0; i < this.issuer.length; i += 1) {
+      const name = this.issuer[i];
+
+      if (name.name === 'CN') {
+        return name.value;
+      }
+
+      if (name.name === 'E') {
+        return name.value;
+      }
+    }
+
+    return;
+  }
+
+  public get isRoot(): boolean {
+    return JSON.stringify(this.issuer) === JSON.stringify(this.subject);
   }
 }
