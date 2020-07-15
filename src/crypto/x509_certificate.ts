@@ -4,7 +4,7 @@ import { id_rsaEncryption, RSAPublicKey } from '@peculiar/asn1-rsa';
 import { Certificate } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 
-import * as dateFormatter from '../utils/dateFormatter';
+import * as dateFormatter from '../utils/date_formatter';
 import validator from '../utils/validator';
 
 import { cryptoProvider } from './provider';
@@ -131,7 +131,7 @@ export class X509Certificate extends AsnData<Certificate> {
     }
 
     if (type === 'hex') {
-      return Convert.ToHex(this.raw);
+      return this.stringToHex(Convert.ToHex(this.raw));
     }
 
     if (type === 'pem') {
@@ -141,6 +141,13 @@ export class X509Certificate extends AsnData<Certificate> {
 
   private base64ToPem(base64: string) {
     return `-----BEGIN CERTIFICATE-----\n${base64.replace(/(.{64})/g, '$1\n')}\n-----END CERTIFICATE-----`;
+  }
+
+  private stringToHex(value: string) {
+    return value
+      .replace(/(.{32})/g, '$1\n')
+      .replace(/(.{4})/g, '$1 ')
+      .trim();
   }
 
   public async getThumbprint(

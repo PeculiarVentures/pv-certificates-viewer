@@ -223,8 +223,7 @@ export class Extension extends AsnData<AsnExtension> {
       default:
         this.value = Convert.ToHex(this.asn.extnValue);
 
-        console.log(this.asn.extnID);
-        console.log(this.value);
+        console.warn('Didn\'t detect parser for extension:', this.asn.extnID);
     }
   }
 }
