@@ -1043,7 +1043,7 @@ const OIDs: Record<string, string> = {
   '1.3.6.1.4.1.311.20.2': 'Microsoft Certificate Type',
   '1.3.6.1.4.1.311.20.2.1': 'Enrollment Agent',
   '1.3.6.1.4.1.311.20.2.2': 'Smartcard Logon',
-  '1.3.6.1.4.1.311.20.2.3': 'Universal Principal Name',
+  '1.3.6.1.4.1.311.20.2.3': 'NP Principal Name',
   '1.3.6.1.4.1.311.20.3': 'Cert Manifold',
   '1.3.6.1.4.1.311.21.1': 'Microsoft Certification Authority Renewal',
   '1.3.6.1.4.1.311.21.2': 'Microsoft Certificate Previous Hash',
