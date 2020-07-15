@@ -8,9 +8,15 @@ import { basic } from './basic';
 export function basicConstraints(extension: Extension, value: BasicConstraints) {
   return basic(
     extension,
-    rowValue(
-      'Certificate Authority',
-      value.cA ? 'YES' : 'NO',
-    ),
+    [
+      rowValue(
+        'Certificate Authority',
+        value.cA ? 'YES' : 'NO',
+      ),
+      rowValue(
+        'Path Length Constraint',
+        value?.pathLenConstraint,
+      ),
+    ],
   );
 }

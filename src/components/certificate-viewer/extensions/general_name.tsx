@@ -1,6 +1,8 @@
-import { GeneralName } from '@peculiar/asn1-x509';
+import { GeneralName, Name, OtherName } from '@peculiar/asn1-x509';
+import { Convert } from 'pvtsutils';
 
 import { rowValue } from '../row_value';
+import OIDs from '../../../constants/oids';
 
 const names: Record<keyof GeneralName, string> = {
   otherName: 'Other Name',
@@ -19,10 +21,43 @@ export function generalName(generalName: GeneralName) {
     return null;
   }
 
-  return  Object.keys(generalName).map(name => (
-    rowValue(
+  return  Object.keys(generalName).map((name: keyof GeneralName) => {
+    const value = generalName[name];
+
+    if (value instanceof Name) {
+      return [
+        rowValue(
+          names[name] || name,
+          '',
+        ),
+        value.map(relativeDistinguishedName => (
+          relativeDistinguishedName.map(attributeTypeAndValue => (
+            rowValue(
+              OIDs[attributeTypeAndValue.type] || attributeTypeAndValue.type,
+              attributeTypeAndValue.value.toString(),
+            )
+          ))
+        )),
+      ];
+    }
+
+    if (value instanceof OtherName) {
+      return rowValue(
+        OIDs[value.typeId],
+        Convert.ToString(value.value),
+      );
+    }
+
+    if (value instanceof ArrayBuffer) {
+      return rowValue(
+        names[name] || name,
+        Convert.ToString(value),
+      );
+    }
+
+    return rowValue(
       names[name] || name,
-      generalName[name],
-    )
-  ));
+      value as any,
+    );
+  });
 }

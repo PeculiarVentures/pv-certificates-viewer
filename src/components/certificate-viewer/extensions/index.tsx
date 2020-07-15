@@ -7,7 +7,11 @@ import {
   CRLDistributionPoints,
   AuthorityInfoAccessSyntax,
   SubjectAlternativeName,
+  CertificatePolicies,
+  NameConstraints,
 } from '@peculiar/asn1-x509';
+import { CertificateTransparency } from '@peculiar/asn1-cert-transparency';
+import { CertificateTemplate, EnrollCertTypeChoice, CaVersion } from '@peculiar/asn1-x509-microsoft';
 
 import { rowTitle } from '../row_title';
 import { Extension } from '../../../crypto/extension';
@@ -21,6 +25,23 @@ import { authorityKeyIdentifier } from './authority_key_identifier';
 import { crlDistributionPoints } from './crl_distribution_points';
 import { authorityInfoAccessSyntax } from './authority_info_access_syntax';
 import { subjectAlternativeName } from './subject_alternative_name';
+import { certificatePolicies } from './certificate_policies';
+import { certificateTransparency } from './certificate_transparency';
+import { asString } from './as_string';
+import { nameConstraints } from './name_constraints';
+import { certificateTemplate } from './certificate_template';
+import { enrollCertType } from './enroll_cert_type';
+import { caVersion } from './ca_version';
+import { QCStatements } from '@peculiar/asn1-x509-qualified';
+import { qcStatements } from './qc_statements';
+import { NetscapeComment, NetscapeCertType } from '@peculiar/asn1-x509-netscape';
+import { netscapeComment } from './netscape_comment';
+import { netscapeCertType } from './netscape_cert_type';
+import { LeiRoles, LeiChoice } from '@peculiar/asn1-lei';
+import { leiRoles } from './lei_roles';
+import { lei } from './lei';
+import { Timestamp } from '@peculiar/asn1-adobe-acrobat';
+import { timestamp } from './timestamp';
 
 export function extensions(extensions: Extension[]) {
   if (!extensions || !extensions.length) {
@@ -30,39 +51,97 @@ export function extensions(extensions: Extension[]) {
   return ([
     rowTitle('Extensions'),
     extensions.map((extension) => {
-      if (extension.value instanceof KeyUsage) {
-        return keyUsage(extension, extension.value);
-      }
+      try {
+        if (extension.value instanceof KeyUsage) {
+          return keyUsage(extension, extension.value);
+        }
 
-      if (extension.value instanceof BasicConstraints) {
-        return basicConstraints(extension, extension.value);
-      }
+        if (extension.value instanceof BasicConstraints) {
+          return basicConstraints(extension, extension.value);
+        }
 
-      if (extension.value instanceof ExtendedKeyUsage) {
-        return extendedKeyUsage(extension, extension.value);
-      }
+        if (extension.value instanceof ExtendedKeyUsage) {
+          return extendedKeyUsage(extension, extension.value);
+        }
 
-      if (extension.value instanceof SubjectKeyIdentifier) {
-        return subjectKeyIdentifier(extension, extension.value);
-      }
+        if (extension.value instanceof SubjectKeyIdentifier) {
+          return subjectKeyIdentifier(extension, extension.value);
+        }
 
-      if (extension.value instanceof AuthorityKeyIdentifier) {
-        return authorityKeyIdentifier(extension, extension.value);
-      }
+        if (extension.value instanceof AuthorityKeyIdentifier) {
+          return authorityKeyIdentifier(extension, extension.value);
+        }
 
-      if (extension.value instanceof CRLDistributionPoints) {
-        return crlDistributionPoints(extension, extension.value);
-      }
+        if (extension.value instanceof CRLDistributionPoints) {
+          return crlDistributionPoints(extension, extension.value);
+        }
 
-      if (extension.value instanceof AuthorityInfoAccessSyntax) {
-        return authorityInfoAccessSyntax(extension, extension.value);
-      }
+        if (extension.value instanceof AuthorityInfoAccessSyntax) {
+          return authorityInfoAccessSyntax(extension, extension.value);
+        }
 
-      if (extension.value instanceof SubjectAlternativeName) {
-        return subjectAlternativeName(extension, extension.value);
-      }
+        if (extension.value instanceof SubjectAlternativeName) {
+          return subjectAlternativeName(extension, extension.value);
+        }
 
-      return basic(extension);
+        if (extension.value instanceof CertificatePolicies) {
+          return certificatePolicies(extension, extension.value);
+        }
+
+        if (extension.value instanceof CertificateTransparency) {
+          return certificateTransparency(extension, extension.value);
+        }
+
+        if (extension.value instanceof NameConstraints) {
+          return nameConstraints(extension, extension.value);
+        }
+
+        if (extension.value instanceof CertificateTemplate) {
+          return certificateTemplate(extension, extension.value);
+        }
+
+        if (extension.value instanceof EnrollCertTypeChoice) {
+          return enrollCertType(extension, extension.value);
+        }
+
+        if (extension.value instanceof CaVersion) {
+          return caVersion(extension, extension.value);
+        }
+
+        if (extension.value instanceof QCStatements) {
+          return qcStatements(extension, extension.value);
+        }
+
+        if (extension.value instanceof NetscapeComment) {
+          return netscapeComment(extension, extension.value);
+        }
+
+        if (extension.value instanceof NetscapeCertType) {
+          return netscapeCertType(extension, extension.value);
+        }
+
+        if (extension.value instanceof LeiRoles) {
+          return leiRoles(extension, extension.value);
+        }
+
+        if (extension.value instanceof LeiChoice) {
+          return lei(extension, extension.value);
+        }
+
+        if (extension.value instanceof Timestamp) {
+          return timestamp(extension, extension.value);
+        }
+
+        if (typeof extension.value === 'string') {
+          return asString(extension, extension.value);
+        }
+
+        return basic(extension);
+      } catch (error) {
+        console.error(error);
+
+        return null;
+      }
     }),
   ]);
 }

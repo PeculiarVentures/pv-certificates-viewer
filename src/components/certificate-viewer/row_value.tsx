@@ -1,11 +1,16 @@
 import { h } from '@stencil/core';
+import isLink from '../../utils/is_link';
 
 export function rowValue(
   name: string,
   value: string | number,
-  options: { monospace?: boolean; collapse?: boolean; align?: 'middle' } = {},
+  options: { monospace?: boolean; collapse?: boolean } = {},
 ) {
-  if (!name || !value) {
+  if (!name) {
+    return null;
+  }
+
+  if (value === undefined || value === null) {
     return null;
   }
 
@@ -35,11 +40,22 @@ export function rowValue(
           monospace: options.monospace,
         }}
       >
-        <peculiar-typography
-          monospace={options.monospace}
-        >
-          {elementValue}
-        </peculiar-typography>
+        {isLink(value.toString()) ? (
+          <a
+            class="peculiar_color_primary peculiar_b3"
+            href={value.toString()}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            {value}
+          </a>
+        ) : (
+          <peculiar-typography
+            monospace={options.monospace}
+          >
+            {elementValue}
+          </peculiar-typography>
+        )}
       </td>
     </tr>
   );
