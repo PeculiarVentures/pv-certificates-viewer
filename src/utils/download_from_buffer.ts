@@ -9,7 +9,7 @@
  * ```
  */
 
-function downloadFromBuffer(
+export default function downloadFromBuffer(
   value: ArrayBuffer,
   mime: string = 'application/octet-stream',
   name: string,
@@ -28,11 +28,12 @@ function downloadFromBuffer(
   const link = document.createElement('a');
   const frame = document.createElement('iframe');
 
-  frame.name = blobURL;
   link.style.display = 'none';
+  frame.style.display = 'none';
+
+  frame.name = blobURL;
   document.body.appendChild(frame);
 
-  link.style.display = 'none';
   link.href = blobURL;
   link.target = blobURL;
   link.download = `${name}.${extension}`;
@@ -48,5 +49,3 @@ function downloadFromBuffer(
     100,
   ));
 }
-
-export default downloadFromBuffer;

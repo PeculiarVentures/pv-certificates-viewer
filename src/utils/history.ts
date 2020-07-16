@@ -1,7 +1,7 @@
 import { createBrowserHistory } from 'history';
 
-import parseHash from './parseHash';
-import queryStringify from './queryStringify';
+import parseHash from './parse_hash';
+import queryStringify from './query_stringify';
 
 const browserHistory = createBrowserHistory();
 const history = Object.assign(browserHistory, {

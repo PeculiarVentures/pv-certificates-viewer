@@ -5,20 +5,20 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { IAction, } from "./components/button-split/button-split";
-import { Certificate, } from "./utils/crypto";
-import { CertificateProp, } from "./components/certificate-viewer/certificate-viewer";
-import { ICertificate, } from "./components/certificates-viewer/certificates-viewer";
+import { IAction } from "./components/button-split/button-split";
+import { X509Certificate } from "./crypto";
+import { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
+import { ICertificate } from "./components/certificates-viewer/certificates-viewer";
 export namespace Components {
     interface PeculiarButton {
         "disabled"?: boolean;
-        "fill"?: "stroke" | "fill";
+        "fill"?: 'stroke' | 'fill';
         "href"?: string;
         "target"?: string;
     }
     interface PeculiarButtonSplit {
         "actions": IAction[];
-        "fill": "stroke" | "fill";
+        "fill": 'stroke' | 'fill';
         "onClick": (event: MouseEvent) => void;
     }
     interface PeculiarCertificateDecoder {
@@ -28,16 +28,16 @@ export namespace Components {
         "certificateExample"?: string;
     }
     interface PeculiarCertificateSummary {
-        "certificate": Certificate;
+        "certificate": X509Certificate;
         /**
-          * Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`.
+          * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
          */
         "issuerDnLink"?: string;
         "showIssuer"?: boolean;
         /**
           * Choose view type instead @media.
          */
-        "view"?: "mobile";
+        "view"?: 'mobile';
     }
     interface PeculiarCertificateViewer {
         /**
@@ -59,7 +59,7 @@ export namespace Components {
          */
         "download"?: boolean;
         /**
-          * Issuer DN link.
+          * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
          */
         "issuerDnLink"?: string;
         /**
@@ -75,7 +75,7 @@ export namespace Components {
         /**
           * Choose view type instead @media.
          */
-        "view"?: "mobile";
+        "view"?: 'mobile';
     }
     interface PeculiarCertificatesViewer {
         /**
@@ -104,6 +104,9 @@ export namespace Components {
     interface PeculiarHighlightWords {
         "search": string;
     }
+    interface PeculiarLink {
+        "href": string;
+    }
     interface PeculiarTextHider {
         "opened": boolean;
     }
@@ -111,7 +114,7 @@ export namespace Components {
         /**
           * Text align.
          */
-        "align"?: "left" | "center" | "right";
+        "align"?: 'left' | 'center' | 'right';
         /**
           * Component color from theme.
          */
@@ -124,7 +127,7 @@ export namespace Components {
         /**
           * Typography type.
          */
-        "type": "h4" | "h6" | "h7" | "b1" | "b3";
+        "type": 'h4' | 'h6' | 'h7' | 'b1' | 'b3';
     }
 }
 declare global {
@@ -176,6 +179,12 @@ declare global {
         prototype: HTMLPeculiarHighlightWordsElement;
         new (): HTMLPeculiarHighlightWordsElement;
     };
+    interface HTMLPeculiarLinkElement extends Components.PeculiarLink, HTMLStencilElement {
+    }
+    var HTMLPeculiarLinkElement: {
+        prototype: HTMLPeculiarLinkElement;
+        new (): HTMLPeculiarLinkElement;
+    };
     interface HTMLPeculiarTextHiderElement extends Components.PeculiarTextHider, HTMLStencilElement {
     }
     var HTMLPeculiarTextHiderElement: {
@@ -197,6 +206,7 @@ declare global {
         "peculiar-certificates-viewer": HTMLPeculiarCertificatesViewerElement;
         "peculiar-circular-progress": HTMLPeculiarCircularProgressElement;
         "peculiar-highlight-words": HTMLPeculiarHighlightWordsElement;
+        "peculiar-link": HTMLPeculiarLinkElement;
         "peculiar-text-hider": HTMLPeculiarTextHiderElement;
         "peculiar-typography": HTMLPeculiarTypographyElement;
     }
@@ -204,13 +214,13 @@ declare global {
 declare namespace LocalJSX {
     interface PeculiarButton {
         "disabled"?: boolean;
-        "fill"?: "stroke" | "fill";
+        "fill"?: 'stroke' | 'fill';
         "href"?: string;
         "target"?: string;
     }
     interface PeculiarButtonSplit {
         "actions"?: IAction[];
-        "fill"?: "stroke" | "fill";
+        "fill"?: 'stroke' | 'fill';
         "onClick"?: (event: MouseEvent) => void;
     }
     interface PeculiarCertificateDecoder {
@@ -220,16 +230,16 @@ declare namespace LocalJSX {
         "certificateExample"?: string;
     }
     interface PeculiarCertificateSummary {
-        "certificate"?: Certificate;
+        "certificate"?: X509Certificate;
         /**
-          * Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`.
+          * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
          */
         "issuerDnLink"?: string;
         "showIssuer"?: boolean;
         /**
           * Choose view type instead @media.
          */
-        "view"?: "mobile";
+        "view"?: 'mobile';
     }
     interface PeculiarCertificateViewer {
         /**
@@ -251,7 +261,7 @@ declare namespace LocalJSX {
          */
         "download"?: boolean;
         /**
-          * Issuer DN link.
+          * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
          */
         "issuerDnLink"?: string;
         /**
@@ -267,7 +277,7 @@ declare namespace LocalJSX {
         /**
           * Choose view type instead @media.
          */
-        "view"?: "mobile";
+        "view"?: 'mobile';
     }
     interface PeculiarCertificatesViewer {
         /**
@@ -296,6 +306,9 @@ declare namespace LocalJSX {
     interface PeculiarHighlightWords {
         "search"?: string;
     }
+    interface PeculiarLink {
+        "href"?: string;
+    }
     interface PeculiarTextHider {
         "onTextExpand"?: (event: CustomEvent<any>) => void;
         "opened"?: boolean;
@@ -304,7 +317,7 @@ declare namespace LocalJSX {
         /**
           * Text align.
          */
-        "align"?: "left" | "center" | "right";
+        "align"?: 'left' | 'center' | 'right';
         /**
           * Component color from theme.
          */
@@ -317,7 +330,7 @@ declare namespace LocalJSX {
         /**
           * Typography type.
          */
-        "type"?: "h4" | "h6" | "h7" | "b1" | "b3";
+        "type"?: 'h4' | 'h6' | 'h7' | 'b1' | 'b3';
     }
     interface IntrinsicElements {
         "peculiar-button": PeculiarButton;
@@ -328,6 +341,7 @@ declare namespace LocalJSX {
         "peculiar-certificates-viewer": PeculiarCertificatesViewer;
         "peculiar-circular-progress": PeculiarCircularProgress;
         "peculiar-highlight-words": PeculiarHighlightWords;
+        "peculiar-link": PeculiarLink;
         "peculiar-text-hider": PeculiarTextHider;
         "peculiar-typography": PeculiarTypography;
     }
@@ -344,6 +358,7 @@ declare module "@stencil/core" {
             "peculiar-certificates-viewer": LocalJSX.PeculiarCertificatesViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificatesViewerElement>;
             "peculiar-circular-progress": LocalJSX.PeculiarCircularProgress & JSXBase.HTMLAttributes<HTMLPeculiarCircularProgressElement>;
             "peculiar-highlight-words": LocalJSX.PeculiarHighlightWords & JSXBase.HTMLAttributes<HTMLPeculiarHighlightWordsElement>;
+            "peculiar-link": LocalJSX.PeculiarLink & JSXBase.HTMLAttributes<HTMLPeculiarLinkElement>;
             "peculiar-text-hider": LocalJSX.PeculiarTextHider & JSXBase.HTMLAttributes<HTMLPeculiarTextHiderElement>;
             "peculiar-typography": LocalJSX.PeculiarTypography & JSXBase.HTMLAttributes<HTMLPeculiarTypographyElement>;
         }

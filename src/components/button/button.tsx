@@ -18,6 +18,7 @@ export class Button {
       : {
         href: this.href,
         target: this.target,
+        rel: 'noreferrer noopener',
       };
 
     return (

@@ -1,7 +1,7 @@
 import { Component, Host, h, Prop } from '@stencil/core';
 
-import { Certificate } from '../../utils/crypto';
-import * as dateFormatter from '../../utils/dateFormatter';
+import { X509Certificate } from '../../crypto';
+import * as dateFormatter from '../../utils/date_formatter';
 
 @Component({
   tag: 'peculiar-certificate-summary',
@@ -10,42 +10,43 @@ import * as dateFormatter from '../../utils/dateFormatter';
 })
 
 export class CertificateSummary {
-  @Prop() certificate: Certificate;
+  @Prop() certificate: X509Certificate;
 
   @Prop() showIssuer?: boolean = true;
+
   /**
    * Issuer DN link.
-   * NOTE: HTML component attribute must be `issuer-dn-link`.
+   * **NOTE**: HTML component attribute must be `issuer-dn-link`.
    */
-  @Prop() issuerDnLink?: string;
+  @Prop({ reflect: true }) issuerDnLink?: string;
 
   /**
    * Choose view type instead @media.
    */
   @Prop() view?: 'mobile';
 
-  renderDN(item: Certificate['subject'] | Certificate['issuer']) {
-    return Object.keys(item).map(keyName => (
-      item[keyName].value.map(value => (
-        <tr
-          class="dn_row"
-        >
-          <td class="dn_name">
-            <peculiar-typography>
-              {keyName}
-            </peculiar-typography>
-          </td>
-          <td class="dn_value">
-            <peculiar-typography>
-              {value}
-            </peculiar-typography>
-          </td>
-        </tr>
-      ))
+  renderDN(dns: X509Certificate['subject'] | X509Certificate['issuer']) {
+    return dns.map(dn => (
+      <tr
+        class="dn_row"
+      >
+        <td class="dn_name">
+          <peculiar-typography
+            color="grey_5"
+          >
+            {dn.name || dn.type}
+          </peculiar-typography>
+        </td>
+        <td class="dn_value">
+          <peculiar-typography>
+            {dn.value}
+          </peculiar-typography>
+        </td>
+      </tr>
     ));
   }
 
-  renderMetaData(item: Certificate) {
+  renderMetaData(item: X509Certificate) {
     return ([
       <div class="meta_row">
         <peculiar-typography
@@ -130,7 +131,6 @@ export class CertificateSummary {
           <div class="basic_col">
             <peculiar-typography
               class="dn_row"
-              color="grey_5"
             >
               Subject DN:
             </peculiar-typography>
@@ -142,18 +142,20 @@ export class CertificateSummary {
           </div>
           {this.showIssuer && (
             <div class="basic_col peculiar_stroke_grey_3">
-              <peculiar-typography
-                class="dn_row"
-                color="grey_5"
-              >
-                {this.issuerDnLink ? (
-                  <a href={this.issuerDnLink} target="_blank" class="peculiar_color_primary">
-                    Issuer DN
-                  </a>
-                ) : (
-                  'Issuer DN'
-                )}:
-              </peculiar-typography>
+              {this.issuerDnLink ? (
+                <peculiar-link
+                  href={this.issuerDnLink}
+                  class="dn_row"
+                >
+                  Issuer DN:
+                </peculiar-link>
+              ) : (
+                <peculiar-typography
+                  class="dn_row"
+                >
+                  Issuer DN:
+                </peculiar-typography>
+              )}
               <table class="table_attributes">
                 <tbody>
                   {this.renderDN(this.certificate.issuer)}

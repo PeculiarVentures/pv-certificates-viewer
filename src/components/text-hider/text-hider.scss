@@ -5,7 +5,7 @@
 
 .text {
   display: inline-block;
-  width: calc(100% - 70px);
+  width: calc(100% - 60px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -19,7 +19,7 @@
 .action {
   vertical-align: top;
   display: inline-block;
-  width: 70px;
+  width: 60px;
   text-align: right;
   position: relative;
   top: -6px;
