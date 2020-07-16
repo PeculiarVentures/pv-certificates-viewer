@@ -27,8 +27,10 @@ graph TD;
   peculiar-certificate-viewer --> peculiar-typography
   peculiar-certificate-viewer --> peculiar-certificate-summary
   peculiar-certificate-viewer --> peculiar-text-hider
+  peculiar-certificate-viewer --> peculiar-link
   peculiar-certificate-viewer --> peculiar-button-split
   peculiar-certificate-summary --> peculiar-typography
+  peculiar-certificate-summary --> peculiar-link
   peculiar-text-hider --> peculiar-button
   peculiar-button-split --> peculiar-button
   style peculiar-certificate-decoder fill:#f9f,stroke:#333,stroke-width:4px

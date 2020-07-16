@@ -23,6 +23,7 @@ export function certificateTransparency(extension: Extension, value: Certificate
       rowValue(
         'Log Key ID',
         signedCertificateTimestamp.logId,
+        { monospace: true },
       ),
       rowValue(
         'Timestamp',

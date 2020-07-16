@@ -50,9 +50,12 @@ import { timestamp } from './timestamp';
 import { archiveRevInfo } from './archive_rev_info';
 import { crlReason } from './crl_reason';
 
-export interface IOptions extends IGeneralNameOptions, ILeiOptions {}
+export type TOptions = IGeneralNameOptions
+  & ILeiOptions
+  & IAuthorityKeyIdentifierOptions
+  & ISubjectKeyIdentifierOptions;
 
-export function extensions(extensions: Extension[], options: IOptions) {
+export function extensions(extensions: Extension[], options: TOptions) {
   if (!extensions || !extensions.length) {
     return null;
   }
@@ -74,21 +77,26 @@ export function extensions(extensions: Extension[], options: IOptions) {
         }
 
         if (extension.value instanceof SubjectKeyIdentifier) {
-          return subjectKeyIdentifier(extension, extension.value);
+          return subjectKeyIdentifier(
+            extension,
+            extension.value,
+            options,
+          );
         }
 
         if (extension.value instanceof AuthorityKeyIdentifier) {
-          return authorityKeyIdentifier(extension, extension.value);
+          return authorityKeyIdentifier(
+            extension,
+            extension.value,
+            options,
+          );
         }
 
         if (extension.value instanceof CRLDistributionPoints) {
           return crlDistributionPoints(
             extension,
             extension.value,
-            {
-              getDNSNameLink: options.getDNSNameLink,
-              getIPAddressLink: options.getIPAddressLink,
-            },
+            options,
           );
         }
 
@@ -96,10 +104,7 @@ export function extensions(extensions: Extension[], options: IOptions) {
           return authorityInfoAccessSyntax(
             extension,
             extension.value,
-            {
-              getDNSNameLink: options.getDNSNameLink,
-              getIPAddressLink: options.getIPAddressLink,
-            },
+            options,
           );
         }
 
@@ -107,10 +112,7 @@ export function extensions(extensions: Extension[], options: IOptions) {
           return subjectAlternativeName(
             extension,
             extension.value,
-            {
-              getDNSNameLink: options.getDNSNameLink,
-              getIPAddressLink: options.getIPAddressLink,
-            },
+            options,
           );
         }
 
@@ -126,10 +128,7 @@ export function extensions(extensions: Extension[], options: IOptions) {
           return nameConstraints(
             extension,
             extension.value,
-            {
-              getDNSNameLink: options.getDNSNameLink,
-              getIPAddressLink: options.getIPAddressLink,
-            },
+            options,
           );
         }
 
@@ -165,9 +164,7 @@ export function extensions(extensions: Extension[], options: IOptions) {
           return lei(
             extension,
             extension.value,
-            {
-              getLEILink: options.getLEILink,
-            },
+            options,
           );
         }
 
@@ -175,10 +172,7 @@ export function extensions(extensions: Extension[], options: IOptions) {
           return timestamp(
             extension,
             extension.value,
-            {
-              getDNSNameLink: options.getDNSNameLink,
-              getIPAddressLink: options.getIPAddressLink,
-            },
+            options,
           );
         }
 

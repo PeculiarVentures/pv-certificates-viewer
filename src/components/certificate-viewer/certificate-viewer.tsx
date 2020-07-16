@@ -26,10 +26,12 @@ export class CertificateViewer {
    * The certificate value for decode and show details. Use PEM or DER.
    */
   @Prop() certificate: CertificateProp;
+
   /**
    * If `true` - component will show split-button to download certificate as PEM or DER.
    */
   @Prop() download?: boolean;
+
   /**
    * Authority Key Identifier extension parent link.
    * <br />
@@ -37,7 +39,8 @@ export class CertificateViewer {
    * @example
    *  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
    */
-  @Prop() authKeyIdParentLink?: string;
+  @Prop({ reflect: true }) authKeyIdParentLink?: string;
+
   /**
    * Authority Key Identifier extension siblings link.
    * <br />
@@ -45,7 +48,8 @@ export class CertificateViewer {
    * @example
    *  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
    */
-  @Prop() authKeyIdSiblingsLink?: string;
+  @Prop({ reflect: true }) authKeyIdSiblingsLink?: string;
+
   /**
    * Subject Key Identifier extension children link.
    * <br />
@@ -53,7 +57,8 @@ export class CertificateViewer {
    * @example
    *  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
    */
-  @Prop() subjectKeyIdChildrenLink?: string;
+  @Prop({ reflect: true }) subjectKeyIdChildrenLink?: string;
+
   /**
    * Subject Key Identifier extension siblings link.
    * <br />
@@ -61,11 +66,13 @@ export class CertificateViewer {
    * @example
    *  https://some.com/{{subjectKeyId}}
    */
-  @Prop() subjectKeyIdSiblingsLink?: string;
+  @Prop({ reflect: true }) subjectKeyIdSiblingsLink?: string;
+
   /**
    * Issuer DN link.
+   * **NOTE**: HTML component attribute must be `issuer-dn-link`.
    */
-  @Prop() issuerDnLink?: string;
+  @Prop({ reflect: true }) issuerDnLink?: string;
 
   /**
    * Choose view type instead @media.
@@ -122,25 +129,25 @@ export class CertificateViewer {
     }
   }
 
-  // private getAuthKeyIdParentLink = (value: string) => {
-  //   return this.authKeyIdParentLink
-  //     ?.replace('{{authKeyId}}', value);
-  // }
+  private getAuthKeyIdParentLink = (value: string) => {
+    return this.authKeyIdParentLink
+      ?.replace('{{authKeyId}}', value);
+  }
 
-  // private getAuthKeyIdSiblingsLink = (value: string) => {
-  //   return this.authKeyIdSiblingsLink
-  //     ?.replace('{{authKeyId}}', value);
-  // }
+  private getAuthKeyIdSiblingsLink = (value: string) => {
+    return this.authKeyIdSiblingsLink
+      ?.replace('{{authKeyId}}', value);
+  }
 
-  // private getSubjectKeyIdChildrenLink = (value: string) => {
-  //   return this.subjectKeyIdChildrenLink
-  //     ?.replace('{{subjectKeyId}}', value);
-  // }
+  private getSubjectKeyIdChildrenLink = (value: string) => {
+    return this.subjectKeyIdChildrenLink
+      ?.replace('{{subjectKeyId}}', value);
+  }
 
-  // private getSubjectKeyIdSiblingsLink = (value: string) => {
-  //   return this.subjectKeyIdSiblingsLink
-  //     ?.replace('{{subjectKeyId}}', value);
-  // }
+  private getSubjectKeyIdSiblingsLink = (value: string) => {
+    return this.subjectKeyIdSiblingsLink
+      ?.replace('{{subjectKeyId}}', value);
+  }
 
   private getLEILink(value: string) {
     return `https://www.gleif.org/lei/${value}`;
@@ -152,6 +159,10 @@ export class CertificateViewer {
 
   private getIPAddressLink(value: string) {
     return `https://censys.io/ipv4?q=${value}`;
+  }
+
+  private getIssuerDnLink() {
+    return this.issuerDnLink;
   }
 
   private renderErrorState() {
@@ -199,7 +210,7 @@ export class CertificateViewer {
             <td colSpan={2}>
               <peculiar-certificate-summary
                 certificate={this.certificateDecoded}
-                issuerDnLink={this.issuerDnLink}
+                issuerDnLink={this.getIssuerDnLink()}
                 view={this.view}
               />
             </td>
@@ -217,6 +228,10 @@ export class CertificateViewer {
               getLEILink: this.getLEILink,
               getDNSNameLink: this.getDNSNameLink,
               getIPAddressLink: this.getIPAddressLink,
+              getAuthKeyIdParentLink: this.getAuthKeyIdParentLink,
+              getAuthKeyIdSiblingsLink: this.getAuthKeyIdSiblingsLink,
+              getSubjectKeyIdChildrenLink: this.getSubjectKeyIdChildrenLink,
+              getSubjectKeyIdSiblingsLink: this.getSubjectKeyIdSiblingsLink,
             },
           )}
 

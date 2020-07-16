@@ -30,7 +30,7 @@ export namespace Components {
     interface PeculiarCertificateSummary {
         "certificate": X509Certificate;
         /**
-          * Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`.
+          * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
          */
         "issuerDnLink"?: string;
         "showIssuer"?: boolean;
@@ -59,7 +59,7 @@ export namespace Components {
          */
         "download"?: boolean;
         /**
-          * Issuer DN link.
+          * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
          */
         "issuerDnLink"?: string;
         /**
@@ -232,7 +232,7 @@ declare namespace LocalJSX {
     interface PeculiarCertificateSummary {
         "certificate"?: X509Certificate;
         /**
-          * Issuer DN link. NOTE: HTML component attribute must be `issuer-dn-link`.
+          * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
          */
         "issuerDnLink"?: string;
         "showIssuer"?: boolean;
@@ -261,7 +261,7 @@ declare namespace LocalJSX {
          */
         "download"?: boolean;
         /**
-          * Issuer DN link.
+          * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
          */
         "issuerDnLink"?: string;
         /**

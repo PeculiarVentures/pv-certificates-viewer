@@ -5,7 +5,7 @@ import isLink from '../../utils/is_link';
 export function rowValue(
   name: string,
   value: string | number,
-  options: { monospace?: boolean; collapse?: boolean, href?: string } = {},
+  options: { monospace?: boolean; collapse?: boolean, href?: string, extraValue?: Element[] } = {},
 ) {
   if (!name) {
     return null;
@@ -52,6 +52,7 @@ export function rowValue(
             monospace={options.monospace}
           >
             {elementValue}
+            {options.extraValue}
           </peculiar-typography>
         )}
       </td>

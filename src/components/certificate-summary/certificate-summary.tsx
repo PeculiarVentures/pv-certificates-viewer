@@ -13,11 +13,12 @@ export class CertificateSummary {
   @Prop() certificate: X509Certificate;
 
   @Prop() showIssuer?: boolean = true;
+
   /**
    * Issuer DN link.
-   * NOTE: HTML component attribute must be `issuer-dn-link`.
+   * **NOTE**: HTML component attribute must be `issuer-dn-link`.
    */
-  @Prop() issuerDnLink?: string;
+  @Prop({ reflect: true }) issuerDnLink?: string;
 
   /**
    * Choose view type instead @media.
@@ -141,17 +142,20 @@ export class CertificateSummary {
           </div>
           {this.showIssuer && (
             <div class="basic_col peculiar_stroke_grey_3">
-              <peculiar-typography
-                class="dn_row"
-              >
-                {this.issuerDnLink ? (
-                  <a href={this.issuerDnLink} target="_blank" class="peculiar_color_primary">
-                    Issuer DN
-                  </a>
-                ) : (
-                  'Issuer DN'
-                )}:
-              </peculiar-typography>
+              {this.issuerDnLink ? (
+                <peculiar-link
+                  href={this.issuerDnLink}
+                  class="dn_row"
+                >
+                  Issuer DN:
+                </peculiar-link>
+              ) : (
+                <peculiar-typography
+                  class="dn_row"
+                >
+                  Issuer DN:
+                </peculiar-typography>
+              )}
               <table class="table_attributes">
                 <tbody>
                   {this.renderDN(this.certificate.issuer)}
