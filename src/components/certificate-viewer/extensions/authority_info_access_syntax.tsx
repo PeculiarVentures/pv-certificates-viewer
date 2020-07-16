@@ -7,7 +7,11 @@ import { getStringByOID } from '../get_string_by_oid';
 import { basic } from './basic';
 import { generalName } from './general_name';
 
-export function authorityInfoAccessSyntax(extension: Extension, value: AuthorityInfoAccessSyntax) {
+export function authorityInfoAccessSyntax(
+  extension: Extension,
+  value: AuthorityInfoAccessSyntax,
+  options: IGeneralNameOptions,
+) {
   return basic(
     extension,
     value.map((description, index) => ([
@@ -15,7 +19,7 @@ export function authorityInfoAccessSyntax(extension: Extension, value: Authority
         `Method #${index + 1}`,
         getStringByOID(description.accessMethod),
       ),
-      generalName(description.accessLocation),
+      generalName(description.accessLocation, options),
     ])),
   );
 }

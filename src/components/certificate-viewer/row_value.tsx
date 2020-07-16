@@ -5,7 +5,7 @@ import isLink from '../../utils/is_link';
 export function rowValue(
   name: string,
   value: string | number,
-  options: { monospace?: boolean; collapse?: boolean } = {},
+  options: { monospace?: boolean; collapse?: boolean, href?: string } = {},
 ) {
   if (!name) {
     return null;
@@ -41,15 +41,12 @@ export function rowValue(
           monospace: options.monospace,
         }}
       >
-        {isLink(value.toString()) ? (
-          <a
-            class="peculiar_color_primary peculiar_b3"
-            href={value.toString()}
-            target="_blank"
-            rel="noreferrer noopener"
+        {(isLink(value.toString()) || options.href) ? (
+          <peculiar-link
+            href={options.href || value.toString()}
           >
             {value}
-          </a>
+          </peculiar-link>
         ) : (
           <peculiar-typography
             monospace={options.monospace}

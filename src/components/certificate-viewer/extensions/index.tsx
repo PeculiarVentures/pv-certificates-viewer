@@ -50,7 +50,9 @@ import { timestamp } from './timestamp';
 import { archiveRevInfo } from './archive_rev_info';
 import { crlReason } from './crl_reason';
 
-export function extensions(extensions: Extension[]) {
+export interface IOptions extends IGeneralNameOptions, ILeiOptions {}
+
+export function extensions(extensions: Extension[], options: IOptions) {
   if (!extensions || !extensions.length) {
     return null;
   }
@@ -80,15 +82,36 @@ export function extensions(extensions: Extension[]) {
         }
 
         if (extension.value instanceof CRLDistributionPoints) {
-          return crlDistributionPoints(extension, extension.value);
+          return crlDistributionPoints(
+            extension,
+            extension.value,
+            {
+              getDNSNameLink: options.getDNSNameLink,
+              getIPAddressLink: options.getIPAddressLink,
+            },
+          );
         }
 
         if (extension.value instanceof AuthorityInfoAccessSyntax) {
-          return authorityInfoAccessSyntax(extension, extension.value);
+          return authorityInfoAccessSyntax(
+            extension,
+            extension.value,
+            {
+              getDNSNameLink: options.getDNSNameLink,
+              getIPAddressLink: options.getIPAddressLink,
+            },
+          );
         }
 
         if (extension.value instanceof SubjectAlternativeName) {
-          return subjectAlternativeName(extension, extension.value);
+          return subjectAlternativeName(
+            extension,
+            extension.value,
+            {
+              getDNSNameLink: options.getDNSNameLink,
+              getIPAddressLink: options.getIPAddressLink,
+            },
+          );
         }
 
         if (extension.value instanceof CertificatePolicies) {
@@ -100,7 +123,14 @@ export function extensions(extensions: Extension[]) {
         }
 
         if (extension.value instanceof NameConstraints) {
-          return nameConstraints(extension, extension.value);
+          return nameConstraints(
+            extension,
+            extension.value,
+            {
+              getDNSNameLink: options.getDNSNameLink,
+              getIPAddressLink: options.getIPAddressLink,
+            },
+          );
         }
 
         if (extension.value instanceof CertificateTemplate) {
@@ -132,11 +162,24 @@ export function extensions(extensions: Extension[]) {
         }
 
         if (extension.value instanceof LeiChoice) {
-          return lei(extension, extension.value);
+          return lei(
+            extension,
+            extension.value,
+            {
+              getLEILink: options.getLEILink,
+            },
+          );
         }
 
         if (extension.value instanceof Timestamp) {
-          return timestamp(extension, extension.value);
+          return timestamp(
+            extension,
+            extension.value,
+            {
+              getDNSNameLink: options.getDNSNameLink,
+              getIPAddressLink: options.getIPAddressLink,
+            },
+          );
         }
 
         if (extension.value instanceof ArchiveRevInfo) {

@@ -122,29 +122,37 @@ export class CertificateViewer {
     }
   }
 
-  // private getAuthKeyIdParentLink(extension: IExtensionAuthorityKeyIdentifier) {
+  // private getAuthKeyIdParentLink = (value: string) => {
   //   return this.authKeyIdParentLink
-  //     ?.replace('{{authKeyId}}', extension.value.keyIdentifier);
+  //     ?.replace('{{authKeyId}}', value);
   // }
 
-  // private getAuthKeyIdSiblingsLink(extension: IExtensionAuthorityKeyIdentifier) {
+  // private getAuthKeyIdSiblingsLink = (value: string) => {
   //   return this.authKeyIdSiblingsLink
-  //     ?.replace('{{authKeyId}}', extension.value.keyIdentifier);
+  //     ?.replace('{{authKeyId}}', value);
   // }
 
-  // private getSubjectKeyIdChildrenLink(extension: IExtensionSubjectKeyIdentifier) {
+  // private getSubjectKeyIdChildrenLink = (value: string) => {
   //   return this.subjectKeyIdChildrenLink
-  //     ?.replace('{{subjectKeyId}}', extension.value);
+  //     ?.replace('{{subjectKeyId}}', value);
   // }
 
-  // private getSubjectKeyIdSiblingsLink(extension: IExtensionSubjectKeyIdentifier) {
+  // private getSubjectKeyIdSiblingsLink = (value: string) => {
   //   return this.subjectKeyIdSiblingsLink
-  //     ?.replace('{{subjectKeyId}}', extension.value);
+  //     ?.replace('{{subjectKeyId}}', value);
   // }
 
-  // private getLEILink(extension: IExtensionLEI) {
-  //   return `https://www.gleif.org/lei/${extension.value}`;
-  // }
+  private getLEILink(value: string) {
+    return `https://www.gleif.org/lei/${value}`;
+  }
+
+  private getDNSNameLink(value: string) {
+    return `https://censys.io/ipv4?q=${value}`;
+  }
+
+  private getIPAddressLink(value: string) {
+    return `https://censys.io/ipv4?q=${value}`;
+  }
 
   private renderErrorState() {
     return (
@@ -203,7 +211,14 @@ export class CertificateViewer {
 
           {thumbprints(this.certificateDecoded.thumbprints)}
 
-          {extensions(this.certificateDecoded.extensions)}
+          {extensions(
+            this.certificateDecoded.extensions,
+            {
+              getLEILink: this.getLEILink,
+              getDNSNameLink: this.getDNSNameLink,
+              getIPAddressLink: this.getIPAddressLink,
+            },
+          )}
 
           {this.download && miscellaneous(this.certificateDecoded)}
         </table>

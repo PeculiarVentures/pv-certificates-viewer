@@ -5,15 +5,19 @@ import { Extension } from '../../../crypto/extension';
 import { basic } from './basic';
 import { generalName } from './general_name';
 
-export function nameConstraints(extension: Extension, value: NameConstraints) {
+export function nameConstraints(
+  extension: Extension,
+  value: NameConstraints,
+  options: IGeneralNameOptions,
+) {
   return basic(
     extension,
     [
       value.excludedSubtrees?.map(generalSubtree => (
-        generalName(generalSubtree.base)
+        generalName(generalSubtree.base, options)
       )),
       value.permittedSubtrees?.map(generalSubtree => (
-        generalName(generalSubtree.base)
+        generalName(generalSubtree.base, options)
       )),
     ],
   );

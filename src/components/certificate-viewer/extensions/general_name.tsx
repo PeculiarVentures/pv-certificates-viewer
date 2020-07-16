@@ -1,4 +1,4 @@
-import { GeneralName, Name, OtherName, DisplayText } from '@peculiar/asn1-x509';
+import { GeneralName, Name, OtherName, DisplayText, EDIPartyName } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 import { AsnParser } from '@peculiar/asn1-schema';
 
@@ -17,7 +17,7 @@ const names: Record<keyof GeneralName, string> = {
   registeredID: 'Registered ID',
 };
 
-export function generalName(generalName: GeneralName) {
+export function generalName(generalName: GeneralName, options: IGeneralNameOptions) {
   if (!generalName) {
     return null;
   }
@@ -58,9 +58,34 @@ export function generalName(generalName: GeneralName) {
       );
     }
 
+    if (value instanceof EDIPartyName) {
+      return [
+        rowValue(
+          names[name] || name,
+          Convert.ToString(value.partyName),
+        ),
+      ];
+    }
+
+    if (name === 'dNSName') {
+      return rowValue(
+        names[name] || name,
+        value,
+        { href: options.getDNSNameLink(value) },
+      );
+    }
+
+    if (name === 'iPAddress') {
+      return rowValue(
+        names[name] || name,
+        value,
+        { href: options.getIPAddressLink(value) },
+      );
+    }
+
     return rowValue(
       names[name] || name,
-      value as any,
+      value,
     );
   });
 }

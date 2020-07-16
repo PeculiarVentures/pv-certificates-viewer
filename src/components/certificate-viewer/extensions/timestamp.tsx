@@ -6,7 +6,11 @@ import { Extension } from '../../../crypto/extension';
 import { basic } from './basic';
 import { generalName } from './general_name';
 
-export function timestamp(extension: Extension, value: Timestamp) {
+export function timestamp(
+  extension: Extension,
+  value: Timestamp,
+  options: IGeneralNameOptions,
+) {
   return basic(
     extension,
     [
@@ -14,7 +18,7 @@ export function timestamp(extension: Extension, value: Timestamp) {
         'Version',
         value.version,
       ),
-      generalName(value.location),
+      generalName(value.location, options),
       rowValue(
         'Requires Auth',
         value.requiresAuth ? 'YES' : 'NO',

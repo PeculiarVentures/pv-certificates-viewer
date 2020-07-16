@@ -5,12 +5,17 @@ import { Extension } from '../../../crypto/extension';
 
 import { basic } from './basic';
 
-export function lei(extension: Extension, value: LeiChoice) {
+export function lei(
+  extension: Extension,
+  value: LeiChoice,
+  options: ILeiOptions,
+) {
   return basic(
     extension,
     rowValue(
       'Identifier',
       value.text,
+      { href: options.getLEILink(value.text) },
     ),
   );
 }
