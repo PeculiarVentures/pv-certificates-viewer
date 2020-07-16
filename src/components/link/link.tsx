@@ -15,6 +15,7 @@ export class Link {
           href={this.href}
           target="_blank"
           rel="noreferrer noopener"
+          class="link_native"
         >
           <slot />
         </a>
