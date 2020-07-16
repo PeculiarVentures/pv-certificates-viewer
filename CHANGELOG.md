@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [1.0.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v1.0.0-beta.1...v1.0.0) (2020-07-16)
+## 1.0.1 (2020-07-16)
+
+
+### Bug Fixes
+
+* **link:** Fixed font-family style ([4ccfeb5](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/4ccfeb5985ab47eb5b758ce821390e28ab269639))
+
+## 1.0.0 (2020-07-16)
 
 
 ### Features
