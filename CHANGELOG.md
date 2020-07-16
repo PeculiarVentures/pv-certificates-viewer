@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v1.0.0-beta.1...v1.0.0) (2020-07-16)
+
+
+### Features
+
+* Changed certificate parser from pki.js to asn1-schema
+* Added "peculiar-link" component ([3c1c4b6](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/3c1c4b6cf7572e1ac25e666f677da719e44d7bc6))
+* Removed pkijs core api and deps ([d0af117](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/d0af11797fd1e03bc67439238c519bbf8b1345c4))
+
+
+### Bug Fixes
+
+* **vulnerability:** lodash version >=4.17.19 ([a1a9a4b](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/a1a9a4b2cd9484242fa36e71faf59a68bb3527b8))
+
 ### 0.0.10 (2020-06-17)
 
 
