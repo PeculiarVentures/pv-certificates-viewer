@@ -1,0 +1,11 @@
+:host {
+  display: inline-block;
+
+  a {
+    color: inherit;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

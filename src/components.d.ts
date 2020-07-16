@@ -104,6 +104,9 @@ export namespace Components {
     interface PeculiarHighlightWords {
         "search": string;
     }
+    interface PeculiarLink {
+        "href": string;
+    }
     interface PeculiarTextHider {
         "opened": boolean;
     }
@@ -176,6 +179,12 @@ declare global {
         prototype: HTMLPeculiarHighlightWordsElement;
         new (): HTMLPeculiarHighlightWordsElement;
     };
+    interface HTMLPeculiarLinkElement extends Components.PeculiarLink, HTMLStencilElement {
+    }
+    var HTMLPeculiarLinkElement: {
+        prototype: HTMLPeculiarLinkElement;
+        new (): HTMLPeculiarLinkElement;
+    };
     interface HTMLPeculiarTextHiderElement extends Components.PeculiarTextHider, HTMLStencilElement {
     }
     var HTMLPeculiarTextHiderElement: {
@@ -197,6 +206,7 @@ declare global {
         "peculiar-certificates-viewer": HTMLPeculiarCertificatesViewerElement;
         "peculiar-circular-progress": HTMLPeculiarCircularProgressElement;
         "peculiar-highlight-words": HTMLPeculiarHighlightWordsElement;
+        "peculiar-link": HTMLPeculiarLinkElement;
         "peculiar-text-hider": HTMLPeculiarTextHiderElement;
         "peculiar-typography": HTMLPeculiarTypographyElement;
     }
@@ -296,6 +306,9 @@ declare namespace LocalJSX {
     interface PeculiarHighlightWords {
         "search"?: string;
     }
+    interface PeculiarLink {
+        "href"?: string;
+    }
     interface PeculiarTextHider {
         "onTextExpand"?: (event: CustomEvent<any>) => void;
         "opened"?: boolean;
@@ -328,6 +341,7 @@ declare namespace LocalJSX {
         "peculiar-certificates-viewer": PeculiarCertificatesViewer;
         "peculiar-circular-progress": PeculiarCircularProgress;
         "peculiar-highlight-words": PeculiarHighlightWords;
+        "peculiar-link": PeculiarLink;
         "peculiar-text-hider": PeculiarTextHider;
         "peculiar-typography": PeculiarTypography;
     }
@@ -344,6 +358,7 @@ declare module "@stencil/core" {
             "peculiar-certificates-viewer": LocalJSX.PeculiarCertificatesViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificatesViewerElement>;
             "peculiar-circular-progress": LocalJSX.PeculiarCircularProgress & JSXBase.HTMLAttributes<HTMLPeculiarCircularProgressElement>;
             "peculiar-highlight-words": LocalJSX.PeculiarHighlightWords & JSXBase.HTMLAttributes<HTMLPeculiarHighlightWordsElement>;
+            "peculiar-link": LocalJSX.PeculiarLink & JSXBase.HTMLAttributes<HTMLPeculiarLinkElement>;
             "peculiar-text-hider": LocalJSX.PeculiarTextHider & JSXBase.HTMLAttributes<HTMLPeculiarTextHiderElement>;
             "peculiar-typography": LocalJSX.PeculiarTypography & JSXBase.HTMLAttributes<HTMLPeculiarTypographyElement>;
         }
