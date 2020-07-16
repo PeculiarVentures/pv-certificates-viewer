@@ -1,6 +1,6 @@
 {
   "name": "@peculiar/certificates-viewer",
-  "version": "1.0.0-beta.1",
+  "version": "0.0.10",
   "description": "Web components for viewing lists of certificates and certificates",
   "keywords": [
     "certificates-viewer",
@@ -9,7 +9,8 @@
     "decoding",
     "web-component",
     "webpki",
-    "pki"
+    "pki",
+    "asn1"
   ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
