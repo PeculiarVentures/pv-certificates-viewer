@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v1.0.0-beta.1...v1.1.0) (2020-07-29)
+
+
+### Features
+
+* **stencil:** added autoprefixer ([6806856](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/68068568b7183de3b4e04b04ec8ded58b55d92c8))
+* **types:** used export types instead of global context ([c355220](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/c35522009f548a37adb1e8609599f0b1a5939730))
+* **viewer:** Added links for ip address and dns name ([e9eb9e8](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/e9eb9e8b20904eb0bbc9ce12b555cdb07c817a2f))
+* **viewer:** Added support for auth key id and subject key id link ([5b466b9](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/5b466b91dc964d9e1ac52637bc34d30737b8b316))
+* Added "peculiar-link" component ([3c1c4b6](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/3c1c4b6cf7572e1ac25e666f677da719e44d7bc6))
+
+
+### Bug Fixes
+
+* **link:** Fixed font-family style ([4ccfeb5](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/4ccfeb5985ab47eb5b758ce821390e28ab269639))
+* **vulnerability:** lodash version >=4.17.19 ([a1a9a4b](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/a1a9a4b2cd9484242fa36e71faf59a68bb3527b8))
+
 ## 1.0.1 (2020-07-16)
 
 
