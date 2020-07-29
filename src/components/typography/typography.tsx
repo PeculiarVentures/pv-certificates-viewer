@@ -1,5 +1,7 @@
 import { Component, Host, h, Prop } from '@stencil/core';
 
+import { ColorType } from '../../interface';
+
 @Component({
   tag: 'peculiar-typography',
   styleUrl: 'typography.scss',

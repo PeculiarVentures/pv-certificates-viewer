@@ -9,6 +9,7 @@ import { IAction } from "./components/button-split/button-split";
 import { X509Certificate } from "./crypto";
 import { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
 import { ICertificate } from "./components/certificates-viewer/certificates-viewer";
+import { ColorType } from "./interface";
 export namespace Components {
     interface PeculiarButton {
         "disabled"?: boolean;
