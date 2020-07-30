@@ -8654,7 +8654,7 @@ System.register([], function (exports) {
                 function XName(data) {
                     _asn.set(this, new Name());
                     debugger;
-                    __classPrivateFieldSet(this, _asn, data instanceof Name
+                    __classPrivateFieldSet(this, _asn, data instanceof RDNSequence
                         ? data
                         : AsnParser.parse(data, Name));
                 }
@@ -9599,7 +9599,9 @@ System.register([], function (exports) {
                     _this.thumbprints = {};
                     var tbsCertificate = _this.asn.tbsCertificate;
                     _this.serialNumber = Convert.ToHex(tbsCertificate.serialNumber);
+                    debugger;
                     _this.subject = new XName(tbsCertificate.subject).toJSON();
+                    debugger;
                     _this.issuer = new XName(tbsCertificate.issuer).toJSON();
                     _this.version = tbsCertificate.version + 1;
                     var notBefore = tbsCertificate.validity.notBefore.utcTime

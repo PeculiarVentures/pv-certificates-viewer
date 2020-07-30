@@ -9475,7 +9475,7 @@ class XName {
     constructor(data) {
         _asn.set(this, new Name());
         debugger;
-        __classPrivateFieldSet(this, _asn, data instanceof Name
+        __classPrivateFieldSet(this, _asn, data instanceof RDNSequence
             ? data
             : AsnParser.parse(data, Name));
     }
@@ -10316,7 +10316,9 @@ class X509Certificate extends AsnData {
         this.thumbprints = {};
         const { tbsCertificate } = this.asn;
         this.serialNumber = Convert.ToHex(tbsCertificate.serialNumber);
+        debugger;
         this.subject = new XName(tbsCertificate.subject).toJSON();
+        debugger;
         this.issuer = new XName(tbsCertificate.issuer).toJSON();
         this.version = tbsCertificate.version + 1;
         const notBefore = tbsCertificate.validity.notBefore.utcTime
