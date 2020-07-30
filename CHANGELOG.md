@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v1.1.0...v1.1.1) (2020-07-30)
+
+
+### Bug Fixes
+
+* **crypto:** fixed  error "Constructor Map requires 'new'" ([8c06adb](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/8c06adbe16e386dc109585b390b68e4a225eafce))
+
 ## [1.1.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v1.0.0-beta.1...v1.1.0) (2020-07-29)
 
 
