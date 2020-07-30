@@ -9476,7 +9476,7 @@ class Name$1 {
         _asn.set(this, new Name());
         __classPrivateFieldSet(this, _asn, data instanceof Name
             ? data
-            : AsnConvert.parse(data, Name));
+            : AsnParser.parse(data['buffer'] || data, Name));
     }
     toJSON() {
         const res = [];

@@ -8655,7 +8655,7 @@ System.register([], function (exports) {
                     _asn.set(this, new Name());
                     __classPrivateFieldSet(this, _asn, data instanceof Name
                         ? data
-                        : AsnConvert.parse(data, Name));
+                        : AsnParser.parse(data['buffer'] || data, Name));
                 }
                 Name$1.prototype.toJSON = function () {
                     var res = [];
