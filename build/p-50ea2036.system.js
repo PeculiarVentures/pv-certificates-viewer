@@ -1,1 +1,7 @@
-System.register([],(function(){"use strict";return{execute:function(){}}}));
+System.register([], function () {
+    'use strict';
+    return {
+        execute: function () {
+        }
+    };
+});

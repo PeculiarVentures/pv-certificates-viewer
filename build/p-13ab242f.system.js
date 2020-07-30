@@ -1,5 +1,18 @@
-var __spreadArrays=this&&this.__spreadArrays||function(){for(var r=0,e=0,t=arguments.length;e<t;e++)r+=arguments[e].length;for(var n=Array(r),a=0,e=0;e<t;e++)for(var s=arguments[e],c=0,o=s.length;c<o;c++,a++)n[a]=s[c];return n};System.register([],(function(r){"use strict";return{execute:function(){
-/**
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
+System.register([], function (exports) {
+    'use strict';
+    return {
+        execute: function () {
+            /*
+             Stencil Client Platform v1.17.2 | MIT Licensed | https://stenciljs.com
+             */
+            /**
              * @license
              * Copyright Google Inc. All Rights Reserved.
              *
@@ -10,4 +23,392 @@ var __spreadArrays=this&&this.__spreadArrays||function(){for(var r=0,e=0,t=argum
              * https://github.com/webcomponents/webcomponentsjs/blob/4efecd7e0e/src/ShadowCSS/ShadowCSS.js
              * https://github.com/angular/angular/blob/master/packages/compiler/src/shadow_css.ts
              */
-var e=function(r){var e=[];var t=0;var n;r=r.replace(/(\[[^\]]*\])/g,(function(r,n){var a="__ph-"+t+"__";e.push(n);t++;return a}));n=r.replace(/(:nth-[-\w]+)(\([^)]+\))/g,(function(r,n,a){var s="__ph-"+t+"__";e.push(a);t++;return n+s}));var a={content:n,placeholders:e};return a};var t=function(r,e){return e.replace(/__ph-(\d+)__/g,(function(e,t){return r[+t]}))};var n="-shadowcsshost";var a="-shadowcssslotted";var s="-shadowcsscontext";var c=")(?:\\(("+"(?:\\([^)(]*\\)|[^)(]*)+?"+")\\))?([^,{]*)";var o=new RegExp("("+n+c,"gim");var i=new RegExp("("+s+c,"gim");var v=new RegExp("("+a+c,"gim");var u=n+"-no-combinator";var l=/-shadowcsshost-no-combinator([^\s]*)/;var f=[/::shadow/g,/::content/g];var p="([>\\s~+[.,{:][\\s\\S]*)?$";var h=/-shadowcsshost/gim;var g=/:host/gim;var d=/::slotted/gim;var m=/:host-context/gim;var _=/\/\*\s*[\s\S]*?\*\//g;var x=function(r){return r.replace(_,"")};var w=/\/\*\s*#\s*source(Mapping)?URL=[\s\S]+?\*\//g;var S=function(r){return r.match(w)||[]};var b=/(\s*)([^;\{\}]+?)(\s*)((?:{%BLOCK%}?\s*;?)|(?:\s*;))/g;var W=/([{}])/g;var O="{";var j="}";var E="%BLOCK%";var R=function(r,e){var t=y(r);var n=0;return t.escapedString.replace(b,(function(){var r=[];for(var a=0;a<arguments.length;a++){r[a]=arguments[a]}var s=r[2];var c="";var o=r[4];var i="";if(o&&o.startsWith("{"+E)){c=t.blocks[n++];o=o.substring(E.length+1);i="{"}var v={selector:s,content:c};var u=e(v);return""+r[1]+u.selector+r[3]+i+u.content+o}))};var y=function(r){var e=r.split(W);var t=[];var n=[];var a=0;var s=[];for(var c=0;c<e.length;c++){var o=e[c];if(o===j){a--}if(a>0){s.push(o)}else{if(s.length>0){n.push(s.join(""));t.push(E);s=[]}t.push(o)}if(o===O){a++}}if(s.length>0){n.push(s.join(""));t.push(E)}var i={escapedString:t.join(""),blocks:n};return i};var k=function(r){r=r.replace(m,s).replace(g,n).replace(d,a);return r};var A=function(r,e,t){return r.replace(e,(function(){var r=[];for(var e=0;e<arguments.length;e++){r[e]=arguments[e]}if(r[2]){var n=r[2].split(",");var a=[];for(var s=0;s<n.length;s++){var c=n[s].trim();if(!c)break;a.push(t(u,c,r[3]))}return a.join(",")}else{return u+r[3]}}))};var T=function(r,e,t){return r+e.replace(n,"")+t};var C=function(r){return A(r,o,T)};var L=function(r,e,t){if(e.indexOf(n)>-1){return T(r,e,t)}else{return r+e+t+", "+e+" "+r+t}};var B=function(r,e){var t="."+e+" > ";var n=[];r=r.replace(v,(function(){var r=[];for(var e=0;e<arguments.length;e++){r[e]=arguments[e]}if(r[2]){var a=r[2].trim();var s=r[3];var c=t+a+s;var o="";for(var i=r[4]-1;i>=0;i--){var v=r[5][i];if(v==="}"||v===","){break}o=v+o}var l=o+c;var f=""+o.trimRight()+c.trim();if(l.trim()!==f.trim()){var p=f+", "+l;n.push({orgSelector:l,updatedSelector:p})}return c}else{return u+r[3]}}));return{selectors:n,cssText:r}};var I=function(r){return A(r,i,L)};var K=function(r){return f.reduce((function(r,e){return r.replace(e," ")}),r)};var $=function(r){var e=/\[/g;var t=/\]/g;r=r.replace(e,"\\[").replace(t,"\\]");return new RegExp("^("+r+")"+p,"m")};var M=function(r,e){var t=$(e);return!t.test(r)};var U=function(r,e,t){h.lastIndex=0;if(h.test(r)){var n="."+t;return r.replace(l,(function(r,e){return e.replace(/([^:]*)(:*)(.*)/,(function(r,e,t,a){return e+n+t+a}))})).replace(h,n+" ")}return e+" "+r};var q=function(r,n,a){var s=/\[is=([^\]]*)\]/g;n=n.replace(s,(function(r){var e=[];for(var t=1;t<arguments.length;t++){e[t-1]=arguments[t]}return e[0]}));var c="."+n;var o=function(r){var e=r.trim();if(!e){return""}if(r.indexOf(u)>-1){e=U(r,n,a)}else{var t=r.replace(h,"");if(t.length>0){var s=t.match(/([^:]*)(:*)(.*)/);if(s){e=s[1]+c+s[2]+s[3]}}}return e};var i=e(r);r=i.content;var v="";var l=0;var f;var p=/( |>|\+|~(?!=))\s*/g;var g=r.indexOf(u)>-1;var d=!g;while((f=p.exec(r))!==null){var m=f[1];var _=r.slice(l,f.index).trim();d=d||_.indexOf(u)>-1;var x=d?o(_):_;v+=x+" "+m+" ";l=p.lastIndex}var w=r.substring(l);d=d||w.indexOf(u)>-1;v+=d?o(w):w;return t(i.placeholders,v)};var z=function(r,e,t,n){return r.split(",").map((function(r){if(n&&r.indexOf("."+n)>-1){return r.trim()}if(M(r,e)){return q(r,e,t).trim()}else{return r.trim()}})).join(", ")};var D=function(r,e,t,n,a){return R(r,(function(r){var a=r.selector;var s=r.content;if(r.selector[0]!=="@"){a=z(r.selector,e,t,n)}else if(r.selector.startsWith("@media")||r.selector.startsWith("@supports")||r.selector.startsWith("@page")||r.selector.startsWith("@document")){s=D(r.content,e,t,n)}var c={selector:a.replace(/\s{2,}/g," ").trim(),content:s};return c}))};var F=function(r,e,t,n,a){r=k(r);r=C(r);r=I(r);var s=B(r,n);r=s.cssText;r=K(r);if(e){r=D(r,e,t,n)}r=r.replace(/-shadowcsshost-no-combinator/g,"."+t);r=r.replace(/>\s*\*\s+([^{, ]+)/gm," $1 ");return{cssText:r.trim(),slottedSelectors:s.selectors}};var G=r("scopeCss",(function(r,e,t){var n=e+"-h";var a=e+"-s";var s=S(r);r=x(r);var c=[];if(t){var o=function(r){var e="/*!@___"+c.length+"___*/";var t="/*!@"+r.selector+"*/";c.push({placeholder:e,comment:t});r.selector=e+r.selector;return r};r=R(r,(function(r){if(r.selector[0]!=="@"){return o(r)}else if(r.selector.startsWith("@media")||r.selector.startsWith("@supports")||r.selector.startsWith("@page")||r.selector.startsWith("@document")){r.content=R(r.content,o);return r}return r}))}var i=F(r,e,n,a);r=__spreadArrays([i.cssText],s).join("\n");if(t){c.forEach((function(e){var t=e.placeholder,n=e.comment;r=r.replace(t,n)}))}i.slottedSelectors.forEach((function(e){r=r.replace(e.orgSelector,e.updatedSelector)}));return r}))}}}));
+            var safeSelector = function (selector) {
+                var placeholders = [];
+                var index = 0;
+                var content;
+                // Replaces attribute selectors with placeholders.
+                // The WS in [attr="va lue"] would otherwise be interpreted as a selector separator.
+                selector = selector.replace(/(\[[^\]]*\])/g, function (_, keep) {
+                    var replaceBy = "__ph-" + index + "__";
+                    placeholders.push(keep);
+                    index++;
+                    return replaceBy;
+                });
+                // Replaces the expression in `:nth-child(2n + 1)` with a placeholder.
+                // WS and "+" would otherwise be interpreted as selector separators.
+                content = selector.replace(/(:nth-[-\w]+)(\([^)]+\))/g, function (_, pseudo, exp) {
+                    var replaceBy = "__ph-" + index + "__";
+                    placeholders.push(exp);
+                    index++;
+                    return pseudo + replaceBy;
+                });
+                var ss = {
+                    content: content,
+                    placeholders: placeholders,
+                };
+                return ss;
+            };
+            var restoreSafeSelector = function (placeholders, content) {
+                return content.replace(/__ph-(\d+)__/g, function (_, index) { return placeholders[+index]; });
+            };
+            var _polyfillHost = '-shadowcsshost';
+            var _polyfillSlotted = '-shadowcssslotted';
+            // note: :host-context pre-processed to -shadowcsshostcontext.
+            var _polyfillHostContext = '-shadowcsscontext';
+            var _parenSuffix = ')(?:\\((' + '(?:\\([^)(]*\\)|[^)(]*)+?' + ')\\))?([^,{]*)';
+            var _cssColonHostRe = new RegExp('(' + _polyfillHost + _parenSuffix, 'gim');
+            var _cssColonHostContextRe = new RegExp('(' + _polyfillHostContext + _parenSuffix, 'gim');
+            var _cssColonSlottedRe = new RegExp('(' + _polyfillSlotted + _parenSuffix, 'gim');
+            var _polyfillHostNoCombinator = _polyfillHost + '-no-combinator';
+            var _polyfillHostNoCombinatorRe = /-shadowcsshost-no-combinator([^\s]*)/;
+            var _shadowDOMSelectorsRe = [/::shadow/g, /::content/g];
+            var _selectorReSuffix = '([>\\s~+[.,{:][\\s\\S]*)?$';
+            var _polyfillHostRe = /-shadowcsshost/gim;
+            var _colonHostRe = /:host/gim;
+            var _colonSlottedRe = /::slotted/gim;
+            var _colonHostContextRe = /:host-context/gim;
+            var _commentRe = /\/\*\s*[\s\S]*?\*\//g;
+            var stripComments = function (input) {
+                return input.replace(_commentRe, '');
+            };
+            var _commentWithHashRe = /\/\*\s*#\s*source(Mapping)?URL=[\s\S]+?\*\//g;
+            var extractCommentsWithHash = function (input) {
+                return input.match(_commentWithHashRe) || [];
+            };
+            var _ruleRe = /(\s*)([^;\{\}]+?)(\s*)((?:{%BLOCK%}?\s*;?)|(?:\s*;))/g;
+            var _curlyRe = /([{}])/g;
+            var OPEN_CURLY = '{';
+            var CLOSE_CURLY = '}';
+            var BLOCK_PLACEHOLDER = '%BLOCK%';
+            var processRules = function (input, ruleCallback) {
+                var inputWithEscapedBlocks = escapeBlocks(input);
+                var nextBlockIndex = 0;
+                return inputWithEscapedBlocks.escapedString.replace(_ruleRe, function () {
+                    var m = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        m[_i] = arguments[_i];
+                    }
+                    var selector = m[2];
+                    var content = '';
+                    var suffix = m[4];
+                    var contentPrefix = '';
+                    if (suffix && suffix.startsWith('{' + BLOCK_PLACEHOLDER)) {
+                        content = inputWithEscapedBlocks.blocks[nextBlockIndex++];
+                        suffix = suffix.substring(BLOCK_PLACEHOLDER.length + 1);
+                        contentPrefix = '{';
+                    }
+                    var cssRule = {
+                        selector: selector,
+                        content: content,
+                    };
+                    var rule = ruleCallback(cssRule);
+                    return "" + m[1] + rule.selector + m[3] + contentPrefix + rule.content + suffix;
+                });
+            };
+            var escapeBlocks = function (input) {
+                var inputParts = input.split(_curlyRe);
+                var resultParts = [];
+                var escapedBlocks = [];
+                var bracketCount = 0;
+                var currentBlockParts = [];
+                for (var partIndex = 0; partIndex < inputParts.length; partIndex++) {
+                    var part = inputParts[partIndex];
+                    if (part === CLOSE_CURLY) {
+                        bracketCount--;
+                    }
+                    if (bracketCount > 0) {
+                        currentBlockParts.push(part);
+                    }
+                    else {
+                        if (currentBlockParts.length > 0) {
+                            escapedBlocks.push(currentBlockParts.join(''));
+                            resultParts.push(BLOCK_PLACEHOLDER);
+                            currentBlockParts = [];
+                        }
+                        resultParts.push(part);
+                    }
+                    if (part === OPEN_CURLY) {
+                        bracketCount++;
+                    }
+                }
+                if (currentBlockParts.length > 0) {
+                    escapedBlocks.push(currentBlockParts.join(''));
+                    resultParts.push(BLOCK_PLACEHOLDER);
+                }
+                var strEscapedBlocks = {
+                    escapedString: resultParts.join(''),
+                    blocks: escapedBlocks,
+                };
+                return strEscapedBlocks;
+            };
+            var insertPolyfillHostInCssText = function (selector) {
+                selector = selector
+                    .replace(_colonHostContextRe, _polyfillHostContext)
+                    .replace(_colonHostRe, _polyfillHost)
+                    .replace(_colonSlottedRe, _polyfillSlotted);
+                return selector;
+            };
+            var convertColonRule = function (cssText, regExp, partReplacer) {
+                // m[1] = :host(-context), m[2] = contents of (), m[3] rest of rule
+                return cssText.replace(regExp, function () {
+                    var m = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        m[_i] = arguments[_i];
+                    }
+                    if (m[2]) {
+                        var parts = m[2].split(',');
+                        var r = [];
+                        for (var i = 0; i < parts.length; i++) {
+                            var p = parts[i].trim();
+                            if (!p)
+                                break;
+                            r.push(partReplacer(_polyfillHostNoCombinator, p, m[3]));
+                        }
+                        return r.join(',');
+                    }
+                    else {
+                        return _polyfillHostNoCombinator + m[3];
+                    }
+                });
+            };
+            var colonHostPartReplacer = function (host, part, suffix) {
+                return host + part.replace(_polyfillHost, '') + suffix;
+            };
+            var convertColonHost = function (cssText) {
+                return convertColonRule(cssText, _cssColonHostRe, colonHostPartReplacer);
+            };
+            var colonHostContextPartReplacer = function (host, part, suffix) {
+                if (part.indexOf(_polyfillHost) > -1) {
+                    return colonHostPartReplacer(host, part, suffix);
+                }
+                else {
+                    return host + part + suffix + ', ' + part + ' ' + host + suffix;
+                }
+            };
+            var convertColonSlotted = function (cssText, slotScopeId) {
+                var slotClass = '.' + slotScopeId + ' > ';
+                var selectors = [];
+                cssText = cssText.replace(_cssColonSlottedRe, function () {
+                    var m = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        m[_i] = arguments[_i];
+                    }
+                    if (m[2]) {
+                        var compound = m[2].trim();
+                        var suffix = m[3];
+                        var slottedSelector = slotClass + compound + suffix;
+                        var prefixSelector = '';
+                        for (var i = m[4] - 1; i >= 0; i--) {
+                            var char = m[5][i];
+                            if (char === '}' || char === ',') {
+                                break;
+                            }
+                            prefixSelector = char + prefixSelector;
+                        }
+                        var orgSelector = prefixSelector + slottedSelector;
+                        var addedSelector = "" + prefixSelector.trimRight() + slottedSelector.trim();
+                        if (orgSelector.trim() !== addedSelector.trim()) {
+                            var updatedSelector = addedSelector + ", " + orgSelector;
+                            selectors.push({
+                                orgSelector: orgSelector,
+                                updatedSelector: updatedSelector,
+                            });
+                        }
+                        return slottedSelector;
+                    }
+                    else {
+                        return _polyfillHostNoCombinator + m[3];
+                    }
+                });
+                return {
+                    selectors: selectors,
+                    cssText: cssText,
+                };
+            };
+            var convertColonHostContext = function (cssText) {
+                return convertColonRule(cssText, _cssColonHostContextRe, colonHostContextPartReplacer);
+            };
+            var convertShadowDOMSelectors = function (cssText) {
+                return _shadowDOMSelectorsRe.reduce(function (result, pattern) { return result.replace(pattern, ' '); }, cssText);
+            };
+            var makeScopeMatcher = function (scopeSelector) {
+                var lre = /\[/g;
+                var rre = /\]/g;
+                scopeSelector = scopeSelector.replace(lre, '\\[').replace(rre, '\\]');
+                return new RegExp('^(' + scopeSelector + ')' + _selectorReSuffix, 'm');
+            };
+            var selectorNeedsScoping = function (selector, scopeSelector) {
+                var re = makeScopeMatcher(scopeSelector);
+                return !re.test(selector);
+            };
+            var applySimpleSelectorScope = function (selector, scopeSelector, hostSelector) {
+                // In Android browser, the lastIndex is not reset when the regex is used in String.replace()
+                _polyfillHostRe.lastIndex = 0;
+                if (_polyfillHostRe.test(selector)) {
+                    var replaceBy_1 = "." + hostSelector;
+                    return selector
+                        .replace(_polyfillHostNoCombinatorRe, function (_, selector) {
+                        return selector.replace(/([^:]*)(:*)(.*)/, function (_, before, colon, after) {
+                            return before + replaceBy_1 + colon + after;
+                        });
+                    })
+                        .replace(_polyfillHostRe, replaceBy_1 + ' ');
+                }
+                return scopeSelector + ' ' + selector;
+            };
+            var applyStrictSelectorScope = function (selector, scopeSelector, hostSelector) {
+                var isRe = /\[is=([^\]]*)\]/g;
+                scopeSelector = scopeSelector.replace(isRe, function (_) {
+                    var parts = [];
+                    for (var _i = 1; _i < arguments.length; _i++) {
+                        parts[_i - 1] = arguments[_i];
+                    }
+                    return parts[0];
+                });
+                var className = '.' + scopeSelector;
+                var _scopeSelectorPart = function (p) {
+                    var scopedP = p.trim();
+                    if (!scopedP) {
+                        return '';
+                    }
+                    if (p.indexOf(_polyfillHostNoCombinator) > -1) {
+                        scopedP = applySimpleSelectorScope(p, scopeSelector, hostSelector);
+                    }
+                    else {
+                        // remove :host since it should be unnecessary
+                        var t = p.replace(_polyfillHostRe, '');
+                        if (t.length > 0) {
+                            var matches = t.match(/([^:]*)(:*)(.*)/);
+                            if (matches) {
+                                scopedP = matches[1] + className + matches[2] + matches[3];
+                            }
+                        }
+                    }
+                    return scopedP;
+                };
+                var safeContent = safeSelector(selector);
+                selector = safeContent.content;
+                var scopedSelector = '';
+                var startIndex = 0;
+                var res;
+                var sep = /( |>|\+|~(?!=))\s*/g;
+                // If a selector appears before :host it should not be shimmed as it
+                // matches on ancestor elements and not on elements in the host's shadow
+                // `:host-context(div)` is transformed to
+                // `-shadowcsshost-no-combinatordiv, div -shadowcsshost-no-combinator`
+                // the `div` is not part of the component in the 2nd selectors and should not be scoped.
+                // Historically `component-tag:host` was matching the component so we also want to preserve
+                // this behavior to avoid breaking legacy apps (it should not match).
+                // The behavior should be:
+                // - `tag:host` -> `tag[h]` (this is to avoid breaking legacy apps, should not match anything)
+                // - `tag :host` -> `tag [h]` (`tag` is not scoped because it's considered part of a
+                //   `:host-context(tag)`)
+                var hasHost = selector.indexOf(_polyfillHostNoCombinator) > -1;
+                // Only scope parts after the first `-shadowcsshost-no-combinator` when it is present
+                var shouldScope = !hasHost;
+                while ((res = sep.exec(selector)) !== null) {
+                    var separator = res[1];
+                    var part_1 = selector.slice(startIndex, res.index).trim();
+                    shouldScope = shouldScope || part_1.indexOf(_polyfillHostNoCombinator) > -1;
+                    var scopedPart = shouldScope ? _scopeSelectorPart(part_1) : part_1;
+                    scopedSelector += scopedPart + " " + separator + " ";
+                    startIndex = sep.lastIndex;
+                }
+                var part = selector.substring(startIndex);
+                shouldScope = shouldScope || part.indexOf(_polyfillHostNoCombinator) > -1;
+                scopedSelector += shouldScope ? _scopeSelectorPart(part) : part;
+                // replace the placeholders with their original values
+                return restoreSafeSelector(safeContent.placeholders, scopedSelector);
+            };
+            var scopeSelector = function (selector, scopeSelectorText, hostSelector, slotSelector) {
+                return selector
+                    .split(',')
+                    .map(function (shallowPart) {
+                    if (slotSelector && shallowPart.indexOf('.' + slotSelector) > -1) {
+                        return shallowPart.trim();
+                    }
+                    if (selectorNeedsScoping(shallowPart, scopeSelectorText)) {
+                        return applyStrictSelectorScope(shallowPart, scopeSelectorText, hostSelector).trim();
+                    }
+                    else {
+                        return shallowPart.trim();
+                    }
+                })
+                    .join(', ');
+            };
+            var scopeSelectors = function (cssText, scopeSelectorText, hostSelector, slotSelector, commentOriginalSelector) {
+                return processRules(cssText, function (rule) {
+                    var selector = rule.selector;
+                    var content = rule.content;
+                    if (rule.selector[0] !== '@') {
+                        selector = scopeSelector(rule.selector, scopeSelectorText, hostSelector, slotSelector);
+                    }
+                    else if (rule.selector.startsWith('@media') || rule.selector.startsWith('@supports') || rule.selector.startsWith('@page') || rule.selector.startsWith('@document')) {
+                        content = scopeSelectors(rule.content, scopeSelectorText, hostSelector, slotSelector);
+                    }
+                    var cssRule = {
+                        selector: selector.replace(/\s{2,}/g, ' ').trim(),
+                        content: content,
+                    };
+                    return cssRule;
+                });
+            };
+            var scopeCssText = function (cssText, scopeId, hostScopeId, slotScopeId, commentOriginalSelector) {
+                cssText = insertPolyfillHostInCssText(cssText);
+                cssText = convertColonHost(cssText);
+                cssText = convertColonHostContext(cssText);
+                var slotted = convertColonSlotted(cssText, slotScopeId);
+                cssText = slotted.cssText;
+                cssText = convertShadowDOMSelectors(cssText);
+                if (scopeId) {
+                    cssText = scopeSelectors(cssText, scopeId, hostScopeId, slotScopeId);
+                }
+                cssText = cssText.replace(/-shadowcsshost-no-combinator/g, "." + hostScopeId);
+                cssText = cssText.replace(/>\s*\*\s+([^{, ]+)/gm, ' $1 ');
+                return {
+                    cssText: cssText.trim(),
+                    slottedSelectors: slotted.selectors,
+                };
+            };
+            var scopeCss = exports('scopeCss', function (cssText, scopeId, commentOriginalSelector) {
+                var hostScopeId = scopeId + '-h';
+                var slotScopeId = scopeId + '-s';
+                var commentsWithHash = extractCommentsWithHash(cssText);
+                cssText = stripComments(cssText);
+                var orgSelectors = [];
+                if (commentOriginalSelector) {
+                    var processCommentedSelector_1 = function (rule) {
+                        var placeholder = "/*!@___" + orgSelectors.length + "___*/";
+                        var comment = "/*!@" + rule.selector + "*/";
+                        orgSelectors.push({ placeholder: placeholder, comment: comment });
+                        rule.selector = placeholder + rule.selector;
+                        return rule;
+                    };
+                    cssText = processRules(cssText, function (rule) {
+                        if (rule.selector[0] !== '@') {
+                            return processCommentedSelector_1(rule);
+                        }
+                        else if (rule.selector.startsWith('@media') || rule.selector.startsWith('@supports') || rule.selector.startsWith('@page') || rule.selector.startsWith('@document')) {
+                            rule.content = processRules(rule.content, processCommentedSelector_1);
+                            return rule;
+                        }
+                        return rule;
+                    });
+                }
+                var scoped = scopeCssText(cssText, scopeId, hostScopeId, slotScopeId);
+                cssText = __spreadArrays([scoped.cssText], commentsWithHash).join('\n');
+                if (commentOriginalSelector) {
+                    orgSelectors.forEach(function (_a) {
+                        var placeholder = _a.placeholder, comment = _a.comment;
+                        cssText = cssText.replace(placeholder, comment);
+                    });
+                }
+                scoped.slottedSelectors.forEach(function (slottedSelector) {
+                    cssText = cssText.replace(slottedSelector.orgSelector, slottedSelector.updatedSelector);
+                });
+                return cssText;
+            });
+        }
+    };
+});
