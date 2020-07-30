@@ -9474,10 +9474,12 @@ const names = {
 class XName {
     constructor(data) {
         _asn.set(this, new Name());
-        debugger;
-        __classPrivateFieldSet(this, _asn, data instanceof RDNSequence
-            ? data
-            : AsnParser.parse(data, Name));
+        if (ArrayBuffer.isView(data)) {
+            __classPrivateFieldSet(this, _asn, AsnParser.parse(data, Name));
+        }
+        else {
+            __classPrivateFieldSet(this, _asn, data);
+        }
     }
     toJSON() {
         const res = [];

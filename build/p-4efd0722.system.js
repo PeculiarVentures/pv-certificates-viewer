@@ -8653,10 +8653,12 @@ System.register([], function (exports) {
             var XName = /** @class */ (function () {
                 function XName(data) {
                     _asn.set(this, new Name());
-                    debugger;
-                    __classPrivateFieldSet(this, _asn, data instanceof RDNSequence
-                        ? data
-                        : AsnParser.parse(data, Name));
+                    if (ArrayBuffer.isView(data)) {
+                        __classPrivateFieldSet(this, _asn, AsnParser.parse(data, Name));
+                    }
+                    else {
+                        __classPrivateFieldSet(this, _asn, data);
+                    }
                 }
                 XName.prototype.toJSON = function () {
                     var res = [];
