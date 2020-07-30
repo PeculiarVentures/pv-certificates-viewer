@@ -10309,9 +10309,6 @@ class Extension$1 extends AsnData {
                 this.value = Convert.ToHex(asnExtnValue);
                 console.warn('Didn\'t detect parser for extension:', this.asn.extnID);
         }
-        if (this.value && this.value['buffer']) {
-            this.value = this.value['buffer'];
-        }
     }
     getAsnExtnValue() {
         return this.asn.extnValue.buffer;
@@ -12760,4 +12757,4 @@ Download.certificateRequest = {
     },
 };
 
-export { AsnParser as A, BasicConstraints as B, Convert as C, DisplayText as D, EDIPartyName as E, KeyUsage as K, LeiRoles as L, Name as N, OIDs as O, QCStatements as Q, SubjectKeyIdentifier as S, Timestamp as T, UserNotice as U, X509Certificate as X, OtherName as a, ExtendedKeyUsage as b, AuthorityKeyIdentifier as c, CRLDistributionPoints as d, AuthorityInfoAccessSyntax as e, SubjectAlternativeName as f, CertificatePolicies as g, CertificateTransparency as h, NameConstraints as i, CertificateTemplate as j, EnrollCertTypeChoice as k, CaVersion as l, NetscapeComment as m, NetscapeCertType as n, LeiChoice as o, ArchiveRevInfo as p, CRLReason as q, Download as r, short as s };
+export { AsnParser as A, BufferSourceConverter as B, Convert as C, DisplayText as D, EDIPartyName as E, KeyUsage as K, LeiRoles as L, Name as N, OIDs as O, QCStatements as Q, SubjectKeyIdentifier as S, Timestamp as T, UserNotice as U, X509Certificate as X, OtherName as a, BasicConstraints as b, ExtendedKeyUsage as c, AuthorityKeyIdentifier as d, CRLDistributionPoints as e, AuthorityInfoAccessSyntax as f, SubjectAlternativeName as g, CertificatePolicies as h, CertificateTransparency as i, NameConstraints as j, CertificateTemplate as k, EnrollCertTypeChoice as l, CaVersion as m, NetscapeComment as n, NetscapeCertType as o, LeiChoice as p, ArchiveRevInfo as q, CRLReason as r, short as s, Download as t };

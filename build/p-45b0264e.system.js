@@ -5898,6 +5898,7 @@ System.register([], function (exports) {
                 };
                 return BufferSourceConverter;
             }());
+            exports('B', BufferSourceConverter);
             var BitString$1 = /** @class */ (function () {
                 function BitString$1(params, unusedBits) {
                     if (unusedBits === void 0) { unusedBits = 0; }
@@ -7481,14 +7482,14 @@ System.register([], function (exports) {
             __decorate([
                 AsnProp({ type: GeneralName })
             ], AccessDescription.prototype, "accessLocation", void 0);
-            var AuthorityInfoAccessSyntax = exports('e', /** @class */ (function (_super) {
+            var AuthorityInfoAccessSyntax = exports('f', /** @class */ (function (_super) {
                 __extends(AuthorityInfoAccessSyntax, _super);
                 function AuthorityInfoAccessSyntax() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 return AuthorityInfoAccessSyntax;
             }(AsnArray)));
-            AuthorityInfoAccessSyntax = exports('e', __decorate([
+            AuthorityInfoAccessSyntax = exports('f', __decorate([
                 AsnType({ type: AsnTypeTypes.Sequence, itemType: AccessDescription })
             ], AuthorityInfoAccessSyntax));
             var id_ce_authorityKeyIdentifier = id_ce + ".35";
@@ -7508,7 +7509,7 @@ System.register([], function (exports) {
                 }
                 return AuthorityKeyIdentifier;
             }());
-            exports('c', AuthorityKeyIdentifier);
+            exports('d', AuthorityKeyIdentifier);
             __decorate([
                 AsnProp({ type: KeyIdentifier, context: 0, optional: true, implicit: true })
             ], AuthorityKeyIdentifier.prototype, "keyIdentifier", void 0);
@@ -7533,7 +7534,7 @@ System.register([], function (exports) {
                 }
                 return BasicConstraints;
             }());
-            exports('B', BasicConstraints);
+            exports('b', BasicConstraints);
             __decorate([
                 AsnProp({ type: AsnPropTypes.Boolean, defaultValue: false })
             ], BasicConstraints.prototype, "cA", void 0);
@@ -7661,14 +7662,14 @@ System.register([], function (exports) {
             __decorate([
                 AsnProp({ type: PolicyQualifierInfo, repeated: "sequence", optional: true })
             ], PolicyInformation.prototype, "policyQualifiers", void 0);
-            var CertificatePolicies = exports('g', /** @class */ (function (_super) {
+            var CertificatePolicies = exports('h', /** @class */ (function (_super) {
                 __extends(CertificatePolicies, _super);
                 function CertificatePolicies() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 return CertificatePolicies;
             }(AsnArray)));
-            CertificatePolicies = exports('g', __decorate([
+            CertificatePolicies = exports('h', __decorate([
                 AsnType({ type: AsnTypeTypes.Sequence, itemType: PolicyInformation })
             ], CertificatePolicies));
             var id_ce_cRLDistributionPoints = id_ce + ".31";
@@ -7758,14 +7759,14 @@ System.register([], function (exports) {
             __decorate([
                 AsnProp({ type: GeneralName, context: 2, optional: true, repeated: "sequence", implicit: true })
             ], DistributionPoint.prototype, "cRLIssuer", void 0);
-            var CRLDistributionPoints = exports('d', /** @class */ (function (_super) {
+            var CRLDistributionPoints = exports('e', /** @class */ (function (_super) {
                 __extends(CRLDistributionPoints, _super);
                 function CRLDistributionPoints() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 return CRLDistributionPoints;
             }(AsnArray)));
-            CRLDistributionPoints = exports('d', __decorate([
+            CRLDistributionPoints = exports('e', __decorate([
                 AsnType({ type: AsnTypeTypes.Sequence, itemType: DistributionPoint })
             ], CRLDistributionPoints));
             var id_ce_cRLReasons = id_ce + ".21";
@@ -7782,7 +7783,7 @@ System.register([], function (exports) {
                 CRLReasons[CRLReasons["privilegeWithdrawn"] = 9] = "privilegeWithdrawn";
                 CRLReasons[CRLReasons["aACompromise"] = 10] = "aACompromise";
             })(CRLReasons || (CRLReasons = {}));
-            var CRLReason = exports('q', /** @class */ (function () {
+            var CRLReason = exports('r', /** @class */ (function () {
                 function CRLReason(reason) {
                     if (reason === void 0) { reason = CRLReasons.unspecified; }
                     this.reason = CRLReasons.unspecified;
@@ -7799,18 +7800,18 @@ System.register([], function (exports) {
             __decorate([
                 AsnProp({ type: AsnPropTypes.Enumerated })
             ], CRLReason.prototype, "reason", void 0);
-            CRLReason = exports('q', __decorate([
+            CRLReason = exports('r', __decorate([
                 AsnType({ type: AsnTypeTypes.Choice })
             ], CRLReason));
             var id_ce_extKeyUsage = id_ce + ".37";
-            var ExtendedKeyUsage = exports('b', /** @class */ (function (_super) {
+            var ExtendedKeyUsage = exports('c', /** @class */ (function (_super) {
                 __extends(ExtendedKeyUsage, _super);
                 function ExtendedKeyUsage() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 return ExtendedKeyUsage;
             }(AsnArray)));
-            ExtendedKeyUsage = exports('b', __decorate([
+            ExtendedKeyUsage = exports('c', __decorate([
                 AsnType({ type: AsnTypeTypes.Sequence, itemType: AsnPropTypes.ObjectIdentifier })
             ], ExtendedKeyUsage));
             var id_ce_inhibitAnyPolicy = id_ce + ".54";
@@ -7946,7 +7947,7 @@ System.register([], function (exports) {
                 }
                 return NameConstraints;
             }());
-            exports('i', NameConstraints);
+            exports('j', NameConstraints);
             __decorate([
                 AsnProp({ type: GeneralSubtrees, context: 0, optional: true, implicit: true })
             ], NameConstraints.prototype, "permittedSubtrees", void 0);
@@ -7990,14 +7991,14 @@ System.register([], function (exports) {
                 AsnProp({ type: AsnPropTypes.ObjectIdentifier })
             ], PolicyMappings.prototype, "subjectDomainPolicy", void 0);
             var id_ce_subjectAltName = id_ce + ".17";
-            var SubjectAlternativeName = exports('f', /** @class */ (function (_super) {
+            var SubjectAlternativeName = exports('g', /** @class */ (function (_super) {
                 __extends(SubjectAlternativeName, _super);
                 function SubjectAlternativeName() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 return SubjectAlternativeName;
             }(GeneralNames)));
-            SubjectAlternativeName = exports('f', __decorate([
+            SubjectAlternativeName = exports('g', __decorate([
                 AsnType({ type: AsnTypeTypes.Sequence })
             ], SubjectAlternativeName));
             var Attribute = /** @class */ (function () {
@@ -8815,7 +8816,7 @@ System.register([], function (exports) {
                 }
                 return CertificateTemplate;
             }());
-            exports('j', CertificateTemplate);
+            exports('k', CertificateTemplate);
             __decorate([
                 AsnProp({ type: AsnPropTypes.ObjectIdentifier })
             ], CertificateTemplate.prototype, "templateID", void 0);
@@ -8837,7 +8838,7 @@ System.register([], function (exports) {
             __decorate([
                 AsnProp({ type: AsnPropTypes.Utf8String })
             ], EnrollCertType.prototype, "name", void 0);
-            var EnrollCertTypeChoice = exports('k', /** @class */ (function () {
+            var EnrollCertTypeChoice = exports('l', /** @class */ (function () {
                 function EnrollCertTypeChoice(params) {
                     if (params === void 0) { params = {}; }
                     Object.assign(this, params);
@@ -8850,11 +8851,11 @@ System.register([], function (exports) {
             __decorate([
                 AsnProp({ type: EnrollCertType })
             ], EnrollCertTypeChoice.prototype, "spec", void 0);
-            EnrollCertTypeChoice = exports('k', __decorate([
+            EnrollCertTypeChoice = exports('l', __decorate([
                 AsnType({ type: AsnTypeTypes.Choice })
             ], EnrollCertTypeChoice));
             var id_caVersion = "1.3.6.1.4.1.311.21.1";
-            var CaVersion = exports('l', /** @class */ (function () {
+            var CaVersion = exports('m', /** @class */ (function () {
                 function CaVersion() {
                     this.value = new ArrayBuffer(0);
                 }
@@ -8878,7 +8879,7 @@ System.register([], function (exports) {
             __decorate([
                 AsnProp({ type: AsnPropTypes.Integer, converter: AsnIntegerArrayBufferConverter })
             ], CaVersion.prototype, "value", void 0);
-            CaVersion = exports('l', __decorate([
+            CaVersion = exports('m', __decorate([
                 AsnType({ type: AsnTypeTypes.Choice })
             ], CaVersion));
             var AnyString = /** @class */ (function () {
@@ -9170,9 +9171,9 @@ System.register([], function (exports) {
                 };
                 return NetscapeCertType;
             }(BitString$1));
-            exports('n', NetscapeCertType);
+            exports('o', NetscapeCertType);
             var id_netscapeComment = id_netscapeCertExtension + ".13";
-            var NetscapeComment = exports('m', /** @class */ (function () {
+            var NetscapeComment = exports('n', /** @class */ (function () {
                 function NetscapeComment(value) {
                     this.value = "";
                     if (value) {
@@ -9184,7 +9185,7 @@ System.register([], function (exports) {
             __decorate([
                 AsnProp({ type: AsnPropTypes.IA5String })
             ], NetscapeComment.prototype, "value", void 0);
-            NetscapeComment = exports('m', __decorate([
+            NetscapeComment = exports('n', __decorate([
                 AsnType({ type: AsnTypeTypes.Choice })
             ], NetscapeComment));
             var NetscapeRevocationUrl = /** @class */ (function () {
@@ -9235,7 +9236,7 @@ System.register([], function (exports) {
             Lei = __decorate([
                 AsnType({ type: AsnTypeTypes.Sequence })
             ], Lei);
-            var LeiChoice = exports('o', /** @class */ (function () {
+            var LeiChoice = exports('p', /** @class */ (function () {
                 function LeiChoice(value) {
                     if (typeof value === "string") {
                         this.text = value;
@@ -9252,7 +9253,7 @@ System.register([], function (exports) {
             __decorate([
                 AsnProp({ type: Lei })
             ], LeiChoice.prototype, "struct", void 0);
-            LeiChoice = exports('o', __decorate([
+            LeiChoice = exports('p', __decorate([
                 AsnType({ type: AsnTypeTypes.Choice })
             ], LeiChoice));
             var id_lei_roles = "1.3.6.1.4.1.52266.2";
@@ -9403,7 +9404,7 @@ System.register([], function (exports) {
                 };
                 return CertificateTransparency;
             }(OctetString$1));
-            exports('h', CertificateTransparency);
+            exports('i', CertificateTransparency);
             var Version$1;
             (function (Version) {
                 Version[Version["v1"] = 1] = "v1";
@@ -9417,7 +9418,7 @@ System.register([], function (exports) {
                 }
                 return ArchiveRevInfo;
             }());
-            exports('p', ArchiveRevInfo);
+            exports('q', ArchiveRevInfo);
             __decorate([
                 AsnProp({ type: AsnPropTypes.Integer })
             ], ArchiveRevInfo.prototype, "version", void 0);
@@ -9589,9 +9590,6 @@ System.register([], function (exports) {
                         default:
                             _this.value = Convert.ToHex(asnExtnValue);
                             console.warn('Didn\'t detect parser for extension:', _this.asn.extnID);
-                    }
-                    if (_this.value && _this.value['buffer']) {
-                        _this.value = _this.value['buffer'];
                     }
                     return _this;
                 }
@@ -12062,7 +12060,7 @@ System.register([], function (exports) {
                 }
                 return Download;
             }());
-            exports('r', Download);
+            exports('t', Download);
             Download.certificate = {
                 asPEM: function (pem, name) {
                     downloadFromBuffer(Convert.FromString(pem), 'application/pkix-cert', name, 'cer');

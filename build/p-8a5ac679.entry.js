@@ -1,5 +1,5 @@
 import { r as registerInstance, h, H as Host, c as createEvent } from './p-4114264f.js';
-import { X as X509Certificate, s as short, O as OIDs, C as Convert, N as Name, a as OtherName, A as AsnParser, D as DisplayText, E as EDIPartyName, U as UserNotice, K as KeyUsage, B as BasicConstraints, b as ExtendedKeyUsage, S as SubjectKeyIdentifier, c as AuthorityKeyIdentifier, d as CRLDistributionPoints, e as AuthorityInfoAccessSyntax, f as SubjectAlternativeName, g as CertificatePolicies, h as CertificateTransparency, i as NameConstraints, j as CertificateTemplate, k as EnrollCertTypeChoice, l as CaVersion, Q as QCStatements, m as NetscapeComment, n as NetscapeCertType, L as LeiRoles, o as LeiChoice, T as Timestamp, p as ArchiveRevInfo, q as CRLReason, r as Download } from './p-82d2a9e9.js';
+import { X as X509Certificate, s as short, O as OIDs, C as Convert, N as Name, a as OtherName, A as AsnParser, D as DisplayText, B as BufferSourceConverter, E as EDIPartyName, U as UserNotice, K as KeyUsage, b as BasicConstraints, c as ExtendedKeyUsage, S as SubjectKeyIdentifier, d as AuthorityKeyIdentifier, e as CRLDistributionPoints, f as AuthorityInfoAccessSyntax, g as SubjectAlternativeName, h as CertificatePolicies, i as CertificateTransparency, j as NameConstraints, k as CertificateTemplate, l as EnrollCertTypeChoice, m as CaVersion, Q as QCStatements, n as NetscapeComment, o as NetscapeCertType, L as LeiRoles, p as LeiChoice, T as Timestamp, q as ArchiveRevInfo, r as CRLReason, t as Download } from './p-02081f00.js';
 
 const buttonCss = ":host{display:inline-block;width:auto;font-family:inherit;text-align:center;text-decoration:none;text-overflow:ellipsis;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;vertical-align:top;vertical-align:-webkit-baseline-middle;pointer-events:auto;-webkit-font-kerning:none;font-kerning:none;-webkit-box-sizing:border-box;box-sizing:border-box;--peculiar-button-padding-end:5px;--peculiar-button-padding-start:5px}:host(.peculiar_button){height:30px;border-radius:2px}:host(.peculiar_button_stroke){border-width:1px;border-style:solid}.peculiar_button_native{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;display:block;position:relative;width:100%;height:100%;line-height:30px;contain:layout style;cursor:pointer;z-index:0;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-appearance:none;text-decoration:inherit;outline:none;margin:0;background:inherit;border:none;border-radius:inherit;padding:0 var(--peculiar-button-padding-end) 0 var(--peculiar-button-padding-start);-webkit-transition:-webkit-box-shadow 200ms;transition:-webkit-box-shadow 200ms;transition:box-shadow 200ms;transition:box-shadow 200ms, -webkit-box-shadow 200ms}.peculiar_button_inner{-webkit-transition:opacity 200ms;transition:opacity 200ms}:host(.peculiar_button_disabled){opacity:0.5;pointer-events:none}.peculiar_button_native:focus{-webkit-box-shadow:0 4px 10px 0 rgba(var(--peculiar-color-dark-rgb), 0.15);box-shadow:0 4px 10px 0 rgba(var(--peculiar-color-dark-rgb), 0.15)}@media (hover: hover){.peculiar_button_native:hover .peculiar_button_inner{opacity:0.6}}.peculiar_button_native:active .peculiar_button_inner{opacity:1}";
 
@@ -999,7 +999,7 @@ function extendedKeyUsage(extension, value) {
 }
 
 function subjectKeyIdentifier(extension, value, options = {}) {
-    const keyId = Convert.ToHex(value);
+    const keyId = Convert.ToHex(value.buffer);
     const childrenLink = options === null || options === void 0 ? void 0 : options.getSubjectKeyIdChildrenLink(keyId);
     const siblingsLink = options === null || options === void 0 ? void 0 : options.getSubjectKeyIdSiblingsLink(keyId);
     return basic(extension, rowValue('Key ID', keyId, {
@@ -1018,7 +1018,7 @@ function subjectKeyIdentifier(extension, value, options = {}) {
 }
 
 function authorityKeyIdentifier(extension, value, options = {}) {
-    const keyId = Convert.ToHex(value.keyIdentifier);
+    const keyId = Convert.ToHex(value.keyIdentifier.buffer);
     const parentLink = options === null || options === void 0 ? void 0 : options.getAuthKeyIdParentLink(keyId);
     const siblingsLink = options === null || options === void 0 ? void 0 : options.getAuthKeyIdSiblingsLink(keyId);
     return basic(extension, rowValue('Key ID', keyId, {
@@ -1063,7 +1063,7 @@ function generalName(generalName, options) {
             const text = AsnParser.parse(value.value, DisplayText);
             return rowValue(OIDs[value.typeId], text.toString());
         }
-        if (value instanceof ArrayBuffer) {
+        if (BufferSourceConverter.isBufferSource(value)) {
             return rowValue(names[name] || name, Convert.ToString(value));
         }
         if (value instanceof EDIPartyName) {

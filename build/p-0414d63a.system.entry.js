@@ -34,9 +34,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-System.register(['./p-50c6b099.system.js', './p-51c65e9a.system.js'], function (exports) {
+System.register(['./p-50c6b099.system.js', './p-45b0264e.system.js'], function (exports) {
     'use strict';
-    var registerInstance, h, Host, createEvent, X509Certificate, short, OIDs, Convert, Name, OtherName, AsnParser, DisplayText, EDIPartyName, UserNotice, KeyUsage, BasicConstraints, ExtendedKeyUsage, SubjectKeyIdentifier, AuthorityKeyIdentifier, CRLDistributionPoints, AuthorityInfoAccessSyntax, SubjectAlternativeName, CertificatePolicies, CertificateTransparency, NameConstraints, CertificateTemplate, EnrollCertTypeChoice, CaVersion, QCStatements, NetscapeComment, NetscapeCertType, LeiRoles, LeiChoice, Timestamp, ArchiveRevInfo, CRLReason, Download;
+    var registerInstance, h, Host, createEvent, X509Certificate, short, OIDs, Convert, Name, OtherName, AsnParser, DisplayText, BufferSourceConverter, EDIPartyName, UserNotice, KeyUsage, BasicConstraints, ExtendedKeyUsage, SubjectKeyIdentifier, AuthorityKeyIdentifier, CRLDistributionPoints, AuthorityInfoAccessSyntax, SubjectAlternativeName, CertificatePolicies, CertificateTransparency, NameConstraints, CertificateTemplate, EnrollCertTypeChoice, CaVersion, QCStatements, NetscapeComment, NetscapeCertType, LeiRoles, LeiChoice, Timestamp, ArchiveRevInfo, CRLReason, Download;
     return {
         setters: [function (module) {
                 registerInstance = module.r;
@@ -52,31 +52,32 @@ System.register(['./p-50c6b099.system.js', './p-51c65e9a.system.js'], function (
                 OtherName = module.a;
                 AsnParser = module.A;
                 DisplayText = module.D;
+                BufferSourceConverter = module.B;
                 EDIPartyName = module.E;
                 UserNotice = module.U;
                 KeyUsage = module.K;
-                BasicConstraints = module.B;
-                ExtendedKeyUsage = module.b;
+                BasicConstraints = module.b;
+                ExtendedKeyUsage = module.c;
                 SubjectKeyIdentifier = module.S;
-                AuthorityKeyIdentifier = module.c;
-                CRLDistributionPoints = module.d;
-                AuthorityInfoAccessSyntax = module.e;
-                SubjectAlternativeName = module.f;
-                CertificatePolicies = module.g;
-                CertificateTransparency = module.h;
-                NameConstraints = module.i;
-                CertificateTemplate = module.j;
-                EnrollCertTypeChoice = module.k;
-                CaVersion = module.l;
+                AuthorityKeyIdentifier = module.d;
+                CRLDistributionPoints = module.e;
+                AuthorityInfoAccessSyntax = module.f;
+                SubjectAlternativeName = module.g;
+                CertificatePolicies = module.h;
+                CertificateTransparency = module.i;
+                NameConstraints = module.j;
+                CertificateTemplate = module.k;
+                EnrollCertTypeChoice = module.l;
+                CaVersion = module.m;
                 QCStatements = module.Q;
-                NetscapeComment = module.m;
-                NetscapeCertType = module.n;
+                NetscapeComment = module.n;
+                NetscapeCertType = module.o;
                 LeiRoles = module.L;
-                LeiChoice = module.o;
+                LeiChoice = module.p;
                 Timestamp = module.T;
-                ArchiveRevInfo = module.p;
-                CRLReason = module.q;
-                Download = module.r;
+                ArchiveRevInfo = module.q;
+                CRLReason = module.r;
+                Download = module.t;
             }],
         execute: function () {
             var buttonCss = ":host{display:inline-block;width:auto;font-family:inherit;text-align:center;text-decoration:none;text-overflow:ellipsis;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;vertical-align:top;vertical-align:-webkit-baseline-middle;pointer-events:auto;-webkit-font-kerning:none;font-kerning:none;-webkit-box-sizing:border-box;box-sizing:border-box;--peculiar-button-padding-end:5px;--peculiar-button-padding-start:5px}:host(.peculiar_button){height:30px;border-radius:2px}:host(.peculiar_button_stroke){border-width:1px;border-style:solid}.peculiar_button_native{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;display:block;position:relative;width:100%;height:100%;line-height:30px;contain:layout style;cursor:pointer;z-index:0;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-appearance:none;text-decoration:inherit;outline:none;margin:0;background:inherit;border:none;border-radius:inherit;padding:0 var(--peculiar-button-padding-end) 0 var(--peculiar-button-padding-start);-webkit-transition:-webkit-box-shadow 200ms;transition:-webkit-box-shadow 200ms;transition:box-shadow 200ms;transition:box-shadow 200ms, -webkit-box-shadow 200ms}.peculiar_button_inner{-webkit-transition:opacity 200ms;transition:opacity 200ms}:host(.peculiar_button_disabled){opacity:0.5;pointer-events:none}.peculiar_button_native:focus{-webkit-box-shadow:0 4px 10px 0 rgba(var(--peculiar-color-dark-rgb), 0.15);box-shadow:0 4px 10px 0 rgba(var(--peculiar-color-dark-rgb), 0.15)}@media (hover: hover){.peculiar_button_native:hover .peculiar_button_inner{opacity:0.6}}.peculiar_button_native:active .peculiar_button_inner{opacity:1}";
@@ -1013,7 +1014,7 @@ System.register(['./p-50c6b099.system.js', './p-51c65e9a.system.js'], function (
             }
             function subjectKeyIdentifier(extension, value, options) {
                 if (options === void 0) { options = {}; }
-                var keyId = Convert.ToHex(value);
+                var keyId = Convert.ToHex(value.buffer);
                 var childrenLink = options === null || options === void 0 ? void 0 : options.getSubjectKeyIdChildrenLink(keyId);
                 var siblingsLink = options === null || options === void 0 ? void 0 : options.getSubjectKeyIdSiblingsLink(keyId);
                 return basic(extension, rowValue('Key ID', keyId, {
@@ -1026,7 +1027,7 @@ System.register(['./p-50c6b099.system.js', './p-51c65e9a.system.js'], function (
             }
             function authorityKeyIdentifier(extension, value, options) {
                 if (options === void 0) { options = {}; }
-                var keyId = Convert.ToHex(value.keyIdentifier);
+                var keyId = Convert.ToHex(value.keyIdentifier.buffer);
                 var parentLink = options === null || options === void 0 ? void 0 : options.getAuthKeyIdParentLink(keyId);
                 var siblingsLink = options === null || options === void 0 ? void 0 : options.getAuthKeyIdSiblingsLink(keyId);
                 return basic(extension, rowValue('Key ID', keyId, {
@@ -1064,7 +1065,7 @@ System.register(['./p-50c6b099.system.js', './p-51c65e9a.system.js'], function (
                         var text = AsnParser.parse(value.value, DisplayText);
                         return rowValue(OIDs[value.typeId], text.toString());
                     }
-                    if (value instanceof ArrayBuffer) {
+                    if (BufferSourceConverter.isBufferSource(value)) {
                         return rowValue(names[name] || name, Convert.ToString(value));
                     }
                     if (value instanceof EDIPartyName) {

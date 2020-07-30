@@ -34,7 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-System.register(['./p-50c6b099.system.js', './p-51c65e9a.system.js'], function (exports) {
+System.register(['./p-50c6b099.system.js', './p-45b0264e.system.js'], function (exports) {
     'use strict';
     var registerInstance, h, Host, X509Certificate, Download, OIDs;
     return {
@@ -44,7 +44,7 @@ System.register(['./p-50c6b099.system.js', './p-51c65e9a.system.js'], function (
                 Host = module.H;
             }, function (module) {
                 X509Certificate = module.X;
-                Download = module.r;
+                Download = module.t;
                 OIDs = module.O;
             }],
         execute: function () {
