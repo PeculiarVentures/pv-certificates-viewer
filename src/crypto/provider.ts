@@ -1,13 +1,13 @@
-export class CryptoProvider extends Map<string, Crypto> {
+export class CryptoProvider {
+  private providers: Map<string, Crypto> = new Map();
+
   public static DEFAULT = 'default';
 
   public static isCryptoKeyPair(data: any): data is CryptoKeyPair {
     return data && data.privateKey && data.publicKey;
   }
 
-  public constructor() {
-    super();
-
+  constructor() {
     if (typeof crypto !== 'undefined') {
       this.set(CryptoProvider.DEFAULT, crypto);
     }
@@ -23,7 +23,7 @@ export class CryptoProvider extends Map<string, Crypto> {
    */
   public get(key: string): Crypto;
   public get(key = CryptoProvider.DEFAULT) {
-    const crypto = super.get(key.toLowerCase());
+    const crypto = this.providers.get(key.toLowerCase());
 
     if (!crypto) {
       throw new Error(`Cannot get Crypto by name '${key}'`);
@@ -39,14 +39,14 @@ export class CryptoProvider extends Map<string, Crypto> {
       if (!value) {
         throw new TypeError("Argument 'value' is required");
       }
-      super.set(key.toLowerCase(), value);
+
+      this.providers.set(key.toLowerCase(), value);
     } else {
-      super.set(CryptoProvider.DEFAULT, key);
+      this.providers.set(CryptoProvider.DEFAULT, key);
     }
 
     return this;
   }
-
 }
 
 export const cryptoProvider = new CryptoProvider();
