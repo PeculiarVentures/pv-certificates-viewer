@@ -9471,12 +9471,13 @@ const names = {
     '2.5.4.5': 'serialNumber',
     '2.5.4.97': 'OI',
 };
-class Name$1 {
+class XName {
     constructor(data) {
         _asn.set(this, new Name());
+        debugger;
         __classPrivateFieldSet(this, _asn, data instanceof Name
             ? data
-            : AsnParser.parse(data['buffer'] || data, Name));
+            : AsnParser.parse(data, Name));
     }
     toJSON() {
         const res = [];
@@ -10315,8 +10316,8 @@ class X509Certificate extends AsnData {
         this.thumbprints = {};
         const { tbsCertificate } = this.asn;
         this.serialNumber = Convert.ToHex(tbsCertificate.serialNumber);
-        this.subject = new Name$1(tbsCertificate.subject).toJSON();
-        this.issuer = new Name$1(tbsCertificate.issuer).toJSON();
+        this.subject = new XName(tbsCertificate.subject).toJSON();
+        this.issuer = new XName(tbsCertificate.issuer).toJSON();
         this.version = tbsCertificate.version + 1;
         const notBefore = tbsCertificate.validity.notBefore.utcTime
             || tbsCertificate.validity.notBefore.generalTime;

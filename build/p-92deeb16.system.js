@@ -8650,14 +8650,15 @@ System.register([], function (exports) {
                 '2.5.4.5': 'serialNumber',
                 '2.5.4.97': 'OI',
             };
-            var Name$1 = /** @class */ (function () {
-                function Name$1(data) {
+            var XName = /** @class */ (function () {
+                function XName(data) {
                     _asn.set(this, new Name());
+                    debugger;
                     __classPrivateFieldSet(this, _asn, data instanceof Name
                         ? data
-                        : AsnParser.parse(data['buffer'] || data, Name));
+                        : AsnParser.parse(data, Name));
                 }
-                Name$1.prototype.toJSON = function () {
+                XName.prototype.toJSON = function () {
                     var res = [];
                     __classPrivateFieldGet(this, _asn).forEach(function (o) { return (o.forEach(function (a) {
                         res.push({
@@ -8668,7 +8669,7 @@ System.register([], function (exports) {
                     })); });
                     return res;
                 };
-                return Name$1;
+                return XName;
             }());
             _asn = new WeakMap();
             var PredefinedBiometricType;
@@ -9598,8 +9599,8 @@ System.register([], function (exports) {
                     _this.thumbprints = {};
                     var tbsCertificate = _this.asn.tbsCertificate;
                     _this.serialNumber = Convert.ToHex(tbsCertificate.serialNumber);
-                    _this.subject = new Name$1(tbsCertificate.subject).toJSON();
-                    _this.issuer = new Name$1(tbsCertificate.issuer).toJSON();
+                    _this.subject = new XName(tbsCertificate.subject).toJSON();
+                    _this.issuer = new XName(tbsCertificate.issuer).toJSON();
                     _this.version = tbsCertificate.version + 1;
                     var notBefore = tbsCertificate.validity.notBefore.utcTime
                         || tbsCertificate.validity.notBefore.generalTime;
