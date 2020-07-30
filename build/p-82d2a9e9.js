@@ -6887,7 +6887,9 @@ class BufferSourceConverter {
         throw new TypeError("The provided value is not of type '(ArrayBuffer or ArrayBufferView)'");
     }
     static isBufferSource(data) {
-        return ArrayBuffer.isView(data) || data instanceof ArrayBuffer;
+        return ArrayBuffer.isView(data)
+            || data instanceof ArrayBuffer
+            || (data && data.buffer instanceof ArrayBuffer);
     }
 }
 
@@ -10307,6 +10309,9 @@ class Extension$1 extends AsnData {
                 this.value = Convert.ToHex(asnExtnValue);
                 console.warn('Didn\'t detect parser for extension:', this.asn.extnID);
         }
+        if (this.value && this.value['buffer']) {
+            this.value = this.value['buffer'];
+        }
     }
     getAsnExtnValue() {
         return this.asn.extnValue.buffer;
@@ -10319,9 +10324,7 @@ class X509Certificate extends AsnData {
         this.thumbprints = {};
         const { tbsCertificate } = this.asn;
         this.serialNumber = Convert.ToHex(tbsCertificate.serialNumber);
-        debugger;
         this.subject = new XName(tbsCertificate.subject).toJSON();
-        debugger;
         this.issuer = new XName(tbsCertificate.issuer).toJSON();
         this.version = tbsCertificate.version + 1;
         const notBefore = tbsCertificate.validity.notBefore.utcTime

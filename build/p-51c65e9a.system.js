@@ -5892,7 +5892,9 @@ System.register([], function (exports) {
                     throw new TypeError("The provided value is not of type '(ArrayBuffer or ArrayBufferView)'");
                 };
                 BufferSourceConverter.isBufferSource = function (data) {
-                    return ArrayBuffer.isView(data) || data instanceof ArrayBuffer;
+                    return ArrayBuffer.isView(data)
+                        || data instanceof ArrayBuffer
+                        || (data && data.buffer instanceof ArrayBuffer);
                 };
                 return BufferSourceConverter;
             }());
@@ -9588,6 +9590,9 @@ System.register([], function (exports) {
                             _this.value = Convert.ToHex(asnExtnValue);
                             console.warn('Didn\'t detect parser for extension:', _this.asn.extnID);
                     }
+                    if (_this.value && _this.value['buffer']) {
+                        _this.value = _this.value['buffer'];
+                    }
                     return _this;
                 }
                 Extension$1.prototype.getAsnExtnValue = function () {
@@ -9602,9 +9607,7 @@ System.register([], function (exports) {
                     _this.thumbprints = {};
                     var tbsCertificate = _this.asn.tbsCertificate;
                     _this.serialNumber = Convert.ToHex(tbsCertificate.serialNumber);
-                    debugger;
                     _this.subject = new XName(tbsCertificate.subject).toJSON();
-                    debugger;
                     _this.issuer = new XName(tbsCertificate.issuer).toJSON();
                     _this.version = tbsCertificate.version + 1;
                     var notBefore = tbsCertificate.validity.notBefore.utcTime
