@@ -8587,6 +8587,7 @@ System.register([], function (exports) {
             var CryptoProvider = /** @class */ (function () {
                 function CryptoProvider() {
                     this.providers = new Map();
+                    var crypto = window.crypto || window['msCrypto'];
                     if (typeof crypto !== 'undefined') {
                         this.set(CryptoProvider.DEFAULT, crypto);
                     }
@@ -8653,7 +8654,7 @@ System.register([], function (exports) {
             var XName = /** @class */ (function () {
                 function XName(data) {
                     _asn.set(this, new Name());
-                    if (ArrayBuffer.isView(data)) {
+                    if (BufferSourceConverter.isBufferSource(data)) {
                         __classPrivateFieldSet(this, _asn, AsnParser.parse(data, Name));
                     }
                     else {

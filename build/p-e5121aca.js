@@ -9409,6 +9409,7 @@ const validator = {
 class CryptoProvider {
     constructor() {
         this.providers = new Map();
+        const crypto = window.crypto || window['msCrypto'];
         if (typeof crypto !== 'undefined') {
             this.set(CryptoProvider.DEFAULT, crypto);
         }
@@ -9474,7 +9475,7 @@ const names = {
 class XName {
     constructor(data) {
         _asn.set(this, new Name());
-        if (ArrayBuffer.isView(data)) {
+        if (BufferSourceConverter.isBufferSource(data)) {
             __classPrivateFieldSet(this, _asn, AsnParser.parse(data, Name));
         }
         else {
