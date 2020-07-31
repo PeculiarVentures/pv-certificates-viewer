@@ -959,8 +959,8 @@ const CertificateViewer = class {
             if (typeof certificate === 'string') {
                 this.certificateDecoded = new X509Certificate(certificate);
             }
-            this.certificateDecoded.parseExtensions();
-            // await this.certificateDecoded.getThumbprint('SHA-1');
+            // this.certificateDecoded.parseExtensions();
+            await this.certificateDecoded.getThumbprint('SHA-1');
             // await this.certificateDecoded.getThumbprint('SHA-256');
         }
         catch (error) {
