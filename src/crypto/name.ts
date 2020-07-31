@@ -1,5 +1,6 @@
 import { Name as AsnName } from '@peculiar/asn1-x509';
-import { AsnConvert } from '@peculiar/asn1-schema';
+import { AsnParser } from '@peculiar/asn1-schema';
+import { BufferSourceConverter } from 'pvtsutils';
 
 const names: Record<string, string> = {
   '2.5.4.3': 'CN',
@@ -30,9 +31,11 @@ export class Name {
   #asn = new AsnName();
 
   public constructor(data: BufferSource | AsnName) {
-    this.#asn = data instanceof AsnName
-      ? data
-      : AsnConvert.parse(data, AsnName);
+    if (BufferSourceConverter.isBufferSource(data)) {
+      this.#asn = AsnParser.parse(data, AsnName);
+    } else {
+      this.#asn = data;
+    }
   }
 
   public toJSON(): INameJSON[] {
