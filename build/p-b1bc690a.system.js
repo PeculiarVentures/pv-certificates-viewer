@@ -12005,6 +12005,63 @@ System.register([], function (exports) {
                 '1.3.6.1.4.1.52266.1': 'Legal Entity Identifier',
                 '1.3.6.1.4.1.52266.2': 'Role',
             });
+            /**
+             * Download from buffer
+             *
+             * @example
+             * ```js
+             *    import { downloadFromBuffer } from 'ui-utils';
+             *
+             *    downloadFromBuffer(arrayBufferValue, 'applciation/pdf', 'myFile', 'pdf');
+             * ```
+             */
+            function downloadFromBuffer(value, mime, name, extension) {
+                if (mime === void 0) { mime = 'application/octet-stream'; }
+                var blob = new Blob([value], { type: mime });
+                if (navigator.msSaveBlob) { // IE10+ : (has Blob, but not a[download] or URL)
+                    navigator.msSaveBlob(blob, name + "." + extension);
+                    return new Promise(function (res) { return setTimeout(res, 100); });
+                }
+                var blobURL = window.URL.createObjectURL(blob);
+                var link = document.createElement('a');
+                var frame = document.createElement('iframe');
+                link.style.display = 'none';
+                frame.style.display = 'none';
+                frame.name = blobURL;
+                document.body.appendChild(frame);
+                link.href = blobURL;
+                link.target = blobURL;
+                link.download = name + "." + extension;
+                document.body.appendChild(link);
+                link.dispatchEvent(new MouseEvent('click'));
+                document.body.removeChild(link);
+                return new Promise(function (res) { return setTimeout(function () {
+                    document.body.removeChild(frame);
+                    res();
+                }, 100); });
+            }
+            var Download = /** @class */ (function () {
+                function Download() {
+                }
+                return Download;
+            }());
+            exports('D', Download);
+            Download.certificate = {
+                asPEM: function (pem, name) {
+                    downloadFromBuffer(Convert.FromString(pem), 'application/pkix-cert', name, 'cer');
+                },
+                asDER: function (hex, name) {
+                    downloadFromBuffer(Convert.FromString(hex), 'application/pkix-cert', name, 'cer');
+                },
+            };
+            Download.certificateRequest = {
+                asPEM: function (pem, name) {
+                    downloadFromBuffer(Convert.FromString(pem), 'application/pkcs10', name, 'csr');
+                },
+                asDER: function (hex, name) {
+                    downloadFromBuffer(Convert.FromString(hex), 'application/pkcs10', name, 'csr');
+                },
+            };
         }
     };
 });
