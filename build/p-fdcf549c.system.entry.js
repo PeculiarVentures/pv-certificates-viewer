@@ -1405,9 +1405,10 @@ System.register(['./p-50c6b099.system.js', './p-45b0264e.system.js'], function (
                                     if (typeof certificate === 'string') {
                                         this.certificateDecoded = new X509Certificate(certificate);
                                     }
-                                    this.certificateDecoded.parseExtensions();
+                                    // this.certificateDecoded.parseExtensions();
                                     return [4 /*yield*/, this.certificateDecoded.getThumbprint('SHA-1')];
                                 case 2:
+                                    // this.certificateDecoded.parseExtensions();
                                     _c.sent();
                                     return [4 /*yield*/, this.certificateDecoded.getThumbprint('SHA-256')];
                                 case 3:
