@@ -12,7 +12,7 @@ export function authorityKeyIdentifier(
   value: AuthorityKeyIdentifier,
   options: IAuthorityKeyIdentifierOptions = {},
 ) {
-  const keyId = Convert.ToHex(value.keyIdentifier);
+  const keyId = Convert.ToHex(value.keyIdentifier.buffer);
   const parentLink = options?.getAuthKeyIdParentLink(keyId);
   const siblingsLink = options?.getAuthKeyIdSiblingsLink(keyId);
 

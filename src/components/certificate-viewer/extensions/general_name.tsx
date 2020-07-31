@@ -1,5 +1,5 @@
 import { GeneralName, Name, OtherName, DisplayText, EDIPartyName } from '@peculiar/asn1-x509';
-import { Convert } from 'pvtsutils';
+import { Convert, BufferSourceConverter } from 'pvtsutils';
 import { AsnParser } from '@peculiar/asn1-schema';
 
 import { rowValue } from '../row_value';
@@ -51,7 +51,7 @@ export function generalName(generalName: GeneralName, options: IGeneralNameOptio
       );
     }
 
-    if (value instanceof ArrayBuffer) {
+    if (BufferSourceConverter.isBufferSource(value)) {
       return rowValue(
         names[name] || name,
         Convert.ToString(value),

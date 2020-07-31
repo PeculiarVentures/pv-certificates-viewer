@@ -12,7 +12,7 @@ export function subjectKeyIdentifier(
   value: SubjectKeyIdentifier,
   options: ISubjectKeyIdentifierOptions = {},
 ) {
-  const keyId = Convert.ToHex(value);
+  const keyId = Convert.ToHex(value.buffer);
   const childrenLink = options?.getSubjectKeyIdChildrenLink(keyId);
   const siblingsLink = options?.getSubjectKeyIdSiblingsLink(keyId);
 
