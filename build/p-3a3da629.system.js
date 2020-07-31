@@ -5898,6 +5898,7 @@ System.register([], function (exports) {
                 };
                 return BufferSourceConverter;
             }());
+            exports('B', BufferSourceConverter);
             var BitString$1 = /** @class */ (function () {
                 function BitString$1(params, unusedBits) {
                     if (unusedBits === void 0) { unusedBits = 0; }
@@ -6374,6 +6375,7 @@ System.register([], function (exports) {
                 };
                 return AsnParser;
             }());
+            exports('A', AsnParser);
             var AsnSerializer = /** @class */ (function () {
                 function AsnSerializer() {
                 }
@@ -7379,16 +7381,16 @@ System.register([], function (exports) {
             RDNSequence = __decorate([
                 AsnType({ type: AsnTypeTypes.Sequence, itemType: RelativeDistinguishedName })
             ], RDNSequence);
-            var Name = /** @class */ (function (_super) {
+            var Name = exports('N', /** @class */ (function (_super) {
                 __extends(Name, _super);
                 function Name() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 return Name;
-            }(RDNSequence));
-            Name = __decorate([
+            }(RDNSequence)));
+            Name = exports('N', __decorate([
                 AsnType({ type: AsnTypeTypes.Sequence })
-            ], Name);
+            ], Name));
             var AsnIpConverter = {
                 fromASN: function (value) { return IpConverter.toString(AsnOctetStringConverter.fromASN(value)); },
                 toASN: function (value) { return AsnOctetStringConverter.toASN(IpConverter.fromString(value)); },
@@ -7402,6 +7404,7 @@ System.register([], function (exports) {
                 }
                 return OtherName;
             }());
+            exports('a', OtherName);
             __decorate([
                 AsnProp({ type: AsnPropTypes.ObjectIdentifier })
             ], OtherName.prototype, "typeId", void 0);
@@ -7416,6 +7419,7 @@ System.register([], function (exports) {
                 }
                 return EDIPartyName;
             }());
+            exports('E', EDIPartyName);
             __decorate([
                 AsnProp({ type: DirectoryString, optional: true, context: 0, implicit: true })
             ], EDIPartyName.prototype, "nameAssigner", void 0);
@@ -7478,16 +7482,16 @@ System.register([], function (exports) {
             __decorate([
                 AsnProp({ type: GeneralName })
             ], AccessDescription.prototype, "accessLocation", void 0);
-            var AuthorityInfoAccessSyntax = /** @class */ (function (_super) {
+            var AuthorityInfoAccessSyntax = exports('f', /** @class */ (function (_super) {
                 __extends(AuthorityInfoAccessSyntax, _super);
                 function AuthorityInfoAccessSyntax() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 return AuthorityInfoAccessSyntax;
-            }(AsnArray));
-            AuthorityInfoAccessSyntax = __decorate([
+            }(AsnArray)));
+            AuthorityInfoAccessSyntax = exports('f', __decorate([
                 AsnType({ type: AsnTypeTypes.Sequence, itemType: AccessDescription })
-            ], AuthorityInfoAccessSyntax);
+            ], AuthorityInfoAccessSyntax));
             var id_ce_authorityKeyIdentifier = id_ce + ".35";
             var KeyIdentifier = /** @class */ (function (_super) {
                 __extends(KeyIdentifier, _super);
@@ -7505,6 +7509,7 @@ System.register([], function (exports) {
                 }
                 return AuthorityKeyIdentifier;
             }());
+            exports('d', AuthorityKeyIdentifier);
             __decorate([
                 AsnProp({ type: KeyIdentifier, context: 0, optional: true, implicit: true })
             ], AuthorityKeyIdentifier.prototype, "keyIdentifier", void 0);
@@ -7529,6 +7534,7 @@ System.register([], function (exports) {
                 }
                 return BasicConstraints;
             }());
+            exports('b', BasicConstraints);
             __decorate([
                 AsnProp({ type: AsnPropTypes.Boolean, defaultValue: false })
             ], BasicConstraints.prototype, "cA", void 0);
@@ -7557,7 +7563,7 @@ System.register([], function (exports) {
                 AsnType({ type: AsnTypeTypes.Sequence })
             ], CertificateIssuer);
             var id_ce_certificatePolicies = id_ce + ".32";
-            var DisplayText = /** @class */ (function () {
+            var DisplayText = exports('D', /** @class */ (function () {
                 function DisplayText(params) {
                     if (params === void 0) { params = {}; }
                     Object.assign(this, params);
@@ -7566,7 +7572,7 @@ System.register([], function (exports) {
                     return this.ia5String || this.visibleString || this.bmpString || this.utf8String;
                 };
                 return DisplayText;
-            }());
+            }()));
             __decorate([
                 AsnProp({ type: AsnPropTypes.IA5String })
             ], DisplayText.prototype, "ia5String", void 0);
@@ -7579,9 +7585,9 @@ System.register([], function (exports) {
             __decorate([
                 AsnProp({ type: AsnPropTypes.Utf8String })
             ], DisplayText.prototype, "utf8String", void 0);
-            DisplayText = __decorate([
+            DisplayText = exports('D', __decorate([
                 AsnType({ type: AsnTypeTypes.Choice })
-            ], DisplayText);
+            ], DisplayText));
             var NoticeReference = /** @class */ (function () {
                 function NoticeReference(params) {
                     if (params === void 0) { params = {}; }
@@ -7604,6 +7610,7 @@ System.register([], function (exports) {
                 }
                 return UserNotice;
             }());
+            exports('U', UserNotice);
             __decorate([
                 AsnProp({ type: NoticeReference, optional: true })
             ], UserNotice.prototype, "noticeRef", void 0);
@@ -7655,16 +7662,16 @@ System.register([], function (exports) {
             __decorate([
                 AsnProp({ type: PolicyQualifierInfo, repeated: "sequence", optional: true })
             ], PolicyInformation.prototype, "policyQualifiers", void 0);
-            var CertificatePolicies = /** @class */ (function (_super) {
+            var CertificatePolicies = exports('h', /** @class */ (function (_super) {
                 __extends(CertificatePolicies, _super);
                 function CertificatePolicies() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 return CertificatePolicies;
-            }(AsnArray));
-            CertificatePolicies = __decorate([
+            }(AsnArray)));
+            CertificatePolicies = exports('h', __decorate([
                 AsnType({ type: AsnTypeTypes.Sequence, itemType: PolicyInformation })
-            ], CertificatePolicies);
+            ], CertificatePolicies));
             var id_ce_cRLDistributionPoints = id_ce + ".31";
             var ReasonFlags;
             (function (ReasonFlags) {
@@ -7752,16 +7759,16 @@ System.register([], function (exports) {
             __decorate([
                 AsnProp({ type: GeneralName, context: 2, optional: true, repeated: "sequence", implicit: true })
             ], DistributionPoint.prototype, "cRLIssuer", void 0);
-            var CRLDistributionPoints = /** @class */ (function (_super) {
+            var CRLDistributionPoints = exports('e', /** @class */ (function (_super) {
                 __extends(CRLDistributionPoints, _super);
                 function CRLDistributionPoints() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 return CRLDistributionPoints;
-            }(AsnArray));
-            CRLDistributionPoints = __decorate([
+            }(AsnArray)));
+            CRLDistributionPoints = exports('e', __decorate([
                 AsnType({ type: AsnTypeTypes.Sequence, itemType: DistributionPoint })
-            ], CRLDistributionPoints);
+            ], CRLDistributionPoints));
             var id_ce_cRLReasons = id_ce + ".21";
             var CRLReasons;
             (function (CRLReasons) {
@@ -7776,7 +7783,7 @@ System.register([], function (exports) {
                 CRLReasons[CRLReasons["privilegeWithdrawn"] = 9] = "privilegeWithdrawn";
                 CRLReasons[CRLReasons["aACompromise"] = 10] = "aACompromise";
             })(CRLReasons || (CRLReasons = {}));
-            var CRLReason = /** @class */ (function () {
+            var CRLReason = exports('r', /** @class */ (function () {
                 function CRLReason(reason) {
                     if (reason === void 0) { reason = CRLReasons.unspecified; }
                     this.reason = CRLReasons.unspecified;
@@ -7789,24 +7796,24 @@ System.register([], function (exports) {
                     return this.toJSON();
                 };
                 return CRLReason;
-            }());
+            }()));
             __decorate([
                 AsnProp({ type: AsnPropTypes.Enumerated })
             ], CRLReason.prototype, "reason", void 0);
-            CRLReason = __decorate([
+            CRLReason = exports('r', __decorate([
                 AsnType({ type: AsnTypeTypes.Choice })
-            ], CRLReason);
+            ], CRLReason));
             var id_ce_extKeyUsage = id_ce + ".37";
-            var ExtendedKeyUsage = /** @class */ (function (_super) {
+            var ExtendedKeyUsage = exports('c', /** @class */ (function (_super) {
                 __extends(ExtendedKeyUsage, _super);
                 function ExtendedKeyUsage() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 return ExtendedKeyUsage;
-            }(AsnArray));
-            ExtendedKeyUsage = __decorate([
+            }(AsnArray)));
+            ExtendedKeyUsage = exports('c', __decorate([
                 AsnType({ type: AsnTypeTypes.Sequence, itemType: AsnPropTypes.ObjectIdentifier })
-            ], ExtendedKeyUsage);
+            ], ExtendedKeyUsage));
             var id_ce_inhibitAnyPolicy = id_ce + ".54";
             var InhibitAnyPolicy = /** @class */ (function () {
                 function InhibitAnyPolicy(value) {
@@ -7903,6 +7910,7 @@ System.register([], function (exports) {
                 };
                 return KeyUsage;
             }(BitString$1));
+            exports('K', KeyUsage);
             var id_ce_nameConstraints = id_ce + ".30";
             var GeneralSubtree = /** @class */ (function () {
                 function GeneralSubtree(params) {
@@ -7939,6 +7947,7 @@ System.register([], function (exports) {
                 }
                 return NameConstraints;
             }());
+            exports('j', NameConstraints);
             __decorate([
                 AsnProp({ type: GeneralSubtrees, context: 0, optional: true, implicit: true })
             ], NameConstraints.prototype, "permittedSubtrees", void 0);
@@ -7982,16 +7991,16 @@ System.register([], function (exports) {
                 AsnProp({ type: AsnPropTypes.ObjectIdentifier })
             ], PolicyMappings.prototype, "subjectDomainPolicy", void 0);
             var id_ce_subjectAltName = id_ce + ".17";
-            var SubjectAlternativeName = /** @class */ (function (_super) {
+            var SubjectAlternativeName = exports('g', /** @class */ (function (_super) {
                 __extends(SubjectAlternativeName, _super);
                 function SubjectAlternativeName() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 return SubjectAlternativeName;
-            }(GeneralNames));
-            SubjectAlternativeName = __decorate([
+            }(GeneralNames)));
+            SubjectAlternativeName = exports('g', __decorate([
                 AsnType({ type: AsnTypeTypes.Sequence })
-            ], SubjectAlternativeName);
+            ], SubjectAlternativeName));
             var Attribute = /** @class */ (function () {
                 function Attribute(params) {
                     if (params === void 0) { params = {}; }
@@ -8026,6 +8035,7 @@ System.register([], function (exports) {
                 }
                 return SubjectKeyIdentifier;
             }(KeyIdentifier));
+            exports('S', SubjectKeyIdentifier);
             var AlgorithmIdentifier = /** @class */ (function () {
                 function AlgorithmIdentifier(params) {
                     if (params === void 0) { params = {}; }
@@ -8758,16 +8768,16 @@ System.register([], function (exports) {
             __decorate([
                 AsnProp({ type: NameRegistrationAuthorities, optional: true })
             ], SemanticsInformation.prototype, "nameRegistrationAuthorities", void 0);
-            var QCStatements = /** @class */ (function (_super) {
+            var QCStatements = exports('Q', /** @class */ (function (_super) {
                 __extends(QCStatements, _super);
                 function QCStatements() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
                 return QCStatements;
-            }(AsnArray));
-            QCStatements = __decorate([
+            }(AsnArray)));
+            QCStatements = exports('Q', __decorate([
                 AsnType({ type: AsnTypeTypes.Sequence, itemType: QCStatement })
-            ], QCStatements);
+            ], QCStatements));
             var PlaceOfBirth = /** @class */ (function (_super) {
                 __extends(PlaceOfBirth, _super);
                 function PlaceOfBirth() {
@@ -8806,6 +8816,7 @@ System.register([], function (exports) {
                 }
                 return CertificateTemplate;
             }());
+            exports('k', CertificateTemplate);
             __decorate([
                 AsnProp({ type: AsnPropTypes.ObjectIdentifier })
             ], CertificateTemplate.prototype, "templateID", void 0);
@@ -8827,24 +8838,24 @@ System.register([], function (exports) {
             __decorate([
                 AsnProp({ type: AsnPropTypes.Utf8String })
             ], EnrollCertType.prototype, "name", void 0);
-            var EnrollCertTypeChoice = /** @class */ (function () {
+            var EnrollCertTypeChoice = exports('l', /** @class */ (function () {
                 function EnrollCertTypeChoice(params) {
                     if (params === void 0) { params = {}; }
                     Object.assign(this, params);
                 }
                 return EnrollCertTypeChoice;
-            }());
+            }()));
             __decorate([
                 AsnProp({ type: AsnPropTypes.BmpString })
             ], EnrollCertTypeChoice.prototype, "name", void 0);
             __decorate([
                 AsnProp({ type: EnrollCertType })
             ], EnrollCertTypeChoice.prototype, "spec", void 0);
-            EnrollCertTypeChoice = __decorate([
+            EnrollCertTypeChoice = exports('l', __decorate([
                 AsnType({ type: AsnTypeTypes.Choice })
-            ], EnrollCertTypeChoice);
+            ], EnrollCertTypeChoice));
             var id_caVersion = "1.3.6.1.4.1.311.21.1";
-            var CaVersion = /** @class */ (function () {
+            var CaVersion = exports('m', /** @class */ (function () {
                 function CaVersion() {
                     this.value = new ArrayBuffer(0);
                 }
@@ -8864,13 +8875,13 @@ System.register([], function (exports) {
                     };
                 };
                 return CaVersion;
-            }());
+            }()));
             __decorate([
                 AsnProp({ type: AsnPropTypes.Integer, converter: AsnIntegerArrayBufferConverter })
             ], CaVersion.prototype, "value", void 0);
-            CaVersion = __decorate([
+            CaVersion = exports('m', __decorate([
                 AsnType({ type: AsnTypeTypes.Choice })
-            ], CaVersion);
+            ], CaVersion));
             var AnyString = /** @class */ (function () {
                 function AnyString(params) {
                     if (params === void 0) { params = {}; }
@@ -9160,8 +9171,9 @@ System.register([], function (exports) {
                 };
                 return NetscapeCertType;
             }(BitString$1));
+            exports('o', NetscapeCertType);
             var id_netscapeComment = id_netscapeCertExtension + ".13";
-            var NetscapeComment = /** @class */ (function () {
+            var NetscapeComment = exports('n', /** @class */ (function () {
                 function NetscapeComment(value) {
                     this.value = "";
                     if (value) {
@@ -9169,13 +9181,13 @@ System.register([], function (exports) {
                     }
                 }
                 return NetscapeComment;
-            }());
+            }()));
             __decorate([
                 AsnProp({ type: AsnPropTypes.IA5String })
             ], NetscapeComment.prototype, "value", void 0);
-            NetscapeComment = __decorate([
+            NetscapeComment = exports('n', __decorate([
                 AsnType({ type: AsnTypeTypes.Choice })
-            ], NetscapeComment);
+            ], NetscapeComment));
             var NetscapeRevocationUrl = /** @class */ (function () {
                 function NetscapeRevocationUrl(value) {
                     this.value = "";
@@ -9224,7 +9236,7 @@ System.register([], function (exports) {
             Lei = __decorate([
                 AsnType({ type: AsnTypeTypes.Sequence })
             ], Lei);
-            var LeiChoice = /** @class */ (function () {
+            var LeiChoice = exports('p', /** @class */ (function () {
                 function LeiChoice(value) {
                     if (typeof value === "string") {
                         this.text = value;
@@ -9234,18 +9246,18 @@ System.register([], function (exports) {
                     }
                 }
                 return LeiChoice;
-            }());
+            }()));
             __decorate([
                 AsnProp({ type: AsnPropTypes.Utf8String })
             ], LeiChoice.prototype, "text", void 0);
             __decorate([
                 AsnProp({ type: Lei })
             ], LeiChoice.prototype, "struct", void 0);
-            LeiChoice = __decorate([
+            LeiChoice = exports('p', __decorate([
                 AsnType({ type: AsnTypeTypes.Choice })
-            ], LeiChoice);
+            ], LeiChoice));
             var id_lei_roles = "1.3.6.1.4.1.52266.2";
-            var LeiRoles = /** @class */ (function () {
+            var LeiRoles = exports('L', /** @class */ (function () {
                 function LeiRoles(value) {
                     this.text = "";
                     if (value) {
@@ -9253,13 +9265,13 @@ System.register([], function (exports) {
                     }
                 }
                 return LeiRoles;
-            }());
+            }()));
             __decorate([
                 AsnProp({ type: AsnPropTypes.Utf8String })
             ], LeiRoles.prototype, "text", void 0);
-            LeiRoles = __decorate([
+            LeiRoles = exports('L', __decorate([
                 AsnType({ type: AsnTypeTypes.Choice })
-            ], LeiRoles);
+            ], LeiRoles));
             var ByteStream = /** @class */ (function () {
                 function ByteStream(bytes) {
                     this.offset = 0;
@@ -9392,6 +9404,7 @@ System.register([], function (exports) {
                 };
                 return CertificateTransparency;
             }(OctetString$1));
+            exports('i', CertificateTransparency);
             var Version$1;
             (function (Version) {
                 Version[Version["v1"] = 1] = "v1";
@@ -9405,6 +9418,7 @@ System.register([], function (exports) {
                 }
                 return ArchiveRevInfo;
             }());
+            exports('q', ArchiveRevInfo);
             __decorate([
                 AsnProp({ type: AsnPropTypes.Integer })
             ], ArchiveRevInfo.prototype, "version", void 0);
@@ -9419,6 +9433,7 @@ System.register([], function (exports) {
                 }
                 return Timestamp;
             }());
+            exports('T', Timestamp);
             __decorate([
                 AsnProp({ type: AsnPropTypes.Integer })
             ], Timestamp.prototype, "version", void 0);
@@ -12005,63 +12020,6 @@ System.register([], function (exports) {
                 '1.3.6.1.4.1.52266.1': 'Legal Entity Identifier',
                 '1.3.6.1.4.1.52266.2': 'Role',
             });
-            /**
-             * Download from buffer
-             *
-             * @example
-             * ```js
-             *    import { downloadFromBuffer } from 'ui-utils';
-             *
-             *    downloadFromBuffer(arrayBufferValue, 'applciation/pdf', 'myFile', 'pdf');
-             * ```
-             */
-            function downloadFromBuffer(value, mime, name, extension) {
-                if (mime === void 0) { mime = 'application/octet-stream'; }
-                var blob = new Blob([value], { type: mime });
-                if (navigator.msSaveBlob) { // IE10+ : (has Blob, but not a[download] or URL)
-                    navigator.msSaveBlob(blob, name + "." + extension);
-                    return new Promise(function (res) { return setTimeout(res, 100); });
-                }
-                var blobURL = window.URL.createObjectURL(blob);
-                var link = document.createElement('a');
-                var frame = document.createElement('iframe');
-                link.style.display = 'none';
-                frame.style.display = 'none';
-                frame.name = blobURL;
-                document.body.appendChild(frame);
-                link.href = blobURL;
-                link.target = blobURL;
-                link.download = name + "." + extension;
-                document.body.appendChild(link);
-                link.dispatchEvent(new MouseEvent('click'));
-                document.body.removeChild(link);
-                return new Promise(function (res) { return setTimeout(function () {
-                    document.body.removeChild(frame);
-                    res();
-                }, 100); });
-            }
-            var Download = /** @class */ (function () {
-                function Download() {
-                }
-                return Download;
-            }());
-            exports('D', Download);
-            Download.certificate = {
-                asPEM: function (pem, name) {
-                    downloadFromBuffer(Convert.FromString(pem), 'application/pkix-cert', name, 'cer');
-                },
-                asDER: function (hex, name) {
-                    downloadFromBuffer(Convert.FromString(hex), 'application/pkix-cert', name, 'cer');
-                },
-            };
-            Download.certificateRequest = {
-                asPEM: function (pem, name) {
-                    downloadFromBuffer(Convert.FromString(pem), 'application/pkcs10', name, 'csr');
-                },
-                asDER: function (hex, name) {
-                    downloadFromBuffer(Convert.FromString(hex), 'application/pkcs10', name, 'csr');
-                },
-            };
         }
     };
 });
