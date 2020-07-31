@@ -153,10 +153,14 @@ export class X509Certificate extends AsnData<Certificate> {
   public async getThumbprint(
     algorithm: globalThis.AlgorithmIdentifier = 'SHA-1',
   ): Promise<void> {
-    const crypto = cryptoProvider.get();
-    const thumbprint = await crypto.subtle.digest(algorithm, this.raw);
+    try {
+      const crypto = cryptoProvider.get();
+      const thumbprint = await crypto.subtle.digest(algorithm, this.raw);
 
-    this.thumbprints[algorithm as any] = Convert.ToHex(thumbprint);
+      this.thumbprints[algorithm['name'] || algorithm] = Convert.ToHex(thumbprint);
+    } catch (error) {
+      console.error('Error thumbprint get:', error);
+    }
   }
 
   public get commonName(): string {
