@@ -934,9 +934,13 @@ function thumbprints(thumbprints) {
     if (!thumbprints) {
         return null;
     }
+    const keys = Object.keys(thumbprints);
+    if (!keys.length) {
+        return null;
+    }
     return [
         rowTitle('Thumbprints'),
-        Object.keys(thumbprints).map(name => (rowValue(name, thumbprints[name], { monospace: true }))),
+        keys.map(name => (rowValue(name, thumbprints[name], { monospace: true }))),
     ];
 }
 
@@ -959,7 +963,7 @@ const CertificateViewer = class {
             if (typeof certificate === 'string') {
                 this.certificateDecoded = new X509Certificate(certificate);
             }
-            // this.certificateDecoded.parseExtensions();
+            this.certificateDecoded.parseExtensions();
             await this.certificateDecoded.getThumbprint('SHA-1');
             await this.certificateDecoded.getThumbprint('SHA-256');
         }
