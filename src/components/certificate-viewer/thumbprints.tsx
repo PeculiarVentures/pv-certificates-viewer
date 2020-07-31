@@ -6,9 +6,15 @@ export function thumbprints(thumbprints: Record<string, string>) {
     return null;
   }
 
+  const keys = Object.keys(thumbprints);
+
+  if (!keys.length) {
+    return null;
+  }
+
   return [
     rowTitle('Thumbprints'),
-    Object.keys(thumbprints).map(name => (
+    keys.map(name => (
       rowValue(
         name,
         thumbprints[name],
