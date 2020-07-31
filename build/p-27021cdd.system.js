@@ -9693,11 +9693,15 @@ System.register([], function (exports) {
                         return __generator(this, function (_e) {
                             switch (_e.label) {
                                 case 0:
+                                    console.log('good 1');
                                     crypto = cryptoProvider.get();
+                                    console.log('good 2');
                                     return [4 /*yield*/, crypto.subtle.digest(algorithm, this.raw)];
                                 case 1:
                                     thumbprint = _e.sent();
+                                    console.log('good 3');
                                     this.thumbprints[algorithm] = Convert.ToHex(thumbprint);
+                                    console.log('good 4');
                                     return [2 /*return*/];
                             }
                         });

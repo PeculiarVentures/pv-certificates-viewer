@@ -10409,9 +10409,13 @@ class X509Certificate extends AsnData {
             .trim();
     }
     async getThumbprint(algorithm = 'SHA-1') {
+        console.log('good 1');
         const crypto = cryptoProvider.get();
+        console.log('good 2');
         const thumbprint = await crypto.subtle.digest(algorithm, this.raw);
+        console.log('good 3');
         this.thumbprints[algorithm] = Convert.ToHex(thumbprint);
+        console.log('good 4');
     }
     get commonName() {
         if (!this.subject) {
