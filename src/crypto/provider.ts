@@ -8,6 +8,8 @@ export class CryptoProvider {
   }
 
   constructor() {
+    const crypto = window.crypto || window['msCrypto'];
+
     if (typeof crypto !== 'undefined') {
       this.set(CryptoProvider.DEFAULT, crypto);
     }
