@@ -939,37 +939,25 @@ System.register(['./p-50c6b099.system.js', './p-8fbec540.system.js'], function (
                 };
                 class_4.prototype.decodeCertificate = function (certificate) {
                     return __awaiter(this, void 0, void 0, function () {
-                        var error_1;
                         return __generator(this, function (_b) {
-                            switch (_b.label) {
-                                case 0:
-                                    this.isDecodeInProcess = true;
-                                    _b.label = 1;
-                                case 1:
-                                    _b.trys.push([1, 4, , 5]);
-                                    if (certificate instanceof X509Certificate) {
-                                        this.certificateDecoded = certificate;
-                                    }
-                                    if (typeof certificate === 'string') {
-                                        this.certificateDecoded = new X509Certificate(certificate);
-                                    }
-                                    this.certificateDecoded.parseExtensions();
-                                    return [4 /*yield*/, this.certificateDecoded.getThumbprint('SHA-1')];
-                                case 2:
-                                    _b.sent();
-                                    return [4 /*yield*/, this.certificateDecoded.getThumbprint('SHA-256')];
-                                case 3:
-                                    _b.sent();
-                                    return [3 /*break*/, 5];
-                                case 4:
-                                    error_1 = _b.sent();
-                                    this.certificateDecodeError = error_1;
-                                    console.error('Error certificate parse:', error_1);
-                                    return [3 /*break*/, 5];
-                                case 5:
-                                    this.isDecodeInProcess = false;
-                                    return [2 /*return*/];
+                            this.isDecodeInProcess = true;
+                            try {
+                                if (certificate instanceof X509Certificate) {
+                                    this.certificateDecoded = certificate;
+                                }
+                                if (typeof certificate === 'string') {
+                                    this.certificateDecoded = new X509Certificate(certificate);
+                                }
+                                this.certificateDecoded.parseExtensions();
+                                // await this.certificateDecoded.getThumbprint('SHA-1');
+                                // await this.certificateDecoded.getThumbprint('SHA-256');
                             }
+                            catch (error) {
+                                this.certificateDecodeError = error;
+                                console.error('Error certificate parse:', error);
+                            }
+                            this.isDecodeInProcess = false;
+                            return [2 /*return*/];
                         });
                     });
                 };
