@@ -34,9 +34,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (exports) {
+System.register(['./p-50c6b099.system.js', './p-48c314e5.system.js'], function (exports) {
     'use strict';
-    var registerInstance, h, Host, createEvent, X509Certificate, short, OIDs, Convert, Name, OtherName, AsnParser, DisplayText, BufferSourceConverter, EDIPartyName, UserNotice, KeyUsage, BasicConstraints, ExtendedKeyUsage, SubjectKeyIdentifier, AuthorityKeyIdentifier, CRLDistributionPoints, AuthorityInfoAccessSyntax, SubjectAlternativeName, CertificatePolicies, CertificateTransparency, NameConstraints, CertificateTemplate, EnrollCertTypeChoice, CaVersion, QCStatements, NetscapeComment, NetscapeCertType, LeiRoles, LeiChoice, Timestamp, ArchiveRevInfo, CRLReason;
+    var registerInstance, h, Host, createEvent, X509Certificate, short, OIDs, Convert, Name, OtherName, AsnParser, DisplayText, BufferSourceConverter, EDIPartyName, UserNotice, KeyUsage, BasicConstraints, ExtendedKeyUsage, SubjectKeyIdentifier, AuthorityKeyIdentifier, CRLDistributionPoints, AuthorityInfoAccessSyntax, SubjectAlternativeName, CertificatePolicies, CertificateTransparency, NameConstraints, CertificateTemplate, EnrollCertTypeChoice, CaVersion, QCStatements, NetscapeComment, NetscapeCertType, LeiRoles, LeiChoice, Timestamp, ArchiveRevInfo, CRLReason, Download;
     return {
         setters: [function (module) {
                 registerInstance = module.r;
@@ -77,6 +77,7 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
                 Timestamp = module.T;
                 ArchiveRevInfo = module.q;
                 CRLReason = module.r;
+                Download = module.t;
             }],
         execute: function () {
             var buttonCss = ":host{display:inline-block;width:auto;font-family:inherit;text-align:center;text-decoration:none;text-overflow:ellipsis;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;vertical-align:top;vertical-align:-webkit-baseline-middle;pointer-events:auto;-webkit-font-kerning:none;font-kerning:none;-webkit-box-sizing:border-box;box-sizing:border-box;--peculiar-button-padding-end:5px;--peculiar-button-padding-start:5px}:host(.peculiar_button){height:30px;border-radius:2px}:host(.peculiar_button_stroke){border-width:1px;border-style:solid}.peculiar_button_native{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;display:block;position:relative;width:100%;height:100%;line-height:30px;contain:layout style;cursor:pointer;z-index:0;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-appearance:none;text-decoration:inherit;outline:none;margin:0;background:inherit;border:none;border-radius:inherit;padding:0 var(--peculiar-button-padding-end) 0 var(--peculiar-button-padding-start);-webkit-transition:-webkit-box-shadow 200ms;transition:-webkit-box-shadow 200ms;transition:box-shadow 200ms;transition:box-shadow 200ms, -webkit-box-shadow 200ms}.peculiar_button_inner{-webkit-transition:opacity 200ms;transition:opacity 200ms}:host(.peculiar_button_disabled){opacity:0.5;pointer-events:none}.peculiar_button_native:focus{-webkit-box-shadow:0 4px 10px 0 rgba(var(--peculiar-color-dark-rgb), 0.15);box-shadow:0 4px 10px 0 rgba(var(--peculiar-color-dark-rgb), 0.15)}@media (hover: hover){.peculiar_button_native:hover .peculiar_button_inner{opacity:0.6}}.peculiar_button_native:active .peculiar_button_inner{opacity:1}";
@@ -107,6 +108,39 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
                 return class_1;
             }()));
             Button.style = buttonCss;
+            var buttonSplitCss = ".sc-peculiar-button-split-h{display:inline-block;vertical-align:top;position:relative;white-space:nowrap;font-size:0}.button_split.sc-peculiar-button-split{border-bottom-right-radius:0;border-top-right-radius:0;border-right-width:0}.button_split_icon.sc-peculiar-button-split{width:7px;height:5px;display:inline-block;vertical-align:middle;fill:rgb(var(--peculiar-color-primary-rgb))}.button_split_with_icon.sc-peculiar-button-split{width:25px;border-bottom-left-radius:0;border-top-left-radius:0}.button_split_with_icon.m_open.sc-peculiar-button-split:before{position:fixed;width:100%;height:100%;top:0;left:0;content:\"\"}.button_split_action.sc-peculiar-button-split{width:100%}.button_split_container.sc-peculiar-button-split{position:absolute;bottom:calc(100% + 1px);left:0;width:100%;border-radius:2px;-webkit-box-shadow:0px -2px 1px rgb(var(--peculiar-color-light-rgb)), 0px 0px 10px rgba(var(--peculiar-color-dark-rgb), 0.0241168);box-shadow:0px -2px 1px rgb(var(--peculiar-color-light-rgb)), 0px 0px 10px rgba(var(--peculiar-color-dark-rgb), 0.0241168);z-index:1}";
+            var ButtonSplit = exports('peculiar_button_split', /** @class */ (function () {
+                function class_2(hostRef) {
+                    var _this = this;
+                    registerInstance(this, hostRef);
+                    this.fill = 'stroke';
+                    this.actions = [];
+                    this.open = false;
+                    this.onClickSplitButton = function (event) {
+                        event.stopPropagation();
+                        _this.open = !_this.open;
+                    };
+                }
+                class_2.prototype.onClickActiveButton = function (action, event) {
+                    this.open = false;
+                    action(event);
+                };
+                class_2.prototype.renderActiveSplitState = function () {
+                    var _this = this;
+                    if (!this.open) {
+                        return null;
+                    }
+                    return (h("div", { class: "button_split_container peculiar_fill_light" }, this.actions.map(function (action) { return (h("peculiar-button", { fill: "fill", class: "button_split_action", onClick: _this.onClickActiveButton.bind(_this, action.onClick) }, action.text)); })));
+                };
+                class_2.prototype.render = function () {
+                    return (h(Host, null, h("peculiar-button", { fill: this.fill, onClick: this.onClick, class: "button_split" }, h("slot", null)), h("peculiar-button", { fill: this.fill, onClick: this.onClickSplitButton, class: {
+                            button_split_with_icon: true,
+                            m_open: this.open,
+                        } }, h("svg", { viewBox: "0 0 7 5", xmlns: "http://www.w3.org/2000/svg", class: "button_split_icon" }, h("path", { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M5.459.124c.934.001 1.442.994.84 1.644L4.425 3.794c-.44.475-1.244.475-1.684 0L.862 1.764C.26 1.115.77.12 1.705.122l3.754.003z" }))), this.renderActiveSplitState()));
+                };
+                return class_2;
+            }()));
+            ButtonSplit.style = buttonSplitCss;
             /**
              * Read file as Binary string
              *
@@ -748,7 +782,7 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
             });
             var certificateDecoderCss = ".sc-peculiar-certificate-decoder-h{display:block;width:100%;font-size:0}.input_paste.sc-peculiar-certificate-decoder{min-height:300px;width:100%;border-radius:3px;border-width:1px;border-style:solid;padding:14px;font-size:14px;font-family:monospace;resize:vertical}.controls.sc-peculiar-certificate-decoder{margin-top:10px}.button.sc-peculiar-certificate-decoder:not(:first-child){margin-left:10px}.viewer.sc-peculiar-certificate-decoder{margin-top:64px}.input_file.sc-peculiar-certificate-decoder{opacity:0;width:100%;height:100%;top:0;left:0;display:block;position:absolute}";
             var CertificateDecoder = exports('peculiar_certificate_decoder', /** @class */ (function () {
-                function class_2(hostRef) {
+                function class_3(hostRef) {
                     var _this = this;
                     registerInstance(this, hostRef);
                     this.onClickDecode = function () {
@@ -803,7 +837,7 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
                         });
                     }); };
                 }
-                class_2.prototype.componentDidLoad = function () {
+                class_3.prototype.componentDidLoad = function () {
                     var _this = this;
                     var parsedHash = history.parseHash(window.location.search);
                     if (parsedHash.cert) {
@@ -813,12 +847,12 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
                         setTimeout(function () { return _this.decode(parsedHash.cert); }, 100);
                     }
                 };
-                class_2.prototype.clear = function () {
+                class_3.prototype.clear = function () {
                     this.inputPaste.value = '';
                     this.certificateDecoded = null;
                     history.replace({ search: '' });
                 };
-                class_2.prototype.decode = function (certificate) {
+                class_3.prototype.decode = function (certificate) {
                     try {
                         var decoded = new X509Certificate(certificate);
                         this.certificateDecoded = decoded;
@@ -835,23 +869,23 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
                         alert('Error decoding certificate. Please use another file');
                     }
                 };
-                class_2.prototype.render = function () {
+                class_3.prototype.render = function () {
                     var _this = this;
                     return (h(Host, null, h("textarea", { placeholder: "Certificate DER or PEM", class: "input_paste peculiar_fill_light peculiar_stroke_grey_3 peculiar_color_dark", ref: function (el) { return _this.inputPaste = el; }, onDrop: this.onDropFile }), h("div", { class: "controls" }, h("peculiar-button", { fill: "fill", class: "button", onClick: this.onClickDecode }, "Decode"), h("peculiar-button", { class: "button" }, "Choose file", h("input", { type: "file", class: "input_file", accept: "application/pkix-cert,application/x-x509-ca-cert,application/x-x509-user-cert", onChange: this.onChangeInputFile, value: "" })), h("peculiar-button", { class: "button", onClick: this.onClickClear }, "Clear"), this.certificateExample && (h("peculiar-button", { class: "button", onClick: this.onClickExample }, "Example"))), this.certificateDecoded && (h("peculiar-certificate-viewer", { certificate: this.certificateDecoded, class: "viewer", download: true }))));
                 };
-                return class_2;
+                return class_3;
             }()));
             CertificateDecoder.style = certificateDecoderCss;
             var certificateSummaryCss = ".sc-peculiar-certificate-summary-h{display:block;width:100%}th.sc-peculiar-certificate-summary,td.sc-peculiar-certificate-summary{border:none}td.sc-peculiar-certificate-summary{padding:0}.basic_wrapper.sc-peculiar-certificate-summary{position:relative}.basic_wrapper.sc-peculiar-certificate-summary::before,.basic_wrapper.sc-peculiar-certificate-summary::after{content:\"\";display:block;position:absolute;width:1px;top:0;bottom:0;background-color:rgba(var(--peculiar-color-grey_3-rgb), 0.5)}.basic_wrapper.sc-peculiar-certificate-summary::before{left:calc(30% - 20px)}.basic_wrapper.sc-peculiar-certificate-summary::after{left:calc(60% - 20px)}.is_only.basic_wrapper.sc-peculiar-certificate-summary::before{content:none}.basic_col.sc-peculiar-certificate-summary{vertical-align:top;display:inline-block;width:30%;padding-right:40px;position:relative}.is_only.sc-peculiar-certificate-summary .basic_col.sc-peculiar-certificate-summary{width:60%}.basic_meta.sc-peculiar-certificate-summary{vertical-align:top;display:inline-block;width:40%}.dn_name.sc-peculiar-certificate-summary{min-width:30px;vertical-align:top;padding-right:5px}.dn_value.sc-peculiar-certificate-summary{vertical-align:top}.dn_row.sc-peculiar-certificate-summary:not(:last-child){margin-bottom:10px}.meta_row.sc-peculiar-certificate-summary:not(:last-child){margin-bottom:10px}.meta_name.sc-peculiar-certificate-summary{display:inline-block;width:120px;padding-right:5px;vertical-align:top}.meta_value.sc-peculiar-certificate-summary{display:inline-block;vertical-align:top;width:calc(100% - 120px)}.table_attributes.sc-peculiar-certificate-summary{width:100%}@media (max-width: 767px){.basic_wrapper.sc-peculiar-certificate-summary::before,.basic_wrapper.sc-peculiar-certificate-summary::after{content:none}.basic_col.sc-peculiar-certificate-summary{padding:20px 0;width:100% !important;border-bottom:1px solid rgba(var(--peculiar-color-grey_3-rgb), 0.5)}.basic_col.sc-peculiar-certificate-summary::after{top:auto;bottom:0;left:0;right:0;height:1px;width:100%}.basic_meta.sc-peculiar-certificate-summary{width:100%;padding:20px 0;min-width:auto}.basic_wrapper.sc-peculiar-certificate-summary::before,.basic_wrapper.sc-peculiar-certificate-summary::after{content:none}.meta_row.sc-peculiar-certificate-summary:not(:last-child){margin-bottom:0}.meta_name.sc-peculiar-certificate-summary,.meta_value.sc-peculiar-certificate-summary{width:100%;padding:5px 0}}[data-view=mobile].sc-peculiar-certificate-summary-h .basic_wrapper.sc-peculiar-certificate-summary::before,[data-view=mobile].sc-peculiar-certificate-summary-h .basic_wrapper.sc-peculiar-certificate-summary::after{content:none}[data-view=mobile].sc-peculiar-certificate-summary-h .basic_col.sc-peculiar-certificate-summary{padding:20px 0;width:100% !important;border-bottom:1px solid rgba(var(--peculiar-color-grey_3-rgb), 0.5)}[data-view=mobile].sc-peculiar-certificate-summary-h .basic_col.sc-peculiar-certificate-summary::after{top:auto;bottom:0;left:0;right:0;height:1px;width:100%}[data-view=mobile].sc-peculiar-certificate-summary-h .basic_meta.sc-peculiar-certificate-summary{width:100%;padding:20px 0;min-width:auto}[data-view=mobile].sc-peculiar-certificate-summary-h .basic_wrapper.sc-peculiar-certificate-summary::before,[data-view=mobile].sc-peculiar-certificate-summary-h .basic_wrapper.sc-peculiar-certificate-summary::after{content:none}[data-view=mobile].sc-peculiar-certificate-summary-h .meta_row.sc-peculiar-certificate-summary:not(:last-child){margin-bottom:0}[data-view=mobile].sc-peculiar-certificate-summary-h .meta_name.sc-peculiar-certificate-summary,[data-view=mobile].sc-peculiar-certificate-summary-h .meta_value.sc-peculiar-certificate-summary{width:100%;padding:5px 0}";
             var CertificateSummary = exports('peculiar_certificate_summary', /** @class */ (function () {
-                function class_3(hostRef) {
+                function class_4(hostRef) {
                     registerInstance(this, hostRef);
                     this.showIssuer = true;
                 }
-                class_3.prototype.renderDN = function (dns) {
+                class_4.prototype.renderDN = function (dns) {
                     return dns.map(function (dn) { return (h("tr", { class: "dn_row" }, h("td", { class: "dn_name" }, h("peculiar-typography", { color: "grey_5" }, dn.name || dn.type)), h("td", { class: "dn_value" }, h("peculiar-typography", null, dn.value)))); });
                 };
-                class_3.prototype.renderMetaData = function (item) {
+                class_4.prototype.renderMetaData = function (item) {
                     return ([
                         h("div", { class: "meta_row" }, h("peculiar-typography", { class: "meta_name", color: "grey_5" }, "Serial number:"), h("peculiar-typography", { class: "meta_value", monospace: true }, item.serialNumber)),
                         h("div", { class: "meta_row" }, h("peculiar-typography", { class: "meta_name", color: "grey_5" }, "Version:"), h("peculiar-typography", { class: "meta_value" }, item.version)),
@@ -860,13 +894,13 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
                         h("div", { class: "meta_row" }, h("peculiar-typography", { class: "meta_name", color: "grey_5" }, "Expired:"), h("peculiar-typography", { class: "meta_value" }, short(item.notAfter))),
                     ]);
                 };
-                class_3.prototype.render = function () {
+                class_4.prototype.render = function () {
                     return (h(Host, { "data-view": this.view }, h("div", { class: {
                             basic_wrapper: true,
                             is_only: !this.showIssuer,
                         } }, h("div", { class: "basic_col" }, h("peculiar-typography", { class: "dn_row" }, "Subject DN:"), h("table", { class: "table_attributes" }, h("tbody", null, this.renderDN(this.certificate.subject)))), this.showIssuer && (h("div", { class: "basic_col peculiar_stroke_grey_3" }, this.issuerDnLink ? (h("peculiar-link", { href: this.issuerDnLink, class: "dn_row" }, "Issuer DN:")) : (h("peculiar-typography", { class: "dn_row" }, "Issuer DN:")), h("table", { class: "table_attributes" }, h("tbody", null, this.renderDN(this.certificate.issuer))))), h("div", { class: "basic_meta" }, this.renderMetaData(this.certificate)))));
                 };
-                return class_3;
+                return class_4;
             }()));
             CertificateSummary.style = certificateSummaryCss;
             function rowTitle(title) {
@@ -1322,9 +1356,20 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
                     }),
                 ]);
             }
+            function miscellaneous(certificate) {
+                var onClickDownloadAsPem = function () { return Download.certificate.asPEM(certificate.export('pem'), certificate.commonName); };
+                var onClickDownloadAsDer = function () { return Download.certificate.asDER(certificate.export('hex'), certificate.commonName); };
+                return [
+                    rowTitle('Miscellaneous'),
+                    h("tr", null, h("td", { class: "vertical_align_middle" }, h("peculiar-typography", { color: "grey_5" }, "Download:")), h("td", null, h("peculiar-button-split", { onClick: onClickDownloadAsPem, actions: [{
+                                text: 'Download DER',
+                                onClick: onClickDownloadAsDer,
+                            }] }, "Download PEM"))),
+                ];
+            }
             var certificateViewerCss = ".sc-peculiar-certificate-viewer-h{display:block;width:100%;word-wrap:break-word;position:relative;min-width:280px;min-height:300px;background:rgb(var(--peculiar-color-light-rgb))}th.sc-peculiar-certificate-viewer,td.sc-peculiar-certificate-viewer{border:none}table.sc-peculiar-certificate-viewer{width:100%;margin-bottom:30px}table.sc-peculiar-certificate-viewer .title.sc-peculiar-certificate-viewer td.sc-peculiar-certificate-viewer{border-color:rgba(var(--peculiar-color-grey_3-rgb), 0.5);padding-top:60px;padding-bottom:15px;border-bottom-width:1px;border-bottom-style:solid}table.sc-peculiar-certificate-viewer td.sc-peculiar-certificate-viewer:first-child{padding-left:30px;width:130px;padding-right:10px}table.sc-peculiar-certificate-viewer td.sc-peculiar-certificate-viewer:last-child{padding-right:30px;width:calc(100% - 130px)}table.sc-peculiar-certificate-viewer td.sc-peculiar-certificate-viewer{vertical-align:top;padding-top:5px;padding-bottom:5px}table.sc-peculiar-certificate-viewer td.vertical_align_middle.sc-peculiar-certificate-viewer{vertical-align:middle}table.sc-peculiar-certificate-viewer .title.sc-peculiar-certificate-viewer:first-child td.sc-peculiar-certificate-viewer{padding-top:15px}table.sc-peculiar-certificate-viewer .title.sc-peculiar-certificate-viewer+tr.sc-peculiar-certificate-viewer td.sc-peculiar-certificate-viewer{padding-top:15px}table.sc-peculiar-certificate-viewer td.monospace.sc-peculiar-certificate-viewer{max-width:0}table.sc-peculiar-certificate-viewer .divider.sc-peculiar-certificate-viewer{padding-top:15px;padding-bottom:15px}.divider.sc-peculiar-certificate-viewer .bg_fill.sc-peculiar-certificate-viewer{background-color:rgba(var(--peculiar-color-grey_3-rgb), 0.5)}table.sc-peculiar-certificate-viewer tr.sc-peculiar-certificate-viewer:last-child .divider.sc-peculiar-certificate-viewer{padding-top:0;opacity:0}.divider.sc-peculiar-certificate-viewer span.sc-peculiar-certificate-viewer{display:block;height:1px}.status_wrapper.sc-peculiar-certificate-viewer{min-height:inherit;display:-ms-flexbox;display:flex;-ms-flex-pack:center;justify-content:center;-ms-flex-align:center;align-items:center}.interaction_text.sc-peculiar-certificate-viewer{padding:15px 0;width:300px;margin:auto;text-align:center}@media (max-width: 900px){table.sc-peculiar-certificate-viewer,tr.sc-peculiar-certificate-viewer,td.sc-peculiar-certificate-viewer{display:block}table.sc-peculiar-certificate-viewer td.sc-peculiar-certificate-viewer:last-child,table.sc-peculiar-certificate-viewer td.sc-peculiar-certificate-viewer:first-child{padding-right:15px;padding-left:15px;width:100%}table.sc-peculiar-certificate-viewer .title.sc-peculiar-certificate-viewer+tr.sc-peculiar-certificate-viewer td.sc-peculiar-certificate-viewer{padding-top:5px}table.sc-peculiar-certificate-viewer .title.sc-peculiar-certificate-viewer+tr.sc-peculiar-certificate-viewer td.sc-peculiar-certificate-viewer:first-child{padding-top:15px}table.sc-peculiar-certificate-viewer td.monospace.sc-peculiar-certificate-viewer{width:100%;max-width:none}}[data-view=mobile].sc-peculiar-certificate-viewer-h table.sc-peculiar-certificate-viewer,[data-view=mobile].sc-peculiar-certificate-viewer-h tr.sc-peculiar-certificate-viewer,[data-view=mobile].sc-peculiar-certificate-viewer-h td.sc-peculiar-certificate-viewer{display:block}[data-view=mobile].sc-peculiar-certificate-viewer-h table.sc-peculiar-certificate-viewer td.sc-peculiar-certificate-viewer:last-child,[data-view=mobile].sc-peculiar-certificate-viewer-h table.sc-peculiar-certificate-viewer td.sc-peculiar-certificate-viewer:first-child{padding-right:15px;padding-left:15px;width:100%}[data-view=mobile].sc-peculiar-certificate-viewer-h table.sc-peculiar-certificate-viewer .title.sc-peculiar-certificate-viewer+tr.sc-peculiar-certificate-viewer td.sc-peculiar-certificate-viewer{padding-top:5px}[data-view=mobile].sc-peculiar-certificate-viewer-h table.sc-peculiar-certificate-viewer .title.sc-peculiar-certificate-viewer+tr.sc-peculiar-certificate-viewer td.sc-peculiar-certificate-viewer:first-child{padding-top:15px}[data-view=mobile].sc-peculiar-certificate-viewer-h table.sc-peculiar-certificate-viewer td.monospace.sc-peculiar-certificate-viewer{width:100%;max-width:none}";
             var CertificateViewer = exports('peculiar_certificate_viewer', /** @class */ (function () {
-                function class_4(hostRef) {
+                function class_5(hostRef) {
                     var _this = this;
                     registerInstance(this, hostRef);
                     this.isDecodeInProcess = true;
@@ -1345,10 +1390,10 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
                         return (_a = _this.subjectKeyIdSiblingsLink) === null || _a === void 0 ? void 0 : _a.replace('{{subjectKeyId}}', value);
                     };
                 }
-                class_4.prototype.componentWillLoad = function () {
+                class_5.prototype.componentWillLoad = function () {
                     this.decodeCertificate(this.certificate);
                 };
-                class_4.prototype.decodeCertificate = function (certificate) {
+                class_5.prototype.decodeCertificate = function (certificate) {
                     return __awaiter(this, void 0, void 0, function () {
                         var error_1;
                         return __generator(this, function (_c) {
@@ -1387,7 +1432,7 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
                 /**
                  * Rerun decodeCertificate if previuos value not equal current value
                  */
-                class_4.prototype.watchCertificateAndDecode = function (newValue, oldValue) {
+                class_5.prototype.watchCertificateAndDecode = function (newValue, oldValue) {
                     if (typeof newValue === 'string' && typeof oldValue === 'string') {
                         if (newValue !== oldValue) {
                             this.decodeCertificate(newValue);
@@ -1400,25 +1445,25 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
                         }
                     }
                 };
-                class_4.prototype.getLEILink = function (value) {
+                class_5.prototype.getLEILink = function (value) {
                     return "https://www.gleif.org/lei/" + value;
                 };
-                class_4.prototype.getDNSNameLink = function (value) {
+                class_5.prototype.getDNSNameLink = function (value) {
                     return "https://censys.io/ipv4?q=" + value;
                 };
-                class_4.prototype.getIPAddressLink = function (value) {
+                class_5.prototype.getIPAddressLink = function (value) {
                     return "https://censys.io/ipv4?q=" + value;
                 };
-                class_4.prototype.getIssuerDnLink = function () {
+                class_5.prototype.getIssuerDnLink = function () {
                     return this.issuerDnLink;
                 };
-                class_4.prototype.renderErrorState = function () {
+                class_5.prototype.renderErrorState = function () {
                     return (h("div", { class: "status_wrapper" }, h("peculiar-typography", { type: "b1", class: "interaction_text" }, "There is error for certificate decode.")));
                 };
-                class_4.prototype.renderEmptyState = function () {
+                class_5.prototype.renderEmptyState = function () {
                     return (h("div", { class: "status_wrapper" }, h("peculiar-typography", { type: "b1", class: "interaction_text" }, "There is no certificate available.")));
                 };
-                class_4.prototype.render = function () {
+                class_5.prototype.render = function () {
                     if (this.certificateDecodeError) {
                         return this.renderErrorState();
                     }
@@ -1433,9 +1478,9 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
                         getAuthKeyIdSiblingsLink: this.getAuthKeyIdSiblingsLink,
                         getSubjectKeyIdChildrenLink: this.getSubjectKeyIdChildrenLink,
                         getSubjectKeyIdSiblingsLink: this.getSubjectKeyIdSiblingsLink,
-                    }))));
+                    }), this.download && miscellaneous(this.certificateDecoded))));
                 };
-                Object.defineProperty(class_4, "watchers", {
+                Object.defineProperty(class_5, "watchers", {
                     get: function () {
                         return {
                             "certificate": ["watchCertificateAndDecode"]
@@ -1444,31 +1489,31 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
                     enumerable: false,
                     configurable: true
                 });
-                return class_4;
+                return class_5;
             }()));
             CertificateViewer.style = certificateViewerCss;
             var linkCss = ":host{display:inline-block}.link_native{margin:0;padding:0;font-family:var(--peculiar-font-family);font-size:inherit;line-height:inherit;letter-spacing:inherit;word-break:break-word;color:inherit}.link_native:hover{text-decoration:none}";
             var Link = exports('peculiar_link', /** @class */ (function () {
-                function class_5(hostRef) {
+                function class_6(hostRef) {
                     registerInstance(this, hostRef);
                 }
-                class_5.prototype.render = function () {
+                class_6.prototype.render = function () {
                     return (h(Host, { class: "peculiar_color_primary peculiar_b3" }, h("a", { href: this.href, target: "_blank", rel: "noreferrer noopener", class: "link_native" }, h("slot", null))));
                 };
-                return class_5;
+                return class_6;
             }()));
             Link.style = linkCss;
             var textHiderCss = ".sc-peculiar-text-hider-h{display:block;width:100%}.text.sc-peculiar-text-hider{display:inline-block;width:calc(100% - 60px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:0}.text.m_opened.sc-peculiar-text-hider{white-space:initial}.action.sc-peculiar-text-hider{vertical-align:top;display:inline-block;width:60px;text-align:right;position:relative;top:-6px}.button_action.sc-peculiar-text-hider{width:30px}.expand_icon.sc-peculiar-text-hider{width:7px;height:5px;display:inline-block;fill:rgb(var(--peculiar-color-primary-rgb))}.m_opened.sc-peculiar-text-hider .expand_icon.sc-peculiar-text-hider{-webkit-transform:rotate(180deg);transform:rotate(180deg);fill:rgb(var(--peculiar-color-light-rgb))}";
             var TextHider = exports('peculiar_text_hider', /** @class */ (function () {
-                function class_6(hostRef) {
+                function class_7(hostRef) {
                     registerInstance(this, hostRef);
                     this.textExpand = createEvent(this, "textExpand", 7);
                     this.opened = false;
                 }
-                class_6.prototype.textExpandHandler = function () {
+                class_7.prototype.textExpandHandler = function () {
                     this.opened = !this.opened;
                 };
-                class_6.prototype.render = function () {
+                class_7.prototype.render = function () {
                     return (h(Host, null, h("div", { class: "root" }, h("div", { class: {
                             text: true,
                             m_opened: this.opened,
@@ -1479,12 +1524,12 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
                             expand_icon: true,
                         } }, h("path", { "fill-rule": "evenodd", "clip-rule": "evenodd", d: "M5.459.124c.934.001 1.442.994.84 1.644L4.425 3.794c-.44.475-1.244.475-1.684 0L.862 1.764C.26 1.115.77.12 1.705.122l3.754.003z" })))))));
                 };
-                return class_6;
+                return class_7;
             }()));
             TextHider.style = textHiderCss;
             var typographyCss = ":host{display:block}.typography_native{margin:0;padding:0;font-family:var(--peculiar-font-family);font-size:inherit;line-height:inherit;letter-spacing:inherit;word-break:break-word}:host(.align_left){text-align:left}:host(.align_center){text-align:center}:host(.align_right){text-align:right}.ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.monospace{font-family:monospace}";
             var PeculiarTypography = exports('peculiar_typography', /** @class */ (function () {
-                function class_7(hostRef) {
+                function class_8(hostRef) {
                     registerInstance(this, hostRef);
                     /**
                      * Typography type.
@@ -1495,7 +1540,7 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
                      */
                     this.color = 'dark';
                 }
-                class_7.prototype.render = function () {
+                class_8.prototype.render = function () {
                     var _c;
                     var TagType = this.type && this.type.includes('h') ? this.type : 'p';
                     return (h(Host, { class: (_c = {},
@@ -1508,7 +1553,7 @@ System.register(['./p-50c6b099.system.js', './p-e59ac594.system.js'], function (
                             monospace: this.monospace,
                         } }, h("slot", null))));
                 };
-                return class_7;
+                return class_8;
             }()));
             PeculiarTypography.style = typographyCss;
         }
