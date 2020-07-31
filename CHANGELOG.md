@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v1.1.2...v1.2.0) (2020-07-31)
+
+
+### Features
+
+* **crypto:** added check msCrypto for crypto provider ([3b20b0f](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/3b20b0f56ee2fa11f5d087b49a00a2c5f8cb0115))
+* **crypto:** added try catch for getThumbprint ([500b829](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/500b8292cb69984aa7ab510206b92b08130e823d))
+
+
+### Bug Fixes
+
+* **crypto:** changed value for OctetString  after deps update ([e66a42e](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/e66a42edde259dc3b4bb10a4ddff236c06f804e9))
+* **crypto:** fixed instanceof AsnName for ie11 ([d9bff68](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/d9bff68aedf6bfe3b08725105c9d7f23994624fc))
+* **viewer:** disable render empty thumbprints ([177d5a7](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/177d5a7c326d86cbc8af2a9175b871aa1a081631))
+
 ### [1.1.2](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v1.1.1...v1.1.2) (2020-07-30)
 
 ### [1.1.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v1.1.0...v1.1.1) (2020-07-30)
