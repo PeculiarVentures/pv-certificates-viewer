@@ -9689,20 +9689,22 @@ System.register([], function (exports) {
                 X509Certificate.prototype.getThumbprint = function (algorithm) {
                     if (algorithm === void 0) { algorithm = 'SHA-1'; }
                     return __awaiter(this, void 0, void 0, function () {
-                        var crypto, thumbprint;
+                        var crypto, thumbprint, error_1;
                         return __generator(this, function (_e) {
                             switch (_e.label) {
                                 case 0:
-                                    console.log('good 1');
+                                    _e.trys.push([0, 2, , 3]);
                                     crypto = cryptoProvider.get();
-                                    console.log('good 2');
                                     return [4 /*yield*/, crypto.subtle.digest(algorithm, this.raw)];
                                 case 1:
                                     thumbprint = _e.sent();
-                                    console.log('good 3');
-                                    this.thumbprints[algorithm] = Convert.ToHex(thumbprint);
-                                    console.log('good 4');
-                                    return [2 /*return*/];
+                                    this.thumbprints[algorithm['name'] || algorithm] = Convert.ToHex(thumbprint);
+                                    return [3 /*break*/, 3];
+                                case 2:
+                                    error_1 = _e.sent();
+                                    console.error('Error thumbprint get:', error_1);
+                                    return [3 /*break*/, 3];
+                                case 3: return [2 /*return*/];
                             }
                         });
                     });

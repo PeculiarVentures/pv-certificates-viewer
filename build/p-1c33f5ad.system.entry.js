@@ -34,7 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-System.register(['./p-50c6b099.system.js', './p-27021cdd.system.js'], function (exports) {
+System.register(['./p-50c6b099.system.js', './p-ec8155b5.system.js'], function (exports) {
     'use strict';
     var registerInstance, h, Host, createEvent, X509Certificate, short, OIDs, Convert;
     return {
@@ -946,7 +946,7 @@ System.register(['./p-50c6b099.system.js', './p-27021cdd.system.js'], function (
                                     this.isDecodeInProcess = true;
                                     _b.label = 1;
                                 case 1:
-                                    _b.trys.push([1, 3, , 4]);
+                                    _b.trys.push([1, 4, , 5]);
                                     if (certificate instanceof X509Certificate) {
                                         this.certificateDecoded = certificate;
                                     }
@@ -958,14 +958,16 @@ System.register(['./p-50c6b099.system.js', './p-27021cdd.system.js'], function (
                                 case 2:
                                     // this.certificateDecoded.parseExtensions();
                                     _b.sent();
-                                    console.log('good 6');
-                                    return [3 /*break*/, 4];
+                                    return [4 /*yield*/, this.certificateDecoded.getThumbprint('SHA-256')];
                                 case 3:
+                                    _b.sent();
+                                    return [3 /*break*/, 5];
+                                case 4:
                                     error_1 = _b.sent();
                                     this.certificateDecodeError = error_1;
                                     console.error('Error certificate parse:', error_1);
-                                    return [3 /*break*/, 4];
-                                case 4:
+                                    return [3 /*break*/, 5];
+                                case 5:
                                     this.isDecodeInProcess = false;
                                     return [2 /*return*/];
                             }
