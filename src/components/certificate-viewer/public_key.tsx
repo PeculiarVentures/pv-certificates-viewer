@@ -1,10 +1,10 @@
+import { h, FunctionalComponent } from '@stencil/core';
 import { Convert } from 'pvtsutils';
 
 import { IPublicKey } from '../../crypto';
 
-import { rowTitle } from './row_title';
-import { rowValue } from './row_value';
 import { getStringByOID } from './get_string_by_oid';
+import { RowTitle, RowValue } from './row';
 
 function getPublicKeyModulus(publicKey: IPublicKey) {
   if (publicKey.params?.['modulus']) {
@@ -30,33 +30,42 @@ function getPublicKeyExponent(publicKey: IPublicKey) {
   return null;
 }
 
-export function publicKey(publicKey: IPublicKey) {
+interface IPublicKeyProps {
+  publicKey: IPublicKey;
+}
+
+export const PublicKey: FunctionalComponent<IPublicKeyProps> = (props) => {
+  const { publicKey } = props;
+
   if (!publicKey) {
     return null;
   }
 
   return [
-    rowTitle('Public Key Info'),
-    rowValue(
-      'Algorithm',
-      getStringByOID(publicKey.algorithm),
-    ),
-    rowValue(
-      'Named Curve',
-      getStringByOID(publicKey.params?.['namedCurve']),
-    ),
-    rowValue(
-      'Exponent',
-      getPublicKeyExponent(publicKey),
-    ),
-    rowValue(
-      'Modulus',
-      getPublicKeyModulus(publicKey),
-    ),
-    rowValue(
-      'Value',
-      Convert.ToHex(publicKey.value),
-      { monospace: true, collapse: true },
-    ),
+    <RowTitle
+      value="Public Key Info"
+    />,
+    <RowValue
+      name="Algorithm"
+      value={getStringByOID(publicKey.algorithm)}
+    />,
+    <RowValue
+      name="Named Curve"
+      value={getStringByOID(publicKey.params?.['namedCurve'])}
+    />,
+    <RowValue
+      name="Exponent"
+      value={getPublicKeyExponent(publicKey)}
+    />,
+    <RowValue
+      name="Modulus"
+      value={getPublicKeyModulus(publicKey)}
+    />,
+    <RowValue
+      name="Value"
+      value={Convert.ToHex(publicKey.value)}
+      monospace
+      collapse
+    />,
   ];
-}
+};

@@ -1,7 +1,14 @@
-import { rowTitle } from './row_title';
-import { rowValue } from './row_value';
+import { h, FunctionalComponent } from '@stencil/core';
 
-export function thumbprints(thumbprints: Record<string, string>) {
+import { RowTitle, RowValue } from './row';
+
+interface IThumbprintsProps {
+  thumbprints: Record<string, string>;
+}
+
+export const Thumbprints: FunctionalComponent<IThumbprintsProps> = (props) => {
+  const { thumbprints } = props;
+
   if (!thumbprints) {
     return null;
   }
@@ -13,13 +20,15 @@ export function thumbprints(thumbprints: Record<string, string>) {
   }
 
   return [
-    rowTitle('Thumbprints'),
+    <RowTitle
+      value="Thumbprints"
+    />,
     keys.map(name => (
-      rowValue(
-        name,
-        thumbprints[name],
-        { monospace: true },
-      )
+      <RowValue
+        name={name}
+        value={thumbprints[name]}
+        monospace
+      />
     )),
   ];
-}
+};

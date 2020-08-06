@@ -4,12 +4,12 @@ import {
   X509Certificate,
 } from '../../crypto';
 
-import { rowTitle } from './row_title';
-import { publicKey } from './public_key';
-import { signature } from './signature';
-import { thumbprints } from './thumbprints';
-import { extensions } from './extensions';
-import { miscellaneous } from './miscellaneous';
+import { PublicKey } from './public_key';
+import { Signature } from './signature';
+import { Thumbprints } from './thumbprints';
+import { Extensions } from './extensions';
+import { Miscellaneous } from './miscellaneous';
+import { RowTitle } from './row';
 
 export type CertificateProp = string | X509Certificate;
 
@@ -205,7 +205,9 @@ export class CertificateViewer {
         data-view={this.view}
       >
         <table>
-          {rowTitle('Basic Information')}
+          <RowTitle
+            value="Basic Information"
+          />
           <tr>
             <td colSpan={2}>
               <peculiar-certificate-summary
@@ -216,26 +218,34 @@ export class CertificateViewer {
             </td>
           </tr>
 
-          {publicKey(this.certificateDecoded.publicKey)}
+          <PublicKey
+            publicKey={this.certificateDecoded.publicKey}
+          />
 
-          {signature(this.certificateDecoded.signature)}
+          <Signature
+            signature={this.certificateDecoded.signature}
+          />
 
-          {thumbprints(this.certificateDecoded.thumbprints)}
+          <Thumbprints
+            thumbprints={this.certificateDecoded.thumbprints}
+          />
 
-          {extensions(
-            this.certificateDecoded.extensions,
-            {
-              getLEILink: this.getLEILink,
-              getDNSNameLink: this.getDNSNameLink,
-              getIPAddressLink: this.getIPAddressLink,
-              getAuthKeyIdParentLink: this.getAuthKeyIdParentLink,
-              getAuthKeyIdSiblingsLink: this.getAuthKeyIdSiblingsLink,
-              getSubjectKeyIdChildrenLink: this.getSubjectKeyIdChildrenLink,
-              getSubjectKeyIdSiblingsLink: this.getSubjectKeyIdSiblingsLink,
-            },
+          <Extensions
+            extensions={this.certificateDecoded.extensions}
+            getLEILink={this.getLEILink}
+            getDNSNameLink={this.getDNSNameLink}
+            getIPAddressLink={this.getIPAddressLink}
+            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
+            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
+            getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
+            getSubjectKeyIdSiblingsLink={this.getSubjectKeyIdSiblingsLink}
+          />
+
+          {this.download && (
+            <Miscellaneous
+              certificate={this.certificateDecoded}
+            />
           )}
-
-          {this.download && miscellaneous(this.certificateDecoded)}
         </table>
       </Host>
     );

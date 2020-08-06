@@ -1,3 +1,4 @@
+import { h, FunctionalComponent } from '@stencil/core';
 import {
   KeyUsage,
   BasicConstraints,
@@ -22,173 +23,253 @@ import { NetscapeComment, NetscapeCertType } from '@peculiar/asn1-x509-netscape'
 import { LeiRoles, LeiChoice } from '@peculiar/asn1-lei';
 import { Timestamp, ArchiveRevInfo } from '@peculiar/asn1-adobe-acrobat';
 
-import { rowTitle } from '../row_title';
+import { RowTitle } from '../row';
 import { Extension } from '../../../crypto/extension';
 
-import { basic } from './basic';
-import { keyUsage } from './key_usage';
-import { basicConstraints } from './basic_constraints';
-import { extendedKeyUsage } from './extended_key_usage';
-import { subjectKeyIdentifier } from './subject_key_identifier';
-import { authorityKeyIdentifier } from './authority_key_identifier';
-import { crlDistributionPoints } from './crl_distribution_points';
-import { authorityInfoAccessSyntax } from './authority_info_access_syntax';
-import { subjectAlternativeName } from './subject_alternative_name';
-import { certificatePolicies } from './certificate_policies';
-import { certificateTransparency } from './certificate_transparency';
-import { asString } from './as_string';
-import { nameConstraints } from './name_constraints';
-import { certificateTemplate } from './certificate_template';
-import { enrollCertType } from './enroll_cert_type';
-import { caVersion } from './ca_version';
-import { qcStatements } from './qc_statements';
-import { netscapeComment } from './netscape_comment';
-import { netscapeCertType } from './netscape_cert_type';
-import { leiRoles } from './lei_roles';
-import { lei } from './lei';
-import { timestamp } from './timestamp';
-import { archiveRevInfo } from './archive_rev_info';
-import { crlReason } from './crl_reason';
+import { KeyUsageExtension } from './key_usage_extension';
+import { BasicConstraintsExtension } from './basic_constraints_extension';
+import { ExtendedKeyUsageExtension } from './extended_key_usage_extension';
+import { SubjectKeyIdentifierExtension } from './subject_key_identifier_extension';
+import { AuthorityKeyIdentifierExtension } from './authority_key_identifier_extension';
+import { CRLDistributionPointsExtension } from './crl_distribution_points_extension';
+import { AuthorityInfoAccessSyntaxExtension } from './authority_info_access_syntax_extension';
+import { SubjectAlternativeNameExtension } from './subject_alternative_name_extension';
+import { CertificatePoliciesExtension } from './certificate_policies_extension';
+import { CertificateTransparencyExtension } from './certificate_transparency_extension';
+import { NameConstraintsExtension } from './name_constraints_extension';
+import { CertificateTemplateExtension } from './certificate_template_extension';
+import { EnrollCertTypeChoiceExtension } from './enroll_cert_type_extension';
+import { CaVersionExtension } from './ca_version_extension';
+import { QCStatementsExtension } from './qc_statements_extension';
+import { NetscapeCommentExtension } from './netscape_comment_extension';
+import { NetscapeCertTypeExtension } from './netscape_cert_type_extension';
+import { LeiRolesExtension } from './lei_roles_extendsion';
+import { LeiExtension } from './lei_extension';
+import { TimestampExtension } from './timestamp_extension';
+import { ArchiveRevInfoExtension } from './archive_rev_info_extension';
+import { CRLReasonExtension } from './crl_reason_extension';
+import { AsStringExtension } from './as_string_extension';
+import { BasicExtension } from './basic_extension';
 
-export type TOptions = IGeneralNameOptions
-  & ILeiOptions
-  & IAuthorityKeyIdentifierOptions
-  & ISubjectKeyIdentifierOptions;
+interface IExtensionsProps extends
+  IGeneralNameOptions,
+  ILeiOptions,
+  IAuthorityKeyIdentifierOptions,
+  ISubjectKeyIdentifierOptions
+{
+  extensions: Extension[];
+}
 
-export function extensions(extensions: Extension[], options: TOptions) {
+export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
+  const { extensions } = props;
+
   if (!extensions || !extensions.length) {
     return null;
   }
 
   return ([
-    rowTitle('Extensions'),
+    <RowTitle
+      value="Extensions"
+    />,
     extensions.map((extension) => {
       try {
         if (extension.value instanceof KeyUsage) {
-          return keyUsage(extension, extension.value);
+          return (
+            <KeyUsageExtension
+              extension={extension as any}
+            />
+          );
         }
 
         if (extension.value instanceof BasicConstraints) {
-          return basicConstraints(extension, extension.value);
+          return (
+            <BasicConstraintsExtension
+              extension={extension as any}
+            />
+          );
         }
 
         if (extension.value instanceof ExtendedKeyUsage) {
-          return extendedKeyUsage(extension, extension.value);
+          return (
+            <ExtendedKeyUsageExtension
+              extension={extension as any}
+            />
+          );
         }
 
         if (extension.value instanceof SubjectKeyIdentifier) {
-          return subjectKeyIdentifier(
-            extension,
-            extension.value,
-            options,
+          return (
+            <SubjectKeyIdentifierExtension
+              extension={extension as any}
+              {...props}
+            />
           );
         }
 
         if (extension.value instanceof AuthorityKeyIdentifier) {
-          return authorityKeyIdentifier(
-            extension,
-            extension.value,
-            options,
+          return (
+            <AuthorityKeyIdentifierExtension
+              extension={extension as any}
+              {...props}
+            />
           );
         }
 
         if (extension.value instanceof CRLDistributionPoints) {
-          return crlDistributionPoints(
-            extension,
-            extension.value,
-            options,
+          return (
+            <CRLDistributionPointsExtension
+              extension={extension as any}
+              {...props}
+            />
           );
         }
 
         if (extension.value instanceof AuthorityInfoAccessSyntax) {
-          return authorityInfoAccessSyntax(
-            extension,
-            extension.value,
-            options,
+          return (
+            <AuthorityInfoAccessSyntaxExtension
+              extension={extension as any}
+              {...props}
+            />
           );
         }
 
         if (extension.value instanceof SubjectAlternativeName) {
-          return subjectAlternativeName(
-            extension,
-            extension.value,
-            options,
+          return (
+            <SubjectAlternativeNameExtension
+              extension={extension as any}
+              {...props}
+            />
           );
         }
 
         if (extension.value instanceof CertificatePolicies) {
-          return certificatePolicies(extension, extension.value);
+          return (
+            <CertificatePoliciesExtension
+              extension={extension as any}
+            />
+          );
         }
 
         if (extension.value instanceof CertificateTransparency) {
-          return certificateTransparency(extension, extension.value);
+          return (
+            <CertificateTransparencyExtension
+              extension={extension as any}
+            />
+          );
         }
 
         if (extension.value instanceof NameConstraints) {
-          return nameConstraints(
-            extension,
-            extension.value,
-            options,
+          return (
+            <NameConstraintsExtension
+              extension={extension as any}
+              {...props}
+            />
           );
         }
 
         if (extension.value instanceof CertificateTemplate) {
-          return certificateTemplate(extension, extension.value);
+          return (
+            <CertificateTemplateExtension
+              extension={extension as any}
+            />
+          );
         }
 
         if (extension.value instanceof EnrollCertTypeChoice) {
-          return enrollCertType(extension, extension.value);
+          return (
+            <EnrollCertTypeChoiceExtension
+              extension={extension as any}
+            />
+          );
         }
 
         if (extension.value instanceof CaVersion) {
-          return caVersion(extension, extension.value);
+          return (
+            <CaVersionExtension
+              extension={extension as any}
+            />
+          );
         }
 
         if (extension.value instanceof QCStatements) {
-          return qcStatements(extension, extension.value);
+          return (
+            <QCStatementsExtension
+              extension={extension as any}
+            />
+          );
         }
 
         if (extension.value instanceof NetscapeComment) {
-          return netscapeComment(extension, extension.value);
+          return (
+            <NetscapeCommentExtension
+              extension={extension as any}
+            />
+          );
         }
 
         if (extension.value instanceof NetscapeCertType) {
-          return netscapeCertType(extension, extension.value);
+          return (
+            <NetscapeCertTypeExtension
+              extension={extension as any}
+            />
+          );
         }
 
         if (extension.value instanceof LeiRoles) {
-          return leiRoles(extension, extension.value);
+          return (
+            <LeiRolesExtension
+              extension={extension as any}
+            />
+          );
         }
 
         if (extension.value instanceof LeiChoice) {
-          return lei(
-            extension,
-            extension.value,
-            options,
+          return (
+            <LeiExtension
+              extension={extension as any}
+              {...props}
+            />
           );
         }
 
         if (extension.value instanceof Timestamp) {
-          return timestamp(
-            extension,
-            extension.value,
-            options,
+          return (
+            <TimestampExtension
+              extension={extension as any}
+              {...props}
+            />
           );
         }
 
         if (extension.value instanceof ArchiveRevInfo) {
-          return archiveRevInfo(extension, extension.value);
+          return (
+            <ArchiveRevInfoExtension
+              extension={extension as any}
+            />
+          );
         }
 
         if (extension.value instanceof CRLReason) {
-          return crlReason(extension, extension.value);
+          return (
+            <CRLReasonExtension
+              extension={extension as any}
+            />
+          );
         }
 
         if (typeof extension.value === 'string') {
-          return asString(extension, extension.value);
+          return (
+            <AsStringExtension
+              extension={extension as any}
+            />
+          );
         }
 
-        return basic(extension);
+        return (
+          <BasicExtension
+            extension={extension}
+          />
+        );
       } catch (error) {
         console.error('Error render extension:', extension.asn.extnID);
 
@@ -196,4 +277,4 @@ export function extensions(extensions: Extension[], options: TOptions) {
       }
     }),
   ]);
-}
+};

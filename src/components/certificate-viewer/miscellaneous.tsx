@@ -1,24 +1,35 @@
-import { h } from '@stencil/core';
+import { h, FunctionalComponent } from '@stencil/core';
 
 import { X509Certificate } from '../../crypto';
 import { Download } from '../../utils/download';
 
-import { rowTitle } from './row_title';
+import { RowTitle } from './row';
 
-export function miscellaneous(certificate: X509Certificate) {
-  const onClickDownloadAsPem = () =>
-    Download.certificate.asPEM(
-      certificate.export('pem'),
-      certificate.commonName,
-    );
-  const onClickDownloadAsDer = () =>
-    Download.certificate.asDER(
-      certificate.export('hex'),
-      certificate.commonName,
-    );
+function downloadCertificateAsPem(certificate: X509Certificate) {
+  Download.certificate.asPEM(
+    certificate.export('pem'),
+    certificate.commonName,
+  );
+}
+
+function downloadCertificateAsDer(certificate: X509Certificate) {
+  Download.certificate.asDER(
+    certificate.export('hex'),
+    certificate.commonName,
+  );
+}
+
+interface IMiscellaneousProps {
+  certificate: X509Certificate;
+}
+
+export const Miscellaneous: FunctionalComponent<IMiscellaneousProps> = (props) => {
+  const { certificate } = props;
 
   return [
-    rowTitle('Miscellaneous'),
+    <RowTitle
+      value="Miscellaneous"
+    />,
     <tr>
       <td
         class="vertical_align_middle"
@@ -31,10 +42,10 @@ export function miscellaneous(certificate: X509Certificate) {
       </td>
       <td>
         <peculiar-button-split
-          onClick={onClickDownloadAsPem}
+          onClick={downloadCertificateAsPem.bind(this, certificate)}
           actions={[{
             text: 'Download DER',
-            onClick: onClickDownloadAsDer,
+            onClick: downloadCertificateAsDer.bind(this, certificate),
           }]}
         >
           Download PEM
@@ -42,4 +53,4 @@ export function miscellaneous(certificate: X509Certificate) {
       </td>
     </tr>,
   ];
-}
+};
