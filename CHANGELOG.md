@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v1.2.0...v1.3.0) (2020-08-06)
+
+
+### Features
+
+* **viewer:** rewrite extension to FunctionalComponent ([43e68fc](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/43e68fc781e83aa372814c3757ce7302f13d22cd))
+
 ## [1.2.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v1.1.2...v1.2.0) (2020-07-31)
 
 
