@@ -1,11 +1,11 @@
 import { h, FunctionalComponent } from '@stencil/core';
 
-import { Extension } from '../../../crypto/extension';
+import { Extension, TExtensionValue } from '../../../crypto/extension';
 import { getStringByOID } from '../get_string_by_oid';
 import { RowValue } from '../row';
 
 interface IBasicExtensionProps {
-  extension: Extension;
+  extension: Extension<TExtensionValue>;
 }
 
 export const BasicExtension: FunctionalComponent<IBasicExtensionProps> = (props, children) => {

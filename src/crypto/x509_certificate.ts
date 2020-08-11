@@ -9,7 +9,7 @@ import validator from '../utils/validator';
 
 import { cryptoProvider } from './provider';
 import { Name, INameJSON } from './name';
-import { Extension } from './extension';
+import { Extension, TExtensionValue } from './extension';
 import { AsnData } from './asn_data';
 
 export interface ISignature {
@@ -30,7 +30,7 @@ export class X509Certificate extends AsnData<Certificate> {
   public readonly notBefore: Date;
   public readonly notAfter: Date;
   public readonly validity: string;
-  public extensions: Extension[];
+  public extensions: Extension<TExtensionValue>[];
   public readonly version: number;
   public thumbprints: Record<string, string> = {};
 
@@ -171,11 +171,7 @@ export class X509Certificate extends AsnData<Certificate> {
     for (let i = 0; i < this.subject.length; i += 1) {
       const name = this.subject[i];
 
-      if (name.name === 'CN') {
-        return name.value;
-      }
-
-      if (name.name === 'E') {
+      if (name.name === 'CN' || name.name === 'E' || name.name === 'O') {
         return name.value;
       }
     }

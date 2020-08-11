@@ -11,6 +11,7 @@ import {
   CertificatePolicies,
   NameConstraints,
   CRLReason,
+  SubjectDirectoryAttributes,
 } from '@peculiar/asn1-x509';
 import { CertificateTransparency } from '@peculiar/asn1-cert-transparency';
 import {
@@ -24,7 +25,7 @@ import { LeiRoles, LeiChoice } from '@peculiar/asn1-lei';
 import { Timestamp, ArchiveRevInfo } from '@peculiar/asn1-adobe-acrobat';
 
 import { RowTitle } from '../row';
-import { Extension } from '../../../crypto/extension';
+import { Extension, TExtensionValue } from '../../../crypto/extension';
 
 import { KeyUsageExtension } from './key_usage_extension';
 import { BasicConstraintsExtension } from './basic_constraints_extension';
@@ -48,6 +49,7 @@ import { LeiExtension } from './lei_extension';
 import { TimestampExtension } from './timestamp_extension';
 import { ArchiveRevInfoExtension } from './archive_rev_info_extension';
 import { CRLReasonExtension } from './crl_reason_extension';
+import { SubjectDirectoryAttributesExtension } from './subject_directory_attributes_extension';
 import { AsStringExtension } from './as_string_extension';
 import { BasicExtension } from './basic_extension';
 
@@ -57,7 +59,7 @@ interface IExtensionsProps extends
   IAuthorityKeyIdentifierOptions,
   ISubjectKeyIdentifierOptions
 {
-  extensions: Extension[];
+  extensions: Extension<TExtensionValue>[];
 }
 
 export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
@@ -252,6 +254,14 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof CRLReason) {
           return (
             <CRLReasonExtension
+              extension={extension as any}
+            />
+          );
+        }
+
+        if (extension.value instanceof SubjectDirectoryAttributes) {
+          return (
+            <SubjectDirectoryAttributesExtension
               extension={extension as any}
             />
           );
