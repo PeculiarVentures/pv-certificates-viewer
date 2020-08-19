@@ -1,4 +1,12 @@
-import { Component, Host, h, Prop, Event, EventEmitter, Listen } from '@stencil/core';
+import {
+  Component,
+  Host,
+  h,
+  Prop,
+  Event,
+  EventEmitter,
+  Listen,
+} from '@stencil/core';
 
 @Component({
   tag: 'peculiar-text-hider',
@@ -19,11 +27,13 @@ export class TextHider {
     return (
       <Host>
         <div class="root">
-          <div class={{
-            text: true,
-            m_opened: this.opened,
-          }}>
-            <slot></slot>
+          <div
+            class={{
+              text: true,
+              m_opened: this.opened,
+            }}
+          >
+            <slot />
           </div>
           <div class="action">
             <peculiar-button

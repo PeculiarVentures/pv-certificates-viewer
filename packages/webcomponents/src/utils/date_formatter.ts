@@ -14,7 +14,7 @@ export const diff = (
 
   const start = dayjs(dateStart);
   const end = dayjs(dateEnd);
-  const ending = (value: number) => value === 1 ? '' : 's';
+  const ending = (value: number) => (value === 1 ? '' : 's');
 
   const diffYears = end.diff(start, 'year', true);
 

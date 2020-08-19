@@ -41,7 +41,7 @@ export class Name {
   public toJSON(): INameJSON[] {
     const res = [];
 
-    this.#asn.forEach(o => (
+    this.#asn.forEach((o) => (
       o.forEach((a) => {
         res.push({
           type: a.type,

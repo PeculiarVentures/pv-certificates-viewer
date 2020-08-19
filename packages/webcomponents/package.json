@@ -1,0 +1,69 @@
+{
+  "name": "@peculiar/certificates-viewer",
+  "version": "1.3.1",
+  "private": false,
+  "description": "Peculiar Certificate Viewer web-components makes it easy for you to display certificate related details in your web application.",
+  "keywords": [
+    "certificates-viewer",
+    "certificate-viewer",
+    "certificate",
+    "x509",
+    "decoding",
+    "web-component",
+    "webpki",
+    "pki",
+    "asn1"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/@peculiar/certificates-viewer/peculiar.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "npm run clean && stencil build --docs",
+    "start": "npm run clean && stencil build --dev --watch --serve",
+    "generate": "stencil generate",
+    "deploy:gh-pages": "gh-pages -d www",
+    "clean": "rimraf dist loader www"
+  },
+  "devDependencies": {
+    "@stencil/core": "^1.17.3",
+    "@stencil/postcss": "^1.0.1",
+    "@stencil/sass": "^1.3.2",
+    "autoprefixer": "^9.8.6",
+    "gh-pages": "^2.2.0",
+    "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    "@peculiar/asn1-adobe-acrobat": "^2.0.14",
+    "@peculiar/asn1-cert-transparency": "^2.0.13",
+    "@peculiar/asn1-ecc": "^2.0.13",
+    "@peculiar/asn1-lei": "^2.0.13",
+    "@peculiar/asn1-rsa": "^2.0.14",
+    "@peculiar/asn1-schema": "^2.0.13",
+    "@peculiar/asn1-x509": "^2.0.14",
+    "@peculiar/asn1-x509-microsoft": "^2.0.14",
+    "@peculiar/asn1-x509-netscape": "^2.0.13",
+    "@peculiar/asn1-x509-qualified": "^2.0.14",
+    "dayjs": "^1.8.33",
+    "history": "^4.10.1",
+    "pvtsutils": "^1.0.11"
+  },
+  "license": "MIT",
+  "author": "PeculiarVentures Team",
+  "homepage": "https://understandingwebpki.com/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeculiarVentures/pv-certificates-viewer.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

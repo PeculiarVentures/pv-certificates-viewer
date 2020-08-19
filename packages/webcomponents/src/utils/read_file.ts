@@ -63,7 +63,7 @@ export function readAsArrayBuffer(file: IFileDataType): Promise<IReadFileResult>
       sourceMime: file.type,
     });
 
-    reader.onerror = () => reject(reader.error!);
+    reader.onerror = () => reject(reader.error);
 
     reader.readAsArrayBuffer(file);
   });

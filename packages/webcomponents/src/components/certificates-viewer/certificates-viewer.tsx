@@ -1,4 +1,11 @@
-import { Component, h, Prop, State, Watch, Host } from '@stencil/core';
+import {
+  Component,
+  h,
+  Prop,
+  State,
+  Watch,
+  Host,
+} from '@stencil/core';
 
 import { X509Certificate } from '../../crypto';
 import OIDs from '../../constants/oids';
@@ -47,12 +54,17 @@ export class CertificatesViewer {
   @Prop() highlightWithSearch: boolean = true;
 
   @State() search: string = '';
+
   @State() certificatesDecoded: ICertificateDecoded[] = [];
+
   @State() expandedRow?: string;
+
   @State() certificateSelectedForDetails?: X509Certificate;
+
   @State() isDecodeInProcess: boolean = true;
 
   private isHasTests: boolean = false;
+
   private isHasRoots: boolean = false;
 
   componentWillLoad() {

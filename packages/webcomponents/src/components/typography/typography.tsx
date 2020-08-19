@@ -1,4 +1,9 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import {
+  Component,
+  Host,
+  h,
+  Prop,
+} from '@stencil/core';
 
 import { ColorType } from '../../interface';
 

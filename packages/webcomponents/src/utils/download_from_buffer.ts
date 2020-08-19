@@ -14,13 +14,13 @@ export default function downloadFromBuffer(
   mime: string = 'application/octet-stream',
   name: string,
   extension: string,
-  ) {
+) {
   const blob = new Blob([value], { type: mime });
 
   if (navigator.msSaveBlob) { // IE10+ : (has Blob, but not a[download] or URL)
     navigator.msSaveBlob(blob, `${name}.${extension}`);
 
-    return new Promise(res => setTimeout(res, 100));
+    return new Promise((res) => setTimeout(res, 100));
   }
 
   const blobURL = window.URL.createObjectURL(blob);
@@ -41,7 +41,7 @@ export default function downloadFromBuffer(
   link.dispatchEvent(new MouseEvent('click'));
   document.body.removeChild(link);
 
-  return new Promise(res => setTimeout(
+  return new Promise((res) => setTimeout(
     () => {
       document.body.removeChild(frame);
       res();

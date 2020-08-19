@@ -1,4 +1,9 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import {
+  Component,
+  Host,
+  h,
+  Prop,
+} from '@stencil/core';
 
 @Component({
   tag: 'peculiar-circular-progress',
@@ -6,7 +11,6 @@ import { Component, Host, h, Prop } from '@stencil/core';
   shadow: true,
 })
 export class CircularProgress {
-
   /**
    * Width/height of progress circle.
    */

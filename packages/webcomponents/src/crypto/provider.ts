@@ -24,6 +24,7 @@ export class CryptoProvider {
    * @param key Crypto name
    */
   public get(key: string): Crypto;
+
   public get(key = CryptoProvider.DEFAULT) {
     const crypto = this.providers.get(key.toLowerCase());
 
@@ -35,7 +36,9 @@ export class CryptoProvider {
   }
 
   public set(value: Crypto): this;
+
   public set(key: string, value: Crypto): this;
+
   public set(key: string | Crypto, value?: Crypto) {
     if (typeof key === 'string') {
       if (!value) {

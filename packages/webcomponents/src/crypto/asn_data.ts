@@ -3,12 +3,15 @@ import { BufferSourceConverter } from 'pvtsutils';
 
 export class AsnData<T> {
   #asn: T;
+
   #raw: ArrayBuffer;
 
   public constructor(raw: BufferSource, type: { new(): T; });
+
   public constructor(...args: any[]) {
     if (args.length === 1) {
       // asn
+      // eslint-disable-next-line prefer-destructuring
       this.#asn = args[0];
       this.#raw = AsnConvert.serialize(this.#asn);
     } else {

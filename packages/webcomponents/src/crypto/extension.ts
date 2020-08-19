@@ -55,7 +55,7 @@ import {
 
   id_ce_subjectKeyIdentifier,
   SubjectKeyIdentifier,
- } from '@peculiar/asn1-x509';
+} from '@peculiar/asn1-x509';
 import {
   id_pe_qcStatements,
   QCStatements,
@@ -100,33 +100,33 @@ import {
 import { AsnData } from './asn_data';
 
 export type TExtensionValue = AuthorityInfoAccessSyntax
-  | AuthorityKeyIdentifier
-  | BasicConstraints
-  | CertificateIssuer
-  | CertificatePolicies
-  | CRLDistributionPoints
-  | CRLReason
-  | ExtendedKeyUsage
-  | InhibitAnyPolicy
-  | InvalidityDate
-  | NameConstraints
-  | PolicyConstraints
-  | PolicyMappings
-  | SubjectDirectoryAttributes
-  | SubjectKeyIdentifier
-  | QCStatements
-  | CertificateTemplate
-  | EnrollCertTypeChoice
-  | NetscapeComment
-  | LeiChoice
-  | LeiRoles
-  | CertificateTransparency
-  | Timestamp
-  | ArchiveRevInfo
-  | KeyUsage
-  | NetscapeCertType
-  | CaVersion
-  | string;
+| AuthorityKeyIdentifier
+| BasicConstraints
+| CertificateIssuer
+| CertificatePolicies
+| CRLDistributionPoints
+| CRLReason
+| ExtendedKeyUsage
+| InhibitAnyPolicy
+| InvalidityDate
+| NameConstraints
+| PolicyConstraints
+| PolicyMappings
+| SubjectDirectoryAttributes
+| SubjectKeyIdentifier
+| QCStatements
+| CertificateTemplate
+| EnrollCertTypeChoice
+| NetscapeComment
+| LeiChoice
+| LeiRoles
+| CertificateTransparency
+| Timestamp
+| ArchiveRevInfo
+| KeyUsage
+| NetscapeCertType
+| CaVersion
+| string;
 
 export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> {
   public readonly value: T;

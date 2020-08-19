@@ -25,13 +25,21 @@ export interface IPublicKey {
 
 export class X509Certificate extends AsnData<Certificate> {
   public readonly serialNumber: string;
+
   public readonly subject: INameJSON[];
+
   public readonly issuer: INameJSON[];
+
   public readonly notBefore: Date;
+
   public readonly notAfter: Date;
+
   public readonly validity: string;
+
   public extensions: Extension<TExtensionValue>[];
+
   public readonly version: number;
+
   public thumbprints: Record<string, string> = {};
 
   private static base64Clear(base64: string) {
@@ -91,7 +99,7 @@ export class X509Certificate extends AsnData<Certificate> {
 
     if (tbsCertificate.extensions) {
       this.extensions = tbsCertificate.extensions
-        .map(e => new Extension(AsnConvert.serialize(e)));
+        .map((e) => new Extension(AsnConvert.serialize(e)));
     }
   }
 
@@ -131,19 +139,19 @@ export class X509Certificate extends AsnData<Certificate> {
     }
 
     if (type === 'hex') {
-      return this.stringToHex(Convert.ToHex(this.raw));
+      return X509Certificate.stringToHex(Convert.ToHex(this.raw));
     }
 
     if (type === 'pem') {
-      return this.base64ToPem(Convert.ToBase64(this.raw));
+      return X509Certificate.base64ToPem(Convert.ToBase64(this.raw));
     }
   }
 
-  private base64ToPem(base64: string) {
+  static base64ToPem(base64: string) {
     return `-----BEGIN CERTIFICATE-----\n${base64.replace(/(.{64})/g, '$1\n')}\n-----END CERTIFICATE-----`;
   }
 
-  private stringToHex(value: string) {
+  static stringToHex(value: string) {
     return value
       .replace(/(.{32})/g, '$1\n')
       .replace(/(.{4})/g, '$1 ')
@@ -176,7 +184,7 @@ export class X509Certificate extends AsnData<Certificate> {
       }
     }
 
-    return;
+    return '';
   }
 
   public get issuerCommonName(): string {
@@ -196,7 +204,7 @@ export class X509Certificate extends AsnData<Certificate> {
       }
     }
 
-    return;
+    return '';
   }
 
   public get isRoot(): boolean {
