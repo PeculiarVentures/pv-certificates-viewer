@@ -796,7 +796,7 @@ const OIDs: Record<string, string> = {
   '1.2.840.113549.1.12.4.1': 'PKCS-12-x509 Cert CRL Bag I Dformerly assigned as pkcs-12-x509 Cert CRL Bag',
   '1.2.840.113549.1.12.4.2': 'PKCS-12-SDSI Cert Bag I Dformerly assigned as pkcs-12-SDSI Cert Bag',
   '1.2.840.113549.1.12.5': 'PKCS-12-OID',
-  '1.2.840.113549.1.12.5.1':'PKCS-12-PBEI Dthe partially compatible (128401135491121) OIDs instead',
+  '1.2.840.113549.1.12.5.1': 'PKCS-12-PBEI Dthe partially compatible (128401135491121) OIDs instead',
   '1.2.840.113549.1.12.5.1.1': 'PKCS-12-PBE with SHA1 And128 Bit RC4use (1284011354911211) instead',
   '1.2.840.113549.1.12.5.1.2': 'PKCS-12-PBE with SHA1 And40 Bit RC4use (1284011354911212) instead',
   '1.2.840.113549.1.12.5.1.3': 'PKCS-12-PBE with SHA1 And Triple DESCB Cuse the incompatible but similar (1284011354911213) or (1284011354911214) instead',

@@ -13,18 +13,18 @@ interface ICertificatePoliciesExtensionProps {
 }
 
 export const CertificatePoliciesExtension:
-  FunctionalComponent<ICertificatePoliciesExtensionProps> = (props) => {
-    const { extension } = props;
+FunctionalComponent<ICertificatePoliciesExtensionProps> = (props) => {
+  const { extension } = props;
 
-    return (
-      <BasicExtension
-        extension={extension}
-      >
-        {extension.value.map((policy, index) => ([
-          <RowValue
-            name={`Policy ID #${index + 1}`}
-            value={getStringByOID(policy.policyIdentifier)}
-          />,
+  return (
+    <BasicExtension
+      extension={extension}
+    >
+      {extension.value.map((policy, index) => ([
+        <RowValue
+          name={`Policy ID #${index + 1}`}
+          value={getStringByOID(policy.policyIdentifier)}
+        />,
           policy.policyQualifiers?.map((qualifierInfo, indexInfo) => {
             const data = [
               <RowValue
@@ -59,11 +59,11 @@ export const CertificatePoliciesExtension:
 
             return data;
           }),
-          <tr>
-            <td />
-            <td />
-          </tr>,
-        ]))}
-      </BasicExtension>
-    );
-  };
+        <tr>
+          <td />
+          <td />
+        </tr>,
+      ]))}
+    </BasicExtension>
+  );
+};

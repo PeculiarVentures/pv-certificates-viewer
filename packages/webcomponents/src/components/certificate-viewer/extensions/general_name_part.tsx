@@ -1,5 +1,7 @@
 import { h, FunctionalComponent } from '@stencil/core';
-import { GeneralName, Name, OtherName, DisplayText, EDIPartyName } from '@peculiar/asn1-x509';
+import {
+  GeneralName, Name, OtherName, DisplayText, EDIPartyName,
+} from '@peculiar/asn1-x509';
 import { Convert, BufferSourceConverter } from 'pvtsutils';
 import { AsnParser } from '@peculiar/asn1-schema';
 
@@ -38,8 +40,8 @@ export const GeneralNamePart: FunctionalComponent<IGeneralNamePartProps> = (prop
           name={names[name] || name}
           value=""
         />,
-        value.map(relativeDistinguishedName => (
-          relativeDistinguishedName.map(attributeTypeAndValue => (
+        value.map((relativeDistinguishedName) => (
+          relativeDistinguishedName.map((attributeTypeAndValue) => (
             <RowValue
               name={OIDs[attributeTypeAndValue.type] || attributeTypeAndValue.type}
               value={attributeTypeAndValue.value.toString()}

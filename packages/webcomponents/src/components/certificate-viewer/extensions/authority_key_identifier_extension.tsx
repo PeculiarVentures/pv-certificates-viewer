@@ -12,38 +12,42 @@ interface IAuthorityKeyIdentifierExtensionProps extends IAuthorityKeyIdentifierO
 }
 
 export const AuthorityKeyIdentifierExtension:
-  FunctionalComponent<IAuthorityKeyIdentifierExtensionProps> = (props) => {
-    const { extension, getAuthKeyIdParentLink, getAuthKeyIdSiblingsLink } = props;
+FunctionalComponent<IAuthorityKeyIdentifierExtensionProps> = (props) => {
+  const { extension, getAuthKeyIdParentLink, getAuthKeyIdSiblingsLink } = props;
 
-    const keyId = Convert.ToHex(extension.value.keyIdentifier.buffer);
-    const parentLink = getAuthKeyIdParentLink(keyId);
-    const siblingsLink = getAuthKeyIdSiblingsLink(keyId);
+  const keyId = Convert.ToHex(extension.value.keyIdentifier.buffer);
+  const parentLink = getAuthKeyIdParentLink(keyId);
+  const siblingsLink = getAuthKeyIdSiblingsLink(keyId);
 
-    return (
-      <BasicExtension
-        extension={extension}
-      >
-        <RowValue
-          name="Key ID"
-          value={keyId}
-          monospace
-          extraValue={[
-            parentLink && (
-              <span>
-                &nbsp;[<peculiar-link href={parentLink}>
-                  parents
-                </peculiar-link>]
-              </span>
-            ),
-            siblingsLink && (
-              <span>
-                &nbsp;[<peculiar-link href={siblingsLink}>
-                  siblings
-                </peculiar-link>]
-              </span>
-            ),
-          ]}
-        />
-      </BasicExtension>
-    );
-  };
+  return (
+    <BasicExtension
+      extension={extension}
+    >
+      <RowValue
+        name="Key ID"
+        value={keyId}
+        monospace
+        extraValue={[
+          parentLink && (
+          <span>
+            &nbsp;[
+            <peculiar-link href={parentLink}>
+              parents
+            </peculiar-link>
+            ]
+          </span>
+          ),
+          siblingsLink && (
+          <span>
+            &nbsp;[
+            <peculiar-link href={siblingsLink}>
+              siblings
+            </peculiar-link>
+            ]
+          </span>
+          ),
+        ]}
+      />
+    </BasicExtension>
+  );
+};

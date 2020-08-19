@@ -11,17 +11,17 @@ interface INetscapeCertTypeExtensionProps {
 }
 
 export const NetscapeCertTypeExtension:
-  FunctionalComponent<INetscapeCertTypeExtensionProps> = (props) => {
-    const { extension } = props;
+FunctionalComponent<INetscapeCertTypeExtensionProps> = (props) => {
+  const { extension } = props;
 
-    return (
-      <BasicExtension
-        extension={extension}
-      >
-        <RowValue
-          name="Type"
-          value={extension.value.toJSON().join(', ')}
-        />
-      </BasicExtension>
-    );
-  };
+  return (
+    <BasicExtension
+      extension={extension}
+    >
+      <RowValue
+        name="Type"
+        value={extension.value.toJSON().join(', ')}
+      />
+    </BasicExtension>
+  );
+};

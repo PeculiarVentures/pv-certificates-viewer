@@ -1,4 +1,6 @@
-import { Component, h, Prop, Host } from '@stencil/core';
+import {
+  Component, h, Prop, Host,
+} from '@stencil/core';
 
 @Component({
   tag: 'peculiar-button',
@@ -7,8 +9,11 @@ import { Component, h, Prop, Host } from '@stencil/core';
 })
 export class Button {
   @Prop() fill?: 'stroke' | 'fill' = 'stroke';
+
   @Prop() disabled?: boolean;
+
   @Prop() href?: string;
+
   @Prop() target?: string;
 
   render() {
@@ -39,7 +44,7 @@ export class Button {
           class="peculiar_button_native"
         >
           <span class="peculiar_button_inner">
-            <slot></slot>
+            <slot />
           </span>
         </TagType>
       </Host>

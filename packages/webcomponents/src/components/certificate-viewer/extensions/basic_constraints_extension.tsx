@@ -11,21 +11,21 @@ interface IBasicConstraintsExtensionProps {
 }
 
 export const BasicConstraintsExtension:
-  FunctionalComponent<IBasicConstraintsExtensionProps> = (props) => {
-    const { extension } = props;
+FunctionalComponent<IBasicConstraintsExtensionProps> = (props) => {
+  const { extension } = props;
 
-    return (
-      <BasicExtension
-        extension={extension}
-      >
-        <RowValue
-          name="Certificate Authority"
-          value={extension.value.cA ? 'YES' : 'NO'}
-        />
-        <RowValue
-          name="Path Length Constraint"
-          value={extension.value.pathLenConstraint}
-        />
-      </BasicExtension>
-    );
-  };
+  return (
+    <BasicExtension
+      extension={extension}
+    >
+      <RowValue
+        name="Certificate Authority"
+        value={extension.value.cA ? 'YES' : 'NO'}
+      />
+      <RowValue
+        name="Path Length Constraint"
+        value={extension.value.pathLenConstraint}
+      />
+    </BasicExtension>
+  );
+};

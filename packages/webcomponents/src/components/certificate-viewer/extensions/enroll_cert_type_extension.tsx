@@ -11,17 +11,17 @@ interface IEnrollCertTypeChoiceExtensionProps {
 }
 
 export const EnrollCertTypeChoiceExtension:
-  FunctionalComponent<IEnrollCertTypeChoiceExtensionProps> = (props) => {
-    const { extension } = props;
+FunctionalComponent<IEnrollCertTypeChoiceExtensionProps> = (props) => {
+  const { extension } = props;
 
-    return (
-      <BasicExtension
-        extension={extension}
-      >
-        <RowValue
-          name="Name"
-          value={extension.value.name}
-        />
-      </BasicExtension>
-    );
-  };
+  return (
+    <BasicExtension
+      extension={extension}
+    >
+      <RowValue
+        name="Name"
+        value={extension.value.name}
+      />
+    </BasicExtension>
+  );
+};

@@ -23,7 +23,7 @@ export const Thumbprints: FunctionalComponent<IThumbprintsProps> = (props) => {
     <RowTitle
       value="Thumbprints"
     />,
-    keys.map(name => (
+    keys.map((name) => (
       <RowValue
         name={name}
         value={thumbprints[name]}

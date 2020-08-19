@@ -13,23 +13,23 @@ interface IAuthorityInfoAccessSyntaxExtensionProps extends IGeneralNameOptions {
 }
 
 export const AuthorityInfoAccessSyntaxExtension:
-  FunctionalComponent<IAuthorityInfoAccessSyntaxExtensionProps> = (props) => {
-    const { extension } = props;
+FunctionalComponent<IAuthorityInfoAccessSyntaxExtensionProps> = (props) => {
+  const { extension } = props;
 
-    return (
-      <BasicExtension
-        extension={extension}
-      >
-        {extension.value.map((description, index) => ([
-          <RowValue
-            name={`Method #${index + 1}`}
-            value={getStringByOID(description.accessMethod)}
-          />,
-          <GeneralNamePart
-            generalName={description.accessLocation}
-            {...props}
-          />,
-        ]))}
-      </BasicExtension>
-    );
-  };
+  return (
+    <BasicExtension
+      extension={extension}
+    >
+      {extension.value.map((description, index) => ([
+        <RowValue
+          name={`Method #${index + 1}`}
+          value={getStringByOID(description.accessMethod)}
+        />,
+        <GeneralNamePart
+          generalName={description.accessLocation}
+          {...props}
+        />,
+      ]))}
+    </BasicExtension>
+  );
+};

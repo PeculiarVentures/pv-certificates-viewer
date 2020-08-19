@@ -11,19 +11,19 @@ interface ISubjectAlternativeNameExtensionProps extends IGeneralNameOptions {
 }
 
 export const SubjectAlternativeNameExtension:
-  FunctionalComponent<ISubjectAlternativeNameExtensionProps> = (props) => {
-    const { extension } = props;
+FunctionalComponent<ISubjectAlternativeNameExtensionProps> = (props) => {
+  const { extension } = props;
 
-    return (
-      <BasicExtension
-        extension={extension}
-      >
-        {extension.value.map(gn => (
-          <GeneralNamePart
-            generalName={gn}
-            {...props}
-          />
-        ))}
-      </BasicExtension>
-    );
-  };
+  return (
+    <BasicExtension
+      extension={extension}
+    >
+      {extension.value.map((gn) => (
+        <GeneralNamePart
+          generalName={gn}
+          {...props}
+        />
+      ))}
+    </BasicExtension>
+  );
+};

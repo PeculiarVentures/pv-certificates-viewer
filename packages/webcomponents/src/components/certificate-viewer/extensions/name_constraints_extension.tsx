@@ -11,25 +11,25 @@ interface INameConstraintsExtensionProps extends IGeneralNameOptions {
 }
 
 export const NameConstraintsExtension:
-  FunctionalComponent<INameConstraintsExtensionProps> = (props) => {
-    const { extension } = props;
+FunctionalComponent<INameConstraintsExtensionProps> = (props) => {
+  const { extension } = props;
 
-    return (
-      <BasicExtension
-        extension={extension}
-      >
-        {extension.value.excludedSubtrees?.map(generalSubtree => (
-          <GeneralNamePart
-            generalName={generalSubtree.base}
-            {...props}
-          />
-        ))}
-        {extension.value.permittedSubtrees?.map(generalSubtree => (
-          <GeneralNamePart
-            generalName={generalSubtree.base}
-            {...props}
-          />
-        ))}
-      </BasicExtension>
-    );
-  };
+  return (
+    <BasicExtension
+      extension={extension}
+    >
+      {extension.value.excludedSubtrees?.map((generalSubtree) => (
+        <GeneralNamePart
+          generalName={generalSubtree.base}
+          {...props}
+        />
+      ))}
+      {extension.value.permittedSubtrees?.map((generalSubtree) => (
+        <GeneralNamePart
+          generalName={generalSubtree.base}
+          {...props}
+        />
+      ))}
+    </BasicExtension>
+  );
+};

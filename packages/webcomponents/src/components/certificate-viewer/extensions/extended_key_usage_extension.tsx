@@ -12,19 +12,19 @@ interface IExtendedKeyUsageExtensionProps {
 }
 
 export const ExtendedKeyUsageExtension:
-  FunctionalComponent<IExtendedKeyUsageExtensionProps> = (props) => {
-    const { extension } = props;
+FunctionalComponent<IExtendedKeyUsageExtensionProps> = (props) => {
+  const { extension } = props;
 
-    return (
-      <BasicExtension
-        extension={extension}
-      >
-        {extension.value.map((usage, index) => (
-          <RowValue
-            name={`Purpose #${index + 1}`}
-            value={getStringByOID(usage)}
-          />
-        ))}
-      </BasicExtension>
-    );
-  };
+  return (
+    <BasicExtension
+      extension={extension}
+    >
+      {extension.value.map((usage, index) => (
+        <RowValue
+          name={`Purpose #${index + 1}`}
+          value={getStringByOID(usage)}
+        />
+      ))}
+    </BasicExtension>
+  );
+};

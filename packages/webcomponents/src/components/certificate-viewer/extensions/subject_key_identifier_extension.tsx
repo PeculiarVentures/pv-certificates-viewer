@@ -12,38 +12,42 @@ interface ISubjectKeyIdentifierExtensionProps extends ISubjectKeyIdentifierOptio
 }
 
 export const SubjectKeyIdentifierExtension:
-  FunctionalComponent<ISubjectKeyIdentifierExtensionProps> = (props) => {
-    const { extension, getSubjectKeyIdChildrenLink, getSubjectKeyIdSiblingsLink } = props;
+FunctionalComponent<ISubjectKeyIdentifierExtensionProps> = (props) => {
+  const { extension, getSubjectKeyIdChildrenLink, getSubjectKeyIdSiblingsLink } = props;
 
-    const keyId = Convert.ToHex(extension.value.buffer);
-    const childrenLink = getSubjectKeyIdChildrenLink(keyId);
-    const siblingsLink = getSubjectKeyIdSiblingsLink(keyId);
+  const keyId = Convert.ToHex(extension.value.buffer);
+  const childrenLink = getSubjectKeyIdChildrenLink(keyId);
+  const siblingsLink = getSubjectKeyIdSiblingsLink(keyId);
 
-    return (
-      <BasicExtension
-        extension={extension}
-      >
-        <RowValue
-          name="Key ID"
-          value={keyId}
-          monospace
-          extraValue={[
-            childrenLink && (
-              <span>
-                &nbsp;[<peculiar-link href={childrenLink}>
-                  children
-                </peculiar-link>]
-              </span>
-            ),
-            siblingsLink && (
-              <span>
-                &nbsp;[<peculiar-link href={siblingsLink}>
-                  siblings
-                </peculiar-link>]
-              </span>
-            ),
-          ]}
-        />
-      </BasicExtension>
-    );
-  };
+  return (
+    <BasicExtension
+      extension={extension}
+    >
+      <RowValue
+        name="Key ID"
+        value={keyId}
+        monospace
+        extraValue={[
+          childrenLink && (
+          <span>
+            &nbsp;[
+            <peculiar-link href={childrenLink}>
+              children
+            </peculiar-link>
+            ]
+          </span>
+          ),
+          siblingsLink && (
+          <span>
+            &nbsp;[
+            <peculiar-link href={siblingsLink}>
+              siblings
+            </peculiar-link>
+            ]
+          </span>
+          ),
+        ]}
+      />
+    </BasicExtension>
+  );
+};

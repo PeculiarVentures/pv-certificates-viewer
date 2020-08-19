@@ -23,7 +23,7 @@ export const BasicExtension: FunctionalComponent<IBasicExtensionProps> = (props,
     children,
     <tr>
       <td colSpan={2} class="divider">
-        <span class="bg_fill"></span>
+        <span class="bg_fill" />
       </td>
     </tr>,
   ]);

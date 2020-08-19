@@ -11,21 +11,21 @@ interface ICRLDistributionPointsExtensionProps extends IGeneralNameOptions {
 }
 
 export const CRLDistributionPointsExtension:
-  FunctionalComponent<ICRLDistributionPointsExtensionProps> = (props) => {
-    const { extension } = props;
+FunctionalComponent<ICRLDistributionPointsExtensionProps> = (props) => {
+  const { extension } = props;
 
-    return (
-      <BasicExtension
-        extension={extension}
-      >
-        {extension.value.map(point => (
-          point?.distributionPoint?.fullName.map(gn => (
+  return (
+    <BasicExtension
+      extension={extension}
+    >
+      {extension.value.map((point) => (
+          point?.distributionPoint?.fullName.map((gn) => (
             <GeneralNamePart
               generalName={gn}
               {...props}
             />
           ))
-        ))}
-      </BasicExtension>
-    );
-  };
+      ))}
+    </BasicExtension>
+  );
+};

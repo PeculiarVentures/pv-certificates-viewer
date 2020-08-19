@@ -11,17 +11,17 @@ interface IArchiveRevInfoExtensionProps {
 }
 
 export const ArchiveRevInfoExtension:
-  FunctionalComponent<IArchiveRevInfoExtensionProps> = (props) => {
-    const { extension } = props;
+FunctionalComponent<IArchiveRevInfoExtensionProps> = (props) => {
+  const { extension } = props;
 
-    return (
-      <BasicExtension
-        extension={extension}
-      >
-        <RowValue
-          name="Version"
-          value={extension.value.version}
-        />
-      </BasicExtension>
-    );
-  };
+  return (
+    <BasicExtension
+      extension={extension}
+    >
+      <RowValue
+        name="Version"
+        value={extension.value.version}
+      />
+    </BasicExtension>
+  );
+};

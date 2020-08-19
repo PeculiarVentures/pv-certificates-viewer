@@ -24,6 +24,8 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': 1,
     '@typescript-eslint/camelcase': 1,
     'import/extensions': 1,
+    'react/jsx-one-expression-per-line': 1,
+    'dot-notation': 1,
   },
   parserOptions: {
     project: './tsconfig.json',

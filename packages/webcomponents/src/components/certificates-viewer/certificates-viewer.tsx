@@ -44,10 +44,12 @@ export class CertificatesViewer {
    * **NOTE**: If the supplied certificates are self-signed the issuer column will be ommited.
    */
   @Prop() certificates: ICertificate[] = [];
+
   /**
    * Use filter in the list when search is changed.
    */
   @Prop() filterWithSearch: boolean = true;
+
   /**
    * Use highlight chapters in the list when search is changed.
    */
@@ -83,11 +85,12 @@ export class CertificatesViewer {
     this.isHasRoots = false;
 
     if (!Array.isArray(this.certificates)) {
-      return [];
+      return;
     }
 
     const data: ICertificateDecoded[] = [];
 
+    // eslint-disable-next-line no-restricted-syntax
     for (const certificate of this.certificates) {
       try {
         const decoded = new X509Certificate(certificate.value);
@@ -106,8 +109,8 @@ export class CertificatesViewer {
 
         if (!this.isHasTests) {
           if (
-            certificate.tests &&
-            (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid)
+            certificate.tests
+            && (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid)
           ) {
             this.isHasTests = true;
           }
@@ -127,7 +130,7 @@ export class CertificatesViewer {
      */
     if (timeDuration < minimumTimeDuration) {
       setTimeout(
-        () => this.isDecodeInProcess = false,
+        () => { this.isDecodeInProcess = false; },
         minimumTimeDuration - timeDuration,
       );
     } else {
@@ -137,6 +140,7 @@ export class CertificatesViewer {
     this.certificatesDecoded = data;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   onClickDownloadAsPem(certificate: ICertificateDecoded, e: MouseEvent) {
     e.stopPropagation();
 
@@ -146,6 +150,7 @@ export class CertificatesViewer {
     );
   }
 
+  // eslint-disable-next-line class-methods-use-this
   onClickDownloadAsDer(certificate: ICertificateDecoded, e: MouseEvent) {
     e.stopPropagation();
 
@@ -159,11 +164,11 @@ export class CertificatesViewer {
     e.stopPropagation();
 
     this.certificateSelectedForDetails = certificate;
-  }
+  };
 
   onClickModalClose = () => {
     this.certificateSelectedForDetails = undefined;
-  }
+  };
 
   onClickRow(serialNumber: string) {
     const isExpandedRowClicked = this.expandedRow === serialNumber;
@@ -196,6 +201,7 @@ export class CertificatesViewer {
     );
   }
 
+  // eslint-disable-next-line class-methods-use-this
   renderCertificateTests(tests: ICertificateDecoded['tests']) {
     if (!tests) {
       return null;
@@ -326,7 +332,7 @@ export class CertificatesViewer {
             >
               Fingerprint (SHA-1):
             </peculiar-typography>
-            <peculiar-typography class="content" monospace={true}>
+            <peculiar-typography class="content" monospace>
               <peculiar-highlight-words search={searchHighlight}>
                 {certificate.body.thumbprints['SHA-1']}
               </peculiar-highlight-words>
@@ -384,7 +390,7 @@ export class CertificatesViewer {
       return null;
     }
 
-    return  (
+    return (
       <div class="modal_wrapper">
         <div class="modal_content peculiar_fill_light">
           <div class="modal_title peculiar_stroke_grey_3">
@@ -396,6 +402,7 @@ export class CertificatesViewer {
             <button
               class="modal_close"
               onClick={this.onClickModalClose}
+              type="button"
             >
               <svg
                 width="30"
@@ -438,6 +445,7 @@ export class CertificatesViewer {
     );
   }
 
+  // eslint-disable-next-line class-methods-use-this
   renderEmptyState() {
     return (
       <tr class="peculiar_stroke_grey_3">
@@ -467,13 +475,14 @@ export class CertificatesViewer {
             type="b1"
             align="center"
           >
-            No results found for "{this.search}"
+            No results found for &ldquo;{this.search}&ldquo;
           </peculiar-typography>
         </td>
       </tr>
     );
   }
 
+  // eslint-disable-next-line class-methods-use-this
   renderLoadingState() {
     return (
       <div class="loading_container">
@@ -503,7 +512,7 @@ export class CertificatesViewer {
   onSearchChange = (e: any) => {
     this.search = e.target.value
       .trim();
-  }
+  };
 
   render() {
     return (

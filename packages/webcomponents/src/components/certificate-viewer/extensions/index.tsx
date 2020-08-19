@@ -57,8 +57,7 @@ interface IExtensionsProps extends
   IGeneralNameOptions,
   ILeiOptions,
   IAuthorityKeyIdentifierOptions,
-  ISubjectKeyIdentifierOptions
-{
+  ISubjectKeyIdentifierOptions {
   extensions: Extension<TExtensionValue>[];
 }
 

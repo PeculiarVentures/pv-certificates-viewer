@@ -1,6 +1,8 @@
-import { Component, Host, h, State, Prop } from '@stencil/core';
+import {
+  Component, Host, h, State, Prop,
+} from '@stencil/core';
 
-import readFile from '../../utils/read_file';
+import { readAsBinaryString } from '../../utils/read_file';
 import history from '../../utils/history';
 import { X509Certificate } from '../../crypto';
 
@@ -36,21 +38,21 @@ export class CertificateDecoder {
     if (value) {
       this.decode(value);
     }
-  }
+  };
 
   private onClickExample = () => {
     this.decode(this.certificateExample);
-  }
+  };
 
   private onClickClear = () => {
     this.clear();
-  }
+  };
 
   private onChangeInputFile = async (e: any) => {
     const element = e.target;
 
     if (element.files) {
-      const file = await readFile.readAsBinaryString(element.files[0]);
+      const file = await readAsBinaryString(element.files[0]);
 
       if (typeof file.value === 'string') {
         this.decode(file.value);
@@ -58,7 +60,7 @@ export class CertificateDecoder {
 
       element.value = '';
     }
-  }
+  };
 
   private onDropFile = async (e: any) => {
     e.stopPropagation();
@@ -67,13 +69,13 @@ export class CertificateDecoder {
     const element = e.dataTransfer;
 
     if (element.files) {
-      const file = await readFile.readAsBinaryString(element.files[0]);
+      const file = await readAsBinaryString(element.files[0]);
 
       if (typeof file.value === 'string') {
         this.decode(file.value);
       }
     }
-  }
+  };
 
   clear() {
     this.inputPaste.value = '';
@@ -108,7 +110,7 @@ export class CertificateDecoder {
         <textarea
           placeholder="Certificate DER or PEM"
           class="input_paste peculiar_fill_light peculiar_stroke_grey_3 peculiar_color_dark"
-          ref={el => this.inputPaste = el}
+          ref={(el) => { this.inputPaste = el; }}
           onDrop={this.onDropFile}
         />
         <div class="controls">

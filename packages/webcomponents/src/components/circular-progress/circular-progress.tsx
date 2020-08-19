@@ -15,6 +15,7 @@ export class CircularProgress {
    * Width/height of progress circle.
    */
   @Prop() size: number = 24;
+
   /**
    * Stroke width of progress bar circle.
    */
@@ -61,5 +62,4 @@ export class CircularProgress {
       </Host>
     );
   }
-
 }

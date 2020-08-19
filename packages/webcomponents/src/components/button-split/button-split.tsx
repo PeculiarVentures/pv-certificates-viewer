@@ -1,4 +1,6 @@
-import { Component, Host, h, Prop, State } from '@stencil/core';
+import {
+  Component, Host, h, Prop, State,
+} from '@stencil/core';
 
 export interface IAction {
   text: string;
@@ -12,7 +14,9 @@ export interface IAction {
 })
 export class ButtonSplit {
   @Prop() onClick: (event: MouseEvent) => void;
+
   @Prop() fill: 'stroke' | 'fill' = 'stroke';
+
   @Prop() actions: IAction[] = [];
 
   @State() open: boolean = false;
@@ -21,7 +25,7 @@ export class ButtonSplit {
     event.stopPropagation();
 
     this.open = !this.open;
-  }
+  };
 
   onClickActiveButton(action: IAction['onClick'], event: MouseEvent) {
     this.open = false;
@@ -36,7 +40,7 @@ export class ButtonSplit {
 
     return (
       <div class="button_split_container peculiar_fill_light">
-        {this.actions.map(action => (
+        {this.actions.map((action) => (
           <peculiar-button
             fill="fill"
             class="button_split_action"
@@ -57,7 +61,7 @@ export class ButtonSplit {
           onClick={this.onClick}
           class="button_split"
         >
-          <slot></slot>
+          <slot />
         </peculiar-button>
         <peculiar-button
           fill={this.fill}

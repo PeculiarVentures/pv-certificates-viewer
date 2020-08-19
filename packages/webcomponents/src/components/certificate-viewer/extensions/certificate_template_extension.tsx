@@ -11,25 +11,25 @@ interface ICertificateTemplateExtensionProps {
 }
 
 export const CertificateTemplateExtension:
-  FunctionalComponent<ICertificateTemplateExtensionProps> = (props) => {
-    const { extension } = props;
+FunctionalComponent<ICertificateTemplateExtensionProps> = (props) => {
+  const { extension } = props;
 
-    return (
-      <BasicExtension
-        extension={extension}
-      >
-        <RowValue
-          name="Template ID"
-          value={extension.value.templateID}
-        />
-        <RowValue
-          name="Template Major Version"
-          value={extension.value.templateMajorVersion}
-        />
-        <RowValue
-          name="Template Minor Version"
-          value={extension.value.templateMinorVersion}
-        />
-      </BasicExtension>
-    );
-  };
+  return (
+    <BasicExtension
+      extension={extension}
+    >
+      <RowValue
+        name="Template ID"
+        value={extension.value.templateID}
+      />
+      <RowValue
+        name="Template Major Version"
+        value={extension.value.templateMajorVersion}
+      />
+      <RowValue
+        name="Template Minor Version"
+        value={extension.value.templateMinorVersion}
+      />
+    </BasicExtension>
+  );
+};

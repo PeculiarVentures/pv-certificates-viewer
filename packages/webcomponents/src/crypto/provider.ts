@@ -19,6 +19,7 @@ export class CryptoProvider {
    * Returns default crypto
    */
   public get(): Crypto;
+
   /**
    * Returns crypto by name
    * @param key Crypto name

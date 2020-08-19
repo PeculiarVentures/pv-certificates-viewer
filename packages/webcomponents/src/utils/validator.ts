@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 export default {
   isHex: (value: string) => /^\s*(?:[0-9A-Fa-f][0-9A-Fa-f]\s*)+$/
     .test(value),

@@ -11,17 +11,17 @@ interface INetscapeCommentExtensionProps {
 }
 
 export const NetscapeCommentExtension:
-  FunctionalComponent<INetscapeCommentExtensionProps> = (props) => {
-    const { extension } = props;
+FunctionalComponent<INetscapeCommentExtensionProps> = (props) => {
+  const { extension } = props;
 
-    return (
-      <BasicExtension
-        extension={extension}
-      >
-        <RowValue
-          name="Comment"
-          value={extension.value.value}
-        />
-      </BasicExtension>
-    );
-  };
+  return (
+    <BasicExtension
+      extension={extension}
+    >
+      <RowValue
+        name="Comment"
+        value={extension.value.value}
+      />
+    </BasicExtension>
+  );
+};

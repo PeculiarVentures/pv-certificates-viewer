@@ -1,4 +1,6 @@
-import { Component, Host, h, Element, Prop } from '@stencil/core';
+import {
+  Component, Host, h, Element, Prop,
+} from '@stencil/core';
 
 @Component({
   tag: 'peculiar-highlight-words',
@@ -34,6 +36,7 @@ export class HighlightWords {
   }
 
   resetHighlightSearch(source: string) {
+    // eslint-disable-next-line no-useless-escape
     const substring = new RegExp(`<\/?${this.tag}>`, 'g');
 
     return source.replace(substring, '');

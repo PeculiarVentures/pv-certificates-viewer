@@ -71,7 +71,8 @@ export const RowValue: FunctionalComponent<IRowValueProps> = (props) => {
         <peculiar-typography
           color="grey_5"
         >
-          {name}:
+          {name}
+          :
         </peculiar-typography>
       </td>
       <td

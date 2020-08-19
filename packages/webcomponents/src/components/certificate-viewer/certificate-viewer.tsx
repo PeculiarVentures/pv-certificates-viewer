@@ -1,4 +1,6 @@
-import { Component, h, Prop, State, Watch, Host } from '@stencil/core';
+import {
+  Component, h, Prop, State, Watch, Host,
+} from '@stencil/core';
 
 import {
   X509Certificate,
@@ -20,6 +22,7 @@ export type CertificateProp = string | X509Certificate;
 })
 export class CertificateViewer {
   certificateDecoded: X509Certificate;
+
   certificateDecodeError: Error;
 
   /**
@@ -129,34 +132,29 @@ export class CertificateViewer {
     }
   }
 
-  private getAuthKeyIdParentLink = (value: string) => {
-    return this.authKeyIdParentLink
+  private getAuthKeyIdParentLink = (value: string) => this.authKeyIdParentLink
       ?.replace('{{authKeyId}}', value);
-  }
 
-  private getAuthKeyIdSiblingsLink = (value: string) => {
-    return this.authKeyIdSiblingsLink
+  private getAuthKeyIdSiblingsLink = (value: string) => this.authKeyIdSiblingsLink
       ?.replace('{{authKeyId}}', value);
-  }
 
-  private getSubjectKeyIdChildrenLink = (value: string) => {
-    return this.subjectKeyIdChildrenLink
+  private getSubjectKeyIdChildrenLink = (value: string) => this.subjectKeyIdChildrenLink
       ?.replace('{{subjectKeyId}}', value);
-  }
 
-  private getSubjectKeyIdSiblingsLink = (value: string) => {
-    return this.subjectKeyIdSiblingsLink
+  private getSubjectKeyIdSiblingsLink = (value: string) => this.subjectKeyIdSiblingsLink
       ?.replace('{{subjectKeyId}}', value);
-  }
 
+  // eslint-disable-next-line class-methods-use-this
   private getLEILink(value: string) {
     return `https://www.gleif.org/lei/${value}`;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private getDNSNameLink(value: string) {
     return `https://censys.io/ipv4?q=${value}`;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private getIPAddressLink(value: string) {
     return `https://censys.io/ipv4?q=${value}`;
   }
@@ -165,6 +163,7 @@ export class CertificateViewer {
     return this.issuerDnLink;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private renderErrorState() {
     return (
       <div class="status_wrapper">
@@ -178,6 +177,7 @@ export class CertificateViewer {
     );
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private renderEmptyState() {
     return (
       <div class="status_wrapper">

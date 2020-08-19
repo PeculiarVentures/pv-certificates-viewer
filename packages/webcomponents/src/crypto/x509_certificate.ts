@@ -145,6 +145,8 @@ export class X509Certificate extends AsnData<Certificate> {
     if (type === 'pem') {
       return X509Certificate.base64ToPem(Convert.ToBase64(this.raw));
     }
+
+    return '';
   }
 
   static base64ToPem(base64: string) {

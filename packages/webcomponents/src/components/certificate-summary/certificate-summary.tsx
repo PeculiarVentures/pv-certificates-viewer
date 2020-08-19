@@ -1,4 +1,6 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import {
+  Component, Host, h, Prop,
+} from '@stencil/core';
 
 import { X509Certificate } from '../../crypto';
 import * as dateFormatter from '../../utils/date_formatter';
@@ -25,8 +27,9 @@ export class CertificateSummary {
    */
   @Prop() view?: 'mobile';
 
+  // eslint-disable-next-line class-methods-use-this
   renderDN(dns: X509Certificate['subject'] | X509Certificate['issuer']) {
-    return dns.map(dn => (
+    return dns.map((dn) => (
       <tr
         class="dn_row"
       >
@@ -46,6 +49,7 @@ export class CertificateSummary {
     ));
   }
 
+  // eslint-disable-next-line class-methods-use-this
   renderMetaData(item: X509Certificate) {
     return ([
       <div class="meta_row">
@@ -57,7 +61,7 @@ export class CertificateSummary {
         </peculiar-typography>
         <peculiar-typography
           class="meta_value"
-          monospace={true}
+          monospace
         >
           {item.serialNumber}
         </peculiar-typography>

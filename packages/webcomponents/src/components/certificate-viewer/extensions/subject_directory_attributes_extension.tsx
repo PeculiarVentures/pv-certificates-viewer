@@ -13,27 +13,27 @@ interface ISubjectDirectoryAttributesExtensionProps {
 }
 
 export const SubjectDirectoryAttributesExtension:
-  FunctionalComponent<ISubjectDirectoryAttributesExtensionProps> = (props) => {
-    const { extension } = props;
+FunctionalComponent<ISubjectDirectoryAttributesExtensionProps> = (props) => {
+  const { extension } = props;
 
-    return (
-      <BasicExtension
-        extension={extension}
-      >
-        {extension.value.map((attribute, index) => ([
-          <RowValue
-            name={`Attribute #${index + 1}`}
-            value={getStringByOID(attribute.type)}
-          />,
-          <RowValue
-            name={`Value #${index + 1}`}
-            value={getAttributeValue(attribute)}
-          />,
-          <tr>
-            <td />
-            <td />
-          </tr>,
-        ]))}
-      </BasicExtension>
-    );
-  };
+  return (
+    <BasicExtension
+      extension={extension}
+    >
+      {extension.value.map((attribute, index) => ([
+        <RowValue
+          name={`Attribute #${index + 1}`}
+          value={getStringByOID(attribute.type)}
+        />,
+        <RowValue
+          name={`Value #${index + 1}`}
+          value={getAttributeValue(attribute)}
+        />,
+        <tr>
+          <td />
+          <td />
+        </tr>,
+      ]))}
+    </BasicExtension>
+  );
+};
