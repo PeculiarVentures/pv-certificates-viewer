@@ -1,53 +1,100 @@
 version: 2.1
 
-defaults: &defaults
-  working_directory: ~/repo
-  docker:
-    - image: circleci/node:10.17.0
+aliases:
+  - &docker-node-lts
+    - image: circleci/node:lts
+
+  - &restore-node-modules-cache
+    name: Restore node_modules cache
+    key: yarn-deps-{{ checksum "yarn.lock" }}
+
+  - &restore-yarn-cache
+    name: Restore yarnpkg cache
+    key: yarn-cache
+
+  - &save-node-modules-cache
+    name: Save node_modules cache
+    paths:
+      - node_modules
+    key: yarn-deps-{{ checksum "yarn.lock" }}
+
+  - &save-yarn-cache
+    name: Save yarnpkg cache
+    paths:
+      - ~/.cache/yarn
+    key: yarn-cache
 
 jobs:
-  checkout:
-    <<: *defaults
+  checkout-code:
+    docker: *docker-node-lts
     steps:
       - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-      - run: npm install
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+      - restore_cache: *restore-yarn-cache
+      - restore_cache: *restore-node-modules-cache
+      - run: yarn install --non-interactive --cache-folder ~/.cache/yarn
+      - run:
+          name: Check if yarn.lock changed during install
+          command: git diff --exit-code
+      - save_cache: *save-node-modules-cache
+      - save_cache: *save-yarn-cache
       - persist_to_workspace:
-          root: ~/repo
-          paths: .
+          root: "."
+          paths: [
+            packages/*/node_modules
+          ]
 
   lint:
-    <<: *defaults
+    docker: *docker-node-lts
     steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: Lint package
-          command: npm run lint
+      - checkout
+      - restore_cache: *restore-node-modules-cache
+      - attach_workspace: { at: "." }
+      - run: yarn lint
 
   build:
-    <<: *defaults
+    docker: *docker-node-lts
     steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: Build package
-          command: npm run build
+      - checkout
+      - restore_cache: *restore-node-modules-cache
+      - attach_workspace: { at: "." }
+      - run: yarn build
+      - persist_to_workspace:
+          root: "."
+          paths: [
+            packages/*/dist,
+            packages/webcomponents/www,
+          ]
+
+  deploy:
+    docker: *docker-node-lts
+    steps:
+      - checkout
+      - restore_cache: *restore-node-modules-cache
+      - attach_workspace: { at: "." }
+      - run: |
+          git config user.email "$GH_EMAIL"
+          git config user.name "$GH_NAME"
+          cd packages/webcomponents
+          yarn deploy:gh-pages
 
 workflows:
-  version: 2.1
-  pipeline:
+  version: 2
+  compile_lint_test_dist_deploy:
     jobs:
-      - checkout
+      - checkout-code
       - lint:
-          requires:
-            - checkout
+          requires: [
+            checkout-code
+          ]
       - build:
-          requires:
-            - checkout
+          requires: [
+            lint
+          ]
+      - deploy:
+          requires: [
+            build
+          ]
+          filters:
+            branches:
+              only:
+                - master
