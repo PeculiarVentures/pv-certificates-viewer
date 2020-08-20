@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "jsxFactory": "React.createElement",
+    "outDir": "./dist/esm",
+    "declarationDir": "./dist/types",
+    "declaration": true
+  },
+  "include": [
+    "src/"
+  ]
+}
