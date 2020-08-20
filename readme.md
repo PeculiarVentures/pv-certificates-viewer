@@ -35,6 +35,7 @@ You may also be interested in our web component for viewing and verifying signed
 | Project | Package | Version | Links |
 | ------- | ------- | ------- |:-----:|
 | **Web-components** | [`@peculiar/certificates-viewer`](https://www.npmjs.com/package/@peculiar/certificates-viewer) | [![version](https://img.shields.io/npm/v/@peculiar/certificates-viewer/latest.svg)](https://www.npmjs.com/package/@peculiar/certificates-viewer) | [`README.md`](packages/webcomponents/README.md)
+| **Web-components React** | [`@peculiar/certificates-viewer-react`](https://www.npmjs.com/package/@peculiar/certificates-viewer-react) | [![version](https://img.shields.io/npm/v/@peculiar/certificates-viewer-react/latest.svg)](https://www.npmjs.com/package/@peculiar/certificates-viewer-react) | [`README.md`](packages/webcomponents-react/README.md)
 
 ## Contributing
 
