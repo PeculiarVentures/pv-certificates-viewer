@@ -1,6 +1,7 @@
 import { Name as AsnName } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { BufferSourceConverter } from 'pvtsutils';
+import OIDs from '../constants/oids';
 
 const names: Record<string, string> = {
   '2.5.4.3': 'CN',
@@ -45,7 +46,7 @@ export class Name {
       o.forEach((a) => {
         res.push({
           type: a.type,
-          name: names[a.type],
+          name: names[a.type] || OIDs[a.type],
           value: a.value.toString(),
         });
       })

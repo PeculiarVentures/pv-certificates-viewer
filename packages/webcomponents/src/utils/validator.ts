@@ -4,6 +4,12 @@ export default {
     .test(value),
   isPem: (value: string) => /-----BEGIN [^-]+-----([A-Za-z0-9+\/=\s]+)-----END [^-]+-----|begin-base64[^\n]+\n([A-Za-z0-9+\/=\s]+)====/
     .test(value),
-  isBase64: (value: string) => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/
-    .test(value),
+  isBase64: (value: string) => {
+    try {
+      window.atob(value);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  },
 };
