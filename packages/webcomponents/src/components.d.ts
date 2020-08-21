@@ -11,6 +11,9 @@ import { CertificateProp } from "./components/certificate-viewer/certificate-vie
 import { ICertificate } from "./components/certificates-viewer/certificates-viewer";
 import { ColorType } from "./interface";
 export namespace Components {
+    interface PeculiarAttributeCertificateViewer {
+        "certificate": string;
+    }
     interface PeculiarButton {
         "disabled"?: boolean;
         "fill"?: 'stroke' | 'fill';
@@ -132,6 +135,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLPeculiarAttributeCertificateViewerElement extends Components.PeculiarAttributeCertificateViewer, HTMLStencilElement {
+    }
+    var HTMLPeculiarAttributeCertificateViewerElement: {
+        prototype: HTMLPeculiarAttributeCertificateViewerElement;
+        new (): HTMLPeculiarAttributeCertificateViewerElement;
+    };
     interface HTMLPeculiarButtonElement extends Components.PeculiarButton, HTMLStencilElement {
     }
     var HTMLPeculiarButtonElement: {
@@ -199,6 +208,7 @@ declare global {
         new (): HTMLPeculiarTypographyElement;
     };
     interface HTMLElementTagNameMap {
+        "peculiar-attribute-certificate-viewer": HTMLPeculiarAttributeCertificateViewerElement;
         "peculiar-button": HTMLPeculiarButtonElement;
         "peculiar-button-split": HTMLPeculiarButtonSplitElement;
         "peculiar-certificate-decoder": HTMLPeculiarCertificateDecoderElement;
@@ -213,6 +223,9 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface PeculiarAttributeCertificateViewer {
+        "certificate"?: string;
+    }
     interface PeculiarButton {
         "disabled"?: boolean;
         "fill"?: 'stroke' | 'fill';
@@ -334,6 +347,7 @@ declare namespace LocalJSX {
         "type"?: 'h4' | 'h6' | 'h7' | 'b1' | 'b3';
     }
     interface IntrinsicElements {
+        "peculiar-attribute-certificate-viewer": PeculiarAttributeCertificateViewer;
         "peculiar-button": PeculiarButton;
         "peculiar-button-split": PeculiarButtonSplit;
         "peculiar-certificate-decoder": PeculiarCertificateDecoder;
@@ -351,6 +365,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "peculiar-attribute-certificate-viewer": LocalJSX.PeculiarAttributeCertificateViewer & JSXBase.HTMLAttributes<HTMLPeculiarAttributeCertificateViewerElement>;
             "peculiar-button": LocalJSX.PeculiarButton & JSXBase.HTMLAttributes<HTMLPeculiarButtonElement>;
             "peculiar-button-split": LocalJSX.PeculiarButtonSplit & JSXBase.HTMLAttributes<HTMLPeculiarButtonSplitElement>;
             "peculiar-certificate-decoder": LocalJSX.PeculiarCertificateDecoder & JSXBase.HTMLAttributes<HTMLPeculiarCertificateDecoderElement>;
