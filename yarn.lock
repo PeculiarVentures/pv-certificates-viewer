@@ -977,6 +977,16 @@
     pvtsutils "^1.0.11"
     tslib "^2.0.1"
 
+"@peculiar/asn1-x509-attr@^2.0.15":
+  version "2.0.15"
+  resolved "https://registry.yarnpkg.com/@peculiar/asn1-x509-attr/-/asn1-x509-attr-2.0.15.tgz#afff162beb8f05a84b5bdef92cd7e1b579b4f538"
+  integrity sha512-dakWCNCma4PDc22rfLa/OeK2IPYiexWyzf0SsychV0O7X3eHQrWWnR4/OmycHpPWD+8jSskNm5gEEpiYhiq85g==
+  dependencies:
+    "@peculiar/asn1-schema" "^2.0.13"
+    "@peculiar/asn1-x509" "^2.0.14"
+    asn1js "^2.0.26"
+    tslib "^2.0.1"
+
 "@peculiar/asn1-x509-microsoft@^2.0.14":
   version "2.0.14"
   resolved "https://registry.yarnpkg.com/@peculiar/asn1-x509-microsoft/-/asn1-x509-microsoft-2.0.14.tgz#30de0d1c5c1daff0c2869c728509bfed5ae83a35"
