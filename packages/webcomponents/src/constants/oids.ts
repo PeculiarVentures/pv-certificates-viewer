@@ -2251,6 +2251,17 @@ const OIDs: Record<string, string> = {
   '1.3.6.1.4.1.4329.7': 'Siemens Public Key Infrastructure',
   '1.3.6.1.4.1.52266.1': 'Legal Entity Identifier',
   '1.3.6.1.4.1.52266.2': 'Role',
+
+  // https://ec.europa.eu/futurium/sites/futurium/files/ntqwac_pilot.pdf
+  '0.4.0.9496.1': 'Domain Name Beneficiary',
+  '0.4.0.9496.2': 'DNB Legal representative',
+  '0.4.0.9496.3': 'Domain Name Owner',
+  '0.4.0.9496.4': 'Domain Name Technical Operator',
+  '0.4.0.9496.5': 'Type of relationship between DNB/DNO/DNT',
+  '0.4.0.9496.6': 'DNB Main Activity Description',
+  '0.4.0.9496.7': 'GDPR compliance attestation reference',
+  '0.4.0.9496.8': 'Insurance coverage attestation',
+  '0.4.0.9496.9': 'Valuation ranking',
 };
 
 export default OIDs;

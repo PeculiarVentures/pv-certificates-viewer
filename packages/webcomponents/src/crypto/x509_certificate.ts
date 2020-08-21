@@ -64,7 +64,7 @@ export class X509Certificate extends AsnData<Certificate> {
     return certificateBuffer;
   }
 
-  public constructor(raw: string) {
+  constructor(raw: string) {
     super(X509Certificate.rawClarify(raw), Certificate);
 
     const { tbsCertificate } = this.asn;
