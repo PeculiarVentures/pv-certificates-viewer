@@ -85,7 +85,7 @@ export class Attribute<T extends TAttributeValue> extends AsnData<AsnAttribute> 
         this.value = AsnParser.parse(asnExtnValue, ValuationRanking) as T;
         break;
       default:
-        this.value = Convert.ToHex(asnExtnValue) as T ;
+        this.value = Convert.ToHex(asnExtnValue) as T;
     }
   }
 }

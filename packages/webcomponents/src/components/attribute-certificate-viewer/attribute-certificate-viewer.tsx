@@ -157,7 +157,9 @@ export class AttributeCertificateViewer {
           />
           <RowValue
             name="Algorithm"
-            value={getStringByOID(this.certificateDecoded.holder?.objectDigestInfo.digestAlgorithm.algorithm)}
+            value={getStringByOID(
+              this.certificateDecoded.holder?.objectDigestInfo.digestAlgorithm.algorithm,
+            )}
           />
           <RowValue
             name="Value"
