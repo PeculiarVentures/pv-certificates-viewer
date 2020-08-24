@@ -1638,6 +1638,7 @@ const OIDs: Record<string, string> = {
   '2.5.4.8.1': 'Collective State Or Province Name',
   '2.5.4.9': 'Street Address',
   '2.5.4.9.1': 'Collective Street Address',
+  '2.5.4.97': 'Organization Identifier',
   '2.5.4.10': 'Organization',
   '2.5.4.10.1': 'Collective Organization Name',
   '2.5.4.11': 'Organization Unit',
