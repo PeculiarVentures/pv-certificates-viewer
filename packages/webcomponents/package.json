@@ -46,6 +46,7 @@
     "@peculiar/asn1-cert-transparency": "^2.0.13",
     "@peculiar/asn1-ecc": "^2.0.13",
     "@peculiar/asn1-lei": "^2.0.13",
+    "@peculiar/asn1-ntqwac": "^2.0.16",
     "@peculiar/asn1-rsa": "^2.0.14",
     "@peculiar/asn1-schema": "^2.0.13",
     "@peculiar/asn1-x509": "^2.0.14",
