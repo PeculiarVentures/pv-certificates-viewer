@@ -1,5 +1,6 @@
 import { AsnConvert } from '@peculiar/asn1-schema';
-import { AttributeCertificate } from '@peculiar/asn1-x509-attr';
+import type { GeneralName } from '@peculiar/asn1-x509';
+import { AttributeCertificate, Holder } from '@peculiar/asn1-x509-attr';
 import { Convert } from 'pvtsutils';
 
 import { cryptoProvider } from './provider';
@@ -8,6 +9,7 @@ import validator from '../utils/validator';
 
 import { AsnData } from './asn_data';
 import { Extension, TExtensionValue } from './extension';
+import { Attribute, TAttributeValue } from './attribute';
 
 interface ISignature {
   algorithm: string;
@@ -27,7 +29,13 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
 
   public extensions: Extension<TExtensionValue>[];
 
+  public attributes: Attribute<TAttributeValue>[];
+
   public thumbprints: Record<string, string> = {};
+
+  public readonly issuer: GeneralName[];
+
+  public holder: Holder;
 
   private static base64Clear(base64: string) {
     return base64
@@ -75,9 +83,8 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
 
     this.notAfter = notAfter;
     this.validity = dateFormatter.diff(this.notBefore, this.notAfter);
-
-    console.log(this.asn);
-    console.log(this);
+    this.issuer = acinfo.issuer.v1Form || acinfo.issuer.v2Form?.issuerName;
+    this.holder = acinfo.holder;
   }
 
   public get signature(): ISignature {
@@ -95,6 +102,15 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     if (acinfo.extensions) {
       this.extensions = acinfo.extensions
         .map((e) => new Extension(AsnConvert.serialize(e)));
+    }
+  }
+
+  public parseAttributes() {
+    const { acinfo } = this.asn;
+
+    if (acinfo.attributes) {
+      this.attributes = acinfo.attributes
+        .map((e) => new Attribute(AsnConvert.serialize(e)));
     }
   }
 
