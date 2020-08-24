@@ -1,16 +1,20 @@
 import {
   Component, Host, h, Prop, State,
 } from '@stencil/core';
+import { Convert } from 'pvtsutils';
 
 import {
   X509AttributeCertificate,
 } from '../../crypto';
 
 import { Signature } from '../certificate-viewer/signature';
+import { Attributes } from '../certificate-viewer/attributes';
 import { Thumbprints } from '../certificate-viewer/thumbprints';
 import { Extensions } from '../certificate-viewer/extensions';
+import { GeneralNamePart } from '../certificate-viewer/extensions/general_name_part';
 import { RowTitle, RowValue } from '../certificate-viewer/row';
 import * as dateFormatter from '../../utils/date_formatter';
+import { getStringByOID } from '../certificate-viewer/get_string_by_oid';
 
 @Component({
   tag: 'peculiar-attribute-certificate-viewer',
@@ -37,6 +41,7 @@ export class AttributeCertificateViewer {
       this.certificateDecoded = new X509AttributeCertificate(certificate);
 
       this.certificateDecoded.parseExtensions();
+      this.certificateDecoded.parseAttributes();
       await this.certificateDecoded.getThumbprint('SHA-1');
       await this.certificateDecoded.getThumbprint('SHA-256');
     } catch (error) {
@@ -92,24 +97,76 @@ export class AttributeCertificateViewer {
             value="Basic Information"
           />
           <RowValue
-            name="Serial number:"
+            name="Serial number"
             value={this.certificateDecoded.serialNumber}
           />
           <RowValue
-            name="Version:"
+            name="Version"
             value={this.certificateDecoded.version}
           />
           <RowValue
-            name="Validity:"
+            name="Validity"
             value={this.certificateDecoded.validity}
           />
           <RowValue
-            name="Issued:"
+            name="Issued"
             value={dateFormatter.short(this.certificateDecoded.notBefore)}
           />
           <RowValue
-            name="Expired:"
+            name="Expired"
             value={dateFormatter.short(this.certificateDecoded.notBefore)}
+          />
+
+          <RowTitle
+            value="Issuer"
+          />
+          {this.certificateDecoded.issuer.map((item) => (
+            <GeneralNamePart
+              generalName={item}
+              getDNSNameLink={() => ''}
+              getIPAddressLink={() => ''}
+            />
+          ))}
+
+          <RowTitle
+            value="Holder"
+          />
+          {this.certificateDecoded.holder?.baseCertificateID.issuer.map((item) => (
+            <GeneralNamePart
+              generalName={item}
+              getDNSNameLink={() => ''}
+              getIPAddressLink={() => ''}
+            />
+          ))}
+          <tr>
+            <td />
+            <td />
+          </tr>
+          <RowValue
+            name="Serial"
+            value={Convert.ToHex(this.certificateDecoded.holder?.baseCertificateID.serial)}
+            monospace
+          />
+          <tr>
+            <td />
+            <td />
+          </tr>
+          <RowValue
+            name="Digest Info"
+            value=""
+          />
+          <RowValue
+            name="Algorithm"
+            value={getStringByOID(this.certificateDecoded.holder?.objectDigestInfo.digestAlgorithm.algorithm)}
+          />
+          <RowValue
+            name="Value"
+            value={Convert.ToHex(this.certificateDecoded.holder?.objectDigestInfo.objectDigest)}
+            monospace
+          />
+          <RowValue
+            name="Type"
+            value={this.certificateDecoded.holder?.objectDigestInfo.digestedObjectType}
           />
 
           <Signature
@@ -118,6 +175,17 @@ export class AttributeCertificateViewer {
 
           <Thumbprints
             thumbprints={this.certificateDecoded.thumbprints}
+          />
+
+          <Attributes
+            attributes={this.certificateDecoded.attributes}
+            getLEILink={() => ''}
+            getDNSNameLink={() => ''}
+            getIPAddressLink={() => ''}
+            getAuthKeyIdParentLink={() => ''}
+            getAuthKeyIdSiblingsLink={() => ''}
+            getSubjectKeyIdChildrenLink={() => ''}
+            getSubjectKeyIdSiblingsLink={() => ''}
           />
 
           <Extensions

@@ -20,6 +20,7 @@
 
 ### Used by
 
+ - [peculiar-attribute-certificate-viewer](../attribute-certificate-viewer)
  - [peculiar-certificate-summary](../certificate-summary)
  - [peculiar-certificate-viewer](../certificate-viewer)
  - [peculiar-certificates-viewer](../certificates-viewer)
@@ -27,6 +28,7 @@
 ### Graph
 ```mermaid
 graph TD;
+  peculiar-attribute-certificate-viewer --> peculiar-typography
   peculiar-certificate-summary --> peculiar-typography
   peculiar-certificate-viewer --> peculiar-typography
   peculiar-certificates-viewer --> peculiar-typography
