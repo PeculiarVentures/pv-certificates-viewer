@@ -2,7 +2,7 @@ import { h, FunctionalComponent } from '@stencil/core';
 
 import type { X509AttributeCertificate } from '../../crypto';
 import { RowTitle, RowValue } from '../certificate-viewer/row';
-import { dateFormatter } from '../../utils';
+import { dateShort } from '../../utils';
 
 interface IBasicInfoProps {
   certificate: X509AttributeCertificate;
@@ -33,11 +33,11 @@ export const BasicInfo: FunctionalComponent<IBasicInfoProps> = (props) => {
     />,
     <RowValue
       name="Issued"
-      value={dateFormatter.short(certificate.notBefore)}
+      value={dateShort(certificate.notBefore)}
     />,
     <RowValue
       name="Expired"
-      value={dateFormatter.short(certificate.notBefore)}
+      value={dateShort(certificate.notBefore)}
     />,
   ];
 };

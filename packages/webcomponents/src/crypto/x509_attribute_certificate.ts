@@ -4,8 +4,7 @@ import { AttributeCertificate, Holder } from '@peculiar/asn1-x509-attr';
 import { Convert } from 'pvtsutils';
 
 import { cryptoProvider } from './provider';
-import * as dateFormatter from '../utils/date_formatter';
-import validator from '../utils/validator';
+import { dateDiff, validator } from '../utils';
 
 import { AsnData } from './asn_data';
 import { Extension, TExtensionValue } from './extension';
@@ -82,7 +81,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     }
 
     this.notAfter = notAfter;
-    this.validity = dateFormatter.diff(this.notBefore, this.notAfter);
+    this.validity = dateDiff(this.notBefore, this.notAfter);
     this.issuer = acinfo.issuer.v1Form || acinfo.issuer.v2Form?.issuerName;
     this.holder = acinfo.holder;
   }

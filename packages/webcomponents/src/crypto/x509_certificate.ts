@@ -4,8 +4,7 @@ import { id_rsaEncryption, RSAPublicKey } from '@peculiar/asn1-rsa';
 import { Certificate } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 
-import * as dateFormatter from '../utils/date_formatter';
-import validator from '../utils/validator';
+import { dateDiff, validator } from '../utils';
 
 import { cryptoProvider } from './provider';
 import { Name, INameJSON } from './name';
@@ -91,7 +90,7 @@ export class X509Certificate extends AsnData<Certificate> {
     }
 
     this.notAfter = notAfter;
-    this.validity = dateFormatter.diff(this.notBefore, this.notAfter);
+    this.validity = dateDiff(this.notBefore, this.notAfter);
   }
 
   public parseExtensions() {
