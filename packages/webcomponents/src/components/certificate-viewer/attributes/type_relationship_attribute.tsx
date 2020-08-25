@@ -17,18 +17,12 @@ FunctionalComponent<ITypeRelationshipAttributeProps> = (props) => {
     <BasicAttribute
       attribute={attribute}
     >
-      <RowValue
-        name="DNBvsDNO"
-        value={attribute.value.DNBvsDNO.toNumber() ? 'YES' : 'NO'}
-      />
-      <RowValue
-        name="DNBvsDNT"
-        value={attribute.value.DNBvsDNT.toNumber() ? 'YES' : 'NO'}
-      />
-      <RowValue
-        name="DNOvsDNT"
-        value={attribute.value.DNOvsDNT.toNumber() ? 'YES' : 'NO'}
-      />
+      {Object.keys(attribute.value).map((keyName) => (
+        <RowValue
+          name={keyName}
+          value={attribute.value[keyName].toNumber() ? 'YES' : 'NO'}
+        />
+      ))}
     </BasicAttribute>
   );
 };

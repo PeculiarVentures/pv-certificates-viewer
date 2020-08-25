@@ -89,7 +89,7 @@ export const Attributes: FunctionalComponent<IAttributesPtops> = (props) => {
 
         return null;
       } catch (error) {
-        console.error('Error render extension:', attribute.asn.type);
+        console.error('Error render attribute:', attribute.asn.type);
 
         return null;
       }

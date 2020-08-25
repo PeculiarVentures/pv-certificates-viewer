@@ -9,20 +9,34 @@ interface IValuationRankingAttributeProps {
   attribute: Attribute<ValuationRanking>;
 }
 
+const getValueRank = (value: number): string => {
+  let ratio = 1;
+
+  if (value / 100 > 1) {
+    ratio = 100;
+  } else if (value / 10 > 1) {
+    ratio = 10;
+  }
+
+  return `${value}/${5 * ratio}`;
+};
+
 export const ValuationRankingAttribute:
 FunctionalComponent<IValuationRankingAttributeProps> = (props) => {
   const { attribute } = props;
+  const values = Object.keys(attribute.value).map((keyName) => ([
+    getValueRank(attribute.value[keyName]),
+    <br />,
+  ]));
 
   return (
     <BasicAttribute
       attribute={attribute}
     >
-      {Object.keys(attribute.value).map((keyName) => (
-        <RowValue
-          name={keyName}
-          value={attribute.value[keyName]}
-        />
-      ))}
+      <RowValue
+        name="Value"
+        value={values as any}
+      />
     </BasicAttribute>
   );
 };
