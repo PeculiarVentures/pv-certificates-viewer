@@ -2,8 +2,8 @@ import {
   Component, Host, h, Prop,
 } from '@stencil/core';
 
-import { X509Certificate } from '../../crypto';
-import * as dateFormatter from '../../utils/date_formatter';
+import type { X509Certificate } from '../../crypto';
+import { dateShort } from '../../utils';
 
 @Component({
   tag: 'peculiar-certificate-summary',
@@ -102,7 +102,7 @@ export class CertificateSummary {
         <peculiar-typography
           class="meta_value"
         >
-          {dateFormatter.short(item.notBefore)}
+          {dateShort(item.notBefore)}
         </peculiar-typography>
       </div>,
       <div class="meta_row">
@@ -115,7 +115,7 @@ export class CertificateSummary {
         <peculiar-typography
           class="meta_value"
         >
-          {dateFormatter.short(item.notAfter)}
+          {dateShort(item.notAfter)}
         </peculiar-typography>
       </div>,
     ]);

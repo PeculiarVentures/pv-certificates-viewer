@@ -2,9 +2,8 @@ import {
   Component, Host, h, State, Prop,
 } from '@stencil/core';
 
-import { readAsBinaryString } from '../../utils/read_file';
-import history from '../../utils/history';
-import { X509Certificate } from '../../crypto';
+import { validator, history, readAsBinaryString } from '../../utils';
+import { X509Certificate, X509AttributeCertificate } from '../../crypto';
 
 @Component({
   tag: 'peculiar-certificate-decoder',
@@ -19,7 +18,7 @@ export class CertificateDecoder {
    */
   @Prop() certificateExample?: string;
 
-  @State() certificateDecoded: X509Certificate;
+  @State() certificateDecoded: X509Certificate | X509AttributeCertificate;
 
   componentDidLoad() {
     const parsedHash = history.parseHash(window.location.search);
@@ -45,7 +44,7 @@ export class CertificateDecoder {
   };
 
   private onClickClear = () => {
-    this.clear();
+    this.clearValue();
   };
 
   private onChangeInputFile = async (e: any) => {
@@ -77,30 +76,74 @@ export class CertificateDecoder {
     }
   };
 
-  clear() {
+  clearValue() {
     this.inputPaste.value = '';
     this.certificateDecoded = null;
 
     history.replace({ search: '' });
   }
 
+  setValue(value: X509Certificate | X509AttributeCertificate) {
+    this.certificateDecoded = value;
+    this.inputPaste.value = value.export('pem');
+
+    history.replace({
+      search: history.queryStringify({
+        cert: value.export('base64'),
+      }),
+    });
+  }
+
   decode(certificate: string) {
+    const isPem = validator.isPem(certificate);
+    const isX509Pem = validator.isX509Pem(certificate);
+    const isX509AttributePem = validator.isX509AttributePem(certificate);
+    let decoded: X509Certificate | X509AttributeCertificate;
+    let decodeError: Error;
+
+    if (isPem && !(isX509Pem || isX509AttributePem)) {
+      this.clearValue();
+
+      alert('Unsupported file type. Please try to use Certificate/AttributeCertificate.');
+
+      return;
+    }
+
     try {
-      const decoded = new X509Certificate(certificate);
+      if (isX509Pem) {
+        decoded = new X509Certificate(certificate);
+      }
 
-      this.certificateDecoded = decoded;
-      this.inputPaste.value = decoded.export('pem');
-
-      history.replace({
-        search: history.queryStringify({
-          cert: decoded.export('base64'),
-        }),
-      });
+      if (isX509AttributePem) {
+        decoded = new X509AttributeCertificate(certificate);
+      }
     } catch (error) {
-      this.certificateDecoded = null;
+      decodeError = error;
+    }
 
-      console.error(error);
-      alert('Error decoding certificate. Please use another file');
+    if (!decoded) {
+      try {
+        decoded = new X509Certificate(certificate);
+      } catch (error) {
+        decodeError = error;
+      }
+    }
+
+    if (!decoded) {
+      try {
+        decoded = new X509AttributeCertificate(certificate);
+      } catch (error) {
+        decodeError = error;
+      }
+    }
+
+    if (!decoded) {
+      this.clearValue();
+
+      console.log(decodeError);
+      alert('Error decoding file. Please try to use Certificate/AttributeCertificate.');
+    } else {
+      this.setValue(decoded);
     }
   }
 
@@ -146,8 +189,15 @@ export class CertificateDecoder {
             </peculiar-button>
           )}
         </div>
-        {this.certificateDecoded && (
+        {this.certificateDecoded instanceof X509Certificate && (
           <peculiar-certificate-viewer
+            certificate={this.certificateDecoded}
+            class="viewer"
+            download
+          />
+        )}
+        {this.certificateDecoded instanceof X509AttributeCertificate && (
+          <peculiar-attribute-certificate-viewer
             certificate={this.certificateDecoded}
             class="viewer"
             download

@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
 
-export const short = (date: string | number | Date) => (
+export const dateShort = (date: string | number | Date) => (
   new Date(date).toUTCString()
 );
 
-export const diff = (
+export const dateDiff = (
   dateStart: string | number | Date,
   dateEnd: string | number | Date,
 ) => {

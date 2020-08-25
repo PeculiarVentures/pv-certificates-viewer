@@ -1,10 +1,10 @@
 import { h, FunctionalComponent } from '@stencil/core';
-import { CertificateTransparency } from '@peculiar/asn1-cert-transparency';
+import type { CertificateTransparency } from '@peculiar/asn1-cert-transparency';
 
 import { RowValue } from '../row';
-import { Extension } from '../../../crypto/extension';
+import type { Extension } from '../../../crypto/extension';
 import logs from '../../../constants/logs';
-import * as dateFormatter from '../../../utils/date_formatter';
+import { dateShort } from '../../../utils';
 
 import { BasicExtension } from './basic_extension';
 
@@ -36,7 +36,7 @@ FunctionalComponent<ICertificateTransparencyExtensionProps> = (props) => {
         />,
         <RowValue
           name="Timestamp"
-          value={dateFormatter.short(signedCertificateTimestamp.timestamp)}
+          value={dateShort(signedCertificateTimestamp.timestamp)}
         />,
         <RowValue
           name="Signature Algorithm"

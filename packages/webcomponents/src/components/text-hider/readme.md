@@ -23,6 +23,7 @@
 
 ### Used by
 
+ - [peculiar-attribute-certificate-viewer](../attribute-certificate-viewer)
  - [peculiar-certificate-viewer](../certificate-viewer)
 
 ### Depends on
@@ -33,6 +34,7 @@
 ```mermaid
 graph TD;
   peculiar-text-hider --> peculiar-button
+  peculiar-attribute-certificate-viewer --> peculiar-text-hider
   peculiar-certificate-viewer --> peculiar-text-hider
   style peculiar-text-hider fill:#f9f,stroke:#333,stroke-width:4px
 ```

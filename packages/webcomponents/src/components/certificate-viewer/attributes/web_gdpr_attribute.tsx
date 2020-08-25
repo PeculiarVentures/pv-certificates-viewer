@@ -1,0 +1,61 @@
+import { h, FunctionalComponent } from '@stencil/core';
+import type { WebGDPR } from '@peculiar/asn1-ntqwac';
+
+import { BasicAttribute } from './basic_attribute';
+import type { Attribute } from '../../../crypto/attribute';
+import { GeneralNamePart } from '../extensions/general_name_part';
+import { RowValue } from '../row';
+
+interface IWebGdprAttributeProps {
+  attribute: Attribute<WebGDPR>;
+}
+
+export const WebGdprAttribute:
+FunctionalComponent<IWebGdprAttributeProps> = (props) => {
+  const { attribute } = props;
+
+  return (
+    <BasicAttribute
+      attribute={attribute}
+    >
+      <RowValue
+        name="Assessment Authority"
+        value=""
+      />
+      <GeneralNamePart
+        generalName={attribute.value.assessmentAuthority}
+        getDNSNameLink={() => ''}
+        getIPAddressLink={() => ''}
+      />
+
+      <RowValue
+        name="Assessment Location"
+        value=""
+      />
+      <GeneralNamePart
+        generalName={attribute.value.assessmentLocation}
+        getDNSNameLink={() => ''}
+        getIPAddressLink={() => ''}
+      />
+
+      <RowValue
+        name="Assessment Ref"
+        value=""
+      />
+      <GeneralNamePart
+        generalName={attribute.value.assessmentRef}
+        getDNSNameLink={() => ''}
+        getIPAddressLink={() => ''}
+      />
+
+      <RowValue
+        name="Data Storage Territory"
+        value={attribute.value.dataStorageTerritory}
+      />
+      <RowValue
+        name="Description"
+        value={attribute.value.description}
+      />
+    </BasicAttribute>
+  );
+};

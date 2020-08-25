@@ -288,9 +288,13 @@ const OIDs: Record<string, string> = {
   '0.4.0.1862.1.3': 'Etsi Qcs Retention Period',
   '0.4.0.1862.1.4': 'Etsi Qcs SSCD',
   '0.4.0.1862.1.5': 'Etsi Qcs PDS',
-  '0.4.0.1862.1.6': 'Etsi Qcs Type',
+  '0.4.0.1862.1.6': 'Etsi QcType',
+  '0.4.0.1862.1.6.1': 'Etsi QcType eSign',
+  '0.4.0.1862.1.6.2': 'Etsi QcType eSeal',
+  '0.4.0.1862.1.6.3': 'Etsi QcType Web',
   '0.4.0.194112.1.0': 'QCP Natural Person',
   '0.4.0.194112.1.1': 'QCP Legal Person',
+  '0.4.0.194112.1.4': 'QCP Web',
   '0.9.2342.19200300.100.1.1': 'User ID',
   '0.9.2342.19200300.100.1.3': 'Rfc822 Mailbox',
   '0.9.2342.19200300.100.1.25': 'Domain Component',
@@ -1638,6 +1642,7 @@ const OIDs: Record<string, string> = {
   '2.5.4.8.1': 'Collective State Or Province Name',
   '2.5.4.9': 'Street Address',
   '2.5.4.9.1': 'Collective Street Address',
+  '2.5.4.97': 'Organization Identifier',
   '2.5.4.10': 'Organization',
   '2.5.4.10.1': 'Collective Organization Name',
   '2.5.4.11': 'Organization Unit',
@@ -2251,6 +2256,17 @@ const OIDs: Record<string, string> = {
   '1.3.6.1.4.1.4329.7': 'Siemens Public Key Infrastructure',
   '1.3.6.1.4.1.52266.1': 'Legal Entity Identifier',
   '1.3.6.1.4.1.52266.2': 'Role',
+
+  // https://ec.europa.eu/futurium/sites/futurium/files/ntqwac_pilot.pdf
+  '0.4.0.9496.1': 'Domain Name Beneficiary',
+  '0.4.0.9496.2': 'DNB Legal representative',
+  '0.4.0.9496.3': 'Domain Name Owner',
+  '0.4.0.9496.4': 'Domain Name Technical Operator',
+  '0.4.0.9496.5': 'Type of relationship between DNB/DNO/DNT',
+  '0.4.0.9496.6': 'DNB Main Activity Description',
+  '0.4.0.9496.7': 'GDPR compliance attestation reference',
+  '0.4.0.9496.8': 'Insurance coverage attestation',
+  '0.4.0.9496.9': 'Valuation ranking',
 };
 
 export default OIDs;
