@@ -200,6 +200,7 @@ export class CertificateDecoder {
           <peculiar-attribute-certificate-viewer
             certificate={this.certificateDecoded}
             class="viewer"
+            download
           />
         )}
       </Host>

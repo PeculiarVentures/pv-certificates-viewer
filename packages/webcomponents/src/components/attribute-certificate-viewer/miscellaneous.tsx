@@ -1,20 +1,18 @@
 import { h, FunctionalComponent } from '@stencil/core';
 
-import type { X509Certificate, X509AttributeCertificate } from '../../crypto';
+import type { X509Certificate } from '../../crypto';
 import { Download } from '../../utils/download';
 
-import { RowTitle } from './row';
+import { RowTitle } from '../certificate-viewer/row';
 
-type CertificateType = X509Certificate | X509AttributeCertificate;
-
-function downloadCertificateAsPem(certificate: CertificateType) {
+function downloadCertificateAsPem(certificate: X509Certificate) {
   Download.certificate.asPEM(
     certificate.export('pem'),
     certificate.commonName,
   );
 }
 
-function downloadCertificateAsDer(certificate: CertificateType) {
+function downloadCertificateAsDer(certificate: X509Certificate) {
   Download.certificate.asDER(
     certificate.export('hex'),
     certificate.commonName,
@@ -22,7 +20,7 @@ function downloadCertificateAsDer(certificate: CertificateType) {
 }
 
 interface IMiscellaneousProps {
-  certificate: CertificateType;
+  certificate: X509Certificate;
 }
 
 export const Miscellaneous: FunctionalComponent<IMiscellaneousProps> = (props) => {

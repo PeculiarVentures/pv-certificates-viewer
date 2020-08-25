@@ -153,4 +153,8 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
   static base64ToPem(base64: string) {
     return `-----BEGIN ATTRIBUTE CERTIFICATE-----\n${base64.replace(/(.{64})/g, '$1\n')}\n-----END ATTRIBUTE CERTIFICATE-----`;
   }
+
+  public get commonName(): string {
+    return `attribute-certificate-${this.thumbprints['SHA-1']}`;
+  }
 }

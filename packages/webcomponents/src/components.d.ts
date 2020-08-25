@@ -13,7 +13,34 @@ import { ICertificate } from "./components/certificates-viewer/certificates-view
 import { ColorType } from "./interface";
 export namespace Components {
     interface PeculiarAttributeCertificateViewer {
+        /**
+          * Authority Key Identifier extension parent link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
+         */
+        "authKeyIdParentLink"?: string;
+        /**
+          * Authority Key Identifier extension siblings link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
+         */
+        "authKeyIdSiblingsLink"?: string;
+        /**
+          * The certificate value for decode and show details. Use PEM or DER.
+         */
         "certificate": AttributeCertificateProp;
+        /**
+          * If `true` - component will show split-button to download certificate as PEM or DER.
+         */
+        "download"?: boolean;
+        /**
+          * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
+         */
+        "subjectKeyIdChildrenLink"?: string;
+        /**
+          * Subject Key Identifier extension siblings link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
+          * @example  https://some.com/{{subjectKeyId}}
+         */
+        "subjectKeyIdSiblingsLink"?: string;
     }
     interface PeculiarButton {
         "disabled"?: boolean;
@@ -225,7 +252,34 @@ declare global {
 }
 declare namespace LocalJSX {
     interface PeculiarAttributeCertificateViewer {
+        /**
+          * Authority Key Identifier extension parent link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
+         */
+        "authKeyIdParentLink"?: string;
+        /**
+          * Authority Key Identifier extension siblings link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
+         */
+        "authKeyIdSiblingsLink"?: string;
+        /**
+          * The certificate value for decode and show details. Use PEM or DER.
+         */
         "certificate"?: AttributeCertificateProp;
+        /**
+          * If `true` - component will show split-button to download certificate as PEM or DER.
+         */
+        "download"?: boolean;
+        /**
+          * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
+         */
+        "subjectKeyIdChildrenLink"?: string;
+        /**
+          * Subject Key Identifier extension siblings link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
+          * @example  https://some.com/{{subjectKeyId}}
+         */
+        "subjectKeyIdSiblingsLink"?: string;
     }
     interface PeculiarButton {
         "disabled"?: boolean;

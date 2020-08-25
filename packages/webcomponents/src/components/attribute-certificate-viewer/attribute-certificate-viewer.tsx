@@ -1,20 +1,17 @@
 import {
   Component, Host, h, Prop, State, Watch,
 } from '@stencil/core';
-import { Convert } from 'pvtsutils';
 
-import {
-  X509AttributeCertificate,
-} from '../../crypto';
+import { X509AttributeCertificate } from '../../crypto';
 
 import { Signature } from '../certificate-viewer/signature';
 import { Attributes } from '../certificate-viewer/attributes';
 import { Thumbprints } from '../certificate-viewer/thumbprints';
 import { Extensions } from '../certificate-viewer/extensions';
-import { GeneralNamePart } from '../certificate-viewer/extensions/general_name_part';
-import { RowTitle, RowValue } from '../certificate-viewer/row';
-import * as dateFormatter from '../../utils/date_formatter';
-import { getStringByOID } from '../certificate-viewer/get_string_by_oid';
+import { Issuer } from './issuer';
+import { Holder } from './holder';
+import { BasicInfo } from './basic_info';
+import { Miscellaneous } from '../certificate-viewer/miscellaneous';
 
 export type AttributeCertificateProp = string | X509AttributeCertificate;
 
@@ -28,7 +25,51 @@ export class AttributeCertificateViewer {
 
   certificateDecodeError: Error;
 
+  /**
+   * The certificate value for decode and show details. Use PEM or DER.
+   */
   @Prop() certificate: AttributeCertificateProp;
+
+  /**
+   * If `true` - component will show split-button to download certificate as PEM or DER.
+   */
+  @Prop() download?: boolean;
+
+  /**
+   * Authority Key Identifier extension parent link.
+   * <br />
+   * **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
+   * @example
+   *  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
+   */
+  @Prop({ reflect: true }) authKeyIdParentLink?: string;
+
+  /**
+   * Authority Key Identifier extension siblings link.
+   * <br />
+   * **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
+   * @example
+   *  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
+   */
+  @Prop({ reflect: true }) authKeyIdSiblingsLink?: string;
+
+  /**
+   * Subject Key Identifier extension children link.
+   * <br />
+   * **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
+   * @example
+   *  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
+   */
+  @Prop({ reflect: true }) subjectKeyIdChildrenLink?: string;
+
+  /**
+   * Subject Key Identifier extension siblings link.
+   * <br />
+   * **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
+   * @example
+   *  https://some.com/{{subjectKeyId}}
+   */
+  @Prop({ reflect: true }) subjectKeyIdSiblingsLink?: string;
 
   @State() isDecodeInProcess: boolean = true;
 
@@ -87,6 +128,33 @@ export class AttributeCertificateViewer {
     }
   }
 
+  private getAuthKeyIdParentLink = (value: string) => this.authKeyIdParentLink
+      ?.replace('{{authKeyId}}', value);
+
+  private getAuthKeyIdSiblingsLink = (value: string) => this.authKeyIdSiblingsLink
+      ?.replace('{{authKeyId}}', value);
+
+  private getSubjectKeyIdChildrenLink = (value: string) => this.subjectKeyIdChildrenLink
+      ?.replace('{{subjectKeyId}}', value);
+
+  private getSubjectKeyIdSiblingsLink = (value: string) => this.subjectKeyIdSiblingsLink
+      ?.replace('{{subjectKeyId}}', value);
+
+  // eslint-disable-next-line class-methods-use-this
+  private getLEILink(value: string) {
+    return `https://www.gleif.org/lei/${value}`;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private getDNSNameLink(value: string) {
+    return `https://censys.io/ipv4?q=${value}`;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private getIPAddressLink(value: string) {
+    return `https://censys.io/ipv4?q=${value}`;
+  }
+
   // eslint-disable-next-line class-methods-use-this
   private renderErrorState() {
     return (
@@ -95,7 +163,7 @@ export class AttributeCertificateViewer {
           type="b1"
           class="interaction_text"
         >
-          There is error for certificate decode.
+          There is error for attribute certificate decode.
         </peculiar-typography>
       </div>
     );
@@ -109,7 +177,7 @@ export class AttributeCertificateViewer {
           type="b1"
           class="interaction_text"
         >
-          There is no certificate available.
+          There is no attribute certificate available.
         </peculiar-typography>
       </div>
     );
@@ -127,82 +195,16 @@ export class AttributeCertificateViewer {
     return (
       <Host>
         <table>
-          <RowTitle
-            value="Basic Information"
-          />
-          <RowValue
-            name="Serial number"
-            value={this.certificateDecoded.serialNumber}
-          />
-          <RowValue
-            name="Version"
-            value={this.certificateDecoded.version}
-          />
-          <RowValue
-            name="Validity"
-            value={this.certificateDecoded.validity}
-          />
-          <RowValue
-            name="Issued"
-            value={dateFormatter.short(this.certificateDecoded.notBefore)}
-          />
-          <RowValue
-            name="Expired"
-            value={dateFormatter.short(this.certificateDecoded.notBefore)}
+          <BasicInfo
+            certificate={this.certificateDecoded}
           />
 
-          <RowTitle
-            value="Issuer"
+          <Issuer
+            issuer={this.certificateDecoded.issuer}
           />
-          {this.certificateDecoded.issuer.map((item) => (
-            <GeneralNamePart
-              generalName={item}
-              getDNSNameLink={() => ''}
-              getIPAddressLink={() => ''}
-            />
-          ))}
 
-          <RowTitle
-            value="Holder"
-          />
-          {this.certificateDecoded.holder?.baseCertificateID.issuer.map((item) => (
-            <GeneralNamePart
-              generalName={item}
-              getDNSNameLink={() => ''}
-              getIPAddressLink={() => ''}
-            />
-          ))}
-          <tr>
-            <td />
-            <td />
-          </tr>
-          <RowValue
-            name="Serial"
-            value={Convert.ToHex(this.certificateDecoded.holder?.baseCertificateID.serial)}
-            monospace
-          />
-          <tr>
-            <td />
-            <td />
-          </tr>
-          <RowValue
-            name="Digest Info"
-            value=""
-          />
-          <RowValue
-            name="Algorithm"
-            value={getStringByOID(
-              this.certificateDecoded.holder?.objectDigestInfo.digestAlgorithm.algorithm,
-            )}
-          />
-          <RowValue
-            name="Value"
-            value={Convert.ToHex(this.certificateDecoded.holder?.objectDigestInfo.objectDigest)}
-            monospace
-          />
-          <RowValue
-            name="Type"
-            value={this.certificateDecoded.holder?.objectDigestInfo.digestedObjectType}
+          <Holder
+            holder={this.certificateDecoded.holder}
           />
 
           <Signature
@@ -215,25 +217,31 @@ export class AttributeCertificateViewer {
 
           <Attributes
             attributes={this.certificateDecoded.attributes}
-            getLEILink={() => ''}
-            getDNSNameLink={() => ''}
-            getIPAddressLink={() => ''}
-            getAuthKeyIdParentLink={() => ''}
-            getAuthKeyIdSiblingsLink={() => ''}
-            getSubjectKeyIdChildrenLink={() => ''}
-            getSubjectKeyIdSiblingsLink={() => ''}
+            getLEILink={this.getLEILink}
+            getDNSNameLink={this.getDNSNameLink}
+            getIPAddressLink={this.getIPAddressLink}
+            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
+            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
+            getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
+            getSubjectKeyIdSiblingsLink={this.getSubjectKeyIdSiblingsLink}
           />
 
           <Extensions
             extensions={this.certificateDecoded.extensions}
-            getLEILink={() => ''}
-            getDNSNameLink={() => ''}
-            getIPAddressLink={() => ''}
-            getAuthKeyIdParentLink={() => ''}
-            getAuthKeyIdSiblingsLink={() => ''}
-            getSubjectKeyIdChildrenLink={() => ''}
-            getSubjectKeyIdSiblingsLink={() => ''}
+            getLEILink={this.getLEILink}
+            getDNSNameLink={this.getDNSNameLink}
+            getIPAddressLink={this.getIPAddressLink}
+            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
+            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
+            getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
+            getSubjectKeyIdSiblingsLink={this.getSubjectKeyIdSiblingsLink}
           />
+
+          {this.download && (
+            <Miscellaneous
+              certificate={this.certificateDecoded}
+            />
+          )}
         </table>
       </Host>
     );
