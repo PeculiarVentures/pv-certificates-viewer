@@ -4,6 +4,10 @@ export default {
     .test(value),
   isPem: (value: string) => /-----BEGIN [^-]+-----([A-Za-z0-9+\/=\s]+)-----END [^-]+-----|begin-base64[^\n]+\n([A-Za-z0-9+\/=\s]+)====/
     .test(value),
+  isX509Pem: (value: string) => /-----BEGIN CERTIFICATE-----([A-Za-z0-9+\/=\s]+)-----END CERTIFICATE-----/
+    .test(value),
+  isX509AttributePem: (value: string) => /-----BEGIN ATTRIBUTE CERTIFICATE-----([A-Za-z0-9+\/=\s]+)-----END ATTRIBUTE CERTIFICATE-----/
+    .test(value),
   isBase64: (value: string) => {
     try {
       window.atob(value);
