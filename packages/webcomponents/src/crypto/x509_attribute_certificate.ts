@@ -126,4 +126,31 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
       console.error('Error thumbprint get:', error);
     }
   }
+
+  public export(type: 'base64' | 'hex' | 'pem'): string {
+    if (type === 'base64') {
+      return Convert.ToBase64(this.raw);
+    }
+
+    if (type === 'hex') {
+      return X509AttributeCertificate.stringToHex(Convert.ToHex(this.raw));
+    }
+
+    if (type === 'pem') {
+      return X509AttributeCertificate.base64ToPem(Convert.ToBase64(this.raw));
+    }
+
+    return '';
+  }
+
+  static stringToHex(value: string) {
+    return value
+      .replace(/(.{32})/g, '$1\n')
+      .replace(/(.{4})/g, '$1 ')
+      .trim();
+  }
+
+  static base64ToPem(base64: string) {
+    return `-----BEGIN ATTRIBUTE CERTIFICATE-----\n${base64.replace(/(.{64})/g, '$1\n')}\n-----END ATTRIBUTE CERTIFICATE-----`;
+  }
 }
