@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { AttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
 import { IAction } from "./components/button-split/button-split";
 import { X509Certificate } from "./crypto";
 import { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
@@ -12,7 +13,7 @@ import { ICertificate } from "./components/certificates-viewer/certificates-view
 import { ColorType } from "./interface";
 export namespace Components {
     interface PeculiarAttributeCertificateViewer {
-        "certificate": string;
+        "certificate": AttributeCertificateProp;
     }
     interface PeculiarButton {
         "disabled"?: boolean;
@@ -224,7 +225,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface PeculiarAttributeCertificateViewer {
-        "certificate"?: string;
+        "certificate"?: AttributeCertificateProp;
     }
     interface PeculiarButton {
         "disabled"?: boolean;

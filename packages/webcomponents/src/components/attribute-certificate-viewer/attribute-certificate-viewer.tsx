@@ -1,5 +1,5 @@
 import {
-  Component, Host, h, Prop, State,
+  Component, Host, h, Prop, State, Watch,
 } from '@stencil/core';
 import { Convert } from 'pvtsutils';
 
@@ -16,6 +16,8 @@ import { RowTitle, RowValue } from '../certificate-viewer/row';
 import * as dateFormatter from '../../utils/date_formatter';
 import { getStringByOID } from '../certificate-viewer/get_string_by_oid';
 
+export type AttributeCertificateProp = string | X509AttributeCertificate;
+
 @Component({
   tag: 'peculiar-attribute-certificate-viewer',
   styleUrl: 'attribute-certificate-viewer.scss',
@@ -26,7 +28,7 @@ export class AttributeCertificateViewer {
 
   certificateDecodeError: Error;
 
-  @Prop() certificate: string;
+  @Prop() certificate: AttributeCertificateProp;
 
   @State() isDecodeInProcess: boolean = true;
 
@@ -34,11 +36,17 @@ export class AttributeCertificateViewer {
     this.decodeCertificate(this.certificate);
   }
 
-  private async decodeCertificate(certificate: string) {
+  private async decodeCertificate(certificate: AttributeCertificateProp) {
     this.isDecodeInProcess = true;
 
     try {
-      this.certificateDecoded = new X509AttributeCertificate(certificate);
+      if (certificate instanceof X509AttributeCertificate) {
+        this.certificateDecoded = certificate;
+      }
+
+      if (typeof certificate === 'string') {
+        this.certificateDecoded = new X509AttributeCertificate(certificate);
+      }
 
       this.certificateDecoded.parseExtensions();
       this.certificateDecoded.parseAttributes();
@@ -51,6 +59,32 @@ export class AttributeCertificateViewer {
     }
 
     this.isDecodeInProcess = false;
+  }
+
+  /**
+   * Rerun decodeCertificate if previuos value not equal current value
+   */
+  @Watch('certificate')
+  watchCertificateAndDecode(
+    newValue: AttributeCertificateProp,
+    oldValue: AttributeCertificateProp,
+  ) {
+    if (typeof newValue === 'string' && typeof oldValue === 'string') {
+      if (newValue !== oldValue) {
+        this.decodeCertificate(newValue);
+      }
+
+      return;
+    }
+
+    if (
+      newValue instanceof X509AttributeCertificate
+      && oldValue instanceof X509AttributeCertificate
+    ) {
+      if (newValue.serialNumber !== oldValue.serialNumber) {
+        this.decodeCertificate(newValue);
+      }
+    }
   }
 
   // eslint-disable-next-line class-methods-use-this
