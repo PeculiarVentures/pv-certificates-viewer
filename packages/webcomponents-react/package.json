@@ -1,6 +1,6 @@
 {
   "name": "@peculiar/certificates-viewer-react",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": false,
   "description": "",
   "main": "dist/cjs/index.js",
@@ -34,7 +34,7 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
-    "@peculiar/certificates-viewer": "^1.6.1",
+    "@peculiar/certificates-viewer": "^1.7.0",
     "tslib": "^2.0.1"
   },
   "peerDependencies": {

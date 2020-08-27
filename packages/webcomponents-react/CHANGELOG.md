@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.2](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer-react@0.2.1...@peculiar/certificates-viewer-react@0.2.2) (2020-08-27)
+
+**Note:** Version bump only for package @peculiar/certificates-viewer-react
+
+
+
+
+
 ## [0.2.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer-react@0.2.0...@peculiar/certificates-viewer-react@0.2.1) (2020-08-27)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer-react

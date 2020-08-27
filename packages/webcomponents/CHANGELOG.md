@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.6.1...@peculiar/certificates-viewer@1.7.0) (2020-08-27)
+
+
+### Bug Fixes
+
+* **webcomponents:** fixed x509 commonName get ([6faae16](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/6faae1673d19afb768dee7fee7d37e32594f1ab3))
+
+
+### Features
+
+* **webcomponents:** added BasicInformation component ([a83946e](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/a83946e7690ab3c1d444a15fdf66a6e4760b55a4))
+* **webcomponents:** added IssuerName component ([8e6564a](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/8e6564a80d8774857fef8eb9fdf09c302771f1b1))
+* **webcomponents:** added SubjectName component ([d0d91a6](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/d0d91a627c0409960fd844eec06320a1c674950b))
+* **webcomponents:** used new components for basic info, issuer, subject ([a639df6](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/a639df6c57e2dece0384a2b09c27aefb710ba7f9))
+
+
+
+
+
 ## [1.6.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.6.0...@peculiar/certificates-viewer@1.6.1) (2020-08-27)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer
