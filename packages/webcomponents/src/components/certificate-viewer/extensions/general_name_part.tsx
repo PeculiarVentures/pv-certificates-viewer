@@ -13,7 +13,7 @@ import {
 import { Convert, BufferSourceConverter } from 'pvtsutils';
 import { AsnParser } from '@peculiar/asn1-schema';
 
-import OIDs from '../../../constants/oids';
+import { OIDs } from '../../../constants/oids';
 import { RowValue } from '../row';
 
 const names: Record<keyof GeneralName, string> = {

@@ -9,7 +9,7 @@
 import { h, FunctionalComponent } from '@stencil/core';
 import type { Name } from '@peculiar/asn1-x509';
 
-import OIDs from '../../../constants/oids';
+import { OIDs } from '../../../constants/oids';
 import { RowValue } from '../row';
 
 interface INamePartProps {

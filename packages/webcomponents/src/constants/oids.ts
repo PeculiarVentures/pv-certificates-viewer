@@ -6,7 +6,26 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const OIDs: Record<string, string> = {
+export const OIDsShort = {
+  '2.5.4.3': 'CN',
+  '2.5.4.6': 'C',
+  '0.9.2342.19200300.100.1.25': 'DC',
+  '1.2.840.113549.1.9.1': 'E',
+  '2.5.4.42': 'G',
+  '2.5.4.43': 'I',
+  '2.5.4.7': 'L',
+  '2.5.4.10': 'O',
+  '2.5.4.11': 'OU',
+  '2.5.4.8': 'ST',
+  '2.5.4.4': 'SN',
+  '2.5.4.12': 'T',
+  '2.5.4.15': 'businessCategory',
+  '1.3.6.1.4.1.311.60.2.1.3': 'jurisdictionCountry',
+  '2.5.4.5': 'serialNumber',
+  '2.5.4.97': 'OI',
+};
+
+export const OIDs = {
   '0.2.262.1.10': 'Telesec',
   '0.2.262.1.10.0': 'Extension',
   '0.2.262.1.10.1': 'Mechanism',
@@ -2276,5 +2295,3 @@ const OIDs: Record<string, string> = {
   '0.4.0.9496.8': 'Insurance coverage attestation',
   '0.4.0.9496.9': 'Valuation ranking',
 };
-
-export default OIDs;
