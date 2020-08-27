@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.5.0...@peculiar/certificates-viewer@1.6.0) (2020-08-27)
+
+
+### Features
+
+* added [@license](https://github.com/license) ([05b197f](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/05b197f25b76668a0af9d1ec51d81bc899acd952))
+
+
+
+
+
 # [1.5.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.4.1...@peculiar/certificates-viewer@1.5.0) (2020-08-25)
 
 
