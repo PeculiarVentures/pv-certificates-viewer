@@ -18,9 +18,19 @@ import {
 export class Link {
   @Prop() href: string;
 
+  /**
+   * Typography type.
+   */
+  @Prop() type: 'h4' | 'h6' | 'h7' | 'b1' | 'b3' = 'b3';
+
   render() {
     return (
-      <Host class="peculiar_color_primary peculiar_b3">
+      <Host
+        class={{
+          peculiar_color_primary: true,
+          [`peculiar_${this.type || 'b3'}`]: true,
+        }}
+      >
         <a
           href={this.href}
           target="_blank"

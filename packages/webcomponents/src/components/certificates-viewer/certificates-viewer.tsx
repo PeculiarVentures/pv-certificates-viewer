@@ -16,7 +16,7 @@ import {
 } from '@stencil/core';
 
 import { X509Certificate } from '../../crypto';
-import OIDs from '../../constants/oids';
+import { OIDs } from '../../constants/oids';
 import { Download } from '../../utils/download';
 
 export interface ICertificate {

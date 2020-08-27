@@ -3,180 +3,38 @@
   width: 100%;
 }
 
-th, td {
-  border: none;
-}
-
 td {
+  border: none;
   padding: 0;
 }
 
-.basic_wrapper {
-  position: relative;
-}
-
-.basic_wrapper::before,
-.basic_wrapper::after {
-  content: '';
-  display: block;
-  position: absolute;
-  width: 1px;
-  top: 0;
-  bottom: 0;
-  background-color: rgba(var(--peculiar-color-grey_3-rgb), 0.5);
-}
-
-.basic_wrapper::before {
-  left: calc(30% - 20px);
-}
-
-.basic_wrapper::after {
-  left: calc(60% - 20px);
-}
-
-.is_only.basic_wrapper::before {
-  content: none;
-}
-
-/* Basic information */
-.basic_col {
-  vertical-align: top;
-  display: inline-block;
-  width: 30%;
-  padding-right: 40px;
-  position: relative;
-}
-
-.is_only .basic_col {
-  width: 60%;
-}
-
-.basic_meta {
-  vertical-align: top;
-  display: inline-block;
-  width: 40%;
-}
-/* DN styles */
-.dn_name {
-  min-width: 30px;
-  vertical-align: top;
-  padding-right: 5px;
-}
-
-.dn_value {
-  vertical-align: top;
-}
-
-.dn_row:not(:last-child) {
-  margin-bottom: 10px;
-}
-
-/* Meta styles */
-.meta_row:not(:last-child) {
-  margin-bottom: 10px;
-}
-
-.meta_name {
-  display: inline-block;
-  width: 120px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-.meta_value {
-  display: inline-block;
-  vertical-align: top;
-  width: calc(100% - 120px);
-}
-
-.table_attributes {
+table {
   width: 100%;
 }
 
+td {
+  vertical-align: top;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+table td:first-child {
+  width: 130px;
+  padding-right: 10px;
+}
+
+table td:last-child {
+  width: calc(100% - 130px);
+}
+
 /* Adaptivity */
-@media (max-width: 767px) {
-  .basic_wrapper::before,
-  .basic_wrapper::after {
-    content: none;
+@media (max-width: 900px) {
+  table, tr, td {
+    display: block;
   }
 
-  .basic_col {
-    padding: 20px 0;
-    width: 100% !important;
-    border-bottom: 1px solid rgba(var(--peculiar-color-grey_3-rgb), 0.5);
-  }
-
-  .basic_col::after {
-    top: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
+  table td:last-child,
+  table td:first-child {
     width: 100%;
-  }
-
-  .basic_meta {
-    width: 100%;
-    padding: 20px 0;
-    min-width: auto;
-  }
-
-  .basic_wrapper::before,
-  .basic_wrapper::after {
-    content: none;
-  }
-
-  .meta_row:not(:last-child) {
-    margin-bottom: 0;
-  }
-
-  .meta_name,
-  .meta_value {
-    width: 100%;
-    padding: 5px 0;
   }
 }
-
-:host([data-view="mobile"]) {
-  .basic_wrapper::before,
-  .basic_wrapper::after {
-    content: none;
-  }
-
-  .basic_col {
-    padding: 20px 0;
-    width: 100% !important;
-    border-bottom: 1px solid rgba(var(--peculiar-color-grey_3-rgb), 0.5);
-  }
-
-  .basic_col::after {
-    top: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    width: 100%;
-  }
-
-  .basic_meta {
-    width: 100%;
-    padding: 20px 0;
-    min-width: auto;
-  }
-
-  .basic_wrapper::before,
-  .basic_wrapper::after {
-    content: none;
-  }
-
-  .meta_row:not(:last-child) {
-    margin-bottom: 0;
-  }
-
-  .meta_name,
-  .meta_value {
-    width: 100%;
-    padding: 5px 0;
-  }
-}
-

@@ -188,7 +188,7 @@ export class X509Certificate extends AsnData<Certificate> {
     for (let i = 0; i < this.subject.length; i += 1) {
       const name = this.subject[i];
 
-      if (name.name === 'CN' || name.name === 'E' || name.name === 'O') {
+      if (name.shortName === 'CN' || name.shortName === 'E' || name.shortName === 'O') {
         return name.value;
       }
     }
@@ -204,11 +204,11 @@ export class X509Certificate extends AsnData<Certificate> {
     for (let i = 0; i < this.issuer.length; i += 1) {
       const name = this.issuer[i];
 
-      if (name.name === 'CN') {
+      if (name.shortName === 'CN') {
         return name.value;
       }
 
-      if (name.name === 'E') {
+      if (name.shortName === 'E') {
         return name.value;
       }
     }
@@ -218,5 +218,29 @@ export class X509Certificate extends AsnData<Certificate> {
 
   public get isRoot(): boolean {
     return JSON.stringify(this.issuer) === JSON.stringify(this.subject);
+  }
+
+  public subjectToString() {
+    if (!this.subject) {
+      return '';
+    }
+
+    return this.subject
+      .map((name) => (
+        `${name.shortName}=${name.value}`
+      ))
+      .join(', ');
+  }
+
+  public issuerToString() {
+    if (!this.issuer) {
+      return '';
+    }
+
+    return this.issuer
+      .map((name) => (
+        `${name.shortName}=${name.value}`
+      ))
+      .join(', ');
   }
 }
