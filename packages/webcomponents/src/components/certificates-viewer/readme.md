@@ -37,10 +37,8 @@ graph TD;
   peculiar-certificates-viewer --> peculiar-certificate-viewer
   peculiar-certificates-viewer --> peculiar-circular-progress
   peculiar-certificate-summary --> peculiar-typography
-  peculiar-certificate-summary --> peculiar-link
   peculiar-button-split --> peculiar-button
   peculiar-certificate-viewer --> peculiar-typography
-  peculiar-certificate-viewer --> peculiar-certificate-summary
   peculiar-certificate-viewer --> peculiar-text-hider
   peculiar-certificate-viewer --> peculiar-link
   peculiar-certificate-viewer --> peculiar-button-split

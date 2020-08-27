@@ -219,4 +219,28 @@ export class X509Certificate extends AsnData<Certificate> {
   public get isRoot(): boolean {
     return JSON.stringify(this.issuer) === JSON.stringify(this.subject);
   }
+
+  public subjectToString() {
+    if (!this.subject) {
+      return '';
+    }
+
+    return this.subject
+      .map((name) => (
+        `${name.shortName}=${name.value}`
+      ))
+      .join(', ');
+  }
+
+  public issuerToString() {
+    if (!this.issuer) {
+      return '';
+    }
+
+    return this.issuer
+      .map((name) => (
+        `${name.shortName}=${name.value}`
+      ))
+      .join(', ');
+  }
 }
