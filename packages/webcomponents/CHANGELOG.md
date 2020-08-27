@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.7.0...@peculiar/certificates-viewer@1.7.1) (2020-08-27)
+
+
+### Bug Fixes
+
+* **webcomponents:** fixed button split width styles ([f8f70e9](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/f8f70e91d7b31d61499d41b3d55d19ebecf714d1))
+
+
+
+
+
 # [1.7.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.6.1...@peculiar/certificates-viewer@1.7.0) (2020-08-27)
 
 
