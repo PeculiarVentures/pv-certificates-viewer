@@ -188,7 +188,7 @@ export class X509Certificate extends AsnData<Certificate> {
     for (let i = 0; i < this.subject.length; i += 1) {
       const name = this.subject[i];
 
-      if (name.name === 'CN' || name.name === 'E' || name.name === 'O') {
+      if (name.shortName === 'CN' || name.shortName === 'E' || name.shortName === 'O') {
         return name.value;
       }
     }
@@ -204,11 +204,11 @@ export class X509Certificate extends AsnData<Certificate> {
     for (let i = 0; i < this.issuer.length; i += 1) {
       const name = this.issuer[i];
 
-      if (name.name === 'CN') {
+      if (name.shortName === 'CN') {
         return name.value;
       }
 
-      if (name.name === 'E') {
+      if (name.shortName === 'E') {
         return name.value;
       }
     }

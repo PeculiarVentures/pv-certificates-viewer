@@ -40,7 +40,7 @@ export class CertificateSummary {
           <peculiar-typography
             color="grey_5"
           >
-            {dn.name || dn.type}
+            {dn.shortName || dn.type}
           </peculiar-typography>
         </td>
         <td class="dn_value">
