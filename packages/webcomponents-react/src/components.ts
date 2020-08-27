@@ -1,6 +1,13 @@
+/**
+ * @license
+ * Copyright (c) Peculiar Ventures, LLC.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 /* eslint-disable */
 /* tslint:disable */
-/* auto-generated react proxies */
 import { createReactComponent } from './react-component-lib';
 
 import { JSX } from '@peculiar/certificates-viewer';
