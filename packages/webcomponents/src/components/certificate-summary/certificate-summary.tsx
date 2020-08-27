@@ -30,11 +30,6 @@ export class CertificateSummary {
    */
   @Prop({ reflect: true }) issuerDnLink?: string;
 
-  /**
-   * Choose view type instead @media.
-   */
-  @Prop() view?: 'mobile';
-
   // eslint-disable-next-line class-methods-use-this
   renderDN(dns: X509Certificate['subject'] | X509Certificate['issuer']) {
     return dns.map((dn) => (
@@ -131,9 +126,7 @@ export class CertificateSummary {
 
   render() {
     return (
-      <Host
-        data-view={this.view}
-      >
+      <Host>
         <div
           class={{
             basic_wrapper: true,

@@ -66,10 +66,6 @@ export namespace Components {
          */
         "issuerDnLink"?: string;
         "showIssuer"?: boolean;
-        /**
-          * Choose view type instead @media.
-         */
-        "view"?: 'mobile';
     }
     interface PeculiarCertificateViewer {
         /**
@@ -138,6 +134,10 @@ export namespace Components {
     }
     interface PeculiarLink {
         "href": string;
+        /**
+          * Typography type.
+         */
+        "type": 'h4' | 'h6' | 'h7' | 'b1' | 'b3';
     }
     interface PeculiarTextHider {
         "opened": boolean;
@@ -305,10 +305,6 @@ declare namespace LocalJSX {
          */
         "issuerDnLink"?: string;
         "showIssuer"?: boolean;
-        /**
-          * Choose view type instead @media.
-         */
-        "view"?: 'mobile';
     }
     interface PeculiarCertificateViewer {
         /**
@@ -377,6 +373,10 @@ declare namespace LocalJSX {
     }
     interface PeculiarLink {
         "href"?: string;
+        /**
+          * Typography type.
+         */
+        "type"?: 'h4' | 'h6' | 'h7' | 'b1' | 'b3';
     }
     interface PeculiarTextHider {
         "onTextExpand"?: (event: CustomEvent<any>) => void;

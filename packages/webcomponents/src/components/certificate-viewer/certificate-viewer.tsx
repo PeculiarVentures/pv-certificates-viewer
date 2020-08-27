@@ -19,7 +19,9 @@ import { Signature } from './signature';
 import { Thumbprints } from './thumbprints';
 import { Extensions } from './extensions';
 import { Miscellaneous } from './miscellaneous';
-import { RowTitle } from './row';
+import { SubjectName } from './subject_name';
+import { IssuerName } from './issuer_name';
+import { BasicInformation } from './basic_information';
 
 export type CertificateProp = string | X509Certificate;
 
@@ -36,12 +38,12 @@ export class CertificateViewer {
   /**
    * The certificate value for decode and show details. Use PEM or DER.
    */
-  @Prop() certificate: CertificateProp;
+  @Prop({ reflect: true }) certificate: CertificateProp;
 
   /**
    * If `true` - component will show split-button to download certificate as PEM or DER.
    */
-  @Prop() download?: boolean;
+  @Prop({ reflect: true }) download?: boolean;
 
   /**
    * Authority Key Identifier extension parent link.
@@ -88,7 +90,7 @@ export class CertificateViewer {
   /**
    * Choose view type instead @media.
    */
-  @Prop() view?: 'mobile';
+  @Prop({ reflect: true }) view?: 'mobile';
 
   @State() isDecodeInProcess: boolean = true;
 
@@ -213,18 +215,18 @@ export class CertificateViewer {
         data-view={this.view}
       >
         <table>
-          <RowTitle
-            value="Basic Information"
+          <BasicInformation
+            {...this.certificateDecoded}
           />
-          <tr>
-            <td colSpan={2}>
-              <peculiar-certificate-summary
-                certificate={this.certificateDecoded}
-                issuerDnLink={this.getIssuerDnLink()}
-                view={this.view}
-              />
-            </td>
-          </tr>
+
+          <SubjectName
+            name={this.certificateDecoded.subject}
+          />
+
+          <IssuerName
+            name={this.certificateDecoded.issuer}
+            issuerDnLink={this.getIssuerDnLink()}
+          />
 
           <PublicKey
             publicKey={this.certificateDecoded.publicKey}

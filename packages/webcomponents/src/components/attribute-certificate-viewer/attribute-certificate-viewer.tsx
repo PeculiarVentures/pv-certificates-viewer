@@ -16,10 +16,10 @@ import { Signature } from '../certificate-viewer/signature';
 import { Attributes } from '../certificate-viewer/attributes';
 import { Thumbprints } from '../certificate-viewer/thumbprints';
 import { Extensions } from '../certificate-viewer/extensions';
+import { BasicInformation } from '../certificate-viewer/basic_information';
+import { Miscellaneous } from '../certificate-viewer/miscellaneous';
 import { Issuer } from './issuer';
 import { Holder } from './holder';
-import { BasicInfo } from './basic_info';
-import { Miscellaneous } from '../certificate-viewer/miscellaneous';
 
 export type AttributeCertificateProp = string | X509AttributeCertificate;
 
@@ -203,8 +203,8 @@ export class AttributeCertificateViewer {
     return (
       <Host>
         <table>
-          <BasicInfo
-            certificate={this.certificateDecoded}
+          <BasicInformation
+            {...this.certificateDecoded}
           />
 
           <Issuer
