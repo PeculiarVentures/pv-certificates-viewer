@@ -67,10 +67,11 @@ interface IExtensionsProps extends
   IAuthorityKeyIdentifierOptions,
   ISubjectKeyIdentifierOptions {
   extensions: Extension<TExtensionValue>[];
+  title?: string;
 }
 
 export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
-  const { extensions } = props;
+  const { extensions, title } = props;
 
   if (!extensions || !extensions.length) {
     return null;
@@ -78,7 +79,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
 
   return ([
     <RowTitle
-      value="Extensions"
+      value={title || 'Extensions'}
     />,
     extensions.map((extension) => {
       try {

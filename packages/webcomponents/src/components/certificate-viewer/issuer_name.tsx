@@ -20,7 +20,7 @@ interface ISubjectNameProps {
 export const IssuerName: FunctionalComponent<ISubjectNameProps> = (props) => {
   const { name, issuerDnLink } = props;
 
-  if (!name) {
+  if (!name || !name.length) {
     return null;
   }
 
