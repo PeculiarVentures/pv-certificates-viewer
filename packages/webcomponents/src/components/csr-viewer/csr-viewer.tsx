@@ -17,7 +17,7 @@ import { Signature } from '../certificate-viewer/signature';
 import { Thumbprints } from '../certificate-viewer/thumbprints';
 import { Attributes } from '../certificate-viewer/attributes';
 import { Extensions } from '../certificate-viewer/extensions';
-import { Miscellaneous } from './miscellaneous';
+import { Miscellaneous } from '../certificate-viewer/miscellaneous';
 
 export type CsrProp = string | CSR;
 

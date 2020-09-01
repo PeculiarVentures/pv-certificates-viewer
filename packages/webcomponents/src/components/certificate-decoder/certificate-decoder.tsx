@@ -93,11 +93,11 @@ export class CertificateDecoder {
 
   setValue(value: X509Certificate | X509AttributeCertificate | CSR) {
     this.certificateDecoded = value;
-    this.inputPaste.value = value.export('pem');
+    this.inputPaste.value = value.exportAsPemFormatted();
 
     history.replace({
       search: history.queryStringify({
-        cert: value.export('base64'),
+        cert: value.exportAsBase64(),
       }),
     });
   }

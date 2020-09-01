@@ -13,10 +13,14 @@ import { CertificationRequest } from '@peculiar/asn1-csr';
 import { Convert } from 'pvtsutils';
 
 import { cryptoProvider } from './provider';
-import { validator } from '../utils';
 import { AsnData } from './asn_data';
 import { Name, INameJSON } from './name';
 import { Attribute, TAttributeValue } from './attribute';
+import {
+  certificateRawToBuffer,
+  hexFormat,
+  base64Format,
+} from './utils';
 
 interface ISignature {
   algorithm: string;
@@ -38,30 +42,8 @@ export class CSR extends AsnData<CertificationRequest> {
 
   public thumbprints: Record<string, string> = {};
 
-  private static base64Clear(base64: string) {
-    return base64
-      .replace(/.*base64,/, '')
-      .replace(/-----.+-----/g, '')
-      .replace(/[\s\r\n]/g, '');
-  }
-
-  private static rawClarify(raw: string): ArrayBuffer {
-    const value = CSR.base64Clear(raw);
-    let certificateBuffer: ArrayBuffer;
-
-    if (validator.isHex(value)) {
-      certificateBuffer = Convert.FromHex(value);
-    } else if (validator.isBase64(value) || validator.isPem(value)) {
-      certificateBuffer = Convert.FromBase64(value);
-    } else {
-      certificateBuffer = Convert.FromBinary(raw);
-    }
-
-    return certificateBuffer;
-  }
-
   constructor(raw: string) {
-    super(CSR.rawClarify(raw), CertificationRequest);
+    super(certificateRawToBuffer(raw), CertificationRequest);
 
     const { certificationRequestInfo } = this.asn;
 
@@ -137,30 +119,15 @@ export class CSR extends AsnData<CertificationRequest> {
     }
   }
 
-  static base64ToPem(base64: string) {
-    return `-----BEGIN CERTIFICATE REQUEST-----\n${base64.replace(/(.{64})/g, '$1\n')}\n-----END CERTIFICATE REQUEST-----`;
+  public exportAsBase64() {
+    return Convert.ToBase64(this.raw);
   }
 
-  static stringToHex(value: string) {
-    return value
-      .replace(/(.{32})/g, '$1\n')
-      .replace(/(.{4})/g, '$1 ')
-      .trim();
+  public exportAsHexFormatted() {
+    return hexFormat(Convert.ToHex(this.raw));
   }
 
-  public export(type: 'base64' | 'hex' | 'pem'): string {
-    if (type === 'base64') {
-      return Convert.ToBase64(this.raw);
-    }
-
-    if (type === 'hex') {
-      return CSR.stringToHex(Convert.ToHex(this.raw));
-    }
-
-    if (type === 'pem') {
-      return CSR.base64ToPem(Convert.ToBase64(this.raw));
-    }
-
-    return '';
+  public exportAsPemFormatted() {
+    return `-----BEGIN CERTIFICATE REQUEST-----\n${base64Format(this.exportAsBase64())}\n-----END CERTIFICATE REQUEST-----`;
   }
 }

@@ -8,25 +8,39 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 
-import type { X509Certificate, X509AttributeCertificate } from '../../crypto';
+import { X509Certificate, X509AttributeCertificate, CSR } from '../../crypto';
 import { Download } from '../../utils/download';
 
 import { RowTitle } from './row';
 
-type CertificateType = X509Certificate | X509AttributeCertificate;
+type CertificateType = X509Certificate | X509AttributeCertificate | CSR;
 
 function downloadCertificateAsPem(certificate: CertificateType) {
-  Download.certificate.asPEM(
-    certificate.export('pem'),
-    certificate.commonName,
-  );
+  if (certificate instanceof CSR) {
+    Download.certificateRequest.asPEM(
+      certificate.exportAsPemFormatted(),
+      certificate.commonName,
+    );
+  } else {
+    Download.certificate.asPEM(
+      certificate.exportAsPemFormatted(),
+      certificate.commonName,
+    );
+  }
 }
 
 function downloadCertificateAsDer(certificate: CertificateType) {
-  Download.certificate.asDER(
-    certificate.export('hex'),
-    certificate.commonName,
-  );
+  if (certificate instanceof CSR) {
+    Download.certificateRequest.asDER(
+      certificate.exportAsHexFormatted(),
+      certificate.commonName,
+    );
+  } else {
+    Download.certificate.asDER(
+      certificate.exportAsHexFormatted(),
+      certificate.commonName,
+    );
+  }
 }
 
 interface IMiscellaneousProps {
