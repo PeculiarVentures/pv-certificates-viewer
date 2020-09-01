@@ -8,7 +8,7 @@
 
 import { Convert } from 'pvtsutils';
 import { AsnParser, AsnConvert } from '@peculiar/asn1-schema';
-import { Attribute as AsnAttribute, Extensions } from '@peculiar/asn1-x509';
+import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
 import {
   id_DomainNameBeneficiary,
   DomainNameBeneficiary,
@@ -37,6 +37,16 @@ import {
   id_ValuationRanking,
   ValuationRanking,
 } from '@peculiar/asn1-ntqwac';
+import {
+  id_pkcs9_at_extensionRequest,
+  ExtensionRequest,
+
+  id_pkcs9_at_challengePassword,
+  ChallengePassword,
+
+  id_pkcs9_at_unstructuredName,
+  UnstructuredName,
+} from '@peculiar/asn1-pkcs9';
 
 import { Extension, TExtensionValue } from './extension';
 import { AsnData } from './asn_data';
@@ -51,6 +61,8 @@ export type TAttributeValue = DomainNameBeneficiary
 | InsuranceValue
 | ValuationRanking
 | Extension<TExtensionValue>[]
+| ChallengePassword
+| UnstructuredName
 | string;
 
 export class Attribute<T extends TAttributeValue> extends AsnData<AsnAttribute> {
@@ -93,14 +105,16 @@ export class Attribute<T extends TAttributeValue> extends AsnData<AsnAttribute> 
       case id_ValuationRanking:
         this.value = AsnParser.parse(asnExtnValue, ValuationRanking) as T;
         break;
-      case '1.2.840.113549.1.9.2':
-      case '1.2.840.113549.1.9.7':
-        this.value = Convert.ToUtf8String(asnExtnValue) as T;
+      case id_pkcs9_at_challengePassword:
+        this.value = AsnParser.parse(asnExtnValue, ChallengePassword) as T;
         break;
-      case '1.2.840.113549.1.9.14': {
-        const extensions = AsnParser.parse(asnExtnValue, Extensions);
+      case id_pkcs9_at_unstructuredName:
+        this.value = AsnParser.parse(asnExtnValue, UnstructuredName) as T;
+        break;
+      case id_pkcs9_at_extensionRequest: {
+        const extensionRequest = AsnParser.parse(asnExtnValue, ExtensionRequest);
 
-        this.value = extensions
+        this.value = extensionRequest
           .map((e) => new Extension(AsnConvert.serialize(e))) as T;
         break;
       }

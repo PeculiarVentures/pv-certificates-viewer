@@ -8,7 +8,6 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { Name } from '@peculiar/asn1-x509';
-
 import {
   TypeRelationship,
   ActivityDescription,
@@ -16,6 +15,10 @@ import {
   InsuranceValue,
   ValuationRanking,
 } from '@peculiar/asn1-ntqwac';
+import {
+  UnstructuredName,
+  ChallengePassword,
+} from '@peculiar/asn1-pkcs9';
 
 import { RowTitle } from '../row';
 import type { Attribute, TAttributeValue } from '../../../crypto/attribute';
@@ -27,6 +30,8 @@ import { TypeRelationshipAttribute } from './type_relationship_attribute';
 import { ValuationRankingAttribute } from './valuation_ranking_attribute';
 import { BasicAttribute } from './basic_attribute';
 import { AsStringAttribute } from './as_string_attribute';
+import { UnstructuredNameAttribute } from './unstructured_name_attribute';
+import { ChallengePasswordAttribute } from './challenge_password_attribute';
 
 interface IAttributesPtops extends
   IGeneralNameOptions,
@@ -92,6 +97,22 @@ export const Attributes: FunctionalComponent<IAttributesPtops> = (props) => {
         if (attribute.value instanceof ValuationRanking) {
           return (
             <ValuationRankingAttribute
+              attribute={attribute as any}
+            />
+          );
+        }
+
+        if (attribute.value instanceof UnstructuredName) {
+          return (
+            <UnstructuredNameAttribute
+              attribute={attribute as any}
+            />
+          );
+        }
+
+        if (attribute.value instanceof ChallengePassword) {
+          return (
+            <ChallengePasswordAttribute
               attribute={attribute as any}
             />
           );
