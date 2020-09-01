@@ -7,9 +7,8 @@
  */
 
 import { Convert } from 'pvtsutils';
-import { AsnParser } from '@peculiar/asn1-schema';
-import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
-
+import { AsnParser, AsnConvert } from '@peculiar/asn1-schema';
+import { Attribute as AsnAttribute, Extensions } from '@peculiar/asn1-x509';
 import {
   id_DomainNameBeneficiary,
   DomainNameBeneficiary,
@@ -39,6 +38,7 @@ import {
   ValuationRanking,
 } from '@peculiar/asn1-ntqwac';
 
+import { Extension, TExtensionValue } from './extension';
 import { AsnData } from './asn_data';
 
 export type TAttributeValue = DomainNameBeneficiary
@@ -50,6 +50,7 @@ export type TAttributeValue = DomainNameBeneficiary
 | WebGDPR
 | InsuranceValue
 | ValuationRanking
+| Extension<TExtensionValue>[]
 | string;
 
 export class Attribute<T extends TAttributeValue> extends AsnData<AsnAttribute> {
@@ -92,6 +93,17 @@ export class Attribute<T extends TAttributeValue> extends AsnData<AsnAttribute> 
       case id_ValuationRanking:
         this.value = AsnParser.parse(asnExtnValue, ValuationRanking) as T;
         break;
+      case '1.2.840.113549.1.9.2':
+      case '1.2.840.113549.1.9.7':
+        this.value = Convert.ToUtf8String(asnExtnValue) as T;
+        break;
+      case '1.2.840.113549.1.9.14': {
+        const extensions = AsnParser.parse(asnExtnValue, Extensions);
+
+        this.value = extensions
+          .map((e) => new Extension(AsnConvert.serialize(e))) as T;
+        break;
+      }
       default:
         this.value = Convert.ToHex(asnExtnValue) as T;
     }
