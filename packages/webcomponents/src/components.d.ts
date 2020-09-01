@@ -10,6 +10,7 @@ import { IAction } from "./components/button-split/button-split";
 import { X509Certificate } from "./crypto";
 import { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
 import { ICertificate } from "./components/certificates-viewer/certificates-viewer";
+import { CsrProp } from "./components/csr-viewer/csr-viewer";
 import { ColorType } from "./interface";
 export namespace Components {
     interface PeculiarAttributeCertificateViewer {
@@ -125,6 +126,30 @@ export namespace Components {
          */
         "width": number;
     }
+    interface PeculiarCsrViewer {
+        /**
+          * The certificate value for decode and show details. Use PEM or DER.
+         */
+        "certificate": CsrProp;
+        /**
+          * If `true` - component will show split-button to download certificate as PEM or DER.
+         */
+        "download"?: boolean;
+        /**
+          * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
+         */
+        "subjectKeyIdChildrenLink"?: string;
+        /**
+          * Subject Key Identifier extension siblings link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
+          * @example  https://some.com/{{subjectKeyId}}
+         */
+        "subjectKeyIdSiblingsLink"?: string;
+        /**
+          * Choose view type instead @media.
+         */
+        "view"?: 'mobile';
+    }
     interface PeculiarHighlightWords {
         "search": string;
     }
@@ -207,6 +232,12 @@ declare global {
         prototype: HTMLPeculiarCircularProgressElement;
         new (): HTMLPeculiarCircularProgressElement;
     };
+    interface HTMLPeculiarCsrViewerElement extends Components.PeculiarCsrViewer, HTMLStencilElement {
+    }
+    var HTMLPeculiarCsrViewerElement: {
+        prototype: HTMLPeculiarCsrViewerElement;
+        new (): HTMLPeculiarCsrViewerElement;
+    };
     interface HTMLPeculiarHighlightWordsElement extends Components.PeculiarHighlightWords, HTMLStencilElement {
     }
     var HTMLPeculiarHighlightWordsElement: {
@@ -240,6 +271,7 @@ declare global {
         "peculiar-certificate-viewer": HTMLPeculiarCertificateViewerElement;
         "peculiar-certificates-viewer": HTMLPeculiarCertificatesViewerElement;
         "peculiar-circular-progress": HTMLPeculiarCircularProgressElement;
+        "peculiar-csr-viewer": HTMLPeculiarCsrViewerElement;
         "peculiar-highlight-words": HTMLPeculiarHighlightWordsElement;
         "peculiar-link": HTMLPeculiarLinkElement;
         "peculiar-text-hider": HTMLPeculiarTextHiderElement;
@@ -360,6 +392,30 @@ declare namespace LocalJSX {
          */
         "width"?: number;
     }
+    interface PeculiarCsrViewer {
+        /**
+          * The certificate value for decode and show details. Use PEM or DER.
+         */
+        "certificate"?: CsrProp;
+        /**
+          * If `true` - component will show split-button to download certificate as PEM or DER.
+         */
+        "download"?: boolean;
+        /**
+          * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
+         */
+        "subjectKeyIdChildrenLink"?: string;
+        /**
+          * Subject Key Identifier extension siblings link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
+          * @example  https://some.com/{{subjectKeyId}}
+         */
+        "subjectKeyIdSiblingsLink"?: string;
+        /**
+          * Choose view type instead @media.
+         */
+        "view"?: 'mobile';
+    }
     interface PeculiarHighlightWords {
         "search"?: string;
     }
@@ -402,6 +458,7 @@ declare namespace LocalJSX {
         "peculiar-certificate-viewer": PeculiarCertificateViewer;
         "peculiar-certificates-viewer": PeculiarCertificatesViewer;
         "peculiar-circular-progress": PeculiarCircularProgress;
+        "peculiar-csr-viewer": PeculiarCsrViewer;
         "peculiar-highlight-words": PeculiarHighlightWords;
         "peculiar-link": PeculiarLink;
         "peculiar-text-hider": PeculiarTextHider;
@@ -420,6 +477,7 @@ declare module "@stencil/core" {
             "peculiar-certificate-viewer": LocalJSX.PeculiarCertificateViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificateViewerElement>;
             "peculiar-certificates-viewer": LocalJSX.PeculiarCertificatesViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificatesViewerElement>;
             "peculiar-circular-progress": LocalJSX.PeculiarCircularProgress & JSXBase.HTMLAttributes<HTMLPeculiarCircularProgressElement>;
+            "peculiar-csr-viewer": LocalJSX.PeculiarCsrViewer & JSXBase.HTMLAttributes<HTMLPeculiarCsrViewerElement>;
             "peculiar-highlight-words": LocalJSX.PeculiarHighlightWords & JSXBase.HTMLAttributes<HTMLPeculiarHighlightWordsElement>;
             "peculiar-link": LocalJSX.PeculiarLink & JSXBase.HTMLAttributes<HTMLPeculiarLinkElement>;
             "peculiar-text-hider": LocalJSX.PeculiarTextHider & JSXBase.HTMLAttributes<HTMLPeculiarTextHiderElement>;
