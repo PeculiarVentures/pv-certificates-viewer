@@ -25,6 +25,8 @@ import { WebGdprAttribute } from './web_gdpr_attribute';
 import { InsuranceValueAttribute } from './insurance_value_attribute';
 import { TypeRelationshipAttribute } from './type_relationship_attribute';
 import { ValuationRankingAttribute } from './valuation_ranking_attribute';
+import { BasicAttribute } from './basic_attribute';
+import { AsStringAttribute } from './as_string_attribute';
 
 interface IAttributesPtops extends
   IGeneralNameOptions,
@@ -95,7 +97,19 @@ export const Attributes: FunctionalComponent<IAttributesPtops> = (props) => {
           );
         }
 
-        return null;
+        if (typeof attribute.value === 'string') {
+          return (
+            <AsStringAttribute
+              attribute={attribute as any}
+            />
+          );
+        }
+
+        return (
+          <BasicAttribute
+            attribute={attribute}
+          />
+        );
       } catch (error) {
         console.error('Error render attribute:', attribute.asn.type);
 
