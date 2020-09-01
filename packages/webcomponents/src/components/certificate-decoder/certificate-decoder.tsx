@@ -105,12 +105,12 @@ export class CertificateDecoder {
   decode(certificate: string) {
     const isPem = validator.isPem(certificate);
     const isX509Pem = validator.isX509Pem(certificate);
-    const isCsrPem = validator.isCsrPem(certificate);
+    const isPkcs10Pem = validator.isPkcs10Pem(certificate);
     const isX509AttributePem = validator.isX509AttributePem(certificate);
     let decoded: X509Certificate | X509AttributeCertificate | CSR;
     let decodeError: Error;
 
-    if (isPem && !(isX509Pem || isX509AttributePem || isCsrPem)) {
+    if (isPem && !(isX509Pem || isX509AttributePem || isPkcs10Pem)) {
       this.clearValue();
 
       alert('Unsupported file type. Please try to use Certificate/AttributeCertificate/CertificateRequest.');
@@ -127,7 +127,7 @@ export class CertificateDecoder {
         decoded = new X509AttributeCertificate(certificate);
       }
 
-      if (isCsrPem) {
+      if (isPkcs10Pem) {
         decoded = new CSR(certificate);
       }
     } catch (error) {
