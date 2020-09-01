@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.7.1...@peculiar/certificates-viewer@1.8.0) (2020-09-01)
+
+
+### Bug Fixes
+
+* lint errors ([6712696](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/67126963bf762ea8e6841ab21683bec4264e4689))
+
+
+### Features
+
+* **crypto:** added CSR class for work with certificate request ([33a9332](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/33a9332b22f5b05a8c62882149e789e8edd912ba))
+* **deps:** add "@peculiar/asn1-csr" dependency ([954f051](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/954f051d9c0f3a39379a78563610c1fb33428290))
+* **webcomponents:** add "@peculiar/asn1-pkcs9" dependency ([3c5b4d4](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/3c5b4d434d2b92be2c7c65fc77feb25023aa829f))
+* **webcomponents:** add CSR viewer component ([dfc62a8](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/dfc62a81b29e47d36e3e9fe2d6a5a8594ddc44db))
+* **webcomponents:** add CSR viewer to certificate decode component ([4880bd7](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/4880bd7ea238d0496e5ff7ac926aa81cffa6b4d9))
+* **webcomponents:** added "AsStringAttribute" component for attribute string value ([0caabb1](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/0caabb1cdc337bb4fb88f12056faa5d4676ba4b9))
+* **webcomponents:** use "@peculiar/asn1-pkcs9" dependency ([72918f1](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/72918f10a0fdb30555d8b70b269d5d2dfa94657c))
+
+
+
+
+
 ## [1.7.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.7.0...@peculiar/certificates-viewer@1.7.1) (2020-08-27)
 
 
