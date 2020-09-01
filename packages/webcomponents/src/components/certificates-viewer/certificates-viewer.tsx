@@ -153,7 +153,7 @@ export class CertificatesViewer {
     e.stopPropagation();
 
     Download.certificate.asPEM(
-      certificate.body.export('pem'),
+      certificate.body.exportAsPemFormatted(),
       certificate.name || certificate.body.commonName,
     );
   }
@@ -163,7 +163,7 @@ export class CertificatesViewer {
     e.stopPropagation();
 
     Download.certificate.asPEM(
-      certificate.body.export('hex'),
+      certificate.body.exportAsHexFormatted(),
       certificate.name || certificate.body.commonName,
     );
   }

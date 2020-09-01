@@ -134,10 +134,3 @@ export function readAsText(file: IFileDataType, options?: string): Promise<IRead
     reader.readAsText(file, options);
   });
 }
-
-export default {
-  readAsBinaryString,
-  readAsArrayBuffer,
-  readAsDataUrl,
-  readAsText,
-};

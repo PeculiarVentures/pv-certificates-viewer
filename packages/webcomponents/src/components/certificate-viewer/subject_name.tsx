@@ -19,7 +19,7 @@ interface ISubjectNameProps {
 export const SubjectName: FunctionalComponent<ISubjectNameProps> = (props) => {
   const { name } = props;
 
-  if (!name) {
+  if (!name || !name.length) {
     return null;
   }
 

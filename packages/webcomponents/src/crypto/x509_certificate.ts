@@ -12,12 +12,17 @@ import { id_rsaEncryption, RSAPublicKey } from '@peculiar/asn1-rsa';
 import { Certificate } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 
-import { dateDiff, validator } from '../utils';
+import { dateDiff } from '../utils';
 
-import { cryptoProvider } from './provider';
 import { Name, INameJSON } from './name';
 import { Extension, TExtensionValue } from './extension';
 import { AsnData } from './asn_data';
+import {
+  certificateRawToBuffer,
+  hexFormat,
+  base64Format,
+  getCertificateThumbprint,
+} from './utils';
 
 export interface ISignature {
   algorithm: string;
@@ -49,30 +54,8 @@ export class X509Certificate extends AsnData<Certificate> {
 
   public thumbprints: Record<string, string> = {};
 
-  private static base64Clear(base64: string) {
-    return base64
-      .replace(/.*base64,/, '')
-      .replace(/-----.+-----/g, '')
-      .replace(/[\s\r\n]/g, '');
-  }
-
-  private static rawClarify(raw: string): ArrayBuffer {
-    const value = X509Certificate.base64Clear(raw);
-    let certificateBuffer: ArrayBuffer;
-
-    if (validator.isHex(value)) {
-      certificateBuffer = Convert.FromHex(value);
-    } else if (validator.isBase64(value) || validator.isPem(value)) {
-      certificateBuffer = Convert.FromBase64(value);
-    } else {
-      certificateBuffer = Convert.FromBinary(raw);
-    }
-
-    return certificateBuffer;
-  }
-
   constructor(raw: string) {
-    super(X509Certificate.rawClarify(raw), Certificate);
+    super(certificateRawToBuffer(raw), Certificate);
 
     const { tbsCertificate } = this.asn;
 
@@ -140,39 +123,23 @@ export class X509Certificate extends AsnData<Certificate> {
     };
   }
 
-  public export(type: 'base64' | 'hex' | 'pem'): string {
-    if (type === 'base64') {
-      return Convert.ToBase64(this.raw);
-    }
-
-    if (type === 'hex') {
-      return X509Certificate.stringToHex(Convert.ToHex(this.raw));
-    }
-
-    if (type === 'pem') {
-      return X509Certificate.base64ToPem(Convert.ToBase64(this.raw));
-    }
-
-    return '';
+  public exportAsBase64() {
+    return Convert.ToBase64(this.raw);
   }
 
-  static base64ToPem(base64: string) {
-    return `-----BEGIN CERTIFICATE-----\n${base64.replace(/(.{64})/g, '$1\n')}\n-----END CERTIFICATE-----`;
+  public exportAsHexFormatted() {
+    return hexFormat(Convert.ToHex(this.raw));
   }
 
-  static stringToHex(value: string) {
-    return value
-      .replace(/(.{32})/g, '$1\n')
-      .replace(/(.{4})/g, '$1 ')
-      .trim();
+  public exportAsPemFormatted() {
+    return `-----BEGIN CERTIFICATE-----\n${base64Format(this.exportAsBase64())}\n-----END CERTIFICATE-----`;
   }
 
   public async getThumbprint(
     algorithm: globalThis.AlgorithmIdentifier = 'SHA-1',
   ): Promise<void> {
     try {
-      const crypto = cryptoProvider.get();
-      const thumbprint = await crypto.subtle.digest(algorithm, this.raw);
+      const thumbprint = await getCertificateThumbprint(algorithm, this.raw);
 
       this.thumbprints[algorithm['name'] || algorithm] = Convert.ToHex(thumbprint);
     } catch (error) {

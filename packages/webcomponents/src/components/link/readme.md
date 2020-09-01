@@ -19,12 +19,14 @@
 
  - [peculiar-attribute-certificate-viewer](../attribute-certificate-viewer)
  - [peculiar-certificate-viewer](../certificate-viewer)
+ - [peculiar-csr-viewer](../csr-viewer)
 
 ### Graph
 ```mermaid
 graph TD;
   peculiar-attribute-certificate-viewer --> peculiar-link
   peculiar-certificate-viewer --> peculiar-link
+  peculiar-csr-viewer --> peculiar-link
   style peculiar-link fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

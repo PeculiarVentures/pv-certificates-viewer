@@ -10,55 +10,36 @@ import {
   Component, Host, h, Prop, State, Watch,
 } from '@stencil/core';
 
-import { X509AttributeCertificate } from '../../crypto';
+import { CSR } from '../../crypto';
+import { SubjectName } from '../certificate-viewer/subject_name';
+import { PublicKey } from '../certificate-viewer/public_key';
 import { Signature } from '../certificate-viewer/signature';
-import { Attributes } from '../certificate-viewer/attributes';
 import { Thumbprints } from '../certificate-viewer/thumbprints';
+import { Attributes } from '../certificate-viewer/attributes';
 import { Extensions } from '../certificate-viewer/extensions';
-import { BasicInformation } from '../certificate-viewer/basic_information';
 import { Miscellaneous } from '../certificate-viewer/miscellaneous';
-import { Issuer } from './issuer';
-import { Holder } from './holder';
 
-export type AttributeCertificateProp = string | X509AttributeCertificate;
+export type CsrProp = string | CSR;
 
 @Component({
-  tag: 'peculiar-attribute-certificate-viewer',
+  tag: 'peculiar-csr-viewer',
   styleUrl: '../certificate-viewer/certificate-viewer.scss',
   scoped: true,
 })
-export class AttributeCertificateViewer {
-  certificateDecoded: X509AttributeCertificate;
+export class CsrViewer {
+  certificateDecoded: CSR;
 
   certificateDecodeError: Error;
 
   /**
    * The certificate value for decode and show details. Use PEM or DER.
    */
-  @Prop() certificate: AttributeCertificateProp;
+  @Prop({ reflect: true }) certificate: CsrProp;
 
   /**
    * If `true` - component will show split-button to download certificate as PEM or DER.
    */
   @Prop() download?: boolean;
-
-  /**
-   * Authority Key Identifier extension parent link.
-   * <br />
-   * **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
-   * @example
-   *  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
-   */
-  @Prop({ reflect: true }) authKeyIdParentLink?: string;
-
-  /**
-   * Authority Key Identifier extension siblings link.
-   * <br />
-   * **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
-   * @example
-   *  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
-   */
-  @Prop({ reflect: true }) authKeyIdSiblingsLink?: string;
 
   /**
    * Subject Key Identifier extension children link.
@@ -78,25 +59,29 @@ export class AttributeCertificateViewer {
    */
   @Prop({ reflect: true }) subjectKeyIdSiblingsLink?: string;
 
+  /**
+   * Choose view type instead @media.
+   */
+  @Prop({ reflect: true }) view?: 'mobile';
+
   @State() isDecodeInProcess: boolean = true;
 
   componentWillLoad() {
     this.decodeCertificate(this.certificate);
   }
 
-  private async decodeCertificate(certificate: AttributeCertificateProp) {
+  private async decodeCertificate(certificate: CsrProp) {
     this.isDecodeInProcess = true;
 
     try {
-      if (certificate instanceof X509AttributeCertificate) {
+      if (certificate instanceof CSR) {
         this.certificateDecoded = certificate;
       }
 
       if (typeof certificate === 'string') {
-        this.certificateDecoded = new X509AttributeCertificate(certificate);
+        this.certificateDecoded = new CSR(certificate);
       }
 
-      this.certificateDecoded.parseExtensions();
       this.certificateDecoded.parseAttributes();
       await this.certificateDecoded.getThumbprint('SHA-1');
       await this.certificateDecoded.getThumbprint('SHA-256');
@@ -114,8 +99,8 @@ export class AttributeCertificateViewer {
    */
   @Watch('certificate')
   watchCertificateAndDecode(
-    newValue: AttributeCertificateProp,
-    oldValue: AttributeCertificateProp,
+    newValue: CsrProp,
+    oldValue: CsrProp,
   ) {
     if (typeof newValue === 'string' && typeof oldValue === 'string') {
       if (newValue !== oldValue) {
@@ -126,20 +111,18 @@ export class AttributeCertificateViewer {
     }
 
     if (
-      newValue instanceof X509AttributeCertificate
-      && oldValue instanceof X509AttributeCertificate
+      newValue instanceof CSR
+      && oldValue instanceof CSR
     ) {
-      if (newValue.serialNumber !== oldValue.serialNumber) {
+      if (newValue.commonName !== oldValue.commonName) {
         this.decodeCertificate(newValue);
       }
     }
   }
 
-  private getAuthKeyIdParentLink = (value: string) => this.authKeyIdParentLink
-      ?.replace('{{authKeyId}}', value);
+  private getAuthKeyIdParentLink = (value: string) => value;
 
-  private getAuthKeyIdSiblingsLink = (value: string) => this.authKeyIdSiblingsLink
-      ?.replace('{{authKeyId}}', value);
+  private getAuthKeyIdSiblingsLink = (value: string) => value;
 
   private getSubjectKeyIdChildrenLink = (value: string) => this.subjectKeyIdChildrenLink
       ?.replace('{{subjectKeyId}}', value);
@@ -170,7 +153,7 @@ export class AttributeCertificateViewer {
           type="b1"
           class="interaction_text"
         >
-          There is error for attribute certificate decode.
+          There is error for certificate request decode.
         </peculiar-typography>
       </div>
     );
@@ -184,10 +167,19 @@ export class AttributeCertificateViewer {
           type="b1"
           class="interaction_text"
         >
-          There is no attribute certificate available.
+          There is no certificate request available.
         </peculiar-typography>
       </div>
     );
+  }
+
+  private getExtensionRequestAttribute() {
+    if (!this.certificateDecoded) {
+      return undefined;
+    }
+
+    return this.certificateDecoded.attributes
+      .find((attribute) => attribute.asn.type === '1.2.840.113549.1.9.14');
   }
 
   render() {
@@ -199,19 +191,19 @@ export class AttributeCertificateViewer {
       return this.renderEmptyState();
     }
 
+    const extensionRequestAttribute = this.getExtensionRequestAttribute();
+
     return (
-      <Host>
+      <Host
+        data-view={this.view}
+      >
         <table>
-          <BasicInformation
-            {...this.certificateDecoded}
+          <SubjectName
+            name={this.certificateDecoded.subject}
           />
 
-          <Issuer
-            issuer={this.certificateDecoded.issuer}
-          />
-
-          <Holder
-            holder={this.certificateDecoded.holder}
+          <PublicKey
+            publicKey={this.certificateDecoded.publicKey}
           />
 
           <Signature
@@ -234,7 +226,8 @@ export class AttributeCertificateViewer {
           />
 
           <Extensions
-            extensions={this.certificateDecoded.extensions}
+            extensions={extensionRequestAttribute?.value as any}
+            title="Extension Request"
             getLEILink={this.getLEILink}
             getDNSNameLink={this.getDNSNameLink}
             getIPAddressLink={this.getIPAddressLink}

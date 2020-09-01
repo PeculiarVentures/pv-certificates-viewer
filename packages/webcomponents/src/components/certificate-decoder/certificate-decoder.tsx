@@ -11,7 +11,7 @@ import {
 } from '@stencil/core';
 
 import { validator, history, readAsBinaryString } from '../../utils';
-import { X509Certificate, X509AttributeCertificate } from '../../crypto';
+import { X509Certificate, X509AttributeCertificate, CSR } from '../../crypto';
 
 @Component({
   tag: 'peculiar-certificate-decoder',
@@ -26,7 +26,7 @@ export class CertificateDecoder {
    */
   @Prop() certificateExample?: string;
 
-  @State() certificateDecoded: X509Certificate | X509AttributeCertificate;
+  @State() certificateDecoded: X509Certificate | X509AttributeCertificate | CSR;
 
   componentDidLoad() {
     const parsedHash = history.parseHash(window.location.search);
@@ -91,13 +91,13 @@ export class CertificateDecoder {
     history.replace({ search: '' });
   }
 
-  setValue(value: X509Certificate | X509AttributeCertificate) {
+  setValue(value: X509Certificate | X509AttributeCertificate | CSR) {
     this.certificateDecoded = value;
-    this.inputPaste.value = value.export('pem');
+    this.inputPaste.value = value.exportAsPemFormatted();
 
     history.replace({
       search: history.queryStringify({
-        cert: value.export('base64'),
+        cert: value.exportAsBase64(),
       }),
     });
   }
@@ -105,14 +105,15 @@ export class CertificateDecoder {
   decode(certificate: string) {
     const isPem = validator.isPem(certificate);
     const isX509Pem = validator.isX509Pem(certificate);
+    const isPkcs10Pem = validator.isPkcs10Pem(certificate);
     const isX509AttributePem = validator.isX509AttributePem(certificate);
-    let decoded: X509Certificate | X509AttributeCertificate;
+    let decoded: X509Certificate | X509AttributeCertificate | CSR;
     let decodeError: Error;
 
-    if (isPem && !(isX509Pem || isX509AttributePem)) {
+    if (isPem && !(isX509Pem || isX509AttributePem || isPkcs10Pem)) {
       this.clearValue();
 
-      alert('Unsupported file type. Please try to use Certificate/AttributeCertificate.');
+      alert('Unsupported file type. Please try to use Certificate/AttributeCertificate/CertificateRequest.');
 
       return;
     }
@@ -124,6 +125,10 @@ export class CertificateDecoder {
 
       if (isX509AttributePem) {
         decoded = new X509AttributeCertificate(certificate);
+      }
+
+      if (isPkcs10Pem) {
+        decoded = new CSR(certificate);
       }
     } catch (error) {
       decodeError = error;
@@ -146,10 +151,18 @@ export class CertificateDecoder {
     }
 
     if (!decoded) {
+      try {
+        decoded = new CSR(certificate);
+      } catch (error) {
+        decodeError = error;
+      }
+    }
+
+    if (!decoded) {
       this.clearValue();
 
       console.log(decodeError);
-      alert('Error decoding file. Please try to use Certificate/AttributeCertificate.');
+      alert('Error decoding file. Please try to use Certificate/AttributeCertificate/CertificateRequest.');
     } else {
       this.setValue(decoded);
     }
@@ -177,7 +190,7 @@ export class CertificateDecoder {
             <input
               type="file"
               class="input_file"
-              accept="application/pkix-cert,application/x-x509-ca-cert,application/x-x509-user-cert"
+              accept="application/pkix-cert,application/x-x509-ca-cert,application/x-x509-user-cert,application/pkcs10,.csr,.req"
               onChange={this.onChangeInputFile}
               value=""
             />
@@ -206,6 +219,13 @@ export class CertificateDecoder {
         )}
         {this.certificateDecoded instanceof X509AttributeCertificate && (
           <peculiar-attribute-certificate-viewer
+            certificate={this.certificateDecoded}
+            class="viewer"
+            download
+          />
+        )}
+        {this.certificateDecoded instanceof CSR && (
+          <peculiar-csr-viewer
             certificate={this.certificateDecoded}
             class="viewer"
             download
