@@ -11,7 +11,6 @@ import {
 } from '@stencil/core';
 
 import { X509AttributeCertificate } from '../../crypto';
-
 import { Signature } from '../certificate-viewer/signature';
 import { Attributes } from '../certificate-viewer/attributes';
 import { Thumbprints } from '../certificate-viewer/thumbprints';
