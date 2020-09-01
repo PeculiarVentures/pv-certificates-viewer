@@ -14,6 +14,8 @@ export default {
     .test(value),
   isX509Pem: (value: string) => /-----BEGIN CERTIFICATE-----([A-Za-z0-9+\/=\s]+)-----END CERTIFICATE-----/
     .test(value),
+  isCsrPem: (value: string) => /-----BEGIN CERTIFICATE REQUEST-----([A-Za-z0-9+\/=\s]+)-----END CERTIFICATE REQUEST-----/
+    .test(value),
   isX509AttributePem: (value: string) => /-----BEGIN ATTRIBUTE CERTIFICATE-----([A-Za-z0-9+\/=\s]+)-----END ATTRIBUTE CERTIFICATE-----/
     .test(value),
   isBase64: (value: string) => {
