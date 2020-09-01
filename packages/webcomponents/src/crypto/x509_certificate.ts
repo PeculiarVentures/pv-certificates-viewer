@@ -21,7 +21,7 @@ import {
   certificateRawToBuffer,
   hexFormat,
   base64Format,
-  getX509Thumbprint,
+  getCertificateThumbprint,
 } from './utils';
 
 export interface ISignature {
@@ -139,7 +139,7 @@ export class X509Certificate extends AsnData<Certificate> {
     algorithm: globalThis.AlgorithmIdentifier = 'SHA-1',
   ): Promise<void> {
     try {
-      const thumbprint = await getX509Thumbprint(algorithm, this.raw);
+      const thumbprint = await getCertificateThumbprint(algorithm, this.raw);
 
       this.thumbprints[algorithm['name'] || algorithm] = Convert.ToHex(thumbprint);
     } catch (error) {

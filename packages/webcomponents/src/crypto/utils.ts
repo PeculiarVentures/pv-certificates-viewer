@@ -37,8 +37,8 @@ export const certificateRawToBuffer = (raw: string): ArrayBuffer => {
   return buffer;
 };
 
-export const getX509Thumbprint = async (
-  algorithm: AlgorithmIdentifier,
+export const getCertificateThumbprint = async (
+  algorithm: globalThis.AlgorithmIdentifier,
   data: ArrayBuffer,
 ): Promise<ArrayBuffer> => {
   const crypto = cryptoProvider.get();
