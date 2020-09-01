@@ -11,7 +11,6 @@ import type { GeneralName } from '@peculiar/asn1-x509';
 import { AttributeCertificate, Holder } from '@peculiar/asn1-x509-attr';
 import { Convert } from 'pvtsutils';
 
-import { cryptoProvider } from './provider';
 import { dateDiff } from '../utils';
 
 import { AsnData } from './asn_data';
@@ -21,6 +20,7 @@ import {
   certificateRawToBuffer,
   hexFormat,
   base64Format,
+  getX509Thumbprint,
 } from './utils';
 
 interface ISignature {
@@ -108,8 +108,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     algorithm: globalThis.AlgorithmIdentifier = 'SHA-1',
   ): Promise<void> {
     try {
-      const crypto = cryptoProvider.get();
-      const thumbprint = await crypto.subtle.digest(algorithm, this.raw);
+      const thumbprint = await getX509Thumbprint(algorithm, this.raw);
 
       this.thumbprints[algorithm['name'] || algorithm] = Convert.ToHex(thumbprint);
     } catch (error) {

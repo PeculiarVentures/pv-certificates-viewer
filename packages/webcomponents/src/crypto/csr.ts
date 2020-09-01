@@ -12,7 +12,6 @@ import { id_rsaEncryption, RSAPublicKey } from '@peculiar/asn1-rsa';
 import { CertificationRequest } from '@peculiar/asn1-csr';
 import { Convert } from 'pvtsutils';
 
-import { cryptoProvider } from './provider';
 import { AsnData } from './asn_data';
 import { Name, INameJSON } from './name';
 import { Attribute, TAttributeValue } from './attribute';
@@ -20,6 +19,7 @@ import {
   certificateRawToBuffer,
   hexFormat,
   base64Format,
+  getX509Thumbprint,
 } from './utils';
 
 interface ISignature {
@@ -101,8 +101,7 @@ export class CSR extends AsnData<CertificationRequest> {
     algorithm: globalThis.AlgorithmIdentifier = 'SHA-1',
   ): Promise<void> {
     try {
-      const crypto = cryptoProvider.get();
-      const thumbprint = await crypto.subtle.digest(algorithm, this.raw);
+      const thumbprint = await getX509Thumbprint(algorithm, this.raw);
 
       this.thumbprints[algorithm['name'] || algorithm] = Convert.ToHex(thumbprint);
     } catch (error) {

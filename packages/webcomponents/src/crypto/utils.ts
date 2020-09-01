@@ -1,6 +1,8 @@
 import { Convert } from 'pvtsutils';
 import { validator } from '../utils';
 
+import { cryptoProvider } from './provider';
+
 export const base64Clarify = (base64: string): string => (
   base64
     .replace(/.*base64,/, '')
@@ -33,4 +35,13 @@ export const certificateRawToBuffer = (raw: string): ArrayBuffer => {
   }
 
   return buffer;
+};
+
+export const getX509Thumbprint = async (
+  algorithm: AlgorithmIdentifier,
+  data: ArrayBuffer,
+): Promise<ArrayBuffer> => {
+  const crypto = cryptoProvider.get();
+
+  return crypto.subtle.digest(algorithm, data);
 };
