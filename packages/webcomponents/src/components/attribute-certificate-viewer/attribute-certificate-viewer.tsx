@@ -25,7 +25,7 @@ export type AttributeCertificateProp = string | X509AttributeCertificate;
 @Component({
   tag: 'peculiar-attribute-certificate-viewer',
   styleUrl: '../certificate-viewer/certificate-viewer.scss',
-  scoped: true,
+  shadow: true,
 })
 export class AttributeCertificateViewer {
   certificateDecoded: X509AttributeCertificate;

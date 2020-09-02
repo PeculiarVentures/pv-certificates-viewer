@@ -1,3 +1,5 @@
+@import 'component';
+
 :host {
   display: inline-block;
   vertical-align: top;
@@ -7,17 +9,11 @@
 }
 
 .button_split {
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  border-right-width: 0;
-  width: auto;
-
   &_icon {
     width: 7px;
     height: 5px;
     display: inline-block;
     vertical-align: middle;
-    fill: rgb(var(--peculiar-color-primary-rgb));
   }
 
   &_with_icon {
@@ -47,7 +43,21 @@
     left: 0;
     width: 100%;
     border-radius: 2px;
-    box-shadow: 0px -2px 1px rgb(var(--peculiar-color-light-rgb)), 0px 0px 10px rgba(var(--peculiar-color-dark-rgb), 0.0241168);
+    box-shadow: 0px -2px 1px rgb(var(--pv-color-light-rgb)), 0px 0px 10px rgba(var(--pv-color-dark-rgb), 0.0241168);
     z-index: 1;
+  }
+
+  > peculiar-button:first-child::part(base) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  > peculiar-button:last-child::part(base) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  > peculiar-button:not(:first-child) {
+    margin-left: -1px;
   }
 }

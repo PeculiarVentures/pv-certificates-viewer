@@ -1,27 +1,46 @@
+@import 'component';
+
 :host {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  touch-action: manipulation;
+  -webkit-user-drag: none;
+  -ms-content-zooming: none;
+  word-wrap: break-word;
+  text-size-adjust: none;
+
   display: block;
   width: 100%;
   font-size: 0;
 }
 
-.input_paste {
+.textarea {
   min-height: 300px;
   width: 100%;
   border-radius: 3px;
   border-width: 1px;
   border-style: solid;
   padding: 14px;
-  font-size: 14px;
   font-family: monospace;
   resize: vertical;
+  background-color: rgb(var(--pv-color-light-rgb));
+  border-color: rgb(var(--pv-color-grey_3-rgb));
+  color: rgb(var(--pv-color-dark-rgb));
+  letter-spacing: var(--pv-letter-spacing-normal);
+  font-size: var(--pv-font-size-h7);
 }
 
 .controls {
   margin-top: 10px;
 }
 
-.button:not(:first-child) {
-  margin-left: 10px;
+.button {
+  position: relative;
+
+  &:not(:first-child) {
+    margin-left: 10px;
+  }
 }
 
 .viewer {

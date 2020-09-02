@@ -1,3 +1,5 @@
+@import 'component';
+
 :host {
   display: block;
   width: 100%;
@@ -5,7 +7,7 @@
   min-width: 280px;
   overflow: auto;
   position: relative;
-  background: rgb(var(--peculiar-color-light-rgb));
+  background: rgb(var(--pv-color-light-rgb));
 }
 
 table {
@@ -15,7 +17,7 @@ table {
 }
 
 table thead {
-  background-color: rgba(var(--peculiar-color-primary-rgb), 0.07);
+  background-color: rgba(var(--pv-color-primary-rgb), 0.07);
 }
 
 table tr td {
@@ -26,16 +28,22 @@ table tbody tr:not(.expanded_summary) {
   cursor: pointer;
 }
 
+table tr {
+  border-color: rgb(var(--pv-color-grey_3-rgb));
+}
+
 table th {
   padding: 15px 10px;
   border-width: 1px;
   border-style: solid;
+  border-color: rgb(var(--pv-color-grey_3-rgb));
 }
 
 table td {
   padding: 8px 10px;
   border-width: 1px;
   border-style: solid;
+  border-color: rgb(var(--pv-color-grey_3-rgb));
 }
 
 /* For col 4 */
@@ -74,11 +82,11 @@ table tr.expanded td {
 
 .expanded {
   border-bottom-color: transparent;
-  background-color: rgba(var(--peculiar-color-primary-rgb), 0.04);
+  background-color: rgba(var(--pv-color-primary-rgb), 0.04);
 }
 
 table tr.expanded_summary {
-  background-color: rgba(var(--peculiar-color-primary-rgb), 0.04);
+  background-color: rgba(var(--pv-color-primary-rgb), 0.04);
 }
 
 /* Second row */
@@ -106,7 +114,7 @@ table tr.expanded_summary td {
   overflow: auto;
   padding: 10px;
   text-align: center;
-  background: rgba(var(--peculiar-color-dark-rgb), 0.9);
+  background: rgba(var(--pv-color-dark-rgb), 0.9);
   animation: fadeIn 300ms;
 }
 
@@ -127,10 +135,12 @@ table tr.expanded_summary td {
   text-align: left;
   border-radius: 3px;
   overflow: hidden;
+  background-color: rgb(var(--pv-color-light-rgb));
 }
 
 .modal_title {
-  background-color: rgba(var(--peculiar-color-primary-rgb), 0.07);
+  background-color: rgba(var(--pv-color-primary-rgb), 0.07);
+  border-color: rgb(var(--pv-color-grey_3-rgb));
   border-bottom-width: 1px;
   border-bottom-style: solid;
   padding: 17px 60px 17px 20px;
@@ -157,7 +167,7 @@ table tr.expanded_summary td {
   }
 
   svg {
-    fill: rgb(var(--peculiar-color-dark-rgb));
+    fill: rgb(var(--pv-color-dark-rgb));
   }
 }
 
@@ -179,11 +189,12 @@ table tr.expanded_summary td {
 
 /* Search */
 .search_section {
-  background-color: rgba(var(--peculiar-color-primary-rgb), 0.07);
+  background-color: rgba(var(--pv-color-primary-rgb), 0.07);
   height: 50px;
   padding: 10px;
   border-width: 1px 1px 0 1px;
   border-style: solid;
+  border-color: rgb(var(--pv-color-grey_3-rgb));
 }
 
 .input_search {
@@ -195,9 +206,11 @@ table tr.expanded_summary td {
   padding: 0 14px;
   font-size: 12px;
   outline: none;
+  border-color: rgb(var(--pv-color-grey_3-rgb));
+  color: rgb(var(--pv-color-dark-rgb));
 
   &::placeholder {
-    color: rgb(var(--peculiar-color-grey_3-rgb));
+    color: rgb(var(--pv-color-grey_3-rgb));
   }
 }
 
@@ -207,7 +220,7 @@ table tr.expanded_summary td {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(var(--peculiar-color-dark-rgb), 0.3);
+  background: rgba(var(--pv-color-dark-rgb), 0.3);
   display: flex;
   align-items: center;
 }
@@ -218,7 +231,7 @@ table tr.expanded_summary td {
 
 @media (hover: hover) {
   table tbody tr:not(.expanded_summary):hover {
-    background-color: rgba(var(--peculiar-color-primary-rgb), 0.04);
+    background-color: rgba(var(--pv-color-primary-rgb), 0.04);
   }
 }
 
@@ -249,7 +262,7 @@ table tr.expanded_summary td {
     padding-left: 0;
     padding-right: 0;
     border-width: 1px 0 0 0 ! important;
-    border-color: rgba(var(--peculiar-color-grey_3-rgb), 0.5) ! important;
+    border-color: rgba(var(--pv-color-grey_3-rgb), 0.5) ! important;
   }
 
   table tr.expanded_summary td {

@@ -38,7 +38,7 @@ interface ICertificateDecoded {
 @Component({
   tag: 'peculiar-certificates-viewer',
   styleUrl: 'certificates-viewer.scss',
-  scoped: true,
+  shadow: true,
 })
 export class CertificatesViewer {
   /**
@@ -198,8 +198,8 @@ export class CertificatesViewer {
     }
 
     return (
-      <tr class="expanded_summary peculiar_stroke_grey_3">
-        <td colSpan={colSpan} class="peculiar_stroke_grey_3">
+      <tr class="expanded_summary">
+        <td colSpan={colSpan}>
           <peculiar-certificate-summary
             certificate={certificate}
             showIssuer={!certificate.isRoot}
@@ -286,14 +286,13 @@ export class CertificatesViewer {
       content.push([
         <tr
           class={{
-            peculiar_stroke_grey_3: true,
             expanded: isExpandedRow,
           }}
           onClick={this.onClickRow.bind(this, certificate.body.serialNumber)}
           key={certificate.body.serialNumber}
         >
           {!this.isHasRoots && (
-            <td class="peculiar_stroke_grey_3">
+            <td>
               <peculiar-typography
                 class="mobile_title"
                 color="grey_5"
@@ -307,7 +306,7 @@ export class CertificatesViewer {
               </peculiar-typography>
             </td>
           )}
-          <td class="peculiar_stroke_grey_3">
+          <td>
             <peculiar-typography
               class="mobile_title"
               color="grey_5"
@@ -320,7 +319,7 @@ export class CertificatesViewer {
               </peculiar-highlight-words>
             </peculiar-typography>
           </td>
-          <td class="peculiar_stroke_grey_3">
+          <td>
             <peculiar-typography
               class="mobile_title"
               color="grey_5"
@@ -333,7 +332,7 @@ export class CertificatesViewer {
               </peculiar-highlight-words>
             </peculiar-typography>
           </td>
-          <td class="peculiar_stroke_grey_3">
+          <td>
             <peculiar-typography
               class="mobile_title"
               color="grey_5"
@@ -346,7 +345,7 @@ export class CertificatesViewer {
               </peculiar-highlight-words>
             </peculiar-typography>
           </td>
-          <td class="align_center peculiar_stroke_grey_3">
+          <td class="align_center">
             <peculiar-typography
               class="mobile_title"
               color="grey_5"
@@ -373,7 +372,7 @@ export class CertificatesViewer {
             </span>
           </td>
           {this.isHasTests && (
-            <td class="align_center peculiar_stroke_grey_3">
+            <td class="align_center">
               <peculiar-typography
                 class="mobile_title"
                 color="grey_5"
@@ -400,8 +399,8 @@ export class CertificatesViewer {
 
     return (
       <div class="modal_wrapper">
-        <div class="modal_content peculiar_fill_light">
-          <div class="modal_title peculiar_stroke_grey_3">
+        <div class="modal_content">
+          <div class="modal_title">
             <peculiar-typography
               type="h4"
             >
@@ -440,12 +439,12 @@ export class CertificatesViewer {
     }
 
     return (
-      <div class="search_section peculiar_stroke_grey_3">
+      <div class="search_section">
         <input
           onInput={this.onSearchChange}
           type="search"
           value=""
-          class="input_search peculiar_fill_light peculiar_stroke_grey_3 peculiar_color_dark"
+          class="input_search"
           disabled={!this.certificatesDecoded.length}
           placeholder="Search"
         />
@@ -456,9 +455,9 @@ export class CertificatesViewer {
   // eslint-disable-next-line class-methods-use-this
   renderEmptyState() {
     return (
-      <tr class="peculiar_stroke_grey_3">
+      <tr>
         <td
-          class="peculiar_stroke_grey_3 status_wrapper"
+          class="status_wrapper"
           colSpan={5}
         >
           <peculiar-typography
@@ -474,9 +473,9 @@ export class CertificatesViewer {
 
   renderEmptySearchState() {
     return (
-      <tr class="peculiar_stroke_grey_3">
+      <tr>
         <td
-          class="peculiar_stroke_grey_3 status_wrapper"
+          class="status_wrapper"
           colSpan={5}
         >
           <peculiar-typography
@@ -528,14 +527,13 @@ export class CertificatesViewer {
         {this.renderSearch()}
         <table
           class={{
-            peculiar_color_dark: true,
             m_extra: this.isHasTests || !this.isHasRoots,
           }}
         >
           <thead>
-            <tr class="peculiar_stroke_grey_3">
+            <tr>
               {!this.isHasRoots && (
-                <th class="peculiar_stroke_grey_3 col_issuer">
+                <th class="col_issuer">
                   <peculiar-typography
                     type="h7"
                     align="left"
@@ -544,7 +542,7 @@ export class CertificatesViewer {
                   </peculiar-typography>
                 </th>
               )}
-              <th class="peculiar_stroke_grey_3 col_name">
+              <th class="col_name">
                 <peculiar-typography
                   type="h7"
                   align="left"
@@ -552,7 +550,7 @@ export class CertificatesViewer {
                   Name
                 </peculiar-typography>
               </th>
-              <th class="peculiar_stroke_grey_3 col_public_key">
+              <th class="col_public_key">
                 <peculiar-typography
                   type="h7"
                   align="left"
@@ -560,7 +558,7 @@ export class CertificatesViewer {
                   Public Key
                 </peculiar-typography>
               </th>
-              <th class="peculiar_stroke_grey_3 col_fingerprint">
+              <th class="col_fingerprint">
                 <peculiar-typography
                   type="h7"
                   align="left"
@@ -568,7 +566,7 @@ export class CertificatesViewer {
                   Fingerprint (SHA-1)
                 </peculiar-typography>
               </th>
-              <th class="peculiar_stroke_grey_3 col_actions">
+              <th class="col_actions">
                 <peculiar-typography
                   type="h7"
                   align="center"
@@ -577,7 +575,7 @@ export class CertificatesViewer {
                 </peculiar-typography>
               </th>
               {this.isHasTests && (
-                <th class="peculiar_stroke_grey_3 col_tests">
+                <th class="col_tests">
                   <peculiar-typography
                     type="h7"
                     align="center"

@@ -28,7 +28,7 @@ export type CertificateProp = string | X509Certificate;
 @Component({
   tag: 'peculiar-certificate-viewer',
   styleUrl: 'certificate-viewer.scss',
-  scoped: true,
+  shadow: true,
 })
 export class CertificateViewer {
   certificateDecoded: X509Certificate;

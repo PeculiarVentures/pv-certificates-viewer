@@ -7,10 +7,7 @@
  */
 
 import {
-  Component,
-  Host,
-  h,
-  Prop,
+  Component, h, Prop,
 } from '@stencil/core';
 
 import { ColorType } from '../../interface';
@@ -24,7 +21,7 @@ export class PeculiarTypography {
   /**
    * Typography type.
    */
-  @Prop() type: 'h4' | 'h6' | 'h7' | 'b1' | 'b3' = 'b3';
+  @Prop({ reflect: true }) type: 'h4' | 'h6' | 'h7' | 'b1' | 'b3' = 'b3';
 
   /**
    * Component color from theme.
@@ -47,23 +44,20 @@ export class PeculiarTypography {
     const TagType = this.type && this.type.includes('h') ? this.type : 'p';
 
     return (
-      <Host
+      <TagType
         class={{
-          [`peculiar_${this.type || 'b3'}`]: true,
-          [`peculiar_color_${this.color || 'dark'}`]: true,
-          [`align_${this.align}`]: !!this.align,
+          typography: true,
+
+          [`typography_type_${this.type || 'b3'}`]: true,
+          [`typography_color_${this.color || 'dark'}`]: true,
+          [`typography_align_${this.align}`]: !!this.align,
+
+          typography_ellipsis: this.ellipsis,
+          typography_monospace: this.monospace,
         }}
       >
-        <TagType
-          class={{
-            typography_native: true,
-            ellipsis: this.ellipsis,
-            monospace: this.monospace,
-          }}
-        >
-          <slot />
-        </TagType>
-      </Host>
+        <slot />
+      </TagType>
     );
   }
 }
