@@ -5,13 +5,15 @@ import autoprefixer from 'autoprefixer';
 
 export const config: Config = {
   namespace: 'peculiar',
-  globalStyle: 'src/global/bundle.scss',
+  globalStyle: 'src/styles/peculiar.scss',
   devServer: {
     openBrowser: false,
     port: 3000,
   },
   plugins: [
-    sass(),
+    sass({
+      includePaths: ['./src/styles'],
+    }),
     postcss({
       plugins: [autoprefixer()],
     }),
