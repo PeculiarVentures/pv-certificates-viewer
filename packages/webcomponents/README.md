@@ -67,16 +67,16 @@ All properties you can find on the [page](https://github.com/PeculiarVentures/pv
 
 ## Theming
 
-This component use CSS variables to work with themes. You can customize colors declaring it in your main CSS file:
+This component use [CSS variables](https://github.com/PeculiarVentures/pv-certificates-viewer/tree/master/packages/webcomponents/src/styles/peculiar.scss) to work with themes. You can customize colors declaring it in your main CSS file:
 
 ```css
 body {
-  --peculiar-color-dark-rgb: 42, 49, 52;
-  --peculiar-color-light-rgb: 255, 255, 255;
-  --peculiar-color-grey_3-rgb: 209, 213, 217;
-  --peculiar-color-grey_5-rgb: 134, 145, 150;
-  --peculiar-color-attention-rgb: 247, 168, 49;
-  --peculiar-color-primary-rgb: 53, 132, 247;
+  --pv-color-dark-rgb: 42, 49, 52;
+  --pv-color-light-rgb: 255, 255, 255;
+  --pv-color-grey_3-rgb: 209, 213, 217;
+  --pv-color-grey_5-rgb: 134, 145, 150;
+  --pv-color-attention-rgb: 247, 168, 49;
+  --pv-color-primary-rgb: 53, 132, 247;
 }
 ```
 
