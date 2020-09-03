@@ -1,7 +1,7 @@
 body {
   color: #0d091a;
   margin: 0;
-  font-family: var(--peculiar-font-family);
+  font-family: var(--pv-font-family);
 }
 
 a {
