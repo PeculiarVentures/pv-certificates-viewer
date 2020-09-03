@@ -16,7 +16,7 @@ import { dateShort } from '../../utils';
 @Component({
   tag: 'peculiar-certificate-summary',
   styleUrl: 'certificate-summary.scss',
-  scoped: true,
+  shadow: true,
 })
 
 export class CertificateSummary {
@@ -25,7 +25,7 @@ export class CertificateSummary {
   @Prop() showIssuer?: boolean = true;
 
   // eslint-disable-next-line class-methods-use-this
-  renderRow(name: string, value: string | number) {
+  renderRow(name: string, value: string | number, monospace?: boolean) {
     return (
       <tr>
         <td>
@@ -39,6 +39,7 @@ export class CertificateSummary {
         <td>
           <peculiar-typography
             class="meta_value"
+            monospace={monospace}
           >
             {value}
           </peculiar-typography>
@@ -55,7 +56,7 @@ export class CertificateSummary {
             {this.renderRow('Subject Name', this.certificate.subjectToString())}
             {this.showIssuer && this.renderRow('Issuer Name', this.certificate.issuerToString())}
 
-            {this.renderRow('Serial Number', this.certificate.serialNumber)}
+            {this.renderRow('Serial Number', this.certificate.serialNumber, true)}
             {this.renderRow('Version', this.certificate.version)}
             {this.renderRow('Validity', this.certificate.validity)}
             {this.renderRow('Issued', dateShort(this.certificate.notBefore))}

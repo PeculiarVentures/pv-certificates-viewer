@@ -1,7 +1,9 @@
+@import 'component';
+
 :host {
-  display: inline-block;
+  display: inline;
 }
 
 ::slotted(mark) {
-  background-color: rgba(var(--peculiar-color-attention-rgb), 0.4);
+  background-color: rgba(var(--pv-color-attention-rgb), 0.4);
 }

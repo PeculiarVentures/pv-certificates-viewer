@@ -44,10 +44,20 @@ export namespace Components {
         "subjectKeyIdSiblingsLink"?: string;
     }
     interface PeculiarButton {
+        /**
+          * Set to true to disable the button.
+         */
         "disabled"?: boolean;
         "fill"?: 'stroke' | 'fill';
+        /**
+          * When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`.
+         */
         "href"?: string;
-        "target"?: string;
+        "onClick"?: (event: MouseEvent) => void;
+        /**
+          * Tells the browser where to open the link. Only used when `href` is set.
+         */
+        "target": '_blank' | '_parent' | '_self' | '_top';
     }
     interface PeculiarButtonSplit {
         "actions": IAction[];
@@ -310,10 +320,20 @@ declare namespace LocalJSX {
         "subjectKeyIdSiblingsLink"?: string;
     }
     interface PeculiarButton {
+        /**
+          * Set to true to disable the button.
+         */
         "disabled"?: boolean;
         "fill"?: 'stroke' | 'fill';
+        /**
+          * When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`.
+         */
         "href"?: string;
-        "target"?: string;
+        "onClick"?: (event: MouseEvent) => void;
+        /**
+          * Tells the browser where to open the link. Only used when `href` is set.
+         */
+        "target"?: '_blank' | '_parent' | '_self' | '_top';
     }
     interface PeculiarButtonSplit {
         "actions"?: IAction[];

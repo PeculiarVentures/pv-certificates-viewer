@@ -16,7 +16,7 @@ import { X509Certificate, X509AttributeCertificate, CSR } from '../../crypto';
 @Component({
   tag: 'peculiar-certificate-decoder',
   styleUrl: 'certificate-decoder.scss',
-  scoped: true,
+  shadow: true,
 })
 export class CertificateDecoder {
   private inputPaste?: HTMLTextAreaElement;
@@ -173,7 +173,7 @@ export class CertificateDecoder {
       <Host>
         <textarea
           placeholder="Certificate DER or PEM"
-          class="input_paste peculiar_fill_light peculiar_stroke_grey_3 peculiar_color_dark"
+          class="textarea"
           ref={(el) => { this.inputPaste = el; }}
           onDrop={this.onDropFile}
         />

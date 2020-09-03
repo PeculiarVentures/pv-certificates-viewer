@@ -7,7 +7,7 @@
  */
 
 import {
-  Component, h, Prop, Host,
+  Component, h, Prop,
 } from '@stencil/core';
 
 @Component({
@@ -18,44 +18,63 @@ import {
 export class Button {
   @Prop() fill?: 'stroke' | 'fill' = 'stroke';
 
-  @Prop() disabled?: boolean;
+  /**
+   * Set to true to disable the button.
+   * */
+  @Prop({ reflect: true }) disabled?: boolean;
 
+  /**
+   * When set, the underlying button will be rendered as an `<a>` with
+   * this `href` instead of a `<button>`.
+   * */
   @Prop() href?: string;
 
-  @Prop() target?: string;
+  /**
+   * Tells the browser where to open the link. Only used when `href` is set.
+   * */
+  @Prop() target: '_blank' | '_parent' | '_self' | '_top';
+
+  @Prop() onClick?: (event: MouseEvent) => void;
+
+  handleClick = (event: MouseEvent) => {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      return;
+    }
+
+    if (this.onClick) {
+      this.onClick(event);
+    }
+  };
 
   render() {
-    const TagType = this.href === undefined ? 'button' : 'a';
-    const attrs = (TagType === 'button')
-      ? { type: 'button' }
-      : {
-        href: this.href,
-        target: this.target,
-        rel: 'noreferrer noopener',
-      };
+    const isLink = !!this.href;
+    const TagType = isLink ? 'a' : 'button';
 
     return (
-      <Host
+      <TagType
         class={{
-          peculiar_b3: true,
-          peculiar_button: true,
-          peculiar_button_stroke: this.fill === 'stroke',
-          peculiar_color_primary: this.fill === 'stroke',
-          peculiar_color_light: this.fill === 'fill',
-          peculiar_fill_primary: this.fill === 'fill',
-          peculiar_button_disabled: this.disabled,
+          button: true,
+
+          button_stroke: this.fill === 'stroke',
+          button_fill: this.fill === 'fill',
+
+          button_disabled: this.disabled,
         }}
+        disabled={this.disabled}
+        type={!isLink && 'button'}
+        href={isLink && this.href}
+        target={isLink && this.target ? this.target : null}
+        rel={isLink && 'noreferrer noopener'}
+        onClick={this.handleClick}
+        part="base"
       >
-        <TagType
-          {...attrs}
-          disabled={this.disabled}
-          class="peculiar_button_native"
-        >
-          <span class="peculiar_button_inner">
-            <slot />
-          </span>
-        </TagType>
-      </Host>
+        <span part="label" class="button_label">
+          <slot />
+        </span>
+      </TagType>
     );
   }
 }

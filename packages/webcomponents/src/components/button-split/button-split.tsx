@@ -7,7 +7,7 @@
  */
 
 import {
-  Component, Host, h, Prop, State,
+  Component, h, Prop, State,
 } from '@stencil/core';
 
 export interface IAction {
@@ -18,7 +18,7 @@ export interface IAction {
 @Component({
   tag: 'peculiar-button-split',
   styleUrl: 'button-split.scss',
-  scoped: true,
+  shadow: true,
 })
 export class ButtonSplit {
   @Prop() onClick: (event: MouseEvent) => void;
@@ -47,7 +47,7 @@ export class ButtonSplit {
     }
 
     return (
-      <div class="button_split_container peculiar_fill_light">
+      <div class="button_split_container">
         {this.actions.map((action) => (
           <peculiar-button
             fill="fill"
@@ -63,11 +63,14 @@ export class ButtonSplit {
 
   render() {
     return (
-      <Host>
+      <div
+        class={{
+          button_split: true,
+        }}
+      >
         <peculiar-button
           fill={this.fill}
           onClick={this.onClick}
-          class="button_split"
         >
           <slot />
         </peculiar-button>
@@ -85,6 +88,7 @@ export class ButtonSplit {
             class="button_split_icon"
           >
             <path
+              fill="currentColor"
               fill-rule="evenodd"
               clip-rule="evenodd"
               d="M5.459.124c.934.001 1.442.994.84 1.644L4.425 3.794c-.44.475-1.244.475-1.684 0L.862 1.764C.26 1.115.77.12 1.705.122l3.754.003z"
@@ -92,7 +96,7 @@ export class ButtonSplit {
           </svg>
         </peculiar-button>
         {this.renderActiveSplitState()}
-      </Host>
+      </div>
     );
   }
 }

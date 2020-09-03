@@ -24,7 +24,7 @@ export type CsrProp = string | CSR;
 @Component({
   tag: 'peculiar-csr-viewer',
   styleUrl: '../certificate-viewer/certificate-viewer.scss',
-  scoped: true,
+  shadow: true,
 })
 export class CsrViewer {
   certificateDecoded: CSR;

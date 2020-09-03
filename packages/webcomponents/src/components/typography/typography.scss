@@ -1,35 +1,93 @@
+@import 'component';
+
 :host {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  touch-action: manipulation;
+  -webkit-user-drag: none;
+  -ms-content-zooming: none;
+  word-wrap: break-word;
+  text-size-adjust: none;
+
   display: block;
 }
 
-.typography_native {
+.typography {
+  font-family: var(--pv-font-family);
+  letter-spacing: var(--pv-letter-spacing-normal);
+  line-height: var(--pv-line-height-normal);
+  font-weight: var(--pv-font-weight-normal);
   margin: 0;
   padding: 0;
-  font-family: var(--peculiar-font-family);
-  font-size: inherit;
-  line-height: inherit;
-  letter-spacing: inherit;
-  word-break: break-word;
-}
+  display: block;
 
-:host(.align_left) {
-  text-align: left;
-}
+  &_type_h4 {
+    font-size: var(--pv-font-size-h4);
+    font-weight: var(--pv-font-weight-bold);
+  }
 
-:host(.align_center) {
-  text-align: center;
-}
+  &_type_h6 {
+    font-size: var(--pv-font-size-h6);
+    font-weight: var(--pv-font-weight-bold);
+  }
 
-:host(.align_right) {
-  text-align: right;
-}
+  &_type_h7 {
+    font-size: var(--pv-font-size-h7);
+    font-weight: var(--pv-font-weight-bold);
+  }
 
-.ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+  &_type_b1 {
+    font-size: var(--pv-font-size-b1);
+  }
 
-.monospace {
-  font-family: monospace;
+  &_type_b3 {
+    font-size: var(--pv-font-size-b3);
+  }
+
+  &_color_dark {
+    color: rgb(var(--pv-color-dark-rgb));
+  }
+
+  &_color_light {
+    color: rgb(var(--pv-color-light-rgb));
+  }
+
+  &_color_grey_3 {
+    color: rgb(var(--pv-color-grey_3-rgb));
+  }
+
+  &_color_grey_5 {
+    color: rgb(var(--pv-color-grey_5-rgb));
+  }
+
+  &_color_attention {
+    color: rgb(var(--pv-color-attention-rgb));
+  }
+
+  &_color_primary {
+    color: rgb(var(--pv-color-primary-rgb));
+  }
+
+  &_ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &_monospace {
+    font-family: monospace;
+  }
+
+  &_align_left {
+    text-align: left;
+  }
+
+  &_align_center {
+    text-align: center;
+  }
+
+  &_align_right {
+    text-align: right;
+  }
 }

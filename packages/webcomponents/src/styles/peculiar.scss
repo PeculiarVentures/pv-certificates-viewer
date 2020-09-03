@@ -1,0 +1,49 @@
+@import 'functions.color';
+
+$dark: #2A3134 !default;
+$light: #ffffff !default;
+$grey_3: #D1D5D9 !default;
+$grey_5: #869196 !default;
+$attention: #F7A831 !default;
+$primary: #3584F7 !default;
+
+body {
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Color
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  --pv-color-dark-rgb: #{color-to-rgb-list($dark)};
+  --pv-color-light-rgb: #{color-to-rgb-list($light)};
+  --pv-color-grey_3-rgb: #{color-to-rgb-list($grey_3)};
+  --pv-color-grey_5-rgb: #{color-to-rgb-list($grey_5)};
+  --pv-color-attention-rgb: #{color-to-rgb-list($attention)};
+  --pv-color-primary-rgb: #{color-to-rgb-list($primary)};
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Typography
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // Font
+  --pv-font-family: 'Open Sans', 'Arial', sans-serif;
+
+  // Letter spacings
+  --pv-letter-spacing-normal: 0.03em;
+
+  // Line heights
+  --pv-line-height-normal: 1.4;
+
+  // Font sizes
+  --pv-font-size-h4: 17px;
+  --pv-font-size-h6: 15px;
+  --pv-font-size-h7: 14px;
+  --pv-font-size-b1: 15px;
+  --pv-font-size-b3: 13px;
+
+  // Font weights
+  --pv-font-weight-normal: 400;
+  --pv-font-weight-bold: 600;
+}
+
+[hidden] {
+  display: none !important;
+}

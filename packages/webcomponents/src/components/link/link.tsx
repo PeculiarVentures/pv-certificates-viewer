@@ -7,7 +7,7 @@
  */
 
 import {
-  Component, Host, h, Prop,
+  Component, h, Prop,
 } from '@stencil/core';
 
 @Component({
@@ -25,21 +25,18 @@ export class Link {
 
   render() {
     return (
-      <Host
+      <a
+        href={this.href}
+        target="_blank"
+        rel="noreferrer noopener"
         class={{
-          peculiar_color_primary: true,
-          [`peculiar_${this.type || 'b3'}`]: true,
+          link: true,
+
+          [`link_type_${this.type || 'b3'}`]: true,
         }}
       >
-        <a
-          href={this.href}
-          target="_blank"
-          rel="noreferrer noopener"
-          class="link_native"
-        >
-          <slot />
-        </a>
-      </Host>
+        <slot />
+      </a>
     );
   }
 }

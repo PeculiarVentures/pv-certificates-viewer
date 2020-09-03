@@ -1,16 +1,49 @@
+@import 'component';
+
 :host {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  touch-action: manipulation;
+  -webkit-user-drag: none;
+  -ms-content-zooming: none;
+  word-wrap: break-word;
+  text-size-adjust: none;
+
   display: inline-block;
 }
 
-.link_native {
+.link {
+  font-family: var(--pv-font-family);
+  letter-spacing: var(--pv-letter-spacing-normal);
+  line-height: var(--pv-line-height-normal);
+  font-weight: var(--pv-font-weight-normal);
+  color: rgb(var(--pv-color-primary-rgb));
   margin: 0;
   padding: 0;
-  font-family: var(--peculiar-font-family);
-  font-size: inherit;
-  line-height: inherit;
-  letter-spacing: inherit;
-  word-break: break-word;
-  color: inherit;
+
+  &_type_h4 {
+    font-size: var(--pv-font-size-h4);
+    font-weight: var(--pv-font-weight-bold);
+  }
+
+  &_type_h6 {
+    font-size: var(--pv-font-size-h6);
+    font-weight: var(--pv-font-weight-bold);
+  }
+
+  &_type_h7 {
+    font-size: var(--pv-font-size-h7);
+    font-weight: var(--pv-font-weight-bold);
+  }
+
+  &_type_b1 {
+    font-size: var(--pv-font-size-b1);
+  }
+
+  &_type_b3 {
+    font-size: var(--pv-font-size-b3);
+  }
 
   &:hover {
     text-decoration: none;
