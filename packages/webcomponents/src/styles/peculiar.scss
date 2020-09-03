@@ -1,6 +1,6 @@
 @import 'functions';
 
-body {
+:root {
   @each $name, $value in $colors {
     #{getColorVariableName($name)}: #{color-to-rgb-list($value)};
   }
