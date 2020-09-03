@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.8.0...@peculiar/certificates-viewer@1.9.0) (2020-09-03)
+
+
+### Bug Fixes
+
+* **webcomponents:** fix button split  overlay styles ([6522f20](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/6522f20fecde0d603913ce52c021cf7e98e9078a))
+
+
+### Features
+
+* **styles:** add mixins for get variables ([e1bdfeb](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/e1bdfeb4a3d1b5ed98a529e1914abb6a198ed7db))
+* **webcomponents:** update theme using section in readme ([b0e53b2](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/b0e53b266c65cb4d9f24b4a1f55114401a55c0d8))
+
+
+
+
+
 # [1.8.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.7.1...@peculiar/certificates-viewer@1.8.0) (2020-09-01)
 
 
