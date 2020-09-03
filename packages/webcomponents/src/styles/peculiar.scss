@@ -13,7 +13,3 @@ body {
   #{getVariableName(letter-spacing-normal)}: $font-letter-spacing-normal;
   #{getVariableName(line-height-normal)}: $font-line-height-normal;
 }
-
-[hidden] {
-  display: none !important;
-}
