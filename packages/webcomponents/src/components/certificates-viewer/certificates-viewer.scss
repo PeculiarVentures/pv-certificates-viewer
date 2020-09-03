@@ -7,7 +7,7 @@
   min-width: 280px;
   overflow: auto;
   position: relative;
-  background: rgb(var(--pv-color-light-rgb));
+  @include propertyColorVariable(background, light);
 }
 
 table {
@@ -17,7 +17,7 @@ table {
 }
 
 table thead {
-  background-color: rgba(var(--pv-color-primary-rgb), 0.07);
+  @include propertyColorVariable(background-color, primary, 0.07);
 }
 
 table tr td {
@@ -29,21 +29,21 @@ table tbody tr:not(.expanded_summary) {
 }
 
 table tr {
-  border-color: rgb(var(--pv-color-grey_3-rgb));
+  @include propertyColorVariable(border-color, grey_3);
 }
 
 table th {
   padding: 15px 10px;
   border-width: 1px;
   border-style: solid;
-  border-color: rgb(var(--pv-color-grey_3-rgb));
+  @include propertyColorVariable(border-color, grey_3);
 }
 
 table td {
   padding: 8px 10px;
   border-width: 1px;
   border-style: solid;
-  border-color: rgb(var(--pv-color-grey_3-rgb));
+  @include propertyColorVariable(border-color, grey_3);
 }
 
 /* For col 4 */
@@ -82,11 +82,11 @@ table tr.expanded td {
 
 .expanded {
   border-bottom-color: transparent;
-  background-color: rgba(var(--pv-color-primary-rgb), 0.04);
+  @include propertyColorVariable(background-color, primary, 0.04);
 }
 
 table tr.expanded_summary {
-  background-color: rgba(var(--pv-color-primary-rgb), 0.04);
+  @include propertyColorVariable(background-color, primary, 0.04);
 }
 
 /* Second row */
@@ -114,7 +114,7 @@ table tr.expanded_summary td {
   overflow: auto;
   padding: 10px;
   text-align: center;
-  background: rgba(var(--pv-color-dark-rgb), 0.9);
+  @include propertyColorVariable(background, dark, 0.9);
   animation: fadeIn 300ms;
 }
 
@@ -135,12 +135,12 @@ table tr.expanded_summary td {
   text-align: left;
   border-radius: 3px;
   overflow: hidden;
-  background-color: rgb(var(--pv-color-light-rgb));
+  @include propertyColorVariable(background-color, light);
 }
 
 .modal_title {
-  background-color: rgba(var(--pv-color-primary-rgb), 0.07);
-  border-color: rgb(var(--pv-color-grey_3-rgb));
+  @include propertyColorVariable(background-color, primary, 0.07);
+  @include propertyColorVariable(border-color, grey_3);
   border-bottom-width: 1px;
   border-bottom-style: solid;
   padding: 17px 60px 17px 20px;
@@ -167,7 +167,7 @@ table tr.expanded_summary td {
   }
 
   svg {
-    fill: rgb(var(--pv-color-dark-rgb));
+    @include propertyColorVariable(fill, dark);
   }
 }
 
@@ -189,12 +189,12 @@ table tr.expanded_summary td {
 
 /* Search */
 .search_section {
-  background-color: rgba(var(--pv-color-primary-rgb), 0.07);
+  @include propertyColorVariable(background-color, primary, 0.07);
+  @include propertyColorVariable(border-color, grey_3);
   height: 50px;
   padding: 10px;
   border-width: 1px 1px 0 1px;
   border-style: solid;
-  border-color: rgb(var(--pv-color-grey_3-rgb));
 }
 
 .input_search {
@@ -206,11 +206,11 @@ table tr.expanded_summary td {
   padding: 0 14px;
   font-size: 12px;
   outline: none;
-  border-color: rgb(var(--pv-color-grey_3-rgb));
-  color: rgb(var(--pv-color-dark-rgb));
+  @include propertyColorVariable(border-color, grey_3);
+  @include propertyColorVariable(color, dark);
 
   &::placeholder {
-    color: rgb(var(--pv-color-grey_3-rgb));
+    @include propertyColorVariable(color, grey_3);
   }
 }
 
@@ -220,7 +220,7 @@ table tr.expanded_summary td {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(var(--pv-color-dark-rgb), 0.3);
+  @include propertyColorVariable(background, dark, 0.3);
   display: flex;
   align-items: center;
 }
@@ -231,7 +231,7 @@ table tr.expanded_summary td {
 
 @media (hover: hover) {
   table tbody tr:not(.expanded_summary):hover {
-    background-color: rgba(var(--pv-color-primary-rgb), 0.04);
+    @include propertyColorVariable(background-color, primary, 0.04);
   }
 }
 
@@ -262,7 +262,7 @@ table tr.expanded_summary td {
     padding-left: 0;
     padding-right: 0;
     border-width: 1px 0 0 0 ! important;
-    border-color: rgba(var(--pv-color-grey_3-rgb), 0.5) ! important;
+    @include propertyColorVariable(border-color, grey_3, 0.5);
   }
 
   table tr.expanded_summary td {

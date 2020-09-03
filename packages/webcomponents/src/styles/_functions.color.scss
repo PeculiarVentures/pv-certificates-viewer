@@ -1,5 +1,0 @@
-// Converts a color to a comma separated rgb.
-// --------------------------------------------------------------------------------------------
-@function color-to-rgb-list($color) {
-  @return #{red($color)},#{green($color)},#{blue($color)};
-}

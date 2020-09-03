@@ -16,12 +16,12 @@ import {
   shadow: true,
 })
 export class Link {
-  @Prop() href: string;
+  @Prop({ reflect: true }) href: string;
 
   /**
    * Typography type.
    */
-  @Prop() type: 'h4' | 'h6' | 'h7' | 'b1' | 'b3' = 'b3';
+  @Prop({ reflect: true }) type: 'h4' | 'h6' | 'h7' | 'b1' | 'b3' = 'b3';
 
   render() {
     return (

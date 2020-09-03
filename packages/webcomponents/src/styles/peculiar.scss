@@ -1,47 +1,17 @@
-@import 'functions.color';
-
-$dark: #2A3134 !default;
-$light: #ffffff !default;
-$grey_3: #D1D5D9 !default;
-$grey_5: #869196 !default;
-$attention: #F7A831 !default;
-$primary: #3584F7 !default;
+@import 'functions';
 
 body {
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // Color
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  @each $name, $value in $colors {
+    #{getColorVariableName($name)}: #{color-to-rgb-list($value)};
+  }
 
-  --pv-color-dark-rgb: #{color-to-rgb-list($dark)};
-  --pv-color-light-rgb: #{color-to-rgb-list($light)};
-  --pv-color-grey_3-rgb: #{color-to-rgb-list($grey_3)};
-  --pv-color-grey_5-rgb: #{color-to-rgb-list($grey_5)};
-  --pv-color-attention-rgb: #{color-to-rgb-list($attention)};
-  --pv-color-primary-rgb: #{color-to-rgb-list($primary)};
+  @each $name, $value in $fontsSize {
+    #{getFontSizeVariableName($name)}: #{$value};
+  }
 
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // Typography
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  // Font
-  --pv-font-family: 'Open Sans', 'Arial', sans-serif;
-
-  // Letter spacings
-  --pv-letter-spacing-normal: 0.03em;
-
-  // Line heights
-  --pv-line-height-normal: 1.4;
-
-  // Font sizes
-  --pv-font-size-h4: 17px;
-  --pv-font-size-h6: 15px;
-  --pv-font-size-h7: 14px;
-  --pv-font-size-b1: 15px;
-  --pv-font-size-b3: 13px;
-
-  // Font weights
-  --pv-font-weight-normal: 400;
-  --pv-font-weight-bold: 600;
+  #{getVariableName(font-family)}: $font-family;
+  #{getVariableName(letter-spacing-normal)}: $font-letter-spacing-normal;
+  #{getVariableName(line-height-normal)}: $font-line-height-normal;
 }
 
 [hidden] {

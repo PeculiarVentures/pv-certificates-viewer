@@ -41,9 +41,9 @@
   animation: circular-dash 1.4s ease-in-out infinite;
   stroke-dasharray: 80,200;
   stroke-dashoffset: 0;
-  stroke: rgb(var(--pv-color-primary-rgb));
+  @include propertyColorVariable(stroke, primary);
 }
 
 .circle_progress_backdrop {
-  stroke: rgb(var(--pv-color-grey_3-rgb));
+  @include propertyColorVariable(stroke, grey_3);
 }

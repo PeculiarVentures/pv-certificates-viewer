@@ -7,7 +7,7 @@
   position: relative;
   min-width: 280px;
   min-height: 300px;
-  background: rgb(var(--pv-color-light-rgb));
+  @include propertyColorVariable(background, light);
 }
 
 th, td {
@@ -20,7 +20,7 @@ table {
 }
 
 table .title td {
-  border-color: rgba(var(--pv-color-grey_3-rgb), 0.5);
+  @include propertyColorVariable(border-color, grey_3, 0.5);
   padding-top: 60px;
   padding-bottom: 15px;
   border-bottom-width: 1px;
@@ -67,7 +67,7 @@ table .divider {
 }
 
 .divider .bg_fill {
-  background-color: rgba(var(--pv-color-grey_3-rgb), 0.5);
+  @include propertyColorVariable(background-color, grey_3, 0.5);
 }
 
 table tr:last-child .divider {

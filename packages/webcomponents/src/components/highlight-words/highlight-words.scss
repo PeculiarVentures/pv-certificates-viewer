@@ -5,5 +5,5 @@
 }
 
 ::slotted(mark) {
-  background-color: rgba(var(--pv-color-attention-rgb), 0.4);
+  @include propertyColorVariable(background-color, attention, 0.4);
 }

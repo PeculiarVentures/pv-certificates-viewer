@@ -14,35 +14,35 @@
 }
 
 .link {
-  font-family: var(--pv-font-family);
-  letter-spacing: var(--pv-letter-spacing-normal);
-  line-height: var(--pv-line-height-normal);
-  font-weight: var(--pv-font-weight-normal);
-  color: rgb(var(--pv-color-primary-rgb));
+  @include propertyFontFamilyVariable();
+  @include propertyFontSpacingVariable();
+  @include propertyFontHeightVariable();
+  @include propertyColorVariable(color, primary);
+  font-weight: 400;
   margin: 0;
   padding: 0;
 
   &_type_h4 {
-    font-size: var(--pv-font-size-h4);
-    font-weight: var(--pv-font-weight-bold);
+    @include propertyFontSizeVariable(h4);
+    font-weight: 600;
   }
 
   &_type_h6 {
-    font-size: var(--pv-font-size-h6);
-    font-weight: var(--pv-font-weight-bold);
+    @include propertyFontSizeVariable(h6);
+    font-weight: 600;
   }
 
   &_type_h7 {
-    font-size: var(--pv-font-size-h7);
-    font-weight: var(--pv-font-weight-bold);
+    @include propertyFontSizeVariable(h7);
+    font-weight: 600;
   }
 
   &_type_b1 {
-    font-size: var(--pv-font-size-b1);
+    @include propertyFontSizeVariable(b1);
   }
 
   &_type_b3 {
-    font-size: var(--pv-font-size-b3);
+    @include propertyFontSizeVariable(b3);
   }
 
   &:hover {

@@ -24,11 +24,11 @@
   padding: 14px;
   font-family: monospace;
   resize: vertical;
-  background-color: rgb(var(--pv-color-light-rgb));
-  border-color: rgb(var(--pv-color-grey_3-rgb));
-  color: rgb(var(--pv-color-dark-rgb));
-  letter-spacing: var(--pv-letter-spacing-normal);
-  font-size: var(--pv-font-size-h7);
+  @include propertyColorVariable(background-color, light);
+  @include propertyColorVariable(border-color, grey_3);
+  @include propertyColorVariable(color, dark);
+  @include propertyFontSpacingVariable();
+  @include propertyFontSizeVariable(h7);
 }
 
 .controls {

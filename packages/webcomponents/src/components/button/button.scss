@@ -4,6 +4,7 @@
   display: inline-block;
   width: auto;
   cursor: pointer;
+  position: relative;
 
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -16,21 +17,19 @@
 
   --pv-button-padding-end: 5px;
   --pv-button-padding-start: 5px;
-
-  position: relative;
 }
 
 .button {
+  @include propertyFontFamilyVariable();
+  @include propertyFontSizeVariable(b3);
+  @include propertyFontSpacingVariable();
   display: inline-flex;
   align-items: stretch;
   justify-content: center;
   width: 100%;
   border-style: solid;
   border-width: 1px;
-  font-family: var(--pv-font-family);
-  font-weight: var(--pv-font-weight-normal);
-  font-size: var(--pv-font-size-b3);
-  letter-spacing: var(--pv-letter-spacing-normal);
+  font-weight: 400;
   text-decoration: none;
   user-select: none;
   white-space: nowrap;
@@ -39,6 +38,7 @@
   height: 30px;
   line-height: 30px;
   border-radius: 2px;
+  padding: 0 5px;
   padding: 0 var(--pv-button-padding-end) 0 var(--pv-button-padding-start);
 
   &::-moz-focus-inner {
@@ -47,7 +47,7 @@
 
   &:focus {
     outline: none;
-    box-shadow: 0 4px 10px 0 rgba(var(--pv-color-dark-rgb), 0.10);
+    box-shadow: 0 4px 10px 0 rgba(var(getColorVariableName(dark)), 0.10);
   }
 
   &[disabled] {
@@ -56,15 +56,15 @@
   }
 
   &_stroke {
-    border-color: rgba(var(--pv-color-primary-rgb), 0.3);
-    color: rgb(var(--pv-color-primary-rgb));
+    @include propertyColorVariable(border-color, primary, 0.3);
+    @include propertyColorVariable(color, primary);
     background-color: transparent;
   }
 
   &_fill {
-    border-color: rgb(var(--pv-color-primary-rgb));
-    background-color: rgb(var(--pv-color-primary-rgb));
-    color: rgb(var(--pv-color-light-rgb));
+    @include propertyColorVariable(border-color, primary);
+    @include propertyColorVariable(background-color, primary);
+    @include propertyColorVariable(color, light);
   }
 
   &_label {
