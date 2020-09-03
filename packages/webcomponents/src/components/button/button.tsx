@@ -34,13 +34,17 @@ export class Button {
    * */
   @Prop() target: '_blank' | '_parent' | '_self' | '_top';
 
-  @Prop() onClick: (event: MouseEvent) => void;
+  @Prop() onClick?: (event: MouseEvent) => void;
 
   handleClick = (event: MouseEvent) => {
     if (this.disabled) {
       event.preventDefault();
       event.stopPropagation();
-    } else {
+
+      return;
+    }
+
+    if (this.onClick) {
       this.onClick(event);
     }
   };

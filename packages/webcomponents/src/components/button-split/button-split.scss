@@ -22,13 +22,15 @@
     border-top-left-radius: 0;
 
     &.m_open {
-      &:before {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        content: '';
+      &::part(base) {
+        &:before {
+          position: fixed;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          content: '';
+        }
       }
     }
   }
@@ -47,12 +49,12 @@
     z-index: 1;
   }
 
-  > peculiar-button:first-child::part(base) {
+  > peculiar-button:first-of-type::part(base) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
 
-  > peculiar-button:last-child::part(base) {
+  > peculiar-button:last-of-type::part(base) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }

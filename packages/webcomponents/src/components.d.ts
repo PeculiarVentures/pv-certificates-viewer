@@ -53,7 +53,7 @@ export namespace Components {
           * When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`.
          */
         "href"?: string;
-        "onClick": (event: MouseEvent) => void;
+        "onClick"?: (event: MouseEvent) => void;
         /**
           * Tells the browser where to open the link. Only used when `href` is set.
          */
