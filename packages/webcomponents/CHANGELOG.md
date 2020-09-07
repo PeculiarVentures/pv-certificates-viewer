@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.10.0...@peculiar/certificates-viewer@1.10.1) (2020-09-07)
+
+
+### Bug Fixes
+
+* **webcomponent:** add "border-spacing: 0" style for table ([6a3b67f](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/6a3b67fe5083c31168803a095ea0278121c6d3f5))
+
+
+
+
+
 # [1.10.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.9.1...@peculiar/certificates-viewer@1.10.0) (2020-09-07)
 
 
