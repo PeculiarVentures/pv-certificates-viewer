@@ -63,6 +63,12 @@ import {
 
   id_ce_subjectKeyIdentifier,
   SubjectKeyIdentifier,
+
+  id_ce_privateKeyUsagePeriod,
+  PrivateKeyUsagePeriod,
+
+  id_entrust_entrustVersInfo,
+  EntrustVersionInfo,
 } from '@peculiar/asn1-x509';
 import {
   id_pe_qcStatements,
@@ -134,6 +140,8 @@ export type TExtensionValue = AuthorityInfoAccessSyntax
 | KeyUsage
 | NetscapeCertType
 | CaVersion
+| PrivateKeyUsagePeriod
+| EntrustVersionInfo
 | string;
 
 export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> {
@@ -236,6 +244,12 @@ export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> 
         break;
       case id_adbe_archiveRevInfo:
         this.value = AsnParser.parse(asnExtnValue, ArchiveRevInfo) as T;
+        break;
+      case id_ce_privateKeyUsagePeriod:
+        this.value = AsnParser.parse(asnExtnValue, PrivateKeyUsagePeriod) as T;
+        break;
+      case id_entrust_entrustVersInfo:
+        this.value = AsnParser.parse(asnExtnValue, EntrustVersionInfo) as T;
         break;
       default:
         this.value = Convert.ToHex(asnExtnValue) as T;
