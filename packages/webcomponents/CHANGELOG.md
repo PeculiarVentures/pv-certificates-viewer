@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.9.1...@peculiar/certificates-viewer@1.10.0) (2020-09-07)
+
+
+### Features
+
+* **webcomponents:** add support PrivateKeyUsagePeriod and EntrustVersionInfo extension ([5b33c44](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/5b33c44c65f9da09235853e2c57122efa3ff88a8))
+
+
+
+
+
 ## [1.9.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.9.0...@peculiar/certificates-viewer@1.9.1) (2020-09-03)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer
