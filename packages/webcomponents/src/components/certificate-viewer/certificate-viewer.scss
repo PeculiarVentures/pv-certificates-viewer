@@ -17,6 +17,8 @@ th, td {
 table {
   width: 100%;
   margin-bottom: 30px;
+  border-spacing: 0;
+  border-collapse: collapse;
 }
 
 table .title td {
