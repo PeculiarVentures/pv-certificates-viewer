@@ -20,6 +20,8 @@ import {
   NameConstraints,
   CRLReason,
   SubjectDirectoryAttributes,
+  PrivateKeyUsagePeriod,
+  EntrustVersionInfo,
 } from '@peculiar/asn1-x509';
 import { CertificateTransparency } from '@peculiar/asn1-cert-transparency';
 import {
@@ -60,6 +62,8 @@ import { CRLReasonExtension } from './crl_reason_extension';
 import { SubjectDirectoryAttributesExtension } from './subject_directory_attributes_extension';
 import { AsStringExtension } from './as_string_extension';
 import { BasicExtension } from './basic_extension';
+import { PrivateKeyUsagePeriodExtension } from './private_key_usage_period_extension';
+import { EntrustVersionInfoExtension } from './entrust_version_info_extension';
 
 interface IExtensionsProps extends
   IGeneralNameOptions,
@@ -270,6 +274,22 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof SubjectDirectoryAttributes) {
           return (
             <SubjectDirectoryAttributesExtension
+              extension={extension as any}
+            />
+          );
+        }
+
+        if (extension.value instanceof PrivateKeyUsagePeriod) {
+          return (
+            <PrivateKeyUsagePeriodExtension
+              extension={extension as any}
+            />
+          );
+        }
+
+        if (extension.value instanceof EntrustVersionInfo) {
+          return (
+            <EntrustVersionInfoExtension
               extension={extension as any}
             />
           );
