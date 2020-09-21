@@ -13,6 +13,7 @@ import type { X509AttributeCertificate } from '../../crypto';
 import { RowTitle, RowValue } from '../certificate-viewer/row';
 import { getStringByOID } from '../certificate-viewer/get_string_by_oid';
 import { GeneralNamePart } from '../certificate-viewer/extensions/general_name_part';
+import { l10n } from '../../utils';
 
 interface IHolderProps {
   holder: X509AttributeCertificate['holder'];
@@ -29,7 +30,7 @@ export const Holder: FunctionalComponent<IHolderProps> = (props) => {
 
   return [
     <RowTitle
-      value="Holder"
+      value={l10n.getString('holder')}
     />,
     baseCertificateID && ([
       baseCertificateID.issuer.map((item) => (
@@ -44,7 +45,7 @@ export const Holder: FunctionalComponent<IHolderProps> = (props) => {
         <td />
       </tr>,
       <RowValue
-        name="Serial"
+        name={l10n.getString('serialNumber')}
         value={Convert.ToHex(baseCertificateID.serial)}
         monospace
       />,
@@ -55,20 +56,20 @@ export const Holder: FunctionalComponent<IHolderProps> = (props) => {
     ]),
     objectDigestInfo && ([
       <RowValue
-        name="Digest Info"
+        name={l10n.getString('digestInfo')}
         value=""
       />,
       <RowValue
-        name="Algorithm"
+        name={l10n.getString('algorithm')}
         value={getStringByOID(objectDigestInfo.digestAlgorithm.algorithm)}
       />,
       <RowValue
-        name="Value"
+        name={l10n.getString('value')}
         value={Convert.ToHex(objectDigestInfo.objectDigest)}
         monospace
       />,
       <RowValue
-        name="Type"
+        name={l10n.getString('type')}
         value={objectDigestInfo.digestedObjectType}
       />,
     ]),

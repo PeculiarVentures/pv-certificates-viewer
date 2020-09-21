@@ -11,7 +11,7 @@ import { h, FunctionalComponent } from '@stencil/core';
 import isLink from '../../utils/is_link';
 
 interface IRowTitleProps {
-  value: string;
+  value: string | string[];
 }
 
 export const RowTitle: FunctionalComponent<IRowTitleProps> = (props) => {
@@ -35,7 +35,7 @@ export const RowTitle: FunctionalComponent<IRowTitleProps> = (props) => {
 };
 
 interface IRowValueProps {
-  name: string;
+  name: string | string[];
   value: string | number;
   monospace?: boolean;
   collapse?: boolean;

@@ -7,6 +7,7 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
+import { l10n } from '../../utils';
 
 import { RowTitle, RowValue } from './row';
 
@@ -29,7 +30,7 @@ export const Thumbprints: FunctionalComponent<IThumbprintsProps> = (props) => {
 
   return [
     <RowTitle
-      value="Thumbprints"
+      value={l10n.getString('fingerprints')}
     />,
     keys.map((name) => (
       <RowValue

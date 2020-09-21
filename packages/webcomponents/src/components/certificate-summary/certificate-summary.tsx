@@ -11,7 +11,7 @@ import {
 } from '@stencil/core';
 
 import type { X509Certificate } from '../../crypto';
-import { dateShort } from '../../utils';
+import { dateShort, l10n } from '../../utils';
 
 @Component({
   tag: 'peculiar-certificate-summary',
@@ -25,7 +25,7 @@ export class CertificateSummary {
   @Prop() showIssuer?: boolean = true;
 
   // eslint-disable-next-line class-methods-use-this
-  renderRow(name: string, value: string | number, monospace?: boolean) {
+  renderRow(name: string | string[], value: string | number, monospace?: boolean) {
     return (
       <tr>
         <td>
@@ -53,14 +53,36 @@ export class CertificateSummary {
       <Host>
         <table>
           <tbody>
-            {this.renderRow('Subject Name', this.certificate.subjectToString())}
-            {this.showIssuer && this.renderRow('Issuer Name', this.certificate.issuerToString())}
+            {this.renderRow(
+              l10n.getString('subjectName'),
+              this.certificate.subjectToString(),
+            )}
+            {this.showIssuer && this.renderRow(
+              l10n.getString('issuerName'),
+              this.certificate.issuerToString(),
+            )}
 
-            {this.renderRow('Serial Number', this.certificate.serialNumber, true)}
-            {this.renderRow('Version', this.certificate.version)}
-            {this.renderRow('Validity', this.certificate.validity)}
-            {this.renderRow('Issued', dateShort(this.certificate.notBefore))}
-            {this.renderRow('Expired', dateShort(this.certificate.notAfter))}
+            {this.renderRow(
+              l10n.getString('serialNumber'),
+              this.certificate.serialNumber,
+              true,
+            )}
+            {this.renderRow(
+              l10n.getString('version'),
+              this.certificate.version,
+            )}
+            {this.renderRow(
+              l10n.getString('validity'),
+              this.certificate.validity,
+            )}
+            {this.renderRow(
+              l10n.getString('issued'),
+              dateShort(this.certificate.notBefore),
+            )}
+            {this.renderRow(
+              l10n.getString('expired'),
+              dateShort(this.certificate.notAfter),
+            )}
           </tbody>
         </table>
       </Host>

@@ -11,6 +11,7 @@ import { h, FunctionalComponent } from '@stencil/core';
 import type { X509AttributeCertificate } from '../../crypto';
 import { RowTitle } from '../certificate-viewer/row';
 import { GeneralNamePart } from '../certificate-viewer/extensions/general_name_part';
+import { l10n } from '../../utils';
 
 interface IIssuerProps {
   issuer: X509AttributeCertificate['issuer'];
@@ -25,7 +26,7 @@ export const Issuer: FunctionalComponent<IIssuerProps> = (props) => {
 
   return [
     <RowTitle
-      value="Issuer"
+      value={l10n.getString('issuer')}
     />,
     issuer.map((item) => (
       <GeneralNamePart

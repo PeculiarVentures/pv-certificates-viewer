@@ -18,6 +18,7 @@ import {
 import { X509Certificate } from '../../crypto';
 import { OIDs } from '../../constants/oids';
 import { Download } from '../../utils/download';
+import { l10n } from '../../utils';
 
 export interface ICertificate {
   value: string;
@@ -224,7 +225,7 @@ export class CertificatesViewer {
           href={tests.valid}
           target="_blank"
         >
-          Valid
+          {l10n.getString('valid')}
         </peculiar-button>
       ));
     }
@@ -236,7 +237,7 @@ export class CertificatesViewer {
           href={tests.revoked}
           target="_blank"
         >
-          Revoked
+          {l10n.getString('revoked')}
         </peculiar-button>
       ));
     }
@@ -248,7 +249,7 @@ export class CertificatesViewer {
           href={tests.expired}
           target="_blank"
         >
-          Expired
+          {l10n.getString('expired')}
         </peculiar-button>
       ));
     }
@@ -297,7 +298,8 @@ export class CertificatesViewer {
                 class="mobile_title"
                 color="grey_5"
               >
-                Issuer:
+                {l10n.getString('issuer')}
+                :
               </peculiar-typography>
               <peculiar-typography class="content">
                 <peculiar-highlight-words search={searchHighlight}>
@@ -311,7 +313,8 @@ export class CertificatesViewer {
               class="mobile_title"
               color="grey_5"
             >
-              Name:
+              {l10n.getString('name')}
+              :
             </peculiar-typography>
             <peculiar-typography class="content">
               <peculiar-highlight-words search={searchHighlight}>
@@ -324,7 +327,8 @@ export class CertificatesViewer {
               class="mobile_title"
               color="grey_5"
             >
-              Public Key:
+              {l10n.getString('publicKey')}
+              :
             </peculiar-typography>
             <peculiar-typography class="content">
               <peculiar-highlight-words search={searchHighlight}>
@@ -337,7 +341,9 @@ export class CertificatesViewer {
               class="mobile_title"
               color="grey_5"
             >
-              Fingerprint (SHA-1):
+              {l10n.getString('fingerprint')}
+              &nbsp:
+              (SHA-1):
             </peculiar-typography>
             <peculiar-typography class="content" monospace>
               <peculiar-highlight-words search={searchHighlight}>
@@ -350,24 +356,25 @@ export class CertificatesViewer {
               class="mobile_title"
               color="grey_5"
             >
-              Actions:
+              {l10n.getString('actions')}
+              :
             </peculiar-typography>
             <span class="content">
               <peculiar-button
                 onClick={this.onClickDetails.bind(this, certificate.body)}
                 class="button_table_action"
               >
-                Details
+                {l10n.getString('details')}
               </peculiar-button>
               <peculiar-button-split
                 onClick={this.onClickDownloadAsPem.bind(this, certificate)}
                 actions={[{
-                  text: 'Download DER',
+                  text: l10n.getString('download.der'),
                   onClick: this.onClickDownloadAsDer.bind(this, certificate),
                 }]}
                 class="button_table_action"
               >
-                Download PEM
+                {l10n.getString('download.pem')}
               </peculiar-button-split>
             </span>
           </td>
@@ -377,7 +384,8 @@ export class CertificatesViewer {
                 class="mobile_title"
                 color="grey_5"
               >
-                Test URLs:
+                {l10n.getString('testURLs')}
+                :
               </peculiar-typography>
               <span class="content">
                 {this.renderCertificateTests(certificate.tests)}
@@ -404,7 +412,7 @@ export class CertificatesViewer {
             <peculiar-typography
               type="h4"
             >
-              Certificate details
+              {l10n.getString('certificateDetails')}
             </peculiar-typography>
             <button
               class="modal_close"
@@ -538,7 +546,7 @@ export class CertificatesViewer {
                     type="h7"
                     align="left"
                   >
-                    Issuer
+                    {l10n.getString('issuer')}
                   </peculiar-typography>
                 </th>
               )}
@@ -547,7 +555,7 @@ export class CertificatesViewer {
                   type="h7"
                   align="left"
                 >
-                  Name
+                  {l10n.getString('name')}
                 </peculiar-typography>
               </th>
               <th class="col_public_key">
@@ -555,7 +563,7 @@ export class CertificatesViewer {
                   type="h7"
                   align="left"
                 >
-                  Public Key
+                  {l10n.getString('publicKey')}
                 </peculiar-typography>
               </th>
               <th class="col_fingerprint">
@@ -563,7 +571,9 @@ export class CertificatesViewer {
                   type="h7"
                   align="left"
                 >
-                  Fingerprint (SHA-1)
+                  {l10n.getString('fingerprint')}
+                  &nbsp;
+                  (SHA-1)
                 </peculiar-typography>
               </th>
               <th class="col_actions">
@@ -571,7 +581,7 @@ export class CertificatesViewer {
                   type="h7"
                   align="center"
                 >
-                  Actions
+                  {l10n.getString('actions')}
                 </peculiar-typography>
               </th>
               {this.isHasTests && (
@@ -580,7 +590,7 @@ export class CertificatesViewer {
                     type="h7"
                     align="center"
                   >
-                    Test URLs
+                    {l10n.getString('testURLs')}
                   </peculiar-typography>
                 </th>
               )}

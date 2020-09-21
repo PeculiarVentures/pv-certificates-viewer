@@ -8,7 +8,7 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 
-import { dateShort } from '../../utils';
+import { dateShort, l10n } from '../../utils';
 
 import { RowTitle, RowValue } from './row';
 
@@ -27,27 +27,27 @@ export const BasicInformation: FunctionalComponent<IBasicInformationProps> = (pr
 
   return [
     <RowTitle
-      value="Basic Information"
+      value={l10n.getString('basicInformation')}
     />,
     <RowValue
-      name="Serial Number"
+      name={l10n.getString('serialNumber')}
       value={serialNumber}
       monospace
     />,
     <RowValue
-      name="Version"
+      name={l10n.getString('version')}
       value={version}
     />,
     <RowValue
-      name="Validity"
+      name={l10n.getString('validity')}
       value={validity}
     />,
     <RowValue
-      name="Issued"
+      name={l10n.getString('issued')}
       value={dateShort(notBefore)}
     />,
     <RowValue
-      name="Expired"
+      name={l10n.getString('expired')}
       value={dateShort(notAfter)}
     />,
   ];

@@ -10,6 +10,7 @@ import { h, FunctionalComponent } from '@stencil/core';
 import { Convert } from 'pvtsutils';
 
 import { IPublicKey } from '../../crypto';
+import { l10n } from '../../utils';
 
 import { getStringByOID } from './get_string_by_oid';
 import { RowTitle, RowValue } from './row';
@@ -51,26 +52,26 @@ export const PublicKey: FunctionalComponent<IPublicKeyProps> = (props) => {
 
   return [
     <RowTitle
-      value="Public Key Info"
+      value={l10n.getString('publicKeyInfo')}
     />,
     <RowValue
-      name="Algorithm"
+      name={l10n.getString('algorithm')}
       value={getStringByOID(publicKey.algorithm)}
     />,
     <RowValue
-      name="Named Curve"
+      name={l10n.getString('namedCurve')}
       value={getStringByOID(publicKey.params?.['namedCurve'])}
     />,
     <RowValue
-      name="Exponent"
+      name={l10n.getString('exponent')}
       value={getPublicKeyExponent(publicKey)}
     />,
     <RowValue
-      name="Modulus"
+      name={l10n.getString('modulus')}
       value={getPublicKeyModulus(publicKey)}
     />,
     <RowValue
-      name="Value"
+      name={l10n.getString('value')}
       value={Convert.ToHex(publicKey.value)}
       monospace
       collapse

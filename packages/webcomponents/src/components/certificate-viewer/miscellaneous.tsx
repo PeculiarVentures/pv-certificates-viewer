@@ -9,6 +9,7 @@
 import { h, FunctionalComponent } from '@stencil/core';
 
 import { X509Certificate, X509AttributeCertificate, CSR } from '../../crypto';
+import { l10n } from '../../utils';
 import { Download } from '../../utils/download';
 
 import { RowTitle } from './row';
@@ -52,7 +53,7 @@ export const Miscellaneous: FunctionalComponent<IMiscellaneousProps> = (props) =
 
   return [
     <RowTitle
-      value="Miscellaneous"
+      value={l10n.getString('miscellaneous')}
     />,
     <tr>
       <td
@@ -61,18 +62,19 @@ export const Miscellaneous: FunctionalComponent<IMiscellaneousProps> = (props) =
         <peculiar-typography
           color="grey_5"
         >
-          Download:
+          {l10n.getString('download')}
+          :
         </peculiar-typography>
       </td>
       <td>
         <peculiar-button-split
           onClick={downloadCertificateAsPem.bind(this, certificate)}
           actions={[{
-            text: 'Download DER',
+            text: l10n.getString('download.der'),
             onClick: downloadCertificateAsDer.bind(this, certificate),
           }]}
         >
-          Download PEM
+          {l10n.getString('download.pem')}
         </peculiar-button-split>
       </td>
     </tr>,

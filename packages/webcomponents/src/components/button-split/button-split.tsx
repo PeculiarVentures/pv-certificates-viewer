@@ -11,7 +11,7 @@ import {
 } from '@stencil/core';
 
 export interface IAction {
-  text: string;
+  text: string | string[];
   onClick: (event: MouseEvent) => void;
 }
 
