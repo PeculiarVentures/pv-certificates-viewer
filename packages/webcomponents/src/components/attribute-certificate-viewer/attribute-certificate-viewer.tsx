@@ -90,10 +90,10 @@ export class AttributeCertificateViewer {
     try {
       if (certificate instanceof X509AttributeCertificate) {
         this.certificateDecoded = certificate;
-      }
-
-      if (typeof certificate === 'string') {
+      } else if (typeof certificate === 'string') {
         this.certificateDecoded = new X509AttributeCertificate(certificate);
+      } else {
+        return;
       }
 
       this.certificateDecoded.parseExtensions();
