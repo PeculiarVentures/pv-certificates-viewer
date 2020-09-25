@@ -76,10 +76,10 @@ export class CsrViewer {
     try {
       if (certificate instanceof CSR) {
         this.certificateDecoded = certificate;
-      }
-
-      if (typeof certificate === 'string') {
+      } else if (typeof certificate === 'string') {
         this.certificateDecoded = new CSR(certificate);
+      } else {
+        return;
       }
 
       this.certificateDecoded.parseAttributes();

@@ -104,10 +104,10 @@ export class CertificateViewer {
     try {
       if (certificate instanceof X509Certificate) {
         this.certificateDecoded = certificate;
-      }
-
-      if (typeof certificate === 'string') {
+      } else if (typeof certificate === 'string') {
         this.certificateDecoded = new X509Certificate(certificate);
+      } else {
+        return;
       }
 
       this.certificateDecoded.parseExtensions();
