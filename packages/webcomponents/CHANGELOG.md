@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.10.1...@peculiar/certificates-viewer@1.11.0) (2020-09-25)
+
+
+### Bug Fixes
+
+* **webcomponents:** fix empty certificate attribute parsing error ([883a389](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/883a3893eecb06bf2513ced7174ac9e9344ed8c4))
+
+
+### Features
+
+* **webcomponents:** add l10n and en locale ([45d4e2d](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/45d4e2d2ab627c6bb4982674abbea8fe9583220e))
+* **webcomponents:** use l10n instead of static strings ([d751bf4](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/d751bf4bcdc9eb6cb9c3dee5869033f4981f0afd))
+
+
+
+
+
 ## [1.10.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.10.0...@peculiar/certificates-viewer@1.10.1) (2020-09-07)
 
 
