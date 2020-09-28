@@ -27,7 +27,7 @@ FunctionalComponent<IChallengePasswordAttributeProps> = (props) => {
     >
       <RowValue
         name="Value"
-        value={attribute.value.utf8String}
+        value={attribute.value.toString()}
       />
     </BasicAttribute>
   );
