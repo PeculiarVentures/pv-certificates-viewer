@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.11.0...@peculiar/certificates-viewer@1.11.1) (2020-09-28)
+
+
+### Bug Fixes
+
+* **components:** fix get value for challenge password attribute ([3e9ea78](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/3e9ea78e4cf5a2baa041a0931413096a3daf5eff))
+
+
+
+
+
 # [1.11.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.10.1...@peculiar/certificates-viewer@1.11.0) (2020-09-25)
 
 
