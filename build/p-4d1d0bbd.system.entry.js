@@ -139,7 +139,7 @@ function Pe(e){return new Promise((function(t,i){var r=new FileReader;r.onload=f
              *
              * This source code is licensed under the MIT license found in the
              * LICENSE file in the root directory of this source tree.
-             */var it=function(e){var i=e.attribute;return t(qe,{attribute:i},t(He,{name:"Value",value:i.value.utf8String}))};
+             */var it=function(e){var i=e.attribute;return t(qe,{attribute:i},t(He,{name:"Value",value:i.value.toString()}))};
 /**
              * @license
              * Copyright (c) Peculiar Ventures, LLC.
