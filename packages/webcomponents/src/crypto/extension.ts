@@ -73,6 +73,9 @@ import {
 import {
   id_pe_qcStatements,
   QCStatements,
+
+  id_pe_biometricInfo,
+  BiometricSyntax,
 } from '@peculiar/asn1-x509-qualified';
 import {
   id_certificateTemplate,
@@ -142,6 +145,7 @@ export type TExtensionValue = AuthorityInfoAccessSyntax
 | CaVersion
 | PrivateKeyUsagePeriod
 | EntrustVersionInfo
+| BiometricSyntax
 | string;
 
 export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> {
@@ -250,6 +254,10 @@ export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> 
         break;
       case id_entrust_entrustVersInfo:
         this.value = AsnParser.parse(asnExtnValue, EntrustVersionInfo) as T;
+        break;
+      case '2.16.724.1.2.2.4.1':
+      case id_pe_biometricInfo:
+        this.value = AsnParser.parse(asnExtnValue, BiometricSyntax) as T;
         break;
       default:
         this.value = Convert.ToHex(asnExtnValue) as T;
