@@ -42,6 +42,7 @@ You may also be interested in our web component for viewing and verifying signed
 - Adobe Time-stamp (1.2.840.113583.1.1.9.1).
 - Authority Key Identifier (2.5.29.35).
 - Basic Constraints (2.5.29.19).
+- Biometric Info (1.3.6.1.5.5.7.1.2).
 - CRL Distribution Points (2.5.29.31).
 - CRL Reason (2.5.29.21).
 - Certificate Authority Information Access (1.3.6.1.5.5.7.1.1).
@@ -62,6 +63,7 @@ You may also be interested in our web component for viewing and verifying signed
 - Name Constraints (2.5.29.30).
 - Netscape Certificate Type (2.16.840.1.113730.1.1).
 - Netscape Comment (2.16.840.1.113730.1.13).
+- Personal Data Info (2.16.724.1.2.2.4.1).
 - Policy Constraints (2.5.29.36).
 - Policy Mappings (2.5.29.33).
 - Private Key Usage Period (2.5.29.16).
