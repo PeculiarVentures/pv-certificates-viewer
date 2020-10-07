@@ -22,6 +22,13 @@ export const config: Config = {
     {
       type: 'dist',
       esmLoaderPath: '../loader',
+      copy: [
+        // copy locales
+        {
+          src: 'locales/*.json',
+          dest: 'locales',
+        },
+      ],
     },
     {
       type: 'docs-readme',
