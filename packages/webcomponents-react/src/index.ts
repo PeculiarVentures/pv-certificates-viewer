@@ -6,12 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { defineCustomElements } from '@peculiar/certificates-viewer/loader';
+import { defineCustomElements, applyPolyfills } from '@peculiar/certificates-viewer/loader';
 
 export * from './components';
 
-// TODO: defineCustomElements() is asyncronous
-// We need to use the promise
 if (typeof window !== 'undefined') {
-  defineCustomElements(window);
+  applyPolyfills()
+    .then(() => defineCustomElements(window));
 }
