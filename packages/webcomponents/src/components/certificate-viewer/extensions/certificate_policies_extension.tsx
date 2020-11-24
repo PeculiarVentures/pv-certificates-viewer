@@ -28,9 +28,9 @@ FunctionalComponent<ICertificatePoliciesExtensionProps> = (props) => {
     <BasicExtension
       extension={extension}
     >
-      {extension.value.map((policy, index) => ([
+      {extension.value.map((policy, arrayIndex) => ([
         <RowValue
-          name={`Policy ID #${index + 1}`}
+          name={`Policy ID #${arrayIndex + 1}`}
           value={getStringByOID(policy.policyIdentifier)}
         />,
           policy.policyQualifiers?.map((qualifierInfo, indexInfo) => {

@@ -27,9 +27,9 @@ FunctionalComponent<IExtendedKeyUsageExtensionProps> = (props) => {
     <BasicExtension
       extension={extension}
     >
-      {extension.value.map((usage, index) => (
+      {extension.value.map((usage, arrayIndex) => (
         <RowValue
-          name={`Purpose #${index + 1}`}
+          name={`Purpose #${arrayIndex + 1}`}
           value={getStringByOID(usage)}
         />
       ))}

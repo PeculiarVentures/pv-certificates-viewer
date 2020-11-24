@@ -28,13 +28,13 @@ FunctionalComponent<ISubjectDirectoryAttributesExtensionProps> = (props) => {
     <BasicExtension
       extension={extension}
     >
-      {extension.value.map((attribute, index) => ([
+      {extension.value.map((attribute, arrayIndex) => ([
         <RowValue
-          name={`Attribute #${index + 1}`}
+          name={`Attribute #${arrayIndex + 1}`}
           value={getStringByOID(attribute.type)}
         />,
         <RowValue
-          name={`Value #${index + 1}`}
+          name={`Value #${arrayIndex + 1}`}
           value={getAttributeValue(attribute)}
         />,
         <tr>

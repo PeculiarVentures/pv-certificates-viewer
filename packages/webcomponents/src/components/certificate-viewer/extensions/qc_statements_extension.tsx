@@ -26,9 +26,9 @@ export const QCStatementsExtension: FunctionalComponent<IQCStatementsExtensionPr
     <BasicExtension
       extension={extension}
     >
-      {extension.value.map((statement, index) => (
+      {extension.value.map((statement, arrayIndex) => (
         <RowValue
-          name={`Statement #${index + 1}`}
+          name={`Statement #${arrayIndex + 1}`}
           value={getStringByOID(statement.statementId)}
         />
       ))}
