@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.11.1...@peculiar/certificates-viewer@1.12.0) (2020-11-24)
+
+
+### Bug Fixes
+
+* **components:** fix array "index" usage ([9a0fa01](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/9a0fa019b457835b0a03059f2bede425bc71df35))
+* **components:** fix locales not found ([a1a05ba](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/a1a05ba4d711ab66f2113d61dd942739e34b5f47))
+
+
+### Features
+
+* **components:** add biometric extension support ([dff15ad](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/dff15ade4fc6df8169cb91ee6c7aa1ddaf2172b5))
+
+
+
+
+
 ## [1.11.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.11.0...@peculiar/certificates-viewer@1.11.1) (2020-09-28)
 
 

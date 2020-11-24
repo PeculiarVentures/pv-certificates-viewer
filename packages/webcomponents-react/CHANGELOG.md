@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer-react@0.2.10...@peculiar/certificates-viewer-react@0.3.0) (2020-11-24)
+
+
+### Features
+
+* **components-react:** add "applyPolyfills" call before "defineCustomElements" ([0dd410a](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/0dd410a5df536801fc49a6cd4ee9d3ca98c97759))
+
+
+
+
+
 ## [0.2.10](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer-react@0.2.9...@peculiar/certificates-viewer-react@0.2.10) (2020-09-28)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer-react
