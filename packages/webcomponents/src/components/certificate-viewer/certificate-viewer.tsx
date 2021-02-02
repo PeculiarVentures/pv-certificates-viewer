@@ -156,7 +156,7 @@ export class CertificateViewer {
 
   // eslint-disable-next-line class-methods-use-this
   private getLEILink(value: string) {
-    return `https://www.gleif.org/lei/${value}`;
+    return `https://search.gleif.org/#/record/${value}`;
   }
 
   // eslint-disable-next-line class-methods-use-this
