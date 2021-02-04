@@ -1580,6 +1580,7 @@ export const OIDs = {
   '1.3.36.8.7.1.45': 'Pt WP Grph',
   '1.3.101.1.4': 'Thawte-ce',
   '1.3.101.1.4.1': 'Strong Extranet',
+  '1.3.101.112': 'Edwards-curve Digital Signature Algorithm (EdDSA) Ed25519',
   '1.3.132.0.1': 'Sect163k1',
   '1.3.132.0.2': 'Sect163r1',
   '1.3.132.0.3': 'Sect239k1',
