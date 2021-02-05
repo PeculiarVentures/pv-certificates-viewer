@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.12.0...@peculiar/certificates-viewer@1.13.0) (2021-02-05)
+
+
+### Features
+
+* **components:** add description for "1.3.101.112" oid ([896a397](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/896a3970c0e487e4212cb3a7ab16f026b6ccd72f))
+
+
+
+
+
 # [1.12.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.11.1...@peculiar/certificates-viewer@1.12.0) (2020-11-24)
 
 
