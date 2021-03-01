@@ -28,7 +28,7 @@ FunctionalComponent<IEnrollCertTypeChoiceExtensionProps> = (props) => {
     >
       <RowValue
         name="Name"
-        value={extension.value.name}
+        value={extension.value.toString()}
       />
     </BasicExtension>
   );
