@@ -66,7 +66,7 @@ class gs extends ps{constructor(t){super(Cs(t),xi),this.thumbprints={};const{tbs
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-function jo(t,e="application/octet-stream",i,r){const s=new Blob([t],{type:e});if(navigator.msSaveBlob)return navigator.msSaveBlob(s,`${i}.${r}`),new Promise(t=>setTimeout(t,100));const n=window.URL.createObjectURL(s),o=document.createElement("a"),a=document.createElement("iframe");return o.style.display="none",a.style.display="none",a.name=n,document.body.appendChild(a),o.href=n,o.target=n,o.download=`${i}.${r}`,document.body.appendChild(o),o.dispatchEvent(new MouseEvent("click")),document.body.removeChild(o),new Promise(t=>setTimeout(()=>{document.body.removeChild(a),t()},100))}
+function jo(t,e="application/octet-stream",i,r){const s=new Blob([t],{type:e});if(navigator.msSaveBlob)return navigator.msSaveBlob(s,`${i}.${r}`),new Promise(t=>setTimeout(t,100));const n=window.URL.createObjectURL(s),o=document.createElement("a"),a=document.createElement("iframe");return o.style.display="none",a.style.display="none",a.name=n,document.body.appendChild(a),o.href=n,o.target=n,o.download=`${i}.${r}`,document.body.appendChild(o),o.dispatchEvent(new MouseEvent("click")),document.body.removeChild(o),new Promise(t=>setTimeout(()=>{document.body.removeChild(a),t(void 0)},100))}
 /**
  * @license
  * Copyright (c) Peculiar Ventures, LLC.

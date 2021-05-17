@@ -68,7 +68,7 @@ var __extends=this&&this.__extends||function(){var e=function(t,r){e=Object.setP
              *
              * This source code is licensed under the MIT license found in the
              * LICENSE file in the root directory of this source tree.
-             */function Iu(e,t,r,i){if(t===void 0){t="application/octet-stream"}var n=new Blob([e],{type:t});if(navigator.msSaveBlob){navigator.msSaveBlob(n,r+"."+i);return new Promise((function(e){return setTimeout(e,100)}))}var o=window.URL.createObjectURL(n);var a=document.createElement("a");var s=document.createElement("iframe");a.style.display="none";s.style.display="none";s.name=o;document.body.appendChild(s);a.href=o;a.target=o;a.download=r+"."+i;document.body.appendChild(a);a.dispatchEvent(new MouseEvent("click"));document.body.removeChild(a);return new Promise((function(e){return setTimeout((function(){document.body.removeChild(s);e()}),100)}))}
+             */function Iu(e,t,r,i){if(t===void 0){t="application/octet-stream"}var n=new Blob([e],{type:t});if(navigator.msSaveBlob){navigator.msSaveBlob(n,r+"."+i);return new Promise((function(e){return setTimeout(e,100)}))}var o=window.URL.createObjectURL(n);var a=document.createElement("a");var s=document.createElement("iframe");a.style.display="none";s.style.display="none";s.name=o;document.body.appendChild(s);a.href=o;a.target=o;a.download=r+"."+i;document.body.appendChild(a);a.dispatchEvent(new MouseEvent("click"));document.body.removeChild(a);return new Promise((function(e){return setTimeout((function(){document.body.removeChild(s);e(undefined)}),100)}))}
 /**
              * @license
              * Copyright (c) Peculiar Ventures, LLC.
