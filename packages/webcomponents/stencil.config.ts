@@ -2,6 +2,7 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 import { postcss } from '@stencil/postcss';
 import autoprefixer from 'autoprefixer';
+// import { reactOutputTarget } from '@stencil/react-output-target';
 
 export const config: Config = {
   namespace: 'peculiar',
@@ -19,6 +20,11 @@ export const config: Config = {
     }),
   ],
   outputTargets: [
+    // reactOutputTarget({
+    //   componentCorePackage: '@peculiar/certificates-viewer',
+    //   proxiesFile: '../webcomponents-react/src/components.ts',
+    //   includeDefineCustomElements: true,
+    // }),
     {
       type: 'dist',
       esmLoaderPath: '../loader',
@@ -45,4 +51,13 @@ export const config: Config = {
       ],
     },
   ],
+  buildEs5: 'prod',
+  extras: {
+    cssVarsShim: true,
+    dynamicImportShim: true,
+    initializeNextTick: true,
+    safari10: true,
+    scriptDataOpts: true,
+    shadowDomShim: true,
+  },
 };

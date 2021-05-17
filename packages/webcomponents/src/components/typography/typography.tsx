@@ -10,7 +10,7 @@ import {
   Component, h, Prop,
 } from '@stencil/core';
 
-import { ColorType } from '../../interface';
+import type { ColorType } from '../../types';
 
 @Component({
   tag: 'peculiar-typography',
