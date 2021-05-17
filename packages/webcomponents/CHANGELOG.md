@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.13.2...@peculiar/certificates-viewer@2.0.0) (2021-05-17)
+
+
+### Bug Fixes
+
+* **webcomponents:** fix lint errors ([08e85d0](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/08e85d0fe171fbda1a8c61b6b4040188dbd32f48))
+
+
+
+
+
 ## [1.13.2](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.13.1...@peculiar/certificates-viewer@1.13.2) (2021-05-09)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer
