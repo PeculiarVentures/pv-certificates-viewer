@@ -11,7 +11,7 @@ import { X509Certificate } from "./crypto";
 import { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
 import { ICertificate } from "./components/certificates-viewer/certificates-viewer";
 import { CsrProp } from "./components/csr-viewer/csr-viewer";
-import { ColorType } from "./interface";
+import { ColorType } from "./types";
 export namespace Components {
     interface PeculiarAttributeCertificateViewer {
         /**

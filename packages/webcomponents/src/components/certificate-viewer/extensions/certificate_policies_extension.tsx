@@ -33,40 +33,40 @@ FunctionalComponent<ICertificatePoliciesExtensionProps> = (props) => {
           name={`Policy ID #${arrayIndex + 1}`}
           value={getStringByOID(policy.policyIdentifier)}
         />,
-          policy.policyQualifiers?.map((qualifierInfo, indexInfo) => {
-            const data = [
+        policy.policyQualifiers?.map((qualifierInfo, indexInfo) => {
+          const data = [
+            <RowValue
+              name={`Qualifier ID #${indexInfo + 1}`}
+              value={getStringByOID(qualifierInfo.policyQualifierId)}
+            />,
+          ];
+
+          if (qualifierInfo.policyQualifierId === '1.3.6.1.5.5.7.2.1') {
+            const value = AsnParser.parse(qualifierInfo.qualifier, DisplayText);
+
+            data.push(
               <RowValue
-                name={`Qualifier ID #${indexInfo + 1}`}
-                value={getStringByOID(qualifierInfo.policyQualifierId)}
+                name="Value"
+                value={value.toString()}
               />,
-            ];
+            );
+          }
 
-            if (qualifierInfo.policyQualifierId === '1.3.6.1.5.5.7.2.1') {
-              const value = AsnParser.parse(qualifierInfo.qualifier, DisplayText);
+          if (qualifierInfo.policyQualifierId === '1.3.6.1.5.5.7.2.2') {
+            const value = AsnParser.parse(qualifierInfo.qualifier, UserNotice);
 
+            if (value.explicitText) {
               data.push(
                 <RowValue
                   name="Value"
-                  value={value.toString()}
+                  value={value.explicitText.toString()}
                 />,
               );
             }
+          }
 
-            if (qualifierInfo.policyQualifierId === '1.3.6.1.5.5.7.2.2') {
-              const value = AsnParser.parse(qualifierInfo.qualifier, UserNotice);
-
-              if (value.explicitText) {
-                data.push(
-                  <RowValue
-                    name="Value"
-                    value={value.explicitText.toString()}
-                  />,
-                );
-              }
-            }
-
-            return data;
-          }),
+          return data;
+        }),
         <tr>
           <td />
           <td />
