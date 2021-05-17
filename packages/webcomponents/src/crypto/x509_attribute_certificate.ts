@@ -7,9 +7,9 @@
  */
 
 import { AsnConvert } from '@peculiar/asn1-schema';
-import type { GeneralName } from '@peculiar/asn1-x509';
 import { AttributeCertificate, Holder } from '@peculiar/asn1-x509-attr';
 import { Convert } from 'pvtsutils';
+import type { GeneralName } from '@peculiar/asn1-x509';
 
 import { dateDiff } from '../utils';
 

@@ -143,16 +143,16 @@ export class CertificateViewer {
   }
 
   private getAuthKeyIdParentLink = (value: string) => this.authKeyIdParentLink
-      ?.replace('{{authKeyId}}', value);
+    ?.replace('{{authKeyId}}', value);
 
   private getAuthKeyIdSiblingsLink = (value: string) => this.authKeyIdSiblingsLink
-      ?.replace('{{authKeyId}}', value);
+    ?.replace('{{authKeyId}}', value);
 
   private getSubjectKeyIdChildrenLink = (value: string) => this.subjectKeyIdChildrenLink
-      ?.replace('{{subjectKeyId}}', value);
+    ?.replace('{{subjectKeyId}}', value);
 
   private getSubjectKeyIdSiblingsLink = (value: string) => this.subjectKeyIdSiblingsLink
-      ?.replace('{{subjectKeyId}}', value);
+    ?.replace('{{subjectKeyId}}', value);
 
   // eslint-disable-next-line class-methods-use-this
   private getLEILink(value: string) {
