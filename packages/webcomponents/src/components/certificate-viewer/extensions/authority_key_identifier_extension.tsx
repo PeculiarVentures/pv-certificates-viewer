@@ -37,22 +37,22 @@ FunctionalComponent<IAuthorityKeyIdentifierExtensionProps> = (props) => {
         monospace
         extraValue={[
           parentLink && (
-          <span>
-            &nbsp;[
-            <peculiar-link href={parentLink}>
-              parents
-            </peculiar-link>
-            ]
-          </span>
+            <span>
+              &nbsp;[
+              <peculiar-link href={parentLink}>
+                parents
+              </peculiar-link>
+              ]
+            </span>
           ),
           siblingsLink && (
-          <span>
-            &nbsp;[
-            <peculiar-link href={siblingsLink}>
-              siblings
-            </peculiar-link>
-            ]
-          </span>
+            <span>
+              &nbsp;[
+              <peculiar-link href={siblingsLink}>
+                siblings
+              </peculiar-link>
+              ]
+            </span>
           ),
         ]}
       />

@@ -52,7 +52,7 @@ export default function downloadFromBuffer(
   return new Promise((res) => setTimeout(
     () => {
       document.body.removeChild(frame);
-      res();
+      res(undefined);
     },
     100,
   ));

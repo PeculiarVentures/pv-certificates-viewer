@@ -37,22 +37,22 @@ FunctionalComponent<ISubjectKeyIdentifierExtensionProps> = (props) => {
         monospace
         extraValue={[
           childrenLink && (
-          <span>
-            &nbsp;[
-            <peculiar-link href={childrenLink}>
-              children
-            </peculiar-link>
-            ]
-          </span>
+            <span>
+              &nbsp;[
+              <peculiar-link href={childrenLink}>
+                children
+              </peculiar-link>
+              ]
+            </span>
           ),
           siblingsLink && (
-          <span>
-            &nbsp;[
-            <peculiar-link href={siblingsLink}>
-              siblings
-            </peculiar-link>
-            ]
-          </span>
+            <span>
+              &nbsp;[
+              <peculiar-link href={siblingsLink}>
+                siblings
+              </peculiar-link>
+              ]
+            </span>
           ),
         ]}
       />

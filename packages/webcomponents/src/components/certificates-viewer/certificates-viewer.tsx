@@ -342,8 +342,7 @@ export class CertificatesViewer {
               color="grey_5"
             >
               {l10n.getString('fingerprint')}
-              &nbsp:
-              (SHA-1):
+              &nbsp; (SHA-1):
             </peculiar-typography>
             <peculiar-typography class="content" monospace>
               <peculiar-highlight-words search={searchHighlight}>
@@ -490,7 +489,9 @@ export class CertificatesViewer {
             type="b1"
             align="center"
           >
-            No results found for &ldquo;{this.search}&ldquo;
+            No results found for &ldquo;
+            {this.search}
+            &ldquo;
           </peculiar-typography>
         </td>
       </tr>
@@ -572,8 +573,7 @@ export class CertificatesViewer {
                   align="left"
                 >
                   {l10n.getString('fingerprint')}
-                  &nbsp;
-                  (SHA-1)
+                  &nbsp; (SHA-1)
                 </peculiar-typography>
               </th>
               <th class="col_actions">
