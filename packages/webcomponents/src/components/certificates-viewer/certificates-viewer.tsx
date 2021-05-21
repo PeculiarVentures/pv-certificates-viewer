@@ -68,7 +68,7 @@ export class CertificatesViewer {
 
   @State() certificatesDecoded: ICertificateDecoded[] = [];
 
-  @State() expandedRow?: string;
+  @State() expandedRow?: number;
 
   @State() certificateSelectedForDetails?: X509Certificate;
 
@@ -83,15 +83,18 @@ export class CertificatesViewer {
   }
 
   @Watch('certificates')
-  watchCertificates() {
-    this.certificatesDecodeAndSet();
+  watchCertificates(newValue: ICertificate[], oldValue: ICertificate[]) {
+    /**
+     * Prevent rerender after set the same `certificates` prop.
+     */
+    if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+      this.certificatesDecodeAndSet();
+    }
   }
 
   async certificatesDecodeAndSet() {
-    const timeStart = performance.now();
-
-    this.isHasTests = false;
-    this.isHasRoots = false;
+    let hasTests = false;
+    let hasRoots = false;
 
     if (!Array.isArray(this.certificates)) {
       return;
@@ -112,16 +115,16 @@ export class CertificatesViewer {
           name: certificate.name,
         });
 
-        if (!this.isHasRoots && decoded.isRoot) {
-          this.isHasRoots = true;
+        if (!hasRoots && decoded.isRoot) {
+          hasRoots = true;
         }
 
-        if (!this.isHasTests) {
+        if (!hasTests) {
           if (
             certificate.tests
             && (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid)
           ) {
-            this.isHasTests = true;
+            hasTests = true;
           }
         }
       } catch (error) {
@@ -129,23 +132,9 @@ export class CertificatesViewer {
       }
     }
 
-    const timeEnd = performance.now();
-    const timeDuration = timeEnd - timeStart;
-    const minimumTimeDuration = 800;
-
-    /**
-     * Check decode time duration and change `isDecodeInProcess` to `false`
-     * only after `minimumTimeDuration` time for prevent quickly hide loading state
-     */
-    if (timeDuration < minimumTimeDuration) {
-      setTimeout(
-        () => { this.isDecodeInProcess = false; },
-        minimumTimeDuration - timeDuration,
-      );
-    } else {
-      this.isDecodeInProcess = false;
-    }
-
+    this.isHasTests = hasTests;
+    this.isHasRoots = hasRoots;
+    this.isDecodeInProcess = false;
     this.certificatesDecoded = data;
   }
 
@@ -179,12 +168,12 @@ export class CertificatesViewer {
     this.certificateSelectedForDetails = undefined;
   };
 
-  onClickRow(serialNumber: string) {
-    const isExpandedRowClicked = this.expandedRow === serialNumber;
+  onClickRow(index: number) {
+    const isExpandedRowClicked = this.expandedRow === index;
 
     this.expandedRow = isExpandedRowClicked
       ? undefined
-      : serialNumber;
+      : index;
   }
 
   renderExpandedRow(certificate: X509Certificate) {
@@ -263,8 +252,8 @@ export class CertificatesViewer {
       : '';
     const content = [];
 
-    this.certificatesDecoded.forEach((certificate) => {
-      const isExpandedRow = certificate.body.serialNumber === this.expandedRow;
+    this.certificatesDecoded.forEach((certificate, index) => {
+      const isExpandedRow = index === this.expandedRow;
       const publicKeyValue = OIDs[certificate.body.signature.algorithm]
         || certificate.body.signature.algorithm;
 
@@ -289,8 +278,9 @@ export class CertificatesViewer {
           class={{
             expanded: isExpandedRow,
           }}
-          onClick={this.onClickRow.bind(this, certificate.body.serialNumber)}
-          key={certificate.body.serialNumber}
+          onClick={this.onClickRow.bind(this, index)}
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
         >
           {!this.isHasRoots && (
             <td>
