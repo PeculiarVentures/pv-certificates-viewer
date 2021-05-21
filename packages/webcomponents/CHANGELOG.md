@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.3](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.13.2...@peculiar/certificates-viewer@1.13.3) (2021-05-21)
+
+**Note:** Version bump only for package @peculiar/certificates-viewer
+
+
+
+
+
 ## [1.13.2](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.13.1...@peculiar/certificates-viewer@1.13.2) (2021-05-09)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer
