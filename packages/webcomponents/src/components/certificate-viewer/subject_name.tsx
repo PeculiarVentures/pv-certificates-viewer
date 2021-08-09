@@ -20,10 +20,6 @@ interface ISubjectNameProps {
 export const SubjectName: FunctionalComponent<ISubjectNameProps> = (props) => {
   const { name } = props;
 
-  if (!name || !name.length) {
-    return null;
-  }
-
   return [
     <RowTitle
       value={l10n.getString('subjectName')}

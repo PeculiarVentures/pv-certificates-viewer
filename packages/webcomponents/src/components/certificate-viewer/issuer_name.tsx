@@ -20,11 +20,6 @@ interface ISubjectNameProps {
 
 export const IssuerName: FunctionalComponent<ISubjectNameProps> = (props) => {
   const { name, issuerDnLink } = props;
-
-  if (!name || !name.length) {
-    return null;
-  }
-
   const title = l10n.getString('issuerName');
 
   return [
