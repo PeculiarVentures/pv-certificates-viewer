@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.13.6...@peculiar/certificates-viewer@1.14.0) (2021-08-11)
+
+
+### Features
+
+* **webcomponents:** add support Logotype extension ([62c665f](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/62c665f0d4def5217646b0d216b5ce53988d7e12))
+* **webcomponents:** add WIPO oids ([5cdaf4c](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/5cdaf4cbe81b770a064a1b60fea44c007b3bfe1c))
+
+
+
+
+
 ## [1.13.6](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.13.5...@peculiar/certificates-viewer@1.13.6) (2021-08-09)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer
