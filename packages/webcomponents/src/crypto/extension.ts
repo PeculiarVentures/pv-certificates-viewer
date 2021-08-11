@@ -113,6 +113,10 @@ import {
   id_adbe_archiveRevInfo,
   ArchiveRevInfo,
 } from '@peculiar/asn1-adobe-acrobat';
+import {
+  id_pe_logotype,
+  LogotypeExtn,
+} from '@peculiar/asn1-x509-logotype';
 
 import { AsnData } from './asn_data';
 
@@ -146,6 +150,7 @@ export type TExtensionValue = AuthorityInfoAccessSyntax
 | PrivateKeyUsagePeriod
 | EntrustVersionInfo
 | BiometricSyntax
+| LogotypeExtn
 | string;
 
 export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> {
@@ -258,6 +263,9 @@ export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> 
       case '2.16.724.1.2.2.4.1':
       case id_pe_biometricInfo:
         this.value = AsnParser.parse(asnExtnValue, BiometricSyntax) as T;
+        break;
+      case id_pe_logotype:
+        this.value = AsnParser.parse(asnExtnValue, LogotypeExtn) as T;
         break;
       default:
         this.value = Convert.ToHex(asnExtnValue) as T;
