@@ -72,6 +72,7 @@ You may also be interested in our web component for viewing and verifying signed
 - Subject Alternative Name (2.5.29.17).
 - Subject Directory Attributes (2.5.29.9).
 - Subject Key Identifier (2.5.29.14).
+- Logo Type (1.3.6.1.5.5.7.1.12).
 
 ### Supported Attributes
 

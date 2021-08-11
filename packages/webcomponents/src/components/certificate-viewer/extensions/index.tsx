@@ -33,6 +33,7 @@ import { QCStatements, BiometricSyntax } from '@peculiar/asn1-x509-qualified';
 import { NetscapeComment, NetscapeCertType } from '@peculiar/asn1-x509-netscape';
 import { LeiRoles, LeiChoice } from '@peculiar/asn1-lei';
 import { Timestamp, ArchiveRevInfo } from '@peculiar/asn1-adobe-acrobat';
+import { LogotypeExtn } from '@peculiar/asn1-x509-logotype';
 
 import { RowTitle } from '../row';
 import { Extension, TExtensionValue } from '../../../crypto/extension';
@@ -65,6 +66,7 @@ import { BasicExtension } from './basic_extension';
 import { PrivateKeyUsagePeriodExtension } from './private_key_usage_period_extension';
 import { EntrustVersionInfoExtension } from './entrust_version_info_extension';
 import { BiometricSyntaxExtension } from './biometric_syntax_extension';
+import { LogotypeExtension } from './logotype_extension';
 
 interface IExtensionsProps extends
   IGeneralNameOptions,
@@ -299,6 +301,14 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof BiometricSyntax) {
           return (
             <BiometricSyntaxExtension
+              extension={extension as any}
+            />
+          );
+        }
+
+        if (extension.value instanceof LogotypeExtn) {
+          return (
+            <LogotypeExtension
               extension={extension as any}
             />
           );

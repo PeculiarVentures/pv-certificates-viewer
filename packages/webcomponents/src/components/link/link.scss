@@ -21,6 +21,7 @@
   font-weight: 400;
   margin: 0;
   padding: 0;
+  word-break: break-all;
 
   &_type_h4 {
     @include propertyFontSizeVariable(h4);
