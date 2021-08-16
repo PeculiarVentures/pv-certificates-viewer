@@ -28,9 +28,13 @@ FunctionalComponent<ICertificateTransparencyExtensionProps> = (props) => {
     <BasicExtension
       extension={extension}
     >
-      {extension.value.toJSON().map((signedCertificateTimestamp) => ([
+      {extension.value.toJSON().map((signedCertificateTimestamp, arrayIndex) => ([
         <RowValue
-          name="SCT Version"
+          name={`SCT #${arrayIndex + 1}`}
+          value=""
+        />,
+        <RowValue
+          name="Version"
           value={signedCertificateTimestamp.version + 1}
         />,
         <RowValue
@@ -55,10 +59,6 @@ FunctionalComponent<ICertificateTransparencyExtensionProps> = (props) => {
           value={signedCertificateTimestamp.signature}
           monospace
         />,
-        <tr>
-          <td />
-          <td />
-        </tr>,
       ]))}
     </BasicExtension>
   );

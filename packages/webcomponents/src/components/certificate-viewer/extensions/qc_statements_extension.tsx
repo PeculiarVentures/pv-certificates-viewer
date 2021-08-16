@@ -8,6 +8,7 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { QCStatements } from '@peculiar/asn1-x509-qualified';
+import { Convert } from 'pvtsutils';
 
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
@@ -26,12 +27,21 @@ export const QCStatementsExtension: FunctionalComponent<IQCStatementsExtensionPr
     <BasicExtension
       extension={extension}
     >
-      {extension.value.map((statement, arrayIndex) => (
+      {extension.value.map((statement, arrayIndex) => ([
         <RowValue
           name={`Statement #${arrayIndex + 1}`}
+          value=""
+        />,
+        <RowValue
+          name="ID"
           value={getStringByOID(statement.statementId)}
-        />
-      ))}
+        />,
+        <RowValue
+          name="Info"
+          value={statement.statementInfo.byteLength ? Convert.ToHex(statement.statementInfo) : null}
+          monospace
+        />,
+      ]))}
     </BasicExtension>
   );
 };

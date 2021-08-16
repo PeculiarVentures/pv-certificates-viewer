@@ -30,30 +30,30 @@ FunctionalComponent<IBiometricSyntaxExtensionProps> = (props) => {
     >
       {extension.value.map((data, arrayIndex) => ([
         <RowValue
-          name={`Biometric Oid #${arrayIndex + 1}`}
+          name={`Biometric #${arrayIndex + 1}`}
+          value=""
+        />,
+        <RowValue
+          name="OID"
           value={getStringByOID(data.typeOfBiometricData.biometricDataOid)}
         />,
         <RowValue
-          name={`Biometric Type #${arrayIndex + 1}`}
+          name="Type"
           value={data.typeOfBiometricData.predefinedBiometricType}
         />,
         <RowValue
-          name={`Algorithm #${arrayIndex + 1}`}
+          name="Algorithm"
           value={getStringByOID(data.hashAlgorithm.algorithm)}
         />,
         <RowValue
-          name={`Biometric Hash #${arrayIndex + 1}`}
+          name="Hash"
           value={Convert.ToHex(data.biometricDataHash.buffer)}
           monospace
         />,
         <RowValue
-          name={`Source Uri #${arrayIndex + 1}`}
+          name="Source Uri"
           value={data.sourceDataUri}
         />,
-        <tr>
-          <td />
-          <td />
-        </tr>,
       ]))}
     </BasicExtension>
   );

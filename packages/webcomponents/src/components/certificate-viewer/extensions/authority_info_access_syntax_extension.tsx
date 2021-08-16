@@ -30,7 +30,11 @@ FunctionalComponent<IAuthorityInfoAccessSyntaxExtensionProps> = (props) => {
     >
       {extension.value.map((description, arrayIndex) => ([
         <RowValue
-          name={`Method #${arrayIndex + 1}`}
+          name={`Description #${arrayIndex + 1}`}
+          value=""
+        />,
+        <RowValue
+          name="Method"
           value={getStringByOID(description.accessMethod)}
         />,
         <GeneralNamePart
