@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.14.0...@peculiar/certificates-viewer@1.15.0) (2021-08-16)
+
+
+### Features
+
+* **oids:** add "1.3.6.1.5.5.7.1.26" description ([8fb7029](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/8fb7029dee463790d37eb69c6c34ad1fe055c612))
+* **webcomponents:** add support TNAuthList extension ([d7d93e5](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/d7d93e5336be4766f4d62d8b2b75648a48b50ce8))
+
+
+
+
+
 # [1.14.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.13.6...@peculiar/certificates-viewer@1.14.0) (2021-08-11)
 
 
