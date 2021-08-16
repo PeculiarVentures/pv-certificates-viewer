@@ -117,6 +117,10 @@ import {
   id_pe_logotype,
   LogotypeExtn,
 } from '@peculiar/asn1-x509-logotype';
+import {
+  id_pe_TNAuthList,
+  TNAuthorizationList,
+} from '@peculiar/asn1-rfc8226';
 
 import { AsnData } from './asn_data';
 
@@ -151,6 +155,7 @@ export type TExtensionValue = AuthorityInfoAccessSyntax
 | EntrustVersionInfo
 | BiometricSyntax
 | LogotypeExtn
+| TNAuthorizationList
 | string;
 
 export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> {
@@ -266,6 +271,9 @@ export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> 
         break;
       case id_pe_logotype:
         this.value = AsnParser.parse(asnExtnValue, LogotypeExtn) as T;
+        break;
+      case id_pe_TNAuthList:
+        this.value = AsnParser.parse(asnExtnValue, TNAuthorizationList) as T;
         break;
       default:
         this.value = Convert.ToHex(asnExtnValue) as T;

@@ -34,6 +34,7 @@ import { NetscapeComment, NetscapeCertType } from '@peculiar/asn1-x509-netscape'
 import { LeiRoles, LeiChoice } from '@peculiar/asn1-lei';
 import { Timestamp, ArchiveRevInfo } from '@peculiar/asn1-adobe-acrobat';
 import { LogotypeExtn } from '@peculiar/asn1-x509-logotype';
+import { TNAuthorizationList } from '@peculiar/asn1-rfc8226';
 
 import { RowTitle } from '../row';
 import { Extension, TExtensionValue } from '../../../crypto/extension';
@@ -67,6 +68,7 @@ import { PrivateKeyUsagePeriodExtension } from './private_key_usage_period_exten
 import { EntrustVersionInfoExtension } from './entrust_version_info_extension';
 import { BiometricSyntaxExtension } from './biometric_syntax_extension';
 import { LogotypeExtension } from './logotype_extension';
+import { TNAuthListExtension } from './tn_auth_list_extension';
 
 interface IExtensionsProps extends
   IGeneralNameOptions,
@@ -309,6 +311,14 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof LogotypeExtn) {
           return (
             <LogotypeExtension
+              extension={extension as any}
+            />
+          );
+        }
+
+        if (extension.value instanceof TNAuthorizationList) {
+          return (
+            <TNAuthListExtension
               extension={extension as any}
             />
           );
