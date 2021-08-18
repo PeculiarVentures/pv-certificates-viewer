@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.15.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.15.0...@peculiar/certificates-viewer@1.15.1) (2021-08-18)
+
+
+### Bug Fixes
+
+* **webcomponents:** fix LeiRole extension parsing ([5f75dea](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/5f75deafc6e68d3effdc6f31b4f981a9532c26aa))
+
+
+
+
+
 # [1.15.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.14.0...@peculiar/certificates-viewer@1.15.0) (2021-08-16)
 
 
