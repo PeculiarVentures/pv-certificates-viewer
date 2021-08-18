@@ -1000,10 +1000,10 @@
     asn1js "^2.1.1"
     tslib "^2.3.0"
 
-"@peculiar/asn1-rfc8226@^2.0.39":
-  version "2.0.39"
-  resolved "https://registry.yarnpkg.com/@peculiar/asn1-rfc8226/-/asn1-rfc8226-2.0.39.tgz#4922123ac2fd19817702ec4b6751beef2dacb696"
-  integrity sha512-tO9P3IlE365Efwbb01l4qEhbY4F3jCH565sBpZJvzjE/dI2gDLT+b16St5ncb3H9NlSWGa0hOx5xYzwjQA4DCQ==
+"@peculiar/asn1-rfc8226@^2.0.41":
+  version "2.0.41"
+  resolved "https://registry.yarnpkg.com/@peculiar/asn1-rfc8226/-/asn1-rfc8226-2.0.41.tgz#40f4b336693dea8f6c933f8058089afe8c2f31c3"
+  integrity sha512-SQgCy69lhFelLDKNXys+BuABz8Ca+K1a227RTVNOQmu71mofYnIE+6XGw4L89YWPGubHVArV/abCtsFHiMQfuQ==
   dependencies:
     "@peculiar/asn1-schema" "^2.0.38"
     asn1js "^2.1.1"
