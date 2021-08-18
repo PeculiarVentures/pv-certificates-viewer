@@ -31,7 +31,7 @@ import {
 } from '@peculiar/asn1-x509-microsoft';
 import { QCStatements, BiometricSyntax } from '@peculiar/asn1-x509-qualified';
 import { NetscapeComment, NetscapeCertType } from '@peculiar/asn1-x509-netscape';
-import { LeiRoles, LeiChoice } from '@peculiar/asn1-lei';
+import { LeiRole, LeiChoice } from '@peculiar/asn1-lei';
 import { Timestamp, ArchiveRevInfo } from '@peculiar/asn1-adobe-acrobat';
 import { LogotypeExtn } from '@peculiar/asn1-x509-logotype';
 import { TNAuthorizationList } from '@peculiar/asn1-rfc8226';
@@ -56,7 +56,7 @@ import { CaVersionExtension } from './ca_version_extension';
 import { QCStatementsExtension } from './qc_statements_extension';
 import { NetscapeCommentExtension } from './netscape_comment_extension';
 import { NetscapeCertTypeExtension } from './netscape_cert_type_extension';
-import { LeiRolesExtension } from './lei_roles_extendsion';
+import { LeiRoleExtension } from './lei_role_extennsion';
 import { LeiExtension } from './lei_extension';
 import { TimestampExtension } from './timestamp_extension';
 import { ArchiveRevInfoExtension } from './archive_rev_info_extension';
@@ -234,9 +234,9 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
           );
         }
 
-        if (extension.value instanceof LeiRoles) {
+        if (extension.value instanceof LeiRole) {
           return (
-            <LeiRolesExtension
+            <LeiRoleExtension
               extension={extension as any}
             />
           );

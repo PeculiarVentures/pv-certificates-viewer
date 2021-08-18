@@ -181,7 +181,7 @@ export class CertificateViewer {
           type="b1"
           class="interaction_text"
         >
-          There is error for certificate decode.
+          There was an error decoding this certificate.
         </peculiar-typography>
       </div>
     );

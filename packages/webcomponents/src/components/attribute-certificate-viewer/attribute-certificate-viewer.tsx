@@ -170,7 +170,7 @@ export class AttributeCertificateViewer {
           type="b1"
           class="interaction_text"
         >
-          There is error for attribute certificate decode.
+          There was an error decoding this attribute certificate.
         </peculiar-typography>
       </div>
     );

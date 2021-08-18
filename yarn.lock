@@ -945,10 +945,10 @@
     asn1js "^2.1.1"
     tslib "^2.3.0"
 
-"@peculiar/asn1-lei@^2.0.38":
-  version "2.0.38"
-  resolved "https://registry.yarnpkg.com/@peculiar/asn1-lei/-/asn1-lei-2.0.38.tgz#86d44ca80bd9e4d1d2370b2caca4bc685dacceeb"
-  integrity sha512-rbMun7JgBOgmw5dJj/m+e4c2lG+YucJ1H0NoW32rwXwvrALYUX7qFNfHK0pDzP4ziUoyXXbljDshLFhBPVIGNA==
+"@peculiar/asn1-lei@^2.0.40":
+  version "2.0.40"
+  resolved "https://registry.yarnpkg.com/@peculiar/asn1-lei/-/asn1-lei-2.0.40.tgz#967faed218b605c5c2b9e0e2da5925a314fe83eb"
+  integrity sha512-JcboQifbukLqkfpIM1wPz5B3TzSmbw7qDt0NmegEC/4DU8HiAhQjdmqCzT9VUrr7eKp9Dnf+WqwYXDAU8Bv7eA==
   dependencies:
     "@peculiar/asn1-schema" "^2.0.38"
     asn1js "^2.1.1"
@@ -5538,10 +5538,10 @@ tslib@^1.8.1, tslib@^1.9.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.2.0, tslib@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
-  integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
+tslib@^2.2.0, tslib@^2.3.0, tslib@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
+  integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
 
 tsutils@^3.17.1:
   version "3.20.0"

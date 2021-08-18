@@ -153,7 +153,7 @@ export class CsrViewer {
           type="b1"
           class="interaction_text"
         >
-          There is error for certificate request decode.
+          There was an error decoding this certificate request.
         </peculiar-typography>
       </div>
     );

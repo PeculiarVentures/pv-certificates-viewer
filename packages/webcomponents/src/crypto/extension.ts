@@ -99,8 +99,8 @@ import {
   id_lei,
   LeiChoice,
 
-  id_lei_roles,
-  LeiRoles,
+  id_role,
+  LeiRole,
 } from '@peculiar/asn1-lei';
 import {
   id_certificateTransparency,
@@ -144,7 +144,7 @@ export type TExtensionValue = AuthorityInfoAccessSyntax
 | EnrollCertTypeChoice
 | NetscapeComment
 | LeiChoice
-| LeiRoles
+| LeiRole
 | CertificateTransparency
 | Timestamp
 | ArchiveRevInfo
@@ -250,8 +250,8 @@ export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> 
       case id_lei:
         this.value = AsnParser.parse(asnExtnValue, LeiChoice) as T;
         break;
-      case id_lei_roles:
-        this.value = AsnParser.parse(asnExtnValue, LeiRoles) as T;
+      case id_role:
+        this.value = AsnParser.parse(asnExtnValue, LeiRole) as T;
         break;
       case id_adbe_timestamp:
         this.value = AsnParser.parse(asnExtnValue, Timestamp) as T;

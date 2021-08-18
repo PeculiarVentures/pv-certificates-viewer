@@ -7,18 +7,18 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { LeiRoles } from '@peculiar/asn1-lei';
+import { LeiRole } from '@peculiar/asn1-lei';
 
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
 
 import { BasicExtension } from './basic_extension';
 
-interface ILeiRolesExtensionProps {
-  extension: Extension<LeiRoles>;
+interface ILeiRoleExtensionProps {
+  extension: Extension<LeiRole>;
 }
 
-export const LeiRolesExtension: FunctionalComponent<ILeiRolesExtensionProps> = (props) => {
+export const LeiRoleExtension: FunctionalComponent<ILeiRoleExtensionProps> = (props) => {
   const { extension } = props;
 
   return (
