@@ -401,6 +401,14 @@ declare namespace LocalJSX {
           * Use highlight chapters in the list when search is changed.
          */
         "highlightWithSearch"?: boolean;
+        /**
+          * Emitted when the user close certificate details modal.
+         */
+        "onDetailsClose"?: (event: CustomEvent<void>) => void;
+        /**
+          * Emitted when the user open certificate details modal.
+         */
+        "onDetailsOpen"?: (event: CustomEvent<X509Certificate>) => void;
     }
     interface PeculiarCircularProgress {
         /**

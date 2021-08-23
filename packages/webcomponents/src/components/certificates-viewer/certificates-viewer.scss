@@ -113,21 +113,30 @@ table tr.expanded_summary td {
   height: 100%;
   z-index: 1;
   overflow: auto;
-  padding: 10px;
   text-align: center;
-  @include propertyColorVariable(background, dark, 0.9);
-  animation: fadeIn 300ms;
+  animation: fadeIn 200ms;
+  padding: 30px 10px;
+
+  &:before {
+    display: inline-block;
+    vertical-align: middle;
+    width: 0;
+    height: 100%;
+    content: '';
+  }
 }
 
-.modal_wrapper:before {
-  display: inline-block;
-  vertical-align: middle;
-  width: 0;
-  height: 100%;
-  content: '';
+.modal_backdrop {
+  @include propertyColorVariable(background, dark, 0.5);
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
-.modal_content {
+.modal_container {
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -137,6 +146,7 @@ table tr.expanded_summary td {
   border-radius: 3px;
   overflow: hidden;
   @include propertyColorVariable(background-color, light);
+  height: 100%;
 }
 
 .modal_title {
@@ -144,11 +154,17 @@ table tr.expanded_summary td {
   @include propertyColorVariable(border-color, grey_3);
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  padding: 17px 60px 17px 20px;
+  padding: 20px 60px 16px 20px;
   position: relative;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  height: 60px;
+}
+
+.modal_content {
+  height: calc(100% - 60px);
+  overflow-y: auto;
 }
 
 .modal_close {

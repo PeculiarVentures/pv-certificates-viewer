@@ -7,7 +7,12 @@
  */
 
 import {
-  Component, h, Prop, State, Watch, Host,
+  Component,
+  h,
+  Prop,
+  State,
+  Watch,
+  Host,
 } from '@stencil/core';
 
 import {

@@ -13,6 +13,8 @@ import {
   State,
   Watch,
   Host,
+  Event,
+  EventEmitter,
 } from '@stencil/core';
 
 import { X509Certificate } from '../../crypto';
@@ -73,6 +75,16 @@ export class CertificatesViewer {
   @State() certificateSelectedForDetails?: X509Certificate;
 
   @State() isDecodeInProcess: boolean = true;
+
+  /**
+   * Emitted when the user open certificate details modal.
+   */
+  @Event() detailsOpen!: EventEmitter<X509Certificate>;
+
+  /**
+   * Emitted when the user close certificate details modal.
+   */
+  @Event() detailsClose!: EventEmitter<void>;
 
   private isHasTests: boolean = false;
 
@@ -139,7 +151,7 @@ export class CertificatesViewer {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  onClickDownloadAsPem(certificate: ICertificateDecoded, e: MouseEvent) {
+  private handleClickDownloadAsPem(certificate: ICertificateDecoded, e: MouseEvent) {
     e.stopPropagation();
 
     Download.certificate.asPEM(
@@ -149,7 +161,7 @@ export class CertificatesViewer {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  onClickDownloadAsDer(certificate: ICertificateDecoded, e: MouseEvent) {
+  private handleClickDownloadAsDer(certificate: ICertificateDecoded, e: MouseEvent) {
     e.stopPropagation();
 
     Download.certificate.asPEM(
@@ -158,17 +170,20 @@ export class CertificatesViewer {
     );
   }
 
-  onClickDetails = (certificate: X509Certificate, e: MouseEvent) => {
+  private handleClickDetails = (certificate: X509Certificate, e: MouseEvent) => {
     e.stopPropagation();
 
     this.certificateSelectedForDetails = certificate;
+    this.detailsOpen.emit(certificate);
   };
 
-  onClickModalClose = () => {
+  private handleModalClose = () => {
     this.certificateSelectedForDetails = undefined;
+
+    this.detailsClose.emit();
   };
 
-  onClickRow(index: number) {
+  private handleClickRow(index: number) {
     const isExpandedRowClicked = this.expandedRow === index;
 
     this.expandedRow = isExpandedRowClicked
@@ -176,7 +191,7 @@ export class CertificatesViewer {
       : index;
   }
 
-  renderExpandedRow(certificate: X509Certificate) {
+  private renderExpandedRow(certificate: X509Certificate) {
     let colSpan = 4;
 
     if (this.isHasTests) {
@@ -200,7 +215,7 @@ export class CertificatesViewer {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  renderCertificateTests(tests: ICertificateDecoded['tests']) {
+  private renderCertificateTests(tests: ICertificateDecoded['tests']) {
     if (!tests) {
       return null;
     }
@@ -246,7 +261,7 @@ export class CertificatesViewer {
     return elems;
   }
 
-  renderContentState() {
+  private renderContentState() {
     const searchHighlight = this.highlightWithSearch
       ? this.search
       : '';
@@ -278,7 +293,7 @@ export class CertificatesViewer {
           class={{
             expanded: isExpandedRow,
           }}
-          onClick={this.onClickRow.bind(this, index)}
+          onClick={this.handleClickRow.bind(this, index)}
           // eslint-disable-next-line react/no-array-index-key
           key={index}
         >
@@ -350,16 +365,16 @@ export class CertificatesViewer {
             </peculiar-typography>
             <span class="content">
               <peculiar-button
-                onClick={this.onClickDetails.bind(this, certificate.body)}
+                onClick={this.handleClickDetails.bind(this, certificate.body)}
                 class="button_table_action"
               >
                 {l10n.getString('details')}
               </peculiar-button>
               <peculiar-button-split
-                onClick={this.onClickDownloadAsPem.bind(this, certificate)}
+                onClick={this.handleClickDownloadAsPem.bind(this, certificate)}
                 actions={[{
                   text: l10n.getString('download.der'),
-                  onClick: this.onClickDownloadAsDer.bind(this, certificate),
+                  onClick: this.handleClickDownloadAsDer.bind(this, certificate),
                 }]}
                 class="button_table_action"
               >
@@ -389,15 +404,29 @@ export class CertificatesViewer {
     return content;
   }
 
-  renderCertificateDetailsModal() {
+  private renderCertificateDetailsModal() {
     if (!this.certificateSelectedForDetails) {
       return null;
     }
 
     return (
-      <div class="modal_wrapper">
-        <div class="modal_content">
-          <div class="modal_title">
+      <div
+        class="modal_wrapper"
+        role="presentation"
+        aria-hidden="false"
+        part="presentation"
+      >
+        <div
+          class="modal_backdrop"
+          onClick={this.handleModalClose}
+          aria-hidden="true"
+        />
+        <div
+          class="modal_container"
+          role="dialog"
+          part="presentation_container"
+        >
+          <header class="modal_title">
             <peculiar-typography
               type="h4"
             >
@@ -405,8 +434,10 @@ export class CertificatesViewer {
             </peculiar-typography>
             <button
               class="modal_close"
-              onClick={this.onClickModalClose}
+              onClick={this.handleModalClose}
               type="button"
+              aria-label="Close"
+              title="Close"
             >
               <svg
                 width="30"
@@ -421,16 +452,18 @@ export class CertificatesViewer {
                 />
               </svg>
             </button>
+          </header>
+          <div class="modal_content">
+            <peculiar-certificate-viewer
+              certificate={this.certificateSelectedForDetails}
+            />
           </div>
-          <peculiar-certificate-viewer
-            certificate={this.certificateSelectedForDetails}
-          />
         </div>
       </div>
     );
   }
 
-  renderSearch() {
+  private renderSearch() {
     if (!this.filterWithSearch && !this.highlightWithSearch) {
       return null;
     }
@@ -438,7 +471,7 @@ export class CertificatesViewer {
     return (
       <div class="search_section">
         <input
-          onInput={this.onSearchChange}
+          onInput={this.handleSearch}
           type="search"
           value=""
           class="input_search"
@@ -450,7 +483,7 @@ export class CertificatesViewer {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  renderEmptyState() {
+  private renderEmptyState() {
     return (
       <tr>
         <td
@@ -468,7 +501,7 @@ export class CertificatesViewer {
     );
   }
 
-  renderEmptySearchState() {
+  private renderEmptySearchState() {
     return (
       <tr>
         <td
@@ -489,7 +522,7 @@ export class CertificatesViewer {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  renderLoadingState() {
+  private renderLoadingState() {
     return (
       <div class="loading_container">
         <peculiar-circular-progress />
@@ -497,7 +530,7 @@ export class CertificatesViewer {
     );
   }
 
-  renderBody() {
+  private renderBody() {
     if (this.isDecodeInProcess) {
       return null;
     }
@@ -515,9 +548,8 @@ export class CertificatesViewer {
     return contentState;
   }
 
-  onSearchChange = (e: any) => {
-    this.search = e.target.value
-      .trim();
+  private handleSearch = (e: any) => {
+    this.search = e.target.value.trim();
   };
 
   render() {

@@ -14,6 +14,22 @@
 | `highlightWithSearch` | `highlight-with-search` | Use highlight chapters in the list when search is changed.                                                                                                                                                                                                                                                                                                                                    | `boolean`        | `true`  |
 
 
+## Events
+
+| Event          | Description                                            | Type                           |
+| -------------- | ------------------------------------------------------ | ------------------------------ |
+| `detailsClose` | Emitted when the user close certificate details modal. | `CustomEvent<void>`            |
+| `detailsOpen`  | Emitted when the user open certificate details modal.  | `CustomEvent<X509Certificate>` |
+
+
+## Shadow Parts
+
+| Part                       | Description |
+| -------------------------- | ----------- |
+| `"presentation"`           |             |
+| `"presentation_container"` |             |
+
+
 ## Dependencies
 
 ### Depends on
