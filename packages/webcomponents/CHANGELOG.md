@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.16.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.15.2...@peculiar/certificates-viewer@1.16.0) (2021-08-23)
+
+
+### Features
+
+* **webcomponents:** add events for open/close details modal, update details styles ([1f28e19](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/1f28e19458426f3d82f7431f96b77b82b9300653))
+
+
+
+
+
 ## [1.15.2](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.15.1...@peculiar/certificates-viewer@1.15.2) (2021-08-18)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer
