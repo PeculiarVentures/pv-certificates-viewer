@@ -170,115 +170,121 @@ export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> 
 
     const asnExtnValue = this.getAsnExtnValue();
 
-    switch (this.asn.extnID) {
-      case id_pe_authorityInfoAccess:
-        this.value = AsnParser.parse(asnExtnValue, AuthorityInfoAccessSyntax) as T;
-        break;
-      case id_ce_authorityKeyIdentifier:
-        this.value = AsnParser.parse(asnExtnValue, AuthorityKeyIdentifier) as T;
-        break;
-      case id_ce_basicConstraints:
-        this.value = AsnParser.parse(asnExtnValue, BasicConstraints) as T;
-        break;
-      case id_ce_certificateIssuer:
-        this.value = AsnParser.parse(asnExtnValue, CertificateIssuer) as T;
-        break;
-      case id_ce_certificatePolicies:
-        this.value = AsnParser.parse(asnExtnValue, CertificatePolicies) as T;
-        break;
-      case id_ce_cRLDistributionPoints:
-      case '2.5.29.46':
-        this.value = AsnParser.parse(asnExtnValue, CRLDistributionPoints) as T;
-        break;
-      case id_ce_cRLReasons:
-        this.value = AsnParser.parse(asnExtnValue, CRLReason) as T;
-        break;
-      case id_ce_extKeyUsage:
-        this.value = AsnParser.parse(asnExtnValue, ExtendedKeyUsage) as T;
-        break;
-      case id_ce_inhibitAnyPolicy:
-        this.value = AsnParser.parse(asnExtnValue, InhibitAnyPolicy) as T;
-        break;
-      case id_ce_invalidityDate:
-        this.value = AsnParser.parse(asnExtnValue, InvalidityDate) as T;
-        break;
-      case id_ce_issuerAltName:
-        this.value = AsnParser.parse(asnExtnValue, IssueAlternativeName) as T;
-        break;
-      case id_ce_keyUsage:
-        this.value = AsnParser.parse(asnExtnValue, KeyUsage) as T;
-        break;
-      case id_ce_nameConstraints:
-        this.value = AsnParser.parse(asnExtnValue, NameConstraints) as T;
-        break;
-      case id_ce_policyConstraints:
-        this.value = AsnParser.parse(asnExtnValue, PolicyConstraints) as T;
-        break;
-      case id_ce_policyMappings:
-        this.value = AsnParser.parse(asnExtnValue, PolicyMappings) as T;
-        break;
-      case id_ce_subjectAltName:
-        this.value = AsnParser.parse(asnExtnValue, SubjectAlternativeName) as T;
-        break;
-      case id_ce_subjectDirectoryAttributes:
-        this.value = AsnParser.parse(asnExtnValue, SubjectDirectoryAttributes) as T;
-        break;
-      case id_ce_subjectKeyIdentifier:
-        this.value = AsnParser.parse(asnExtnValue, SubjectKeyIdentifier) as T;
-        break;
-      case id_pe_qcStatements:
-        this.value = AsnParser.parse(asnExtnValue, QCStatements) as T;
-        break;
-      case id_certificateTemplate:
-        this.value = AsnParser.parse(asnExtnValue, CertificateTemplate) as T;
-        break;
-      case id_enrollCertType:
-        this.value = AsnParser.parse(asnExtnValue, EnrollCertTypeChoice) as T;
-        break;
-      case id_netscapeComment:
-        this.value = AsnParser.parse(asnExtnValue, NetscapeComment) as T;
-        break;
-      case id_netscapeCertType:
-        this.value = AsnParser.parse(asnExtnValue, NetscapeCertType) as T;
-        break;
-      case id_caVersion:
-        this.value = AsnParser.parse(asnExtnValue, CaVersion) as T;
-        break;
-      case id_certificateTransparency:
-        this.value = AsnParser.parse(asnExtnValue, CertificateTransparency) as T;
-        break;
-      case id_lei:
-        this.value = AsnParser.parse(asnExtnValue, LeiChoice) as T;
-        break;
-      case id_role:
-        this.value = AsnParser.parse(asnExtnValue, LeiRole) as T;
-        break;
-      case id_adbe_timestamp:
-        this.value = AsnParser.parse(asnExtnValue, Timestamp) as T;
-        break;
-      case id_adbe_archiveRevInfo:
-        this.value = AsnParser.parse(asnExtnValue, ArchiveRevInfo) as T;
-        break;
-      case id_ce_privateKeyUsagePeriod:
-        this.value = AsnParser.parse(asnExtnValue, PrivateKeyUsagePeriod) as T;
-        break;
-      case id_entrust_entrustVersInfo:
-        this.value = AsnParser.parse(asnExtnValue, EntrustVersionInfo) as T;
-        break;
-      case '2.16.724.1.2.2.4.1':
-      case id_pe_biometricInfo:
-        this.value = AsnParser.parse(asnExtnValue, BiometricSyntax) as T;
-        break;
-      case id_pe_logotype:
-        this.value = AsnParser.parse(asnExtnValue, LogotypeExtn) as T;
-        break;
-      case id_pe_TNAuthList:
-        this.value = AsnParser.parse(asnExtnValue, TNAuthorizationList) as T;
-        break;
-      default:
-        this.value = Convert.ToHex(asnExtnValue) as T;
+    try {
+      switch (this.asn.extnID) {
+        case id_pe_authorityInfoAccess:
+          this.value = AsnParser.parse(asnExtnValue, AuthorityInfoAccessSyntax) as T;
+          break;
+        case id_ce_authorityKeyIdentifier:
+          this.value = AsnParser.parse(asnExtnValue, AuthorityKeyIdentifier) as T;
+          break;
+        case id_ce_basicConstraints:
+          this.value = AsnParser.parse(asnExtnValue, BasicConstraints) as T;
+          break;
+        case id_ce_certificateIssuer:
+          this.value = AsnParser.parse(asnExtnValue, CertificateIssuer) as T;
+          break;
+        case id_ce_certificatePolicies:
+          this.value = AsnParser.parse(asnExtnValue, CertificatePolicies) as T;
+          break;
+        case id_ce_cRLDistributionPoints:
+        case '2.5.29.46':
+          this.value = AsnParser.parse(asnExtnValue, CRLDistributionPoints) as T;
+          break;
+        case id_ce_cRLReasons:
+          this.value = AsnParser.parse(asnExtnValue, CRLReason) as T;
+          break;
+        case id_ce_extKeyUsage:
+          this.value = AsnParser.parse(asnExtnValue, ExtendedKeyUsage) as T;
+          break;
+        case id_ce_inhibitAnyPolicy:
+          this.value = AsnParser.parse(asnExtnValue, InhibitAnyPolicy) as T;
+          break;
+        case id_ce_invalidityDate:
+          this.value = AsnParser.parse(asnExtnValue, InvalidityDate) as T;
+          break;
+        case id_ce_issuerAltName:
+          this.value = AsnParser.parse(asnExtnValue, IssueAlternativeName) as T;
+          break;
+        case id_ce_keyUsage:
+          this.value = AsnParser.parse(asnExtnValue, KeyUsage) as T;
+          break;
+        case id_ce_nameConstraints:
+          this.value = AsnParser.parse(asnExtnValue, NameConstraints) as T;
+          break;
+        case id_ce_policyConstraints:
+          this.value = AsnParser.parse(asnExtnValue, PolicyConstraints) as T;
+          break;
+        case id_ce_policyMappings:
+          this.value = AsnParser.parse(asnExtnValue, PolicyMappings) as T;
+          break;
+        case id_ce_subjectAltName:
+          this.value = AsnParser.parse(asnExtnValue, SubjectAlternativeName) as T;
+          break;
+        case id_ce_subjectDirectoryAttributes:
+          this.value = AsnParser.parse(asnExtnValue, SubjectDirectoryAttributes) as T;
+          break;
+        case id_ce_subjectKeyIdentifier:
+          this.value = AsnParser.parse(asnExtnValue, SubjectKeyIdentifier) as T;
+          break;
+        case id_pe_qcStatements:
+          this.value = AsnParser.parse(asnExtnValue, QCStatements) as T;
+          break;
+        case id_certificateTemplate:
+          this.value = AsnParser.parse(asnExtnValue, CertificateTemplate) as T;
+          break;
+        case id_enrollCertType:
+          this.value = AsnParser.parse(asnExtnValue, EnrollCertTypeChoice) as T;
+          break;
+        case id_netscapeComment:
+          this.value = AsnParser.parse(asnExtnValue, NetscapeComment) as T;
+          break;
+        case id_netscapeCertType:
+          this.value = AsnParser.parse(asnExtnValue, NetscapeCertType) as T;
+          break;
+        case id_caVersion:
+          this.value = AsnParser.parse(asnExtnValue, CaVersion) as T;
+          break;
+        case id_certificateTransparency:
+          this.value = AsnParser.parse(asnExtnValue, CertificateTransparency) as T;
+          break;
+        case id_lei:
+          this.value = AsnParser.parse(asnExtnValue, LeiChoice) as T;
+          break;
+        case id_role:
+          this.value = AsnParser.parse(asnExtnValue, LeiRole) as T;
+          break;
+        case id_adbe_timestamp:
+          this.value = AsnParser.parse(asnExtnValue, Timestamp) as T;
+          break;
+        case id_adbe_archiveRevInfo:
+          this.value = AsnParser.parse(asnExtnValue, ArchiveRevInfo) as T;
+          break;
+        case id_ce_privateKeyUsagePeriod:
+          this.value = AsnParser.parse(asnExtnValue, PrivateKeyUsagePeriod) as T;
+          break;
+        case id_entrust_entrustVersInfo:
+          this.value = AsnParser.parse(asnExtnValue, EntrustVersionInfo) as T;
+          break;
+        case '2.16.724.1.2.2.4.1':
+        case id_pe_biometricInfo:
+          this.value = AsnParser.parse(asnExtnValue, BiometricSyntax) as T;
+          break;
+        case id_pe_logotype:
+          this.value = AsnParser.parse(asnExtnValue, LogotypeExtn) as T;
+          break;
+        case id_pe_TNAuthList:
+          this.value = AsnParser.parse(asnExtnValue, TNAuthorizationList) as T;
+          break;
+        default:
+          console.warn(`Didn't detect parser for "${this.asn.extnID}" extension.`);
 
-        console.warn('Didn\'t detect parser for extension:', this.asn.extnID);
+          this.value = Convert.ToHex(asnExtnValue) as T;
+      }
+    } catch (error) {
+      console.error(`Error parse "${this.asn.extnID}" extension:`, error.message);
+
+      this.value = Convert.ToHex(asnExtnValue) as T;
     }
   }
 }
