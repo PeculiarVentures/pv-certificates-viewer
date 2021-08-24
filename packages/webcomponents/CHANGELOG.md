@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.16.0...@peculiar/certificates-viewer@1.16.1) (2021-08-24)
+
+
+### Bug Fixes
+
+* **webcomponents:** fix LEI extension decoding ([7c7213e](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/7c7213e3d8b6910a82edd73390e0e72e1171c16b))
+
+
+
+
+
 # [1.16.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.15.2...@peculiar/certificates-viewer@1.16.0) (2021-08-23)
 
 
