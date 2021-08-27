@@ -191,7 +191,7 @@ export class CertificatesViewer {
       : index;
   }
 
-  private renderExpandedRow(certificate: X509Certificate) {
+  private getMaxColSpanValue() {
     let colSpan = 4;
 
     if (this.isHasTests) {
@@ -201,6 +201,12 @@ export class CertificatesViewer {
     if (!this.isHasRoots) {
       colSpan += 1;
     }
+
+    return colSpan;
+  }
+
+  private renderExpandedRow(certificate: X509Certificate) {
+    const colSpan = this.getMaxColSpanValue();
 
     return (
       <tr class="expanded_summary">
@@ -482,13 +488,14 @@ export class CertificatesViewer {
     );
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private renderEmptyState() {
+    const colSpan = this.getMaxColSpanValue();
+
     return (
       <tr>
         <td
           class="status_wrapper"
-          colSpan={5}
+          colSpan={colSpan}
         >
           <peculiar-typography
             type="b1"
@@ -502,11 +509,13 @@ export class CertificatesViewer {
   }
 
   private renderEmptySearchState() {
+    const colSpan = this.getMaxColSpanValue();
+
     return (
       <tr>
         <td
           class="status_wrapper"
-          colSpan={5}
+          colSpan={colSpan}
         >
           <peculiar-typography
             type="b1"
