@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.14](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer-react@0.3.13...@peculiar/certificates-viewer-react@0.3.14) (2021-08-27)
+
+
+### Bug Fixes
+
+* **webcomponents-react:** fix React import ([d9850fc](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/d9850fc17c5f1aab68524897ee0b51f36a240bf7))
+
+
+
+
+
 ## [0.3.13](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer-react@0.3.12...@peculiar/certificates-viewer-react@0.3.13) (2021-08-24)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer-react

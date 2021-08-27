@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.2](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.16.1...@peculiar/certificates-viewer@1.16.2) (2021-08-27)
+
+
+### Bug Fixes
+
+* **webcomponents:** fix colSpan value for empty state ([2dd4a74](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/2dd4a74695fdb1bcfa2fa3d24b89dd4445c714af))
+
+
+
+
+
 ## [1.16.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.16.0...@peculiar/certificates-viewer@1.16.1) (2021-08-24)
 
 
