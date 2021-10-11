@@ -49,6 +49,8 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
 
   public holder: Holder;
 
+  public type: string = 'X.509 Attribute Certificate';
+
   constructor(raw: string) {
     super(certificateRawToBuffer(raw), AttributeCertificate);
 

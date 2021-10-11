@@ -54,6 +54,8 @@ export class X509Certificate extends AsnData<Certificate> {
 
   public thumbprints: Record<string, string> = {};
 
+  public type: string = 'X.509 Certificate';
+
   constructor(raw: string) {
     super(certificateRawToBuffer(raw), Certificate);
 

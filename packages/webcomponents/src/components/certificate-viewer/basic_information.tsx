@@ -13,21 +13,31 @@ import { dateShort, l10n } from '../../utils';
 import { RowTitle, RowValue } from './row';
 
 interface IBasicInformationProps {
-  serialNumber: string;
-  version: number;
-  validity: string;
-  notBefore: Date;
-  notAfter: Date;
+  serialNumber?: string;
+  version?: number;
+  validity?: string;
+  notBefore?: Date;
+  notAfter?: Date;
+  type: string;
 }
 
 export const BasicInformation: FunctionalComponent<IBasicInformationProps> = (props) => {
   const {
-    serialNumber, version, validity, notBefore, notAfter,
+    serialNumber,
+    version,
+    validity,
+    notBefore,
+    notAfter,
+    type,
   } = props;
 
   return [
     <RowTitle
       value={l10n.getString('basicInformation')}
+    />,
+    <RowValue
+      name={l10n.getString('type')}
+      value={type}
     />,
     <RowValue
       name={l10n.getString('serialNumber')}
@@ -44,11 +54,11 @@ export const BasicInformation: FunctionalComponent<IBasicInformationProps> = (pr
     />,
     <RowValue
       name={l10n.getString('issued')}
-      value={dateShort(notBefore)}
+      value={notBefore ? dateShort(notBefore) : undefined}
     />,
     <RowValue
       name={l10n.getString('expired')}
-      value={dateShort(notAfter)}
+      value={notAfter ? dateShort(notAfter) : undefined}
     />,
   ];
 };
