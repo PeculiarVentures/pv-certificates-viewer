@@ -18,6 +18,7 @@ import { Thumbprints } from '../certificate-viewer/thumbprints';
 import { Attributes } from '../certificate-viewer/attributes';
 import { Extensions } from '../certificate-viewer/extensions';
 import { Miscellaneous } from '../certificate-viewer/miscellaneous';
+import { BasicInformation } from '../certificate-viewer/basic_information';
 
 export type CsrProp = string | CSR;
 
@@ -198,6 +199,10 @@ export class CsrViewer {
         data-view={this.view}
       >
         <table>
+          <BasicInformation
+            {...this.certificateDecoded}
+          />
+
           <SubjectName
             name={this.certificateDecoded.subject}
           />

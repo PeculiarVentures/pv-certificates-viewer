@@ -42,6 +42,8 @@ export class CSR extends AsnData<CertificationRequest> {
 
   public thumbprints: Record<string, string> = {};
 
+  public type: string = 'PKCS#10 Certificate Request';
+
   constructor(raw: string) {
     super(certificateRawToBuffer(raw), CertificationRequest);
 
