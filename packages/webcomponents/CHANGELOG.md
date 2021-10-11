@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.16.2...@peculiar/certificates-viewer@1.17.0) (2021-10-11)
+
+
+### Features
+
+* **webcomponents:** add type title to basic information group ([#100](https://github.com/PeculiarVentures/pv-certificates-viewer/issues/100)) ([d687f58](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/d687f5818b304536764cd2b930d8bfbcb2228598))
+
+
+
+
+
 ## [1.16.2](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.16.1...@peculiar/certificates-viewer@1.16.2) (2021-08-27)
 
 
