@@ -24,7 +24,7 @@
   @include propertyFontSizeVariable(b3);
   @include propertyFontSpacingVariable();
   display: inline-flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
   width: 100%;
   border-style: solid;
