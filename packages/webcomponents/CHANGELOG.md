@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.17.0...@peculiar/certificates-viewer@1.17.1) (2021-10-18)
+
+
+### Bug Fixes
+
+* **webcomponents:** fix button content styles ([08a6e16](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/08a6e1645b22f1d3820093c7d0552decb57d9e69))
+
+
+
+
+
 # [1.17.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.16.2...@peculiar/certificates-viewer@1.17.0) (2021-10-11)
 
 
