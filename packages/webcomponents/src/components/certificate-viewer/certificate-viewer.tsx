@@ -166,12 +166,12 @@ export class CertificateViewer {
 
   // eslint-disable-next-line class-methods-use-this
   private getDNSNameLink(value: string) {
-    return `https://censys.io/ipv4?q=${value}`;
+    return `https://search.censys.io/search?resource=hosts&q=dns.names%3A${value}`;
   }
 
   // eslint-disable-next-line class-methods-use-this
   private getIPAddressLink(value: string) {
-    return `https://censys.io/ipv4?q=${value}`;
+    return `https://search.censys.io/search?resource=hosts&q=ip%3A${value}`;
   }
 
   private getIssuerDnLink() {
