@@ -1318,6 +1318,7 @@ export const OIDs = {
   '1.3.6.1.5.5.7.8': 'Other Names',
   '1.3.6.1.5.5.7.8.1': 'Personal Data',
   '1.3.6.1.5.5.7.8.2': 'User Group',
+  '1.3.6.1.5.5.7.8.3': 'Permanent Identifier',
   '1.3.6.1.5.5.7.8.5': 'Xmpp Addr',
   '1.3.6.1.5.5.7.9': 'Personal Data',
   '1.3.6.1.5.5.7.9.1': 'Date Of Birth',
