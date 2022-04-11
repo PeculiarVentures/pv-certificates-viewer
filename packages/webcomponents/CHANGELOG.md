@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.19.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.18.0...@peculiar/certificates-viewer@1.19.0) (2022-04-11)
+
+
+### Bug Fixes
+
+* **webcomponents:** add default parsing state for OtherName in GeneralNamePart ([c244e49](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/c244e492eba3da83413f57117044ad77a0b3186f))
+
+
+### Features
+
+* **oids:** add "1.3.6.1.5.5.7.8.3" description ([aa703d8](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/aa703d8545f2a665db62f2c9591a03da97e154a8))
+
+
+
+
+
 # [1.18.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.17.6...@peculiar/certificates-viewer@1.18.0) (2022-04-11)
 
 
