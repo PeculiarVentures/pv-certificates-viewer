@@ -18,6 +18,7 @@ import {
 import {
   X509Certificate,
 } from '../../crypto';
+import { getDNSNameLink, getIPAddressLink, getLEILink } from '../../utils/third_party_links';
 
 import { PublicKey } from './public_key';
 import { Signature } from './signature';
@@ -159,21 +160,6 @@ export class CertificateViewer {
   private getSubjectKeyIdSiblingsLink = (value: string) => this.subjectKeyIdSiblingsLink
       ?.replace('{{subjectKeyId}}', value);
 
-  // eslint-disable-next-line class-methods-use-this
-  private getLEILink(value: string) {
-    return `https://search.gleif.org/#/record/${value}`;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private getDNSNameLink(value: string) {
-    return `https://search.censys.io/search?resource=hosts&q=dns.names%3A${value}`;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private getIPAddressLink(value: string) {
-    return `https://search.censys.io/search?resource=hosts&q=ip%3A${value}`;
-  }
-
   private getIssuerDnLink() {
     return this.issuerDnLink;
   }
@@ -247,9 +233,9 @@ export class CertificateViewer {
 
           <Extensions
             extensions={this.certificateDecoded.extensions}
-            getLEILink={this.getLEILink}
-            getDNSNameLink={this.getDNSNameLink}
-            getIPAddressLink={this.getIPAddressLink}
+            getLEILink={getLEILink}
+            getDNSNameLink={getDNSNameLink}
+            getIPAddressLink={getIPAddressLink}
             getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
             getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
             getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}

@@ -11,6 +11,7 @@ import {
 } from '@stencil/core';
 
 import { CSR } from '../../crypto';
+import { getDNSNameLink, getIPAddressLink, getLEILink } from '../../utils/third_party_links';
 import { SubjectName } from '../certificate-viewer/subject_name';
 import { PublicKey } from '../certificate-viewer/public_key';
 import { Signature } from '../certificate-viewer/signature';
@@ -132,21 +133,6 @@ export class CsrViewer {
       ?.replace('{{subjectKeyId}}', value);
 
   // eslint-disable-next-line class-methods-use-this
-  private getLEILink(value: string) {
-    return `https://search.gleif.org/#/record/${value}`;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private getDNSNameLink(value: string) {
-    return `https://search.censys.io/search?resource=hosts&q=dns.names%3A${value}`;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private getIPAddressLink(value: string) {
-    return `https://search.censys.io/search?resource=hosts&q=ip%3A${value}`;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
   private renderErrorState() {
     return (
       <div class="status_wrapper">
@@ -221,9 +207,9 @@ export class CsrViewer {
 
           <Attributes
             attributes={this.certificateDecoded.attributes}
-            getLEILink={this.getLEILink}
-            getDNSNameLink={this.getDNSNameLink}
-            getIPAddressLink={this.getIPAddressLink}
+            getLEILink={getLEILink}
+            getDNSNameLink={getDNSNameLink}
+            getIPAddressLink={getIPAddressLink}
             getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
             getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
             getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
@@ -233,9 +219,9 @@ export class CsrViewer {
           <Extensions
             extensions={extensionRequestAttribute?.value as any}
             title="Extension Request"
-            getLEILink={this.getLEILink}
-            getDNSNameLink={this.getDNSNameLink}
-            getIPAddressLink={this.getIPAddressLink}
+            getLEILink={getLEILink}
+            getDNSNameLink={getDNSNameLink}
+            getIPAddressLink={getIPAddressLink}
             getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
             getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
             getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
