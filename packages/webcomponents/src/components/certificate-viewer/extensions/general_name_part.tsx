@@ -8,7 +8,7 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import {
-  GeneralName, Name, OtherName, DisplayText, EDIPartyName,
+  GeneralName, Name, OtherName, DisplayText, EDIPartyName, UserNotice,
 } from '@peculiar/asn1-x509';
 import { Convert, BufferSourceConverter } from 'pvtsutils';
 import { AsnParser } from '@peculiar/asn1-schema';
@@ -60,12 +60,39 @@ export const GeneralNamePart: FunctionalComponent<IGeneralNamePartProps> = (prop
     }
 
     if (value instanceof OtherName) {
-      const text = AsnParser.parse(value.value, DisplayText);
+      try {
+        const text = AsnParser.parse(value.value, DisplayText);
+
+        return (
+          <RowValue
+            name={OIDs[value.typeId] || value.typeId}
+            value={text.toString()}
+          />
+        );
+      } catch (error) {
+        //
+      }
+
+      try {
+        const text = AsnParser.parse(value.value, UserNotice);
+
+        if (text.explicitText) {
+          return (
+            <RowValue
+              name={OIDs[value.typeId] || value.typeId}
+              value={text.explicitText.toString()}
+            />
+          );
+        }
+      } catch (error) {
+        //
+      }
 
       return (
         <RowValue
-          name={OIDs[value.typeId]}
-          value={text.toString()}
+          name={OIDs[value.typeId] || value.typeId}
+          value={Convert.ToHex(value.value)}
+          monospace
         />
       );
     }
