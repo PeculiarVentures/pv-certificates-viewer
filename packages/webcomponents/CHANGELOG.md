@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.18.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.17.6...@peculiar/certificates-viewer@1.18.0) (2022-04-11)
+
+
+### Features
+
+* **oids:** add "1.3.6.1.4.1.37476.9000.64.1" description ([eb4fe6c](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/eb4fe6c9268e113b20db606dc3ada3d7b533aa30))
+
+
+
+
+
 ## [1.17.6](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.17.5...@peculiar/certificates-viewer@1.17.6) (2022-04-11)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer
