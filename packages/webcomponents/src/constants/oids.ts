@@ -1243,6 +1243,7 @@ export const OIDs = {
   '1.3.6.1.4.1.34697.2.4': 'Affirm Trust EV policy',
   '1.3.6.1.4.1.40869.1.1.22.3': 'TWCAEV policy',
   '1.3.6.1.4.1.13177.10.1.2.2': 'Corporate certificates for Natural Person',
+  '1.3.6.1.4.1.37476.9000.64.1': 'Smallstep CA Provisioner ID',
   '1.3.6.1.5.2.3.5': 'KCD Authentication',
   '1.3.6.1.5.5.7': 'PKIX',
   '1.3.6.1.5.5.7.0.12': 'Attribute Cert',
