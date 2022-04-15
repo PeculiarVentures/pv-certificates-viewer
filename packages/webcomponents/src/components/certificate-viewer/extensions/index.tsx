@@ -23,6 +23,7 @@ import {
   PrivateKeyUsagePeriod,
   EntrustVersionInfo,
   PolicyConstraints,
+  PolicyMappings,
 } from '@peculiar/asn1-x509';
 import { CertificateTransparency } from '@peculiar/asn1-cert-transparency';
 import {
@@ -71,6 +72,7 @@ import { BiometricSyntaxExtension } from './biometric_syntax_extension';
 import { LogotypeExtension } from './logotype_extension';
 import { TNAuthListExtension } from './tn_auth_list_extension';
 import { PolicyConstraintsExtension } from './policy_constraints_extension';
+import { PolicyMappingsExtension } from './policy_mappings_extension';
 
 interface IExtensionsProps extends
   IGeneralNameOptions,
@@ -329,6 +331,14 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof PolicyConstraints) {
           return (
             <PolicyConstraintsExtension
+              extension={extension as any}
+            />
+          );
+        }
+
+        if (extension.value instanceof PolicyMappings) {
+          return (
+            <PolicyMappingsExtension
               extension={extension as any}
             />
           );
