@@ -24,6 +24,7 @@ import {
   EntrustVersionInfo,
   PolicyConstraints,
   PolicyMappings,
+  SubjectInfoAccessSyntax,
 } from '@peculiar/asn1-x509';
 import { CertificateTransparency } from '@peculiar/asn1-cert-transparency';
 import {
@@ -47,7 +48,7 @@ import { ExtendedKeyUsageExtension } from './extended_key_usage_extension';
 import { SubjectKeyIdentifierExtension } from './subject_key_identifier_extension';
 import { AuthorityKeyIdentifierExtension } from './authority_key_identifier_extension';
 import { CRLDistributionPointsExtension } from './crl_distribution_points_extension';
-import { AuthorityInfoAccessSyntaxExtension } from './authority_info_access_syntax_extension';
+import { InfoAccessSyntaxExtension } from './info_access_syntax_extension';
 import { SubjectAlternativeNameExtension } from './subject_alternative_name_extension';
 import { CertificatePoliciesExtension } from './certificate_policies_extension';
 import { CertificateTransparencyExtension } from './certificate_transparency_extension';
@@ -147,9 +148,12 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
           );
         }
 
-        if (extension.value instanceof AuthorityInfoAccessSyntax) {
+        if (
+          extension.value instanceof AuthorityInfoAccessSyntax
+          || extension.value instanceof SubjectInfoAccessSyntax
+        ) {
           return (
-            <AuthorityInfoAccessSyntaxExtension
+            <InfoAccessSyntaxExtension
               extension={extension as any}
               {...props}
             />

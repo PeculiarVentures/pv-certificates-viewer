@@ -69,6 +69,9 @@ import {
 
   id_entrust_entrustVersInfo,
   EntrustVersionInfo,
+
+  id_pe_subjectInfoAccess,
+  SubjectInfoAccessSyntax,
 } from '@peculiar/asn1-x509';
 import {
   id_pe_qcStatements,
@@ -156,6 +159,7 @@ export type TExtensionValue = AuthorityInfoAccessSyntax
 | BiometricSyntax
 | LogotypeExtn
 | TNAuthorizationList
+| SubjectInfoAccessSyntax
 | string;
 
 export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> {
@@ -275,6 +279,9 @@ export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> 
           break;
         case id_pe_TNAuthList:
           this.value = AsnParser.parse(asnExtnValue, TNAuthorizationList) as T;
+          break;
+        case id_pe_subjectInfoAccess:
+          this.value = AsnParser.parse(asnExtnValue, SubjectInfoAccessSyntax) as T;
           break;
         default:
           console.warn(`Didn't detect parser for "${this.asn.extnID}" extension.`);
