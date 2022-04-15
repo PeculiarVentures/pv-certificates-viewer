@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.20.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.19.0...@peculiar/certificates-viewer@1.20.0) (2022-04-15)
+
+
+### Features
+
+* **webcomponents:** add support PolicyConstraints extension ([#107](https://github.com/PeculiarVentures/pv-certificates-viewer/issues/107)) ([f4991fa](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/f4991fae08dd84ca465249d2b83f86adc460e707))
+* **webcomponents:** add support SubjectInfoAccess extension ([#112](https://github.com/PeculiarVentures/pv-certificates-viewer/issues/112)) ([1c6b06b](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/1c6b06b9ddf359a6c3b34f63216d6ecc5f0c6eba))
+
+
+
+
+
 # [1.19.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer@1.18.0...@peculiar/certificates-viewer@1.19.0) (2022-04-11)
 
 
