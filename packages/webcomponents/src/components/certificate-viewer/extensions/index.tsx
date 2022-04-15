@@ -22,6 +22,7 @@ import {
   SubjectDirectoryAttributes,
   PrivateKeyUsagePeriod,
   EntrustVersionInfo,
+  PolicyConstraints,
 } from '@peculiar/asn1-x509';
 import { CertificateTransparency } from '@peculiar/asn1-cert-transparency';
 import {
@@ -69,6 +70,7 @@ import { EntrustVersionInfoExtension } from './entrust_version_info_extension';
 import { BiometricSyntaxExtension } from './biometric_syntax_extension';
 import { LogotypeExtension } from './logotype_extension';
 import { TNAuthListExtension } from './tn_auth_list_extension';
+import { PolicyConstraintsExtension } from './policy_constraints_extension';
 
 interface IExtensionsProps extends
   IGeneralNameOptions,
@@ -319,6 +321,14 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof TNAuthorizationList) {
           return (
             <TNAuthListExtension
+              extension={extension as any}
+            />
+          );
+        }
+
+        if (extension.value instanceof PolicyConstraints) {
+          return (
+            <PolicyConstraintsExtension
               extension={extension as any}
             />
           );
