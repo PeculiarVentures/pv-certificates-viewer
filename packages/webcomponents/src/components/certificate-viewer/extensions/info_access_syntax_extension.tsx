@@ -7,7 +7,7 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { AuthorityInfoAccessSyntax } from '@peculiar/asn1-x509';
+import { AuthorityInfoAccessSyntax, SubjectInfoAccessSyntax } from '@peculiar/asn1-x509';
 
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
@@ -16,12 +16,12 @@ import { getStringByOID } from '../get_string_by_oid';
 import { BasicExtension } from './basic_extension';
 import { GeneralNamePart } from './general_name_part';
 
-interface IAuthorityInfoAccessSyntaxExtensionProps extends IGeneralNameOptions {
-  extension: Extension<AuthorityInfoAccessSyntax>;
+interface IInfoAccessSyntaxExtensionProps extends IGeneralNameOptions {
+  extension: Extension<AuthorityInfoAccessSyntax | SubjectInfoAccessSyntax>;
 }
 
-export const AuthorityInfoAccessSyntaxExtension:
-FunctionalComponent<IAuthorityInfoAccessSyntaxExtensionProps> = (props) => {
+export const InfoAccessSyntaxExtension:
+FunctionalComponent<IInfoAccessSyntaxExtensionProps> = (props) => {
   const { extension } = props;
 
   return (
