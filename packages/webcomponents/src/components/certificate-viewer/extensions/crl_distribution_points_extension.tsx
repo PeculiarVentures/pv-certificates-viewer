@@ -26,14 +26,26 @@ FunctionalComponent<ICRLDistributionPointsExtensionProps> = (props) => {
     <BasicExtension
       extension={extension}
     >
-      {extension.value.map((point) => (
-          point?.distributionPoint?.fullName.map((gn) => (
+      {extension.value.map((point) => {
+        if (!point) {
+          return null;
+        }
+
+        return [
+          point.distributionPoint?.fullName.map((gn) => (
             <GeneralNamePart
               generalName={gn}
               {...props}
             />
-          ))
-      ))}
+          )),
+          point.cRLIssuer?.map((gn) => (
+            <GeneralNamePart
+              generalName={gn}
+              {...props}
+            />
+          )),
+        ];
+      })}
     </BasicExtension>
   );
 };
