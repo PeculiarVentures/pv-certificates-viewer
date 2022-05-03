@@ -202,7 +202,7 @@ function Ve(e){return new Promise((function(t,i){var r=new FileReader;r.onload=f
              *
              * This source code is licensed under the MIT license found in the
              * LICENSE file in the root directory of this source tree.
-             */var vt=function(e){var i=e.extension;return t(dt,{extension:i},i.value.map((function(i){var r;return(r=i===null||i===void 0?void 0:i.distributionPoint)===null||r===void 0?void 0:r.fullName.map((function(i){return t($e,Object.assign({generalName:i},e))}))})))};
+             */var vt=function(e){var i=e.extension;return t(dt,{extension:i},i.value.map((function(i){var r,n;return[(r=i.distributionPoint)===null||r===void 0?void 0:r.fullName.map((function(i){return t($e,Object.assign({generalName:i},e))})),(n=i.cRLIssuer)===null||n===void 0?void 0:n.map((function(i){return t($e,Object.assign({generalName:i},e))}))]})))};
 /**
              * @license
              * Copyright (c) Peculiar Ventures, LLC.
