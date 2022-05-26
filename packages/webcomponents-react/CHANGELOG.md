@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v1.3.1...v2.0.0) (2022-05-26)
+
+
+### Bug Fixes
+
+* **webcomponents:** fix LeiRole extension parsing ([5f75dea](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/5f75deafc6e68d3effdc6f31b4f981a9532c26aa))
+* **webcomponents-react:** fix React import ([d9850fc](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/d9850fc17c5f1aab68524897ee0b51f36a240bf7))
+
+
+### Features
+
+* **components-react:** add "applyPolyfills" call before "defineCustomElements" ([0dd410a](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/0dd410a5df536801fc49a6cd4ee9d3ca98c97759))
+* added [@license](https://github.com/license) ([05b197f](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/05b197f25b76668a0af9d1ec51d81bc899acd952))
+* added webcomponents-react package ([bf71c17](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/bf71c179833b0c6b3fe4afa4a0db46e7ed49ddd2))
+
+
+
+
+
 ## [0.3.26](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/@peculiar/certificates-viewer-react@0.3.25...@peculiar/certificates-viewer-react@0.3.26) (2022-05-03)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer-react
