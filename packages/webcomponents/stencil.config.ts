@@ -1,9 +1,8 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
-import { postcss } from '@stencil/postcss';
-import autoprefixer from 'autoprefixer';
 
 export const config: Config = {
+  autoprefixCss: true,
   namespace: 'peculiar',
   globalStyle: 'src/styles/peculiar.scss',
   devServer: {
@@ -13,9 +12,6 @@ export const config: Config = {
   plugins: [
     sass({
       includePaths: ['./src/styles'],
-    }),
-    postcss({
-      plugins: [autoprefixer()],
     }),
   ],
   outputTargets: [
@@ -45,4 +41,11 @@ export const config: Config = {
       ],
     },
   ],
+  buildEs5: 'prod',
+  extras: {
+    dynamicImportShim: true,
+    initializeNextTick: true,
+    scriptDataOpts: true,
+  },
+  preamble: '© Peculiar Ventures https://peculiarventures.com/ - MIT License',
 };

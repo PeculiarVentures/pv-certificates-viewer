@@ -14,9 +14,9 @@ npm install @peculiar/certificates-viewer
 
 ```html
 <head>
-  <script type="module" src="https://unpkg.com/@peculiar/certificates-viewer@latest/dist/peculiar/peculiar.esm.js"></script>
-  <script nomodule src="https://unpkg.com/@peculiar/certificates-viewer@latest/dist/peculiar/peculiar.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/@peculiar/certificates-viewer@latest/dist/peculiar/peculiar.css">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@peculiar/certificates-viewer/dist/peculiar/peculiar.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@peculiar/certificates-viewer/dist/peculiar/peculiar.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@peculiar/certificates-viewer/dist/peculiar/peculiar.css">
 </head>
 ```
 

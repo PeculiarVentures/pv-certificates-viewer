@@ -30,5 +30,5 @@ ReactDOM.render(
 And add styles file to your HTML.
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@peculiar/certificates-viewer@latest/dist/peculiar/peculiar.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@peculiar/certificates-viewer/dist/peculiar/peculiar.css">
 ```

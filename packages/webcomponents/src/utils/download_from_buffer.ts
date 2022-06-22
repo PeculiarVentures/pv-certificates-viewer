@@ -11,21 +11,23 @@
  *
  * @example
  * ```js
- *    import { downloadFromBuffer } from 'ui-utils';
+ *    import { downloadFromBuffer } from './utils';
  *
- *    downloadFromBuffer(arrayBufferValue, 'applciation/pdf', 'myFile', 'pdf');
+ *    downloadFromBuffer(arrayBufferValue, 'myFile', 'pdf', 'applciation/pdf');
  * ```
  */
 
-export default function downloadFromBuffer(
+export function downloadFromBuffer(
   value: ArrayBuffer,
-  mime: string = 'application/octet-stream',
   name: string,
   extension: string,
+  mime: string = 'application/octet-stream',
 ) {
   const blob = new Blob([value], { type: mime });
 
+  // @ts-ignore
   if (navigator.msSaveBlob) { // IE10+ : (has Blob, but not a[download] or URL)
+    // @ts-ignore
     navigator.msSaveBlob(blob, `${name}.${extension}`);
 
     return new Promise((res) => setTimeout(res, 100));

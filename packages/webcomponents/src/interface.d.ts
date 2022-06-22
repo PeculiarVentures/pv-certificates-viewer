@@ -4,3 +4,6 @@ export type ColorType = 'dark'
 | 'grey_5'
 | 'attention'
 | 'primary';
+
+export * from './components';
+export * from './index';

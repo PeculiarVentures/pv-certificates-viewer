@@ -193,6 +193,14 @@ export namespace Components {
         "type": 'h4' | 'h6' | 'h7' | 'b1' | 'b3';
     }
 }
+export interface PeculiarCertificatesViewerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLPeculiarCertificatesViewerElement;
+}
+export interface PeculiarTextHiderCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLPeculiarTextHiderElement;
+}
 declare global {
     interface HTMLPeculiarAttributeCertificateViewerElement extends Components.PeculiarAttributeCertificateViewer, HTMLStencilElement {
     }
@@ -404,11 +412,11 @@ declare namespace LocalJSX {
         /**
           * Emitted when the user close certificate details modal.
          */
-        "onDetailsClose"?: (event: CustomEvent<void>) => void;
+        "onDetailsClose"?: (event: PeculiarCertificatesViewerCustomEvent<void>) => void;
         /**
           * Emitted when the user open certificate details modal.
          */
-        "onDetailsOpen"?: (event: CustomEvent<X509Certificate>) => void;
+        "onDetailsOpen"?: (event: PeculiarCertificatesViewerCustomEvent<X509Certificate>) => void;
     }
     interface PeculiarCircularProgress {
         /**
@@ -455,7 +463,7 @@ declare namespace LocalJSX {
         "type"?: 'h4' | 'h6' | 'h7' | 'b1' | 'b3';
     }
     interface PeculiarTextHider {
-        "onTextExpand"?: (event: CustomEvent<any>) => void;
+        "onTextExpand"?: (event: PeculiarTextHiderCustomEvent<any>) => void;
         "opened"?: boolean;
     }
     interface PeculiarTypography {

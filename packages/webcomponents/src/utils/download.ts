@@ -8,45 +8,45 @@
 
 import { Convert } from 'pvtsutils';
 
-import downloadFromBuffer from './download_from_buffer';
+import { downloadFromBuffer } from './download_from_buffer';
 
 export class Download {
-  public static certificate = {
+  public static x509 = {
     asPEM: (pem: string, name: string) => {
       downloadFromBuffer(
         Convert.FromString(pem),
-        'application/pkix-cert',
         name,
         'cer',
+        'application/pkix-cert',
       );
     },
 
     asDER: (hex: string, name: string) => {
       downloadFromBuffer(
         Convert.FromString(hex),
-        'application/pkix-cert',
         name,
         'cer',
+        'application/pkix-cert',
       );
     },
   };
 
-  public static certificateRequest = {
+  public static pkcs10 = {
     asPEM: (pem: string, name: string) => {
       downloadFromBuffer(
         Convert.FromString(pem),
-        'application/pkcs10',
         name,
         'csr',
+        'application/pkcs10',
       );
     },
 
     asDER: (hex: string, name: string) => {
       downloadFromBuffer(
         Convert.FromString(hex),
-        'application/pkcs10',
         name,
         'csr',
+        'application/pkcs10',
       );
     },
   };

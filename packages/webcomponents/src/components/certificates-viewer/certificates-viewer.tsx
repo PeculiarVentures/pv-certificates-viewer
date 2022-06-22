@@ -154,7 +154,7 @@ export class CertificatesViewer {
   private handleClickDownloadAsPem(certificate: ICertificateDecoded, e: MouseEvent) {
     e.stopPropagation();
 
-    Download.certificate.asPEM(
+    Download.x509.asPEM(
       certificate.body.exportAsPemFormatted(),
       certificate.name || certificate.body.commonName,
     );
@@ -164,7 +164,7 @@ export class CertificatesViewer {
   private handleClickDownloadAsDer(certificate: ICertificateDecoded, e: MouseEvent) {
     e.stopPropagation();
 
-    Download.certificate.asPEM(
+    Download.x509.asPEM(
       certificate.body.exportAsHexFormatted(),
       certificate.name || certificate.body.commonName,
     );

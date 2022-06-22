@@ -18,12 +18,12 @@ type CertificateType = X509Certificate | X509AttributeCertificate | CSR;
 
 function downloadCertificateAsPem(certificate: CertificateType) {
   if (certificate instanceof CSR) {
-    Download.certificateRequest.asPEM(
+    Download.pkcs10.asPEM(
       certificate.exportAsPemFormatted(),
       certificate.commonName,
     );
   } else {
-    Download.certificate.asPEM(
+    Download.x509.asPEM(
       certificate.exportAsPemFormatted(),
       certificate.commonName,
     );
@@ -32,12 +32,12 @@ function downloadCertificateAsPem(certificate: CertificateType) {
 
 function downloadCertificateAsDer(certificate: CertificateType) {
   if (certificate instanceof CSR) {
-    Download.certificateRequest.asDER(
+    Download.pkcs10.asDER(
       certificate.exportAsHexFormatted(),
       certificate.commonName,
     );
   } else {
-    Download.certificate.asDER(
+    Download.x509.asDER(
       certificate.exportAsHexFormatted(),
       certificate.commonName,
     );
