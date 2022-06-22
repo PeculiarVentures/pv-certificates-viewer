@@ -41,7 +41,7 @@ export const config: Config = {
       ],
     },
   ],
-  buildEs5: 'prod',
+  buildEs5: false,
   extras: {
     dynamicImportShim: true,
     initializeNextTick: true,

@@ -27,7 +27,7 @@
     "loader/"
   ],
   "scripts": {
-    "build": "npm run clean && stencil build --docs --es5",
+    "build": "npm run clean && stencil build --docs",
     "start": "npm run clean && stencil build --dev --watch --serve",
     "generate": "stencil generate",
     "deploy:gh-pages": "gh-pages -d www",
