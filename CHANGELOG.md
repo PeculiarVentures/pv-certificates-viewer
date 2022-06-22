@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.0.0...v3.0.1) (2022-06-22)
+
+**Note:** Version bump only for package peculiar-certificates-viewer-monorepo
+
+
+
+
+
 # [3.0.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v2.0.1...v3.0.0) (2022-06-22)
 
 ### Breaking Changes
