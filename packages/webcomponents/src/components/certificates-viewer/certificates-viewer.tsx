@@ -300,8 +300,7 @@ export class CertificatesViewer {
             expanded: isExpandedRow,
           }}
           onClick={this.handleClickRow.bind(this, index)}
-          // eslint-disable-next-line react/no-array-index-key
-          key={index}
+          key={certificate.body.thumbprints['SHA-1']}
         >
           {!this.isHasRoots && (
             <td>
