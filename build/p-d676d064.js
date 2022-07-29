@@ -1,7 +1,7 @@
 /*!
  * © Peculiar Ventures https://peculiarventures.com/ - MIT License
  */
-import{b as t}from"./p-c774ec0b.js";import{d as e}from"./p-d09b762f.js";import{c as i,a as r}from"./p-d0b55fbb.js";
+import{b as t}from"./p-c774ec0b.js";import{d as e}from"./p-99797a49.js";import{c as i,a as r}from"./p-d0b55fbb.js";
 /*!
  Copyright (c) Peculiar Ventures, LLC
 */function s(t,e){let i=0;if(1===t.length)return t[0];for(let r=t.length-1;r>=0;r--)i+=t[t.length-1-r]*Math.pow(2,e*r);return i}function n(t,e,i=-1){const r=i;let s=t,n=0,o=Math.pow(2,e);for(let i=1;i<8;i++){if(t<o){let t;if(r<0)t=new ArrayBuffer(i),n=i;else{if(r<i)return new ArrayBuffer(0);t=new ArrayBuffer(r),n=r}const o=new Uint8Array(t);for(let t=i-1;t>=0;t--){const i=Math.pow(2,t*e);o[n-t-1]=Math.floor(s/i),s-=o[n-t-1]*i}return t}o*=Math.pow(2,e)}return new ArrayBuffer(0)}function o(...t){let e=0,i=0;for(const i of t)e+=i.length;const r=new ArrayBuffer(e),s=new Uint8Array(r);for(const e of t)s.set(e,i),i+=e.length;return s}function a(){const t=new Uint8Array(this.valueHex);if(this.valueHex.byteLength>=2){const e=0===t[0]&&0==(128&t[1]);(255===t[0]&&128&t[1]||e)&&this.warnings.push("Needlessly long format")}const e=new ArrayBuffer(this.valueHex.byteLength),i=new Uint8Array(e);for(let t=0;t<this.valueHex.byteLength;t++)i[t]=0;i[0]=128&t[0];const r=s(i,8),n=new ArrayBuffer(this.valueHex.byteLength),o=new Uint8Array(n);for(let e=0;e<this.valueHex.byteLength;e++)o[e]=t[e];return o[0]&=127,s(o,8)-r}function c(t,e){const i=t.toString(10);if(e<i.length)return"";const r=e-i.length,s=new Array(r);for(let t=0;t<r;t++)s[t]="0";return s.join("").concat(i)}
