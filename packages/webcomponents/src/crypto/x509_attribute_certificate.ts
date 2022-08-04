@@ -111,8 +111,9 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
   ): Promise<void> {
     try {
       const thumbprint = await getCertificateThumbprint(algorithm, this.raw);
-
-      this.thumbprints[algorithm['name'] || algorithm] = Convert.ToHex(thumbprint);
+      if (thumbprint) {
+        this.thumbprints[algorithm['name'] || algorithm] = Convert.ToHex(thumbprint);
+      }
     } catch (error) {
       console.error('Error thumbprint get:', error);
     }

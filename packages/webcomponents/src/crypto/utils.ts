@@ -40,8 +40,10 @@ export const certificateRawToBuffer = (raw: string): ArrayBuffer => {
 export const getCertificateThumbprint = async (
   algorithm: globalThis.AlgorithmIdentifier,
   data: ArrayBuffer,
-): Promise<ArrayBuffer> => {
+): Promise<ArrayBuffer | undefined> => {
   const crypto = cryptoProvider.get();
-
-  return crypto.subtle.digest(algorithm, data);
+  if (crypto.subtle) {
+    return crypto.subtle.digest(algorithm, data);
+  }
+  return undefined;
 };
