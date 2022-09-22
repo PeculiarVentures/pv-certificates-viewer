@@ -36,8 +36,20 @@ export class CertificateDecoder {
        * Prevent Stencil warning about re-render
        */
       setTimeout(() => this.decode(parsedHash.cert), 100);
+    } else if (parsedHash.certurl) {
+      this.fetchAndDecodeFile(parsedHash.certurl);
     }
   }
+
+  private fetchAndDecodeFile = async (url: string) => {
+    try {
+      const request = await fetch(url);
+
+      this.decode(await request.text());
+    } catch (error) {
+      alert('Failed to load certificate. Please use another file or check CORS policy.');
+    }
+  };
 
   private onClickDecode = () => {
     const { value } = this.inputPaste;
