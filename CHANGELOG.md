@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.0.5...v3.1.0) (2022-09-25)
+
+
+### Features
+
+* **oids:** add "2.16.840.1.114569.1.1.3" description ([bf55a06](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/bf55a064e42f684d696cea6f48ebe52a7ac7342f))
+* **webcomponents:** add support loading certificate by URL to "peculiar-certificate-decoder" ([c494691](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/c494691f9226ea9b51f41c5077ff9842c6d63979))
+
+
+
+
+
 ## [3.0.5](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.0.4...v3.0.5) (2022-09-14)
 
 
