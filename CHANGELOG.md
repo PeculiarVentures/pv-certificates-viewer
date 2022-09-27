@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.1.0...v3.2.0) (2022-09-27)
+
+
+### Features
+
+* **docs:** add logic to work with "cert" and "certurl" query variables ([e513b49](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/e513b49d007c0dcd3d913e2688f67ae79f0959e4))
+
+
+
+
+
 # [3.1.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.0.5...v3.1.0) (2022-09-25)
 
 
