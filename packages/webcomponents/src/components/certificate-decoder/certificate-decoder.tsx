@@ -7,10 +7,16 @@
  */
 
 import {
-  Component, Host, h, State, Prop,
+  Component,
+  Host,
+  h,
+  State,
+  Prop,
+  Event,
+  EventEmitter,
 } from '@stencil/core';
 
-import { validator, history, readAsBinaryString } from '../../utils';
+import { validator, readAsBinaryString } from '../../utils';
 import { X509Certificate, X509AttributeCertificate, CSR } from '../../crypto';
 
 @Component({
@@ -26,30 +32,31 @@ export class CertificateDecoder {
    */
   @Prop() certificateExample?: string;
 
+  /**
+   * The default certificate value for decode and show details. Use PEM or DER.
+   */
+  @Prop() defaultCertificate?: string;
+
   @State() certificateDecoded: X509Certificate | X509AttributeCertificate | CSR;
 
-  componentDidLoad() {
-    const parsedHash = history.parseHash(window.location.search);
+  /**
+   * Emitted when the certificate has been successfully parsed.
+   */
+  @Event() successParse!: EventEmitter<string>;
 
-    if (parsedHash.cert) {
+  /**
+   * Emitted when the certificate has been removed.
+   */
+  @Event() clearCertificate!: EventEmitter<void>;
+
+  componentDidLoad() {
+    if (this.defaultCertificate) {
       /**
        * Prevent Stencil warning about re-render
        */
-      setTimeout(() => this.decode(parsedHash.cert), 100);
-    } else if (parsedHash.certurl) {
-      this.fetchAndDecodeFile(parsedHash.certurl);
+      setTimeout(() => this.decode(this.defaultCertificate), 100);
     }
   }
-
-  private fetchAndDecodeFile = async (url: string) => {
-    try {
-      const request = await fetch(url);
-
-      this.decode(await request.text());
-    } catch (error) {
-      alert('Failed to load certificate. Please use another file or check CORS policy.');
-    }
-  };
 
   private onClickDecode = () => {
     const { value } = this.inputPaste;
@@ -99,19 +106,13 @@ export class CertificateDecoder {
   clearValue() {
     this.inputPaste.value = '';
     this.certificateDecoded = null;
-
-    history.replace({ search: '' });
+    this.clearCertificate.emit();
   }
 
   setValue(value: X509Certificate | X509AttributeCertificate | CSR) {
     this.certificateDecoded = value;
     this.inputPaste.value = value.exportAsPemFormatted();
-
-    history.replace({
-      search: history.queryStringify({
-        cert: value.exportAsBase64(),
-      }),
-    });
+    this.successParse.emit(value.exportAsBase64());
   }
 
   decode(certificate: string) {

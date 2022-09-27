@@ -69,6 +69,10 @@ export namespace Components {
           * The example certificate value for decode and show details. Use PEM or DER.
          */
         "certificateExample"?: string;
+        /**
+          * The default certificate value for decode and show details. Use PEM or DER.
+         */
+        "defaultCertificate"?: string;
     }
     interface PeculiarCertificateSummary {
         "certificate": X509Certificate;
@@ -192,6 +196,10 @@ export namespace Components {
          */
         "type": 'h4' | 'h6' | 'h7' | 'b1' | 'b3';
     }
+}
+export interface PeculiarCertificateDecoderCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLPeculiarCertificateDecoderElement;
 }
 export interface PeculiarCertificatesViewerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -353,6 +361,18 @@ declare namespace LocalJSX {
           * The example certificate value for decode and show details. Use PEM or DER.
          */
         "certificateExample"?: string;
+        /**
+          * The default certificate value for decode and show details. Use PEM or DER.
+         */
+        "defaultCertificate"?: string;
+        /**
+          * Emitted when the certificate has been removed.
+         */
+        "onClearCertificate"?: (event: PeculiarCertificateDecoderCustomEvent<void>) => void;
+        /**
+          * Emitted when the certificate has been successfully parsed.
+         */
+        "onSuccessParse"?: (event: PeculiarCertificateDecoderCustomEvent<string>) => void;
     }
     interface PeculiarCertificateSummary {
         "certificate"?: X509Certificate;

@@ -58,7 +58,6 @@
     "@peculiar/asn1-x509-netscape": "^2.1.9",
     "@peculiar/asn1-x509-qualified": "^2.1.9",
     "dayjs": "^1.11.3",
-    "history": "^4.10.1",
     "pvtsutils": "^1.3.2"
   },
   "license": "MIT",
