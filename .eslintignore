@@ -1,5 +1,6 @@
 **/node_modules/**
 **/dist/**
 **/www/**
+**/www-copy/**
 **/loader/**
 **/react-component-lib/**
