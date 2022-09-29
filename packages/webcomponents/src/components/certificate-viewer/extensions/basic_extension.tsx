@@ -26,7 +26,7 @@ export const BasicExtension: FunctionalComponent<IBasicExtensionProps> = (props,
     />,
     <RowValue
       name="Critical"
-      value={extension.asn.critical ? 'YES' : 'NO'}
+      value={extension.asn.critical ? 'Yes' : 'No'}
     />,
     children,
     <tr>

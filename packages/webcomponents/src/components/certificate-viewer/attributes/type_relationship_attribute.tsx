@@ -28,7 +28,7 @@ FunctionalComponent<ITypeRelationshipAttributeProps> = (props) => {
       {Object.keys(attribute.value).map((keyName) => (
         <RowValue
           name={keyName}
-          value={attribute.value[keyName].toNumber() ? 'YES' : 'NO'}
+          value={attribute.value[keyName].toNumber() ? 'Yes' : 'No'}
         />
       ))}
     </BasicAttribute>

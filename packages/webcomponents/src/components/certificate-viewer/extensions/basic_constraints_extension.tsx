@@ -28,7 +28,7 @@ FunctionalComponent<IBasicConstraintsExtensionProps> = (props) => {
     >
       <RowValue
         name="Certificate Authority"
-        value={extension.value.cA ? 'YES' : 'NO'}
+        value={extension.value.cA ? 'Yes' : 'No'}
       />
       <RowValue
         name="Path Length Constraint"

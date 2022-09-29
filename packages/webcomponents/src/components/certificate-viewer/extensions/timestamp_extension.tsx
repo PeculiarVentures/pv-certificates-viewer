@@ -36,7 +36,7 @@ export const TimestampExtension: FunctionalComponent<ITimestampExtensionProps> =
       />
       <RowValue
         name="Requires Auth"
-        value={extension.value.requiresAuth ? 'YES' : 'NO'}
+        value={extension.value.requiresAuth ? 'Yes' : 'No'}
       />
     </BasicExtension>
   );
