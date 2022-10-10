@@ -8,13 +8,18 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 
-import { X509Certificate, X509AttributeCertificate, CSR } from '../../crypto';
+import {
+  X509Certificate,
+  X509AttributeCertificate,
+  CSR,
+  CRL,
+} from '../../crypto';
 import { l10n } from '../../utils';
 import { Download } from '../../utils/download';
 
 import { RowTitle } from './row';
 
-type CertificateType = X509Certificate | X509AttributeCertificate | CSR;
+type CertificateType = X509Certificate | X509AttributeCertificate | CSR | CRL;
 
 function downloadCertificateAsPem(certificate: CertificateType) {
   if (certificate instanceof CSR) {

@@ -22,6 +22,11 @@ export const isX509Pem = (value: string) => (
     .test(value)
 );
 
+export const isX509CRLPem = (value: string) => (
+  /-----BEGIN X509 CRL-----([A-Za-z0-9+\/=\s]+)-----END X509 CRL-----/
+    .test(value)
+);
+
 export const isPkcs10Pem = (value: string) => (
   /-----BEGIN CERTIFICATE REQUEST-----([A-Za-z0-9+\/=\s]+)-----END CERTIFICATE REQUEST-----/
     .test(value)
