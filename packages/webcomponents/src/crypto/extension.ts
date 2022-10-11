@@ -78,6 +78,9 @@ import {
 
   id_ce_cRLNumber,
   CRLNumber,
+
+  id_ce_deltaCRLIndicator,
+  BaseCRLNumber,
 } from '@peculiar/asn1-x509';
 import {
   id_pe_qcStatements,
@@ -168,6 +171,7 @@ export type TExtensionValue = AuthorityInfoAccessSyntax
 | TNAuthorizationList
 | SubjectInfoAccessSyntax
 | CRLNumber
+| BaseCRLNumber
 | string;
 
 export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> {
@@ -296,6 +300,9 @@ export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> 
           break;
         case id_ce_cRLNumber:
           this.value = AsnParser.parse(asnExtnValue, CRLNumber) as T;
+          break;
+        case id_ce_deltaCRLIndicator:
+          this.value = AsnParser.parse(asnExtnValue, BaseCRLNumber) as T;
           break;
         default:
           console.warn(`Didn't detect parser for "${this.asn.extnID}" extension.`);

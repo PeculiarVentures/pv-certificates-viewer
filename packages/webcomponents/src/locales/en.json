@@ -36,5 +36,12 @@
   "digestInfo": "Digest Info",
   "type": "Type",
   "revokedCertificates": "Revoked Certificates",
-  "revocation": "Revocation"
+  "revocation": "Revocation",
+  "yes": "Yes",
+  "no": "No",
+  "onlyUserCertificates": "Only User Certificates",
+  "onlyAttributeCertificates": "Only Attribute Certificates",
+  "onlyCACertificates": "Only CA Certificates",
+  "indirectCRL": "Indirect CRL",
+  "onlyReasons": "Only Reasons"
 }

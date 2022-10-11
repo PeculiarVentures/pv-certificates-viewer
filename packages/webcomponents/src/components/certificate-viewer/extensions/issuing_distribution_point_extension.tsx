@@ -11,14 +11,15 @@ import { IssuingDistributionPoint } from '@peculiar/asn1-x509';
 
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
+import { l10n } from '../../../utils';
 
 import { BasicExtension } from './basic_extension';
+import { GeneralNamePart } from './general_name_part';
 
-interface IIssuingDistributionPointExtensionProps {
+interface IIssuingDistributionPointExtensionProps extends IGeneralNameOptions {
   extension: Extension<IssuingDistributionPoint>;
 }
 
-// TODO: Add other data parsing.
 // eslint-disable-next-line max-len
 export const IssuingDistributionPointExtension: FunctionalComponent<IIssuingDistributionPointExtensionProps> = (props) => {
   const { extension } = props;
@@ -27,22 +28,40 @@ export const IssuingDistributionPointExtension: FunctionalComponent<IIssuingDist
     <BasicExtension
       extension={extension}
     >
+      {extension.value.distributionPoint?.fullName.map((gn) => (
+        <GeneralNamePart
+          generalName={gn}
+          {...props}
+        />
+      ))}
+      {extension.value.onlySomeReasons && (
+        <RowValue
+          name={l10n.getString('onlyReasons')}
+          value={extension.value.onlySomeReasons.toJSON().join(', ')}
+        />
+      )}
+      {extension.value.indirectCRL && (
+        <RowValue
+          name={l10n.getString('indirectCRL')}
+          value={l10n.getString('yes')}
+        />
+      )}
       {extension.value.onlyContainsUserCerts && (
         <RowValue
-          name="Only User Certificates"
-          value="Yes"
+          name={l10n.getString('onlyUserCertificates')}
+          value={l10n.getString('yes')}
         />
       )}
       {extension.value.onlyContainsAttributeCerts && (
         <RowValue
-          name="Only Attribute Certificates"
-          value="Yes"
+          name={l10n.getString('onlyAttributeCertificates')}
+          value={l10n.getString('yes')}
         />
       )}
       {extension.value.onlyContainsCACerts && (
         <RowValue
-          name="Only CA Certificates"
-          value="Yes"
+          name={l10n.getString('onlyCACertificates')}
+          value={l10n.getString('yes')}
         />
       )}
     </BasicExtension>

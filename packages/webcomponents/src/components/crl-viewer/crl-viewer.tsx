@@ -104,9 +104,6 @@ export class CrlViewer {
       console.error('Error certificate parse:', error);
     }
 
-    // TODO: Delete before publish.
-    console.log(this.certificateDecoded);
-
     this.isDecodeInProcess = false;
   }
 

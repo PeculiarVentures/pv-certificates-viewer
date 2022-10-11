@@ -11,6 +11,7 @@ import { Timestamp } from '@peculiar/asn1-adobe-acrobat';
 
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
+import { l10n } from '../../../utils';
 
 import { BasicExtension } from './basic_extension';
 import { GeneralNamePart } from './general_name_part';
@@ -36,7 +37,7 @@ export const TimestampExtension: FunctionalComponent<ITimestampExtensionProps> =
       />
       <RowValue
         name="Requires Auth"
-        value={extension.value.requiresAuth ? 'Yes' : 'No'}
+        value={extension.value.requiresAuth ? l10n.getString('yes') : l10n.getString('no')}
       />
     </BasicExtension>
   );

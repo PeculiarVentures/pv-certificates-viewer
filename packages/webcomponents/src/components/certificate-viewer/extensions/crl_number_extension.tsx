@@ -11,6 +11,7 @@ import { CRLNumber } from '@peculiar/asn1-x509';
 
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
+import { l10n } from '../../../utils';
 
 import { BasicExtension } from './basic_extension';
 
@@ -26,7 +27,7 @@ export const CRLNumberExtension: FunctionalComponent<ICRLNumberExtensionProps> =
       extension={extension}
     >
       <RowValue
-        name="Value"
+        name={l10n.getString('value')}
         value={extension.value.value}
       />
     </BasicExtension>

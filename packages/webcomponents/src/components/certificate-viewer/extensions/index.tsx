@@ -364,6 +364,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
           return (
             <IssuingDistributionPointExtension
               extension={extension as any}
+              {...props}
             />
           );
         }

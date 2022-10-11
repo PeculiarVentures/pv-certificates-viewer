@@ -11,6 +11,7 @@ import type { TypeRelationship } from '@peculiar/asn1-ntqwac';
 
 import { BasicAttribute } from './basic_attribute';
 import type { Attribute } from '../../../crypto/attribute';
+import { l10n } from '../../../utils';
 import { RowValue } from '../row';
 
 interface ITypeRelationshipAttributeProps {
@@ -28,7 +29,7 @@ FunctionalComponent<ITypeRelationshipAttributeProps> = (props) => {
       {Object.keys(attribute.value).map((keyName) => (
         <RowValue
           name={keyName}
-          value={attribute.value[keyName].toNumber() ? 'Yes' : 'No'}
+          value={attribute.value[keyName].toNumber() ? l10n.getString('yes') : l10n.getString('no')}
         />
       ))}
     </BasicAttribute>

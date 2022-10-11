@@ -11,6 +11,7 @@ import { BasicConstraints } from '@peculiar/asn1-x509';
 
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
+import { l10n } from '../../../utils';
 
 import { BasicExtension } from './basic_extension';
 
@@ -28,7 +29,7 @@ FunctionalComponent<IBasicConstraintsExtensionProps> = (props) => {
     >
       <RowValue
         name="Certificate Authority"
-        value={extension.value.cA ? 'Yes' : 'No'}
+        value={extension.value.cA ? l10n.getString('yes') : l10n.getString('no')}
       />
       <RowValue
         name="Path Length Constraint"
