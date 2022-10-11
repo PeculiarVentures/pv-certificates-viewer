@@ -10,6 +10,7 @@ import { IAction } from "./components/button-split/button-split";
 import { X509Certificate } from "./crypto";
 import { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
 import { ICertificate } from "./components/certificates-viewer/certificates-viewer";
+import { CrlProp } from "./components/crl-viewer/crl-viewer";
 import { CsrProp } from "./components/csr-viewer/csr-viewer";
 import { ColorType } from "./interface";
 export namespace Components {
@@ -140,6 +141,34 @@ export namespace Components {
          */
         "width": number;
     }
+    interface PeculiarCrlViewer {
+        /**
+          * Authority Key Identifier extension parent link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
+         */
+        "authKeyIdParentLink"?: string;
+        /**
+          * Authority Key Identifier extension siblings link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
+         */
+        "authKeyIdSiblingsLink"?: string;
+        /**
+          * The certificate value for decode and show details. Use PEM or DER.
+         */
+        "certificate": CrlProp;
+        /**
+          * If `true` - component will show split-button to download certificate as PEM or DER.
+         */
+        "download"?: boolean;
+        /**
+          * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
+         */
+        "issuerDnLink"?: string;
+        /**
+          * Choose view type instead @media.
+         */
+        "view"?: 'mobile';
+    }
     interface PeculiarCsrViewer {
         /**
           * The certificate value for decode and show details. Use PEM or DER.
@@ -258,6 +287,12 @@ declare global {
         prototype: HTMLPeculiarCircularProgressElement;
         new (): HTMLPeculiarCircularProgressElement;
     };
+    interface HTMLPeculiarCrlViewerElement extends Components.PeculiarCrlViewer, HTMLStencilElement {
+    }
+    var HTMLPeculiarCrlViewerElement: {
+        prototype: HTMLPeculiarCrlViewerElement;
+        new (): HTMLPeculiarCrlViewerElement;
+    };
     interface HTMLPeculiarCsrViewerElement extends Components.PeculiarCsrViewer, HTMLStencilElement {
     }
     var HTMLPeculiarCsrViewerElement: {
@@ -297,6 +332,7 @@ declare global {
         "peculiar-certificate-viewer": HTMLPeculiarCertificateViewerElement;
         "peculiar-certificates-viewer": HTMLPeculiarCertificatesViewerElement;
         "peculiar-circular-progress": HTMLPeculiarCircularProgressElement;
+        "peculiar-crl-viewer": HTMLPeculiarCrlViewerElement;
         "peculiar-csr-viewer": HTMLPeculiarCsrViewerElement;
         "peculiar-highlight-words": HTMLPeculiarHighlightWordsElement;
         "peculiar-link": HTMLPeculiarLinkElement;
@@ -448,6 +484,34 @@ declare namespace LocalJSX {
          */
         "width"?: number;
     }
+    interface PeculiarCrlViewer {
+        /**
+          * Authority Key Identifier extension parent link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
+         */
+        "authKeyIdParentLink"?: string;
+        /**
+          * Authority Key Identifier extension siblings link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
+         */
+        "authKeyIdSiblingsLink"?: string;
+        /**
+          * The certificate value for decode and show details. Use PEM or DER.
+         */
+        "certificate"?: CrlProp;
+        /**
+          * If `true` - component will show split-button to download certificate as PEM or DER.
+         */
+        "download"?: boolean;
+        /**
+          * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
+         */
+        "issuerDnLink"?: string;
+        /**
+          * Choose view type instead @media.
+         */
+        "view"?: 'mobile';
+    }
     interface PeculiarCsrViewer {
         /**
           * The certificate value for decode and show details. Use PEM or DER.
@@ -514,6 +578,7 @@ declare namespace LocalJSX {
         "peculiar-certificate-viewer": PeculiarCertificateViewer;
         "peculiar-certificates-viewer": PeculiarCertificatesViewer;
         "peculiar-circular-progress": PeculiarCircularProgress;
+        "peculiar-crl-viewer": PeculiarCrlViewer;
         "peculiar-csr-viewer": PeculiarCsrViewer;
         "peculiar-highlight-words": PeculiarHighlightWords;
         "peculiar-link": PeculiarLink;
@@ -533,6 +598,7 @@ declare module "@stencil/core" {
             "peculiar-certificate-viewer": LocalJSX.PeculiarCertificateViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificateViewerElement>;
             "peculiar-certificates-viewer": LocalJSX.PeculiarCertificatesViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificatesViewerElement>;
             "peculiar-circular-progress": LocalJSX.PeculiarCircularProgress & JSXBase.HTMLAttributes<HTMLPeculiarCircularProgressElement>;
+            "peculiar-crl-viewer": LocalJSX.PeculiarCrlViewer & JSXBase.HTMLAttributes<HTMLPeculiarCrlViewerElement>;
             "peculiar-csr-viewer": LocalJSX.PeculiarCsrViewer & JSXBase.HTMLAttributes<HTMLPeculiarCsrViewerElement>;
             "peculiar-highlight-words": LocalJSX.PeculiarHighlightWords & JSXBase.HTMLAttributes<HTMLPeculiarHighlightWordsElement>;
             "peculiar-link": LocalJSX.PeculiarLink & JSXBase.HTMLAttributes<HTMLPeculiarLinkElement>;

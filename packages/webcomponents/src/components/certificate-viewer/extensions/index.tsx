@@ -19,12 +19,14 @@ import {
   CertificatePolicies,
   NameConstraints,
   CRLReason,
+  CRLNumber,
   SubjectDirectoryAttributes,
   PrivateKeyUsagePeriod,
   EntrustVersionInfo,
   PolicyConstraints,
   PolicyMappings,
   SubjectInfoAccessSyntax,
+  IssuingDistributionPoint,
 } from '@peculiar/asn1-x509';
 import { CertificateTransparency } from '@peculiar/asn1-cert-transparency';
 import {
@@ -74,6 +76,8 @@ import { LogotypeExtension } from './logotype_extension';
 import { TNAuthListExtension } from './tn_auth_list_extension';
 import { PolicyConstraintsExtension } from './policy_constraints_extension';
 import { PolicyMappingsExtension } from './policy_mappings_extension';
+import { CRLNumberExtension } from './crl_number_extension';
+import { IssuingDistributionPointExtension } from './issuing_distribution_point_extension';
 
 interface IExtensionsProps extends
   IGeneralNameOptions,
@@ -344,6 +348,23 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
           return (
             <PolicyMappingsExtension
               extension={extension as any}
+            />
+          );
+        }
+
+        if (extension.value instanceof CRLNumber) {
+          return (
+            <CRLNumberExtension
+              extension={extension as any}
+            />
+          );
+        }
+
+        if (extension.value instanceof IssuingDistributionPoint) {
+          return (
+            <IssuingDistributionPointExtension
+              extension={extension as any}
+              {...props}
             />
           );
         }

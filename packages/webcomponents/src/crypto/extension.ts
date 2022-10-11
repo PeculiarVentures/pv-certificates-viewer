@@ -28,6 +28,9 @@ import {
   id_ce_cRLDistributionPoints,
   CRLDistributionPoints,
 
+  id_ce_issuingDistributionPoint,
+  IssuingDistributionPoint,
+
   id_ce_cRLReasons,
   CRLReason,
 
@@ -72,6 +75,12 @@ import {
 
   id_pe_subjectInfoAccess,
   SubjectInfoAccessSyntax,
+
+  id_ce_cRLNumber,
+  CRLNumber,
+
+  id_ce_deltaCRLIndicator,
+  BaseCRLNumber,
 } from '@peculiar/asn1-x509';
 import {
   id_pe_qcStatements,
@@ -133,6 +142,7 @@ export type TExtensionValue = AuthorityInfoAccessSyntax
 | CertificateIssuer
 | CertificatePolicies
 | CRLDistributionPoints
+| IssuingDistributionPoint
 | CRLReason
 | ExtendedKeyUsage
 | InhibitAnyPolicy
@@ -160,6 +170,8 @@ export type TExtensionValue = AuthorityInfoAccessSyntax
 | LogotypeExtn
 | TNAuthorizationList
 | SubjectInfoAccessSyntax
+| CRLNumber
+| BaseCRLNumber
 | string;
 
 export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> {
@@ -194,6 +206,9 @@ export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> 
         case id_ce_cRLDistributionPoints:
         case '2.5.29.46':
           this.value = AsnParser.parse(asnExtnValue, CRLDistributionPoints) as T;
+          break;
+        case id_ce_issuingDistributionPoint:
+          this.value = AsnParser.parse(asnExtnValue, IssuingDistributionPoint) as T;
           break;
         case id_ce_cRLReasons:
           this.value = AsnParser.parse(asnExtnValue, CRLReason) as T;
@@ -282,6 +297,12 @@ export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> 
           break;
         case id_pe_subjectInfoAccess:
           this.value = AsnParser.parse(asnExtnValue, SubjectInfoAccessSyntax) as T;
+          break;
+        case id_ce_cRLNumber:
+          this.value = AsnParser.parse(asnExtnValue, CRLNumber) as T;
+          break;
+        case id_ce_deltaCRLIndicator:
+          this.value = AsnParser.parse(asnExtnValue, BaseCRLNumber) as T;
           break;
         default:
           console.warn(`Didn't detect parser for "${this.asn.extnID}" extension.`);

@@ -14,6 +14,8 @@
   "validity": "Validity",
   "issued": "Issued",
   "expired": "Expired",
+  "lastUpdate": "Last Update",
+  "nextUpdate": "Next Update",
   "algorithm": "Algorithm",
   "namedCurve": "Named Curve",
   "exponent": "Exponent",
@@ -32,5 +34,14 @@
   "certificateDetails": "Certificate Details",
   "holder": "Holder",
   "digestInfo": "Digest Info",
-  "type": "Type"
+  "type": "Type",
+  "revokedCertificates": "Revoked Certificates",
+  "revocation": "Revocation",
+  "yes": "Yes",
+  "no": "No",
+  "onlyUserCertificates": "Only User Certificates",
+  "onlyAttributeCertificates": "Only Attribute Certificates",
+  "onlyCACertificates": "Only CA Certificates",
+  "indirectCRL": "Indirect CRL",
+  "onlyReasons": "Only Reasons"
 }

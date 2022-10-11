@@ -29,6 +29,7 @@
 - [peculiar-certificate-viewer](../certificate-viewer)
 - [peculiar-attribute-certificate-viewer](../attribute-certificate-viewer)
 - [peculiar-csr-viewer](../csr-viewer)
+- [peculiar-crl-viewer](../crl-viewer)
 
 ### Graph
 ```mermaid
@@ -37,6 +38,7 @@ graph TD;
   peculiar-certificate-decoder --> peculiar-certificate-viewer
   peculiar-certificate-decoder --> peculiar-attribute-certificate-viewer
   peculiar-certificate-decoder --> peculiar-csr-viewer
+  peculiar-certificate-decoder --> peculiar-crl-viewer
   peculiar-certificate-viewer --> peculiar-typography
   peculiar-certificate-viewer --> peculiar-text-hider
   peculiar-certificate-viewer --> peculiar-link
@@ -51,6 +53,10 @@ graph TD;
   peculiar-csr-viewer --> peculiar-text-hider
   peculiar-csr-viewer --> peculiar-link
   peculiar-csr-viewer --> peculiar-button-split
+  peculiar-crl-viewer --> peculiar-typography
+  peculiar-crl-viewer --> peculiar-text-hider
+  peculiar-crl-viewer --> peculiar-link
+  peculiar-crl-viewer --> peculiar-button-split
   style peculiar-certificate-decoder fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

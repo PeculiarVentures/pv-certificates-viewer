@@ -11,6 +11,7 @@ import { h, FunctionalComponent } from '@stencil/core';
 import { Extension, TExtensionValue } from '../../../crypto/extension';
 import { getStringByOID } from '../get_string_by_oid';
 import { RowValue } from '../row';
+import { l10n } from '../../../utils';
 
 interface IBasicExtensionProps {
   extension: Extension<TExtensionValue>;
@@ -26,7 +27,7 @@ export const BasicExtension: FunctionalComponent<IBasicExtensionProps> = (props,
     />,
     <RowValue
       name="Critical"
-      value={extension.asn.critical ? 'Yes' : 'No'}
+      value={extension.asn.critical ? l10n.getString('yes') : l10n.getString('no')}
     />,
     children,
     <tr>

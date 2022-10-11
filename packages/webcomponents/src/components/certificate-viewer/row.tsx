@@ -36,7 +36,7 @@ export const RowTitle: FunctionalComponent<IRowTitleProps> = (props) => {
 
 interface IRowValueProps {
   name: string | string[];
-  value: string | number;
+  value: string | number | string[];
   monospace?: boolean;
   collapse?: boolean;
   href?: string;

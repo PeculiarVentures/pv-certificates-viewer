@@ -7,7 +7,7 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { BasicConstraints } from '@peculiar/asn1-x509';
+import { CRLNumber } from '@peculiar/asn1-x509';
 
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
@@ -15,12 +15,11 @@ import { l10n } from '../../../utils';
 
 import { BasicExtension } from './basic_extension';
 
-interface IBasicConstraintsExtensionProps {
-  extension: Extension<BasicConstraints>;
+interface ICRLNumberExtensionProps {
+  extension: Extension<CRLNumber>;
 }
 
-export const BasicConstraintsExtension:
-FunctionalComponent<IBasicConstraintsExtensionProps> = (props) => {
+export const CRLNumberExtension: FunctionalComponent<ICRLNumberExtensionProps> = (props) => {
   const { extension } = props;
 
   return (
@@ -28,12 +27,8 @@ FunctionalComponent<IBasicConstraintsExtensionProps> = (props) => {
       extension={extension}
     >
       <RowValue
-        name="Certificate Authority"
-        value={extension.value.cA ? l10n.getString('yes') : l10n.getString('no')}
-      />
-      <RowValue
-        name="Path Length Constraint"
-        value={extension.value.pathLenConstraint}
+        name={l10n.getString('value')}
+        value={extension.value.value}
       />
     </BasicExtension>
   );

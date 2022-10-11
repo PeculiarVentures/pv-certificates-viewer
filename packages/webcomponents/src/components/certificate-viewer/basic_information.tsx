@@ -18,6 +18,8 @@ interface IBasicInformationProps {
   validity?: string;
   notBefore?: Date;
   notAfter?: Date;
+  lastUpdate?: Date;
+  nextUpdate?: Date;
   type: string;
 }
 
@@ -28,6 +30,8 @@ export const BasicInformation: FunctionalComponent<IBasicInformationProps> = (pr
     validity,
     notBefore,
     notAfter,
+    lastUpdate,
+    nextUpdate,
     type,
   } = props;
 
@@ -59,6 +63,14 @@ export const BasicInformation: FunctionalComponent<IBasicInformationProps> = (pr
     <RowValue
       name={l10n.getString('expired')}
       value={notAfter ? dateShort(notAfter) : undefined}
+    />,
+    <RowValue
+      name={l10n.getString('lastUpdate')}
+      value={lastUpdate ? dateShort(lastUpdate) : undefined}
+    />,
+    <RowValue
+      name={l10n.getString('nextUpdate')}
+      value={nextUpdate ? dateShort(nextUpdate) : undefined}
     />,
   ];
 };

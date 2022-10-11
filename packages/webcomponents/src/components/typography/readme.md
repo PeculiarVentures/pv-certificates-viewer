@@ -24,6 +24,7 @@
  - [peculiar-certificate-summary](../certificate-summary)
  - [peculiar-certificate-viewer](../certificate-viewer)
  - [peculiar-certificates-viewer](../certificates-viewer)
+ - [peculiar-crl-viewer](../crl-viewer)
  - [peculiar-csr-viewer](../csr-viewer)
 
 ### Graph
@@ -33,6 +34,7 @@ graph TD;
   peculiar-certificate-summary --> peculiar-typography
   peculiar-certificate-viewer --> peculiar-typography
   peculiar-certificates-viewer --> peculiar-typography
+  peculiar-crl-viewer --> peculiar-typography
   peculiar-csr-viewer --> peculiar-typography
   style peculiar-typography fill:#f9f,stroke:#333,stroke-width:4px
 ```

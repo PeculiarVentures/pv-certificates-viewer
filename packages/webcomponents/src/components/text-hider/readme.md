@@ -25,6 +25,7 @@
 
  - [peculiar-attribute-certificate-viewer](../attribute-certificate-viewer)
  - [peculiar-certificate-viewer](../certificate-viewer)
+ - [peculiar-crl-viewer](../crl-viewer)
  - [peculiar-csr-viewer](../csr-viewer)
 
 ### Depends on
@@ -37,6 +38,7 @@ graph TD;
   peculiar-text-hider --> peculiar-button
   peculiar-attribute-certificate-viewer --> peculiar-text-hider
   peculiar-certificate-viewer --> peculiar-text-hider
+  peculiar-crl-viewer --> peculiar-text-hider
   peculiar-csr-viewer --> peculiar-text-hider
   style peculiar-text-hider fill:#f9f,stroke:#333,stroke-width:4px
 ```
