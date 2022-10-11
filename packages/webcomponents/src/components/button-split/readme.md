@@ -21,6 +21,7 @@
  - [peculiar-attribute-certificate-viewer](../attribute-certificate-viewer)
  - [peculiar-certificate-viewer](../certificate-viewer)
  - [peculiar-certificates-viewer](../certificates-viewer)
+ - [peculiar-crl-viewer](../crl-viewer)
  - [peculiar-csr-viewer](../csr-viewer)
 
 ### Depends on
@@ -34,6 +35,7 @@ graph TD;
   peculiar-attribute-certificate-viewer --> peculiar-button-split
   peculiar-certificate-viewer --> peculiar-button-split
   peculiar-certificates-viewer --> peculiar-button-split
+  peculiar-crl-viewer --> peculiar-button-split
   peculiar-csr-viewer --> peculiar-button-split
   style peculiar-button-split fill:#f9f,stroke:#333,stroke-width:4px
 ```
