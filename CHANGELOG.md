@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.2.1...v3.3.0) (2022-10-11)
+
+
+### Features
+
+* **webcomponents-react:** add PeculiarCrlViewer component ([72947ac](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/72947ac5de7a9adb6ec4d94b5839f00eb46f4779))
+* **webcomponents:** add basic CRL viewer component support ([a1a20ce](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/a1a20cef7ef1e2c3ea9d560b007ca98a3925ba46))
+* **webcomponents:** add more fields to IssuingDistributionPointExtension view ([95b579c](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/95b579c1dd8a693f49195d8e53463ba92ececd19))
+
+
+
+
+
 ## [3.2.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.2.0...v3.2.1) (2022-09-29)
 
 **Note:** Version bump only for package peculiar-certificates-viewer-monorepo

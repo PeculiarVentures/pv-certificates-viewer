@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.2.1...v3.3.0) (2022-10-11)
+
+
+### Features
+
+* **webcomponents-react:** add PeculiarCrlViewer component ([72947ac](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/72947ac5de7a9adb6ec4d94b5839f00eb46f4779))
+
+
+
+
+
 ## [3.2.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.2.0...v3.2.1) (2022-09-29)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer-react
