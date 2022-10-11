@@ -19,7 +19,6 @@ import {
 
 import { X509Certificate } from '../../crypto';
 import { OIDs } from '../../constants/oids';
-import { Download } from '../../utils/download';
 import { l10n } from '../../utils';
 
 export interface ICertificate {
@@ -154,20 +153,14 @@ export class CertificatesViewer {
   private handleClickDownloadAsPem(certificate: ICertificateDecoded, e: MouseEvent) {
     e.stopPropagation();
 
-    Download.x509.asPEM(
-      certificate.body.exportAsPemFormatted(),
-      certificate.name || certificate.body.commonName,
-    );
+    certificate.body.downloadAsPEM(certificate.name || certificate.body.commonName);
   }
 
   // eslint-disable-next-line class-methods-use-this
   private handleClickDownloadAsDer(certificate: ICertificateDecoded, e: MouseEvent) {
     e.stopPropagation();
 
-    Download.x509.asPEM(
-      certificate.body.exportAsHexFormatted(),
-      certificate.name || certificate.body.commonName,
-    );
+    certificate.body.downloadAsDER(certificate.name || certificate.body.commonName);
   }
 
   private handleClickDetails = (certificate: X509Certificate, e: MouseEvent) => {

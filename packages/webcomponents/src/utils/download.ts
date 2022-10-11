@@ -11,7 +11,7 @@ import { Convert } from 'pvtsutils';
 import { downloadFromBuffer } from './download_from_buffer';
 
 export class Download {
-  public static x509 = {
+  public static cert = {
     asPEM: (pem: string, name: string) => {
       downloadFromBuffer(
         Convert.FromString(pem),
@@ -31,7 +31,27 @@ export class Download {
     },
   };
 
-  public static pkcs10 = {
+  public static attrCert = {
+    asPEM: (pem: string, name: string) => {
+      downloadFromBuffer(
+        Convert.FromString(pem),
+        name,
+        'cer',
+        'application/pkix-attr-cert',
+      );
+    },
+
+    asDER: (hex: string, name: string) => {
+      downloadFromBuffer(
+        Convert.FromString(hex),
+        name,
+        'cer',
+        'application/pkix-attr-cert',
+      );
+    },
+  };
+
+  public static csr = {
     asPEM: (pem: string, name: string) => {
       downloadFromBuffer(
         Convert.FromString(pem),
@@ -47,6 +67,26 @@ export class Download {
         name,
         'csr',
         'application/pkcs10',
+      );
+    },
+  };
+
+  public static crl = {
+    asPEM: (pem: string, name: string) => {
+      downloadFromBuffer(
+        Convert.FromString(pem),
+        name,
+        'crl',
+        'application/pkix-crl',
+      );
+    },
+
+    asDER: (hex: string, name: string) => {
+      downloadFromBuffer(
+        Convert.FromString(hex),
+        name,
+        'crl',
+        'application/pkix-crl',
       );
     },
   };

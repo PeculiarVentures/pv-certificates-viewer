@@ -15,39 +15,10 @@ import {
   CRL,
 } from '../../crypto';
 import { l10n } from '../../utils';
-import { Download } from '../../utils/download';
 
 import { RowTitle } from './row';
 
 type CertificateType = X509Certificate | X509AttributeCertificate | CSR | CRL;
-
-function downloadCertificateAsPem(certificate: CertificateType) {
-  if (certificate instanceof CSR) {
-    Download.pkcs10.asPEM(
-      certificate.exportAsPemFormatted(),
-      certificate.commonName,
-    );
-  } else {
-    Download.x509.asPEM(
-      certificate.exportAsPemFormatted(),
-      certificate.commonName,
-    );
-  }
-}
-
-function downloadCertificateAsDer(certificate: CertificateType) {
-  if (certificate instanceof CSR) {
-    Download.pkcs10.asDER(
-      certificate.exportAsHexFormatted(),
-      certificate.commonName,
-    );
-  } else {
-    Download.x509.asDER(
-      certificate.exportAsHexFormatted(),
-      certificate.commonName,
-    );
-  }
-}
 
 interface IMiscellaneousProps {
   certificate: CertificateType;
@@ -73,10 +44,10 @@ export const Miscellaneous: FunctionalComponent<IMiscellaneousProps> = (props) =
       </td>
       <td>
         <peculiar-button-split
-          onClick={downloadCertificateAsPem.bind(this, certificate)}
+          onClick={() => certificate.downloadAsPEM()}
           actions={[{
             text: l10n.getString('download.der'),
-            onClick: downloadCertificateAsDer.bind(this, certificate),
+            onClick: () => certificate.downloadAsDER(),
           }]}
         >
           {l10n.getString('download.pem')}

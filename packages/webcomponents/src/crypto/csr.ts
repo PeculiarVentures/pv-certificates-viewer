@@ -12,6 +12,8 @@ import { id_rsaEncryption, RSAPublicKey } from '@peculiar/asn1-rsa';
 import { CertificationRequest } from '@peculiar/asn1-csr';
 import { Convert } from 'pvtsutils';
 
+import { Download } from '../utils';
+
 import { AsnData } from './asn_data';
 import { Name, INameJSON } from './name';
 import { Attribute, TAttributeValue } from './attribute';
@@ -131,5 +133,19 @@ export class CSR extends AsnData<CertificationRequest> {
 
   public exportAsPemFormatted() {
     return `-----BEGIN CERTIFICATE REQUEST-----\n${base64Format(this.exportAsBase64())}\n-----END CERTIFICATE REQUEST-----`;
+  }
+
+  public downloadAsPEM(name?: string) {
+    Download.csr.asPEM(
+      this.exportAsPemFormatted(),
+      name || this.commonName,
+    );
+  }
+
+  public downloadAsDER(name?: string) {
+    Download.csr.asDER(
+      this.exportAsHexFormatted(),
+      name || this.commonName,
+    );
   }
 }

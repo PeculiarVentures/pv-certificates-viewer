@@ -11,7 +11,7 @@ import type { GeneralName } from '@peculiar/asn1-x509';
 import { AttributeCertificate, Holder } from '@peculiar/asn1-x509-attr';
 import { Convert } from 'pvtsutils';
 
-import { dateDiff } from '../utils';
+import { dateDiff, Download } from '../utils';
 
 import { AsnData } from './asn_data';
 import { Extension, TExtensionValue } from './extension';
@@ -133,5 +133,19 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
 
   public get commonName(): string {
     return `attribute-certificate-${this.thumbprints['SHA-1']}`;
+  }
+
+  public downloadAsPEM(name?: string) {
+    Download.attrCert.asPEM(
+      this.exportAsPemFormatted(),
+      name || this.commonName,
+    );
+  }
+
+  public downloadAsDER(name?: string) {
+    Download.attrCert.asDER(
+      this.exportAsHexFormatted(),
+      name || this.commonName,
+    );
   }
 }

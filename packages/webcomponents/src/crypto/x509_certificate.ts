@@ -12,7 +12,7 @@ import { id_rsaEncryption, RSAPublicKey } from '@peculiar/asn1-rsa';
 import { Certificate } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 
-import { dateDiff } from '../utils';
+import { dateDiff, Download } from '../utils';
 
 import { Name, INameJSON } from './name';
 import { Extension, TExtensionValue } from './extension';
@@ -212,5 +212,19 @@ export class X509Certificate extends AsnData<Certificate> {
         `${name.shortName}=${name.value}`
       ))
       .join(', ');
+  }
+
+  public downloadAsPEM(name?: string) {
+    Download.cert.asPEM(
+      this.exportAsPemFormatted(),
+      name || this.commonName,
+    );
+  }
+
+  public downloadAsDER(name?: string) {
+    Download.cert.asDER(
+      this.exportAsHexFormatted(),
+      name || this.commonName,
+    );
   }
 }

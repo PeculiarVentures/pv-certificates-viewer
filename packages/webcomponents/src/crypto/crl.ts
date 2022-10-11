@@ -5,9 +5,11 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
- import { AsnConvert } from '@peculiar/asn1-schema';
+import { AsnConvert } from '@peculiar/asn1-schema';
 import { CertificateList } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
+
+import { Download } from '../utils';
 
 import { Extension, TExtensionValue } from './extension';
 import { AsnData } from './asn_data';
@@ -107,5 +109,19 @@ export class CRL extends AsnData<CertificateList> {
 
   public exportAsPemFormatted() {
     return `-----BEGIN X509 CRL-----\n${base64Format(this.exportAsBase64())}\n-----END X509 CRL-----`;
+  }
+
+  public downloadAsPEM(name?: string) {
+    Download.crl.asPEM(
+      this.exportAsPemFormatted(),
+      name || this.commonName,
+    );
+  }
+
+  public downloadAsDER(name?: string) {
+    Download.crl.asDER(
+      this.exportAsHexFormatted(),
+      name || this.commonName,
+    );
   }
 }
