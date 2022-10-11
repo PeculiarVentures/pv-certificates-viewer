@@ -16,3 +16,4 @@ export const PeculiarCertificateDecoder = /*@__PURE__*/createReactComponent<JSX.
 export const PeculiarCertificateViewer = /*@__PURE__*/createReactComponent<JSX.PeculiarCertificateViewer, HTMLPeculiarCertificateViewerElement>('peculiar-certificate-viewer');
 export const PeculiarCertificatesViewer = /*@__PURE__*/createReactComponent<JSX.PeculiarCertificatesViewer, HTMLPeculiarCertificatesViewerElement>('peculiar-certificates-viewer');
 export const PeculiarCsrViewer = /*@__PURE__*/createReactComponent<JSX.PeculiarCsrViewer, HTMLPeculiarCsrViewerElement>('peculiar-csr-viewer');
+export const PeculiarCrlViewer = /*@__PURE__*/createReactComponent<JSX.PeculiarCrlViewer, HTMLPeculiarCrlViewerElement>('peculiar-crl-viewer');
