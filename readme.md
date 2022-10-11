@@ -43,20 +43,24 @@ You may also be interested in our web component for viewing and verifying signed
 - Authority Key Identifier (2.5.29.35).
 - Basic Constraints (2.5.29.19).
 - Biometric Info (1.3.6.1.5.5.7.1.2).
-- CRL Distribution Points (2.5.29.31).
-- CRL Reason (2.5.29.21).
 - Certificate Authority Information Access (1.3.6.1.5.5.7.1.1).
 - Certificate Issuer (2.5.29.29).
 - Certificate Policies (2.5.29.32).
 - Certificate Transparency (1.3.6.1.4.1.11129.2.4.2).
+- CRL Distribution Points (2.5.29.31).
+- CRL Number (2.5.29.20).
+- CRL Reason (2.5.29.21).
+- Delta CRL Indicator (2.5.29.27).
 - Entrust Version Info (1.2.840.113533.7.65.0).
 - Extended Key Usage (2.5.29.37).
 - Freshest CRL (2.5.29.46).
 - Inhibit Any Policy (2.5.29.54).
 - Invalidity Date (2.5.29.24).
 - Issuer Alternative Name (2.5.29.18).
+- Issuing Distribution Point (2.5.29.28).
 - Key Usage (2.5.29.15).
 - Legal Entity Identifier (1.3.6.1.4.1.52266.1).
+- Logo Type (1.3.6.1.5.5.7.1.12).
 - Microsoft Certificate Template (1.3.6.1.4.1.311.21.7).
 - Microsoft Certificate Type (1.3.6.1.4.1.311.20.2).
 - Microsoft Certification Authority Renewal (1.3.6.1.4.1.311.21.1).
@@ -71,10 +75,9 @@ You may also be interested in our web component for viewing and verifying signed
 - Role (1.3.6.1.4.1.52266.2).
 - Subject Alternative Name (2.5.29.17).
 - Subject Directory Attributes (2.5.29.9).
-- Subject Key Identifier (2.5.29.14).
-- Logo Type (1.3.6.1.5.5.7.1.12).
-- Telephone Number (TN) Authorization List (1.3.6.1.5.5.7.1.26).
 - Subject Info Access (1.3.6.1.5.5.7.1.11).
+- Subject Key Identifier (2.5.29.14).
+- Telephone Number (TN) Authorization List (1.3.6.1.5.5.7.1.26).
 
 ### Supported Attributes
 
