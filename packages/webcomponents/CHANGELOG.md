@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.3.1...v3.4.0) (2022-11-28)
+
+
+### Features
+
+* **webcomponents:** add support to show "crlEntryExtensions" data ([ecb0569](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/ecb0569c735fd0f0a8d5b024f6ff51cd746fb378))
+
+
+
+
+
 ## [3.3.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.3.0...v3.3.1) (2022-11-28)
 
 
