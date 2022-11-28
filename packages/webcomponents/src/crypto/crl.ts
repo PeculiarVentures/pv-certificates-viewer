@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 import { AsnConvert } from '@peculiar/asn1-schema';
-import { CertificateList } from '@peculiar/asn1-x509';
+import { CertificateList, Time } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 
 import { Download } from '../utils';
@@ -26,6 +26,12 @@ interface ISignature {
   value: BufferSource;
 }
 
+export interface IRevokedCertificate {
+  userCertificate: ArrayBuffer;
+  revocationDate: Time;
+  crlEntryExtensions?: Extension<TExtensionValue>[];
+}
+
 export class CRL extends AsnData<CertificateList> {
   public readonly issuer: INameJSON[];
 
@@ -36,6 +42,8 @@ export class CRL extends AsnData<CertificateList> {
   public readonly nextUpdate: Date;
 
   public extensions: Extension<TExtensionValue>[];
+
+  public revokedCertificates: IRevokedCertificate[];
 
   public thumbprints: Record<string, string> = {};
 
@@ -50,6 +58,14 @@ export class CRL extends AsnData<CertificateList> {
     this.version = tbsCertList.version + 1;
     this.lastUpdate = tbsCertList.thisUpdate.getTime();
     this.nextUpdate = tbsCertList.nextUpdate.getTime();
+
+    this.revokedCertificates = (tbsCertList.revokedCertificates || [])
+      .map((revokedCertificate) => ({
+        revocationDate: revokedCertificate.revocationDate,
+        userCertificate: revokedCertificate.userCertificate,
+        crlEntryExtensions: revokedCertificate.crlEntryExtensions
+          ?.map((e) => new Extension(AsnConvert.serialize(e))),
+      }));
   }
 
   public async getThumbprint(

@@ -211,11 +211,9 @@ export class CrlViewer {
             getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
           />
 
-          {this.certificateDecoded.asn.tbsCertList.revokedCertificates && (
-            <RevokedCertificates
-              certificates={this.certificateDecoded.asn.tbsCertList.revokedCertificates}
-            />
-          )}
+          <RevokedCertificates
+            revokedCertificates={this.certificateDecoded.revokedCertificates}
+          />
 
           {this.download && (
             <Miscellaneous
