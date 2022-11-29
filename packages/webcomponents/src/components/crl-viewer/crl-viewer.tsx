@@ -213,6 +213,8 @@ export class CrlViewer {
 
           <RevokedCertificates
             revokedCertificates={this.certificateDecoded.revokedCertificates}
+            getDNSNameLink={getDNSNameLink}
+            getIPAddressLink={getIPAddressLink}
           />
 
           {this.download && (
