@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.4.0...v3.5.0) (2022-11-29)
+
+
+### Features
+
+* **webcomponents:** add support to show CertificateIssuer extension in "crlEntryExtensions" view ([339a8de](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/339a8de582010cb26cb15e636971911dcb35c2a3))
+
+
+
+
+
 # [3.4.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.3.1...v3.4.0) (2022-11-28)
 
 
