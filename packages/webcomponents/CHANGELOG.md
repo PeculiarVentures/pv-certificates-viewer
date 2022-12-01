@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.5.0...v3.6.0) (2022-12-01)
+
+
+### Features
+
+* **oids:** add Matter related oids ([86eaee9](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/86eaee9eb1542c2ed84ae05420e9d2a30e894fe4))
+
+
+
+
+
 # [3.5.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.4.0...v3.5.0) (2022-11-29)
 
 
