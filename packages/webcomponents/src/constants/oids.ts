@@ -2310,4 +2310,8 @@ export const OIDs = {
   '0.4.0.9496.7': 'GDPR compliance attestation reference',
   '0.4.0.9496.8': 'Insurance coverage attestation',
   '0.4.0.9496.9': 'Valuation ranking',
+
+  // https://cookie-daily.life/src/matter/matter_html/Chapter%206.%20Device%20Attestation%20and%20Operational%20Credentials.html
+  '1.3.6.1.4.1.37244.2.1': 'Matter Vendor ID',
+  '1.3.6.1.4.1.37244.2.2': 'Matter Product ID',
 };
