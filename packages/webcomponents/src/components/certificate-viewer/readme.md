@@ -29,19 +29,11 @@
 ### Depends on
 
 - [peculiar-typography](../typography)
-- [peculiar-text-hider](../text-hider)
-- [peculiar-link](../link)
-- [peculiar-button-split](../button-split)
 
 ### Graph
 ```mermaid
 graph TD;
   peculiar-certificate-viewer --> peculiar-typography
-  peculiar-certificate-viewer --> peculiar-text-hider
-  peculiar-certificate-viewer --> peculiar-link
-  peculiar-certificate-viewer --> peculiar-button-split
-  peculiar-text-hider --> peculiar-button
-  peculiar-button-split --> peculiar-button
   peculiar-certificate-decoder --> peculiar-certificate-viewer
   peculiar-certificates-viewer --> peculiar-certificate-viewer
   style peculiar-certificate-viewer fill:#f9f,stroke:#333,stroke-width:4px

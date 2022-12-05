@@ -8,9 +8,9 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 
-import { getStringByOID } from '../get_string_by_oid';
-import { RowValue } from '../row';
 import type { Attribute, TAttributeValue } from '../../../crypto/attribute';
+import { getStringByOID } from '../../../utils';
+import { RowValue } from '../row';
 
 interface IBasicAttributeProps {
   attribute: Attribute<TAttributeValue>;

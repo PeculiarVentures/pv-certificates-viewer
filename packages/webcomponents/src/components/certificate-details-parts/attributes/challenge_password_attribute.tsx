@@ -7,26 +7,27 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import type { Name } from '@peculiar/asn1-x509';
+import type { ChallengePassword } from '@peculiar/asn1-pkcs9';
 
-import { BasicAttribute } from './basic_attribute';
 import type { Attribute } from '../../../crypto/attribute';
-import { NamePart } from './name_part';
+import { RowValue } from '../row';
+import { BasicAttribute } from './basic_attribute';
 
-interface INameAttributeProps {
-  attribute: Attribute<Name>;
+interface IChallengePasswordAttributeProps {
+  attribute: Attribute<ChallengePassword>;
 }
 
-export const NameAttribute:
-FunctionalComponent<INameAttributeProps> = (props) => {
+export const ChallengePasswordAttribute:
+FunctionalComponent<IChallengePasswordAttributeProps> = (props) => {
   const { attribute } = props;
 
   return (
     <BasicAttribute
       attribute={attribute}
     >
-      <NamePart
-        name={attribute.value}
+      <RowValue
+        name="Value"
+        value={attribute.value.toString()}
       />
     </BasicAttribute>
   );

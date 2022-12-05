@@ -10,9 +10,8 @@ import { h, FunctionalComponent } from '@stencil/core';
 import { Convert } from 'pvtsutils';
 
 import { IPublicKey } from '../../crypto';
-import { l10n } from '../../utils';
+import { l10n, getStringByOID } from '../../utils';
 
-import { getStringByOID } from './get_string_by_oid';
 import { RowTitle, RowValue } from './row';
 
 function getPublicKeyModulus(publicKey: IPublicKey) {

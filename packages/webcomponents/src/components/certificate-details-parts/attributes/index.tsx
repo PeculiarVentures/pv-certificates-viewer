@@ -20,8 +20,8 @@ import {
   ChallengePassword,
 } from '@peculiar/asn1-pkcs9';
 
-import { RowTitle } from '../row';
 import type { Attribute, TAttributeValue } from '../../../crypto/attribute';
+import { RowTitle } from '../row';
 import { NameAttribute } from './name_attribute';
 import { ActivityDescriptionAttribute } from './activity_description_attribute';
 import { WebGdprAttribute } from './web_gdpr_attribute';

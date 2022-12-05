@@ -7,20 +7,19 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import type { InsuranceValue } from '@peculiar/asn1-ntqwac';
+import type { UnstructuredName } from '@peculiar/asn1-pkcs9';
 
-import { BasicAttribute } from './basic_attribute';
 import type { Attribute } from '../../../crypto/attribute';
 import { RowValue } from '../row';
+import { BasicAttribute } from './basic_attribute';
 
-interface IInsuranceValueAttributeProps {
-  attribute: Attribute<InsuranceValue>;
+interface IUnstructuredNameAttributeProps {
+  attribute: Attribute<UnstructuredName>;
 }
 
-export const InsuranceValueAttribute:
-FunctionalComponent<IInsuranceValueAttributeProps> = (props) => {
+export const UnstructuredNameAttribute:
+FunctionalComponent<IUnstructuredNameAttributeProps> = (props) => {
   const { attribute } = props;
-  const value = `${attribute.value.base} * 10^${attribute.value.degree} ${attribute.value.location}`;
 
   return (
     <BasicAttribute
@@ -28,7 +27,7 @@ FunctionalComponent<IInsuranceValueAttributeProps> = (props) => {
     >
       <RowValue
         name="Value"
-        value={value}
+        value={attribute.value.utf8String}
       />
     </BasicAttribute>
   );

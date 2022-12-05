@@ -9,10 +9,10 @@
 import { h, FunctionalComponent } from '@stencil/core';
 import type { ActivityDescription } from '@peculiar/asn1-ntqwac';
 
-import { BasicAttribute } from './basic_attribute';
 import { Attribute } from '../../../crypto/attribute';
 import { GeneralNamePart } from '../extensions/general_name_part';
 import { RowValue } from '../row';
+import { BasicAttribute } from './basic_attribute';
 
 interface IActivityDescriptionAttributeProps {
   attribute: Attribute<ActivityDescription>;

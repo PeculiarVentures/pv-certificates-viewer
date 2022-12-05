@@ -12,14 +12,16 @@ import {
 
 import { CSR } from '../../crypto';
 import { getDNSNameLink, getIPAddressLink, getLEILink } from '../../utils/third_party_links';
-import { SubjectName } from '../certificate-viewer/subject_name';
-import { PublicKey } from '../certificate-viewer/public_key';
-import { Signature } from '../certificate-viewer/signature';
-import { Thumbprints } from '../certificate-viewer/thumbprints';
-import { Attributes } from '../certificate-viewer/attributes';
-import { Extensions } from '../certificate-viewer/extensions';
-import { Miscellaneous } from '../certificate-viewer/miscellaneous';
-import { BasicInformation } from '../certificate-viewer/basic_information';
+import {
+  BasicInformation,
+  SubjectName,
+  Signature,
+  Thumbprints,
+  Extensions,
+  Miscellaneous,
+  PublicKey,
+  Attributes,
+} from '../certificate-details-parts';
 
 export type CsrProp = string | CSR;
 

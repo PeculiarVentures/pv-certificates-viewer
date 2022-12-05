@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { OIDs } from '../../constants/oids';
+import { OIDs } from '../constants/oids';
 
 export function getStringByOID(value: string) {
   const oid = OIDs[value];

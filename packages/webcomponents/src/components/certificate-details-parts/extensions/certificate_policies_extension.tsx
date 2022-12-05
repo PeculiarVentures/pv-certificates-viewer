@@ -10,9 +10,9 @@ import { h, FunctionalComponent } from '@stencil/core';
 import { CertificatePolicies, UserNotice, DisplayText } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 
-import { RowValue } from '../row';
+import { getStringByOID } from '../../../utils';
 import { Extension } from '../../../crypto/extension';
-import { getStringByOID } from '../get_string_by_oid';
+import { RowValue } from '../row';
 
 import { BasicExtension } from './basic_extension';
 

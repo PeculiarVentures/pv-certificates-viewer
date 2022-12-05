@@ -7,18 +7,17 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import type { UnstructuredName } from '@peculiar/asn1-pkcs9';
 
-import { BasicAttribute } from './basic_attribute';
 import type { Attribute } from '../../../crypto/attribute';
 import { RowValue } from '../row';
+import { BasicAttribute } from './basic_attribute';
 
-interface IUnstructuredNameAttributeProps {
-  attribute: Attribute<UnstructuredName>;
+interface IAsStringAttributeProps {
+  attribute: Attribute<string>;
 }
 
-export const UnstructuredNameAttribute:
-FunctionalComponent<IUnstructuredNameAttributeProps> = (props) => {
+export const AsStringAttribute:
+FunctionalComponent<IAsStringAttributeProps> = (props) => {
   const { attribute } = props;
 
   return (
@@ -27,7 +26,8 @@ FunctionalComponent<IUnstructuredNameAttributeProps> = (props) => {
     >
       <RowValue
         name="Value"
-        value={attribute.value.utf8String}
+        value={attribute.value}
+        monospace
       />
     </BasicAttribute>
   );

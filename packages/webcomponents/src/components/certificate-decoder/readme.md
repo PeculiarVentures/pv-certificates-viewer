@@ -40,23 +40,9 @@ graph TD;
   peculiar-certificate-decoder --> peculiar-csr-viewer
   peculiar-certificate-decoder --> peculiar-crl-viewer
   peculiar-certificate-viewer --> peculiar-typography
-  peculiar-certificate-viewer --> peculiar-text-hider
-  peculiar-certificate-viewer --> peculiar-link
-  peculiar-certificate-viewer --> peculiar-button-split
-  peculiar-text-hider --> peculiar-button
-  peculiar-button-split --> peculiar-button
   peculiar-attribute-certificate-viewer --> peculiar-typography
-  peculiar-attribute-certificate-viewer --> peculiar-text-hider
-  peculiar-attribute-certificate-viewer --> peculiar-link
-  peculiar-attribute-certificate-viewer --> peculiar-button-split
   peculiar-csr-viewer --> peculiar-typography
-  peculiar-csr-viewer --> peculiar-text-hider
-  peculiar-csr-viewer --> peculiar-link
-  peculiar-csr-viewer --> peculiar-button-split
   peculiar-crl-viewer --> peculiar-typography
-  peculiar-crl-viewer --> peculiar-text-hider
-  peculiar-crl-viewer --> peculiar-link
-  peculiar-crl-viewer --> peculiar-button-split
   style peculiar-certificate-decoder fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

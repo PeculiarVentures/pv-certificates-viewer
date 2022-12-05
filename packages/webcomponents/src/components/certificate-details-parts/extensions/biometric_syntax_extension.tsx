@@ -10,9 +10,9 @@ import { h, FunctionalComponent } from '@stencil/core';
 import { BiometricSyntax } from '@peculiar/asn1-x509-qualified';
 import { Convert } from 'pvtsutils';
 
-import { RowValue } from '../row';
+import { getStringByOID } from '../../../utils';
 import { Extension } from '../../../crypto/extension';
-import { getStringByOID } from '../get_string_by_oid';
+import { RowValue } from '../row';
 
 import { BasicExtension } from './basic_extension';
 

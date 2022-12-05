@@ -10,12 +10,10 @@ import { h, FunctionalComponent } from '@stencil/core';
 import { CRLReason, InvalidityDate, CertificateIssuer } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 
-import { dateShort, l10n } from '../../utils';
+import { dateShort, l10n, getStringByOID } from '../../utils';
 import { IRevokedCertificate } from '../../crypto';
-import { getStringByOID } from '../certificate-viewer/get_string_by_oid';
-import { GeneralNamePart } from '../certificate-viewer/extensions/general_name_part';
-
-import { RowTitle, RowValue } from '../certificate-viewer/row';
+import { GeneralNamePart } from './extensions/general_name_part';
+import { RowTitle, RowValue } from './row';
 
 interface IRevokedCertificatesProps extends IGeneralNameOptions {
   revokedCertificates: IRevokedCertificate[];

@@ -17,14 +17,15 @@ import {
 
 import { CRL } from '../../crypto';
 import { getDNSNameLink, getIPAddressLink, getLEILink } from '../../utils/third_party_links';
-
-import { Signature } from '../certificate-viewer/signature';
-import { IssuerName } from '../certificate-viewer/issuer_name';
-import { Thumbprints } from '../certificate-viewer/thumbprints';
-import { Extensions } from '../certificate-viewer/extensions';
-import { Miscellaneous } from '../certificate-viewer/miscellaneous';
-import { BasicInformation } from '../certificate-viewer/basic_information';
-import { RevokedCertificates } from './revoked_certificates';
+import {
+  BasicInformation,
+  IssuerName,
+  Signature,
+  Thumbprints,
+  Extensions,
+  Miscellaneous,
+  RevokedCertificates,
+} from '../certificate-details-parts';
 
 export type CrlProp = string | CRL;
 

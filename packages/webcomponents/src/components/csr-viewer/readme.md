@@ -25,19 +25,11 @@
 ### Depends on
 
 - [peculiar-typography](../typography)
-- [peculiar-text-hider](../text-hider)
-- [peculiar-link](../link)
-- [peculiar-button-split](../button-split)
 
 ### Graph
 ```mermaid
 graph TD;
   peculiar-csr-viewer --> peculiar-typography
-  peculiar-csr-viewer --> peculiar-text-hider
-  peculiar-csr-viewer --> peculiar-link
-  peculiar-csr-viewer --> peculiar-button-split
-  peculiar-text-hider --> peculiar-button
-  peculiar-button-split --> peculiar-button
   peculiar-certificate-decoder --> peculiar-csr-viewer
   style peculiar-csr-viewer fill:#f9f,stroke:#333,stroke-width:4px
 ```

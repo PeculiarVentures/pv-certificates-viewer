@@ -19,15 +19,16 @@ import {
   X509Certificate,
 } from '../../crypto';
 import { getDNSNameLink, getIPAddressLink, getLEILink } from '../../utils/third_party_links';
-
-import { PublicKey } from './public_key';
-import { Signature } from './signature';
-import { Thumbprints } from './thumbprints';
-import { Extensions } from './extensions';
-import { Miscellaneous } from './miscellaneous';
-import { SubjectName } from './subject_name';
-import { IssuerName } from './issuer_name';
-import { BasicInformation } from './basic_information';
+import {
+  BasicInformation,
+  SubjectName,
+  IssuerName,
+  PublicKey,
+  Signature,
+  Thumbprints,
+  Extensions,
+  Miscellaneous,
+} from '../certificate-details-parts';
 
 export type CertificateProp = string | X509Certificate;
 

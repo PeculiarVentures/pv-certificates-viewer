@@ -11,15 +11,17 @@ import {
 } from '@stencil/core';
 
 import { X509AttributeCertificate } from '../../crypto';
-import { Signature } from '../certificate-viewer/signature';
-import { Attributes } from '../certificate-viewer/attributes';
-import { Thumbprints } from '../certificate-viewer/thumbprints';
-import { Extensions } from '../certificate-viewer/extensions';
-import { BasicInformation } from '../certificate-viewer/basic_information';
-import { Miscellaneous } from '../certificate-viewer/miscellaneous';
 import { getDNSNameLink, getIPAddressLink, getLEILink } from '../../utils/third_party_links';
-import { Issuer } from './issuer';
-import { Holder } from './holder';
+import {
+  BasicInformation,
+  Signature,
+  Thumbprints,
+  Extensions,
+  Miscellaneous,
+  Attributes,
+  Holder,
+  Issuer,
+} from '../certificate-details-parts';
 
 export type AttributeCertificateProp = string | X509AttributeCertificate;
 

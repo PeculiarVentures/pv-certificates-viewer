@@ -10,10 +10,9 @@ import { h, FunctionalComponent } from '@stencil/core';
 import { Convert } from 'pvtsutils';
 
 import type { X509AttributeCertificate } from '../../crypto';
-import { RowTitle, RowValue } from '../certificate-viewer/row';
-import { getStringByOID } from '../certificate-viewer/get_string_by_oid';
-import { GeneralNamePart } from '../certificate-viewer/extensions/general_name_part';
-import { l10n } from '../../utils';
+import { l10n, getStringByOID } from '../../utils';
+import { RowTitle, RowValue } from './row';
+import { GeneralNamePart } from './extensions/general_name_part';
 
 interface IHolderProps {
   holder: X509AttributeCertificate['holder'];
