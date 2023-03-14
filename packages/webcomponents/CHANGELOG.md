@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.6.0...v3.7.0) (2023-03-14)
+
+
+### Features
+
+* **oids:** add PQC related oids ([ac81c36](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/ac81c3696c70dc91652f3964ac2f5547c83649a4))
+* **webcomponents:** add support parsing PQC to X509Certificate ([9e3acbb](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/9e3acbb2fce1308675e093cf6d1707462bd6e796))
+* **webcomponents:** add support render PQC to Signature and PublicKey parts ([4ab4d9a](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/4ab4d9aeb9071a997f14734074a66e593f796346))
+
+
+
+
+
 # [3.6.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.5.0...v3.6.0) (2022-12-01)
 
 
