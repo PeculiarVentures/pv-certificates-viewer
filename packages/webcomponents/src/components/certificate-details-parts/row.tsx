@@ -10,6 +10,16 @@ import { h, FunctionalComponent } from '@stencil/core';
 
 import isLink from '../../utils/is_link';
 
+export const TableRowTable: FunctionalComponent = (_, children) => (
+  <tr>
+    <td colSpan={2}>
+      <table>
+        {children}
+      </table>
+    </td>
+  </tr>
+);
+
 interface IRowTitleProps {
   value: string | string[];
 }
