@@ -9,7 +9,14 @@
 import { AsnConvert } from '@peculiar/asn1-schema';
 import { ECParameters, id_ecPublicKey } from '@peculiar/asn1-ecc';
 import { id_rsaEncryption, RSAPublicKey } from '@peculiar/asn1-rsa';
-import { Certificate } from '@peculiar/asn1-x509';
+import {
+  id_composite_key,
+  id_alg_composite,
+  CompositePublicKey,
+  CompositeSignatureValue,
+  CompositeParams,
+} from '@peculiar/asn1-x509-post-quantum';
+import { Certificate, SubjectPublicKeyInfo } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 
 import { dateDiff, Download } from '../utils';
@@ -27,12 +34,16 @@ import {
 export interface ISignature {
   algorithm: string;
   value: BufferSource;
+  params?: {
+    algorithm: string;
+    value: BufferSource;
+  }[];
 }
 
 export interface IPublicKey {
   algorithm: string;
   value: BufferSource;
-  params?: ECParameters | RSAPublicKey;
+  params?: ECParameters | RSAPublicKey | IPublicKey[];
 }
 
 export class X509Certificate extends AsnData<Certificate> {
@@ -95,8 +106,8 @@ export class X509Certificate extends AsnData<Certificate> {
     }
   }
 
-  public get publicKey(): IPublicKey {
-    const { subjectPublicKey, algorithm } = this.asn.tbsCertificate.subjectPublicKeyInfo;
+  private getPublicKeyInfo(publicKeyInfo: SubjectPublicKeyInfo) {
+    const { subjectPublicKey, algorithm } = publicKeyInfo;
     let params;
 
     if (algorithm.algorithm === id_ecPublicKey && algorithm.parameters) {
@@ -107,7 +118,13 @@ export class X509Certificate extends AsnData<Certificate> {
       params = AsnConvert.parse(subjectPublicKey, RSAPublicKey);
     }
 
-    const spki = AsnConvert.serialize(this.asn.tbsCertificate.subjectPublicKeyInfo);
+    if (algorithm.algorithm === id_composite_key) {
+      params = AsnConvert.parse(subjectPublicKey, CompositePublicKey);
+
+      params = params.map((param) => this.getPublicKeyInfo(param));
+    }
+
+    const spki = AsnConvert.serialize(publicKeyInfo);
 
     return {
       params,
@@ -116,10 +133,26 @@ export class X509Certificate extends AsnData<Certificate> {
     };
   }
 
+  public get publicKey(): IPublicKey {
+    return this.getPublicKeyInfo(this.asn.tbsCertificate.subjectPublicKeyInfo);
+  }
+
   public get signature(): ISignature {
     const { signatureValue, signatureAlgorithm } = this.asn;
+    let params;
+
+    if (signatureAlgorithm.algorithm === id_alg_composite) {
+      const compositeSignatureValues = AsnConvert.parse(signatureValue, CompositeSignatureValue);
+      const compositeParams = AsnConvert.parse(signatureAlgorithm.parameters, CompositeParams);
+
+      params = compositeParams.map((param, index) => ({
+        ...param,
+        value: compositeSignatureValues[index],
+      }));
+    }
 
     return {
+      params,
       value: signatureValue,
       algorithm: signatureAlgorithm.algorithm,
     };
