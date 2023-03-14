@@ -12,7 +12,7 @@ import { Convert } from 'pvtsutils';
 import { IPublicKey } from '../../crypto';
 import { l10n, getStringByOID } from '../../utils';
 
-import { RowTitle, RowValue } from './row';
+import { RowTitle, RowValue, TableRowTable } from './row';
 
 function getPublicKeyModulus(publicKey: IPublicKey) {
   if (publicKey.params?.['modulus']) {
@@ -49,31 +49,42 @@ export const PublicKey: FunctionalComponent<IPublicKeyProps> = (props) => {
     return null;
   }
 
+  function renderKeyDetails(key: IPublicKey) {
+    return [
+      <RowValue
+        name={l10n.getString('algorithm')}
+        value={getStringByOID(key.algorithm)}
+      />,
+      <RowValue
+        name={l10n.getString('namedCurve')}
+        value={getStringByOID(key.params?.['namedCurve'])}
+      />,
+      <RowValue
+        name={l10n.getString('exponent')}
+        value={getPublicKeyExponent(key)}
+      />,
+      <RowValue
+        name={l10n.getString('modulus')}
+        value={getPublicKeyModulus(key)}
+      />,
+      <RowValue
+        name={l10n.getString('value')}
+        value={Convert.ToHex(key.value)}
+        monospace
+        collapse
+      />,
+    ];
+  }
+
   return [
     <RowTitle
       value={l10n.getString('publicKeyInfo')}
     />,
-    <RowValue
-      name={l10n.getString('algorithm')}
-      value={getStringByOID(publicKey.algorithm)}
-    />,
-    <RowValue
-      name={l10n.getString('namedCurve')}
-      value={getStringByOID(publicKey.params?.['namedCurve'])}
-    />,
-    <RowValue
-      name={l10n.getString('exponent')}
-      value={getPublicKeyExponent(publicKey)}
-    />,
-    <RowValue
-      name={l10n.getString('modulus')}
-      value={getPublicKeyModulus(publicKey)}
-    />,
-    <RowValue
-      name={l10n.getString('value')}
-      value={Convert.ToHex(publicKey.value)}
-      monospace
-      collapse
-    />,
+    renderKeyDetails(publicKey),
+    (Array.isArray(publicKey.params) && publicKey.params.length && publicKey.params.map((param) => (
+      <TableRowTable>
+        {renderKeyDetails(param)}
+      </TableRowTable>
+    ))),
   ];
 };

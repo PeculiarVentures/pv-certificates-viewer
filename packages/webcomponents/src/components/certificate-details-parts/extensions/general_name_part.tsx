@@ -110,7 +110,7 @@ export const GeneralNamePart: FunctionalComponent<IGeneralNamePartProps> = (prop
       return (
         <RowValue
           name={names[name] || name}
-          value={Convert.ToString(value.partyName)}
+          value={value.partyName.toString()}
         />
       );
     }

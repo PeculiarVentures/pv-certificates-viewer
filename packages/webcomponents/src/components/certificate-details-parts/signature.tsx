@@ -12,7 +12,7 @@ import { Convert } from 'pvtsutils';
 import { ISignature } from '../../crypto';
 import { l10n, getStringByOID } from '../../utils';
 
-import { RowTitle, RowValue } from './row';
+import { RowTitle, RowValue, TableRowTable } from './row';
 
 interface ISignatureProps {
   signature: ISignature;
@@ -25,19 +25,30 @@ export const Signature: FunctionalComponent<ISignatureProps> = (props) => {
     return null;
   }
 
+  function renderSignatureDetails(data: ISignature) {
+    return [
+      <RowValue
+        name={l10n.getString('algorithm')}
+        value={getStringByOID(data.algorithm)}
+      />,
+      <RowValue
+        name={l10n.getString('value')}
+        value={Convert.ToHex(data.value)}
+        monospace
+        collapse
+      />,
+    ];
+  }
+
   return [
     <RowTitle
       value={l10n.getString('signature')}
     />,
-    <RowValue
-      name={l10n.getString('algorithm')}
-      value={getStringByOID(signature.algorithm)}
-    />,
-    <RowValue
-      name={l10n.getString('value')}
-      value={Convert.ToHex(signature.value)}
-      monospace
-      collapse
-    />,
+    renderSignatureDetails(signature),
+    (signature.params && signature.params.length && signature.params.map((param) => (
+      <TableRowTable>
+        {renderSignatureDetails(param)}
+      </TableRowTable>
+    ))),
   ];
 };

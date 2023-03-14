@@ -13,21 +13,11 @@ import { Convert } from 'pvtsutils';
 import { dateShort, l10n, getStringByOID } from '../../utils';
 import { IRevokedCertificate } from '../../crypto';
 import { GeneralNamePart } from './extensions/general_name_part';
-import { RowTitle, RowValue } from './row';
+import { RowTitle, RowValue, TableRowTable } from './row';
 
 interface IRevokedCertificatesProps extends IGeneralNameOptions {
   revokedCertificates: IRevokedCertificate[];
 }
-
-const TableRowTable: FunctionalComponent = (_, children) => (
-  <tr>
-    <td colSpan={2}>
-      <table>
-        {children}
-      </table>
-    </td>
-  </tr>
-);
 
 export const RevokedCertificates: FunctionalComponent<IRevokedCertificatesProps> = (props) => {
   const {

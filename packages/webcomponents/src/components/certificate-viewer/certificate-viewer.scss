@@ -21,6 +21,10 @@ table {
   border-collapse: collapse;
 }
 
+table table {
+  margin-bottom: 0;
+}
+
 table .title td {
   @include propertyColorVariable(border-color, grey_3, 0.5);
   padding-top: 60px;
