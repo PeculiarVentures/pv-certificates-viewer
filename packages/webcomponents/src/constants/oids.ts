@@ -2314,4 +2314,12 @@ export const OIDs = {
   // https://cookie-daily.life/src/matter/matter_html/Chapter%206.%20Device%20Attestation%20and%20Operational%20Credentials.html
   '1.3.6.1.4.1.37244.2.1': 'Matter Vendor ID',
   '1.3.6.1.4.1.37244.2.2': 'Matter Product ID',
+
+  // https://github.com/IETF-Hackathon/pqc-certificates/blob/master/docs/oid_mapping.md
+  '1.3.6.1.4.1.18227.2.1': 'Composite With No Hash',
+  '2.16.840.1.114027.80.4.1': 'Composite Key',
+  '1.3.6.1.4.1.2.267.7.6.5': 'Dilithium3',
+  '1.3.6.1.4.1.18227.999.1.2.1': 'Dilithium3 With SHA256',
+  '1.3.6.1.4.1.18227.999.1.2.2': 'Dilithium3 With SHA384',
+  '1.3.6.1.4.1.18227.999.1.2.3': 'Dilithium3 With SHA512',
 };
