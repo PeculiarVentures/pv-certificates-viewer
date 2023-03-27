@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.8.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.7.0...v3.8.0) (2023-03-27)
+
+
+### Features
+
+* **webcomponents:** add QCStatements extension statement parsing ([b7a5e33](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/b7a5e3367cd98cb591fdb9c65a31026ce62fbbba))
+
+
+
+
+
 # [3.7.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.6.0...v3.7.0) (2023-03-14)
 
 
