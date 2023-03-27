@@ -58,6 +58,7 @@
     "@peculiar/asn1-x509-netscape": "^2.3.6",
     "@peculiar/asn1-x509-post-quantum": "^2.3.6",
     "@peculiar/asn1-x509-qualified": "^2.3.6",
+    "@peculiar/asn1-x509-qualified-etsi": "^2.3.6",
     "dayjs": "^1.11.7",
     "pvtsutils": "^1.3.2"
   },

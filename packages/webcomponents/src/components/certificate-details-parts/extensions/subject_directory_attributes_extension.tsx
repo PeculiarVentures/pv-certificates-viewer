@@ -11,7 +11,7 @@ import { SubjectDirectoryAttributes } from '@peculiar/asn1-x509';
 
 import { Extension } from '../../../crypto/extension';
 import { getStringByOID } from '../../../utils';
-import { RowValue } from '../row';
+import { RowValue, TableRowTable } from '../row';
 
 import { BasicExtension } from './basic_extension';
 import { getAttributeValue } from './attribute_value';
@@ -28,20 +28,24 @@ FunctionalComponent<ISubjectDirectoryAttributesExtensionProps> = (props) => {
     <BasicExtension
       extension={extension}
     >
-      {extension.value.map((attribute, arrayIndex) => ([
+      {Boolean(extension.value.length) && ([
         <RowValue
-          name={`Attribute #${arrayIndex + 1}`}
+          name="Attributes:"
           value=""
         />,
-        <RowValue
-          name="Type"
-          value={getStringByOID(attribute.type)}
-        />,
-        <RowValue
-          name="Value"
-          value={getAttributeValue(attribute)}
-        />,
-      ]))}
+        extension.value.map((attribute) => (
+          <TableRowTable>
+            <RowValue
+              name="Type"
+              value={getStringByOID(attribute.type)}
+            />
+            <RowValue
+              name="Value"
+              value={getAttributeValue(attribute)}
+            />
+          </TableRowTable>
+        )),
+      ])}
     </BasicExtension>
   );
 };

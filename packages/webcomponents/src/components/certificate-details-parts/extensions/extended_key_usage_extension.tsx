@@ -11,7 +11,7 @@ import { ExtendedKeyUsage } from '@peculiar/asn1-x509';
 
 import { getStringByOID } from '../../../utils';
 import { Extension } from '../../../crypto/extension';
-import { RowValue } from '../row';
+import { RowValue, TableRowTable } from '../row';
 
 import { BasicExtension } from './basic_extension';
 
@@ -27,12 +27,20 @@ FunctionalComponent<IExtendedKeyUsageExtensionProps> = (props) => {
     <BasicExtension
       extension={extension}
     >
-      {extension.value.map((usage, arrayIndex) => (
+      {Boolean(extension.value.length) && ([
         <RowValue
-          name={`Purpose #${arrayIndex + 1}`}
-          value={getStringByOID(usage)}
-        />
-      ))}
+          name="Purposes:"
+          value=""
+        />,
+        extension.value.map((usage) => (
+          <TableRowTable>
+            <RowValue
+              name="Purpose"
+              value={getStringByOID(usage)}
+            />
+          </TableRowTable>
+        )),
+      ])}
     </BasicExtension>
   );
 };

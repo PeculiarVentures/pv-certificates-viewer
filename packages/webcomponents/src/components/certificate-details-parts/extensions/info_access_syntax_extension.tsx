@@ -11,7 +11,7 @@ import { AuthorityInfoAccessSyntax, SubjectInfoAccessSyntax } from '@peculiar/as
 
 import { getStringByOID } from '../../../utils';
 import { Extension } from '../../../crypto/extension';
-import { RowValue } from '../row';
+import { RowValue, TableRowTable } from '../row';
 
 import { BasicExtension } from './basic_extension';
 import { GeneralNamePart } from './general_name_part';
@@ -28,20 +28,24 @@ FunctionalComponent<IInfoAccessSyntaxExtensionProps> = (props) => {
     <BasicExtension
       extension={extension}
     >
-      {extension.value.map((description, arrayIndex) => ([
+      {Boolean(extension.value.length) && ([
         <RowValue
-          name={`Description #${arrayIndex + 1}`}
+          name="Descriptions:"
           value=""
         />,
-        <RowValue
-          name="Method"
-          value={getStringByOID(description.accessMethod)}
-        />,
-        <GeneralNamePart
-          generalName={description.accessLocation}
-          {...props}
-        />,
-      ]))}
+        extension.value.map((description) => (
+          <TableRowTable>
+            <RowValue
+              name="Method"
+              value={getStringByOID(description.accessMethod)}
+            />
+            <GeneralNamePart
+              generalName={description.accessLocation}
+              {...props}
+            />
+          </TableRowTable>
+        )),
+      ])}
     </BasicExtension>
   );
 };

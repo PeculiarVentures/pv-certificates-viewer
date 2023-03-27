@@ -7,12 +7,25 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { QCStatements } from '@peculiar/asn1-x509-qualified';
+import {
+  QCStatements,
+  id_qcs_pkixQCSyntax_v2,
+  SemanticsInformation,
+} from '@peculiar/asn1-x509-qualified';
+import {
+  id_etsi_qcs_qcType,
+  QcType,
+  id_etsi_qcs_qcPDS,
+  PdsLocations,
+  id_etsi_qcs_qcRetentionPeriod,
+  QcEuRetentionPeriod,
+} from '@peculiar/asn1-x509-qualified-etsi';
+import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
 
 import { getStringByOID } from '../../../utils';
 import { Extension } from '../../../crypto/extension';
-import { RowValue } from '../row';
+import { RowValue, TableRowTable } from '../row';
 
 import { BasicExtension } from './basic_extension';
 
@@ -23,25 +36,95 @@ interface IQCStatementsExtensionProps {
 export const QCStatementsExtension: FunctionalComponent<IQCStatementsExtensionProps> = (props) => {
   const { extension } = props;
 
+  function renderStatementInfo(statementId: string, statementInfo: ArrayBuffer) {
+    if (!statementInfo.byteLength) {
+      return null;
+    }
+
+    if (statementId === id_qcs_pkixQCSyntax_v2) {
+      const semanticsInformation = AsnParser.parse(statementInfo, SemanticsInformation);
+
+      return (
+        <RowValue
+          name="Semantics Identifier"
+          value={getStringByOID(semanticsInformation.semanticsIdentifier)}
+        />
+      );
+    }
+
+    if (statementId === id_etsi_qcs_qcType) {
+      const qcTypes = AsnParser.parse(statementInfo, QcType);
+
+      return (
+        <RowValue
+          name="QC Types"
+          value={qcTypes.map((type) => getStringByOID(type)).join(', ')}
+        />
+      );
+    }
+
+    if (statementId === id_etsi_qcs_qcRetentionPeriod) {
+      const retentionPeriod = AsnParser.parse(statementInfo, QcEuRetentionPeriod);
+
+      return (
+        <RowValue
+          name="Retention Period"
+          value={`${retentionPeriod.value} years`}
+        />
+      );
+    }
+
+    if (statementId === id_etsi_qcs_qcPDS) {
+      const pdsLocations = AsnParser.parse(statementInfo, PdsLocations);
+
+      return ([
+        <RowValue
+          name="PDS Locations:"
+          value=""
+        />,
+        pdsLocations.map((location) => (
+          <TableRowTable>
+            <RowValue
+              name="URL"
+              value={location.url}
+            />
+            <RowValue
+              name="Language"
+              value={location.language}
+            />
+          </TableRowTable>
+        )),
+      ]);
+    }
+
+    return (
+      <RowValue
+        name="Info"
+        value={Convert.ToHex(statementInfo)}
+        monospace
+      />
+    );
+  }
+
   return (
     <BasicExtension
       extension={extension}
     >
-      {extension.value.map((statement, arrayIndex) => ([
+      {Boolean(extension.value.length) && ([
         <RowValue
-          name={`Statement #${arrayIndex + 1}`}
+          name="Statements:"
           value=""
         />,
-        <RowValue
-          name="ID"
-          value={getStringByOID(statement.statementId)}
-        />,
-        <RowValue
-          name="Info"
-          value={statement.statementInfo.byteLength ? Convert.ToHex(statement.statementInfo) : null}
-          monospace
-        />,
-      ]))}
+        extension.value.map((statement) => (
+          <TableRowTable>
+            <RowValue
+              name="Statement ID"
+              value={getStringByOID(statement.statementId)}
+            />
+            {renderStatementInfo(statement.statementId, statement.statementInfo)}
+          </TableRowTable>
+        )),
+      ])}
     </BasicExtension>
   );
 };

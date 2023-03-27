@@ -12,7 +12,7 @@ import { AsnParser } from '@peculiar/asn1-schema';
 
 import { getStringByOID } from '../../../utils';
 import { Extension } from '../../../crypto/extension';
-import { RowValue } from '../row';
+import { RowValue, TableRowTable } from '../row';
 
 import { BasicExtension } from './basic_extension';
 
@@ -28,54 +28,64 @@ FunctionalComponent<ICertificatePoliciesExtensionProps> = (props) => {
     <BasicExtension
       extension={extension}
     >
-      {extension.value.map((policy, arrayIndex) => ([
+      {Boolean(extension.value.length) && ([
         <RowValue
-          name={`Policy #${arrayIndex + 1}`}
+          name="Policies:"
           value=""
         />,
-        <RowValue
-          name="ID"
-          value={getStringByOID(policy.policyIdentifier)}
-        />,
-        policy.policyQualifiers?.map((qualifierInfo, indexInfo) => {
-          const data = [
+        extension.value.map((policy) => (
+          <TableRowTable>
             <RowValue
-              name={`Qualifier #${arrayIndex + 1}.${indexInfo + 1}`}
-              value=""
-            />,
-            <RowValue
-              name="ID"
-              value={getStringByOID(qualifierInfo.policyQualifierId)}
-            />,
-          ];
-
-          if (qualifierInfo.policyQualifierId === '1.3.6.1.5.5.7.2.1') {
-            const value = AsnParser.parse(qualifierInfo.qualifier, DisplayText);
-
-            data.push(
+              name="Policy ID"
+              value={getStringByOID(policy.policyIdentifier)}
+            />
+            {policy.policyQualifiers && Boolean(policy.policyQualifiers.length) && ([
               <RowValue
-                name="Value"
-                value={value.toString()}
+                name="Qualifiers:"
+                value=""
               />,
-            );
-          }
+              policy.policyQualifiers.map((qualifierInfo) => {
+                const data = [
+                  <RowValue
+                    name="Qualifier ID"
+                    value={getStringByOID(qualifierInfo.policyQualifierId)}
+                  />,
+                ];
 
-          if (qualifierInfo.policyQualifierId === '1.3.6.1.5.5.7.2.2') {
-            const value = AsnParser.parse(qualifierInfo.qualifier, UserNotice);
+                if (qualifierInfo.policyQualifierId === '1.3.6.1.5.5.7.2.1') {
+                  const value = AsnParser.parse(qualifierInfo.qualifier, DisplayText);
 
-            if (value.explicitText) {
-              data.push(
-                <RowValue
-                  name="Value"
-                  value={value.explicitText.toString()}
-                />,
-              );
-            }
-          }
+                  data.push(
+                    <RowValue
+                      name="Value"
+                      value={value.toString()}
+                    />,
+                  );
+                }
 
-          return data;
-        }),
-      ]))}
+                if (qualifierInfo.policyQualifierId === '1.3.6.1.5.5.7.2.2') {
+                  const value = AsnParser.parse(qualifierInfo.qualifier, UserNotice);
+
+                  if (value.explicitText) {
+                    data.push(
+                      <RowValue
+                        name="Value"
+                        value={value.explicitText.toString()}
+                      />,
+                    );
+                  }
+                }
+
+                return (
+                  <TableRowTable>
+                    {data}
+                  </TableRowTable>
+                );
+              }),
+            ])}
+          </TableRowTable>
+        )),
+      ])}
     </BasicExtension>
   );
 };

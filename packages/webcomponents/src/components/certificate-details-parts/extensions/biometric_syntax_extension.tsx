@@ -12,7 +12,7 @@ import { Convert } from 'pvtsutils';
 
 import { getStringByOID } from '../../../utils';
 import { Extension } from '../../../crypto/extension';
-import { RowValue } from '../row';
+import { RowValue, TableRowTable } from '../row';
 
 import { BasicExtension } from './basic_extension';
 
@@ -28,33 +28,37 @@ FunctionalComponent<IBiometricSyntaxExtensionProps> = (props) => {
     <BasicExtension
       extension={extension}
     >
-      {extension.value.map((data, arrayIndex) => ([
+      {Boolean(extension.value.length) && ([
         <RowValue
-          name={`Biometric #${arrayIndex + 1}`}
+          name="Biometrics:"
           value=""
         />,
-        <RowValue
-          name="OID"
-          value={getStringByOID(data.typeOfBiometricData.biometricDataOid)}
-        />,
-        <RowValue
-          name="Type"
-          value={data.typeOfBiometricData.predefinedBiometricType}
-        />,
-        <RowValue
-          name="Algorithm"
-          value={getStringByOID(data.hashAlgorithm.algorithm)}
-        />,
-        <RowValue
-          name="Hash"
-          value={Convert.ToHex(data.biometricDataHash.buffer)}
-          monospace
-        />,
-        <RowValue
-          name="Source Uri"
-          value={data.sourceDataUri}
-        />,
-      ]))}
+        extension.value.map((data) => (
+          <TableRowTable>
+            <RowValue
+              name="OID"
+              value={getStringByOID(data.typeOfBiometricData.biometricDataOid)}
+            />
+            <RowValue
+              name="Type"
+              value={data.typeOfBiometricData.predefinedBiometricType}
+            />
+            <RowValue
+              name="Algorithm"
+              value={getStringByOID(data.hashAlgorithm.algorithm)}
+            />
+            <RowValue
+              name="Hash"
+              value={Convert.ToHex(data.biometricDataHash.buffer)}
+              monospace
+            />
+            <RowValue
+              name="Source Uri"
+              value={data.sourceDataUri}
+            />
+          </TableRowTable>
+        )),
+      ])}
     </BasicExtension>
   );
 };
