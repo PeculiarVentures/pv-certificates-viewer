@@ -1,8 +1,8 @@
 version: 2.1
 
 aliases:
-  - &docker-node-lts
-    - image: circleci/node:lts
+  - &docker-node
+    - image: cimg/node:16.20.0
 
   - &restore-node-modules-cache
     name: Restore node_modules cache
@@ -26,9 +26,10 @@ aliases:
 
 jobs:
   checkout-code:
-    docker: *docker-node-lts
+    docker: *docker-node
     steps:
       - checkout
+      - run: node --version
       - restore_cache: *restore-yarn-cache
       - restore_cache: *restore-node-modules-cache
       - run: yarn install --non-interactive --cache-folder ~/.cache/yarn
@@ -44,7 +45,7 @@ jobs:
           ]
 
   lint:
-    docker: *docker-node-lts
+    docker: *docker-node
     steps:
       - checkout
       - restore_cache: *restore-node-modules-cache
@@ -52,7 +53,7 @@ jobs:
       - run: yarn lint
 
   build:
-    docker: *docker-node-lts
+    docker: *docker-node
     steps:
       - checkout
       - restore_cache: *restore-node-modules-cache
@@ -66,7 +67,7 @@ jobs:
           ]
 
   deploy:
-    docker: *docker-node-lts
+    docker: *docker-node
     steps:
       - checkout
       - restore_cache: *restore-node-modules-cache
