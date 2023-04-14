@@ -1,6 +1,7 @@
 module.exports = {
   extends: [
-    'airbnb-typescript'
+    'airbnb',
+    'airbnb-typescript',
   ],
   rules: {
     'react/prop-types': [
@@ -22,10 +23,10 @@ module.exports = {
     'no-continue': 1,
     'no-await-in-loop': 1,
     'jsx-a11y/label-has-associated-control': 1,
-    '@typescript-eslint/camelcase': 1,
     'import/extensions': 1,
     'react/jsx-one-expression-per-line': 1,
     'dot-notation': 1,
+    'react/function-component-definition': [2, { 'namedComponents': 'arrow-function' }]
   },
   parserOptions: {
     project: './tsconfig.json',
