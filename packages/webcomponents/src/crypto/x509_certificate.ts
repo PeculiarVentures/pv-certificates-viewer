@@ -171,12 +171,13 @@ export class X509Certificate extends AsnData<Certificate> {
   }
 
   public async getThumbprint(
-    algorithm: globalThis.AlgorithmIdentifier = 'SHA-1',
+    algorithm: string = 'SHA-1',
   ): Promise<void> {
     try {
       const thumbprint = await getCertificateThumbprint(algorithm, this.raw);
+
       if (thumbprint) {
-        this.thumbprints[algorithm['name'] || algorithm] = Convert.ToHex(thumbprint);
+        this.thumbprints[algorithm] = Convert.ToHex(thumbprint);
       }
     } catch (error) {
       console.error('Error thumbprint get:', error);

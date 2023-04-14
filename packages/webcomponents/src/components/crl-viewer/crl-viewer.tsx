@@ -109,7 +109,7 @@ export class CrlViewer {
   }
 
   private getAuthKeyIdParentLink = (value: string) => this.authKeyIdParentLink
-  ?.replace('{{authKeyId}}', value);
+    ?.replace('{{authKeyId}}', value);
 
   private getAuthKeyIdSiblingsLink = (value: string) => this.authKeyIdSiblingsLink
     ?.replace('{{authKeyId}}', value);

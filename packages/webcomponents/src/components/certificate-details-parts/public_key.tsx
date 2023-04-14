@@ -15,8 +15,8 @@ import { l10n, getStringByOID } from '../../utils';
 import { RowTitle, RowValue, TableRowTable } from './row';
 
 function getPublicKeyModulus(publicKey: IPublicKey) {
-  if (publicKey.params?.['modulus']) {
-    let length = publicKey.params['modulus'].byteLength;
+  if ('modulus' in publicKey.params) {
+    let length = publicKey.params.modulus.byteLength;
 
     if (length % 2) {
       length -= 1;
@@ -29,8 +29,8 @@ function getPublicKeyModulus(publicKey: IPublicKey) {
 }
 
 function getPublicKeyExponent(publicKey: IPublicKey) {
-  if (publicKey.params?.['publicExponent']) {
-    return publicKey.params['publicExponent'].byteLength === 3
+  if ('publicExponent' in publicKey.params) {
+    return publicKey.params.publicExponent.byteLength === 3
       ? 65537
       : 3;
   }
@@ -57,7 +57,7 @@ export const PublicKey: FunctionalComponent<IPublicKeyProps> = (props) => {
       />,
       <RowValue
         name={l10n.getString('namedCurve')}
-        value={getStringByOID(key.params?.['namedCurve'])}
+        value={getStringByOID('namedCurve' in key.params ? key.params.namedCurve : undefined)}
       />,
       <RowValue
         name={l10n.getString('exponent')}

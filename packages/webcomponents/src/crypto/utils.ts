@@ -43,8 +43,10 @@ export const getCertificateThumbprint = async (
   data: ArrayBuffer,
 ): Promise<ArrayBuffer | undefined> => {
   const crypto = cryptoProvider.get();
+
   if (crypto.subtle) {
     return crypto.subtle.digest(algorithm, data);
   }
+
   return undefined;
 };

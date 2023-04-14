@@ -30,7 +30,9 @@ export function downloadFromBuffer(
     // @ts-ignore
     navigator.msSaveBlob(blob, `${name}.${extension}`);
 
-    return new Promise((res) => setTimeout(res, 100));
+    return new Promise((resolve) => {
+      setTimeout(resolve, 100);
+    });
   }
 
   const blobURL = window.URL.createObjectURL(blob);
@@ -51,11 +53,13 @@ export function downloadFromBuffer(
   link.dispatchEvent(new MouseEvent('click'));
   document.body.removeChild(link);
 
-  return new Promise((res) => setTimeout(
-    () => {
-      document.body.removeChild(frame);
-      res(undefined);
-    },
-    100,
-  ));
+  return new Promise<void>((resolve) => {
+    setTimeout(
+      () => {
+        document.body.removeChild(frame);
+        resolve();
+      },
+      100,
+    );
+  });
 }

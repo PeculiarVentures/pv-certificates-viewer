@@ -124,15 +124,17 @@ export class CsrViewer {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private getAuthKeyIdParentLink = (value: string) => value;
 
+  // eslint-disable-next-line class-methods-use-this
   private getAuthKeyIdSiblingsLink = (value: string) => value;
 
   private getSubjectKeyIdChildrenLink = (value: string) => this.subjectKeyIdChildrenLink
-      ?.replace('{{subjectKeyId}}', value);
+    ?.replace('{{subjectKeyId}}', value);
 
   private getSubjectKeyIdSiblingsLink = (value: string) => this.subjectKeyIdSiblingsLink
-      ?.replace('{{subjectKeyId}}', value);
+    ?.replace('{{subjectKeyId}}', value);
 
   // eslint-disable-next-line class-methods-use-this
   private renderErrorState() {
