@@ -1282,6 +1282,7 @@ export const OIDs = {
   '1.3.6.1.5.5.7.3.13': 'Eap Over PPP',
   '1.3.6.1.5.5.7.3.14': 'Eap Over LAN',
   '1.3.6.1.5.5.7.3.31': 'Brand Indicator for Message Identification',
+  '1.3.6.1.5.5.7.3.46': 'Document Signing',
   '1.3.6.1.5.5.7.4': 'Cmp Information Types',
   '1.3.6.1.5.5.7.4.1': 'Ca Prot Enc Cert',
   '1.3.6.1.5.5.7.4.2': 'Sign Key Pair Types',
