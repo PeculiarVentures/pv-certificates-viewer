@@ -1,0 +1,32 @@
+/*!
+ * © Peculiar Ventures https://peculiarventures.com/ - MIT License
+ */
+import{A as t,s,t as e,u as r,v as i,E as a,f as n,w as o,U as h,x as c,y as u,z as l,V as m,B as E,I as g,D as p,W as A,F as b,G as d,H as f,T as w,J as x,K as C,L as T,M as R,O as I,P as v,Q as k,S as N,e as F,X as y,r as B,p as D,q as P,Y as H,N as S,g as L,h as X,j,R as U,Z as q}from"./p-3c4e4245.js";import{b as G,D as K}from"./p-711b4e1e.js";import{d as M}from"./p-ec250cc4.js";
+/**
+ * @license
+ * Copyright (c) Peculiar Ventures, LLC.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */class $ extends t{constructor(t){super(t,s);const F=this.getAsnExtnValue();switch(this.asn.type){case k:this.value=r.parse(F,N);break;case I:this.value=r.parse(F,v);break;case T:this.value=r.parse(F,R);break;case x:this.value=r.parse(F,C);break;case f:this.value=r.parse(F,w);break;case b:this.value=r.parse(F,d);break;case p:this.value=r.parse(F,A);break;case E:this.value=r.parse(F,g);break;case l:this.value=r.parse(F,m);break;case c:this.value=r.parse(F,u);break;case o:this.value=r.parse(F,h);break;case e:{const t=r.parse(F,i);this.value=t.map((t=>new a(n.serialize(t))));break}default:this.value=G.Convert.ToHex(F)}}getAsnExtnValue(){return this.asn.values[0]}}
+/**
+ * @license
+ * Copyright (c) Peculiar Ventures, LLC.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */class O extends t{constructor(t){var s;super(F(t),y),this.thumbprints={},this.type="X.509 Attribute Certificate";const{acinfo:e}=this.asn;this.serialNumber=G.Convert.ToHex(e.serialNumber),this.version=e.version;const r=e.attrCertValidityPeriod.notBeforeTime;if(!r)throw new Error("Cannot get 'notBefore' value");this.notBefore=r;const i=e.attrCertValidityPeriod.notAfterTime;if(!i)throw new Error("Cannot get 'notAfter' value");this.notAfter=i,this.validity=M(this.notBefore,this.notAfter),this.issuer=e.issuer.v1Form||(null===(s=e.issuer.v2Form)||void 0===s?void 0:s.issuerName),this.holder=e.holder}get signature(){const{signatureValue:t,signatureAlgorithm:s}=this.asn;return{value:t,algorithm:s.algorithm}}parseExtensions(){const{acinfo:t}=this.asn;t.extensions&&(this.extensions=t.extensions.map((t=>new a(n.serialize(t)))))}parseAttributes(){const{acinfo:t}=this.asn;t.attributes&&(this.attributes=t.attributes.map((t=>new $(n.serialize(t)))))}async getThumbprint(t="SHA-1"){try{const s=await B(t,this.raw);s&&(this.thumbprints[t]=G.Convert.ToHex(s))}catch(t){console.error("Error thumbprint get:",t)}}exportAsBase64(){return G.Convert.ToBase64(this.raw)}exportAsHexFormatted(){return D(G.Convert.ToHex(this.raw))}exportAsPemFormatted(){return`-----BEGIN ATTRIBUTE CERTIFICATE-----\n${P(this.exportAsBase64())}\n-----END ATTRIBUTE CERTIFICATE-----`}get commonName(){return`attribute-certificate-${this.thumbprints["SHA-1"]}`}downloadAsPEM(t){K.attrCert.asPEM(this.exportAsPemFormatted(),t||this.commonName)}downloadAsDER(t){K.attrCert.asDER(this.exportAsHexFormatted(),t||this.commonName)}}
+/**
+ * @license
+ * Copyright (c) Peculiar Ventures, LLC.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */class Q extends t{constructor(t){super(F(t),H),this.thumbprints={},this.type="PKCS#10 Certificate Request";const{certificationRequestInfo:s}=this.asn;this.subject=new S(s.subject).toJSON(),this.version=s.version}get publicKey(){const{subjectPublicKey:t,algorithm:s}=this.asn.certificationRequestInfo.subjectPKInfo;let e;return s.algorithm===L&&s.parameters&&(e=n.parse(s.parameters,X)),s.algorithm===j&&(e=n.parse(t,U)),{params:e,value:n.serialize(this.asn.certificationRequestInfo.subjectPKInfo),algorithm:s.algorithm}}get signature(){const{signature:t,signatureAlgorithm:s}=this.asn;return{value:t,algorithm:s.algorithm}}get commonName(){if(!this.subject)return"";for(let t=0;t<this.subject.length;t+=1){const s=this.subject[t];if("CN"===s.shortName||"E"===s.shortName||"O"===s.shortName)return s.value}return""}async getThumbprint(t="SHA-1"){try{const s=await B(t,this.raw);s&&(this.thumbprints[t]=G.Convert.ToHex(s))}catch(t){console.error("Error thumbprint get:",t)}}parseAttributes(){const{certificationRequestInfo:t}=this.asn;t.attributes&&(this.attributes=t.attributes.map((t=>new $(n.serialize(t)))))}exportAsBase64(){return G.Convert.ToBase64(this.raw)}exportAsHexFormatted(){return D(G.Convert.ToHex(this.raw))}exportAsPemFormatted(){return`-----BEGIN CERTIFICATE REQUEST-----\n${P(this.exportAsBase64())}\n-----END CERTIFICATE REQUEST-----`}downloadAsPEM(t){K.csr.asPEM(this.exportAsPemFormatted(),t||this.commonName)}downloadAsDER(t){K.csr.asDER(this.exportAsHexFormatted(),t||this.commonName)}}
+/**
+ * @license
+ * Copyright (c) Peculiar Ventures, LLC.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */class V extends t{constructor(t){super(F(t),q),this.thumbprints={},this.type="X.509 Certificate Revocation List";const{tbsCertList:s}=this.asn;this.issuer=new S(s.issuer).toJSON(),this.version=s.version+1,this.lastUpdate=s.thisUpdate.getTime(),this.nextUpdate=s.nextUpdate.getTime(),this.revokedCertificates=(s.revokedCertificates||[]).map((t=>{var s;return{revocationDate:t.revocationDate,userCertificate:t.userCertificate,crlEntryExtensions:null===(s=t.crlEntryExtensions)||void 0===s?void 0:s.map((t=>new a(n.serialize(t))))}}))}async getThumbprint(t="SHA-1"){try{const s=await B(t,this.raw);s&&(this.thumbprints[t]=G.Convert.ToHex(s))}catch(t){console.error("Error thumbprint get:",t)}}get signature(){const{signature:t,signatureAlgorithm:s}=this.asn;return{value:t,algorithm:s.algorithm}}get commonName(){if(!this.issuer)return"";for(let t=0;t<this.issuer.length;t+=1){const s=this.issuer[t];if("CN"===s.shortName||"E"===s.shortName||"O"===s.shortName)return s.value}return""}parseExtensions(){const{tbsCertList:t}=this.asn;t.crlExtensions&&(this.extensions=t.crlExtensions.map((t=>new a(n.serialize(t)))))}exportAsBase64(){return G.Convert.ToBase64(this.raw)}exportAsHexFormatted(){return D(G.Convert.ToHex(this.raw))}exportAsPemFormatted(){return`-----BEGIN X509 CRL-----\n${P(this.exportAsBase64())}\n-----END X509 CRL-----`}downloadAsPEM(t){K.crl.asPEM(this.exportAsPemFormatted(),t||this.commonName)}downloadAsDER(t){K.crl.asDER(this.exportAsHexFormatted(),t||this.commonName)}}export{Q as C,O as X,V as a}
