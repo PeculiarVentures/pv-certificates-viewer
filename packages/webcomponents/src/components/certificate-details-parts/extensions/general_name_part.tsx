@@ -19,7 +19,7 @@ import { Convert, BufferSourceConverter } from 'pvtsutils';
 import { AsnParser } from '@peculiar/asn1-schema';
 
 import { OIDs } from '../../../constants/oids';
-import { RowValue } from '../row';
+import { RowValue, TableRowTable } from '../row';
 
 const names: Record<keyof GeneralName, string> = {
   otherName: 'Other Name',
@@ -53,14 +53,16 @@ export const GeneralNamePart: FunctionalComponent<IGeneralNamePartProps> = (prop
           name={names[name] || name}
           value=""
         />,
-        value.map((relativeDistinguishedName) => (
-          relativeDistinguishedName.map((attributeTypeAndValue) => (
-            <RowValue
-              name={OIDs[attributeTypeAndValue.type] || attributeTypeAndValue.type}
-              value={attributeTypeAndValue.value.toString()}
-            />
-          ))
-        )),
+        <TableRowTable>
+          {value.map((relativeDistinguishedName) => (
+            relativeDistinguishedName.map((attributeTypeAndValue) => (
+              <RowValue
+                name={OIDs[attributeTypeAndValue.type] || attributeTypeAndValue.type}
+                value={attributeTypeAndValue.value.toString()}
+              />
+            ))
+          ))}
+        </TableRowTable>,
       ];
     }
 
