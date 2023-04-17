@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.10.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.9.0...v3.10.0) (2023-04-17)
+
+
+### Features
+
+* **oids:** add "2.23.140.1.5.2.2" description ([7fac38c](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/7fac38cbfa870af649b781f2c7dcc0f792288e0d))
+
+
+
+
+
 # [3.9.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.8.0...v3.9.0) (2023-04-14)
 
 
