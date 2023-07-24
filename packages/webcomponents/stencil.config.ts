@@ -6,7 +6,7 @@ export const config: Config = {
   namespace: 'peculiar',
   globalStyle: 'src/styles/peculiar.scss',
   devServer: {
-    openBrowser: false,
+    openBrowser: true,
     port: 3000,
   },
   plugins: [

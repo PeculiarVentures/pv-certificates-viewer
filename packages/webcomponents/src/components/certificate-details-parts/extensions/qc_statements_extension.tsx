@@ -79,7 +79,7 @@ export const QCStatementsExtension: FunctionalComponent<IQCStatementsExtensionPr
 
       return ([
         <RowValue
-          name="PDS Locations:"
+          name="PDS Locations"
           value=""
         />,
         pdsLocations.map((location) => (
@@ -112,7 +112,7 @@ export const QCStatementsExtension: FunctionalComponent<IQCStatementsExtensionPr
     >
       {Boolean(extension.value.length) && ([
         <RowValue
-          name="Statements:"
+          name="Statements"
           value=""
         />,
         extension.value.map((statement) => (

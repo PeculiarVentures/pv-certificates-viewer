@@ -7,8 +7,9 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-
 import isLink from '../../utils/is_link';
+import { Typography } from '../typography';
+import { Link } from '../link';
 
 export const TableRowTable: FunctionalComponent = (_, children) => (
   <tr>
@@ -31,17 +32,23 @@ export const RowTitle: FunctionalComponent<IRowTitleProps> = (props) => {
     return null;
   }
 
-  return (
+  return [
     <tr class="title">
       <td colSpan={2}>
-        <peculiar-typography
-          type="h6"
+        <Typography
+          variant="s1"
+          color="black"
         >
           {value}
-        </peculiar-typography>
+        </Typography>
       </td>
-    </tr>
-  );
+    </tr>,
+    <tr>
+      <td colSpan={2} class="divider">
+        <span />
+      </td>
+    </tr>,
+  ];
 };
 
 interface IRowValueProps {
@@ -90,12 +97,12 @@ export const RowValue: FunctionalComponent<IRowValueProps> = (props) => {
       <td
         colSpan={hasValue ? 1 : 2}
       >
-        <peculiar-typography
-          color="grey_5"
+        <Typography
+          variant="b2"
+          color="gray-9"
         >
           {name}
-          {hasValue ? ':' : ''}
-        </peculiar-typography>
+        </Typography>
       </td>
       {hasValue && (
         <td
@@ -104,18 +111,20 @@ export const RowValue: FunctionalComponent<IRowValueProps> = (props) => {
           }}
         >
           {(isLink(value.toString()) || href) ? (
-            <peculiar-link
+            <Link
+              variant="b2"
               href={href || value.toString()}
             >
               {value}
-            </peculiar-link>
+            </Link>
           ) : (
-            <peculiar-typography
-              monospace={monospace}
+            <Typography
+              variant="b2"
+              color="black"
             >
               {elementValue}
               {extraValue}
-            </peculiar-typography>
+            </Typography>
           )}
         </td>
       )}

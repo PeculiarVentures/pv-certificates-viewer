@@ -1,4 +1,4 @@
-@import 'component';
+// @import 'component';
 
 :host {
   display: block;
@@ -41,9 +41,9 @@
   animation: circular-dash 1.4s ease-in-out infinite;
   stroke-dasharray: 80,200;
   stroke-dashoffset: 0;
-  @include propertyColorVariable(stroke, primary);
+  // @include propertyColorVariable(stroke, primary);
 }
 
 .circle_progress_backdrop {
-  @include propertyColorVariable(stroke, grey_3);
+  // @include propertyColorVariable(stroke, grey_3);
 }

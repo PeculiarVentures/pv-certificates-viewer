@@ -23,6 +23,7 @@ import {
   CSR,
   CRL,
 } from '../../crypto';
+import { Button } from '../button';
 
 @Component({
   tag: 'peculiar-certificate-decoder',
@@ -209,14 +210,13 @@ export class CertificateDecoder {
           onDrop={this.onDropFile}
         />
         <div class="controls">
-          <peculiar-button
-            fill="fill"
+          <Button
             class="button"
             onClick={this.onClickDecode}
           >
             Decode
-          </peculiar-button>
-          <peculiar-button class="button">
+          </Button>
+          <Button class="button">
             Choose file
             <input
               type="file"
@@ -225,20 +225,20 @@ export class CertificateDecoder {
               onChange={this.onChangeInputFile}
               value=""
             />
-          </peculiar-button>
-          <peculiar-button
+          </Button>
+          <Button
             class="button"
             onClick={this.onClickClear}
           >
             Clear
-          </peculiar-button>
+          </Button>
           {this.certificateExample && (
-            <peculiar-button
+            <Button
               class="button"
               onClick={this.onClickExample}
             >
               Example
-            </peculiar-button>
+            </Button>
           )}
         </div>
         {this.certificateDecoded instanceof X509Certificate && (

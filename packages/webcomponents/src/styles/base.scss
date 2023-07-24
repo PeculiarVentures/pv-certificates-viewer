@@ -1,0 +1,181 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: var(--pv-font-family, inherit);
+}
+
+/**
+ * Typography variants.
+ */
+$ts:
+'h1',
+'h2',
+'h3',
+'h4',
+'h5',
+'s1',
+'s2',
+'b1',
+'b2',
+'b3',
+'btn1',
+'btn2',
+'c1',
+'c2';
+
+@each $t in $ts {
+  .t-#{$t} {
+    font-weight: var(--pv-text-#{$t}-weight);
+    font-size: var(--pv-text-#{$t}-size);
+    line-height: var(--pv-text-#{$t}-height);
+    letter-spacing: var(--pv-text-#{$t}-spacing);
+  }
+}
+/**
+ *
+ */
+
+/**
+ * Color variants.
+ */
+$cs:
+// primary
+'primary-tint-5',
+'primary-tint-4',
+'primary-tint-3',
+'primary-tint-2',
+'primary-tint-1',
+'primary',
+'primary-shade-1',
+'primary-shade-2',
+'primary-shade-3',
+'primary-shade-4',
+'primary-shade-5',
+'primary-contrast',
+// secondary
+'secondary-tint-5',
+'secondary-tint-4',
+'secondary-tint-3',
+'secondary-tint-2',
+'secondary-tint-1',
+'secondary',
+'secondary-shade-1',
+'secondary-shade-2',
+'secondary-shade-3',
+'secondary-shade-4',
+'secondary-shade-5',
+'secondary-contrast',
+// wrong
+'wrong-tint-5',
+'wrong-tint-4',
+'wrong-tint-3',
+'wrong-tint-2',
+'wrong-tint-1',
+'wrong',
+'wrong-shade-1',
+'wrong-shade-2',
+'wrong-shade-3',
+'wrong-shade-4',
+'wrong-shade-5',
+'wrong-contrast',
+// attention
+'attention-tint-5',
+'attention-tint-4',
+'attention-tint-3',
+'attention-tint-2',
+'attention-tint-1',
+'attention',
+'attention-shade-1',
+'attention-shade-2',
+'attention-shade-3',
+'attention-shade-4',
+'attention-shade-5',
+// success
+'success-tint-5',
+'success-tint-4',
+'success-tint-3',
+'success-tint-2',
+'success-tint-1',
+'success',
+'success-shade-1',
+'success-shade-2',
+'success-shade-3',
+'success-shade-4',
+'success-shade-5',
+// grayscale
+'black',
+'gray-10',
+'gray-9',
+'gray-8',
+'gray-7',
+'gray-6',
+'gray-5',
+'gray-4',
+'gray-3',
+'gray-2',
+'gray-1',
+'white',
+// additional
+'extra-1',
+'extra-2';
+
+@each $c in $cs {
+  .c-#{$c} {
+    --pv-color-base: var(--pv-color-#{$c});
+  }
+}
+/**
+ *
+ */
+
+.typography {
+  color: var(--pv-color-base);
+}
+
+.button {
+  display: inline-flex;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  user-select: none;
+  white-space: nowrap;
+  text-decoration: none;
+  outline: none;
+  font-family: inherit;
+  border-radius: 4px;
+  height: var(--pv-size-base-6);
+  min-width: var(--pv-size-base-6);
+  padding: 0 var(--pv-size-base-2);
+  transition: background-color 200ms ease 0s;
+  align-items: center;
+  justify-content: center;
+
+  .start_icon {
+    margin-right: var(--pv-size-base);
+    font-size: 0;
+  }
+
+  &.m_no_padding {
+    padding: 0;
+
+    .start_icon {
+      margin-right: 0;
+    }
+  }
+
+  &:hover {
+    background-color: var(--pv-color-gray-3);
+  }
+  &:focus {
+    background-color: var(--pv-color-gray-4);
+  }
+  &:active {
+    background-color: var(--pv-color-gray-5);
+  }
+}

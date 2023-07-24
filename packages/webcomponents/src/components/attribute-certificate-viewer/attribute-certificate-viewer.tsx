@@ -22,6 +22,7 @@ import {
   Holder,
   Issuer,
 } from '../certificate-details-parts';
+import { Typography } from '../typography';
 
 export type AttributeCertificateProp = string | X509AttributeCertificate;
 
@@ -154,12 +155,9 @@ export class AttributeCertificateViewer {
   private renderErrorState() {
     return (
       <div class="status_wrapper">
-        <peculiar-typography
-          type="b1"
-          class="interaction_text"
-        >
+        <Typography>
           There was an error decoding this attribute certificate.
-        </peculiar-typography>
+        </Typography>
       </div>
     );
   }
@@ -168,12 +166,9 @@ export class AttributeCertificateViewer {
   private renderEmptyState() {
     return (
       <div class="status_wrapper">
-        <peculiar-typography
-          type="b1"
-          class="interaction_text"
-        >
+        <Typography>
           There is no attribute certificate available.
-        </peculiar-typography>
+        </Typography>
       </div>
     );
   }

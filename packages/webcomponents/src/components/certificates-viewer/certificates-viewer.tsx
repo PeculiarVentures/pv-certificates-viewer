@@ -20,6 +20,9 @@ import {
 import { X509Certificate } from '../../crypto';
 import { OIDs } from '../../constants/oids';
 import { l10n } from '../../utils';
+import { Typography } from '../typography';
+import { CertificateSummary } from '../certificate-summary';
+import { Button } from '../button';
 
 export interface ICertificate {
   value: string;
@@ -150,18 +153,18 @@ export class CertificatesViewer {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private handleClickDownloadAsPem(certificate: ICertificateDecoded, e: MouseEvent) {
-    e.stopPropagation();
+  // private handleClickDownloadAsPem(certificate: ICertificateDecoded, e: MouseEvent) {
+  //   e.stopPropagation();
 
-    certificate.body.downloadAsPEM(certificate.name || certificate.body.commonName);
-  }
+  //   certificate.body.downloadAsPEM(certificate.name || certificate.body.commonName);
+  // }
 
-  // eslint-disable-next-line class-methods-use-this
-  private handleClickDownloadAsDer(certificate: ICertificateDecoded, e: MouseEvent) {
-    e.stopPropagation();
+  // // eslint-disable-next-line class-methods-use-this
+  // private handleClickDownloadAsDer(certificate: ICertificateDecoded, e: MouseEvent) {
+  //   e.stopPropagation();
 
-    certificate.body.downloadAsDER(certificate.name || certificate.body.commonName);
-  }
+  //   certificate.body.downloadAsDER(certificate.name || certificate.body.commonName);
+  // }
 
   private handleClickDetails = (certificate: X509Certificate, e: MouseEvent) => {
     e.stopPropagation();
@@ -185,7 +188,7 @@ export class CertificatesViewer {
   }
 
   private getMaxColSpanValue() {
-    let colSpan = 4;
+    let colSpan = 5;
 
     if (this.isHasTests) {
       colSpan += 1;
@@ -204,7 +207,7 @@ export class CertificatesViewer {
     return (
       <tr class="expanded_summary">
         <td colSpan={colSpan}>
-          <peculiar-certificate-summary
+          <CertificateSummary
             certificate={certificate}
             showIssuer={!certificate.isRoot}
           />
@@ -223,37 +226,37 @@ export class CertificatesViewer {
 
     if (tests.valid) {
       elems.push((
-        <peculiar-button
+        <Button
           class="button_table_action"
           href={tests.valid}
-          target="_blank"
+          // target="_blank"
         >
           {l10n.getString('valid')}
-        </peculiar-button>
+        </Button>
       ));
     }
 
     if (tests.revoked) {
       elems.push((
-        <peculiar-button
+        <Button
           class="button_table_action"
           href={tests.revoked}
-          target="_blank"
+          // target="_blank"
         >
           {l10n.getString('revoked')}
-        </peculiar-button>
+        </Button>
       ));
     }
 
     if (tests.expired) {
       elems.push((
-        <peculiar-button
+        <Button
           class="button_table_action"
           href={tests.expired}
-          target="_blank"
+          // target="_blank"
         >
           {l10n.getString('expired')}
-        </peculiar-button>
+        </Button>
       ));
     }
 
@@ -292,83 +295,82 @@ export class CertificatesViewer {
           class={{
             expanded: isExpandedRow,
           }}
-          onClick={this.handleClickRow.bind(this, index)}
           key={certificate.body.thumbprints['SHA-1']}
         >
+          <td>
+            <Button onClick={this.handleClickRow.bind(this, index)}>
+              {isExpandedRow ? 'Close' : 'Open'}
+            </Button>
+          </td>
           {!this.isHasRoots && (
             <td>
-              <peculiar-typography
-                class="mobile_title"
-                color="grey_5"
+              <Typography
+                color="gray-9"
               >
                 {l10n.getString('issuer')}
                 :
-              </peculiar-typography>
-              <peculiar-typography class="content">
+              </Typography>
+              <Typography>
                 <peculiar-highlight-words search={searchHighlight}>
                   {certificate.body.issuerCommonName}
                 </peculiar-highlight-words>
-              </peculiar-typography>
+              </Typography>
             </td>
           )}
           <td>
-            <peculiar-typography
-              class="mobile_title"
-              color="grey_5"
+            <Typography
+              color="gray-9"
             >
               {l10n.getString('name')}
               :
-            </peculiar-typography>
-            <peculiar-typography class="content">
+            </Typography>
+            <Typography>
               <peculiar-highlight-words search={searchHighlight}>
                 {certificate.name || certificate.body.commonName}
               </peculiar-highlight-words>
-            </peculiar-typography>
+            </Typography>
           </td>
           <td>
-            <peculiar-typography
-              class="mobile_title"
-              color="grey_5"
+            <Typography
+              color="gray-9"
             >
               {l10n.getString('publicKey')}
               :
-            </peculiar-typography>
-            <peculiar-typography class="content">
+            </Typography>
+            <Typography>
               <peculiar-highlight-words search={searchHighlight}>
                 {publicKeyValue}
               </peculiar-highlight-words>
-            </peculiar-typography>
+            </Typography>
           </td>
           <td>
-            <peculiar-typography
-              class="mobile_title"
-              color="grey_5"
+            <Typography
+              color="gray-9"
             >
               {l10n.getString('fingerprint')}
               &nbsp; (SHA-1):
-            </peculiar-typography>
-            <peculiar-typography class="content" monospace>
+            </Typography>
+            <Typography>
               <peculiar-highlight-words search={searchHighlight}>
                 {certificate.body.thumbprints['SHA-1']}
               </peculiar-highlight-words>
-            </peculiar-typography>
+            </Typography>
           </td>
           <td class="align_center">
-            <peculiar-typography
-              class="mobile_title"
-              color="grey_5"
+            <Typography
+              color="gray-9"
             >
               {l10n.getString('actions')}
               :
-            </peculiar-typography>
+            </Typography>
             <span class="content">
-              <peculiar-button
+              <Button
                 onClick={this.handleClickDetails.bind(this, certificate.body)}
                 class="button_table_action"
               >
                 {l10n.getString('details')}
-              </peculiar-button>
-              <peculiar-button-split
+              </Button>
+              {/* <Button-split
                 onClick={this.handleClickDownloadAsPem.bind(this, certificate)}
                 actions={[{
                   text: l10n.getString('download.der'),
@@ -377,18 +379,17 @@ export class CertificatesViewer {
                 class="button_table_action"
               >
                 {l10n.getString('download.pem')}
-              </peculiar-button-split>
+              </Button-split> */}
             </span>
           </td>
           {this.isHasTests && (
             <td class="align_center">
-              <peculiar-typography
-                class="mobile_title"
-                color="grey_5"
+              <Typography
+                color="gray-9"
               >
                 {l10n.getString('testURLs')}
                 :
-              </peculiar-typography>
+              </Typography>
               <span class="content">
                 {this.renderCertificateTests(certificate.tests)}
               </span>
@@ -425,11 +426,11 @@ export class CertificatesViewer {
           part="presentation_container"
         >
           <header class="modal_title">
-            <peculiar-typography
-              type="h4"
+            <Typography
+              variant="h4"
             >
               {l10n.getString('certificateDetails')}
-            </peculiar-typography>
+            </Typography>
             <button
               class="modal_close"
               onClick={this.handleModalClose}
@@ -472,7 +473,7 @@ export class CertificatesViewer {
           onInput={this.handleSearch}
           type="search"
           value=""
-          class="input_search"
+          class="input_search t-b3 c-black"
           disabled={!this.certificatesDecoded.length}
           placeholder="Search"
         />
@@ -489,12 +490,11 @@ export class CertificatesViewer {
           class="status_wrapper"
           colSpan={colSpan}
         >
-          <peculiar-typography
-            type="b1"
-            align="center"
+          <Typography
+            variant="b1"
           >
             There are no certificates available.
-          </peculiar-typography>
+          </Typography>
         </td>
       </tr>
     );
@@ -509,14 +509,13 @@ export class CertificatesViewer {
           class="status_wrapper"
           colSpan={colSpan}
         >
-          <peculiar-typography
-            type="b1"
-            align="center"
+          <Typography
+            variant="b1"
           >
             No results found for &ldquo;
             {this.search}
             &ldquo;
-          </peculiar-typography>
+          </Typography>
         </td>
       </tr>
     );
@@ -564,57 +563,40 @@ export class CertificatesViewer {
         >
           <thead>
             <tr>
+              <td />
               {!this.isHasRoots && (
                 <th class="col_issuer">
-                  <peculiar-typography
-                    type="h7"
-                    align="left"
-                  >
+                  <Typography variant="s2">
                     {l10n.getString('issuer')}
-                  </peculiar-typography>
+                  </Typography>
                 </th>
               )}
               <th class="col_name">
-                <peculiar-typography
-                  type="h7"
-                  align="left"
-                >
+                <Typography variant="s2">
                   {l10n.getString('name')}
-                </peculiar-typography>
+                </Typography>
               </th>
               <th class="col_public_key">
-                <peculiar-typography
-                  type="h7"
-                  align="left"
-                >
+                <Typography variant="s2">
                   {l10n.getString('publicKey')}
-                </peculiar-typography>
+                </Typography>
               </th>
               <th class="col_fingerprint">
-                <peculiar-typography
-                  type="h7"
-                  align="left"
-                >
+                <Typography variant="s2">
                   {l10n.getString('fingerprint')}
                   &nbsp; (SHA-1)
-                </peculiar-typography>
+                </Typography>
               </th>
               <th class="col_actions">
-                <peculiar-typography
-                  type="h7"
-                  align="center"
-                >
+                <Typography variant="s2">
                   {l10n.getString('actions')}
-                </peculiar-typography>
+                </Typography>
               </th>
               {this.isHasTests && (
                 <th class="col_tests">
-                  <peculiar-typography
-                    type="h7"
-                    align="center"
-                  >
+                  <Typography variant="s2">
                     {l10n.getString('testURLs')}
-                  </peculiar-typography>
+                  </Typography>
                 </th>
               )}
             </tr>

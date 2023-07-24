@@ -1,4 +1,4 @@
-@import 'component';
+@import 'base';
 
 :host {
   -moz-osx-font-smoothing: grayscale;
@@ -24,11 +24,11 @@
   padding: 14px;
   font-family: monospace;
   resize: vertical;
-  @include propertyColorVariable(background-color, light);
-  @include propertyColorVariable(border-color, grey_3);
-  @include propertyColorVariable(color, dark);
-  @include propertyFontSpacingVariable();
-  @include propertyFontSizeVariable(h7);
+  // @include propertyColorVariable(background-color, light);
+  // @include propertyColorVariable(border-color, grey_3);
+  // @include propertyColorVariable(color, dark);
+  // @include propertyFontSpacingVariable();
+  // @include propertyFontSizeVariable(h7);
 }
 
 .controls {

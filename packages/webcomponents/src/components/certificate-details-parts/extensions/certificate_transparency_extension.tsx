@@ -30,7 +30,7 @@ FunctionalComponent<ICertificateTransparencyExtensionProps> = (props) => {
     >
       {Boolean(extension.value.items.length) && ([
         <RowValue
-          name="Signed Certificate Timestamps:"
+          name="Signed Certificate Timestamps"
           value=""
         />,
         extension.value.toJSON().map((signedCertificateTimestamp) => (

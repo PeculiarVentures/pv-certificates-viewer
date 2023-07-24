@@ -27,7 +27,7 @@ export const BasicAttribute: FunctionalComponent<IBasicAttributeProps> = (props,
     children,
     <tr>
       <td colSpan={2} class="divider">
-        <span class="bg_fill" />
+        <span />
       </td>
     </tr>,
   ]);

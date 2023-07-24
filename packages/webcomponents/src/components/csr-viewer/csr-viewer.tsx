@@ -22,6 +22,7 @@ import {
   PublicKey,
   Attributes,
 } from '../certificate-details-parts';
+import { Typography } from '../typography';
 
 export type CsrProp = string | CSR;
 
@@ -140,12 +141,9 @@ export class CsrViewer {
   private renderErrorState() {
     return (
       <div class="status_wrapper">
-        <peculiar-typography
-          type="b1"
-          class="interaction_text"
-        >
+        <Typography>
           There was an error decoding this certificate request.
-        </peculiar-typography>
+        </Typography>
       </div>
     );
   }
@@ -154,12 +152,9 @@ export class CsrViewer {
   private renderEmptyState() {
     return (
       <div class="status_wrapper">
-        <peculiar-typography
-          type="b1"
-          class="interaction_text"
-        >
+        <Typography>
           There is no certificate request available.
-        </peculiar-typography>
+        </Typography>
       </div>
     );
   }

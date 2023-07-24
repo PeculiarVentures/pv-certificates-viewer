@@ -1,4 +1,4 @@
-@import 'component';
+@import 'base';
 
 :host {
   display: block;
@@ -7,7 +7,7 @@
   min-width: 280px;
   overflow: auto;
   position: relative;
-  @include propertyColorVariable(background, light);
+  // @include propertyColorVariable(background, light);
 }
 
 table {
@@ -18,33 +18,29 @@ table {
 }
 
 table thead {
-  @include propertyColorVariable(background-color, primary, 0.07);
+  // @include propertyColorVariable(background-color, primary, 0.07);
 }
 
 table tr td {
   vertical-align: middle;
 }
 
-table tbody tr:not(.expanded_summary) {
-  cursor: pointer;
-}
-
 table tr {
-  @include propertyColorVariable(border-color, grey_3);
+  // @include propertyColorVariable(border-color, grey_3);
 }
 
 table th {
   padding: 15px 10px;
   border-width: 1px;
   border-style: solid;
-  @include propertyColorVariable(border-color, grey_3);
+  // @include propertyColorVariable(border-color, grey_3);
 }
 
 table td {
   padding: 8px 10px;
   border-width: 1px;
   border-style: solid;
-  @include propertyColorVariable(border-color, grey_3);
+  // @include propertyColorVariable(border-color, grey_3);
 }
 
 /* For col 4 */
@@ -83,11 +79,11 @@ table tr.expanded td {
 
 .expanded {
   border-bottom-color: transparent;
-  @include propertyColorVariable(background-color, primary, 0.04);
+  // @include propertyColorVariable(background-color, primary, 0.04);
 }
 
 table tr.expanded_summary {
-  @include propertyColorVariable(background-color, primary, 0.04);
+  // @include propertyColorVariable(background-color, primary, 0.04);
 }
 
 /* Second row */
@@ -127,7 +123,7 @@ table tr.expanded_summary td {
 }
 
 .modal_backdrop {
-  @include propertyColorVariable(background, dark, 0.5);
+  // @include propertyColorVariable(background, dark, 0.5);
   z-index: -1;
   position: fixed;
   top: 0;
@@ -145,13 +141,14 @@ table tr.expanded_summary td {
   text-align: left;
   border-radius: 3px;
   overflow: hidden;
-  @include propertyColorVariable(background-color, light);
+  background-color: var(--pv-color-white);
+  // @include propertyColorVariable(background-color, light);
   height: 100%;
 }
 
 .modal_title {
-  @include propertyColorVariable(background-color, primary, 0.07);
-  @include propertyColorVariable(border-color, grey_3);
+  // @include propertyColorVariable(background-color, primary, 0.07);
+  // @include propertyColorVariable(border-color, grey_3);
   border-bottom-width: 1px;
   border-bottom-style: solid;
   padding: 20px 60px 16px 20px;
@@ -184,7 +181,7 @@ table tr.expanded_summary td {
   }
 
   svg {
-    @include propertyColorVariable(fill, dark);
+    // @include propertyColorVariable(fill, dark);
   }
 }
 
@@ -206,28 +203,22 @@ table tr.expanded_summary td {
 
 /* Search */
 .search_section {
-  @include propertyColorVariable(background-color, primary, 0.07);
-  @include propertyColorVariable(border-color, grey_3);
-  height: 50px;
-  padding: 10px;
-  border-width: 1px 1px 0 1px;
-  border-style: solid;
+  padding: var(--pv-size-base-4);
 }
 
 .input_search {
-  height: 100%;
+  height: var(--pv-size-base-8);
   width: 100%;
-  border-radius: 3px;
-  border-width: 1px;
-  border-style: solid;
-  padding: 0 14px;
-  font-size: 12px;
   outline: none;
-  @include propertyColorVariable(border-color, grey_3);
-  @include propertyColorVariable(color, dark);
-
+  background-color: var(--pv-color-gray-1);
+  padding: 0 var(--pv-size-base-2);
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--pv-color-gray-8);
+  border-radius: 4px;
+  transition: background-color 200ms ease 0s, color 200ms ease 0s, border-color 200ms ease 0s;
   &::placeholder {
-    @include propertyColorVariable(color, grey_3);
+    color: var(--pv-color-gray-9);
   }
 }
 
@@ -237,7 +228,7 @@ table tr.expanded_summary td {
   left: 0;
   width: 100%;
   height: 100%;
-  @include propertyColorVariable(background, dark, 0.3);
+  // @include propertyColorVariable(background, dark, 0.3);
   display: flex;
   align-items: center;
 }
@@ -248,7 +239,7 @@ table tr.expanded_summary td {
 
 @media (hover: hover) {
   table tbody tr:not(.expanded_summary):hover {
-    @include propertyColorVariable(background-color, primary, 0.04);
+    // @include propertyColorVariable(background-color, primary, 0.04);
   }
 }
 
@@ -279,7 +270,7 @@ table tr.expanded_summary td {
     padding-left: 0;
     padding-right: 0;
     border-width: 1px 0 0 0 ! important;
-    @include propertyColorVariable(border-color, grey_3, 0.5);
+    // @include propertyColorVariable(border-color, grey_3, 0.5);
   }
 
   table tr.expanded_summary td {

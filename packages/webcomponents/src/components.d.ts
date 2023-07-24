@@ -6,13 +6,11 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
-import { IAction } from "./components/button-split/button-split";
-import { X509Certificate } from "./crypto";
 import { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
 import { ICertificate } from "./components/certificates-viewer/certificates-viewer";
+import { X509Certificate } from "./crypto";
 import { CrlProp } from "./components/crl-viewer/crl-viewer";
 import { CsrProp } from "./components/csr-viewer/csr-viewer";
-import { ColorType } from "./interface";
 export namespace Components {
     interface PeculiarAttributeCertificateViewer {
         /**
@@ -44,27 +42,6 @@ export namespace Components {
          */
         "subjectKeyIdSiblingsLink"?: string;
     }
-    interface PeculiarButton {
-        /**
-          * Set to true to disable the button.
-         */
-        "disabled"?: boolean;
-        "fill"?: 'stroke' | 'fill';
-        /**
-          * When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`.
-         */
-        "href"?: string;
-        "onClick"?: (event: MouseEvent) => void;
-        /**
-          * Tells the browser where to open the link. Only used when `href` is set.
-         */
-        "target": '_blank' | '_parent' | '_self' | '_top';
-    }
-    interface PeculiarButtonSplit {
-        "actions": IAction[];
-        "fill": 'stroke' | 'fill';
-        "onClick": (event: MouseEvent) => void;
-    }
     interface PeculiarCertificateDecoder {
         /**
           * The example certificate value for decode and show details. Use PEM or DER.
@@ -74,10 +51,6 @@ export namespace Components {
           * The default certificate value for decode and show details. Use PEM or DER.
          */
         "defaultCertificate"?: string;
-    }
-    interface PeculiarCertificateSummary {
-        "certificate": X509Certificate;
-        "showIssuer"?: boolean;
     }
     interface PeculiarCertificateViewer {
         /**
@@ -196,34 +169,7 @@ export namespace Components {
     interface PeculiarHighlightWords {
         "search": string;
     }
-    interface PeculiarLink {
-        "href": string;
-        /**
-          * Typography type.
-         */
-        "type": 'h4' | 'h6' | 'h7' | 'b1' | 'b3';
-    }
     interface PeculiarTextHider {
-        "opened": boolean;
-    }
-    interface PeculiarTypography {
-        /**
-          * Text align.
-         */
-        "align"?: 'left' | 'center' | 'right';
-        /**
-          * Component color from theme.
-         */
-        "color": ColorType;
-        /**
-          * If `true`, the text will not wrap, but instead will truncate with a text overflow ellipsis.
-         */
-        "ellipsis"?: boolean;
-        "monospace"?: boolean;
-        /**
-          * Typography type.
-         */
-        "type": 'h4' | 'h6' | 'h7' | 'b1' | 'b3';
     }
 }
 export interface PeculiarCertificateDecoderCustomEvent<T> extends CustomEvent<T> {
@@ -234,10 +180,6 @@ export interface PeculiarCertificatesViewerCustomEvent<T> extends CustomEvent<T>
     detail: T;
     target: HTMLPeculiarCertificatesViewerElement;
 }
-export interface PeculiarTextHiderCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPeculiarTextHiderElement;
-}
 declare global {
     interface HTMLPeculiarAttributeCertificateViewerElement extends Components.PeculiarAttributeCertificateViewer, HTMLStencilElement {
     }
@@ -245,29 +187,11 @@ declare global {
         prototype: HTMLPeculiarAttributeCertificateViewerElement;
         new (): HTMLPeculiarAttributeCertificateViewerElement;
     };
-    interface HTMLPeculiarButtonElement extends Components.PeculiarButton, HTMLStencilElement {
-    }
-    var HTMLPeculiarButtonElement: {
-        prototype: HTMLPeculiarButtonElement;
-        new (): HTMLPeculiarButtonElement;
-    };
-    interface HTMLPeculiarButtonSplitElement extends Components.PeculiarButtonSplit, HTMLStencilElement {
-    }
-    var HTMLPeculiarButtonSplitElement: {
-        prototype: HTMLPeculiarButtonSplitElement;
-        new (): HTMLPeculiarButtonSplitElement;
-    };
     interface HTMLPeculiarCertificateDecoderElement extends Components.PeculiarCertificateDecoder, HTMLStencilElement {
     }
     var HTMLPeculiarCertificateDecoderElement: {
         prototype: HTMLPeculiarCertificateDecoderElement;
         new (): HTMLPeculiarCertificateDecoderElement;
-    };
-    interface HTMLPeculiarCertificateSummaryElement extends Components.PeculiarCertificateSummary, HTMLStencilElement {
-    }
-    var HTMLPeculiarCertificateSummaryElement: {
-        prototype: HTMLPeculiarCertificateSummaryElement;
-        new (): HTMLPeculiarCertificateSummaryElement;
     };
     interface HTMLPeculiarCertificateViewerElement extends Components.PeculiarCertificateViewer, HTMLStencilElement {
     }
@@ -305,39 +229,22 @@ declare global {
         prototype: HTMLPeculiarHighlightWordsElement;
         new (): HTMLPeculiarHighlightWordsElement;
     };
-    interface HTMLPeculiarLinkElement extends Components.PeculiarLink, HTMLStencilElement {
-    }
-    var HTMLPeculiarLinkElement: {
-        prototype: HTMLPeculiarLinkElement;
-        new (): HTMLPeculiarLinkElement;
-    };
     interface HTMLPeculiarTextHiderElement extends Components.PeculiarTextHider, HTMLStencilElement {
     }
     var HTMLPeculiarTextHiderElement: {
         prototype: HTMLPeculiarTextHiderElement;
         new (): HTMLPeculiarTextHiderElement;
     };
-    interface HTMLPeculiarTypographyElement extends Components.PeculiarTypography, HTMLStencilElement {
-    }
-    var HTMLPeculiarTypographyElement: {
-        prototype: HTMLPeculiarTypographyElement;
-        new (): HTMLPeculiarTypographyElement;
-    };
     interface HTMLElementTagNameMap {
         "peculiar-attribute-certificate-viewer": HTMLPeculiarAttributeCertificateViewerElement;
-        "peculiar-button": HTMLPeculiarButtonElement;
-        "peculiar-button-split": HTMLPeculiarButtonSplitElement;
         "peculiar-certificate-decoder": HTMLPeculiarCertificateDecoderElement;
-        "peculiar-certificate-summary": HTMLPeculiarCertificateSummaryElement;
         "peculiar-certificate-viewer": HTMLPeculiarCertificateViewerElement;
         "peculiar-certificates-viewer": HTMLPeculiarCertificatesViewerElement;
         "peculiar-circular-progress": HTMLPeculiarCircularProgressElement;
         "peculiar-crl-viewer": HTMLPeculiarCrlViewerElement;
         "peculiar-csr-viewer": HTMLPeculiarCsrViewerElement;
         "peculiar-highlight-words": HTMLPeculiarHighlightWordsElement;
-        "peculiar-link": HTMLPeculiarLinkElement;
         "peculiar-text-hider": HTMLPeculiarTextHiderElement;
-        "peculiar-typography": HTMLPeculiarTypographyElement;
     }
 }
 declare namespace LocalJSX {
@@ -371,27 +278,6 @@ declare namespace LocalJSX {
          */
         "subjectKeyIdSiblingsLink"?: string;
     }
-    interface PeculiarButton {
-        /**
-          * Set to true to disable the button.
-         */
-        "disabled"?: boolean;
-        "fill"?: 'stroke' | 'fill';
-        /**
-          * When set, the underlying button will be rendered as an `<a>` with this `href` instead of a `<button>`.
-         */
-        "href"?: string;
-        "onClick"?: (event: MouseEvent) => void;
-        /**
-          * Tells the browser where to open the link. Only used when `href` is set.
-         */
-        "target"?: '_blank' | '_parent' | '_self' | '_top';
-    }
-    interface PeculiarButtonSplit {
-        "actions"?: IAction[];
-        "fill"?: 'stroke' | 'fill';
-        "onClick"?: (event: MouseEvent) => void;
-    }
     interface PeculiarCertificateDecoder {
         /**
           * The example certificate value for decode and show details. Use PEM or DER.
@@ -409,10 +295,6 @@ declare namespace LocalJSX {
           * Emitted when the certificate has been successfully parsed.
          */
         "onSuccessParse"?: (event: PeculiarCertificateDecoderCustomEvent<string>) => void;
-    }
-    interface PeculiarCertificateSummary {
-        "certificate"?: X509Certificate;
-        "showIssuer"?: boolean;
     }
     interface PeculiarCertificateViewer {
         /**
@@ -539,51 +421,18 @@ declare namespace LocalJSX {
     interface PeculiarHighlightWords {
         "search"?: string;
     }
-    interface PeculiarLink {
-        "href"?: string;
-        /**
-          * Typography type.
-         */
-        "type"?: 'h4' | 'h6' | 'h7' | 'b1' | 'b3';
-    }
     interface PeculiarTextHider {
-        "onTextExpand"?: (event: PeculiarTextHiderCustomEvent<any>) => void;
-        "opened"?: boolean;
-    }
-    interface PeculiarTypography {
-        /**
-          * Text align.
-         */
-        "align"?: 'left' | 'center' | 'right';
-        /**
-          * Component color from theme.
-         */
-        "color"?: ColorType;
-        /**
-          * If `true`, the text will not wrap, but instead will truncate with a text overflow ellipsis.
-         */
-        "ellipsis"?: boolean;
-        "monospace"?: boolean;
-        /**
-          * Typography type.
-         */
-        "type"?: 'h4' | 'h6' | 'h7' | 'b1' | 'b3';
     }
     interface IntrinsicElements {
         "peculiar-attribute-certificate-viewer": PeculiarAttributeCertificateViewer;
-        "peculiar-button": PeculiarButton;
-        "peculiar-button-split": PeculiarButtonSplit;
         "peculiar-certificate-decoder": PeculiarCertificateDecoder;
-        "peculiar-certificate-summary": PeculiarCertificateSummary;
         "peculiar-certificate-viewer": PeculiarCertificateViewer;
         "peculiar-certificates-viewer": PeculiarCertificatesViewer;
         "peculiar-circular-progress": PeculiarCircularProgress;
         "peculiar-crl-viewer": PeculiarCrlViewer;
         "peculiar-csr-viewer": PeculiarCsrViewer;
         "peculiar-highlight-words": PeculiarHighlightWords;
-        "peculiar-link": PeculiarLink;
         "peculiar-text-hider": PeculiarTextHider;
-        "peculiar-typography": PeculiarTypography;
     }
 }
 export { LocalJSX as JSX };
@@ -591,19 +440,14 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "peculiar-attribute-certificate-viewer": LocalJSX.PeculiarAttributeCertificateViewer & JSXBase.HTMLAttributes<HTMLPeculiarAttributeCertificateViewerElement>;
-            "peculiar-button": LocalJSX.PeculiarButton & JSXBase.HTMLAttributes<HTMLPeculiarButtonElement>;
-            "peculiar-button-split": LocalJSX.PeculiarButtonSplit & JSXBase.HTMLAttributes<HTMLPeculiarButtonSplitElement>;
             "peculiar-certificate-decoder": LocalJSX.PeculiarCertificateDecoder & JSXBase.HTMLAttributes<HTMLPeculiarCertificateDecoderElement>;
-            "peculiar-certificate-summary": LocalJSX.PeculiarCertificateSummary & JSXBase.HTMLAttributes<HTMLPeculiarCertificateSummaryElement>;
             "peculiar-certificate-viewer": LocalJSX.PeculiarCertificateViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificateViewerElement>;
             "peculiar-certificates-viewer": LocalJSX.PeculiarCertificatesViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificatesViewerElement>;
             "peculiar-circular-progress": LocalJSX.PeculiarCircularProgress & JSXBase.HTMLAttributes<HTMLPeculiarCircularProgressElement>;
             "peculiar-crl-viewer": LocalJSX.PeculiarCrlViewer & JSXBase.HTMLAttributes<HTMLPeculiarCrlViewerElement>;
             "peculiar-csr-viewer": LocalJSX.PeculiarCsrViewer & JSXBase.HTMLAttributes<HTMLPeculiarCsrViewerElement>;
             "peculiar-highlight-words": LocalJSX.PeculiarHighlightWords & JSXBase.HTMLAttributes<HTMLPeculiarHighlightWordsElement>;
-            "peculiar-link": LocalJSX.PeculiarLink & JSXBase.HTMLAttributes<HTMLPeculiarLinkElement>;
             "peculiar-text-hider": LocalJSX.PeculiarTextHider & JSXBase.HTMLAttributes<HTMLPeculiarTextHiderElement>;
-            "peculiar-typography": LocalJSX.PeculiarTypography & JSXBase.HTMLAttributes<HTMLPeculiarTypographyElement>;
         }
     }
 }

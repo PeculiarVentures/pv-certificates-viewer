@@ -1,44 +1,30 @@
-@import 'component';
-
 :host {
   display: block;
   width: 100%;
+
+  &[aria-expanded="true"] {
+    .content {
+      white-space: initial;
+    }
+
+    .action {
+      transform: rotate(180deg);
+    }
+  }
 }
 
-.text {
+.content {
   display: inline-block;
-  width: calc(100% - 60px);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin: 0;
-}
-
-.text.m_opened {
-  white-space: initial;
+  width: calc(100% - 50px);
+  vertical-align: top;
 }
 
 .action {
-  vertical-align: top;
-  display: inline-block;
-  width: 60px;
-  text-align: right;
+  margin-left: 20px;
+  width: 30px;
   position: relative;
   top: -6px;
-}
-
-.button_action {
-  width: 30px;
-}
-
-.expand_icon {
-  width: 7px;
-  height: 5px;
-  display: inline-block;
-}
-
-.m_opened {
-  .expand_icon {
-    transform: rotate(180deg);
-  }
 }

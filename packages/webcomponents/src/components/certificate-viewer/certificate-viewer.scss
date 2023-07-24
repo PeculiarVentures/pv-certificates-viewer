@@ -1,4 +1,4 @@
-@import 'component';
+@import 'base';
 
 :host {
   display: block;
@@ -7,7 +7,6 @@
   position: relative;
   min-width: 280px;
   min-height: 300px;
-  @include propertyColorVariable(background, light);
 }
 
 th, td {
@@ -16,140 +15,42 @@ th, td {
 
 table {
   width: 100%;
-  margin-bottom: 30px;
   border-spacing: 0;
   border-collapse: collapse;
-}
 
-table table {
-  margin-bottom: 0;
-}
+  td {
+    padding: 10px 20px;
+    vertical-align: top;
 
-table .title td {
-  @include propertyColorVariable(border-color, grey_3, 0.5);
-  padding-top: 60px;
-  padding-bottom: 15px;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-}
+    &:first-child {
+      width: 220px;
+    }
 
-table td:first-child {
-  padding-left: 30px;
-  width: 130px;
-  padding-right: 10px;
-}
+    &:last-child {
+      width: calc(100% - 220px)
+    }
 
-table td:last-child {
-  padding-right: 30px;
-  width: calc(100% - 130px);
-}
+    &.monospace {
+      max-width: 0;
+    }
 
-table td {
-  vertical-align: top;
-  padding-top: 5px;
-  padding-bottom: 5px;
+    &.divider {
+      padding: 10px 0;
 
-  &.vertical_align_middle {
-    vertical-align: middle;
-  }
-}
-
-table .title:first-child td {
-  padding-top: 15px;
-}
-
-table .title + tr td {
-  padding-top: 15px;
-}
-
-table td.monospace {
-  max-width: 0;
-}
-
-/* Extentions */
-table .divider {
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-
-.divider .bg_fill {
-  @include propertyColorVariable(background-color, grey_3, 0.5);
-}
-
-table tr:last-child .divider {
-  padding-top: 0;
-  opacity: 0;
-}
-
-.divider span {
-  display: block;
-  height: 1px;
-}
-
-/* Empty state */
-.status_wrapper {
-  min-height: inherit;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.interaction_text {
-  padding: 15px 0;
-  width: 300px;
-  margin: auto;
-  text-align: center;
-}
-
-/* Adaptivity */
-@media (max-width: 900px) {
-  table, tr, td {
-    display: block;
+      span {
+        height: 1px;
+        display: block;
+        background-color: var(--pv-color-gray-4);
+      }
+    }
   }
 
-  table td:last-child,
-  table td:first-child {
-    padding-right: 15px;
-    padding-left: 15px;
-    width: 100%;
+  .title td {
+    padding-top: 30px;
+    padding-bottom: 10px;
   }
 
-  table .title + tr td {
-    padding-top: 5px;
-  }
-
-  table .title + tr td:first-child {
-    padding-top: 15px;
-  }
-
-  table td.monospace {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-:host([data-view="mobile"]) {
-  table, tr, td {
-    display: block;
-  }
-
-  table td:last-child,
-  table td:first-child {
-    padding-right: 15px;
-    padding-left: 15px;
-    width: 100%;
-  }
-
-  table .title + tr td {
-    padding-top: 5px;
-  }
-
-  table .title + tr td:first-child {
-    padding-top: 15px;
-  }
-
-  table td.monospace {
-    width: 100%;
-    max-width: none;
+  table {
+    border-left: 1px solid var(--pv-color-gray-4);
   }
 }

@@ -26,6 +26,7 @@ import {
   Miscellaneous,
   RevokedCertificates,
 } from '../certificate-details-parts';
+import { Typography } from '../typography';
 
 export type CrlProp = string | CRL;
 
@@ -148,12 +149,9 @@ export class CrlViewer {
   private renderErrorState() {
     return (
       <div class="status_wrapper">
-        <peculiar-typography
-          type="b1"
-          class="interaction_text"
-        >
+        <Typography>
           There was an error decoding this certificate revocation list.
-        </peculiar-typography>
+        </Typography>
       </div>
     );
   }
@@ -162,12 +160,9 @@ export class CrlViewer {
   private renderEmptyState() {
     return (
       <div class="status_wrapper">
-        <peculiar-typography
-          type="b1"
-          class="interaction_text"
-        >
+        <Typography>
           There is no certificate revocation list available.
-        </peculiar-typography>
+        </Typography>
       </div>
     );
   }

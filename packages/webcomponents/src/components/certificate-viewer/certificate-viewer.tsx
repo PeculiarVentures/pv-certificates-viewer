@@ -29,6 +29,7 @@ import {
   Extensions,
   Miscellaneous,
 } from '../certificate-details-parts';
+import { Typography } from '../typography';
 
 export type CertificateProp = string | X509Certificate;
 
@@ -169,12 +170,9 @@ export class CertificateViewer {
   private renderErrorState() {
     return (
       <div class="status_wrapper">
-        <peculiar-typography
-          type="b1"
-          class="interaction_text"
-        >
+        <Typography>
           There was an error decoding this certificate.
-        </peculiar-typography>
+        </Typography>
       </div>
     );
   }
@@ -183,12 +181,9 @@ export class CertificateViewer {
   private renderEmptyState() {
     return (
       <div class="status_wrapper">
-        <peculiar-typography
-          type="b1"
-          class="interaction_text"
-        >
+        <Typography>
           There is no certificate available.
-        </peculiar-typography>
+        </Typography>
       </div>
     );
   }

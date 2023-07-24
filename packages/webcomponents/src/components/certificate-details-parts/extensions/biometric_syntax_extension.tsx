@@ -30,7 +30,7 @@ FunctionalComponent<IBiometricSyntaxExtensionProps> = (props) => {
     >
       {Boolean(extension.value.length) && ([
         <RowValue
-          name="Biometrics:"
+          name="Biometrics"
           value=""
         />,
         extension.value.map((data) => (
