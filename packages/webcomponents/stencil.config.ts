@@ -46,6 +46,7 @@ export const config: Config = {
     dynamicImportShim: true,
     initializeNextTick: true,
     scriptDataOpts: true,
+    experimentalImportInjection: true,
   },
   preamble: '© Peculiar Ventures https://peculiarventures.com/ - MIT License',
 };
