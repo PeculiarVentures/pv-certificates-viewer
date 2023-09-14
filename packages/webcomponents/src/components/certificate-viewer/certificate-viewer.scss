@@ -19,7 +19,7 @@ table {
   border-collapse: collapse;
 
   td {
-    padding: 10px 20px;
+    padding: var(--pv-size-base-2) var(--pv-size-base-4);
     vertical-align: top;
 
     &:first-child {
@@ -35,7 +35,7 @@ table {
     }
 
     &.divider {
-      padding: 10px 0;
+      padding: var(--pv-size-base-2) 0;
 
       span {
         height: 1px;
@@ -46,11 +46,18 @@ table {
   }
 
   .title td {
-    padding-top: 30px;
-    padding-bottom: 10px;
+    padding-top: var(--pv-size-base-6);
+    padding-bottom: var(--pv-size-base-2);
   }
 
   table {
-    border-left: 1px solid var(--pv-color-gray-4);
+    border-left: 1px solid var(--pv-color-gray-5);
   }
+}
+
+.status_wrapper {
+  min-height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

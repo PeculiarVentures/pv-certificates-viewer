@@ -1,9 +1,7 @@
-// @import 'component';
-
 :host {
   display: inline;
 }
 
 ::slotted(mark) {
-  // @include propertyColorVariable(background-color, attention, 0.4);
+  background-color: var(--pv-color-attention-tint-4);
 }

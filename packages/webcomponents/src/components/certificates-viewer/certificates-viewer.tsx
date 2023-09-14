@@ -88,8 +88,6 @@ export class CertificatesViewer {
    */
   @Event() detailsClose!: EventEmitter<void>;
 
-  private isHasTests: boolean = false;
-
   private isHasRoots: boolean = false;
 
   componentWillLoad() {
@@ -107,7 +105,6 @@ export class CertificatesViewer {
   }
 
   async certificatesDecodeAndSet() {
-    let hasTests = false;
     let hasRoots = false;
 
     if (!Array.isArray(this.certificates)) {
@@ -132,42 +129,30 @@ export class CertificatesViewer {
         if (!hasRoots && decoded.isRoot) {
           hasRoots = true;
         }
-
-        if (!hasTests) {
-          if (
-            certificate.tests
-            && (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid)
-          ) {
-            hasTests = true;
-          }
-        }
       } catch (error) {
         console.error('Error certificate parse:', error);
       }
     }
 
-    this.isHasTests = hasTests;
     this.isHasRoots = hasRoots;
     this.isDecodeInProcess = false;
     this.certificatesDecoded = data;
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  // private handleClickDownloadAsPem(certificate: ICertificateDecoded, e: MouseEvent) {
-  //   e.stopPropagation();
+  private handleClickDownloadAsPem(certificate: ICertificateDecoded, event: MouseEvent) {
+    event.stopPropagation();
 
-  //   certificate.body.downloadAsPEM(certificate.name || certificate.body.commonName);
-  // }
+    certificate.body.downloadAsPEM(certificate.name || certificate.body.commonName);
+  }
 
-  // // eslint-disable-next-line class-methods-use-this
-  // private handleClickDownloadAsDer(certificate: ICertificateDecoded, e: MouseEvent) {
-  //   e.stopPropagation();
+  private handleClickDownloadAsDer(certificate: ICertificateDecoded, event: MouseEvent) {
+    event.stopPropagation();
 
-  //   certificate.body.downloadAsDER(certificate.name || certificate.body.commonName);
-  // }
+    certificate.body.downloadAsDER(certificate.name || certificate.body.commonName);
+  }
 
-  private handleClickDetails = (certificate: X509Certificate, e: MouseEvent) => {
-    e.stopPropagation();
+  private handleClickDetails = (certificate: X509Certificate, event: MouseEvent) => {
+    event.stopPropagation();
 
     this.certificateSelectedForDetails = certificate;
     this.detailsOpen.emit(certificate);
@@ -190,10 +175,6 @@ export class CertificatesViewer {
   private getMaxColSpanValue() {
     let colSpan = 5;
 
-    if (this.isHasTests) {
-      colSpan += 1;
-    }
-
     if (!this.isHasRoots) {
       colSpan += 1;
     }
@@ -202,65 +183,20 @@ export class CertificatesViewer {
   }
 
   private renderExpandedRow(certificate: X509Certificate) {
-    const colSpan = this.getMaxColSpanValue();
+    const colSpan = this.getMaxColSpanValue() - 2;
 
     return (
       <tr class="expanded_summary">
+        <td />
         <td colSpan={colSpan}>
           <CertificateSummary
             certificate={certificate}
             showIssuer={!certificate.isRoot}
           />
         </td>
+        <td />
       </tr>
     );
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private renderCertificateTests(tests: ICertificateDecoded['tests']) {
-    if (!tests) {
-      return null;
-    }
-
-    const elems = [];
-
-    if (tests.valid) {
-      elems.push((
-        <Button
-          class="button_table_action"
-          href={tests.valid}
-          // target="_blank"
-        >
-          {l10n.getString('valid')}
-        </Button>
-      ));
-    }
-
-    if (tests.revoked) {
-      elems.push((
-        <Button
-          class="button_table_action"
-          href={tests.revoked}
-          // target="_blank"
-        >
-          {l10n.getString('revoked')}
-        </Button>
-      ));
-    }
-
-    if (tests.expired) {
-      elems.push((
-        <Button
-          class="button_table_action"
-          href={tests.expired}
-          // target="_blank"
-        >
-          {l10n.getString('expired')}
-        </Button>
-      ));
-    }
-
-    return elems;
   }
 
   private renderContentState() {
@@ -273,6 +209,8 @@ export class CertificatesViewer {
       const isExpandedRow = index === this.expandedRow;
       const publicKeyValue = OIDs[certificate.body.signature.algorithm]
         || certificate.body.signature.algorithm;
+      const isHasTestURLs = certificate.tests
+        && (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid);
 
       if (this.filterWithSearch && this.search) {
         const certificateStringForSearch = [
@@ -293,19 +231,35 @@ export class CertificatesViewer {
       content.push([
         <tr
           class={{
-            expanded: isExpandedRow,
+            m_expanded: isExpandedRow,
           }}
           key={certificate.body.thumbprints['SHA-1']}
         >
           <td>
-            <Button onClick={this.handleClickRow.bind(this, index)}>
-              {isExpandedRow ? 'Close' : 'Open'}
-            </Button>
+            <Button
+              onClick={this.handleClickRow.bind(this, index)}
+              startIcon={(
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  fill="none"
+                >
+                  <path
+                    stroke="var(--pv-color-gray-10)"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                    d="m19.222 12.778-3.851 4.279a.2.2 0 0 1-.297 0l-3.852-4.28"
+                  />
+                </svg>
+              )}
+            />
           </td>
           {!this.isHasRoots && (
             <td>
               <Typography
                 color="gray-9"
+                class="mobile_title"
               >
                 {l10n.getString('issuer')}
                 :
@@ -320,6 +274,7 @@ export class CertificatesViewer {
           <td>
             <Typography
               color="gray-9"
+              class="mobile_title"
             >
               {l10n.getString('name')}
               :
@@ -333,6 +288,7 @@ export class CertificatesViewer {
           <td>
             <Typography
               color="gray-9"
+              class="mobile_title"
             >
               {l10n.getString('publicKey')}
               :
@@ -346,6 +302,7 @@ export class CertificatesViewer {
           <td>
             <Typography
               color="gray-9"
+              class="mobile_title"
             >
               {l10n.getString('fingerprint')}
               &nbsp; (SHA-1):
@@ -356,45 +313,129 @@ export class CertificatesViewer {
               </peculiar-highlight-words>
             </Typography>
           </td>
-          <td class="align_center">
-            <Typography
-              color="gray-9"
-            >
-              {l10n.getString('actions')}
-              :
-            </Typography>
-            <span class="content">
-              <Button
-                onClick={this.handleClickDetails.bind(this, certificate.body)}
-                class="button_table_action"
-              >
-                {l10n.getString('details')}
-              </Button>
-              {/* <Button-split
-                onClick={this.handleClickDownloadAsPem.bind(this, certificate)}
-                actions={[{
-                  text: l10n.getString('download.der'),
-                  onClick: this.handleClickDownloadAsDer.bind(this, certificate),
-                }]}
-                class="button_table_action"
-              >
-                {l10n.getString('download.pem')}
-              </Button-split> */}
-            </span>
+          <td>
+            <peculiar-button-menu
+              groups={[
+                {
+                  title: 'Preview certificate',
+                  options: [
+                    {
+                      text: 'View details',
+                      startIcon: (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="30"
+                          height="31"
+                          fill="none"
+                        >
+                          <path
+                            fill="var(--pv-color-secondary)"
+                            d="M6.71 19.79a1 1 0 0 0-.33-.21 1 1 0 0 0-.76 0 1 1 0 0 0-.33.21 1 1 0 0 0-.21.33 1 1 0 0 0 .21 1.09c.097.088.209.16.33.21a.94.94 0 0 0 .76 0 1.15 1.15 0 0 0 .33-.21 1 1 0 0 0 .21-1.09 1 1 0 0 0-.21-.33ZM10 11.5h14a1 1 0 0 0 0-2H10a1 1 0 0 0 0 2Zm-3.29 3.29a1 1 0 0 0-1.09-.21 1.15 1.15 0 0 0-.33.21 1 1 0 0 0-.21.33.94.94 0 0 0 0 .76c.05.121.122.233.21.33.097.088.209.16.33.21a.94.94 0 0 0 .76 0 1.15 1.15 0 0 0 .33-.21 1.15 1.15 0 0 0 .21-.33.94.94 0 0 0 0-.76 1 1 0 0 0-.21-.33ZM24 14.5H10a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2ZM6.71 9.79a1 1 0 0 0-.33-.21 1 1 0 0 0-1.09.21 1.15 1.15 0 0 0-.21.33.94.94 0 0 0 0 .76c.05.121.122.233.21.33.097.088.209.16.33.21a1 1 0 0 0 1.09-.21 1.15 1.15 0 0 0 .21-.33.94.94 0 0 0 0-.76 1.15 1.15 0 0 0-.21-.33ZM24 19.5H10a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2Z"
+                          />
+                        </svg>
+                      ),
+                      onClick: (event) => this.handleClickDetails(certificate.body, event),
+                    },
+                  ],
+                },
+                {
+                  title: 'Download options',
+                  options: [
+                    {
+                      text: 'Download PEM',
+                      startIcon: (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="30"
+                          height="30"
+                          fill="none"
+                        >
+                          <path
+                            fill="var(--pv-color-secondary)"
+                            d="M21 12h-2c-.6 0-1 .4-1 1s.4 1 1 1h2c.6 0 1 .4 1 1v7c0 .6-.4 1-1 1H9c-.6 0-1-.4-1-1v-7c0-.6.4-1 1-1h2c.6 0 1-.4 1-1s-.4-1-1-1H9c-1.7 0-3 1.3-3 3v7c0 1.7 1.3 3 3 3h12c1.7 0 3-1.3 3-3v-7c0-1.7-1.3-3-3-3Zm-9.7 5.7 3 3c.2.2.4.3.7.3.3 0 .5-.1.7-.3l3-3c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0L16 17.6V6c0-.6-.4-1-1-1s-1 .4-1 1v11.6l-1.3-1.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4Z"
+                          />
+                        </svg>
+                      ),
+                      onClick: (event) => this.handleClickDownloadAsPem(certificate, event),
+                    },
+                    {
+                      text: 'Download DER',
+                      startIcon: (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="30"
+                          height="30"
+                          fill="none"
+                        >
+                          <path
+                            fill="var(--pv-color-secondary)"
+                            d="M21 12h-2c-.6 0-1 .4-1 1s.4 1 1 1h2c.6 0 1 .4 1 1v7c0 .6-.4 1-1 1H9c-.6 0-1-.4-1-1v-7c0-.6.4-1 1-1h2c.6 0 1-.4 1-1s-.4-1-1-1H9c-1.7 0-3 1.3-3 3v7c0 1.7 1.3 3 3 3h12c1.7 0 3-1.3 3-3v-7c0-1.7-1.3-3-3-3Zm-9.7 5.7 3 3c.2.2.4.3.7.3.3 0 .5-.1.7-.3l3-3c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0L16 17.6V6c0-.6-.4-1-1-1s-1 .4-1 1v11.6l-1.3-1.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4Z"
+                          />
+                        </svg>
+                      ),
+                      onClick: (event) => this.handleClickDownloadAsDer(certificate, event),
+                    },
+                  ],
+                },
+                ...(isHasTestURLs ? [{
+                  title: 'Test URLs',
+                  options: [
+                    ...(certificate.tests?.valid ? [{
+                      text: 'Valid',
+                      href: certificate.tests.valid,
+                      startIcon: (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="30"
+                          height="31"
+                          fill="none"
+                        >
+                          <path
+                            fill="var(--pv-color-secondary)"
+                            d="M21 14.32a1 1 0 0 0-1 1v7.18a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1h7.18a1 1 0 0 0 0-2H8a3 3 0 0 0-3 3v11a3 3 0 0 0 3 3h11a3 3 0 0 0 3-3v-7.18a1 1 0 0 0-1-1Zm3.92-8.2a1 1 0 0 0-.54-.54A1 1 0 0 0 24 5.5h-6a1 1 0 1 0 0 2h3.59l-10.3 10.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219L23 8.91v3.59a1 1 0 0 0 2 0v-6a1.001 1.001 0 0 0-.08-.38Z"
+                          />
+                        </svg>
+                      ),
+                    }] : []),
+                    ...(certificate.tests?.revoked ? [{
+                      text: 'Revoked',
+                      href: certificate.tests.revoked,
+                      startIcon: (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="30"
+                          height="31"
+                          fill="none"
+                        >
+                          <path
+                            fill="var(--pv-color-secondary)"
+                            d="M21 14.32a1 1 0 0 0-1 1v7.18a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1h7.18a1 1 0 0 0 0-2H8a3 3 0 0 0-3 3v11a3 3 0 0 0 3 3h11a3 3 0 0 0 3-3v-7.18a1 1 0 0 0-1-1Zm3.92-8.2a1 1 0 0 0-.54-.54A1 1 0 0 0 24 5.5h-6a1 1 0 1 0 0 2h3.59l-10.3 10.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219L23 8.91v3.59a1 1 0 0 0 2 0v-6a1.001 1.001 0 0 0-.08-.38Z"
+                          />
+                        </svg>
+                      ),
+                    }] : []),
+                    ...(certificate.tests?.expired ? [{
+                      text: 'Expired',
+                      href: certificate.tests.expired,
+                      startIcon: (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="30"
+                          height="31"
+                          fill="none"
+                        >
+                          <path
+                            fill="var(--pv-color-secondary)"
+                            d="M21 14.32a1 1 0 0 0-1 1v7.18a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1h7.18a1 1 0 0 0 0-2H8a3 3 0 0 0-3 3v11a3 3 0 0 0 3 3h11a3 3 0 0 0 3-3v-7.18a1 1 0 0 0-1-1Zm3.92-8.2a1 1 0 0 0-.54-.54A1 1 0 0 0 24 5.5h-6a1 1 0 1 0 0 2h3.59l-10.3 10.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219L23 8.91v3.59a1 1 0 0 0 2 0v-6a1.001 1.001 0 0 0-.08-.38Z"
+                          />
+                        </svg>
+                      ),
+                    }] : []),
+                  ],
+                }] : []),
+              ]}
+            />
           </td>
-          {this.isHasTests && (
-            <td class="align_center">
-              <Typography
-                color="gray-9"
-              >
-                {l10n.getString('testURLs')}
-                :
-              </Typography>
-              <span class="content">
-                {this.renderCertificateTests(certificate.tests)}
-              </span>
-            </td>
-          )}
         </tr>,
         isExpandedRow && this.renderExpandedRow(certificate.body),
       ]);
@@ -431,26 +472,25 @@ export class CertificatesViewer {
             >
               {l10n.getString('certificateDetails')}
             </Typography>
-            <button
+            <Button
               class="modal_close"
               onClick={this.handleModalClose}
-              type="button"
-              aria-label="Close"
-              title="Close"
-            >
-              <svg
-                width="30"
-                height="30"
-                viewBox="0 0 30 30"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M15.7204 14.375L21.0654 19.7185C21.3115 19.9658 21.3115 20.3693 21.0654 20.6154L20.615 21.0645C20.3689 21.3118 19.9667 21.3118 19.7181 21.0645L14.3744 15.721L9.03194 21.0645C8.78327 21.3118 8.3811 21.3118 8.13371 21.0645L7.68459 20.6154C7.43847 20.3693 7.43847 19.9658 7.68459 19.7185L13.0296 14.375L7.68459 9.03155C7.43847 8.78417 7.43847 8.38074 7.68459 8.13463L8.13371 7.68554C8.3811 7.43815 8.78327 7.43815 9.03194 7.68554L14.3744 13.029L19.7181 7.68554C19.9667 7.43815 20.3689 7.43815 20.615 7.68554L21.0654 8.13463C21.3115 8.38074 21.3115 8.78417 21.0654 9.03155L15.7204 14.375Z"
-                />
-              </svg>
-            </button>
+              startIcon={(
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  fill="none"
+                >
+                  <path
+                    fill="var(--pv-color-gray-9)"
+                    fill-rule="evenodd"
+                    d="m16.37 15 5.442 5.44c.25.252.25.663 0 .914l-.459.457a.646.646 0 0 1-.913 0L15 16.371l-5.44 5.44a.648.648 0 0 1-.915 0l-.457-.457a.649.649 0 0 1 0-.913L13.63 15 8.188 9.56a.649.649 0 0 1 0-.914l.457-.457a.648.648 0 0 1 .915 0l5.44 5.44 5.44-5.44a.646.646 0 0 1 .913 0l.46.457c.25.25.25.662 0 .913L16.37 15Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              )}
+            />
           </header>
           <div class="modal_content">
             <peculiar-certificate-viewer
@@ -548,8 +588,8 @@ export class CertificatesViewer {
     return contentState;
   }
 
-  private handleSearch = (e: any) => {
-    this.search = e.target.value.trim();
+  private handleSearch = (event: any) => {
+    this.search = event.target.value.trim();
   };
 
   render() {
@@ -558,12 +598,12 @@ export class CertificatesViewer {
         {this.renderSearch()}
         <table
           class={{
-            m_extra: this.isHasTests || !this.isHasRoots,
+            m_extra: !this.isHasRoots,
           }}
         >
           <thead>
             <tr>
-              <td />
+              <th />
               {!this.isHasRoots && (
                 <th class="col_issuer">
                   <Typography variant="s2">
@@ -587,24 +627,14 @@ export class CertificatesViewer {
                   &nbsp; (SHA-1)
                 </Typography>
               </th>
-              <th class="col_actions">
-                <Typography variant="s2">
-                  {l10n.getString('actions')}
-                </Typography>
-              </th>
-              {this.isHasTests && (
-                <th class="col_tests">
-                  <Typography variant="s2">
-                    {l10n.getString('testURLs')}
-                  </Typography>
-                </th>
-              )}
+              <th />
             </tr>
           </thead>
           <tbody>
             {this.renderBody()}
           </tbody>
         </table>
+
         {this.renderCertificateDetailsModal()}
         {this.isDecodeInProcess && this.renderLoadingState()}
       </Host>

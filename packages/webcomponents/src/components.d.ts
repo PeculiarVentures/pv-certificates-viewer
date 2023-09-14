@@ -6,6 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
+import { ButtonMenuGroup } from "./components/button-menu/button-menu";
 import { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
 import { ICertificate } from "./components/certificates-viewer/certificates-viewer";
 import { X509Certificate } from "./crypto";
@@ -41,6 +42,9 @@ export namespace Components {
           * @example  https://some.com/{{subjectKeyId}}
          */
         "subjectKeyIdSiblingsLink"?: string;
+    }
+    interface PeculiarButtonMenu {
+        "groups": ButtonMenuGroup[];
     }
     interface PeculiarCertificateDecoder {
         /**
@@ -187,6 +191,12 @@ declare global {
         prototype: HTMLPeculiarAttributeCertificateViewerElement;
         new (): HTMLPeculiarAttributeCertificateViewerElement;
     };
+    interface HTMLPeculiarButtonMenuElement extends Components.PeculiarButtonMenu, HTMLStencilElement {
+    }
+    var HTMLPeculiarButtonMenuElement: {
+        prototype: HTMLPeculiarButtonMenuElement;
+        new (): HTMLPeculiarButtonMenuElement;
+    };
     interface HTMLPeculiarCertificateDecoderElement extends Components.PeculiarCertificateDecoder, HTMLStencilElement {
     }
     var HTMLPeculiarCertificateDecoderElement: {
@@ -237,6 +247,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "peculiar-attribute-certificate-viewer": HTMLPeculiarAttributeCertificateViewerElement;
+        "peculiar-button-menu": HTMLPeculiarButtonMenuElement;
         "peculiar-certificate-decoder": HTMLPeculiarCertificateDecoderElement;
         "peculiar-certificate-viewer": HTMLPeculiarCertificateViewerElement;
         "peculiar-certificates-viewer": HTMLPeculiarCertificatesViewerElement;
@@ -277,6 +288,9 @@ declare namespace LocalJSX {
           * @example  https://some.com/{{subjectKeyId}}
          */
         "subjectKeyIdSiblingsLink"?: string;
+    }
+    interface PeculiarButtonMenu {
+        "groups"?: ButtonMenuGroup[];
     }
     interface PeculiarCertificateDecoder {
         /**
@@ -425,6 +439,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "peculiar-attribute-certificate-viewer": PeculiarAttributeCertificateViewer;
+        "peculiar-button-menu": PeculiarButtonMenu;
         "peculiar-certificate-decoder": PeculiarCertificateDecoder;
         "peculiar-certificate-viewer": PeculiarCertificateViewer;
         "peculiar-certificates-viewer": PeculiarCertificatesViewer;
@@ -440,6 +455,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "peculiar-attribute-certificate-viewer": LocalJSX.PeculiarAttributeCertificateViewer & JSXBase.HTMLAttributes<HTMLPeculiarAttributeCertificateViewerElement>;
+            "peculiar-button-menu": LocalJSX.PeculiarButtonMenu & JSXBase.HTMLAttributes<HTMLPeculiarButtonMenuElement>;
             "peculiar-certificate-decoder": LocalJSX.PeculiarCertificateDecoder & JSXBase.HTMLAttributes<HTMLPeculiarCertificateDecoderElement>;
             "peculiar-certificate-viewer": LocalJSX.PeculiarCertificateViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificateViewerElement>;
             "peculiar-certificates-viewer": LocalJSX.PeculiarCertificatesViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificatesViewerElement>;

@@ -5,6 +5,7 @@ interface TypographyProps {
   component?: keyof JSX.IntrinsicElements;
   variant?: TypographyType;
   color?: ColorType;
+  class?: string;
 }
 
 const variantMapping: Record<TypographyType, 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'> = {
@@ -29,6 +30,7 @@ export const Typography: FunctionalComponent<TypographyProps> = (props, children
     component: componentProp,
     variant = 'b2',
     color = 'black',
+    class: classProp,
     ...other
   } = props;
 
@@ -41,6 +43,7 @@ export const Typography: FunctionalComponent<TypographyProps> = (props, children
         typography: true,
         [`t-${variant}`]: true,
         [`c-${color}`]: true,
+        [classProp]: Boolean(classProp),
       }}
     >
       {children}

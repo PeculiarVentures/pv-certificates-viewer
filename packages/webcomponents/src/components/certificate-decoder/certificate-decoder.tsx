@@ -205,7 +205,7 @@ export class CertificateDecoder {
       <Host>
         <textarea
           placeholder="Certificate DER or PEM"
-          class="textarea"
+          class="textarea t-b2 c-black"
           ref={(el) => { this.inputPaste = el; }}
           onDrop={this.onDropFile}
         />

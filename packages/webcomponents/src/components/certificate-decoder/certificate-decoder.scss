@@ -1,34 +1,18 @@
 @import 'base';
 
 :host {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  touch-action: manipulation;
-  -webkit-user-drag: none;
-  -ms-content-zooming: none;
-  word-wrap: break-word;
-  text-size-adjust: none;
-
   display: block;
   width: 100%;
-  font-size: 0;
 }
 
 .textarea {
   min-height: 300px;
   width: 100%;
   border-radius: 3px;
-  border-width: 1px;
-  border-style: solid;
+  border: 1px solid var(--pv-color-gray-5);;
   padding: 14px;
   font-family: monospace;
   resize: vertical;
-  // @include propertyColorVariable(background-color, light);
-  // @include propertyColorVariable(border-color, grey_3);
-  // @include propertyColorVariable(color, dark);
-  // @include propertyFontSpacingVariable();
-  // @include propertyFontSizeVariable(h7);
 }
 
 .controls {
