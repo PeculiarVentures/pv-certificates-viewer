@@ -7,7 +7,12 @@
  */
 
 import {
-  Component, Host, h, Prop, State, Watch,
+  Component,
+  Host,
+  h,
+  Prop,
+  State,
+  Watch,
 } from '@stencil/core';
 
 import { CSR } from '../../crypto';

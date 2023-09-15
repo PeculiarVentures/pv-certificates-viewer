@@ -155,18 +155,11 @@ $cs:
   transition: background-color 200ms ease 0s;
   align-items: center;
   justify-content: center;
-
-  .start_icon {
-    margin-right: var(--pv-size-base-2);
-    font-size: 0;
-  }
+  gap: var(--pv-size-base-2);
+  font-size: 0;
 
   &.m_no_padding {
     padding: 0;
-
-    .start_icon {
-      margin-right: 0;
-    }
   }
 
   &:hover {

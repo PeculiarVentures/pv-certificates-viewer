@@ -24,6 +24,7 @@ import {
   CRL,
 } from '../../crypto';
 import { Button } from '../button';
+import { Typography } from '../typography';
 
 @Component({
   tag: 'peculiar-certificate-decoder',
@@ -36,7 +37,10 @@ export class CertificateDecoder {
   /**
    * The example certificate value for decode and show details. Use PEM or DER.
    */
-  @Prop() certificateExample?: string;
+  @Prop() certificateExamples?: {
+    title: string;
+    value: string;
+  }[];
 
   /**
    * The default certificate value for decode and show details. Use PEM or DER.
@@ -64,7 +68,7 @@ export class CertificateDecoder {
     }
   }
 
-  private onClickDecode = () => {
+  private handleClickDecode = () => {
     const { value } = this.inputPaste;
 
     if (value) {
@@ -72,16 +76,12 @@ export class CertificateDecoder {
     }
   };
 
-  private onClickExample = () => {
-    this.decode(this.certificateExample);
-  };
-
-  private onClickClear = () => {
+  private handleClickClear = () => {
     this.clearValue();
   };
 
-  private onChangeInputFile = async (e: any) => {
-    const element = e.target;
+  private handleChangeInputFile = async (event: any) => {
+    const element = event.target;
 
     if (element.files) {
       const file = await readAsBinaryString(element.files[0]);
@@ -94,11 +94,19 @@ export class CertificateDecoder {
     }
   };
 
-  private onDropFile = async (e: any) => {
-    e.stopPropagation();
-    e.preventDefault();
+  private handleChangeExample = (event: any) => {
+    if (event.target.value) {
+      this.decode(event.target.value);
+    } else {
+      this.clearValue();
+    }
+  };
 
-    const element = e.dataTransfer;
+  private handleDropFile = async (event: any) => {
+    event.stopPropagation();
+    event.preventDefault();
+
+    const element = event.dataTransfer;
 
     if (element.files) {
       const file = await readAsBinaryString(element.files[0]);
@@ -207,38 +215,52 @@ export class CertificateDecoder {
           placeholder="Certificate DER or PEM"
           class="textarea t-b2 c-black"
           ref={(el) => { this.inputPaste = el; }}
-          onDrop={this.onDropFile}
+          onDrop={this.handleDropFile}
         />
         <div class="controls">
-          <Button
-            class="button"
-            onClick={this.onClickDecode}
-          >
-            Decode
-          </Button>
-          <Button class="button">
-            Choose file
+          <div class="control_row">
+            <Button
+              onClick={this.handleClickDecode}
+            >
+              Decode
+            </Button>
+            <Button
+              onClick={this.handleClickClear}
+            >
+              Clear
+            </Button>
+          </div>
+          <div class="control_row">
+            <Typography
+              variant="b3"
+              color="secondary-tint-2"
+            >
+              Drag or load file:
+            </Typography>
             <input
               type="file"
-              class="input_file"
               accept="application/pkix-cert,application/x-x509-ca-cert,application/x-x509-user-cert,application/pkcs10,application/pkix-crl,.csr,.req,.crl"
-              onChange={this.onChangeInputFile}
+              onChange={this.handleChangeInputFile}
               value=""
             />
-          </Button>
-          <Button
-            class="button"
-            onClick={this.onClickClear}
-          >
-            Clear
-          </Button>
-          {this.certificateExample && (
-            <Button
-              class="button"
-              onClick={this.onClickExample}
-            >
-              Example
-            </Button>
+          </div>
+          {this.certificateExamples?.length && (
+            <div class="control_row">
+              <Typography
+                variant="b3"
+                color="secondary-tint-2"
+              >
+                Load examples:
+              </Typography>
+              <select onChange={this.handleChangeExample}>
+                <option value="">None</option>
+                {this.certificateExamples.map((example) => (
+                  <option value={example.value}>
+                    {example.title}
+                  </option>
+                ))}
+              </select>
+            </div>
           )}
         </div>
         {this.certificateDecoded instanceof X509Certificate && (

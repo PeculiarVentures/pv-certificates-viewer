@@ -237,6 +237,7 @@ export class CertificatesViewer {
         >
           <td>
             <Button
+              class="button_table_cell"
               onClick={this.handleClickRow.bind(this, index)}
               startIcon={(
                 <svg
@@ -257,13 +258,6 @@ export class CertificatesViewer {
           </td>
           {!this.isHasRoots && (
             <td>
-              <Typography
-                color="gray-9"
-                class="mobile_title"
-              >
-                {l10n.getString('issuer')}
-                :
-              </Typography>
               <Typography>
                 <peculiar-highlight-words search={searchHighlight}>
                   {certificate.body.issuerCommonName}
@@ -272,13 +266,6 @@ export class CertificatesViewer {
             </td>
           )}
           <td>
-            <Typography
-              color="gray-9"
-              class="mobile_title"
-            >
-              {l10n.getString('name')}
-              :
-            </Typography>
             <Typography>
               <peculiar-highlight-words search={searchHighlight}>
                 {certificate.name || certificate.body.commonName}
@@ -286,13 +273,6 @@ export class CertificatesViewer {
             </Typography>
           </td>
           <td>
-            <Typography
-              color="gray-9"
-              class="mobile_title"
-            >
-              {l10n.getString('publicKey')}
-              :
-            </Typography>
             <Typography>
               <peculiar-highlight-words search={searchHighlight}>
                 {publicKeyValue}
@@ -300,13 +280,6 @@ export class CertificatesViewer {
             </Typography>
           </td>
           <td>
-            <Typography
-              color="gray-9"
-              class="mobile_title"
-            >
-              {l10n.getString('fingerprint')}
-              &nbsp; (SHA-1):
-            </Typography>
             <Typography>
               <peculiar-highlight-words search={searchHighlight}>
                 {certificate.body.thumbprints['SHA-1']}
@@ -315,6 +288,7 @@ export class CertificatesViewer {
           </td>
           <td>
             <peculiar-button-menu
+              class="button_table_cell"
               groups={[
                 {
                   title: 'Preview certificate',
@@ -466,14 +440,13 @@ export class CertificatesViewer {
           role="dialog"
           part="presentation_container"
         >
-          <header class="modal_title">
+          <header class="modal_header">
             <Typography
               variant="h4"
             >
               {l10n.getString('certificateDetails')}
             </Typography>
             <Button
-              class="modal_close"
               onClick={this.handleModalClose}
               startIcon={(
                 <svg
@@ -596,11 +569,7 @@ export class CertificatesViewer {
     return (
       <Host>
         {this.renderSearch()}
-        <table
-          class={{
-            m_extra: !this.isHasRoots,
-          }}
-        >
+        <table>
           <thead>
             <tr>
               <th />

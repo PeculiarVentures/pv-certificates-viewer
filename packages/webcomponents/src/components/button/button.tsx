@@ -41,18 +41,16 @@ export const Button: FunctionalComponent<ButtonProps> = (props, children) => {
         [classProp]: Boolean(classProp),
       }}
     >
-      {startIcon && (
-        <span class="start_icon">
-          {startIcon}
-        </span>
+      {startIcon}
+      {children.length > 0 && (
+        <Typography
+          variant="b3"
+          color="black"
+          component="span"
+        >
+          {children}
+        </Typography>
       )}
-      <Typography
-        variant="b3"
-        color="black"
-        component="span"
-      >
-        {children}
-      </Typography>
     </TagType>
   );
 };

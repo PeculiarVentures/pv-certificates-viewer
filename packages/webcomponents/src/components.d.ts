@@ -50,7 +50,10 @@ export namespace Components {
         /**
           * The example certificate value for decode and show details. Use PEM or DER.
          */
-        "certificateExample"?: string;
+        "certificateExamples"?: {
+    title: string;
+    value: string;
+  }[];
         /**
           * The default certificate value for decode and show details. Use PEM or DER.
          */
@@ -296,7 +299,10 @@ declare namespace LocalJSX {
         /**
           * The example certificate value for decode and show details. Use PEM or DER.
          */
-        "certificateExample"?: string;
+        "certificateExamples"?: {
+    title: string;
+    value: string;
+  }[];
         /**
           * The default certificate value for decode and show details. Use PEM or DER.
          */

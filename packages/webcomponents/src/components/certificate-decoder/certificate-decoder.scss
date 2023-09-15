@@ -8,35 +8,26 @@
 .textarea {
   min-height: 300px;
   width: 100%;
-  border-radius: 3px;
+  border-radius: 4px;
   border: 1px solid var(--pv-color-gray-5);;
   padding: 14px;
   font-family: monospace;
   resize: vertical;
 }
 
-.controls {
-  margin-top: 10px;
-}
-
-.button {
-  position: relative;
-
-  &:not(:first-child) {
-    margin-left: 10px;
-  }
-}
-
 .viewer {
-  margin-top: 64px;
+  margin-top: var(--pv-size-base-12);
 }
 
-.input_file {
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  display: block;
-  position: absolute;
+.controls {
+  margin-top: var(--pv-size-base-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pv-size-base-2);
+}
+
+.control_row {
+  display: flex;
+  align-items: center;
+  gap: var(--pv-size-base);
 }

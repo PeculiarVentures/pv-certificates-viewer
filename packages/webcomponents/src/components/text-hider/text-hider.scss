@@ -1,6 +1,7 @@
 :host {
-  display: block;
+  display: flex;
   width: 100%;
+  gap: var(--pv-size-base-4);
 
   &[aria-expanded="true"] {
     .content {
@@ -14,17 +15,13 @@
 }
 
 .content {
-  display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: calc(100% - 50px);
-  vertical-align: top;
+  width: 100%;
 }
 
 .action {
-  margin-left: 20px;
-  width: 30px;
-  position: relative;
-  top: -6px;
+  flex-shrink: 0;
+  margin-top: calc(var(--pv-size-base) * -1);
 }
