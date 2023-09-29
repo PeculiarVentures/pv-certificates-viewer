@@ -73,9 +73,21 @@ table {
     &.expanded_summary {
       background: var(--pv-color-gray-1);
 
-      table td {
-        border-bottom: none;
-        padding: var(--pv-size-base-2);
+      table {
+        table-layout: initial;
+
+        td {
+          border-bottom: none;
+          padding: var(--pv-size-base-2);
+
+          &:first-child {
+            width: 200px;
+          }
+
+          &:last-child {
+            width: auto;
+          }
+        }
       }
     }
   }
@@ -145,4 +157,46 @@ table {
 .modal_content {
   flex: 1 1 auto;
   overflow: auto;
+}
+
+:host([data-mobile-screen-view="true"]) {
+  table, tbody, tr, td {
+    display: block;
+    width: 100% !important;
+    padding: 0;
+    border: none;
+  }
+
+  thead {
+    display: none;
+  }
+
+  table {
+    tr {
+      padding: var(--pv-size-base-2) 0;
+    }
+
+    .expanded_summary {
+      padding: 0;
+    }
+
+    .certificate_row {
+      border-bottom: 1px solid var(--pv-color-gray-5);
+      padding: var(--pv-size-base-2) var(--pv-size-base-4);
+    }
+
+    .certificate_row_actions {
+      padding-top: var(--pv-size-base-6);
+
+      td {
+        display: flex;
+        justify-content: right;
+        gap: var(--pv-size-base-4);
+      }
+    }
+  }
+
+  .button_table_cell {
+    margin-top: 0;
+  }
 }

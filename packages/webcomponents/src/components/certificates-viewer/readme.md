@@ -7,11 +7,12 @@
 
 ## Properties
 
-| Property              | Attribute               | Description                                                                                                                                                                                                                                                                                                                                                                                   | Type             | Default |
-| --------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ------- |
-| `certificates`        | --                      | List of certificates values for decode and show in the list. <br /> **NOTE**: If you do not provide a `name` value when invocing the component it will take the first Subject CN value. <br /> **NOTE**: If you do not provide a `tests` this column will be ommited from the rendered page. <br /> **NOTE**: If the supplied certificates are self-signed the issuer column will be ommited. | `ICertificate[]` | `[]`    |
-| `filterWithSearch`    | `filter-with-search`    | Use filter in the list when search is changed.                                                                                                                                                                                                                                                                                                                                                | `boolean`        | `true`  |
-| `highlightWithSearch` | `highlight-with-search` | Use highlight chapters in the list when search is changed.                                                                                                                                                                                                                                                                                                                                    | `boolean`        | `true`  |
+| Property                 | Attribute                   | Description                                                                                                                                                                                                                                                                                                                                                                                   | Type             | Default                |
+| ------------------------ | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ---------------------- |
+| `certificates`           | --                          | List of certificates values for decode and show in the list. <br /> **NOTE**: If you do not provide a `name` value when invocing the component it will take the first Subject CN value. <br /> **NOTE**: If you do not provide a `tests` this column will be ommited from the rendered page. <br /> **NOTE**: If the supplied certificates are self-signed the issuer column will be ommited. | `ICertificate[]` | `[]`                   |
+| `filterWithSearch`       | `filter-with-search`        | Use filter in the list when search is changed.                                                                                                                                                                                                                                                                                                                                                | `boolean`        | `true`                 |
+| `highlightWithSearch`    | `highlight-with-search`     | Use highlight chapters in the list when search is changed.                                                                                                                                                                                                                                                                                                                                    | `boolean`        | `true`                 |
+| `mobileMediaQueryString` | `mobile-media-query-string` | Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.                                                                                                                                                                                                                                        | `string`         | `'(max-width: 900px)'` |
 
 
 ## Events
@@ -34,27 +35,18 @@
 
 ### Depends on
 
-- [peculiar-certificate-summary](../certificate-summary)
-- [peculiar-button](../button)
-- [peculiar-typography](../typography)
+- [peculiar-button-menu](../button-menu)
 - [peculiar-highlight-words](../highlight-words)
-- [peculiar-button-split](../button-split)
 - [peculiar-certificate-viewer](../certificate-viewer)
 - [peculiar-circular-progress](../circular-progress)
 
 ### Graph
 ```mermaid
 graph TD;
-  peculiar-certificates-viewer --> peculiar-certificate-summary
-  peculiar-certificates-viewer --> peculiar-button
-  peculiar-certificates-viewer --> peculiar-typography
+  peculiar-certificates-viewer --> peculiar-button-menu
   peculiar-certificates-viewer --> peculiar-highlight-words
-  peculiar-certificates-viewer --> peculiar-button-split
   peculiar-certificates-viewer --> peculiar-certificate-viewer
   peculiar-certificates-viewer --> peculiar-circular-progress
-  peculiar-certificate-summary --> peculiar-typography
-  peculiar-button-split --> peculiar-button
-  peculiar-certificate-viewer --> peculiar-typography
   style peculiar-certificates-viewer fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

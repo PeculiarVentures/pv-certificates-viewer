@@ -24,6 +24,14 @@ import { l10n } from '../../utils';
 import { Typography } from '../typography';
 import { CertificateSummary } from '../certificate-summary';
 import { Button } from '../button';
+import {
+  DownloadIcon,
+  LinkIcon,
+  DetailsIcon,
+  ArrowBottomIcon,
+  ArrowTopIcon,
+  CrossIcon,
+} from '../icons';
 
 export interface ICertificate {
   value: string;
@@ -82,6 +90,16 @@ export class CertificatesViewer {
    */
   @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
 
+  /**
+   * Emitted when the user open certificate details modal.
+   */
+  @Event() detailsOpen!: EventEmitter<X509Certificate>;
+
+  /**
+   * Emitted when the user close certificate details modal.
+   */
+  @Event() detailsClose!: EventEmitter<void>;
+
   @State() mobileScreenView: boolean = false;
 
   @State() search: string = '';
@@ -94,17 +112,7 @@ export class CertificatesViewer {
 
   @State() isDecodeInProcess: boolean = true;
 
-  /**
-   * Emitted when the user open certificate details modal.
-   */
-  @Event() detailsOpen!: EventEmitter<X509Certificate>;
-
-  /**
-   * Emitted when the user close certificate details modal.
-   */
-  @Event() detailsClose!: EventEmitter<void>;
-
-  private mediaQueryChange(event: MediaQueryListEvent) {
+  private handleMediaQueryChange(event: MediaQueryListEvent) {
     this.mobileScreenView = event.matches;
   }
 
@@ -113,13 +121,13 @@ export class CertificatesViewer {
 
     if (Build.isBrowser) {
       this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
-      this.mobileMediaQuery.addEventListener('change', this.mediaQueryChange.bind(this));
+      this.mobileMediaQuery.addEventListener('change', this.handleMediaQueryChange.bind(this));
       this.mobileScreenView = this.mobileMediaQuery.matches;
     }
   }
 
   disconnectedCallback() {
-    this.mobileMediaQuery.removeEventListener('change', this.mediaQueryChange.bind(this));
+    this.mobileMediaQuery.removeEventListener('change', this.handleMediaQueryChange.bind(this));
   }
 
   @Watch('certificates')
@@ -167,21 +175,17 @@ export class CertificatesViewer {
     this.certificatesDecoded = data;
   }
 
-  private handleClickDownloadAsPem(certificate: ICertificateDecoded, event: MouseEvent) {
-    event.stopPropagation();
-
+  // eslint-disable-next-line class-methods-use-this
+  private handleClickDownloadAsPem(certificate: ICertificateDecoded) {
     certificate.body.downloadAsPEM(certificate.name || certificate.body.commonName);
   }
 
-  private handleClickDownloadAsDer(certificate: ICertificateDecoded, event: MouseEvent) {
-    event.stopPropagation();
-
+  // eslint-disable-next-line class-methods-use-this
+  private handleClickDownloadAsDer(certificate: ICertificateDecoded) {
     certificate.body.downloadAsDER(certificate.name || certificate.body.commonName);
   }
 
-  private handleClickDetails = (certificate: X509Certificate, event: MouseEvent) => {
-    event.stopPropagation();
-
+  private handleClickDetails = (certificate: X509Certificate) => {
     this.certificateSelectedForDetails = certificate;
     this.detailsOpen.emit(certificate);
   };
@@ -200,6 +204,10 @@ export class CertificatesViewer {
       : index;
   }
 
+  private handleSearch = (event: any) => {
+    this.search = event.target.value.trim();
+  };
+
   private getMaxColSpanValue() {
     let colSpan = 5;
 
@@ -208,6 +216,64 @@ export class CertificatesViewer {
     }
 
     return colSpan;
+  }
+
+  private renderCertificateButtonActions(certificate: ICertificateDecoded) {
+    const isHasTestURLs = certificate.tests
+        && (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid);
+
+    return (
+      <peculiar-button-menu
+        class="button_table_cell"
+        groups={[
+          {
+            title: l10n.getString('previewCertificate'),
+            options: [
+              {
+                text: l10n.getString('viewDetails'),
+                startIcon: <DetailsIcon />,
+                onClick: () => this.handleClickDetails(certificate.body),
+              },
+            ],
+          },
+          {
+            title: l10n.getString('downloadOptions'),
+            options: [
+              {
+                text: l10n.getString('download.pem'),
+                startIcon: <DownloadIcon />,
+                onClick: () => this.handleClickDownloadAsPem(certificate),
+              },
+              {
+                text: l10n.getString('download.der'),
+                startIcon: <DownloadIcon />,
+                onClick: () => this.handleClickDownloadAsDer(certificate),
+              },
+            ],
+          },
+          ...(isHasTestURLs ? [{
+            title: l10n.getString('testURLs'),
+            options: [
+              ...(certificate.tests?.valid ? [{
+                text: l10n.getString('valid'),
+                href: certificate.tests.valid,
+                startIcon: <LinkIcon />,
+              }] : []),
+              ...(certificate.tests?.revoked ? [{
+                text: l10n.getString('revoked'),
+                href: certificate.tests.revoked,
+                startIcon: <LinkIcon />,
+              }] : []),
+              ...(certificate.tests?.expired ? [{
+                text: l10n.getString('expired'),
+                href: certificate.tests.expired,
+                startIcon: <LinkIcon />,
+              }] : []),
+            ],
+          }] : []),
+        ]}
+      />
+    );
   }
 
   private renderExpandedRow(certificate: X509Certificate) {
@@ -227,7 +293,7 @@ export class CertificatesViewer {
     );
   }
 
-  private renderContentState() {
+  private renderCertificatesRows() {
     const searchHighlight = this.highlightWithSearch
       ? this.search
       : '';
@@ -237,8 +303,6 @@ export class CertificatesViewer {
       const isExpandedRow = index === this.expandedRow;
       const publicKeyValue = OIDs[certificate.body.signature.algorithm]
         || certificate.body.signature.algorithm;
-      const isHasTestURLs = certificate.tests
-        && (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid);
 
       if (this.filterWithSearch && this.search) {
         const certificateStringForSearch = [
@@ -256,6 +320,97 @@ export class CertificatesViewer {
         }
       }
 
+      if (this.mobileScreenView) {
+        content.push([
+          <tr
+            class={{
+              certificate_row: true,
+              m_expanded: isExpandedRow,
+            }}
+            key={certificate.body.thumbprints['SHA-1']}
+          >
+            <td>
+              <table>
+                <tbody>
+                  {!this.isHasRoots && (
+                    <tr>
+                      <td>
+                        <Typography variant="b2" color="gray-9">
+                          {l10n.getString('issuer')}
+                        </Typography>
+                      </td>
+                      <td>
+                        <Typography variant="b2" color="black">
+                          <peculiar-highlight-words search={searchHighlight}>
+                            {certificate.body.issuerCommonName}
+                          </peculiar-highlight-words>
+                        </Typography>
+                      </td>
+                    </tr>
+                  )}
+                  <tr>
+                    <td>
+                      <Typography variant="b2" color="gray-9">
+                        {l10n.getString('name')}
+                      </Typography>
+                    </td>
+                    <td>
+                      <Typography variant="b2" color="black">
+                        <peculiar-highlight-words search={searchHighlight}>
+                          {certificate.name || certificate.body.commonName}
+                        </peculiar-highlight-words>
+                      </Typography>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <Typography variant="b2" color="gray-9">
+                        {l10n.getString('publicKey')}
+                      </Typography>
+                    </td>
+                    <td>
+                      <Typography variant="b2" color="black">
+                        <peculiar-highlight-words search={searchHighlight}>
+                          {publicKeyValue}
+                        </peculiar-highlight-words>
+                      </Typography>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <Typography variant="b2" color="gray-9">
+                        {l10n.getString('fingerprint')}
+                        &nbsp; (SHA-1)
+                      </Typography>
+                    </td>
+                    <td>
+                      <Typography variant="b2" color="black">
+                        <peculiar-highlight-words search={searchHighlight}>
+                          {certificate.body.thumbprints['SHA-1']}
+                        </peculiar-highlight-words>
+                      </Typography>
+                    </td>
+                  </tr>
+                  {isExpandedRow && this.renderExpandedRow(certificate.body)}
+                  <tr class="certificate_row_actions">
+                    <td>
+                      {this.renderCertificateButtonActions(certificate)}
+                      <Button
+                        // eslint-disable-next-line react/jsx-no-bind
+                        onClick={this.handleClickRow.bind(this, index)}
+                        startIcon={isExpandedRow ? <ArrowTopIcon /> : <ArrowBottomIcon />}
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>,
+        ]);
+
+        return;
+      }
+
       content.push([
         <tr
           class={{
@@ -266,22 +421,9 @@ export class CertificatesViewer {
           <td>
             <Button
               class="button_table_cell"
+              // eslint-disable-next-line react/jsx-no-bind
               onClick={this.handleClickRow.bind(this, index)}
-              startIcon={(
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="30"
-                  height="30"
-                  fill="none"
-                >
-                  <path
-                    stroke="var(--pv-color-gray-10)"
-                    stroke-linecap="round"
-                    stroke-width="1.5"
-                    d="m19.222 12.778-3.851 4.279a.2.2 0 0 1-.297 0l-3.852-4.28"
-                  />
-                </svg>
-              )}
+              startIcon={isExpandedRow ? <ArrowTopIcon /> : <ArrowBottomIcon />}
             />
           </td>
           {!this.isHasRoots && (
@@ -315,128 +457,7 @@ export class CertificatesViewer {
             </Typography>
           </td>
           <td>
-            <peculiar-button-menu
-              class="button_table_cell"
-              groups={[
-                {
-                  title: 'Preview certificate',
-                  options: [
-                    {
-                      text: 'View details',
-                      startIcon: (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="30"
-                          height="31"
-                          fill="none"
-                        >
-                          <path
-                            fill="var(--pv-color-secondary)"
-                            d="M6.71 19.79a1 1 0 0 0-.33-.21 1 1 0 0 0-.76 0 1 1 0 0 0-.33.21 1 1 0 0 0-.21.33 1 1 0 0 0 .21 1.09c.097.088.209.16.33.21a.94.94 0 0 0 .76 0 1.15 1.15 0 0 0 .33-.21 1 1 0 0 0 .21-1.09 1 1 0 0 0-.21-.33ZM10 11.5h14a1 1 0 0 0 0-2H10a1 1 0 0 0 0 2Zm-3.29 3.29a1 1 0 0 0-1.09-.21 1.15 1.15 0 0 0-.33.21 1 1 0 0 0-.21.33.94.94 0 0 0 0 .76c.05.121.122.233.21.33.097.088.209.16.33.21a.94.94 0 0 0 .76 0 1.15 1.15 0 0 0 .33-.21 1.15 1.15 0 0 0 .21-.33.94.94 0 0 0 0-.76 1 1 0 0 0-.21-.33ZM24 14.5H10a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2ZM6.71 9.79a1 1 0 0 0-.33-.21 1 1 0 0 0-1.09.21 1.15 1.15 0 0 0-.21.33.94.94 0 0 0 0 .76c.05.121.122.233.21.33.097.088.209.16.33.21a1 1 0 0 0 1.09-.21 1.15 1.15 0 0 0 .21-.33.94.94 0 0 0 0-.76 1.15 1.15 0 0 0-.21-.33ZM24 19.5H10a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2Z"
-                          />
-                        </svg>
-                      ),
-                      onClick: (event) => this.handleClickDetails(certificate.body, event),
-                    },
-                  ],
-                },
-                {
-                  title: 'Download options',
-                  options: [
-                    {
-                      text: 'Download PEM',
-                      startIcon: (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="30"
-                          height="30"
-                          fill="none"
-                        >
-                          <path
-                            fill="var(--pv-color-secondary)"
-                            d="M21 12h-2c-.6 0-1 .4-1 1s.4 1 1 1h2c.6 0 1 .4 1 1v7c0 .6-.4 1-1 1H9c-.6 0-1-.4-1-1v-7c0-.6.4-1 1-1h2c.6 0 1-.4 1-1s-.4-1-1-1H9c-1.7 0-3 1.3-3 3v7c0 1.7 1.3 3 3 3h12c1.7 0 3-1.3 3-3v-7c0-1.7-1.3-3-3-3Zm-9.7 5.7 3 3c.2.2.4.3.7.3.3 0 .5-.1.7-.3l3-3c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0L16 17.6V6c0-.6-.4-1-1-1s-1 .4-1 1v11.6l-1.3-1.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4Z"
-                          />
-                        </svg>
-                      ),
-                      onClick: (event) => this.handleClickDownloadAsPem(certificate, event),
-                    },
-                    {
-                      text: 'Download DER',
-                      startIcon: (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="30"
-                          height="30"
-                          fill="none"
-                        >
-                          <path
-                            fill="var(--pv-color-secondary)"
-                            d="M21 12h-2c-.6 0-1 .4-1 1s.4 1 1 1h2c.6 0 1 .4 1 1v7c0 .6-.4 1-1 1H9c-.6 0-1-.4-1-1v-7c0-.6.4-1 1-1h2c.6 0 1-.4 1-1s-.4-1-1-1H9c-1.7 0-3 1.3-3 3v7c0 1.7 1.3 3 3 3h12c1.7 0 3-1.3 3-3v-7c0-1.7-1.3-3-3-3Zm-9.7 5.7 3 3c.2.2.4.3.7.3.3 0 .5-.1.7-.3l3-3c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0L16 17.6V6c0-.6-.4-1-1-1s-1 .4-1 1v11.6l-1.3-1.3c-.4-.4-1-.4-1.4 0-.4.4-.4 1 0 1.4Z"
-                          />
-                        </svg>
-                      ),
-                      onClick: (event) => this.handleClickDownloadAsDer(certificate, event),
-                    },
-                  ],
-                },
-                ...(isHasTestURLs ? [{
-                  title: 'Test URLs',
-                  options: [
-                    ...(certificate.tests?.valid ? [{
-                      text: 'Valid',
-                      href: certificate.tests.valid,
-                      startIcon: (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="30"
-                          height="31"
-                          fill="none"
-                        >
-                          <path
-                            fill="var(--pv-color-secondary)"
-                            d="M21 14.32a1 1 0 0 0-1 1v7.18a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1h7.18a1 1 0 0 0 0-2H8a3 3 0 0 0-3 3v11a3 3 0 0 0 3 3h11a3 3 0 0 0 3-3v-7.18a1 1 0 0 0-1-1Zm3.92-8.2a1 1 0 0 0-.54-.54A1 1 0 0 0 24 5.5h-6a1 1 0 1 0 0 2h3.59l-10.3 10.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219L23 8.91v3.59a1 1 0 0 0 2 0v-6a1.001 1.001 0 0 0-.08-.38Z"
-                          />
-                        </svg>
-                      ),
-                    }] : []),
-                    ...(certificate.tests?.revoked ? [{
-                      text: 'Revoked',
-                      href: certificate.tests.revoked,
-                      startIcon: (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="30"
-                          height="31"
-                          fill="none"
-                        >
-                          <path
-                            fill="var(--pv-color-secondary)"
-                            d="M21 14.32a1 1 0 0 0-1 1v7.18a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1h7.18a1 1 0 0 0 0-2H8a3 3 0 0 0-3 3v11a3 3 0 0 0 3 3h11a3 3 0 0 0 3-3v-7.18a1 1 0 0 0-1-1Zm3.92-8.2a1 1 0 0 0-.54-.54A1 1 0 0 0 24 5.5h-6a1 1 0 1 0 0 2h3.59l-10.3 10.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219L23 8.91v3.59a1 1 0 0 0 2 0v-6a1.001 1.001 0 0 0-.08-.38Z"
-                          />
-                        </svg>
-                      ),
-                    }] : []),
-                    ...(certificate.tests?.expired ? [{
-                      text: 'Expired',
-                      href: certificate.tests.expired,
-                      startIcon: (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="30"
-                          height="31"
-                          fill="none"
-                        >
-                          <path
-                            fill="var(--pv-color-secondary)"
-                            d="M21 14.32a1 1 0 0 0-1 1v7.18a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1h7.18a1 1 0 0 0 0-2H8a3 3 0 0 0-3 3v11a3 3 0 0 0 3 3h11a3 3 0 0 0 3-3v-7.18a1 1 0 0 0-1-1Zm3.92-8.2a1 1 0 0 0-.54-.54A1 1 0 0 0 24 5.5h-6a1 1 0 1 0 0 2h3.59l-10.3 10.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219L23 8.91v3.59a1 1 0 0 0 2 0v-6a1.001 1.001 0 0 0-.08-.38Z"
-                          />
-                        </svg>
-                      ),
-                    }] : []),
-                  ],
-                }] : []),
-              ]}
-            />
+            {this.renderCertificateButtonActions(certificate)}
           </td>
         </tr>,
         isExpandedRow && this.renderExpandedRow(certificate.body),
@@ -476,21 +497,7 @@ export class CertificatesViewer {
             </Typography>
             <Button
               onClick={this.handleModalClose}
-              startIcon={(
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="30"
-                  height="30"
-                  fill="none"
-                >
-                  <path
-                    fill="var(--pv-color-gray-9)"
-                    fill-rule="evenodd"
-                    d="m16.37 15 5.442 5.44c.25.252.25.663 0 .914l-.459.457a.646.646 0 0 1-.913 0L15 16.371l-5.44 5.44a.648.648 0 0 1-.915 0l-.457-.457a.649.649 0 0 1 0-.913L13.63 15 8.188 9.56a.649.649 0 0 1 0-.914l.457-.457a.648.648 0 0 1 .915 0l5.44 5.44 5.44-5.44a.646.646 0 0 1 .913 0l.46.457c.25.25.25.662 0 .913L16.37 15Z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              )}
+              startIcon={<CrossIcon />}
             />
           </header>
           <div class="modal_content">
@@ -572,7 +579,7 @@ export class CertificatesViewer {
     );
   }
 
-  private renderBody() {
+  private renderTableBody() {
     if (this.isDecodeInProcess) {
       return null;
     }
@@ -581,18 +588,14 @@ export class CertificatesViewer {
       return this.renderEmptyState();
     }
 
-    const contentState = this.renderContentState();
+    const certificatesRows = this.renderCertificatesRows();
 
-    if (this.search && !contentState.length) {
+    if (this.search && !certificatesRows.length) {
       return this.renderEmptySearchState();
     }
 
-    return contentState;
+    return certificatesRows;
   }
-
-  private handleSearch = (event: any) => {
-    this.search = event.target.value.trim();
-  };
 
   render() {
     return (
@@ -601,37 +604,41 @@ export class CertificatesViewer {
       >
         {this.renderSearch()}
         <table>
-          <thead>
-            <tr>
-              <th />
-              {!this.isHasRoots && (
-                <th class="col_issuer">
+          {!this.mobileScreenView && (
+            <thead>
+              <tr>
+                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                <th />
+                {!this.isHasRoots && (
+                  <th class="col_issuer">
+                    <Typography variant="s2">
+                      {l10n.getString('issuer')}
+                    </Typography>
+                  </th>
+                )}
+                <th class="col_name">
                   <Typography variant="s2">
-                    {l10n.getString('issuer')}
+                    {l10n.getString('name')}
                   </Typography>
                 </th>
-              )}
-              <th class="col_name">
-                <Typography variant="s2">
-                  {l10n.getString('name')}
-                </Typography>
-              </th>
-              <th class="col_public_key">
-                <Typography variant="s2">
-                  {l10n.getString('publicKey')}
-                </Typography>
-              </th>
-              <th class="col_fingerprint">
-                <Typography variant="s2">
-                  {l10n.getString('fingerprint')}
-                  &nbsp; (SHA-1)
-                </Typography>
-              </th>
-              <th />
-            </tr>
-          </thead>
+                <th class="col_public_key">
+                  <Typography variant="s2">
+                    {l10n.getString('publicKey')}
+                  </Typography>
+                </th>
+                <th class="col_fingerprint">
+                  <Typography variant="s2">
+                    {l10n.getString('fingerprint')}
+                    &nbsp; (SHA-1)
+                  </Typography>
+                </th>
+                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                <th />
+              </tr>
+            </thead>
+          )}
           <tbody>
-            {this.renderBody()}
+            {this.renderTableBody()}
           </tbody>
         </table>
 
