@@ -90,7 +90,7 @@ export class CrlViewer {
 
   @State() isDecodeInProcess: boolean = true;
 
-  private mediaQueryChange(event: MediaQueryListEvent) {
+  private handleMediaQueryChange(event: MediaQueryListEvent) {
     this.mobileScreenView = event.matches;
   }
 
@@ -99,13 +99,13 @@ export class CrlViewer {
 
     if (Build.isBrowser) {
       this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
-      this.mobileMediaQuery.addEventListener('change', this.mediaQueryChange.bind(this));
+      this.mobileMediaQuery.addEventListener('change', this.handleMediaQueryChange.bind(this));
       this.mobileScreenView = this.mobileMediaQuery.matches;
     }
   }
 
   disconnectedCallback() {
-    this.mobileMediaQuery.removeEventListener('change', this.mediaQueryChange.bind(this));
+    this.mobileMediaQuery.removeEventListener('change', this.handleMediaQueryChange.bind(this));
   }
 
   private async decodeCertificate(certificate: CrlProp) {

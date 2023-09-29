@@ -42,6 +42,7 @@ export const Button: FunctionalComponent<ButtonProps> = (props, children) => {
       }}
     >
       {startIcon}
+      {/* eslint-disable-next-line react/destructuring-assignment */}
       {children.length > 0 && (
         <Typography
           variant="b3"

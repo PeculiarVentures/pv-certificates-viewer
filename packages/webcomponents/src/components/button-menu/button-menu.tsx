@@ -15,13 +15,14 @@ import {
 } from '@stencil/core';
 import { Button, ButtonProps } from '../button';
 import { Typography } from '../typography';
+import { ActionsIcon } from '../icons';
 
 export interface ButtonMenuGroupOptions extends ButtonProps {
-  text: string;
+  text: string | string[];
 }
 
 export interface ButtonMenuGroup {
-  title: string;
+  title: string | string[];
   options: ButtonMenuGroupOptions[];
 }
 
@@ -49,19 +50,7 @@ export class ButtonMenu {
         <Button
           class="button_popover"
           onClick={this.handleClick}
-          startIcon={(
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="31"
-              fill="none"
-            >
-              <path
-                fill="var(--pv-color-gray-10)"
-                d="M15 13.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm14 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"
-              />
-            </svg>
-          )}
+          startIcon={<ActionsIcon />}
         />
         <div
           role="dialog"
@@ -84,6 +73,8 @@ export class ButtonMenu {
                   startIcon={option.startIcon}
                   href={option.href}
                   onClick={(event) => {
+                    event.stopPropagation();
+
                     this.handleClick();
 
                     if (option.onClick) {

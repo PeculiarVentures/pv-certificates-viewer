@@ -13,6 +13,7 @@ import {
   State,
 } from '@stencil/core';
 import { Button } from '../button';
+import { ArrowBottomIcon, ArrowTopIcon } from '../icons';
 
 @Component({
   tag: 'peculiar-text-hider',
@@ -27,29 +28,13 @@ export class TextHider {
       <Host
         aria-expanded={String(this.opened)}
       >
-        <div
-          class="content"
-        >
+        <div class="content">
           <slot />
         </div>
         <Button
           class="action"
           onClick={() => { this.opened = !this.opened; }}
-          startIcon={(
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              fill="none"
-            >
-              <path
-                stroke="var(--pv-color-secondary)"
-                stroke-linecap="round"
-                stroke-width="1.5"
-                d="m19.222 12.778-3.851 4.279a.2.2 0 0 1-.297 0l-3.852-4.28"
-              />
-            </svg>
-          )}
+          startIcon={this.opened ? <ArrowTopIcon color="secondary" /> : <ArrowBottomIcon color="secondary" />}
         />
       </Host>
     );
