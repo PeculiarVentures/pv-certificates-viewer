@@ -219,18 +219,6 @@ export class CertificateDecoder {
         />
         <div class="controls">
           <div class="control_row">
-            <Button
-              onClick={this.handleClickDecode}
-            >
-              Decode
-            </Button>
-            <Button
-              onClick={this.handleClickClear}
-            >
-              Clear
-            </Button>
-          </div>
-          <div class="control_row">
             <Typography
               variant="b3"
               color="secondary-tint-2"
@@ -262,6 +250,18 @@ export class CertificateDecoder {
               </select>
             </div>
           )}
+          <div class="control_row">
+            <Button
+              onClick={this.handleClickDecode}
+            >
+              Decode
+            </Button>
+            <Button
+              onClick={this.handleClickClear}
+            >
+              Clear
+            </Button>
+          </div>
         </div>
         {this.certificateDecoded instanceof X509Certificate && (
           <peculiar-certificate-viewer
