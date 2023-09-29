@@ -33,6 +33,11 @@ export namespace Components {
          */
         "download"?: boolean;
         /**
+          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+          * @example  (max-width: 900px)
+         */
+        "mobileMediaQueryString"?: string;
+        /**
           * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
           * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
          */
@@ -83,6 +88,11 @@ export namespace Components {
          */
         "issuerDnLink"?: string;
         /**
+          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+          * @example  (max-width: 900px)
+         */
+        "mobileMediaQueryString"?: string;
+        /**
           * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
           * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
          */
@@ -92,10 +102,6 @@ export namespace Components {
           * @example  https://some.com/{{subjectKeyId}}
          */
         "subjectKeyIdSiblingsLink"?: string;
-        /**
-          * Choose view type instead @media.
-         */
-        "view"?: 'mobile';
     }
     interface PeculiarCertificatesViewer {
         /**
@@ -110,6 +116,11 @@ export namespace Components {
           * Use highlight chapters in the list when search is changed.
          */
         "highlightWithSearch": boolean;
+        /**
+          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+          * @example  (max-width: 900px)
+         */
+        "mobileMediaQueryString"?: string;
     }
     interface PeculiarCircularProgress {
         /**
@@ -145,9 +156,10 @@ export namespace Components {
          */
         "issuerDnLink"?: string;
         /**
-          * Choose view type instead @media.
+          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+          * @example  (max-width: 900px)
          */
-        "view"?: 'mobile';
+        "mobileMediaQueryString"?: string;
     }
     interface PeculiarCsrViewer {
         /**
@@ -159,6 +171,11 @@ export namespace Components {
          */
         "download"?: boolean;
         /**
+          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+          * @example  (max-width: 900px)
+         */
+        "mobileMediaQueryString"?: string;
+        /**
           * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
           * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
          */
@@ -168,10 +185,6 @@ export namespace Components {
           * @example  https://some.com/{{subjectKeyId}}
          */
         "subjectKeyIdSiblingsLink"?: string;
-        /**
-          * Choose view type instead @media.
-         */
-        "view"?: 'mobile';
     }
     interface PeculiarHighlightWords {
         "search": string;
@@ -282,6 +295,11 @@ declare namespace LocalJSX {
          */
         "download"?: boolean;
         /**
+          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+          * @example  (max-width: 900px)
+         */
+        "mobileMediaQueryString"?: string;
+        /**
           * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
           * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
          */
@@ -340,6 +358,11 @@ declare namespace LocalJSX {
          */
         "issuerDnLink"?: string;
         /**
+          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+          * @example  (max-width: 900px)
+         */
+        "mobileMediaQueryString"?: string;
+        /**
           * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
           * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
          */
@@ -349,10 +372,6 @@ declare namespace LocalJSX {
           * @example  https://some.com/{{subjectKeyId}}
          */
         "subjectKeyIdSiblingsLink"?: string;
-        /**
-          * Choose view type instead @media.
-         */
-        "view"?: 'mobile';
     }
     interface PeculiarCertificatesViewer {
         /**
@@ -367,6 +386,11 @@ declare namespace LocalJSX {
           * Use highlight chapters in the list when search is changed.
          */
         "highlightWithSearch"?: boolean;
+        /**
+          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+          * @example  (max-width: 900px)
+         */
+        "mobileMediaQueryString"?: string;
         /**
           * Emitted when the user close certificate details modal.
          */
@@ -410,9 +434,10 @@ declare namespace LocalJSX {
          */
         "issuerDnLink"?: string;
         /**
-          * Choose view type instead @media.
+          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+          * @example  (max-width: 900px)
          */
-        "view"?: 'mobile';
+        "mobileMediaQueryString"?: string;
     }
     interface PeculiarCsrViewer {
         /**
@@ -424,6 +449,11 @@ declare namespace LocalJSX {
          */
         "download"?: boolean;
         /**
+          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+          * @example  (max-width: 900px)
+         */
+        "mobileMediaQueryString"?: string;
+        /**
           * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
           * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
          */
@@ -433,10 +463,6 @@ declare namespace LocalJSX {
           * @example  https://some.com/{{subjectKeyId}}
          */
         "subjectKeyIdSiblingsLink"?: string;
-        /**
-          * Choose view type instead @media.
-         */
-        "view"?: 'mobile';
     }
     interface PeculiarHighlightWords {
         "search"?: string;

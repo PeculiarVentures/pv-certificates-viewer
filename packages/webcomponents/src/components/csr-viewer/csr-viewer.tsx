@@ -13,6 +13,7 @@ import {
   Prop,
   State,
   Watch,
+  Build,
 } from '@stencil/core';
 
 import { CSR } from '../../crypto';
@@ -37,9 +38,11 @@ export type CsrProp = string | CSR;
   shadow: true,
 })
 export class CsrViewer {
-  certificateDecoded: CSR;
+  private certificateDecoded: CSR;
 
-  certificateDecodeError: Error;
+  private certificateDecodeError: Error;
+
+  private mobileMediaQuery: MediaQueryList;
 
   /**
    * The certificate value for decode and show details. Use PEM or DER.
@@ -70,14 +73,34 @@ export class CsrViewer {
   @Prop({ reflect: true }) subjectKeyIdSiblingsLink?: string;
 
   /**
-   * Choose view type instead @media.
+   * Mobile media query string to control screen view change.
+   * <br />
+   * **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+   * @example
+   *  (max-width: 900px)
    */
-  @Prop({ reflect: true }) view?: 'mobile';
+  @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
+
+  @State() mobileScreenView: boolean = false;
 
   @State() isDecodeInProcess: boolean = true;
 
+  private mediaQueryChange(event: MediaQueryListEvent) {
+    this.mobileScreenView = event.matches;
+  }
+
   componentWillLoad() {
     this.decodeCertificate(this.certificate);
+
+    if (Build.isBrowser) {
+      this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
+      this.mobileMediaQuery.addEventListener('change', this.mediaQueryChange.bind(this));
+      this.mobileScreenView = this.mobileMediaQuery.matches;
+    }
+  }
+
+  disconnectedCallback() {
+    this.mobileMediaQuery.removeEventListener('change', this.mediaQueryChange.bind(this));
   }
 
   private async decodeCertificate(certificate: CsrProp) {
@@ -186,7 +209,7 @@ export class CsrViewer {
 
     return (
       <Host
-        data-view={this.view}
+        data-mobile-screen-view={String(this.mobileScreenView)}
       >
         <table>
           <BasicInformation

@@ -7,7 +7,13 @@
  */
 
 import {
-  Component, Host, h, Prop, State, Watch,
+  Component,
+  Host,
+  h,
+  Prop,
+  State,
+  Watch,
+  Build,
 } from '@stencil/core';
 
 import { X509AttributeCertificate } from '../../crypto';
@@ -32,9 +38,11 @@ export type AttributeCertificateProp = string | X509AttributeCertificate;
   shadow: true,
 })
 export class AttributeCertificateViewer {
-  certificateDecoded: X509AttributeCertificate;
+  private certificateDecoded: X509AttributeCertificate;
 
-  certificateDecodeError: Error;
+  private certificateDecodeError: Error;
+
+  private mobileMediaQuery: MediaQueryList;
 
   /**
    * The certificate value for decode and show details. Use PEM or DER.
@@ -82,10 +90,35 @@ export class AttributeCertificateViewer {
    */
   @Prop({ reflect: true }) subjectKeyIdSiblingsLink?: string;
 
+  /**
+   * Mobile media query string to control screen view change.
+   * <br />
+   * **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+   * @example
+   *  (max-width: 900px)
+   */
+  @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
+
+  @State() mobileScreenView: boolean = false;
+
   @State() isDecodeInProcess: boolean = true;
+
+  private mediaQueryChange(event: MediaQueryListEvent) {
+    this.mobileScreenView = event.matches;
+  }
 
   componentWillLoad() {
     this.decodeCertificate(this.certificate);
+
+    if (Build.isBrowser) {
+      this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
+      this.mobileMediaQuery.addEventListener('change', this.mediaQueryChange.bind(this));
+      this.mobileScreenView = this.mobileMediaQuery.matches;
+    }
+  }
+
+  disconnectedCallback() {
+    this.mobileMediaQuery.removeEventListener('change', this.mediaQueryChange.bind(this));
   }
 
   private async decodeCertificate(certificate: AttributeCertificateProp) {
@@ -183,7 +216,9 @@ export class AttributeCertificateViewer {
     }
 
     return (
-      <Host>
+      <Host
+        data-mobile-screen-view={String(this.mobileScreenView)}
+      >
         <table>
           <BasicInformation
             {...this.certificateDecoded}

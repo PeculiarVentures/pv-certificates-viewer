@@ -61,3 +61,33 @@ table {
   justify-content: center;
   align-items: center;
 }
+
+:host([data-mobile-screen-view="true"]) {
+  table, tr, td {
+    display: block;
+  }
+
+  table {
+    tr {
+      padding: var(--pv-size-base-2) 0;
+
+      &.title {
+        padding-top: var(--pv-size-base-6);
+
+        td {
+          padding: 0 var(--pv-size-base-4);
+        }
+      }
+    }
+
+    td {
+      padding: 0 var(--pv-size-base-4);
+      width: 100% !important;
+      max-width: 100% !important;
+
+      &.divider {
+        padding: 0;
+      }
+    }
+  }
+}

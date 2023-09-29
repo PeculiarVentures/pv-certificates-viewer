@@ -15,6 +15,7 @@ import {
   Host,
   Event,
   EventEmitter,
+  Build,
 } from '@stencil/core';
 
 import { X509Certificate } from '../../crypto';
@@ -46,6 +47,10 @@ interface ICertificateDecoded {
   shadow: true,
 })
 export class CertificatesViewer {
+  private isHasRoots: boolean = false;
+
+  private mobileMediaQuery: MediaQueryList;
+
   /**
    * List of certificates values for decode and show in the list.
    * <br />
@@ -68,6 +73,17 @@ export class CertificatesViewer {
    */
   @Prop() highlightWithSearch: boolean = true;
 
+  /**
+   * Mobile media query string to control screen view change.
+   * <br />
+   * **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+   * @example
+   *  (max-width: 900px)
+   */
+  @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
+
+  @State() mobileScreenView: boolean = false;
+
   @State() search: string = '';
 
   @State() certificatesDecoded: ICertificateDecoded[] = [];
@@ -88,10 +104,22 @@ export class CertificatesViewer {
    */
   @Event() detailsClose!: EventEmitter<void>;
 
-  private isHasRoots: boolean = false;
+  private mediaQueryChange(event: MediaQueryListEvent) {
+    this.mobileScreenView = event.matches;
+  }
 
   componentWillLoad() {
     this.certificatesDecodeAndSet();
+
+    if (Build.isBrowser) {
+      this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
+      this.mobileMediaQuery.addEventListener('change', this.mediaQueryChange.bind(this));
+      this.mobileScreenView = this.mobileMediaQuery.matches;
+    }
+  }
+
+  disconnectedCallback() {
+    this.mobileMediaQuery.removeEventListener('change', this.mediaQueryChange.bind(this));
   }
 
   @Watch('certificates')
@@ -468,6 +496,7 @@ export class CertificatesViewer {
           <div class="modal_content">
             <peculiar-certificate-viewer
               certificate={this.certificateSelectedForDetails}
+              mobileMediaQueryString={this.mobileMediaQueryString}
             />
           </div>
         </div>
@@ -567,7 +596,9 @@ export class CertificatesViewer {
 
   render() {
     return (
-      <Host>
+      <Host
+        data-mobile-screen-view={String(this.mobileScreenView)}
+      >
         {this.renderSearch()}
         <table>
           <thead>
