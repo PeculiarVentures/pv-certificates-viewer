@@ -28,8 +28,6 @@
   "publicKey": "Public Key",
   "fingerprint": "Fingerprint",
   "fingerprints": "Fingerprints",
-  "actions": "Actions",
-  "details": "Details",
   "testURLs": "Test URLs",
   "certificateDetails": "Certificate Details",
   "holder": "Holder",
@@ -44,5 +42,8 @@
   "onlyCACertificates": "Only CA Certificates",
   "indirectCRL": "Indirect CRL",
   "onlyReasons": "Only Reasons",
-  "crlEntryExtensions": "CRL Entry Extensions"
+  "crlEntryExtensions": "CRL Entry Extensions",
+  "previewCertificate": "Preview certificate",
+  "viewDetails": "View details",
+  "downloadOptions": "Download options"
 }

@@ -29,7 +29,7 @@ FunctionalComponent<IExtendedKeyUsageExtensionProps> = (props) => {
     >
       {Boolean(extension.value.length) && ([
         <RowValue
-          name="Purposes:"
+          name="Purposes"
           value=""
         />,
         extension.value.map((usage) => (

@@ -15,7 +15,8 @@ import {
   CRL,
 } from '../../crypto';
 import { l10n } from '../../utils';
-
+import { Button } from '../button';
+import { DownloadIcon } from '../icons';
 import { RowTitle } from './row';
 
 type CertificateType = X509Certificate | X509AttributeCertificate | CSR | CRL;
@@ -32,26 +33,23 @@ export const Miscellaneous: FunctionalComponent<IMiscellaneousProps> = (props) =
       value={l10n.getString('miscellaneous')}
     />,
     <tr>
-      <td
-        class="vertical_align_middle"
-      >
-        <peculiar-typography
-          color="grey_5"
-        >
-          {l10n.getString('download')}
-          :
-        </peculiar-typography>
-      </td>
       <td>
-        <peculiar-button-split
+        <Button
           onClick={() => certificate.downloadAsPEM()}
-          actions={[{
-            text: l10n.getString('download.der'),
-            onClick: () => certificate.downloadAsDER(),
-          }]}
+          startIcon={<DownloadIcon />}
         >
           {l10n.getString('download.pem')}
-        </peculiar-button-split>
+        </Button>
+      </td>
+    </tr>,
+    <tr>
+      <td>
+        <Button
+          onClick={() => certificate.downloadAsDER()}
+          startIcon={<DownloadIcon />}
+        >
+          {l10n.getString('download.der')}
+        </Button>
       </td>
     </tr>,
   ];

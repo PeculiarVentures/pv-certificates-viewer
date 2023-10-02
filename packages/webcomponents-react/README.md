@@ -1,16 +1,20 @@
-# `@peculiar/certificates-viewer-react`
+# @peculiar/certificates-viewer-react
 
 These are React specific building blocks on top of [@peculiar/certificates-viewer](../webcomponents) components.
 
-## Installation
+## Using components
 
-#### npm
+To get started with using components install the `@peculiar/certificates-viewer-react` package:
 
 ```
 npm install @peculiar/certificates-viewer-react
 ```
 
-## Usage
+Import the stylesheets from peculiar in your main app file:
+
+```ts
+import '@peculiar/certificates-viewer/dist/peculiar/peculiar.css';
+```
 
 Then you can use a components anywhere in your JSX.
 
@@ -27,8 +31,6 @@ ReactDOM.render(
 );
 ```
 
-And add styles file to your HTML.
+### Customize the theme​
 
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@peculiar/certificates-viewer/dist/peculiar/peculiar.css">
-```
+To customize the look and feel of the components, components have CSS variables you can override to provide a theme for your components. See the supported CSS variables in [peculiar.scss](../webcomponents/src/css/peculiar.scss) file.

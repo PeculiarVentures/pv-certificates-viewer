@@ -4,15 +4,13 @@ import { sass } from '@stencil/sass';
 export const config: Config = {
   autoprefixCss: true,
   namespace: 'peculiar',
-  globalStyle: 'src/styles/peculiar.scss',
+  globalStyle: 'src/css/peculiar.scss',
   devServer: {
-    openBrowser: false,
+    openBrowser: true,
     port: 3000,
   },
   plugins: [
-    sass({
-      includePaths: ['./src/styles'],
-    }),
+    sass(),
   ],
   outputTargets: [
     {
@@ -25,6 +23,21 @@ export const config: Config = {
           dest: 'locales',
         },
       ],
+    },
+    {
+      type: 'dist-custom-elements',
+      dir: 'components',
+      copy: [
+        {
+          src: '../scripts/custom-elements',
+          dest: 'components',
+          warn: true,
+        },
+      ],
+      includeGlobalScripts: false,
+    },
+    {
+      type: 'dist-hydrate-script',
     },
     {
       type: 'docs-readme',
@@ -41,12 +54,6 @@ export const config: Config = {
       ],
     },
   ],
-  buildEs5: false,
-  extras: {
-    dynamicImportShim: true,
-    initializeNextTick: true,
-    scriptDataOpts: true,
-    experimentalImportInjection: true,
-  },
+  buildEs5: 'prod',
   preamble: '© Peculiar Ventures https://peculiarventures.com/ - MIT License',
 };

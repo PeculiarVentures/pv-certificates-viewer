@@ -30,7 +30,7 @@ FunctionalComponent<IInfoAccessSyntaxExtensionProps> = (props) => {
     >
       {Boolean(extension.value.length) && ([
         <RowValue
-          name="Descriptions:"
+          name="Descriptions"
           value=""
         />,
         extension.value.map((description) => (

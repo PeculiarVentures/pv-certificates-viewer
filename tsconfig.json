@@ -6,7 +6,9 @@
     "experimentalDecorators": true,
     "lib": [
       "dom",
-      "es2017"
+      "dom.iterable",
+      "es2017",
+      "es2020"
     ],
     "moduleResolution": "node",
     "module": "esnext",

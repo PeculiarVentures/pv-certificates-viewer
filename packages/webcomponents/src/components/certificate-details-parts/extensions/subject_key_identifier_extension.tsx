@@ -9,10 +9,9 @@
 import { h, FunctionalComponent } from '@stencil/core';
 import { SubjectKeyIdentifier } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
-
-import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
-
+import { Link } from '../../link';
+import { RowValue } from '../row';
 import { BasicExtension } from './basic_extension';
 
 interface ISubjectKeyIdentifierExtensionProps extends ISubjectKeyIdentifierOptions {
@@ -39,18 +38,18 @@ FunctionalComponent<ISubjectKeyIdentifierExtensionProps> = (props) => {
           childrenLink && (
             <span>
               &nbsp;[
-              <peculiar-link href={childrenLink}>
+              <Link href={childrenLink}>
                 children
-              </peculiar-link>
+              </Link>
               ]
             </span>
           ),
           siblingsLink && (
             <span>
               &nbsp;[
-              <peculiar-link href={siblingsLink}>
+              <Link href={siblingsLink}>
                 siblings
-              </peculiar-link>
+              </Link>
               ]
             </span>
           ),

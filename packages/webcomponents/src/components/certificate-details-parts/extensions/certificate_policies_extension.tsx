@@ -30,7 +30,7 @@ FunctionalComponent<ICertificatePoliciesExtensionProps> = (props) => {
     >
       {Boolean(extension.value.length) && ([
         <RowValue
-          name="Policies:"
+          name="Policies"
           value=""
         />,
         extension.value.map((policy) => (
@@ -41,7 +41,7 @@ FunctionalComponent<ICertificatePoliciesExtensionProps> = (props) => {
             />
             {policy.policyQualifiers && Boolean(policy.policyQualifiers.length) && ([
               <RowValue
-                name="Qualifiers:"
+                name="Qualifiers"
                 value=""
               />,
               policy.policyQualifiers.map((qualifierInfo) => {

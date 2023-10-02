@@ -2,20 +2,17 @@
   "name": "@peculiar/certificates-viewer-react",
   "version": "3.10.1",
   "private": false,
-  "description": "",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "esnext": "dist/esnext/index.js",
-  "typings": "dist/types/index.d.ts",
+  "description": "React specific wrapper for @peculiar/certificates-viewer",
+  "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist/"
   ],
   "scripts": {
-    "build": "npm run build:esm && npm run build:cjs && npm run build:esnext",
-    "build:esm": "tsc -p .",
-    "build:cjs": "tsc -p . -m commonjs --outDir dist/cjs",
-    "build:esnext": "tsc -p . -t esnext --outDir dist/esnext",
-    "clean": "rimraf dist"
+    "build": "npm run clean && npm run compile",
+    "clean": "rimraf dist",
+    "compile": "npm run tsc && rollup -c",
+    "tsc": "tsc -p ."
   },
   "license": "MIT",
   "author": "PeculiarVentures Team",
@@ -28,10 +25,13 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/node": "^15.6.1",
+    "@types/node": "^16.11.7",
     "@types/react": "^16.9.46",
+    "@rollup/plugin-node-resolve": "^8.1.0",
     "react": "^16.13.1",
     "rimraf": "^3.0.2",
+    "rollup": "^2.26.4",
+    "rollup-plugin-sourcemaps": "^0.6.2",
     "typescript": "^4.0.5"
   },
   "dependencies": {

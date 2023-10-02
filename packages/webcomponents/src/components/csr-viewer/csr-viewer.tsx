@@ -7,7 +7,13 @@
  */
 
 import {
-  Component, Host, h, Prop, State, Watch,
+  Component,
+  Host,
+  h,
+  Prop,
+  State,
+  Watch,
+  Build,
 } from '@stencil/core';
 
 import { CSR } from '../../crypto';
@@ -22,6 +28,7 @@ import {
   PublicKey,
   Attributes,
 } from '../certificate-details-parts';
+import { Typography } from '../typography';
 
 export type CsrProp = string | CSR;
 
@@ -31,9 +38,11 @@ export type CsrProp = string | CSR;
   shadow: true,
 })
 export class CsrViewer {
-  certificateDecoded: CSR;
+  private certificateDecoded: CSR;
 
-  certificateDecodeError: Error;
+  private certificateDecodeError: Error;
+
+  private mobileMediaQuery: MediaQueryList;
 
   /**
    * The certificate value for decode and show details. Use PEM or DER.
@@ -64,14 +73,34 @@ export class CsrViewer {
   @Prop({ reflect: true }) subjectKeyIdSiblingsLink?: string;
 
   /**
-   * Choose view type instead @media.
+   * Mobile media query string to control screen view change.
+   * <br />
+   * **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+   * @example
+   *  (max-width: 900px)
    */
-  @Prop({ reflect: true }) view?: 'mobile';
+  @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
+
+  @State() mobileScreenView: boolean = false;
 
   @State() isDecodeInProcess: boolean = true;
 
+  private handleMediaQueryChange(event: MediaQueryListEvent) {
+    this.mobileScreenView = event.matches;
+  }
+
   componentWillLoad() {
     this.decodeCertificate(this.certificate);
+
+    if (Build.isBrowser) {
+      this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
+      this.mobileMediaQuery.addEventListener('change', this.handleMediaQueryChange.bind(this));
+      this.mobileScreenView = this.mobileMediaQuery.matches;
+    }
+  }
+
+  disconnectedCallback() {
+    this.mobileMediaQuery.removeEventListener('change', this.handleMediaQueryChange.bind(this));
   }
 
   private async decodeCertificate(certificate: CsrProp) {
@@ -140,12 +169,9 @@ export class CsrViewer {
   private renderErrorState() {
     return (
       <div class="status_wrapper">
-        <peculiar-typography
-          type="b1"
-          class="interaction_text"
-        >
+        <Typography>
           There was an error decoding this certificate request.
-        </peculiar-typography>
+        </Typography>
       </div>
     );
   }
@@ -154,12 +180,9 @@ export class CsrViewer {
   private renderEmptyState() {
     return (
       <div class="status_wrapper">
-        <peculiar-typography
-          type="b1"
-          class="interaction_text"
-        >
+        <Typography>
           There is no certificate request available.
-        </peculiar-typography>
+        </Typography>
       </div>
     );
   }
@@ -186,7 +209,7 @@ export class CsrViewer {
 
     return (
       <Host
-        data-view={this.view}
+        data-mobile-screen-view={String(this.mobileScreenView)}
       >
         <table>
           <BasicInformation

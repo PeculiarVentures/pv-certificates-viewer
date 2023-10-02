@@ -30,7 +30,7 @@ FunctionalComponent<ISubjectDirectoryAttributesExtensionProps> = (props) => {
     >
       {Boolean(extension.value.length) && ([
         <RowValue
-          name="Attributes:"
+          name="Attributes"
           value=""
         />,
         extension.value.map((attribute) => (

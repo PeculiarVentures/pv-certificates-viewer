@@ -1,4 +1,4 @@
-@import 'component';
+@import '../../css/base.scss';
 
 :host {
   display: block;
@@ -7,7 +7,25 @@
   min-width: 280px;
   overflow: auto;
   position: relative;
-  @include propertyColorVariable(background, light);
+}
+
+.search_section {
+  padding: var(--pv-size-base-4);
+  border-bottom: 1px solid var(--pv-color-gray-4);
+}
+
+.input_search {
+  height: var(--pv-size-base-8);
+  width: 100%;
+  outline: none;
+  background-color: var(--pv-color-gray-1);
+  padding: 0 var(--pv-size-base-2);
+  border: 1px solid var(--pv-color-gray-7);
+  border-radius: 4px;
+  transition: background-color 200ms ease 0s, color 200ms ease 0s, border-color 200ms ease 0s;
+  &::placeholder {
+    color: var(--pv-color-gray-9);
+  }
 }
 
 table {
@@ -15,94 +33,74 @@ table {
   table-layout: fixed;
   border-collapse: collapse;
   border-spacing: 0;
+
+  td, th {
+    border-bottom: 1px solid var(--pv-color-gray-4);
+    vertical-align: top;
+    text-align: left;
+
+    &:first-child {
+      padding-right: 0;
+      width: var(--pv-size-base-10);
+    }
+    &:last-child {
+      padding-left: 0;
+      width: var(--pv-size-base-10);
+    }
+  }
+
+  th {
+    padding: var(--pv-size-base-2) var(--pv-size-base-4);
+
+    &.col_action {
+      padding: 0;
+    }
+  }
+
+  td {
+    padding: var(--pv-size-base-4);
+  }
+
+  tr {
+    &.m_expanded {
+      background: var(--pv-color-gray-1);
+
+      > td {
+        border-bottom: none;
+      }
+    }
+
+    &.expanded_summary {
+      background: var(--pv-color-gray-1);
+
+      table {
+        table-layout: initial;
+
+        td {
+          border-bottom: none;
+          padding: var(--pv-size-base-2);
+
+          &:first-child {
+            width: 200px;
+          }
+
+          &:last-child {
+            width: auto;
+          }
+        }
+      }
+    }
+  }
 }
 
-table thead {
-  @include propertyColorVariable(background-color, primary, 0.07);
+.button_table_cell {
+  margin-top: -3px;
 }
 
-table tr td {
+.status_wrapper {
+  text-align: center;
+  height: var(--pv-size-base-16);
   vertical-align: middle;
-}
-
-table tbody tr:not(.expanded_summary) {
-  cursor: pointer;
-}
-
-table tr {
-  @include propertyColorVariable(border-color, grey_3);
-}
-
-table th {
-  padding: 15px 10px;
-  border-width: 1px;
-  border-style: solid;
-  @include propertyColorVariable(border-color, grey_3);
-}
-
-table td {
-  padding: 8px 10px;
-  border-width: 1px;
-  border-style: solid;
-  @include propertyColorVariable(border-color, grey_3);
-}
-
-/* For col 4 */
-table .col_issuer,
-table .col_name,
-table .col_public_key {
-  width: 16%;
-}
-
-table .col_actions,
-table .col_tests {
-  width: 18%;
-}
-
-/* For col extra */
-table.m_extra .col_issuer,
-table.m_extra .col_name,
-table.m_extra .col_public_key {
-  width: 12%;
-}
-
-table.m_extra .col_actions,
-table.m_extra .col_tests {
-  width: 17%;
-}
-
-/* Expande rows styles */
-/* First row */
-table tr.expanded td:not(:last-child) {
-  border-right-color: transparent;
-}
-
-table tr.expanded td {
-  border-bottom-color: transparent;
-}
-
-.expanded {
-  border-bottom-color: transparent;
-  @include propertyColorVariable(background-color, primary, 0.04);
-}
-
-table tr.expanded_summary {
-  @include propertyColorVariable(background-color, primary, 0.04);
-}
-
-/* Second row */
-table tr.expanded_summary td {
-  vertical-align: top;
-  padding: 10px 20px 26px;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0.001;
-  }
-  100% {
-    opacity: 1;
-  }
 }
 
 .modal_wrapper {
@@ -112,219 +110,93 @@ table tr.expanded_summary td {
   width: 100%;
   height: 100%;
   z-index: 1;
-  overflow: auto;
-  text-align: center;
   animation: fadeIn 200ms;
-  padding: 30px 10px;
-
-  &:before {
-    display: inline-block;
-    vertical-align: middle;
-    width: 0;
-    height: 100%;
-    content: '';
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal_backdrop {
-  @include propertyColorVariable(background, dark, 0.5);
+  background: var(--pv-color-black);
   z-index: -1;
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  opacity: 0.5;
 }
 
 .modal_container {
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
+  background: var(--pv-color-white);
   width: 100%;
-  max-width: 900px;
-  text-align: left;
-  border-radius: 3px;
+  display: flex;
+  max-height: calc(100% - 60px);
+  flex-direction: column;
+  margin: var(--pv-size-base-6);
+  position: relative;
+  outline: none;
+  box-shadow: var(--pv-shadow-dark-hight);
   overflow: hidden;
-  @include propertyColorVariable(background-color, light);
-  height: 100%;
+  border: 0px;
+  padding: 0px;
+  max-width: 640px;
+  border-radius: 4px;
 }
 
-.modal_title {
-  @include propertyColorVariable(background-color, primary, 0.07);
-  @include propertyColorVariable(border-color, grey_3);
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  padding: 20px 60px 16px 20px;
-  position: relative;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  height: 60px;
+.modal_header {
+  padding: var(--pv-size-base-3) var(--pv-size-base-4);
+  display: flex;
+  flex: 0 0 auto;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  gap: var(--pv-size-base-2);
+  border-bottom: 1px solid var(--pv-color-gray-5);
 }
 
 .modal_content {
-  height: calc(100% - 60px);
-  overflow-y: auto;
+  flex: 1 1 auto;
+  overflow: auto;
 }
 
-.modal_close {
-  cursor: pointer;
-  border: none;
-  background-color: transparent;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  padding: 0 12px;
-  transition: opacity 100ms;
-  outline: none;
-
-  &:hover {
-    opacity: 0.6;
-  }
-
-  svg {
-    @include propertyColorVariable(fill, dark);
-  }
-}
-
-.button_table_action {
-  margin: 2px;
-}
-
-/* Adaptivity styles */
-.mobile_title {
-  display: none;
-}
-
-/* Empty state */
-.status_wrapper {
-  height: 85px;
-  text-align: center;
-  pointer-events: none;
-}
-
-/* Search */
-.search_section {
-  @include propertyColorVariable(background-color, primary, 0.07);
-  @include propertyColorVariable(border-color, grey_3);
-  height: 50px;
-  padding: 10px;
-  border-width: 1px 1px 0 1px;
-  border-style: solid;
-}
-
-.input_search {
-  height: 100%;
-  width: 100%;
-  border-radius: 3px;
-  border-width: 1px;
-  border-style: solid;
-  padding: 0 14px;
-  font-size: 12px;
-  outline: none;
-  @include propertyColorVariable(border-color, grey_3);
-  @include propertyColorVariable(color, dark);
-
-  &::placeholder {
-    @include propertyColorVariable(color, grey_3);
-  }
-}
-
-.loading_container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  @include propertyColorVariable(background, dark, 0.3);
-  display: flex;
-  align-items: center;
-}
-
-.align_center {
-  text-align: center;
-}
-
-@media (hover: hover) {
-  table tbody tr:not(.expanded_summary):hover {
-    @include propertyColorVariable(background-color, primary, 0.04);
-  }
-}
-
-@media (max-width: 900px) {
+:host([data-mobile-screen-view="true"]) {
   table, tbody, tr, td {
     display: block;
+    width: 100% !important;
+    padding: 0;
+    border: none;
   }
 
   thead {
     display: none;
   }
 
-  tr {
-    padding: 0 15px;
-    border-width: 1px;
-    border-style: solid;
+  table {
+    tr {
+      padding: var(--pv-size-base-2) 0;
+    }
+
+    .expanded_summary {
+      padding: 0;
+    }
+
+    .certificate_row {
+      border-bottom: 1px solid var(--pv-color-gray-5);
+      padding: var(--pv-size-base-2) var(--pv-size-base-4);
+    }
+
+    .certificate_row_actions {
+      padding-top: var(--pv-size-base-6);
+
+      td {
+        display: flex;
+        justify-content: right;
+        gap: var(--pv-size-base-4);
+      }
+    }
   }
 
-  tr:not(:first-child) {
-    margin-top: -1px;
-  }
-
-  tr:not(.expanded_summary) td:first-child {
-    border: none! important;
-  }
-
-  table td {
-    padding-left: 0;
-    padding-right: 0;
-    border-width: 1px 0 0 0 ! important;
-    @include propertyColorVariable(border-color, grey_3, 0.5);
-  }
-
-  table tr.expanded_summary td {
-    padding: 15px 0
-  }
-
-  .mobile_title {
-    display: inline-block;
-    width: 90px;
-    vertical-align: middle;
-  }
-
-  .modal_title {
-    padding: 17px 60px 17px 15px;
-  }
-
-  .content {
-    display: inline-block;
-    width: calc(100% - 90px);
-    vertical-align: middle;
-    text-align: left;
-  }
-
-  .expanded_summary {
-    border-top-color: transparent;
-    padding-bottom: 10px;
-  }
-
-  .expanded_summary td:before {
-    content: none;
-  }
-
-  /* Empty state */
-  .status_wrapper {
-    height: 266px;
-    display: table-cell;
-  }
-
-  /* Search */
-  .search_section {
-    height: 60px;
-    padding: 15px;
-  }
-
-  .align_center {
-    text-align: inherit;
+  .button_table_cell {
+    margin-top: 0;
   }
 }

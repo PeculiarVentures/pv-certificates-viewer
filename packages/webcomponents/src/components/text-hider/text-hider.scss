@@ -1,44 +1,23 @@
-@import 'component';
-
 :host {
-  display: block;
+  display: flex;
   width: 100%;
+  gap: var(--pv-size-base-4);
+
+  &[aria-expanded="true"] {
+    .content {
+      white-space: initial;
+    }
+  }
 }
 
-.text {
-  display: inline-block;
-  width: calc(100% - 60px);
+.content {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin: 0;
-}
-
-.text.m_opened {
-  white-space: initial;
+  width: 100%;
 }
 
 .action {
-  vertical-align: top;
-  display: inline-block;
-  width: 60px;
-  text-align: right;
-  position: relative;
-  top: -6px;
-}
-
-.button_action {
-  width: 30px;
-}
-
-.expand_icon {
-  width: 7px;
-  height: 5px;
-  display: inline-block;
-}
-
-.m_opened {
-  .expand_icon {
-    transform: rotate(180deg);
-  }
+  flex-shrink: 0;
+  margin-top: calc(var(--pv-size-base) * -1);
 }

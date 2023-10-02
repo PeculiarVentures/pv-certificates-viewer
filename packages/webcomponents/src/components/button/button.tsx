@@ -6,75 +6,52 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  Component, h, Prop,
-} from '@stencil/core';
+import { FunctionalComponent, h, VNode } from '@stencil/core';
+import { Typography } from '../typography';
 
-@Component({
-  tag: 'peculiar-button',
-  styleUrl: 'button.scss',
-  shadow: true,
-})
-export class Button {
-  @Prop() fill?: 'stroke' | 'fill' = 'stroke';
-
-  /**
-   * Set to true to disable the button.
-   * */
-  @Prop({ reflect: true }) disabled?: boolean;
-
-  /**
-   * When set, the underlying button will be rendered as an `<a>` with
-   * this `href` instead of a `<button>`.
-   * */
-  @Prop() href?: string;
-
-  /**
-   * Tells the browser where to open the link. Only used when `href` is set.
-   * */
-  @Prop() target: '_blank' | '_parent' | '_self' | '_top';
-
-  @Prop() onClick?: (event: MouseEvent) => void;
-
-  handleClick = (event: MouseEvent) => {
-    if (this.disabled) {
-      event.preventDefault();
-      event.stopPropagation();
-
-      return;
-    }
-
-    if (this.onClick) {
-      this.onClick(event);
-    }
-  };
-
-  render() {
-    const isLink = !!this.href;
-    const TagType = isLink ? 'a' : 'button';
-
-    return (
-      <TagType
-        class={{
-          button: true,
-
-          button_stroke: this.fill === 'stroke',
-          button_fill: this.fill === 'fill',
-
-          button_disabled: this.disabled,
-        }}
-        disabled={this.disabled}
-        type={!isLink && 'button'}
-        href={isLink && this.href}
-        target={isLink && this.target ? this.target : null}
-        rel={isLink && 'noreferrer noopener'}
-        onClick={this.handleClick}
-        part="base"
-      >
-        <span part="label" class="button_label">
-          <slot />
-        </span>
-      </TagType>
-    );
-  }
+export interface ButtonProps {
+  href?: string;
+  class?: string;
+  startIcon?: VNode;
+  onClick?: (event: MouseEvent) => void;
 }
+
+export const Button: FunctionalComponent<ButtonProps> = (props, children) => {
+  const {
+    href,
+    class: classProp,
+    startIcon,
+    onClick,
+  } = props;
+
+  const isLink = !!href;
+  const TagType = isLink ? 'a' : 'button';
+
+  return (
+    <TagType
+      type={!isLink && 'button'}
+      href={isLink && href}
+      target={isLink && '_blank'}
+      rel={isLink && 'noreferrer noopener'}
+      onClick={onClick}
+      class={{
+        button: true,
+        // eslint-disable-next-line react/destructuring-assignment
+        m_no_padding: children.length === 0,
+        [classProp]: Boolean(classProp),
+      }}
+    >
+      {startIcon}
+      {/* eslint-disable-next-line react/destructuring-assignment */}
+      {children.length > 0 && (
+        <Typography
+          variant="b3"
+          color="black"
+          component="span"
+        >
+          {children}
+        </Typography>
+      )}
+    </TagType>
+  );
+};

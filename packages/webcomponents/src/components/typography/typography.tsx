@@ -6,58 +6,55 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  Component, h, Prop,
-} from '@stencil/core';
+import { FunctionalComponent, h } from '@stencil/core';
+import type { TypographyType, ColorType } from '../../interface';
 
-import { ColorType } from '../../interface';
-
-@Component({
-  tag: 'peculiar-typography',
-  styleUrl: 'typography.scss',
-  shadow: true,
-})
-export class PeculiarTypography {
-  /**
-   * Typography type.
-   */
-  @Prop({ reflect: true }) type: 'h4' | 'h6' | 'h7' | 'b1' | 'b3' = 'b3';
-
-  /**
-   * Component color from theme.
-   */
-  @Prop() color: ColorType = 'dark';
-
-  /**
-   * Text align.
-   */
-  @Prop() align?: 'left' | 'center' | 'right';
-
-  /**
-   * If `true`, the text will not wrap, but instead will truncate with a text overflow ellipsis.
-   */
-  @Prop() ellipsis?: boolean;
-
-  @Prop() monospace?: boolean;
-
-  render() {
-    const TagType = this.type && this.type.includes('h') ? this.type : 'p';
-
-    return (
-      <TagType
-        class={{
-          typography: true,
-
-          [`typography_type_${this.type || 'b3'}`]: true,
-          [`typography_color_${this.color || 'dark'}`]: true,
-          [`typography_align_${this.align}`]: !!this.align,
-
-          typography_ellipsis: this.ellipsis,
-          typography_monospace: this.monospace,
-        }}
-      >
-        <slot />
-      </TagType>
-    );
-  }
+interface TypographyProps {
+  component?: keyof JSX.IntrinsicElements;
+  variant?: TypographyType;
+  color?: ColorType;
+  class?: string;
 }
+
+const variantMapping: Record<TypographyType, 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'> = {
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  s1: 'h6',
+  s2: 'h6',
+  b1: 'p',
+  b2: 'p',
+  b3: 'p',
+  btn1: 'span',
+  btn2: 'span',
+  c1: 'p',
+  c2: 'p',
+};
+
+export const Typography: FunctionalComponent<TypographyProps> = (props, children) => {
+  const {
+    component: componentProp,
+    variant = 'b2',
+    color = 'black',
+    class: classProp,
+    ...other
+  } = props;
+
+  const Component = componentProp || variantMapping[variant] || 'p';
+
+  return (
+    <Component
+      {...other}
+      class={{
+        typography: true,
+        [`t-${variant}`]: true,
+        [`c-${color}`]: true,
+        [classProp]: Boolean(classProp),
+      }}
+    >
+      {children}
+    </Component>
+  );
+};

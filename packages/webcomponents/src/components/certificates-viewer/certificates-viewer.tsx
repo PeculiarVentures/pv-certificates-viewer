@@ -15,11 +15,23 @@ import {
   Host,
   Event,
   EventEmitter,
+  Build,
 } from '@stencil/core';
 
 import { X509Certificate } from '../../crypto';
 import { OIDs } from '../../constants/oids';
 import { l10n } from '../../utils';
+import { Typography } from '../typography';
+import { CertificateSummary } from '../certificate-summary';
+import { Button } from '../button';
+import {
+  DownloadIcon,
+  LinkIcon,
+  DetailsIcon,
+  ArrowBottomIcon,
+  ArrowTopIcon,
+  CrossIcon,
+} from '../icons';
 
 export interface ICertificate {
   value: string;
@@ -43,6 +55,10 @@ interface ICertificateDecoded {
   shadow: true,
 })
 export class CertificatesViewer {
+  private isHasRoots: boolean = false;
+
+  private mobileMediaQuery: MediaQueryList;
+
   /**
    * List of certificates values for decode and show in the list.
    * <br />
@@ -65,15 +81,14 @@ export class CertificatesViewer {
    */
   @Prop() highlightWithSearch: boolean = true;
 
-  @State() search: string = '';
-
-  @State() certificatesDecoded: ICertificateDecoded[] = [];
-
-  @State() expandedRow?: number;
-
-  @State() certificateSelectedForDetails?: X509Certificate;
-
-  @State() isDecodeInProcess: boolean = true;
+  /**
+   * Mobile media query string to control screen view change.
+   * <br />
+   * **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+   * @example
+   *  (max-width: 900px)
+   */
+  @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
 
   /**
    * Emitted when the user open certificate details modal.
@@ -85,12 +100,34 @@ export class CertificatesViewer {
    */
   @Event() detailsClose!: EventEmitter<void>;
 
-  private isHasTests: boolean = false;
+  @State() mobileScreenView: boolean = false;
 
-  private isHasRoots: boolean = false;
+  @State() search: string = '';
+
+  @State() certificatesDecoded: ICertificateDecoded[] = [];
+
+  @State() expandedRow?: number;
+
+  @State() certificateSelectedForDetails?: X509Certificate;
+
+  @State() isDecodeInProcess: boolean = true;
+
+  private handleMediaQueryChange(event: MediaQueryListEvent) {
+    this.mobileScreenView = event.matches;
+  }
 
   componentWillLoad() {
     this.certificatesDecodeAndSet();
+
+    if (Build.isBrowser) {
+      this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
+      this.mobileMediaQuery.addEventListener('change', this.handleMediaQueryChange.bind(this));
+      this.mobileScreenView = this.mobileMediaQuery.matches;
+    }
+  }
+
+  disconnectedCallback() {
+    this.mobileMediaQuery.removeEventListener('change', this.handleMediaQueryChange.bind(this));
   }
 
   @Watch('certificates')
@@ -104,7 +141,6 @@ export class CertificatesViewer {
   }
 
   async certificatesDecodeAndSet() {
-    let hasTests = false;
     let hasRoots = false;
 
     if (!Array.isArray(this.certificates)) {
@@ -129,43 +165,27 @@ export class CertificatesViewer {
         if (!hasRoots && decoded.isRoot) {
           hasRoots = true;
         }
-
-        if (!hasTests) {
-          if (
-            certificate.tests
-            && (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid)
-          ) {
-            hasTests = true;
-          }
-        }
       } catch (error) {
         console.error('Error certificate parse:', error);
       }
     }
 
-    this.isHasTests = hasTests;
     this.isHasRoots = hasRoots;
     this.isDecodeInProcess = false;
     this.certificatesDecoded = data;
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private handleClickDownloadAsPem(certificate: ICertificateDecoded, e: MouseEvent) {
-    e.stopPropagation();
-
+  private handleClickDownloadAsPem(certificate: ICertificateDecoded) {
     certificate.body.downloadAsPEM(certificate.name || certificate.body.commonName);
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private handleClickDownloadAsDer(certificate: ICertificateDecoded, e: MouseEvent) {
-    e.stopPropagation();
-
+  private handleClickDownloadAsDer(certificate: ICertificateDecoded) {
     certificate.body.downloadAsDER(certificate.name || certificate.body.commonName);
   }
 
-  private handleClickDetails = (certificate: X509Certificate, e: MouseEvent) => {
-    e.stopPropagation();
-
+  private handleClickDetails = (certificate: X509Certificate) => {
     this.certificateSelectedForDetails = certificate;
     this.detailsOpen.emit(certificate);
   };
@@ -184,12 +204,12 @@ export class CertificatesViewer {
       : index;
   }
 
-  private getMaxColSpanValue() {
-    let colSpan = 4;
+  private handleSearch = (event: any) => {
+    this.search = event.target.value.trim();
+  };
 
-    if (this.isHasTests) {
-      colSpan += 1;
-    }
+  private getMaxColSpanValue() {
+    let colSpan = 5;
 
     if (!this.isHasRoots) {
       colSpan += 1;
@@ -198,69 +218,82 @@ export class CertificatesViewer {
     return colSpan;
   }
 
+  private renderCertificateButtonActions(certificate: ICertificateDecoded) {
+    const isHasTestURLs = certificate.tests
+        && (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid);
+
+    return (
+      <peculiar-button-menu
+        class="button_table_cell"
+        groups={[
+          {
+            title: l10n.getString('previewCertificate'),
+            options: [
+              {
+                text: l10n.getString('viewDetails'),
+                startIcon: <DetailsIcon />,
+                onClick: () => this.handleClickDetails(certificate.body),
+              },
+            ],
+          },
+          {
+            title: l10n.getString('downloadOptions'),
+            options: [
+              {
+                text: l10n.getString('download.pem'),
+                startIcon: <DownloadIcon />,
+                onClick: () => this.handleClickDownloadAsPem(certificate),
+              },
+              {
+                text: l10n.getString('download.der'),
+                startIcon: <DownloadIcon />,
+                onClick: () => this.handleClickDownloadAsDer(certificate),
+              },
+            ],
+          },
+          ...(isHasTestURLs ? [{
+            title: l10n.getString('testURLs'),
+            options: [
+              ...(certificate.tests?.valid ? [{
+                text: l10n.getString('valid'),
+                href: certificate.tests.valid,
+                startIcon: <LinkIcon />,
+              }] : []),
+              ...(certificate.tests?.revoked ? [{
+                text: l10n.getString('revoked'),
+                href: certificate.tests.revoked,
+                startIcon: <LinkIcon />,
+              }] : []),
+              ...(certificate.tests?.expired ? [{
+                text: l10n.getString('expired'),
+                href: certificate.tests.expired,
+                startIcon: <LinkIcon />,
+              }] : []),
+            ],
+          }] : []),
+        ]}
+      />
+    );
+  }
+
   private renderExpandedRow(certificate: X509Certificate) {
-    const colSpan = this.getMaxColSpanValue();
+    const colSpan = this.getMaxColSpanValue() - 2;
 
     return (
       <tr class="expanded_summary">
+        <td />
         <td colSpan={colSpan}>
-          <peculiar-certificate-summary
+          <CertificateSummary
             certificate={certificate}
             showIssuer={!certificate.isRoot}
           />
         </td>
+        <td />
       </tr>
     );
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  private renderCertificateTests(tests: ICertificateDecoded['tests']) {
-    if (!tests) {
-      return null;
-    }
-
-    const elems = [];
-
-    if (tests.valid) {
-      elems.push((
-        <peculiar-button
-          class="button_table_action"
-          href={tests.valid}
-          target="_blank"
-        >
-          {l10n.getString('valid')}
-        </peculiar-button>
-      ));
-    }
-
-    if (tests.revoked) {
-      elems.push((
-        <peculiar-button
-          class="button_table_action"
-          href={tests.revoked}
-          target="_blank"
-        >
-          {l10n.getString('revoked')}
-        </peculiar-button>
-      ));
-    }
-
-    if (tests.expired) {
-      elems.push((
-        <peculiar-button
-          class="button_table_action"
-          href={tests.expired}
-          target="_blank"
-        >
-          {l10n.getString('expired')}
-        </peculiar-button>
-      ));
-    }
-
-    return elems;
-  }
-
-  private renderContentState() {
+  private renderCertificatesRows() {
     const searchHighlight = this.highlightWithSearch
       ? this.search
       : '';
@@ -287,113 +320,145 @@ export class CertificatesViewer {
         }
       }
 
+      if (this.mobileScreenView) {
+        content.push([
+          <tr
+            class={{
+              certificate_row: true,
+              m_expanded: isExpandedRow,
+            }}
+            key={certificate.body.thumbprints['SHA-1']}
+          >
+            <td>
+              <table>
+                <tbody>
+                  {!this.isHasRoots && (
+                    <tr>
+                      <td>
+                        <Typography variant="b2" color="gray-9">
+                          {l10n.getString('issuer')}
+                        </Typography>
+                      </td>
+                      <td>
+                        <Typography variant="b2" color="black">
+                          <peculiar-highlight-words search={searchHighlight}>
+                            {certificate.body.issuerCommonName}
+                          </peculiar-highlight-words>
+                        </Typography>
+                      </td>
+                    </tr>
+                  )}
+                  <tr>
+                    <td>
+                      <Typography variant="b2" color="gray-9">
+                        {l10n.getString('name')}
+                      </Typography>
+                    </td>
+                    <td>
+                      <Typography variant="b2" color="black">
+                        <peculiar-highlight-words search={searchHighlight}>
+                          {certificate.name || certificate.body.commonName}
+                        </peculiar-highlight-words>
+                      </Typography>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <Typography variant="b2" color="gray-9">
+                        {l10n.getString('publicKey')}
+                      </Typography>
+                    </td>
+                    <td>
+                      <Typography variant="b2" color="black">
+                        <peculiar-highlight-words search={searchHighlight}>
+                          {publicKeyValue}
+                        </peculiar-highlight-words>
+                      </Typography>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <Typography variant="b2" color="gray-9">
+                        {l10n.getString('fingerprint')}
+                        &nbsp; (SHA-1)
+                      </Typography>
+                    </td>
+                    <td>
+                      <Typography variant="b2" color="black">
+                        <peculiar-highlight-words search={searchHighlight}>
+                          {certificate.body.thumbprints['SHA-1']}
+                        </peculiar-highlight-words>
+                      </Typography>
+                    </td>
+                  </tr>
+                  {isExpandedRow && this.renderExpandedRow(certificate.body)}
+                  <tr class="certificate_row_actions">
+                    <td>
+                      {this.renderCertificateButtonActions(certificate)}
+                      <Button
+                        // eslint-disable-next-line react/jsx-no-bind
+                        onClick={this.handleClickRow.bind(this, index)}
+                        startIcon={isExpandedRow ? <ArrowTopIcon /> : <ArrowBottomIcon />}
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>,
+        ]);
+
+        return;
+      }
+
       content.push([
         <tr
           class={{
-            expanded: isExpandedRow,
+            m_expanded: isExpandedRow,
           }}
-          onClick={this.handleClickRow.bind(this, index)}
           key={certificate.body.thumbprints['SHA-1']}
         >
+          <td>
+            <Button
+              class="button_table_cell"
+              // eslint-disable-next-line react/jsx-no-bind
+              onClick={this.handleClickRow.bind(this, index)}
+              startIcon={isExpandedRow ? <ArrowTopIcon /> : <ArrowBottomIcon />}
+            />
+          </td>
           {!this.isHasRoots && (
             <td>
-              <peculiar-typography
-                class="mobile_title"
-                color="grey_5"
-              >
-                {l10n.getString('issuer')}
-                :
-              </peculiar-typography>
-              <peculiar-typography class="content">
+              <Typography>
                 <peculiar-highlight-words search={searchHighlight}>
                   {certificate.body.issuerCommonName}
                 </peculiar-highlight-words>
-              </peculiar-typography>
+              </Typography>
             </td>
           )}
           <td>
-            <peculiar-typography
-              class="mobile_title"
-              color="grey_5"
-            >
-              {l10n.getString('name')}
-              :
-            </peculiar-typography>
-            <peculiar-typography class="content">
+            <Typography>
               <peculiar-highlight-words search={searchHighlight}>
                 {certificate.name || certificate.body.commonName}
               </peculiar-highlight-words>
-            </peculiar-typography>
+            </Typography>
           </td>
           <td>
-            <peculiar-typography
-              class="mobile_title"
-              color="grey_5"
-            >
-              {l10n.getString('publicKey')}
-              :
-            </peculiar-typography>
-            <peculiar-typography class="content">
+            <Typography>
               <peculiar-highlight-words search={searchHighlight}>
                 {publicKeyValue}
               </peculiar-highlight-words>
-            </peculiar-typography>
+            </Typography>
           </td>
           <td>
-            <peculiar-typography
-              class="mobile_title"
-              color="grey_5"
-            >
-              {l10n.getString('fingerprint')}
-              &nbsp; (SHA-1):
-            </peculiar-typography>
-            <peculiar-typography class="content" monospace>
+            <Typography>
               <peculiar-highlight-words search={searchHighlight}>
                 {certificate.body.thumbprints['SHA-1']}
               </peculiar-highlight-words>
-            </peculiar-typography>
+            </Typography>
           </td>
-          <td class="align_center">
-            <peculiar-typography
-              class="mobile_title"
-              color="grey_5"
-            >
-              {l10n.getString('actions')}
-              :
-            </peculiar-typography>
-            <span class="content">
-              <peculiar-button
-                onClick={this.handleClickDetails.bind(this, certificate.body)}
-                class="button_table_action"
-              >
-                {l10n.getString('details')}
-              </peculiar-button>
-              <peculiar-button-split
-                onClick={this.handleClickDownloadAsPem.bind(this, certificate)}
-                actions={[{
-                  text: l10n.getString('download.der'),
-                  onClick: this.handleClickDownloadAsDer.bind(this, certificate),
-                }]}
-                class="button_table_action"
-              >
-                {l10n.getString('download.pem')}
-              </peculiar-button-split>
-            </span>
+          <td>
+            {this.renderCertificateButtonActions(certificate)}
           </td>
-          {this.isHasTests && (
-            <td class="align_center">
-              <peculiar-typography
-                class="mobile_title"
-                color="grey_5"
-              >
-                {l10n.getString('testURLs')}
-                :
-              </peculiar-typography>
-              <span class="content">
-                {this.renderCertificateTests(certificate.tests)}
-              </span>
-            </td>
-          )}
         </tr>,
         isExpandedRow && this.renderExpandedRow(certificate.body),
       ]);
@@ -424,36 +489,21 @@ export class CertificatesViewer {
           role="dialog"
           part="presentation_container"
         >
-          <header class="modal_title">
-            <peculiar-typography
-              type="h4"
+          <header class="modal_header">
+            <Typography
+              variant="h4"
             >
               {l10n.getString('certificateDetails')}
-            </peculiar-typography>
-            <button
-              class="modal_close"
+            </Typography>
+            <Button
               onClick={this.handleModalClose}
-              type="button"
-              aria-label="Close"
-              title="Close"
-            >
-              <svg
-                width="30"
-                height="30"
-                viewBox="0 0 30 30"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M15.7204 14.375L21.0654 19.7185C21.3115 19.9658 21.3115 20.3693 21.0654 20.6154L20.615 21.0645C20.3689 21.3118 19.9667 21.3118 19.7181 21.0645L14.3744 15.721L9.03194 21.0645C8.78327 21.3118 8.3811 21.3118 8.13371 21.0645L7.68459 20.6154C7.43847 20.3693 7.43847 19.9658 7.68459 19.7185L13.0296 14.375L7.68459 9.03155C7.43847 8.78417 7.43847 8.38074 7.68459 8.13463L8.13371 7.68554C8.3811 7.43815 8.78327 7.43815 9.03194 7.68554L14.3744 13.029L19.7181 7.68554C19.9667 7.43815 20.3689 7.43815 20.615 7.68554L21.0654 8.13463C21.3115 8.38074 21.3115 8.78417 21.0654 9.03155L15.7204 14.375Z"
-                />
-              </svg>
-            </button>
+              startIcon={<CrossIcon />}
+            />
           </header>
           <div class="modal_content">
             <peculiar-certificate-viewer
               certificate={this.certificateSelectedForDetails}
+              mobileMediaQueryString={this.mobileMediaQueryString}
             />
           </div>
         </div>
@@ -472,7 +522,7 @@ export class CertificatesViewer {
           onInput={this.handleSearch}
           type="search"
           value=""
-          class="input_search"
+          class="input_search t-b3 c-black"
           disabled={!this.certificatesDecoded.length}
           placeholder="Search"
         />
@@ -489,12 +539,11 @@ export class CertificatesViewer {
           class="status_wrapper"
           colSpan={colSpan}
         >
-          <peculiar-typography
-            type="b1"
-            align="center"
+          <Typography
+            variant="b1"
           >
             There are no certificates available.
-          </peculiar-typography>
+          </Typography>
         </td>
       </tr>
     );
@@ -509,14 +558,13 @@ export class CertificatesViewer {
           class="status_wrapper"
           colSpan={colSpan}
         >
-          <peculiar-typography
-            type="b1"
-            align="center"
+          <Typography
+            variant="b1"
           >
             No results found for &ldquo;
             {this.search}
             &ldquo;
-          </peculiar-typography>
+          </Typography>
         </td>
       </tr>
     );
@@ -531,7 +579,7 @@ export class CertificatesViewer {
     );
   }
 
-  private renderBody() {
+  private renderTableBody() {
     if (this.isDecodeInProcess) {
       return null;
     }
@@ -540,89 +588,60 @@ export class CertificatesViewer {
       return this.renderEmptyState();
     }
 
-    const contentState = this.renderContentState();
+    const certificatesRows = this.renderCertificatesRows();
 
-    if (this.search && !contentState.length) {
+    if (this.search && !certificatesRows.length) {
       return this.renderEmptySearchState();
     }
 
-    return contentState;
+    return certificatesRows;
   }
-
-  private handleSearch = (e: any) => {
-    this.search = e.target.value.trim();
-  };
 
   render() {
     return (
-      <Host>
+      <Host
+        data-mobile-screen-view={String(this.mobileScreenView)}
+      >
         {this.renderSearch()}
-        <table
-          class={{
-            m_extra: this.isHasTests || !this.isHasRoots,
-          }}
-        >
-          <thead>
-            <tr>
-              {!this.isHasRoots && (
-                <th class="col_issuer">
-                  <peculiar-typography
-                    type="h7"
-                    align="left"
-                  >
-                    {l10n.getString('issuer')}
-                  </peculiar-typography>
+        <table>
+          {!this.mobileScreenView && (
+            <thead>
+              <tr>
+                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                <th />
+                {!this.isHasRoots && (
+                  <th class="col_issuer">
+                    <Typography variant="s2">
+                      {l10n.getString('issuer')}
+                    </Typography>
+                  </th>
+                )}
+                <th class="col_name">
+                  <Typography variant="s2">
+                    {l10n.getString('name')}
+                  </Typography>
                 </th>
-              )}
-              <th class="col_name">
-                <peculiar-typography
-                  type="h7"
-                  align="left"
-                >
-                  {l10n.getString('name')}
-                </peculiar-typography>
-              </th>
-              <th class="col_public_key">
-                <peculiar-typography
-                  type="h7"
-                  align="left"
-                >
-                  {l10n.getString('publicKey')}
-                </peculiar-typography>
-              </th>
-              <th class="col_fingerprint">
-                <peculiar-typography
-                  type="h7"
-                  align="left"
-                >
-                  {l10n.getString('fingerprint')}
-                  &nbsp; (SHA-1)
-                </peculiar-typography>
-              </th>
-              <th class="col_actions">
-                <peculiar-typography
-                  type="h7"
-                  align="center"
-                >
-                  {l10n.getString('actions')}
-                </peculiar-typography>
-              </th>
-              {this.isHasTests && (
-                <th class="col_tests">
-                  <peculiar-typography
-                    type="h7"
-                    align="center"
-                  >
-                    {l10n.getString('testURLs')}
-                  </peculiar-typography>
+                <th class="col_public_key">
+                  <Typography variant="s2">
+                    {l10n.getString('publicKey')}
+                  </Typography>
                 </th>
-              )}
-            </tr>
-          </thead>
+                <th class="col_fingerprint">
+                  <Typography variant="s2">
+                    {l10n.getString('fingerprint')}
+                    &nbsp; (SHA-1)
+                  </Typography>
+                </th>
+                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                <th />
+              </tr>
+            </thead>
+          )}
           <tbody>
-            {this.renderBody()}
+            {this.renderTableBody()}
           </tbody>
         </table>
+
         {this.renderCertificateDetailsModal()}
         {this.isDecodeInProcess && this.renderLoadingState()}
       </Host>
