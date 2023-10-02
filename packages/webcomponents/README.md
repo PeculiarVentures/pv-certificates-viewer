@@ -51,7 +51,7 @@ Web-component to decode and display certificates details table like done on both
 </script>
 ```
 
-All properties you can find on the [page](https://github.com/PeculiarVentures/pv-certificates-viewer/tree/master/packages/webcomponents/src/components/certificates-viewer#properties).
+All properties you can find on the [page](https://github.com/PeculiarVentures/pv-certificates-viewer/tree/main/packages/webcomponents/src/components/certificates-viewer#properties).
 
 #### `peculiar-certificate-viewer`
 
@@ -63,11 +63,11 @@ Web-component to decode and display certificate details such as the subject, iss
 />
 ```
 
-All properties you can find on the [page](https://github.com/PeculiarVentures/pv-certificates-viewer/tree/master/packages/webcomponents/src/components/certificate-viewer#properties).
+All properties you can find on the [page](https://github.com/PeculiarVentures/pv-certificates-viewer/tree/main/packages/webcomponents/src/components/certificate-viewer#properties).
 
 ## Theming
 
-This component use [CSS variables](https://github.com/PeculiarVentures/pv-certificates-viewer/tree/master/packages/webcomponents/src/styles/peculiar.scss) to work with themes. You can customize colors declaring it in your main CSS file:
+This component use [CSS variables](https://github.com/PeculiarVentures/pv-certificates-viewer/tree/main/packages/webcomponents/src/styles/peculiar.scss) to work with themes. You can customize colors declaring it in your main CSS file:
 
 ```css
 body {
