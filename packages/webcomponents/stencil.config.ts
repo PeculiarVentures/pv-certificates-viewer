@@ -4,15 +4,13 @@ import { sass } from '@stencil/sass';
 export const config: Config = {
   autoprefixCss: true,
   namespace: 'peculiar',
-  globalStyle: 'src/styles/peculiar.scss',
+  globalStyle: 'src/css/peculiar.scss',
   devServer: {
     openBrowser: true,
     port: 3000,
   },
   plugins: [
-    sass({
-      includePaths: ['./src/styles'],
-    }),
+    sass(),
   ],
   outputTargets: [
     {
