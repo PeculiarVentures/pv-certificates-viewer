@@ -3,10 +3,11 @@
 :host {
   display: block;
   width: 100%;
-  word-wrap: break-word;
   position: relative;
   min-width: 280px;
   min-height: 300px;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 th, td {
