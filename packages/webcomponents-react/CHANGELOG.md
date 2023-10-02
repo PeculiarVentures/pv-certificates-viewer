@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.0.0...v4.0.1) (2023-10-02)
+
+**Note:** Version bump only for package @peculiar/certificates-viewer-react
+
+
+
+
+
 # [4.0.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.10.1...v4.0.0) (2023-10-02)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer-react

@@ -1,6 +1,6 @@
 {
   "name": "@peculiar/certificates-viewer",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "private": false,
   "description": "Peculiar Certificate Viewer web-components makes it easy for you to display certificate related details in your web application.",
   "keywords": [
