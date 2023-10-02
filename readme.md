@@ -4,11 +4,11 @@
 
 Peculiar Certificate Viewer makes it easy for you to display certificate related details in your web application.
 
-It includes two components:
+It includes a components:
 
 **1. Display a table of certificates**
 
-![image](https://user-images.githubusercontent.com/1619279/69567071-6ba44100-0f6d-11ea-9be5-863483bae511.png)
+![certificates-viewer](https://github.com/PeculiarVentures/pv-certificates-viewer/assets/9417251/a3e70cd4-7f0b-4c0d-aaab-40f0cda0188d)
 
 **NOTE**: If you do not provide a "Name" value when invocing the component it will take the first Subject CN value.
 
@@ -18,17 +18,22 @@ It includes two components:
 
 **2. Display a specific certificate**
 
-![image](https://user-images.githubusercontent.com/1619279/69567112-81b20180-0f6d-11ea-8f50-155ca05fa795.png)
+![certificate-viewer](https://github.com/PeculiarVentures/pv-certificates-viewer/assets/9417251/12f3ac31-b773-4eec-b535-3dce441ada73)
 
 These components are built with [asn1-schema](https://github.com/PeculiarVentures/asn1-schema) so all decoding happens in pure Javascript.  The components have been designed to be responsive, themeable and easy to use.
 
 You may also be interested in our web component for viewing and verifying signed PDFs, you can find it at https://verify.ink.
 
+## Getting Started
+
+- [Peculiar Certificates Viewer](./packages/webcomponents/README.md)
+- [Peculiar Certificates Viewer + React](./packages/webcomponents-react/README.md)
+
 ## Examples
 
-- [Root CAs](https://understandingwebpki.com/examples.html#root-cas)
-- [Subordinate CAs](https://understandingwebpki.com/examples.html#subordinate-cas)
-- [Certificate details](https://understandingwebpki.com/examples.html#certificate-details)
+- [Root CAs](https://codepen.io/donskov/pen/gOpQGYa)
+- [Subordinate CAs](https://codepen.io/donskov/pen/poJQWea)
+- [Certificate details](https://codepen.io/donskov/pen/RwPqLLa)
 
 ### Supported Schemas
 
