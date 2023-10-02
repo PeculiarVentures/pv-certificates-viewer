@@ -1,0 +1,5 @@
+/*!
+ * © Peculiar Ventures https://peculiarventures.com/ - MIT License
+ */
+import{r as e,h as t,H as s}from"./p-0b356bb5.js";import{B as i}from"./p-7f9beaa8.js";import{A as a,a as r}from"./p-709994c1.js";const c=".sc-peculiar-text-hider-h{display:-ms-flexbox;display:flex;width:100%;gap:var(--pv-size-base-4)}[aria-expanded=true].sc-peculiar-text-hider-h .content.sc-peculiar-text-hider{white-space:initial}.content.sc-peculiar-text-hider{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%}.action.sc-peculiar-text-hider{-ms-flex-negative:0;flex-shrink:0;margin-top:calc(var(--pv-size-base) * -1)}";const o=class{constructor(t){e(this,t);this.opened=false}render(){return t(s,{"aria-expanded":String(this.opened)},t("div",{class:"content"},t("slot",null)),t(i,{class:"action",onClick:()=>{this.opened=!this.opened},startIcon:this.opened?t(a,{color:"secondary"}):t(r,{color:"secondary"})}))}};o.style=c;export{o as peculiar_text_hider};
+//# sourceMappingURL=p-90459cec.entry.js.map
