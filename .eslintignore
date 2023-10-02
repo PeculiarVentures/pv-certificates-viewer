@@ -1,6 +1,8 @@
 **/node_modules/**
 **/dist/**
-**/www/**
-**/www-copy/**
-**/loader/**
 **/react-component-lib/**
+packages/webcomponents/loader/
+packages/webcomponents/www/
+packages/webcomponents/src/www-copy/
+packages/webcomponents/components/
+packages/webcomponents/hydrate/

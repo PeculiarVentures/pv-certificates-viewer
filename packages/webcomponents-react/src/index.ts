@@ -6,11 +6,4 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { defineCustomElements, applyPolyfills } from '@peculiar/certificates-viewer/loader';
-
 export * from './components';
-
-if (typeof window !== 'undefined') {
-  applyPolyfills()
-    .then(() => defineCustomElements(window));
-}

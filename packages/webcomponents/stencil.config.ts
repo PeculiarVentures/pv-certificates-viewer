@@ -27,6 +27,21 @@ export const config: Config = {
       ],
     },
     {
+      type: 'dist-custom-elements',
+      dir: 'components',
+      copy: [
+        {
+          src: '../scripts/custom-elements',
+          dest: 'components',
+          warn: true,
+        },
+      ],
+      includeGlobalScripts: false,
+    },
+    {
+      type: 'dist-hydrate-script',
+    },
+    {
       type: 'docs-readme',
       footer: '',
     },
@@ -41,11 +56,6 @@ export const config: Config = {
       ],
     },
   ],
-  buildEs5: false,
-  extras: {
-    dynamicImportShim: true,
-    initializeNextTick: true,
-    scriptDataOpts: true,
-  },
+  buildEs5: 'prod',
   preamble: '© Peculiar Ventures https://peculiarventures.com/ - MIT License',
 };

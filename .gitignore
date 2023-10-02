@@ -1,6 +1,8 @@
 dist/
 www/
 loader/
+packages/webcomponents/components/
+packages/webcomponents/hydrate/
 
 *~
 *.sw[mnpcod]

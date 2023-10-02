@@ -12,6 +12,13 @@ import { ICertificate } from "./components/certificates-viewer/certificates-view
 import { X509Certificate } from "./crypto";
 import { CrlProp } from "./components/crl-viewer/crl-viewer";
 import { CsrProp } from "./components/csr-viewer/csr-viewer";
+export { AttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
+export { ButtonMenuGroup } from "./components/button-menu/button-menu";
+export { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
+export { ICertificate } from "./components/certificates-viewer/certificates-viewer";
+export { X509Certificate } from "./crypto";
+export { CrlProp } from "./components/crl-viewer/crl-viewer";
+export { CsrProp } from "./components/csr-viewer/csr-viewer";
 export namespace Components {
     interface PeculiarAttributeCertificateViewer {
         /**
