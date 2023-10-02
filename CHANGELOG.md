@@ -3,17 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [4.0.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.0.0...v4.0.1) (2023-10-02)
+## [4.0.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.10.1...v4.0.0) (2023-10-02)
 
-**Note:** Version bump only for package peculiar-certificates-viewer-monorepo
+### Changed
 
+* **webcomponents-react:** use rollup for building ([bf94d26](https://github.com/PeculiarVentures/pv-certificates-viewer/pull/129/commits/bf94d262ee6d62c8676afae739d2ca09ba340c5f))
 
+### Breaking Changes
 
-
-
-# [4.0.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v3.10.1...v4.0.0) (2023-10-02)
-
-**Note:** Version bump only for package peculiar-certificates-viewer-monorepo
+* **webcomponents:** upgrade Stenciljs to v4  ([62bf94b](https://github.com/PeculiarVentures/pv-certificates-viewer/pull/129/commits/62bf94bb31023b19de191aecc0e5b5b86b6be621))
+* **webcomponents:** use new design system and CSS variables ([0f8dc12](https://github.com/PeculiarVentures/pv-certificates-viewer/pull/129/commits/0f8dc12e8adcea2a7636ea3a3c31d7a948288d9f))
 
 
 
