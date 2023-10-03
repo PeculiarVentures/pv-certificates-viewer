@@ -1,0 +1,5 @@
+/*!
+ * © Peculiar Ventures https://peculiarventures.com/ - MIT License
+ */
+System.register(["./p-5aabeba7.system.js","./p-2fcad8cb.system.js","./p-c99507d4.system.js"],(function(e){"use strict";var t,i,n,s,r,a;return{setters:[function(e){t=e.r;i=e.h;n=e.H},function(e){s=e.B},function(e){r=e.a;a=e.A}],execute:function(){var c=".sc-peculiar-text-hider-h{display:-ms-flexbox;display:flex;width:100%;gap:var(--pv-size-base-4)}[aria-expanded=true].sc-peculiar-text-hider-h .content.sc-peculiar-text-hider{white-space:initial}.content.sc-peculiar-text-hider{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%}.action.sc-peculiar-text-hider{-ms-flex-negative:0;flex-shrink:0;margin-top:calc(var(--pv-size-base) * -1)}";var o=e("peculiar_text_hider",function(){function e(e){t(this,e);this.opened=false}e.prototype.render=function(){var e=this;return i(n,{"aria-expanded":String(this.opened)},i("div",{class:"content"},i("slot",null)),i(s,{class:"action",onClick:function(){e.opened=!e.opened},startIcon:this.opened?i(r,{color:"secondary"}):i(a,{color:"secondary"})}))};return e}());o.style=c}}}));
+//# sourceMappingURL=p-5151cb6f.system.entry.js.map
