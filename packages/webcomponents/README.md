@@ -50,7 +50,7 @@ Then you can use a components anywhere in your HTML.
 
 ## Certificates viewer + React​
 
-To add the `@peculiar/certificates-viewer` to an already existing React project see the [react](../webcomponents-react/README.md) using guide.
+To add the `@peculiar/certificates-viewer` to an already existing React project see the [react](https://www.npmjs.com/package/@peculiar/certificates-viewer-react) using guide.
 
 ## Examples
 
