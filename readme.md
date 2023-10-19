@@ -2,27 +2,27 @@
 
 [![CircleCI](https://circleci.com/gh/PeculiarVentures/pv-certificates-viewer.svg?style=svg)](https://circleci.com/gh/PeculiarVentures/pv-certificates-viewer)
 
-Peculiar Certificate Viewer makes it easy for you to display certificate related details in your web application.
+Peculiar Certificates Viewer makes it easy for you to display certificate-related details in your web application.
 
-It includes a components:
+It includes the following components:
 
 **1. Display a table of certificates**
 
 ![certificates-viewer](https://github.com/PeculiarVentures/pv-certificates-viewer/assets/9417251/a3e70cd4-7f0b-4c0d-aaab-40f0cda0188d)
 
-**NOTE**: If you do not provide a "Name" value when invocing the component it will take the first Subject CN value.
+**NOTE**: If you do not provide a "Name" value when invoking the component, it will take the first Subject CN value.
 
-**NOTE**: If you do not provide a "Test URLs" this column will be ommited from the rendered page.
+**NOTE**: If you do not provide "Test URLs," this column will be omitted from the rendered page.
 
-**NOTE**: If the supplied certificates are self-signed the issuer column will be ommited.
+**NOTE**: If the supplied certificates are self-signed, the issuer column will be omitted.
 
 **2. Display a specific certificate**
 
 ![certificate-viewer](https://github.com/PeculiarVentures/pv-certificates-viewer/assets/9417251/12f3ac31-b773-4eec-b535-3dce441ada73)
 
-These components are built with [asn1-schema](https://github.com/PeculiarVentures/asn1-schema) so all decoding happens in pure Javascript.  The components have been designed to be responsive, themeable and easy to use.
+These components are built with [asn1-schema](https://github.com/PeculiarVentures/asn1-schema) so all decoding happens in pure Javascript. The components have been designed to be responsive, themeable, and easy to use.
 
-You may also be interested in our web component for viewing and verifying signed PDFs, you can find it at https://verify.ink.
+You may also be interested in our web component for viewing and verifying signed PDFs; you can find it at https://verify.ink.
 
 ## Getting Started
 
@@ -106,7 +106,7 @@ You may also be interested in our web component for viewing and verifying signed
 | **Web-components** | [`@peculiar/certificates-viewer`](https://www.npmjs.com/package/@peculiar/certificates-viewer) | [![version](https://img.shields.io/npm/v/@peculiar/certificates-viewer/latest.svg)](https://www.npmjs.com/package/@peculiar/certificates-viewer) | [`README.md`](packages/webcomponents/README.md)
 | **Web-components React** | [`@peculiar/certificates-viewer-react`](https://www.npmjs.com/package/@peculiar/certificates-viewer-react) | [![version](https://img.shields.io/npm/v/@peculiar/certificates-viewer-react/latest.svg)](https://www.npmjs.com/package/@peculiar/certificates-viewer-react) | [`README.md`](packages/webcomponents-react/README.md)
 
+
 ## Contributing
 
-Looking for places to contribute to the codebase?
-First read the [contribution guidelines](CONTRIBUTING.md).
+Looking for places to contribute to the codebase? First, read the [contribution guidelines](CONTRIBUTING.md).
