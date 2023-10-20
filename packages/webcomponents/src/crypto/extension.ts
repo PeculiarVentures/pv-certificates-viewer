@@ -133,6 +133,10 @@ import {
   id_pe_TNAuthList,
   TNAuthorizationList,
 } from '@peculiar/asn1-rfc8226';
+import {
+  id_ce_keyDescription,
+  NonStandardKeyDescription,
+} from '@peculiar/asn1-android';
 
 import { AsnData } from './asn_data';
 
@@ -172,6 +176,7 @@ export type TExtensionValue = AuthorityInfoAccessSyntax
 | SubjectInfoAccessSyntax
 | CRLNumber
 | BaseCRLNumber
+| NonStandardKeyDescription
 | string;
 
 export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> {
@@ -303,6 +308,9 @@ export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> 
           break;
         case id_ce_deltaCRLIndicator:
           this.value = AsnParser.parse(asnExtnValue, BaseCRLNumber) as T;
+          break;
+        case id_ce_keyDescription:
+          this.value = AsnParser.parse(asnExtnValue, NonStandardKeyDescription) as T;
           break;
         default:
           console.warn(`Didn't detect parser for "${this.asn.extnID}" extension.`);

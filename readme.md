@@ -46,6 +46,7 @@ You may also be interested in our web component for viewing and verifying signed
 - Adobe Archive Rev Info (1.2.840.113583.1.1.9.2).
 - Adobe Time-stamp (1.2.840.113583.1.1.9.1).
 - Authority Key Identifier (2.5.29.35).
+- Android Key Attestation (1.3.6.1.4.1.11129.2.1.17).
 - Basic Constraints (2.5.29.19).
 - Biometric Info (1.3.6.1.5.5.7.1.2).
 - Certificate Authority Information Access (1.3.6.1.5.5.7.1.1).
