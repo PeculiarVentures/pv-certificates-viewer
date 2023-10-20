@@ -40,6 +40,7 @@ import { LeiRole, LeiChoice } from '@peculiar/asn1-lei';
 import { Timestamp, ArchiveRevInfo } from '@peculiar/asn1-adobe-acrobat';
 import { LogotypeExtn } from '@peculiar/asn1-x509-logotype';
 import { TNAuthorizationList } from '@peculiar/asn1-rfc8226';
+import { NonStandardKeyDescription } from '@peculiar/asn1-android';
 
 import { RowTitle } from '../row';
 import { Extension, TExtensionValue } from '../../../crypto/extension';
@@ -78,6 +79,7 @@ import { PolicyConstraintsExtension } from './policy_constraints_extension';
 import { PolicyMappingsExtension } from './policy_mappings_extension';
 import { CRLNumberExtension } from './crl_number_extension';
 import { IssuingDistributionPointExtension } from './issuing_distribution_point_extension';
+import { KeyDescriptionExtension } from './key_description_extension';
 
 interface IExtensionsProps extends
   IGeneralNameOptions,
@@ -363,6 +365,15 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof IssuingDistributionPoint) {
           return (
             <IssuingDistributionPointExtension
+              extension={extension as any}
+              {...props}
+            />
+          );
+        }
+
+        if (extension.value instanceof NonStandardKeyDescription) {
+          return (
+            <KeyDescriptionExtension
               extension={extension as any}
               {...props}
             />

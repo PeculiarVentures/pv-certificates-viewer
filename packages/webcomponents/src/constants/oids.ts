@@ -2303,6 +2303,7 @@ export const OIDs = {
   '1.3.6.1.4.1.4329.7': 'Siemens Public Key Infrastructure',
   '1.3.6.1.4.1.52266.1': 'Legal Entity Identifier',
   '1.3.6.1.4.1.52266.2': 'Role',
+  '1.3.6.1.4.1.11129.2.1.17': 'Android Key Attestation',
 
   // https://ec.europa.eu/futurium/sites/futurium/files/ntqwac_pilot.pdf
   '0.4.0.9496.1': 'Domain Name Beneficiary',
