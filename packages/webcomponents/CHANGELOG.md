@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.0.2...v4.1.0) (2023-10-20)
+
+
+### Features
+
+* **webcomponents:** add "1.3.6.1.4.1.11129.2.1.17" (android key description) extension support ([0c83228](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/0c83228b424458515a9b415cd4d9c160e6c3937d))
+
+
+
+
+
 ## [4.0.2](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.0.1...v4.0.2) (2023-10-03)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer
