@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.1.0...v4.2.0) (2023-10-25)
+
+
+### Features
+
+* **logs:** add "e83ed0da3ef5063532e75728bc896bc903d3cbd1116beceb69e1777d6d06bd6e" ([20911d0](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/20911d09b27a0130cd898fe661e79674d8954e16))
+* **oids:** add "2.23.140.*" description ([7067dcd](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/7067dcdddad48e04dbb673250f0ab1bd29a3c00c))
+* **webcomponents:** add "2.23.140.3.1" (cabforganization Identifier) extension support ([b0e131e](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/b0e131ecf97e9fabf8bd7850e5581ec34ae08d99))
+
+
+
+
+
 # [4.1.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.0.2...v4.1.0) (2023-10-20)
 
 
