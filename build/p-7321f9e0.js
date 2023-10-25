@@ -1,7 +1,7 @@
 /*!
  * © Peculiar Ventures https://peculiarventures.com/ - MIT License
  */
-import{A as t,t as s,u as e,v as i,w as r,E as a,g as n,x as o,U as h,y as c,z as u,B as l,V as E,D as m,I as f,F as g,W as A,G as p,H as b,J as d,T as w,K as C,L as x,M as T,O as R,P as I,Q as v,S as k,X as N,e as F,Y as y,f as B,s as D,q as P,r as H,Z as S,N as L,h as X,j as U,k as j,R as q,_ as G}from"./p-1ef997ee.js";import{C as K,D as M}from"./p-59e5ac12.js";
+import{A as t,t as s,u as e,v as i,w as r,E as a,g as n,x as o,U as h,y as c,z as u,B as l,V as E,D as m,I as f,F as g,W as A,G as p,H as b,J as d,T as w,K as C,L as x,M as T,O as R,P as I,Q as v,S as k,X as N,e as F,Y as y,f as B,s as D,q as P,r as H,Z as S,N as L,h as X,j as U,k as j,R as q,_ as G}from"./p-e4c492ca.js";import{C as K,D as M}from"./p-59e5ac12.js";
 /**
  * @license
  * Copyright (c) Peculiar Ventures, LLC.
@@ -30,4 +30,4 @@ import{A as t,t as s,u as e,v as i,w as r,E as a,g as n,x as o,U as h,y as c,z a
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */class V extends t{constructor(t){super(F(t),G);this.thumbprints={};this.type="X.509 Certificate Revocation List";const{tbsCertList:s}=this.asn;this.issuer=new L(s.issuer).toJSON();this.version=s.version+1;this.lastUpdate=s.thisUpdate.getTime();this.nextUpdate=s.nextUpdate.getTime();this.revokedCertificates=(s.revokedCertificates||[]).map((t=>{var s;return{revocationDate:t.revocationDate,userCertificate:t.userCertificate,crlEntryExtensions:(s=t.crlEntryExtensions)===null||s===void 0?void 0:s.map((t=>new a(n.serialize(t))))}}))}async getThumbprint(t="SHA-1"){try{const s=await D(t,this.raw);if(s){this.thumbprints[t]=K.ToHex(s)}}catch(t){console.error("Error thumbprint get:",t)}}get signature(){const{signature:t,signatureAlgorithm:s}=this.asn;return{value:t,algorithm:s.algorithm}}get commonName(){if(!this.issuer){return""}for(let t=0;t<this.issuer.length;t+=1){const s=this.issuer[t];if(s.shortName==="CN"||s.shortName==="E"||s.shortName==="O"){return s.value}}return""}parseExtensions(){const{tbsCertList:t}=this.asn;if(t.crlExtensions){this.extensions=t.crlExtensions.map((t=>new a(n.serialize(t))))}}exportAsBase64(){return K.ToBase64(this.raw)}exportAsHexFormatted(){return P(K.ToHex(this.raw))}exportAsPemFormatted(){return`-----BEGIN X509 CRL-----\n${H(this.exportAsBase64())}\n-----END X509 CRL-----`}downloadAsPEM(t){M.crl.asPEM(this.exportAsPemFormatted(),t||this.commonName)}downloadAsDER(t){M.crl.asDER(this.exportAsHexFormatted(),t||this.commonName)}}export{Q as C,O as X,V as a};
-//# sourceMappingURL=p-542412ae.js.map
+//# sourceMappingURL=p-7321f9e0.js.map
