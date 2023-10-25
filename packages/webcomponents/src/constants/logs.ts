@@ -42,6 +42,7 @@ export default {
   b21e05cc8ba2cd8a204e8766f92bb98a2520676bdafa70e7b249532def8b905e: 'Google “Argon2020”',
   f65c942fd1773022145418083094568ee34d131933bfdf0c2f200bcc4ef164e3: 'Google “Argon2021”',
   '2979bef09e393921f056739f63a577e5be577d9c600af8f94d5d265c255dc784': 'Google “Argon2022”',
+  e83ed0da3ef5063532e75728bc896bc903d3cbd1116beceb69e1777d6d06bd6e: 'Google “Argon2023”',
   '68f698f81f6482be3a8ceeb9281d4cfc71515d6793d444d10a67acbb4f4ffbc4': 'Google “Aviator”',
   c3bf03a7e1ca8841c607bae3ff4270fca5ec45b186ebbe4e2cf3fc778630f5f6: 'Google “Crucible”',
   '1d024b8eb1498b344dfd87ea3efc0996f7506f235d1d497061a4773c439c25fb': 'Google “Daedalus”',
