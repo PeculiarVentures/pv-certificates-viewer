@@ -49,6 +49,7 @@ You may also be interested in our web component for viewing and verifying signed
 - Android Key Attestation (1.3.6.1.4.1.11129.2.1.17).
 - Basic Constraints (2.5.29.19).
 - Biometric Info (1.3.6.1.5.5.7.1.2).
+- CABF Organization Identifier (2.23.140.3.1).
 - Certificate Authority Information Access (1.3.6.1.5.5.7.1.1).
 - Certificate Issuer (2.5.29.29).
 - Certificate Policies (2.5.29.32).

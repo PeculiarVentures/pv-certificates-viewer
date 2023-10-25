@@ -137,6 +137,10 @@ import {
   id_ce_keyDescription,
   NonStandardKeyDescription,
 } from '@peculiar/asn1-android';
+import {
+  id_cabforganizationIdentifier,
+  CabforganizationIdentifier,
+} from './extensions';
 
 import { AsnData } from './asn_data';
 
@@ -177,6 +181,7 @@ export type TExtensionValue = AuthorityInfoAccessSyntax
 | CRLNumber
 | BaseCRLNumber
 | NonStandardKeyDescription
+| CabforganizationIdentifier
 | string;
 
 export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> {
@@ -311,6 +316,9 @@ export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> 
           break;
         case id_ce_keyDescription:
           this.value = AsnParser.parse(asnExtnValue, NonStandardKeyDescription) as T;
+          break;
+        case id_cabforganizationIdentifier:
+          this.value = AsnParser.parse(asnExtnValue, CabforganizationIdentifier) as T;
           break;
         default:
           console.warn(`Didn't detect parser for "${this.asn.extnID}" extension.`);
