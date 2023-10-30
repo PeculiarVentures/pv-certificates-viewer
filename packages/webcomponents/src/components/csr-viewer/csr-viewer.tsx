@@ -187,15 +187,6 @@ export class CsrViewer {
     );
   }
 
-  private getExtensionRequestAttribute() {
-    if (!this.certificateDecoded) {
-      return undefined;
-    }
-
-    return this.certificateDecoded.attributes
-      .find((attribute) => attribute.asn.type === '1.2.840.113549.1.9.14');
-  }
-
   render() {
     if (this.certificateDecodeError) {
       return this.renderErrorState();
@@ -204,8 +195,6 @@ export class CsrViewer {
     if (!this.certificateDecoded) {
       return this.renderEmptyState();
     }
-
-    const extensionRequestAttribute = this.getExtensionRequestAttribute();
 
     return (
       <Host
@@ -244,7 +233,7 @@ export class CsrViewer {
           />
 
           <Extensions
-            extensions={extensionRequestAttribute?.value as any}
+            extensions={this.certificateDecoded.extensions}
             title="Extension Request"
             getLEILink={getLEILink}
             getDNSNameLink={getDNSNameLink}
