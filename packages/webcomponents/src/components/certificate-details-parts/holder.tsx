@@ -11,7 +11,7 @@ import { Convert } from 'pvtsutils';
 
 import type { X509AttributeCertificate } from '../../crypto';
 import { l10n, getStringByOID } from '../../utils';
-import { RowTitle, RowValue } from './row';
+import { RowTitle, RowValue, TableRowTable } from './row';
 import { GeneralNamePart } from './extensions/general_name_part';
 
 interface IHolderProps {
@@ -58,19 +58,21 @@ export const Holder: FunctionalComponent<IHolderProps> = (props) => {
         name={l10n.getString('digestInfo')}
         value=""
       />,
-      <RowValue
-        name={l10n.getString('algorithm')}
-        value={getStringByOID(objectDigestInfo.digestAlgorithm.algorithm)}
-      />,
-      <RowValue
-        name={l10n.getString('value')}
-        value={Convert.ToHex(objectDigestInfo.objectDigest)}
-        monospace
-      />,
-      <RowValue
-        name={l10n.getString('type')}
-        value={objectDigestInfo.digestedObjectType}
-      />,
+      <TableRowTable>
+        <RowValue
+          name={l10n.getString('algorithm')}
+          value={getStringByOID(objectDigestInfo.digestAlgorithm.algorithm)}
+        />
+        <RowValue
+          name={l10n.getString('value')}
+          value={Convert.ToHex(objectDigestInfo.objectDigest)}
+          monospace
+        />
+        <RowValue
+          name={l10n.getString('type')}
+          value={objectDigestInfo.digestedObjectType}
+        />
+      </TableRowTable>,
     ]),
   ];
 };

@@ -10,8 +10,9 @@ import { h, FunctionalComponent } from '@stencil/core';
 import type { ActivityDescription } from '@peculiar/asn1-ntqwac';
 
 import { Attribute } from '../../../crypto/attribute';
+import { camelCaseToWords } from '../../../utils';
 import { GeneralNamePart } from '../extensions/general_name_part';
-import { RowValue } from '../row';
+import { RowValue, TableRowTable } from '../row';
 import { BasicAttribute } from './basic_attribute';
 
 interface IActivityDescriptionAttributeProps {
@@ -27,31 +28,35 @@ FunctionalComponent<IActivityDescriptionAttributeProps> = (props) => {
       attribute={attribute}
     >
       <RowValue
-        name="Code Authority"
+        name={camelCaseToWords('codeAuthority')}
         value=""
       />
-      <GeneralNamePart
-        generalName={attribute.value.codeAuthority}
-        getDNSNameLink={() => ''}
-        getIPAddressLink={() => ''}
-      />
+      <TableRowTable>
+        <GeneralNamePart
+          generalName={attribute.value.codeAuthority}
+          getDNSNameLink={() => ''}
+          getIPAddressLink={() => ''}
+        />
+      </TableRowTable>
 
       <RowValue
-        name="Code Id"
+        name={camelCaseToWords('codeId')}
         value=""
       />
-      <GeneralNamePart
-        generalName={attribute.value.codeId}
-        getDNSNameLink={() => ''}
-        getIPAddressLink={() => ''}
-      />
+      <TableRowTable>
+        <GeneralNamePart
+          generalName={attribute.value.codeId}
+          getDNSNameLink={() => ''}
+          getIPAddressLink={() => ''}
+        />
+      </TableRowTable>
 
       <RowValue
-        name="Short Name"
+        name={camelCaseToWords('shortName')}
         value={attribute.value.shortName}
       />
       <RowValue
-        name="Short Description"
+        name={camelCaseToWords('shortDescription')}
         value={attribute.value.shortDescription}
       />
     </BasicAttribute>

@@ -10,8 +10,9 @@ import { h, FunctionalComponent } from '@stencil/core';
 import type { WebGDPR } from '@peculiar/asn1-ntqwac';
 
 import type { Attribute } from '../../../crypto/attribute';
+import { camelCaseToWords } from '../../../utils';
 import { GeneralNamePart } from '../extensions/general_name_part';
-import { RowValue } from '../row';
+import { RowValue, TableRowTable } from '../row';
 import { BasicAttribute } from './basic_attribute';
 
 interface IWebGdprAttributeProps {
@@ -27,41 +28,47 @@ FunctionalComponent<IWebGdprAttributeProps> = (props) => {
       attribute={attribute}
     >
       <RowValue
-        name="Assessment Authority"
+        name={camelCaseToWords('assessmentAuthority')}
         value=""
       />
-      <GeneralNamePart
-        generalName={attribute.value.assessmentAuthority}
-        getDNSNameLink={() => ''}
-        getIPAddressLink={() => ''}
-      />
+      <TableRowTable>
+        <GeneralNamePart
+          generalName={attribute.value.assessmentAuthority}
+          getDNSNameLink={() => ''}
+          getIPAddressLink={() => ''}
+        />
+      </TableRowTable>
 
       <RowValue
-        name="Assessment Location"
+        name={camelCaseToWords('assessmentLocation')}
         value=""
       />
-      <GeneralNamePart
-        generalName={attribute.value.assessmentLocation}
-        getDNSNameLink={() => ''}
-        getIPAddressLink={() => ''}
-      />
+      <TableRowTable>
+        <GeneralNamePart
+          generalName={attribute.value.assessmentLocation}
+          getDNSNameLink={() => ''}
+          getIPAddressLink={() => ''}
+        />
+      </TableRowTable>
 
       <RowValue
-        name="Assessment Ref"
+        name={camelCaseToWords('assessmentRef')}
         value=""
       />
-      <GeneralNamePart
-        generalName={attribute.value.assessmentRef}
-        getDNSNameLink={() => ''}
-        getIPAddressLink={() => ''}
-      />
+      <TableRowTable>
+        <GeneralNamePart
+          generalName={attribute.value.assessmentRef}
+          getDNSNameLink={() => ''}
+          getIPAddressLink={() => ''}
+        />
+      </TableRowTable>
 
       <RowValue
-        name="Data Storage Territory"
+        name={camelCaseToWords('dataStorageTerritory')}
         value={attribute.value.dataStorageTerritory}
       />
       <RowValue
-        name="Description"
+        name={camelCaseToWords('description')}
         value={attribute.value.description}
       />
     </BasicAttribute>
