@@ -26,7 +26,12 @@ export class CabforganizationIdentifier {
   @AsnProp({ type: AsnPropTypes.PrintableString })
   public registrationCountry: string;
 
-  @AsnProp({ type: AsnPropTypes.PrintableString, optional: true })
+  @AsnProp({
+    type: AsnPropTypes.PrintableString,
+    optional: true,
+    context: 0,
+    implicit: true,
+  })
   public registrationStateOrProvince?: string;
 
   @AsnProp({ type: AsnPropTypes.Utf8String })
