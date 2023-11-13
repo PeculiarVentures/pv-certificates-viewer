@@ -5,6 +5,7 @@ packages/webcomponents/www/
 packages/webcomponents/src/www-copy/
 packages/webcomponents/components/
 packages/webcomponents/hydrate/
+packages/webcomponents/**/__diff_output__/
 
 *~
 *.sw[mnpcod]
