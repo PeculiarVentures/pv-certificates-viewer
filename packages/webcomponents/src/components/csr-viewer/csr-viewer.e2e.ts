@@ -1,12 +1,17 @@
 import { newE2EPage } from '@stencil/core/testing';
+import fs from 'fs';
+import path from 'path';
 import { devices } from '../../tests';
 
-const certificates = [
-  {
-    name: 'test',
-    value: 'MIHQMIGDAgEAMA8xDTALBgNVBAMMBHRlc3QwKjAFBgMrZXADIQD7Fua9ZF+wPXVdDCBwQr+Aqny6OFvs25wZ/P4LyVsYmKBBMD8GCSqGSIb3DQEJDjEyMDAwLgYDVR0RBCcwJaAjBgorBgEEAYI3FAIDoBUME2FkZHJlc3NAZG9tYWluLnRlc3QwBQYDK2VwA0EAUp5FenHF1rZzRGU+7wiF+/D1bfyDRF0dzWz2sl44nltu8iLjHO3aIfOTYWpqZlaDg1Bq3L7Fcb7If4yZAsE5Cw==',
-  },
-];
+const testAssetsFolderPath = path.join(__dirname, 'test_assets');
+const testFiles = fs.readdirSync(testAssetsFolderPath)
+  .filter((fileName) => fileName !== '.DS_Store');
+const certificates = testFiles.map((fileName) => ({
+  name: fileName,
+  value: fs.readFileSync(path.join(testAssetsFolderPath, fileName), { encoding: 'utf-8' })
+    .replace(/-{5}(BEGIN|END) .*-{5}/gm, '')
+    .replace(/\s/gm, ''),
+}));
 
 describe('peculiar-csr-viewer', () => {
   certificates.forEach((certificate) => {

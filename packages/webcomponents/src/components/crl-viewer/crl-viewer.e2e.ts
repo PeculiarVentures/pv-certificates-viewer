@@ -1,12 +1,17 @@
 import { newE2EPage } from '@stencil/core/testing';
+import fs from 'fs';
+import path from 'path';
 import { devices } from '../../tests';
 
-const certificates = [
-  {
-    name: 'Sample Signer Cert',
-    value: 'MIIDFDCCAfwCAQEwDQYJKoZIhvcNAQEFBQAwXzEjMCEGA1UEChMaU2FtcGxlIFNpZ25lciBPcmdhbml6YXRpb24xGzAZBgNVBAsTElNhbXBsZSBTaWduZXIgVW5pdDEbMBkGA1UEAxMSU2FtcGxlIFNpZ25lciBDZXJ0Fw0xMzAyMTgxMDMyMDBaFw0xMzAyMTgxMDQyMDBaMIIBNjA8AgMUeUcXDTEzMDIxODEwMjIxMlowJjAKBgNVHRUEAwoBAzAYBgNVHRgEERgPMjAxMzAyMTgxMDIyMDBaMDwCAxR5SBcNMTMwMjE4MTAyMjIyWjAmMAoGA1UdFQQDCgEGMBgGA1UdGAQRGA8yMDEzMDIxODEwMjIwMFowPAIDFHlJFw0xMzAyMTgxMDIyMzJaMCYwCgYDVR0VBAMKAQQwGAYDVR0YBBEYDzIwMTMwMjE4MTAyMjAwWjA8AgMUeUoXDTEzMDIxODEwMjI0MlowJjAKBgNVHRUEAwoBATAYBgNVHRgEERgPMjAxMzAyMTgxMDIyMDBaMDwCAxR5SxcNMTMwMjE4MTAyMjUxWjAmMAoGA1UdFQQDCgEFMBgGA1UdGAQRGA8yMDEzMDIxODEwMjIwMFqgLzAtMB8GA1UdIwQYMBaAFL4SAcyq6hGA2i6tsurHtfuf+a00MAoGA1UdFAQDAgEDMA0GCSqGSIb3DQEBBQUAA4IBAQBCIb6B8cN5dmZbziETimiotDy+FsOvS93LeDWSkNjXTG/+bGgnrm3aQpgB7heT8L2o7s2QtjX2DaTOSYL3nZ/Ibn/R8S0g+EbNQxdk5/la6CERxiRp+E2TUG8LDb14YVMhRGKvCguSIyUG0MwGW6waqVtd6K71u7vhIU/Tidf6ZSdsTMhpPPFuPUid4j29U3q10SGFF6cCt1DzjvUcCwHGhHA02Men70EgZFADPLWmLg0HglKUh1iZWcBGtev/8VsUijyjsM072C6Ut5TwNyrrthb952+eKlmxLNgT0o5hVYxjXhtwLQsL7QZhrypAM1DLYqQjkiDI7hlvt7QuDGTJ',
-  },
-];
+const testAssetsFolderPath = path.join(__dirname, 'test_assets');
+const testFiles = fs.readdirSync(testAssetsFolderPath)
+  .filter((fileName) => fileName !== '.DS_Store');
+const certificates = testFiles.map((fileName) => ({
+  name: fileName,
+  value: fs.readFileSync(path.join(testAssetsFolderPath, fileName), { encoding: 'utf-8' })
+    .replace(/-{5}(BEGIN|END) .*-{5}/gm, '')
+    .replace(/\s/gm, ''),
+}));
 
 describe('peculiar-crl-viewer', () => {
   certificates.forEach((certificate) => {
