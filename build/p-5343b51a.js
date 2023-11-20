@@ -309,7 +309,7 @@ import{h as e}from"./p-0b356bb5.js";import{a1 as a,$ as n,a0 as t,a2 as c,a6 as 
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- */const Sa=a=>{const{extension:n}=a;return e(De,{extension:n},n.value.map(((a,n)=>[e(pe,{name:`Entry #${n+1}`,value:""}),e(pe,{name:"SPC",value:a.spc}),e(pe,{name:"Range",value:a.range?`start=${a.range.start} count==${a.range.count}`:null}),e(pe,{name:"One",value:a.one})])))};
+ */const Sa=a=>{const{extension:n}=a;return e(De,{extension:n},n.value.length>0&&[e(pe,{name:"Entries",value:""}),n.value.map((a=>e(ve,null,e(pe,{name:"SPC",value:a.spc}),e(pe,{name:"Range",value:a.range?`start=${a.range.start} count==${a.range.count}`:null}),e(pe,{name:"One",value:a.one}))))])};
 /**
  * @license
  * Copyright (c) Peculiar Ventures, LLC.
@@ -323,7 +323,7 @@ import{h as e}from"./p-0b356bb5.js";import{a1 as a,$ as n,a0 as t,a2 as c,a6 as 
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- */const Aa=a=>{const{extension:n}=a;return e(De,{extension:n},n.value.map(((a,n)=>[e(pe,{name:`Policy #${n+1}`,value:""}),e(pe,{name:"Issuer Domain",value:fe(a.issuerDomainPolicy)}),e(pe,{name:"Subject Domain",value:fe(a.subjectDomainPolicy)})])))};
+ */const Aa=a=>{const{extension:n}=a;return e(De,{extension:n},n.value.length>0&&[e(pe,{name:"Policies",value:""}),n.value.map((a=>e(ve,null,e(pe,{name:"Issuer Domain",value:fe(a.issuerDomainPolicy)}),e(pe,{name:"Subject Domain",value:fe(a.subjectDomainPolicy)}))))])};
 /**
  * @license
  * Copyright (c) Peculiar Ventures, LLC.
@@ -366,4 +366,4 @@ import{h as e}from"./p-0b356bb5.js";import{a1 as a,$ as n,a0 as t,a2 as c,a6 as 
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */const Ga=a=>{const{certificate:t}=a;return[e(xe,{value:n.getString("miscellaneous")}),e("tr",null,e("td",null,e(re,{onClick:()=>t.downloadAsPEM(),startIcon:e(ie,null)},n.getString("download.pem")))),e("tr",null,e("td",null,e(re,{onClick:()=>t.downloadAsDER(),startIcon:e(ie,null)},n.getString("download.der"))))]};export{ge as B,Ta as E,Pe as G,Ne as I,Ga as M,Ce as P,pe as R,Ae as S,ve as T,xe as a,Ie as b,ue as c,le as d,de as e,be as f,fe as g,Se as h};
-//# sourceMappingURL=p-efa4fc1e.js.map
+//# sourceMappingURL=p-5343b51a.js.map

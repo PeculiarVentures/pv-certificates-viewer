@@ -309,7 +309,7 @@ var __extends=this&&this.__extends||function(){var e=function(a,n){e=Object.setP
        *
        * This source code is licensed under the MIT license found in the
        * LICENSE file in the root directory of this source tree.
-       */var Ia=function(e){var n=e.extension;return a(je,{extension:n},n.value.map((function(e,n){return[a(ye,{name:"Entry #".concat(n+1),value:""}),a(ye,{name:"SPC",value:e.spc}),a(ye,{name:"Range",value:e.range?"start=".concat(e.range.start," count==").concat(e.range.count):null}),a(ye,{name:"One",value:e.one})]})))};
+       */var Ia=function(e){var n=e.extension;return a(je,{extension:n},n.value.length>0&&[a(ye,{name:"Entries",value:""}),n.value.map((function(e){return a(ge,null,a(ye,{name:"SPC",value:e.spc}),a(ye,{name:"Range",value:e.range?"start=".concat(e.range.start," count==").concat(e.range.count):null}),a(ye,{name:"One",value:e.one}))}))])};
 /**
        * @license
        * Copyright (c) Peculiar Ventures, LLC.
@@ -323,7 +323,7 @@ var __extends=this&&this.__extends||function(){var e=function(a,n){e=Object.setP
        *
        * This source code is licensed under the MIT license found in the
        * LICENSE file in the root directory of this source tree.
-       */var Na=function(e){var n=e.extension;return a(je,{extension:n},n.value.map((function(e,n){return[a(ye,{name:"Policy #".concat(n+1),value:""}),a(ye,{name:"Issuer Domain",value:fe(e.issuerDomainPolicy)}),a(ye,{name:"Subject Domain",value:fe(e.subjectDomainPolicy)})]})))};
+       */var Na=function(e){var n=e.extension;return a(je,{extension:n},n.value.length>0&&[a(ye,{name:"Policies",value:""}),n.value.map((function(e){return a(ge,null,a(ye,{name:"Issuer Domain",value:fe(e.issuerDomainPolicy)}),a(ye,{name:"Subject Domain",value:fe(e.subjectDomainPolicy)}))}))])};
 /**
        * @license
        * Copyright (c) Peculiar Ventures, LLC.
@@ -366,4 +366,4 @@ var __extends=this&&this.__extends||function(){var e=function(a,n){e=Object.setP
        * This source code is licensed under the MIT license found in the
        * LICENSE file in the root directory of this source tree.
        */var ka=e("M",(function(e){var n=e.certificate;return[a(pe,{value:t.getString("miscellaneous")}),a("tr",null,a("td",null,a(ce,{onClick:function(){return n.downloadAsPEM()},startIcon:a(le,null)},t.getString("download.pem")))),a("tr",null,a("td",null,a(ce,{onClick:function(){return n.downloadAsDER()},startIcon:a(le,null)},t.getString("download.der"))))]}))}}}));
-//# sourceMappingURL=p-bc7d4e80.system.js.map
+//# sourceMappingURL=p-a0b8d5ef.system.js.map
