@@ -11,7 +11,7 @@ import { PolicyMappings } from '@peculiar/asn1-x509';
 
 import { getStringByOID } from '../../../utils';
 import { Extension } from '../../../crypto/extension';
-import { RowValue } from '../row';
+import { RowValue, TableRowTable } from '../row';
 
 import { BasicExtension } from './basic_extension';
 
@@ -27,20 +27,24 @@ FunctionalComponent<IPolicyMappingsExtensionProps> = (props) => {
     <BasicExtension
       extension={extension}
     >
-      {extension.value.map((policy, arrayIndex) => ([
+      {extension.value.length > 0 && ([
         <RowValue
-          name={`Policy #${arrayIndex + 1}`}
+          name="Policies"
           value=""
         />,
-        <RowValue
-          name="Issuer Domain"
-          value={getStringByOID(policy.issuerDomainPolicy)}
-        />,
-        <RowValue
-          name="Subject Domain"
-          value={getStringByOID(policy.subjectDomainPolicy)}
-        />,
-      ]))}
+        extension.value.map((policy) => (
+          <TableRowTable>
+            <RowValue
+              name="Issuer Domain"
+              value={getStringByOID(policy.issuerDomainPolicy)}
+            />
+            <RowValue
+              name="Subject Domain"
+              value={getStringByOID(policy.subjectDomainPolicy)}
+            />
+          </TableRowTable>
+        )),
+      ])}
     </BasicExtension>
   );
 };

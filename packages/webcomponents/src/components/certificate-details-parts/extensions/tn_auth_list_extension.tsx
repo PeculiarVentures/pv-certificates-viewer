@@ -9,7 +9,7 @@
 import { h, FunctionalComponent } from '@stencil/core';
 import { TNAuthorizationList } from '@peculiar/asn1-rfc8226';
 
-import { RowValue } from '../row';
+import { RowValue, TableRowTable } from '../row';
 import { Extension } from '../../../crypto/extension';
 
 import { BasicExtension } from './basic_extension';
@@ -25,24 +25,28 @@ export const TNAuthListExtension: FunctionalComponent<ITNAuthListExtensionProps>
     <BasicExtension
       extension={extension}
     >
-      {extension.value.map((entry, arrayIndex) => ([
+      {extension.value.length > 0 && ([
         <RowValue
-          name={`Entry #${arrayIndex + 1}`}
+          name="Entries"
           value=""
         />,
-        <RowValue
-          name="SPC"
-          value={entry.spc}
-        />,
-        <RowValue
-          name="Range"
-          value={entry.range ? `start=${entry.range.start} count==${entry.range.count}` : null}
-        />,
-        <RowValue
-          name="One"
-          value={entry.one}
-        />,
-      ]))}
+        extension.value.map((entry) => (
+          <TableRowTable>
+            <RowValue
+              name="SPC"
+              value={entry.spc}
+            />
+            <RowValue
+              name="Range"
+              value={entry.range ? `start=${entry.range.start} count==${entry.range.count}` : null}
+            />
+            <RowValue
+              name="One"
+              value={entry.one}
+            />
+          </TableRowTable>
+        )),
+      ])}
     </BasicExtension>
   );
 };
