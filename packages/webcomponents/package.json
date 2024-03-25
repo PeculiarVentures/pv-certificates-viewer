@@ -75,7 +75,7 @@
   },
   "license": "MIT",
   "author": "PeculiarVentures Team",
-  "homepage": "https://understandingwebpki.com/",
+  "homepage": "https://x509.io/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PeculiarVentures/pv-certificates-viewer.git"
