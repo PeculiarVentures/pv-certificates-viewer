@@ -1301,15 +1301,15 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stencil/core@^4.3.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-4.3.0.tgz#ab7c4eedce1bd8947bfefdf6a0c19372f88c7fb6"
-  integrity sha512-WYjftKg5fuqO7mf3nTl1aCRurkeMmfEF38WcBG4VLF6UPQ+MA76/koedGR2LGhATGByx+pbxR4iRxAr2Bspc9A==
+"@stencil/core@^4.13.0":
+  version "4.13.0"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-4.13.0.tgz#31654b9c601ce8b74194903fe28ed4bcb66b576e"
+  integrity sha512-gg+gtBWekQ08mDja8GVAUHNu+rrFhQaKZDvfhnS3l/5JbYiJddTimuDPPhuc0sR0JZL1iRdJTJSa+JbvmnQ1cQ==
 
-"@stencil/sass@^3.0.5":
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/@stencil/sass/-/sass-3.0.5.tgz#943c47bcf8215b9d2b877cafe189ba1cbb4bf313"
-  integrity sha512-9nyllMXOEvHywo6fP2iwXgnq32A+OOUE36Aq7iUjzwT3wdr04qsvupO1JNIyRvmvCDF15hOKXztrZH1/wDu2Zg==
+"@stencil/sass@^3.0.11":
+  version "3.0.11"
+  resolved "https://registry.yarnpkg.com/@stencil/sass/-/sass-3.0.11.tgz#e073be24a77603d18a8d15509baf0a9c7aaab7fe"
+  integrity sha512-YzKBKuV2wYf2aCM2Or8DbksX+8DQKOYFe2QMNAV+LFzyexhiYDz5/Tq04CDtc8xTXmzqC0J8U79GB8Vvz9myAQ==
 
 "@tootallnate/once@1":
   version "1.1.2"

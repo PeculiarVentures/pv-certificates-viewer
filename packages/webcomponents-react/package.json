@@ -3,6 +3,17 @@
   "version": "4.2.0",
   "private": false,
   "description": "React specific wrapper for @peculiar/certificates-viewer",
+  "keywords": [
+    "certificates-viewer",
+    "certificate-viewer",
+    "certificate",
+    "x509",
+    "decoding",
+    "web-component",
+    "webpki",
+    "pki",
+    "asn1"
+  ],
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
   "files": [
