@@ -1,0 +1,1 @@
+{"version":3,"names":["globalScripts","exports"],"sources":["@stencil/core/internal/app-globals"],"sourcesContent":["export const globalScripts = () => {};\n"],"mappings":";;;uEAAY,IAACA,EAAaC,EAAA,KAAG,WAAM,G"}
