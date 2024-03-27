@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.2.0...v4.2.1) (2024-03-27)
+
+
+### Bug Fixes
+
+* **webcomponents:** fix CabforganizationIdentifier prop attribute ([a2aed5b](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/a2aed5bc751e84e783d46c1d2694d48cb4dc5c80))
+
+
+
+
+
 # [4.2.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.1.0...v4.2.0) (2023-10-25)
 
 
