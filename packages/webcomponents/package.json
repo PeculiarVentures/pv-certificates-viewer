@@ -65,7 +65,7 @@
     "@stencil/sass": "^3.0.11",
     "@types/jest": "27.0.3",
     "@types/jest-image-snapshot": "^6.2.3",
-    "gh-pages": "^4.0.0",
+    "gh-pages": "^5.0.0",
     "jest": "27.0.3",
     "jest-cli": "27.4.5",
     "jest-image-snapshot": "^6.2.0",
