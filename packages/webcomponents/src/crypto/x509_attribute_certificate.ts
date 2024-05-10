@@ -49,7 +49,9 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
 
   public holder: Holder;
 
-  public type: string = 'X.509 Attribute Certificate';
+  public readonly type = 'X.509 Attribute Certificate';
+
+  public readonly tag = 'ATTRIBUTE CERTIFICATE';
 
   constructor(raw: string) {
     super(certificateRawToBuffer(raw), AttributeCertificate);
@@ -120,32 +122,31 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     }
   }
 
-  public exportAsBase64() {
-    return Convert.ToBase64(this.raw);
-  }
-
-  public exportAsHexFormatted() {
-    return hexFormat(Convert.ToHex(this.raw));
-  }
-
-  public exportAsPemFormatted() {
-    return `-----BEGIN ATTRIBUTE CERTIFICATE-----\n${base64Format(this.exportAsBase64())}\n-----END ATTRIBUTE CERTIFICATE-----`;
-  }
-
   public get commonName(): string {
     return `attribute-certificate-${this.thumbprints['SHA-1']}`;
   }
 
+  public toString(format: 'hex' | 'pem' | 'base64' = 'pem'): string {
+    switch (format) {
+      case 'hex':
+        return hexFormat(Convert.ToHex(this.raw));
+      case 'pem':
+        return `-----BEGIN ${this.tag}-----\n${base64Format(this.toString('base64'))}\n-----END ${this.tag}-----`;
+      default:
+        return Convert.ToBase64(this.raw);
+    }
+  }
+
   public downloadAsPEM(name?: string) {
     Download.attrCert.asPEM(
-      this.exportAsPemFormatted(),
+      this.toString('pem'),
       name || this.commonName,
     );
   }
 
   public downloadAsDER(name?: string) {
     Download.attrCert.asDER(
-      this.exportAsHexFormatted(),
+      this.toString('hex'),
       name || this.commonName,
     );
   }

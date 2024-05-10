@@ -20,8 +20,8 @@ import { validator, readAsBinaryString } from '../../utils';
 import {
   X509Certificate,
   X509AttributeCertificate,
-  CSR,
-  CRL,
+  Pkcs10CertificateRequest,
+  X509Crl,
 } from '../../crypto';
 import { Button } from '../button';
 import { Typography } from '../typography';
@@ -47,7 +47,10 @@ export class CertificateDecoder {
    */
   @Prop() defaultCertificate?: string;
 
-  @State() certificateDecoded: X509Certificate | X509AttributeCertificate | CSR | CRL;
+  @State() certificateDecoded: X509Certificate
+  | X509AttributeCertificate
+  | Pkcs10CertificateRequest
+  | X509Crl;
 
   /**
    * Emitted when the certificate has been successfully parsed.
@@ -123,10 +126,10 @@ export class CertificateDecoder {
     this.clearCertificate.emit();
   }
 
-  setValue(value: X509Certificate | X509AttributeCertificate | CSR | CRL) {
+  setValue(value: X509Certificate | X509AttributeCertificate | Pkcs10CertificateRequest | X509Crl) {
     this.certificateDecoded = value;
-    this.inputPaste.value = value.exportAsPemFormatted();
-    this.successParse.emit(value.exportAsBase64());
+    this.inputPaste.value = value.toString('pem');
+    this.successParse.emit(value.toString('base64'));
   }
 
   decode(certificate: string) {
@@ -135,7 +138,7 @@ export class CertificateDecoder {
     const isPkcs10Pem = validator.isPkcs10Pem(certificate);
     const isX509AttributePem = validator.isX509AttributePem(certificate);
     const isX509CRLPem = validator.isX509CRLPem(certificate);
-    let decoded: X509Certificate | X509AttributeCertificate | CSR | CRL;
+    let decoded: X509Certificate | X509AttributeCertificate | Pkcs10CertificateRequest | X509Crl;
     let decodeError: Error;
 
     if (isPem && !(isX509Pem || isX509AttributePem || isPkcs10Pem || isX509CRLPem)) {
@@ -156,11 +159,11 @@ export class CertificateDecoder {
       }
 
       if (isPkcs10Pem) {
-        decoded = new CSR(certificate);
+        decoded = new Pkcs10CertificateRequest(certificate);
       }
 
       if (isX509CRLPem) {
-        decoded = new CRL(certificate);
+        decoded = new X509Crl(certificate);
       }
     } catch (error) {
       decodeError = error;
@@ -184,7 +187,7 @@ export class CertificateDecoder {
 
     if (!decoded) {
       try {
-        decoded = new CSR(certificate);
+        decoded = new Pkcs10CertificateRequest(certificate);
       } catch (error) {
         decodeError = error;
       }
@@ -192,7 +195,7 @@ export class CertificateDecoder {
 
     if (!decoded) {
       try {
-        decoded = new CRL(certificate);
+        decoded = new X509Crl(certificate);
       } catch (error) {
         decodeError = error;
       }
@@ -277,14 +280,14 @@ export class CertificateDecoder {
             download
           />
         )}
-        {this.certificateDecoded instanceof CSR && (
+        {this.certificateDecoded instanceof Pkcs10CertificateRequest && (
           <peculiar-csr-viewer
             certificate={this.certificateDecoded}
             class="viewer"
             download
           />
         )}
-        {this.certificateDecoded instanceof CRL && (
+        {this.certificateDecoded instanceof X509Crl && (
           <peculiar-crl-viewer
             certificate={this.certificateDecoded}
             class="viewer"

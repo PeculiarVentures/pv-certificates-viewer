@@ -16,7 +16,7 @@ import {
   Build,
 } from '@stencil/core';
 
-import { CRL } from '../../crypto';
+import { X509Crl } from '../../crypto';
 import { getDNSNameLink, getIPAddressLink, getLEILink } from '../../utils/third_party_links';
 import {
   BasicInformation,
@@ -29,7 +29,7 @@ import {
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
 
-export type CrlProp = string | CRL;
+export type CrlProp = string | X509Crl;
 
 @Component({
   tag: 'peculiar-crl-viewer',
@@ -37,7 +37,7 @@ export type CrlProp = string | CRL;
   shadow: true,
 })
 export class CrlViewer {
-  private certificateDecoded: CRL;
+  private certificateDecoded: X509Crl;
 
   private certificateDecodeError: Error;
 
@@ -112,10 +112,10 @@ export class CrlViewer {
     this.isDecodeInProcess = true;
 
     try {
-      if (certificate instanceof CRL) {
+      if (certificate instanceof X509Crl) {
         this.certificateDecoded = certificate;
       } else if (typeof certificate === 'string') {
-        this.certificateDecoded = new CRL(certificate);
+        this.certificateDecoded = new X509Crl(certificate);
       } else {
         return;
       }
@@ -159,8 +159,8 @@ export class CrlViewer {
     }
 
     if (
-      newValue instanceof CRL
-      && oldValue instanceof CRL
+      newValue instanceof X509Crl
+      && oldValue instanceof X509Crl
     ) {
       if (newValue.commonName !== oldValue.commonName) {
         this.decodeCertificate(newValue);

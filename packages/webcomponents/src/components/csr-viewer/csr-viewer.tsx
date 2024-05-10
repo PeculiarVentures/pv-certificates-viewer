@@ -16,7 +16,7 @@ import {
   Build,
 } from '@stencil/core';
 
-import { CSR } from '../../crypto';
+import { Pkcs10CertificateRequest } from '../../crypto';
 import { getDNSNameLink, getIPAddressLink, getLEILink } from '../../utils/third_party_links';
 import {
   BasicInformation,
@@ -30,7 +30,7 @@ import {
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
 
-export type CsrProp = string | CSR;
+export type CsrProp = string | Pkcs10CertificateRequest;
 
 @Component({
   tag: 'peculiar-csr-viewer',
@@ -38,7 +38,7 @@ export type CsrProp = string | CSR;
   shadow: true,
 })
 export class CsrViewer {
-  private certificateDecoded: CSR;
+  private certificateDecoded: Pkcs10CertificateRequest;
 
   private certificateDecodeError: Error;
 
@@ -107,10 +107,10 @@ export class CsrViewer {
     this.isDecodeInProcess = true;
 
     try {
-      if (certificate instanceof CSR) {
+      if (certificate instanceof Pkcs10CertificateRequest) {
         this.certificateDecoded = certificate;
       } else if (typeof certificate === 'string') {
-        this.certificateDecoded = new CSR(certificate);
+        this.certificateDecoded = new Pkcs10CertificateRequest(certificate);
       } else {
         return;
       }
@@ -144,8 +144,8 @@ export class CsrViewer {
     }
 
     if (
-      newValue instanceof CSR
-      && oldValue instanceof CSR
+      newValue instanceof Pkcs10CertificateRequest
+      && oldValue instanceof Pkcs10CertificateRequest
     ) {
       if (newValue.commonName !== oldValue.commonName) {
         this.decodeCertificate(newValue);

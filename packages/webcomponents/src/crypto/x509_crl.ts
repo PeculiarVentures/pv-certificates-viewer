@@ -32,7 +32,7 @@ export interface IRevokedCertificate {
   crlEntryExtensions?: Extension<TExtensionValue>[];
 }
 
-export class CRL extends AsnData<CertificateList> {
+export class X509Crl extends AsnData<CertificateList> {
   public readonly issuer: INameJSON[];
 
   public readonly version: number;
@@ -47,7 +47,9 @@ export class CRL extends AsnData<CertificateList> {
 
   public thumbprints: Record<string, string> = {};
 
-  public type: string = 'X.509 Certificate Revocation List';
+  public readonly type = 'X.509 Certificate Revocation List';
+
+  public readonly tag = 'X509 CRL';
 
   constructor(raw: string) {
     super(certificateRawToBuffer(raw), CertificateList);
@@ -116,28 +118,27 @@ export class CRL extends AsnData<CertificateList> {
     }
   }
 
-  public exportAsBase64() {
-    return Convert.ToBase64(this.raw);
-  }
-
-  public exportAsHexFormatted() {
-    return hexFormat(Convert.ToHex(this.raw));
-  }
-
-  public exportAsPemFormatted() {
-    return `-----BEGIN X509 CRL-----\n${base64Format(this.exportAsBase64())}\n-----END X509 CRL-----`;
+  public toString(format: 'hex' | 'pem' | 'base64' = 'pem'): string {
+    switch (format) {
+      case 'hex':
+        return hexFormat(Convert.ToHex(this.raw));
+      case 'pem':
+        return `-----BEGIN ${this.tag}-----\n${base64Format(this.toString('base64'))}\n-----END ${this.tag}-----`;
+      default:
+        return Convert.ToBase64(this.raw);
+    }
   }
 
   public downloadAsPEM(name?: string) {
     Download.crl.asPEM(
-      this.exportAsPemFormatted(),
+      this.toString('pem'),
       name || this.commonName,
     );
   }
 
   public downloadAsDER(name?: string) {
     Download.crl.asDER(
-      this.exportAsHexFormatted(),
+      this.toString('hex'),
       name || this.commonName,
     );
   }

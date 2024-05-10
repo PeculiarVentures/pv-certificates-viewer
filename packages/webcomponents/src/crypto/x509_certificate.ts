@@ -65,7 +65,9 @@ export class X509Certificate extends AsnData<Certificate> {
 
   public thumbprints: Record<string, string> = {};
 
-  public type: string = 'X.509 Certificate';
+  public readonly type = 'X.509 Certificate';
+
+  public readonly tag = 'CERTIFICATE';
 
   constructor(raw: string) {
     super(certificateRawToBuffer(raw), Certificate);
@@ -158,18 +160,6 @@ export class X509Certificate extends AsnData<Certificate> {
     };
   }
 
-  public exportAsBase64() {
-    return Convert.ToBase64(this.raw);
-  }
-
-  public exportAsHexFormatted() {
-    return hexFormat(Convert.ToHex(this.raw));
-  }
-
-  public exportAsPemFormatted() {
-    return `-----BEGIN CERTIFICATE-----\n${base64Format(this.exportAsBase64())}\n-----END CERTIFICATE-----`;
-  }
-
   public async getThumbprint(
     algorithm: string = 'SHA-1',
   ): Promise<void> {
@@ -248,16 +238,27 @@ export class X509Certificate extends AsnData<Certificate> {
       .join(', ');
   }
 
+  public toString(format: 'hex' | 'pem' | 'base64' = 'pem'): string {
+    switch (format) {
+      case 'hex':
+        return hexFormat(Convert.ToHex(this.raw));
+      case 'pem':
+        return `-----BEGIN ${this.tag}-----\n${base64Format(this.toString('base64'))}\n-----END ${this.tag}-----`;
+      default:
+        return Convert.ToBase64(this.raw);
+    }
+  }
+
   public downloadAsPEM(name?: string) {
     Download.cert.asPEM(
-      this.exportAsPemFormatted(),
+      this.toString('pem'),
       name || this.commonName,
     );
   }
 
   public downloadAsDER(name?: string) {
     Download.cert.asDER(
-      this.exportAsHexFormatted(),
+      this.toString('hex'),
       name || this.commonName,
     );
   }

@@ -40,7 +40,7 @@ interface IPublicKey {
   params?: ECParameters | RSAPublicKey;
 }
 
-export class CSR extends AsnData<CertificationRequest> {
+export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
   public readonly subject: INameJSON[];
 
   public readonly version: number;
@@ -51,7 +51,9 @@ export class CSR extends AsnData<CertificationRequest> {
 
   public thumbprints: Record<string, string> = {};
 
-  public type: string = 'PKCS#10 Certificate Request';
+  public readonly type = 'PKCS#10 Certificate Request';
+
+  public readonly tag = 'CERTIFICATE REQUEST';
 
   constructor(raw: string) {
     super(certificateRawToBuffer(raw), CertificationRequest);
@@ -140,28 +142,27 @@ export class CSR extends AsnData<CertificationRequest> {
     }
   }
 
-  public exportAsBase64() {
-    return Convert.ToBase64(this.raw);
-  }
-
-  public exportAsHexFormatted() {
-    return hexFormat(Convert.ToHex(this.raw));
-  }
-
-  public exportAsPemFormatted() {
-    return `-----BEGIN CERTIFICATE REQUEST-----\n${base64Format(this.exportAsBase64())}\n-----END CERTIFICATE REQUEST-----`;
+  public toString(format: 'hex' | 'pem' | 'base64' = 'pem'): string {
+    switch (format) {
+      case 'hex':
+        return hexFormat(Convert.ToHex(this.raw));
+      case 'pem':
+        return `-----BEGIN ${this.tag}-----\n${base64Format(this.toString('base64'))}\n-----END ${this.tag}-----`;
+      default:
+        return Convert.ToBase64(this.raw);
+    }
   }
 
   public downloadAsPEM(name?: string) {
     Download.csr.asPEM(
-      this.exportAsPemFormatted(),
+      this.toString('pem'),
       name || this.commonName,
     );
   }
 
   public downloadAsDER(name?: string) {
     Download.csr.asDER(
-      this.exportAsHexFormatted(),
+      this.toString('hex'),
       name || this.commonName,
     );
   }

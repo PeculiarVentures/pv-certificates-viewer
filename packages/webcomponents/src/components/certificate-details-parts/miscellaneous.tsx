@@ -11,15 +11,18 @@ import { h, FunctionalComponent } from '@stencil/core';
 import {
   X509Certificate,
   X509AttributeCertificate,
-  CSR,
-  CRL,
+  Pkcs10CertificateRequest,
+  X509Crl,
 } from '../../crypto';
 import { l10n } from '../../utils';
 import { Button } from '../button';
 import { DownloadIcon } from '../icons';
 import { RowTitle } from './row';
 
-type CertificateType = X509Certificate | X509AttributeCertificate | CSR | CRL;
+type CertificateType = X509Certificate
+| X509AttributeCertificate
+| Pkcs10CertificateRequest
+| X509Crl;
 
 interface IMiscellaneousProps {
   certificate: CertificateType;
