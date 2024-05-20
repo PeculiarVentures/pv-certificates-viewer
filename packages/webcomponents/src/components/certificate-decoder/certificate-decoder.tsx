@@ -16,7 +16,7 @@ import {
   EventEmitter,
 } from '@stencil/core';
 
-import { validator, readAsBinaryString } from '../../utils';
+import { readAsBinaryString } from '../../utils';
 import {
   X509Certificate,
   X509AttributeCertificate,
@@ -126,89 +126,26 @@ export class CertificateDecoder {
     this.clearCertificate.emit();
   }
 
-  setValue(value: X509Certificate | X509AttributeCertificate | Pkcs10CertificateRequest | X509Crl) {
+  setValue(value: typeof this.certificateDecoded) {
     this.certificateDecoded = value;
     this.inputPaste.value = value.toString('pem');
     this.successParse.emit(value.toString('base64'));
   }
 
   decode(certificate: string) {
-    const isPem = validator.isPem(certificate);
-    const isX509Pem = validator.isX509Pem(certificate);
-    const isPkcs10Pem = validator.isPkcs10Pem(certificate);
-    const isX509AttributePem = validator.isX509AttributePem(certificate);
-    const isX509CRLPem = validator.isX509CRLPem(certificate);
-    let decoded: X509Certificate | X509AttributeCertificate | Pkcs10CertificateRequest | X509Crl;
-    let decodeError: Error;
+    new Promise((resolve) => {
+      resolve(new X509Certificate(certificate));
+    })
+      .catch(() => new X509AttributeCertificate(certificate))
+      .catch(() => new Pkcs10CertificateRequest(certificate))
+      .catch(() => new X509Crl(certificate))
+      .then((res: typeof this.certificateDecoded) => this.setValue(res))
+      .catch((err) => {
+        this.clearValue();
 
-    if (isPem && !(isX509Pem || isX509AttributePem || isPkcs10Pem || isX509CRLPem)) {
-      this.clearValue();
-
-      alert('Unsupported file type. Please try to use Certificate/AttributeCertificate/CertificateRequest/CRL.');
-
-      return;
-    }
-
-    try {
-      if (isX509Pem) {
-        decoded = new X509Certificate(certificate);
-      }
-
-      if (isX509AttributePem) {
-        decoded = new X509AttributeCertificate(certificate);
-      }
-
-      if (isPkcs10Pem) {
-        decoded = new Pkcs10CertificateRequest(certificate);
-      }
-
-      if (isX509CRLPem) {
-        decoded = new X509Crl(certificate);
-      }
-    } catch (error) {
-      decodeError = error;
-    }
-
-    if (!decoded) {
-      try {
-        decoded = new X509Certificate(certificate);
-      } catch (error) {
-        decodeError = error;
-      }
-    }
-
-    if (!decoded) {
-      try {
-        decoded = new X509AttributeCertificate(certificate);
-      } catch (error) {
-        decodeError = error;
-      }
-    }
-
-    if (!decoded) {
-      try {
-        decoded = new Pkcs10CertificateRequest(certificate);
-      } catch (error) {
-        decodeError = error;
-      }
-    }
-
-    if (!decoded) {
-      try {
-        decoded = new X509Crl(certificate);
-      } catch (error) {
-        decodeError = error;
-      }
-    }
-
-    if (!decoded) {
-      this.clearValue();
-
-      console.log(decodeError);
-      alert('Error decoding file. Please try to use Certificate/AttributeCertificate/CertificateRequest/CRL.');
-    } else {
-      this.setValue(decoded);
-    }
+        console.log(err);
+        alert('Error decoding file. Please try to use Certificate/AttributeCertificate/CertificateRequest/CRL.');
+      });
   }
 
   render() {
