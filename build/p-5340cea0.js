@@ -1,0 +1,19 @@
+/*!
+ * © Peculiar Ventures https://peculiarventures.com/ - MIT License
+ */
+import{A as t,v as s,X as i,C as e,L as r,G as n,y as h,F as a,H as o,J as c,D as u,Y as f,N as l}from"./p-05d142e7.js";import{A as m}from"./p-7f2d72f7.js";
+/**
+ * @license
+ * Copyright (c) Peculiar Ventures, LLC.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */class g extends t{constructor(t){var n;super(s(t),i);this.thumbprints={};this.type="X.509 Attribute Certificate";this.tag="ATTRIBUTE CERTIFICATE";const{acinfo:h}=this.asn;this.serialNumber=e.ToHex(h.serialNumber);this.version=h.version;const a=h.attrCertValidityPeriod.notBeforeTime;if(!a){throw new Error("Cannot get 'notBefore' value")}this.notBefore=a;const o=h.attrCertValidityPeriod.notAfterTime;if(!o){throw new Error("Cannot get 'notAfter' value")}this.notAfter=o;this.validity=r(this.notBefore,this.notAfter);this.issuer=h.issuer.v1Form||((n=h.issuer.v2Form)===null||n===void 0?void 0:n.issuerName);this.holder=h.holder}get signature(){const{signatureValue:t,signatureAlgorithm:s}=this.asn;return{value:t,algorithm:s.algorithm}}parseExtensions(){const{acinfo:t}=this.asn;if(t.extensions){this.extensions=t.extensions.map((t=>new n(h.serialize(t))))}}parseAttributes(){const{acinfo:t}=this.asn;if(t.attributes){this.attributes=t.attributes.map((t=>new m(h.serialize(t))))}}async getThumbprint(t="SHA-1"){try{const s=await a(t,this.raw);if(s){this.thumbprints[t]=e.ToHex(s)}}catch(t){console.error("Error thumbprint get:",t)}}get commonName(){return`attribute-certificate-${this.thumbprints["SHA-1"]}`}toString(t="pem"){switch(t){case"hex":return c(e.ToHex(this.raw));case"pem":return`-----BEGIN ${this.tag}-----\n${o(this.toString("base64"))}\n-----END ${this.tag}-----`;default:return e.ToBase64(this.raw)}}downloadAsPEM(t){u.attrCert.asPEM(this.toString("pem"),t||this.commonName)}downloadAsDER(t){u.attrCert.asDER(this.toString("hex"),t||this.commonName)}}
+/**
+ * @license
+ * Copyright (c) Peculiar Ventures, LLC.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */class p extends t{constructor(t){super(s(t),f);this.thumbprints={};this.type="X.509 Certificate Revocation List";this.tag="X509 CRL";const{tbsCertList:i}=this.asn;this.issuer=new l(i.issuer).toJSON();this.version=i.version+1;this.lastUpdate=i.thisUpdate.getTime();this.nextUpdate=i.nextUpdate.getTime();this.revokedCertificates=(i.revokedCertificates||[]).map((t=>{var s;return{revocationDate:t.revocationDate,userCertificate:t.userCertificate,crlEntryExtensions:(s=t.crlEntryExtensions)===null||s===void 0?void 0:s.map((t=>new n(h.serialize(t))))}}))}async getThumbprint(t="SHA-1"){try{const s=await a(t,this.raw);if(s){this.thumbprints[t]=e.ToHex(s)}}catch(t){console.error("Error thumbprint get:",t)}}get signature(){const{signature:t,signatureAlgorithm:s}=this.asn;return{value:t,algorithm:s.algorithm}}get commonName(){if(!this.issuer){return""}for(let t=0;t<this.issuer.length;t+=1){const s=this.issuer[t];if(s.shortName==="CN"||s.shortName==="E"||s.shortName==="O"){return s.value}}return""}parseExtensions(){const{tbsCertList:t}=this.asn;if(t.crlExtensions){this.extensions=t.crlExtensions.map((t=>new n(h.serialize(t))))}}toString(t="pem"){switch(t){case"hex":return c(e.ToHex(this.raw));case"pem":return`-----BEGIN ${this.tag}-----\n${o(this.toString("base64"))}\n-----END ${this.tag}-----`;default:return e.ToBase64(this.raw)}}downloadAsPEM(t){u.crl.asPEM(this.toString("pem"),t||this.commonName)}downloadAsDER(t){u.crl.asDER(this.toString("hex"),t||this.commonName)}}export{g as X,p as a};
+//# sourceMappingURL=p-5340cea0.js.map
