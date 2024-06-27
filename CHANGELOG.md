@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.2.2...v4.3.0) (2024-06-27)
+
+
+### Bug Fixes
+
+* **webcomponents:** fix downloading wrong DER format ([#146](https://github.com/PeculiarVentures/pv-certificates-viewer/issues/146)) ([9073275](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/9073275c16590ec036eb7933f53d265f17da9d59))
+
+
+### Features
+
+* **oids:** add a few Apple oids ([ad053e7](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/ad053e70261b84df3fc941213e7d21f564e77213))
+
+
+
+
+
 ## [4.2.2](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.2.1...v4.2.2) (2024-05-10)
 
 **Note:** Version bump only for package peculiar-certificates-viewer-monorepo
