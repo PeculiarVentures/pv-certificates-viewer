@@ -162,7 +162,7 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
 
   public downloadAsDER(name?: string) {
     Download.csr.asDER(
-      this.toString('hex'),
+      this.raw,
       name || this.commonName,
     );
   }

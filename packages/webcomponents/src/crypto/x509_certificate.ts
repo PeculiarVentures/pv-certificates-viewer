@@ -258,7 +258,7 @@ export class X509Certificate extends AsnData<Certificate> {
 
   public downloadAsDER(name?: string) {
     Download.cert.asDER(
-      this.toString('hex'),
+      this.raw,
       name || this.commonName,
     );
   }
