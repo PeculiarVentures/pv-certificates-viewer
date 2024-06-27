@@ -146,7 +146,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
 
   public downloadAsDER(name?: string) {
     Download.attrCert.asDER(
-      this.toString('hex'),
+      this.raw,
       name || this.commonName,
     );
   }

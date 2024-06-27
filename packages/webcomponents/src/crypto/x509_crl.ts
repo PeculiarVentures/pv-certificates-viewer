@@ -138,7 +138,7 @@ export class X509Crl extends AsnData<CertificateList> {
 
   public downloadAsDER(name?: string) {
     Download.crl.asDER(
-      this.toString('hex'),
+      this.raw,
       name || this.commonName,
     );
   }

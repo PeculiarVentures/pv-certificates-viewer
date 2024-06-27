@@ -21,9 +21,9 @@ export class Download {
       );
     },
 
-    asDER: (hex: string, name: string) => {
+    asDER: (raw: ArrayBuffer, name: string) => {
       downloadFromBuffer(
-        Convert.FromString(hex),
+        raw,
         name,
         'cer',
         'application/pkix-cert',
@@ -41,9 +41,9 @@ export class Download {
       );
     },
 
-    asDER: (hex: string, name: string) => {
+    asDER: (raw: ArrayBuffer, name: string) => {
       downloadFromBuffer(
-        Convert.FromString(hex),
+        raw,
         name,
         'cer',
         'application/pkix-attr-cert',
@@ -61,9 +61,9 @@ export class Download {
       );
     },
 
-    asDER: (hex: string, name: string) => {
+    asDER: (raw: ArrayBuffer, name: string) => {
       downloadFromBuffer(
-        Convert.FromString(hex),
+        raw,
         name,
         'csr',
         'application/pkcs10',
@@ -81,9 +81,9 @@ export class Download {
       );
     },
 
-    asDER: (hex: string, name: string) => {
+    asDER: (raw: ArrayBuffer, name: string) => {
       downloadFromBuffer(
-        Convert.FromString(hex),
+        raw,
         name,
         'crl',
         'application/pkix-crl',
