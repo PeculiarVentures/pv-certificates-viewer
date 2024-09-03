@@ -32,7 +32,9 @@ jobs:
       - run: node --version
       - restore_cache: *restore-yarn-cache
       - restore_cache: *restore-node-modules-cache
-      - run: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+      - run:
+          no_output_timeout: 20m
+          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
       - save_cache: *save-node-modules-cache
       - save_cache: *save-yarn-cache
       - persist_to_workspace:
