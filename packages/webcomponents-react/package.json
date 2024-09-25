@@ -22,8 +22,7 @@
   "scripts": {
     "build": "npm run clean && npm run compile",
     "clean": "rimraf dist",
-    "compile": "npm run tsc && rollup -c",
-    "tsc": "tsc -p ."
+    "compile": "rollup -c"
   },
   "license": "MIT",
   "author": "PeculiarVentures Team",
@@ -36,13 +35,12 @@
     "access": "public"
   },
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^8.1.0",
+    "@rollup/plugin-typescript": "^11.1.5",
     "@types/node": "^16.11.7",
     "@types/react": "^16.9.46",
     "react": "^16.13.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.26.4",
-    "rollup-plugin-sourcemaps": "^0.6.2",
+    "rollup": "^4.2.0",
     "typescript": "^4.0.5"
   },
   "dependencies": {
