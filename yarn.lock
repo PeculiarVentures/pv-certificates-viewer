@@ -1427,10 +1427,10 @@
   resolved "https://registry.yarnpkg.com/@stencil/core/-/core-4.13.0.tgz#31654b9c601ce8b74194903fe28ed4bcb66b576e"
   integrity sha512-gg+gtBWekQ08mDja8GVAUHNu+rrFhQaKZDvfhnS3l/5JbYiJddTimuDPPhuc0sR0JZL1iRdJTJSa+JbvmnQ1cQ==
 
-"@stencil/sass@^3.0.11":
-  version "3.0.11"
-  resolved "https://registry.yarnpkg.com/@stencil/sass/-/sass-3.0.11.tgz#e073be24a77603d18a8d15509baf0a9c7aaab7fe"
-  integrity sha512-YzKBKuV2wYf2aCM2Or8DbksX+8DQKOYFe2QMNAV+LFzyexhiYDz5/Tq04CDtc8xTXmzqC0J8U79GB8Vvz9myAQ==
+"@stencil/sass@^3.0.12":
+  version "3.0.12"
+  resolved "https://registry.yarnpkg.com/@stencil/sass/-/sass-3.0.12.tgz#f72baa3d855ae8c095d4e8aae95fc8d444e6cf66"
+  integrity sha512-aXMgpG13ftxLYo2dDauapvE9gKzSxTAqCMOfTqbPhKUCZ43JsknkLx+PArRaFtfYeVGSQ8eTS4ck7/Nlec+PNA==
 
 "@tootallnate/once@1":
   version "1.1.2"
