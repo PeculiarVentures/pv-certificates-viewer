@@ -1,84 +1,57 @@
 version: 2.1
 
-aliases:
-  - &docker-node
-    - image: cimg/node:18.20.0
-
-  - &restore-node-modules-cache
-    name: Restore node_modules cache
-    key: yarn-deps-{{ checksum "yarn.lock" }}
-
-  - &restore-yarn-cache
-    name: Restore yarnpkg cache
-    key: yarn-cache
-
-  - &save-node-modules-cache
-    name: Save node_modules cache
-    paths:
-      - node_modules
-    key: yarn-deps-{{ checksum "yarn.lock" }}
-
-  - &save-yarn-cache
-    name: Save yarnpkg cache
-    paths:
-      - ~/.cache/yarn
-    key: yarn-cache
+executors:
+  node-executor:
+    docker:
+      - image: circleci/node:18
+    working_directory: ~/repo
 
 jobs:
-  checkout-code:
-    docker: *docker-node
+  install:
+    executor: node-executor
     steps:
       - checkout
-      - run: node --version
-      - restore_cache: *restore-yarn-cache
-      - restore_cache: *restore-node-modules-cache
+      - restore_cache:
+          keys:
+            - yarn-v1-{{ checksum "yarn.lock" }}
+            - yarn-v1-
       - run:
-          no_output_timeout: 20m
-          command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
-      - save_cache: *save-node-modules-cache
-      - save_cache: *save-yarn-cache
-      - persist_to_workspace:
-          root: "."
-          paths: [
-            packages/*/node_modules
-          ]
+          name: Install dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          paths:
+            - ~/.cache/yarn
+            - node_modules
+          key: yarn-v1-{{ checksum "yarn.lock" }}
 
   lint:
-    docker: *docker-node
+    executor: node-executor
     steps:
       - checkout
-      - restore_cache: *restore-node-modules-cache
-      - attach_workspace: { at: "." }
-      - run: yarn lint
+      - run:
+          name: Run linter
+          command: yarn lint
 
   test:
-    docker: *docker-node
+    executor: node-executor
     steps:
       - checkout
-      - restore_cache: *restore-node-modules-cache
-      - attach_workspace: { at: "." }
-      - run: yarn test
+      - run:
+          name: Run tests
+          command: yarn test
 
   build:
-    docker: *docker-node
+    executor: node-executor
     steps:
       - checkout
-      - restore_cache: *restore-node-modules-cache
-      - attach_workspace: { at: "." }
-      - run: yarn build
-      - persist_to_workspace:
-          root: "."
-          paths: [
-            packages/*/dist,
-            packages/webcomponents/www,
-          ]
+      - run:
+          name: Build project
+          command: yarn build
 
   deploy:
-    docker: *docker-node
+    executor: node-executor
     steps:
       - checkout
-      - restore_cache: *restore-node-modules-cache
-      - attach_workspace: { at: "." }
       - run: |
           git config user.email "$GH_EMAIL"
           git config user.name "$GH_NAME"
@@ -87,18 +60,19 @@ jobs:
 
 workflows:
   version: 2
-  compile_lint_test_dist_deploy:
+  install-lint-test-build:
     jobs:
-      - checkout-code
+      - install
       - lint:
           requires:
-            - checkout-code
+            - install
       - test:
           requires:
-            - lint
+            - install
       - build:
           requires:
             - test
+            - lint
       - deploy:
           requires:
             - build
