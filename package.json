@@ -17,6 +17,7 @@
   ],
   "scripts": {
     "build": "lerna run build",
+    "test": "lerna run test",
     "clean": "lerna run --parallel clean",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./packages",
     "bootstrap": "yarn",

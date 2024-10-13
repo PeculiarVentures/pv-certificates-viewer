@@ -1,3 +1,11 @@
+/**
+ * @license
+ * Copyright (c) Peculiar Ventures, LLC.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 import { BufferSourceConverter, Convert } from 'pvtsutils';
 
 const rPaddingTag = '-{5}';
@@ -120,21 +128,6 @@ export class PemConverter {
     const blocks = this.decodeWithHeaders(pem);
 
     return blocks.map((o) => o.rawData);
-  }
-
-  /**
-   * Decodes PEM and returns first item from the list
-   * @param pem message in PEM format
-   * @throw Throws RangeError if list of decoded items is empty
-   */
-  public static decodeFirst(pem: string): ArrayBuffer {
-    const items = this.decode(pem);
-
-    if (!items.length) {
-      throw new RangeError("PEM string doesn't contain any objects");
-    }
-
-    return items[0];
   }
 
   /**
