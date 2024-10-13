@@ -14,10 +14,9 @@ import { Download } from '../utils';
 import { Extension, TExtensionValue } from './extension';
 import { AsnData } from './asn_data';
 import { Name, INameJSON } from './name';
+import { PemConverter } from './pem_converter';
 import {
   certificateRawToBuffer,
-  hexFormat,
-  base64Format,
   getCertificateThumbprint,
 } from './utils';
 
@@ -49,7 +48,7 @@ export class X509Crl extends AsnData<CertificateList> {
 
   public readonly type = 'X.509 Certificate Revocation List';
 
-  public readonly tag = 'X509 CRL';
+  public readonly tag = PemConverter.CrlTag;
 
   constructor(raw: string) {
     super(certificateRawToBuffer(raw), CertificateList);
@@ -118,12 +117,12 @@ export class X509Crl extends AsnData<CertificateList> {
     }
   }
 
-  public toString(format: 'hex' | 'pem' | 'base64' = 'pem'): string {
+  public toString(format: 'pem' | 'base64' | 'base64url' = 'pem'): string {
     switch (format) {
-      case 'hex':
-        return hexFormat(Convert.ToHex(this.raw));
       case 'pem':
-        return `-----BEGIN ${this.tag}-----\n${base64Format(this.toString('base64'))}\n-----END ${this.tag}-----`;
+        return PemConverter.encode(this.raw, this.tag);
+      case 'base64url':
+        return Convert.ToBase64Url(this.raw);
       default:
         return Convert.ToBase64(this.raw);
     }

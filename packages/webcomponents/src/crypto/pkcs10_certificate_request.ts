@@ -22,10 +22,9 @@ import { AsnData } from './asn_data';
 import { Name, INameJSON } from './name';
 import { Attribute, TAttributeValue } from './attribute';
 import { Extension, TExtensionValue } from './extension';
+import { PemConverter } from './pem_converter';
 import {
   certificateRawToBuffer,
-  hexFormat,
-  base64Format,
   getCertificateThumbprint,
 } from './utils';
 
@@ -53,7 +52,7 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
 
   public readonly type = 'PKCS#10 Certificate Request';
 
-  public readonly tag = 'CERTIFICATE REQUEST';
+  public readonly tag = PemConverter.CertificateRequestTag;
 
   constructor(raw: string) {
     super(certificateRawToBuffer(raw), CertificationRequest);
@@ -142,12 +141,12 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
     }
   }
 
-  public toString(format: 'hex' | 'pem' | 'base64' = 'pem'): string {
+  public toString(format: 'pem' | 'base64' | 'base64url' = 'pem'): string {
     switch (format) {
-      case 'hex':
-        return hexFormat(Convert.ToHex(this.raw));
       case 'pem':
-        return `-----BEGIN ${this.tag}-----\n${base64Format(this.toString('base64'))}\n-----END ${this.tag}-----`;
+        return PemConverter.encode(this.raw, this.tag);
+      case 'base64url':
+        return Convert.ToBase64Url(this.raw);
       default:
         return Convert.ToBase64(this.raw);
     }
