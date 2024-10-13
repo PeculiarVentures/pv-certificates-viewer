@@ -14,6 +14,7 @@ import {
   Prop,
   Event,
   EventEmitter,
+  Fragment,
 } from '@stencil/core';
 
 import { readAsBinaryString } from '../../utils';
@@ -26,10 +27,20 @@ import {
 import { Button } from '../button';
 import { Typography } from '../typography';
 
+interface ICertificateDecoded {
+  name: string;
+  body: X509Certificate
+  | X509AttributeCertificate
+  | Pkcs10CertificateRequest
+  | X509Crl;
+}
+
+const base64Re = /-----BEGIN [^-]+-----([A-Za-z0-9+/=\s]+)-----END [^-]+-----|begin-base64[^\n]+\n([A-Za-z0-9+/=\s]+)====/;
+
 @Component({
   tag: 'peculiar-certificate-decoder',
   styleUrl: 'certificate-decoder.scss',
-  shadow: true,
+  scoped: true,
 })
 export class CertificateDecoder {
   private inputPaste?: HTMLTextAreaElement;
@@ -45,17 +56,14 @@ export class CertificateDecoder {
   /**
    * The default certificate value for decode and show details. Use PEM or DER.
    */
-  @Prop() defaultCertificate?: string;
+  @Prop() certificatesToDecode?: string[];
 
-  @State() certificateDecoded: X509Certificate
-  | X509AttributeCertificate
-  | Pkcs10CertificateRequest
-  | X509Crl;
+  @State() certificatesDecoded: ICertificateDecoded[];
 
   /**
    * Emitted when the certificate has been successfully parsed.
    */
-  @Event() successParse!: EventEmitter<string>;
+  @Event() successParse!: EventEmitter<string[]>;
 
   /**
    * Emitted when the certificate has been removed.
@@ -63,11 +71,11 @@ export class CertificateDecoder {
   @Event() clearCertificate!: EventEmitter<void>;
 
   componentDidLoad() {
-    if (this.defaultCertificate) {
+    if (this.certificatesToDecode) {
       /**
        * Prevent Stencil warning about re-render
        */
-      setTimeout(() => this.decode(this.defaultCertificate), 100);
+      setTimeout(() => this.decode(this.certificatesToDecode), 100);
     }
   }
 
@@ -75,7 +83,14 @@ export class CertificateDecoder {
     const { value } = this.inputPaste;
 
     if (value) {
-      this.decode(value);
+      const matches = [...value.matchAll(new RegExp(base64Re, 'g'))];
+      const result = matches.map((match) => match[0].trim());
+
+      if (result.length) {
+        this.decode(result);
+      } else {
+        this.decode([value]);
+      }
     }
   };
 
@@ -90,7 +105,7 @@ export class CertificateDecoder {
       const file = await readAsBinaryString(element.files[0]);
 
       if (typeof file.value === 'string') {
-        this.decode(file.value);
+        this.decode([file.value]);
       }
 
       element.value = '';
@@ -99,7 +114,7 @@ export class CertificateDecoder {
 
   private handleChangeExample = (event: any) => {
     if (event.target.value) {
-      this.decode(event.target.value);
+      this.decode([event.target.value]);
     } else {
       this.clearValue();
     }
@@ -115,37 +130,125 @@ export class CertificateDecoder {
       const file = await readAsBinaryString(element.files[0]);
 
       if (typeof file.value === 'string') {
-        this.decode(file.value);
+        this.decode([file.value]);
       }
     }
   };
 
   clearValue() {
     this.inputPaste.value = '';
-    this.certificateDecoded = null;
+    this.certificatesDecoded = null;
     this.clearCertificate.emit();
   }
 
-  setValue(value: typeof this.certificateDecoded) {
-    this.certificateDecoded = value;
-    this.inputPaste.value = value.toString('pem');
-    this.successParse.emit(value.toString('base64'));
+  setValue(values: typeof this.certificatesDecoded) {
+    this.certificatesDecoded = values;
+    this.inputPaste.value = values.map((value) => value.body.toString('pem')).join('\n');
+    this.successParse.emit(values.map((value) => value.body.toString('base64url')));
   }
 
-  decode(certificate: string) {
-    new Promise((resolve) => {
-      resolve(new X509Certificate(certificate));
-    })
-      .catch(() => new X509AttributeCertificate(certificate))
-      .catch(() => new Pkcs10CertificateRequest(certificate))
-      .catch(() => new X509Crl(certificate))
-      .then((res: typeof this.certificateDecoded) => this.setValue(res))
-      .catch((err) => {
-        this.clearValue();
+  decode(certificates: string[]) {
+    Promise.all(certificates.map((certificate) => (
+      new Promise<X509Certificate>((resolve) => {
+        resolve(new X509Certificate(certificate));
+      })
+        .catch(() => new X509AttributeCertificate(certificate))
+        .catch(() => new Pkcs10CertificateRequest(certificate))
+        .catch(() => new X509Crl(certificate))
+        .catch((error) => {
+          console.log(error);
 
-        console.log(err);
-        alert('Error decoding file. Please try to use Certificate/AttributeCertificate/CertificateRequest/CRL.');
+          alert(`Error decoding certificate:\n"${certificate}"\n\nPlease try to use Certificate/AttributeCertificate/CertificateRequest/CRL.`);
+        })
+    )))
+      .then((result: ICertificateDecoded['body'][]) => {
+        this.setValue(
+          result
+            .filter((cert) => cert)
+            .map((cert) => ({
+              name: cert.commonName,
+              body: cert,
+            })),
+        );
       });
+  }
+
+  static renderCertificateBody(body: ICertificateDecoded['body']) {
+    if (body instanceof X509Certificate) {
+      return (
+        <peculiar-certificate-viewer
+          certificate={body}
+          download
+        />
+      );
+    }
+
+    if (body instanceof X509AttributeCertificate) {
+      return (
+        <peculiar-attribute-certificate-viewer
+          certificate={body}
+          download
+        />
+      );
+    }
+
+    if (body instanceof Pkcs10CertificateRequest) {
+      return (
+        <peculiar-csr-viewer
+          certificate={body}
+          download
+        />
+      );
+    }
+
+    if (body instanceof X509Crl) {
+      return (
+        <peculiar-crl-viewer
+          certificate={body}
+          download
+        />
+      );
+    }
+
+    return null;
+  }
+
+  renderCertificates() {
+    if (!this.certificatesDecoded?.length) {
+      return null;
+    }
+
+    if (this.certificatesDecoded.length === 1) {
+      return CertificateDecoder.renderCertificateBody(this.certificatesDecoded[0].body);
+    }
+
+    return (
+      <div class="tabs-container">
+        {this.certificatesDecoded.map((cert, index) => (
+          <Fragment>
+            <input
+              type="radio"
+              id={`tab-${index}`}
+              name="cert-tabs"
+              checked={index === 0}
+            />
+            <Typography
+              variant="s2"
+              component="label"
+              // @ts-ignore
+              htmlFor={`tab-${index}`}
+              class="tab-control"
+              color="black"
+            >
+              {cert.name}
+            </Typography>
+            <div class="tab-content">
+              {CertificateDecoder.renderCertificateBody(cert.body)}
+            </div>
+          </Fragment>
+        ))}
+      </div>
+    );
   }
 
   render() {
@@ -203,34 +306,7 @@ export class CertificateDecoder {
             </Button>
           </div>
         </div>
-        {this.certificateDecoded instanceof X509Certificate && (
-          <peculiar-certificate-viewer
-            certificate={this.certificateDecoded}
-            class="viewer"
-            download
-          />
-        )}
-        {this.certificateDecoded instanceof X509AttributeCertificate && (
-          <peculiar-attribute-certificate-viewer
-            certificate={this.certificateDecoded}
-            class="viewer"
-            download
-          />
-        )}
-        {this.certificateDecoded instanceof Pkcs10CertificateRequest && (
-          <peculiar-csr-viewer
-            certificate={this.certificateDecoded}
-            class="viewer"
-            download
-          />
-        )}
-        {this.certificateDecoded instanceof X509Crl && (
-          <peculiar-crl-viewer
-            certificate={this.certificateDecoded}
-            class="viewer"
-            download
-          />
-        )}
+        {this.renderCertificates()}
       </Host>
     );
   }
