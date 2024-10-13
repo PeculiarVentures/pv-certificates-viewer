@@ -57,7 +57,7 @@ jobs:
       - checkout
       - restore_cache: *restore-node-modules-cache
       - attach_workspace: { at: "." }
-      - run: yarn lint
+      - run: yarn test
 
   build:
     docker: *docker-node
@@ -91,17 +91,17 @@ workflows:
     jobs:
       - checkout-code
       - lint:
-          requires: [
-            checkout-code
-          ]
+          requires:
+            - checkout-code
+      - test:
+          requires:
+            - lint
       - build:
-          requires: [
-            lint
-          ]
+          requires:
+            - test
       - deploy:
-          requires: [
-            build
-          ]
+          requires:
+            - build
           filters:
             branches:
               only:
