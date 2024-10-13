@@ -51,6 +51,14 @@ jobs:
       - attach_workspace: { at: "." }
       - run: yarn lint
 
+  test:
+    docker: *docker-node
+    steps:
+      - checkout
+      - restore_cache: *restore-node-modules-cache
+      - attach_workspace: { at: "." }
+      - run: yarn lint
+
   build:
     docker: *docker-node
     steps:

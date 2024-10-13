@@ -129,7 +129,7 @@ export class CertificateDecoder {
   setValue(value: typeof this.certificateDecoded) {
     this.certificateDecoded = value;
     this.inputPaste.value = value.toString('pem');
-    this.successParse.emit(value.toString('base64'));
+    this.successParse.emit(value.toString('base64url'));
   }
 
   decode(certificate: string) {
