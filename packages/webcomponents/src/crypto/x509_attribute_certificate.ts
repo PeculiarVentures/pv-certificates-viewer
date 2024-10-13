@@ -16,10 +16,9 @@ import { dateDiff, Download } from '../utils';
 import { AsnData } from './asn_data';
 import { Extension, TExtensionValue } from './extension';
 import { Attribute, TAttributeValue } from './attribute';
+import { PemConverter } from './pem_converter';
 import {
   certificateRawToBuffer,
-  hexFormat,
-  base64Format,
   getCertificateThumbprint,
 } from './utils';
 
@@ -51,7 +50,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
 
   public readonly type = 'X.509 Attribute Certificate';
 
-  public readonly tag = 'ATTRIBUTE CERTIFICATE';
+  public readonly tag = PemConverter.AttributeCertificateTag;
 
   constructor(raw: string) {
     super(certificateRawToBuffer(raw), AttributeCertificate);
@@ -126,12 +125,12 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     return `attribute-certificate-${this.thumbprints['SHA-1']}`;
   }
 
-  public toString(format: 'hex' | 'pem' | 'base64' = 'pem'): string {
+  public toString(format: 'pem' | 'base64' | 'base64url' = 'pem'): string {
     switch (format) {
-      case 'hex':
-        return hexFormat(Convert.ToHex(this.raw));
       case 'pem':
-        return `-----BEGIN ${this.tag}-----\n${base64Format(this.toString('base64'))}\n-----END ${this.tag}-----`;
+        return PemConverter.encode(this.raw, this.tag);
+      case 'base64url':
+        return Convert.ToBase64Url(this.raw);
       default:
         return Convert.ToBase64(this.raw);
     }
