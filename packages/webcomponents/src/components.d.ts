@@ -69,7 +69,7 @@ export namespace Components {
         /**
           * The default certificate value for decode and show details. Use PEM or DER.
          */
-        "defaultCertificate"?: string;
+        "certificatesToDecode"?: string[];
     }
     interface PeculiarCertificateViewer {
         /**
@@ -221,7 +221,7 @@ declare global {
         new (): HTMLPeculiarButtonMenuElement;
     };
     interface HTMLPeculiarCertificateDecoderElementEventMap {
-        "successParse": string;
+        "successParse": string[];
         "clearCertificate": void;
     }
     interface HTMLPeculiarCertificateDecoderElement extends Components.PeculiarCertificateDecoder, HTMLStencilElement {
@@ -355,7 +355,7 @@ declare namespace LocalJSX {
         /**
           * The default certificate value for decode and show details. Use PEM or DER.
          */
-        "defaultCertificate"?: string;
+        "certificatesToDecode"?: string[];
         /**
           * Emitted when the certificate has been removed.
          */
@@ -363,7 +363,7 @@ declare namespace LocalJSX {
         /**
           * Emitted when the certificate has been successfully parsed.
          */
-        "onSuccessParse"?: (event: PeculiarCertificateDecoderCustomEvent<string>) => void;
+        "onSuccessParse"?: (event: PeculiarCertificateDecoderCustomEvent<string[]>) => void;
     }
     interface PeculiarCertificateViewer {
         /**

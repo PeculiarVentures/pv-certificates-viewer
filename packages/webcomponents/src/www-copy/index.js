@@ -6,7 +6,7 @@
 
   // Listeners.
   CERTIFICATE_DECODER_ELEMENT.addEventListener('successParse', (event) => {
-    HISTORY.replace(`?cert=${event.detail}`);
+    HISTORY.replace(`?cert=${event.detail.join(',')}`);
 
     setTimeout(() => {
       window.scrollTo({
@@ -169,7 +169,7 @@ iBM/9lIWP5h9h0IIJwqXy0bwnvJ52yaVK82g/6t5ZokPk+O6KCFysPyWUfdejXhN
         return Promise.reject();
       })
       .then((response) => {
-        CERTIFICATE_DECODER_ELEMENT.defaultCertificate = response;
+        CERTIFICATE_DECODER_ELEMENT.certificatesToDecode = [response];
       })
       .catch(() => {
         alert('Failed to load certificate. Please use another file or check CORS policy.');
@@ -178,9 +178,11 @@ iBM/9lIWP5h9h0IIJwqXy0bwnvJ52yaVK82g/6t5ZokPk+O6KCFysPyWUfdejXhN
         // Init.
         content.appendChild(CERTIFICATE_DECODER_ELEMENT);
       });
-  } else {
-    CERTIFICATE_DECODER_ELEMENT.defaultCertificate = searchParams.get('cert') || undefined;
+  } else if (searchParams.get('cert')) {
+    CERTIFICATE_DECODER_ELEMENT.certificatesToDecode = searchParams.get('cert').split(',');
     // Init.
     content.appendChild(CERTIFICATE_DECODER_ELEMENT);
+  } else {
+    content.appendChild(CERTIFICATE_DECODER_ELEMENT)
   }
 })();
