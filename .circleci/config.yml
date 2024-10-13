@@ -58,6 +58,11 @@ jobs:
       - run:
           name: Build project
           command: yarn build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - packages/*/dist
+            - packages/webcomponents/www
 
   deploy:
     executor: node-executor
