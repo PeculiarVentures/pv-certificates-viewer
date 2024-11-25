@@ -7,14 +7,16 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
 import { ButtonMenuGroup } from "./components/button-menu/button-menu";
-import { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
+import { CertificateProp } from "./components/certificate-chain-viewer/certificate-chain-viewer";
+import { CertificateProp as CertificateProp1 } from "./components/certificate-viewer/certificate-viewer";
 import { ICertificate } from "./components/certificates-viewer/certificates-viewer";
 import { X509Certificate } from "./crypto";
 import { CrlProp } from "./components/crl-viewer/crl-viewer";
 import { CsrProp } from "./components/csr-viewer/csr-viewer";
 export { AttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
 export { ButtonMenuGroup } from "./components/button-menu/button-menu";
-export { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
+export { CertificateProp } from "./components/certificate-chain-viewer/certificate-chain-viewer";
+export { CertificateProp as CertificateProp1 } from "./components/certificate-viewer/certificate-viewer";
 export { ICertificate } from "./components/certificates-viewer/certificates-viewer";
 export { X509Certificate } from "./crypto";
 export { CrlProp } from "./components/crl-viewer/crl-viewer";
@@ -58,6 +60,45 @@ export namespace Components {
     interface PeculiarButtonMenu {
         "groups": ButtonMenuGroup[];
     }
+    interface PeculiarCertificateChainViewer {
+        /**
+          * Authority Key Identifier extension parent link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
+         */
+        "authKeyIdParentLink"?: string;
+        /**
+          * Authority Key Identifier extension siblings link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
+         */
+        "authKeyIdSiblingsLink"?: string;
+        /**
+          * The certificate value for decode and show details. Use PEM or DER.
+         */
+        "certificate": CertificateProp;
+        /**
+          * If `true` - component will show split-button to download certificate as PEM or DER.
+         */
+        "download"?: boolean;
+        /**
+          * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
+         */
+        "issuerDnLink"?: string;
+        /**
+          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+          * @example  (max-width: 900px)
+         */
+        "mobileMediaQueryString"?: string;
+        /**
+          * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
+         */
+        "subjectKeyIdChildrenLink"?: string;
+        /**
+          * Subject Key Identifier extension siblings link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
+          * @example  https://some.com/{{subjectKeyId}}
+         */
+        "subjectKeyIdSiblingsLink"?: string;
+    }
     interface PeculiarCertificateDecoder {
         /**
           * The example certificate value for decode and show details. Use PEM or DER.
@@ -69,7 +110,7 @@ export namespace Components {
         /**
           * The default certificate value for decode and show details. Use PEM or DER.
          */
-        "certificatesToDecode"?: string[];
+        "certificateToDecode"?: string;
     }
     interface PeculiarCertificateViewer {
         /**
@@ -85,7 +126,7 @@ export namespace Components {
         /**
           * The certificate value for decode and show details. Use PEM or DER.
          */
-        "certificate": CertificateProp;
+        "certificate": CertificateProp1;
         /**
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
@@ -220,8 +261,14 @@ declare global {
         prototype: HTMLPeculiarButtonMenuElement;
         new (): HTMLPeculiarButtonMenuElement;
     };
+    interface HTMLPeculiarCertificateChainViewerElement extends Components.PeculiarCertificateChainViewer, HTMLStencilElement {
+    }
+    var HTMLPeculiarCertificateChainViewerElement: {
+        prototype: HTMLPeculiarCertificateChainViewerElement;
+        new (): HTMLPeculiarCertificateChainViewerElement;
+    };
     interface HTMLPeculiarCertificateDecoderElementEventMap {
-        "successParse": string[];
+        "successParse": string;
         "clearCertificate": void;
     }
     interface HTMLPeculiarCertificateDecoderElement extends Components.PeculiarCertificateDecoder, HTMLStencilElement {
@@ -295,6 +342,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "peculiar-attribute-certificate-viewer": HTMLPeculiarAttributeCertificateViewerElement;
         "peculiar-button-menu": HTMLPeculiarButtonMenuElement;
+        "peculiar-certificate-chain-viewer": HTMLPeculiarCertificateChainViewerElement;
         "peculiar-certificate-decoder": HTMLPeculiarCertificateDecoderElement;
         "peculiar-certificate-viewer": HTMLPeculiarCertificateViewerElement;
         "peculiar-certificates-viewer": HTMLPeculiarCertificatesViewerElement;
@@ -344,6 +392,45 @@ declare namespace LocalJSX {
     interface PeculiarButtonMenu {
         "groups"?: ButtonMenuGroup[];
     }
+    interface PeculiarCertificateChainViewer {
+        /**
+          * Authority Key Identifier extension parent link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
+         */
+        "authKeyIdParentLink"?: string;
+        /**
+          * Authority Key Identifier extension siblings link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
+         */
+        "authKeyIdSiblingsLink"?: string;
+        /**
+          * The certificate value for decode and show details. Use PEM or DER.
+         */
+        "certificate"?: CertificateProp;
+        /**
+          * If `true` - component will show split-button to download certificate as PEM or DER.
+         */
+        "download"?: boolean;
+        /**
+          * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
+         */
+        "issuerDnLink"?: string;
+        /**
+          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+          * @example  (max-width: 900px)
+         */
+        "mobileMediaQueryString"?: string;
+        /**
+          * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
+          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
+         */
+        "subjectKeyIdChildrenLink"?: string;
+        /**
+          * Subject Key Identifier extension siblings link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
+          * @example  https://some.com/{{subjectKeyId}}
+         */
+        "subjectKeyIdSiblingsLink"?: string;
+    }
     interface PeculiarCertificateDecoder {
         /**
           * The example certificate value for decode and show details. Use PEM or DER.
@@ -355,7 +442,7 @@ declare namespace LocalJSX {
         /**
           * The default certificate value for decode and show details. Use PEM or DER.
          */
-        "certificatesToDecode"?: string[];
+        "certificateToDecode"?: string;
         /**
           * Emitted when the certificate has been removed.
          */
@@ -363,7 +450,7 @@ declare namespace LocalJSX {
         /**
           * Emitted when the certificate has been successfully parsed.
          */
-        "onSuccessParse"?: (event: PeculiarCertificateDecoderCustomEvent<string[]>) => void;
+        "onSuccessParse"?: (event: PeculiarCertificateDecoderCustomEvent<string>) => void;
     }
     interface PeculiarCertificateViewer {
         /**
@@ -379,7 +466,7 @@ declare namespace LocalJSX {
         /**
           * The certificate value for decode and show details. Use PEM or DER.
          */
-        "certificate"?: CertificateProp;
+        "certificate"?: CertificateProp1;
         /**
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
@@ -503,6 +590,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "peculiar-attribute-certificate-viewer": PeculiarAttributeCertificateViewer;
         "peculiar-button-menu": PeculiarButtonMenu;
+        "peculiar-certificate-chain-viewer": PeculiarCertificateChainViewer;
         "peculiar-certificate-decoder": PeculiarCertificateDecoder;
         "peculiar-certificate-viewer": PeculiarCertificateViewer;
         "peculiar-certificates-viewer": PeculiarCertificatesViewer;
@@ -519,6 +607,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "peculiar-attribute-certificate-viewer": LocalJSX.PeculiarAttributeCertificateViewer & JSXBase.HTMLAttributes<HTMLPeculiarAttributeCertificateViewerElement>;
             "peculiar-button-menu": LocalJSX.PeculiarButtonMenu & JSXBase.HTMLAttributes<HTMLPeculiarButtonMenuElement>;
+            "peculiar-certificate-chain-viewer": LocalJSX.PeculiarCertificateChainViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificateChainViewerElement>;
             "peculiar-certificate-decoder": LocalJSX.PeculiarCertificateDecoder & JSXBase.HTMLAttributes<HTMLPeculiarCertificateDecoderElement>;
             "peculiar-certificate-viewer": LocalJSX.PeculiarCertificateViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificateViewerElement>;
             "peculiar-certificates-viewer": LocalJSX.PeculiarCertificatesViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificatesViewerElement>;

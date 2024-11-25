@@ -60,7 +60,7 @@ export class PemConverter {
 
   public static AttributeCertificateTag = 'ATTRIBUTE CERTIFICATE';
 
-  public static isPem(data: any): data is string {
+  public static isPem(data: string): boolean {
     return typeof data === 'string'
       && new RegExp(rPem, 'g').test(data);
   }

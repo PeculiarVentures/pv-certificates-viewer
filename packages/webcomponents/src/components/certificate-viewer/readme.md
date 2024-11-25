@@ -23,12 +23,14 @@
 
 ### Used by
 
+ - [peculiar-certificate-chain-viewer](../certificate-chain-viewer)
  - [peculiar-certificate-decoder](../certificate-decoder)
  - [peculiar-certificates-viewer](../certificates-viewer)
 
 ### Graph
 ```mermaid
 graph TD;
+  peculiar-certificate-chain-viewer --> peculiar-certificate-viewer
   peculiar-certificate-decoder --> peculiar-certificate-viewer
   peculiar-certificates-viewer --> peculiar-certificate-viewer
   style peculiar-certificate-viewer fill:#f9f,stroke:#333,stroke-width:4px
