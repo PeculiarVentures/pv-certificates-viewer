@@ -1,0 +1,54 @@
+@import '../../css/base.scss';
+@import '../certificate-viewer/certificate-viewer.scss';
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.tabs {
+  white-space: nowrap;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--pv-color-gray-4);
+  padding: 0 var(--pv-size-base-4);
+  margin-bottom: var(--pv-size-base-6);
+}
+
+.tab {
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 3px solid transparent;
+  min-height: var(--pv-size-base-12);
+  height: 100%;
+  padding: 0 var(--pv-size-base-3);
+  background-color: transparent;
+  transition: background-color 200ms, color 200ms, border-color 200ms;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: var(--pv-text-s2-weight);
+  font-size: var(--pv-text-s2-size);
+  line-height: var(--pv-text-s2-height);
+  letter-spacing: var(--pv-text-s2-spacing);
+  color: var(--pv-color-gray-10);
+
+  &:hover {
+    background-color: var(--pv-color-secondary-tint-5);
+  }
+
+  &[aria-selected="true"] {
+    color: var(--pv-color-black);
+    border-color: var(--pv-color-secondary);
+  }
+}
+
+.status_wrapper {
+  min-height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

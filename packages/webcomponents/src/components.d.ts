@@ -7,16 +7,16 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
 import { ButtonMenuGroup } from "./components/button-menu/button-menu";
+import { X509Certificate, X509Certificates } from "./crypto";
 import { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
 import { ICertificate } from "./components/certificates-viewer/certificates-viewer";
-import { X509Certificate } from "./crypto";
 import { CrlProp } from "./components/crl-viewer/crl-viewer";
 import { CsrProp } from "./components/csr-viewer/csr-viewer";
 export { AttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
 export { ButtonMenuGroup } from "./components/button-menu/button-menu";
+export { X509Certificate, X509Certificates } from "./crypto";
 export { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
 export { ICertificate } from "./components/certificates-viewer/certificates-viewer";
-export { X509Certificate } from "./crypto";
 export { CrlProp } from "./components/crl-viewer/crl-viewer";
 export { CsrProp } from "./components/csr-viewer/csr-viewer";
 export namespace Components {
@@ -58,6 +58,16 @@ export namespace Components {
     interface PeculiarButtonMenu {
         "groups": ButtonMenuGroup[];
     }
+    interface PeculiarCertificateChainViewer {
+        /**
+          * The certificate value for decode and show details. Use PEM or DER.
+         */
+        "certificates": X509Certificates;
+        /**
+          * If `true` - component will show split-button to download certificate as PEM or DER.
+         */
+        "download"?: boolean;
+    }
     interface PeculiarCertificateDecoder {
         /**
           * The example certificate value for decode and show details. Use PEM or DER.
@@ -69,7 +79,7 @@ export namespace Components {
         /**
           * The default certificate value for decode and show details. Use PEM or DER.
          */
-        "defaultCertificate"?: string;
+        "certificateToDecode"?: string;
     }
     interface PeculiarCertificateViewer {
         /**
@@ -220,6 +230,12 @@ declare global {
         prototype: HTMLPeculiarButtonMenuElement;
         new (): HTMLPeculiarButtonMenuElement;
     };
+    interface HTMLPeculiarCertificateChainViewerElement extends Components.PeculiarCertificateChainViewer, HTMLStencilElement {
+    }
+    var HTMLPeculiarCertificateChainViewerElement: {
+        prototype: HTMLPeculiarCertificateChainViewerElement;
+        new (): HTMLPeculiarCertificateChainViewerElement;
+    };
     interface HTMLPeculiarCertificateDecoderElementEventMap {
         "successParse": string;
         "clearCertificate": void;
@@ -295,6 +311,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "peculiar-attribute-certificate-viewer": HTMLPeculiarAttributeCertificateViewerElement;
         "peculiar-button-menu": HTMLPeculiarButtonMenuElement;
+        "peculiar-certificate-chain-viewer": HTMLPeculiarCertificateChainViewerElement;
         "peculiar-certificate-decoder": HTMLPeculiarCertificateDecoderElement;
         "peculiar-certificate-viewer": HTMLPeculiarCertificateViewerElement;
         "peculiar-certificates-viewer": HTMLPeculiarCertificatesViewerElement;
@@ -344,6 +361,16 @@ declare namespace LocalJSX {
     interface PeculiarButtonMenu {
         "groups"?: ButtonMenuGroup[];
     }
+    interface PeculiarCertificateChainViewer {
+        /**
+          * The certificate value for decode and show details. Use PEM or DER.
+         */
+        "certificates"?: X509Certificates;
+        /**
+          * If `true` - component will show split-button to download certificate as PEM or DER.
+         */
+        "download"?: boolean;
+    }
     interface PeculiarCertificateDecoder {
         /**
           * The example certificate value for decode and show details. Use PEM or DER.
@@ -355,7 +382,7 @@ declare namespace LocalJSX {
         /**
           * The default certificate value for decode and show details. Use PEM or DER.
          */
-        "defaultCertificate"?: string;
+        "certificateToDecode"?: string;
         /**
           * Emitted when the certificate has been removed.
          */
@@ -503,6 +530,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "peculiar-attribute-certificate-viewer": PeculiarAttributeCertificateViewer;
         "peculiar-button-menu": PeculiarButtonMenu;
+        "peculiar-certificate-chain-viewer": PeculiarCertificateChainViewer;
         "peculiar-certificate-decoder": PeculiarCertificateDecoder;
         "peculiar-certificate-viewer": PeculiarCertificateViewer;
         "peculiar-certificates-viewer": PeculiarCertificatesViewer;
@@ -519,6 +547,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "peculiar-attribute-certificate-viewer": LocalJSX.PeculiarAttributeCertificateViewer & JSXBase.HTMLAttributes<HTMLPeculiarAttributeCertificateViewerElement>;
             "peculiar-button-menu": LocalJSX.PeculiarButtonMenu & JSXBase.HTMLAttributes<HTMLPeculiarButtonMenuElement>;
+            "peculiar-certificate-chain-viewer": LocalJSX.PeculiarCertificateChainViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificateChainViewerElement>;
             "peculiar-certificate-decoder": LocalJSX.PeculiarCertificateDecoder & JSXBase.HTMLAttributes<HTMLPeculiarCertificateDecoderElement>;
             "peculiar-certificate-viewer": LocalJSX.PeculiarCertificateViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificateViewerElement>;
             "peculiar-certificates-viewer": LocalJSX.PeculiarCertificatesViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificatesViewerElement>;

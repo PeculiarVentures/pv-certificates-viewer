@@ -10,7 +10,7 @@
 
     setTimeout(() => {
       window.scrollTo({
-        top: 460,
+        top: 560,
         behavior: 'smooth',
       });
     }, 50);
@@ -169,7 +169,7 @@ iBM/9lIWP5h9h0IIJwqXy0bwnvJ52yaVK82g/6t5ZokPk+O6KCFysPyWUfdejXhN
         return Promise.reject();
       })
       .then((response) => {
-        CERTIFICATE_DECODER_ELEMENT.defaultCertificate = response;
+        CERTIFICATE_DECODER_ELEMENT.certificateToDecode = response;
       })
       .catch(() => {
         alert('Failed to load certificate. Please use another file or check CORS policy.');
@@ -178,9 +178,11 @@ iBM/9lIWP5h9h0IIJwqXy0bwnvJ52yaVK82g/6t5ZokPk+O6KCFysPyWUfdejXhN
         // Init.
         content.appendChild(CERTIFICATE_DECODER_ELEMENT);
       });
-  } else {
-    CERTIFICATE_DECODER_ELEMENT.defaultCertificate = searchParams.get('cert') || undefined;
+  } else if (searchParams.get('cert')) {
+    CERTIFICATE_DECODER_ELEMENT.certificateToDecode = searchParams.get('cert');
     // Init.
     content.appendChild(CERTIFICATE_DECODER_ELEMENT);
+  } else {
+    content.appendChild(CERTIFICATE_DECODER_ELEMENT)
   }
 })();

@@ -22,6 +22,7 @@ import {
   X509AttributeCertificate,
   Pkcs10CertificateRequest,
   X509Crl,
+  X509Certificates,
 } from '../../crypto';
 import { Button } from '../button';
 import { Typography } from '../typography';
@@ -45,9 +46,10 @@ export class CertificateDecoder {
   /**
    * The default certificate value for decode and show details. Use PEM or DER.
    */
-  @Prop() defaultCertificate?: string;
+  @Prop() certificateToDecode?: string;
 
-  @State() certificateDecoded: X509Certificate
+  @State() certificateDecoded: X509Certificates
+  | X509Certificate
   | X509AttributeCertificate
   | Pkcs10CertificateRequest
   | X509Crl;
@@ -63,11 +65,11 @@ export class CertificateDecoder {
   @Event() clearCertificate!: EventEmitter<void>;
 
   componentDidLoad() {
-    if (this.defaultCertificate) {
+    if (this.certificateToDecode) {
       /**
        * Prevent Stencil warning about re-render
        */
-      setTimeout(() => this.decode(this.defaultCertificate), 100);
+      setTimeout(() => this.decode(this.certificateToDecode), 100);
     }
   }
 
@@ -132,20 +134,69 @@ export class CertificateDecoder {
     this.successParse.emit(value.toString('base64url'));
   }
 
-  decode(certificate: string) {
-    new Promise((resolve) => {
-      resolve(new X509Certificate(certificate));
+  decode(value: string) {
+    new Promise<X509Certificates>((resolve) => {
+      resolve(new X509Certificates(value));
     })
-      .catch(() => new X509AttributeCertificate(certificate))
-      .catch(() => new Pkcs10CertificateRequest(certificate))
-      .catch(() => new X509Crl(certificate))
+      .catch(() => new X509Certificate(value))
+      .catch(() => new X509AttributeCertificate(value))
+      .catch(() => new Pkcs10CertificateRequest(value))
+      .catch(() => new X509Crl(value))
       .then((res: typeof this.certificateDecoded) => this.setValue(res))
-      .catch((err) => {
-        this.clearValue();
+      .catch((error) => {
+        console.log(error);
 
-        console.log(err);
-        alert('Error decoding file. Please try to use Certificate/AttributeCertificate/CertificateRequest/CRL.');
+        alert(`Error decoding certificate:\n"${value}"\n\nPlease try to use Certificate/AttributeCertificate/CertificateRequest/CRL.`);
       });
+  }
+
+  renderCertificate() {
+    if (this.certificateDecoded instanceof X509Certificates) {
+      return (
+        <peculiar-certificate-chain-viewer
+          certificates={this.certificateDecoded}
+          download
+        />
+      );
+    }
+
+    if (this.certificateDecoded instanceof X509Certificate) {
+      return (
+        <peculiar-certificate-viewer
+          certificate={this.certificateDecoded}
+          download
+        />
+      );
+    }
+
+    if (this.certificateDecoded instanceof X509AttributeCertificate) {
+      return (
+        <peculiar-attribute-certificate-viewer
+          certificate={this.certificateDecoded}
+          download
+        />
+      );
+    }
+
+    if (this.certificateDecoded instanceof Pkcs10CertificateRequest) {
+      return (
+        <peculiar-csr-viewer
+          certificate={this.certificateDecoded}
+          download
+        />
+      );
+    }
+
+    if (this.certificateDecoded instanceof X509Crl) {
+      return (
+        <peculiar-crl-viewer
+          certificate={this.certificateDecoded}
+          download
+        />
+      );
+    }
+
+    return null;
   }
 
   render() {
@@ -203,34 +254,7 @@ export class CertificateDecoder {
             </Button>
           </div>
         </div>
-        {this.certificateDecoded instanceof X509Certificate && (
-          <peculiar-certificate-viewer
-            certificate={this.certificateDecoded}
-            class="viewer"
-            download
-          />
-        )}
-        {this.certificateDecoded instanceof X509AttributeCertificate && (
-          <peculiar-attribute-certificate-viewer
-            certificate={this.certificateDecoded}
-            class="viewer"
-            download
-          />
-        )}
-        {this.certificateDecoded instanceof Pkcs10CertificateRequest && (
-          <peculiar-csr-viewer
-            certificate={this.certificateDecoded}
-            class="viewer"
-            download
-          />
-        )}
-        {this.certificateDecoded instanceof X509Crl && (
-          <peculiar-crl-viewer
-            certificate={this.certificateDecoded}
-            class="viewer"
-            download
-          />
-        )}
+        {this.renderCertificate()}
       </Host>
     );
   }
