@@ -25,6 +25,7 @@
 
 ### Depends on
 
+- [peculiar-certificate-chain-viewer](../certificate-chain-viewer)
 - [peculiar-certificate-viewer](../certificate-viewer)
 - [peculiar-attribute-certificate-viewer](../attribute-certificate-viewer)
 - [peculiar-csr-viewer](../csr-viewer)
@@ -33,10 +34,12 @@
 ### Graph
 ```mermaid
 graph TD;
+  peculiar-certificate-decoder --> peculiar-certificate-chain-viewer
   peculiar-certificate-decoder --> peculiar-certificate-viewer
   peculiar-certificate-decoder --> peculiar-attribute-certificate-viewer
   peculiar-certificate-decoder --> peculiar-csr-viewer
   peculiar-certificate-decoder --> peculiar-crl-viewer
+  peculiar-certificate-chain-viewer --> peculiar-certificate-viewer
   style peculiar-certificate-decoder fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

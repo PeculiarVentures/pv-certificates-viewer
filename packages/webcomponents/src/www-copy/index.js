@@ -10,7 +10,7 @@
 
     setTimeout(() => {
       window.scrollTo({
-        top: 460,
+        top: 560,
         behavior: 'smooth',
       });
     }, 50);

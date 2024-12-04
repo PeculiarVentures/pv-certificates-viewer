@@ -9,6 +9,7 @@
 import { h, FunctionalComponent } from '@stencil/core';
 
 import {
+  X509Certificates,
   X509Certificate,
   X509AttributeCertificate,
   Pkcs10CertificateRequest,
@@ -19,7 +20,8 @@ import { Button } from '../button';
 import { DownloadIcon } from '../icons';
 import { RowTitle } from './row';
 
-type CertificateType = X509Certificate
+type CertificateType = X509Certificates
+| X509Certificate
 | X509AttributeCertificate
 | Pkcs10CertificateRequest
 | X509Crl;

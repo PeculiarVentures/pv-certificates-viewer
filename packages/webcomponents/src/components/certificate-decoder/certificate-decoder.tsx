@@ -154,7 +154,8 @@ export class CertificateDecoder {
     if (this.certificateDecoded instanceof X509Certificates) {
       return (
         <peculiar-certificate-chain-viewer
-          certificate={this.certificateDecoded}
+          certificates={this.certificateDecoded}
+          download
         />
       );
     }

@@ -7,18 +7,16 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
 import { ButtonMenuGroup } from "./components/button-menu/button-menu";
-import { CertificateProp } from "./components/certificate-chain-viewer/certificate-chain-viewer";
-import { CertificateProp as CertificateProp1 } from "./components/certificate-viewer/certificate-viewer";
+import { X509Certificate, X509Certificates } from "./crypto";
+import { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
 import { ICertificate } from "./components/certificates-viewer/certificates-viewer";
-import { X509Certificate } from "./crypto";
 import { CrlProp } from "./components/crl-viewer/crl-viewer";
 import { CsrProp } from "./components/csr-viewer/csr-viewer";
 export { AttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
 export { ButtonMenuGroup } from "./components/button-menu/button-menu";
-export { CertificateProp } from "./components/certificate-chain-viewer/certificate-chain-viewer";
-export { CertificateProp as CertificateProp1 } from "./components/certificate-viewer/certificate-viewer";
+export { X509Certificate, X509Certificates } from "./crypto";
+export { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
 export { ICertificate } from "./components/certificates-viewer/certificates-viewer";
-export { X509Certificate } from "./crypto";
 export { CrlProp } from "./components/crl-viewer/crl-viewer";
 export { CsrProp } from "./components/csr-viewer/csr-viewer";
 export namespace Components {
@@ -62,42 +60,13 @@ export namespace Components {
     }
     interface PeculiarCertificateChainViewer {
         /**
-          * Authority Key Identifier extension parent link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
-          * @example  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
-         */
-        "authKeyIdParentLink"?: string;
-        /**
-          * Authority Key Identifier extension siblings link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
-          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
-         */
-        "authKeyIdSiblingsLink"?: string;
-        /**
           * The certificate value for decode and show details. Use PEM or DER.
          */
-        "certificate": CertificateProp;
+        "certificates": X509Certificates;
         /**
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
         "download"?: boolean;
-        /**
-          * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
-         */
-        "issuerDnLink"?: string;
-        /**
-          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-          * @example  (max-width: 900px)
-         */
-        "mobileMediaQueryString"?: string;
-        /**
-          * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
-          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
-         */
-        "subjectKeyIdChildrenLink"?: string;
-        /**
-          * Subject Key Identifier extension siblings link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
-          * @example  https://some.com/{{subjectKeyId}}
-         */
-        "subjectKeyIdSiblingsLink"?: string;
     }
     interface PeculiarCertificateDecoder {
         /**
@@ -126,7 +95,7 @@ export namespace Components {
         /**
           * The certificate value for decode and show details. Use PEM or DER.
          */
-        "certificate": CertificateProp1;
+        "certificate": CertificateProp;
         /**
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
@@ -394,42 +363,13 @@ declare namespace LocalJSX {
     }
     interface PeculiarCertificateChainViewer {
         /**
-          * Authority Key Identifier extension parent link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
-          * @example  https://censys.io/certificates?q=parsed.extensions.subject_key_id:%20{{authKeyId}}
-         */
-        "authKeyIdParentLink"?: string;
-        /**
-          * Authority Key Identifier extension siblings link. <br /> **NOTE**: `{{authKeyId}}` will be replaced to value from the extension.
-          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{authKeyId}}
-         */
-        "authKeyIdSiblingsLink"?: string;
-        /**
           * The certificate value for decode and show details. Use PEM or DER.
          */
-        "certificate"?: CertificateProp;
+        "certificates"?: X509Certificates;
         /**
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
         "download"?: boolean;
-        /**
-          * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
-         */
-        "issuerDnLink"?: string;
-        /**
-          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-          * @example  (max-width: 900px)
-         */
-        "mobileMediaQueryString"?: string;
-        /**
-          * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
-          * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
-         */
-        "subjectKeyIdChildrenLink"?: string;
-        /**
-          * Subject Key Identifier extension siblings link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
-          * @example  https://some.com/{{subjectKeyId}}
-         */
-        "subjectKeyIdSiblingsLink"?: string;
     }
     interface PeculiarCertificateDecoder {
         /**
@@ -466,7 +406,7 @@ declare namespace LocalJSX {
         /**
           * The certificate value for decode and show details. Use PEM or DER.
          */
-        "certificate"?: CertificateProp1;
+        "certificate"?: CertificateProp;
         /**
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
