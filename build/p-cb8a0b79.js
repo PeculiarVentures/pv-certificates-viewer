@@ -1,7 +1,7 @@
 /*!
  * © Peculiar Ventures https://peculiarventures.com/ - MIT License
  */
-import{A as t,v as s,S as i,P as e,C as r,J as n,G as a,y as o,F as h,D as c,X as u,N as l}from"./p-0d8105e3.js";import{A as f}from"./p-a891001f.js";
+import{A as t,v as s,a0 as i,P as e,C as r,Q as n,G as a,y as o,F as h,D as c,a1 as u,N as l}from"./p-a55fd6f1.js";import{A as f}from"./p-b5674f82.js";
 /**
  * @license
  * Copyright (c) Peculiar Ventures, LLC.
@@ -16,4 +16,4 @@ import{A as t,v as s,S as i,P as e,C as r,J as n,G as a,y as o,F as h,D as c,X a
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */class g extends t{constructor(t){super(s(t),u);this.thumbprints={};this.type="X.509 Certificate Revocation List";this.tag=e.CrlTag;const{tbsCertList:i}=this.asn;this.issuer=new l(i.issuer).toJSON();this.version=i.version+1;this.lastUpdate=i.thisUpdate.getTime();this.nextUpdate=i.nextUpdate.getTime();this.revokedCertificates=(i.revokedCertificates||[]).map((t=>{var s;return{revocationDate:t.revocationDate,userCertificate:t.userCertificate,crlEntryExtensions:(s=t.crlEntryExtensions)===null||s===void 0?void 0:s.map((t=>new a(o.serialize(t))))}}))}async getThumbprint(t="SHA-1"){try{const s=await h(t,this.raw);if(s){this.thumbprints[t]=r.ToHex(s)}}catch(t){console.error("Error thumbprint get:",t)}}get signature(){const{signature:t,signatureAlgorithm:s}=this.asn;return{value:t,algorithm:s.algorithm}}get commonName(){if(!this.issuer){return""}for(let t=0;t<this.issuer.length;t+=1){const s=this.issuer[t];if(s.shortName==="CN"||s.shortName==="E"||s.shortName==="O"){return s.value}}return""}parseExtensions(){const{tbsCertList:t}=this.asn;if(t.crlExtensions){this.extensions=t.crlExtensions.map((t=>new a(o.serialize(t))))}}toString(t="pem"){switch(t){case"pem":return e.encode(this.raw,this.tag);case"base64url":return r.ToBase64Url(this.raw);default:return r.ToBase64(this.raw)}}downloadAsPEM(t){c.crl.asPEM(this.toString("pem"),t||this.commonName)}downloadAsDER(t){c.crl.asDER(this.raw,t||this.commonName)}}export{m as X,g as a};
-//# sourceMappingURL=p-cba3106c.js.map
+//# sourceMappingURL=p-cb8a0b79.js.map
