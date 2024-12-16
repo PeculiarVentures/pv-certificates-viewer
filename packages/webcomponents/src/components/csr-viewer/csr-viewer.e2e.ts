@@ -33,6 +33,7 @@ describe('peculiar-csr-viewer', () => {
 
           const image = await page.screenshot({
             fullPage: true,
+            encoding: 'base64',
           });
 
           expect(image).toMatchImageSnapshot();
