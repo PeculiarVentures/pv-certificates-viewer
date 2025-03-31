@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.3.2...v4.4.0) (2025-03-31)
+
+
+### Features
+
+* **webcomponents:** add ML-DSA algorithms to OIDs constants ([0d245a3](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/0d245a30e000143564d9af30444f41cd3732323e))
+
+
+
+
+
 ## [4.3.2](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.3.1...v4.3.2) (2024-12-18)
 
 **Note:** Version bump only for package peculiar-certificates-viewer-monorepo
