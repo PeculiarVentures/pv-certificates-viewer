@@ -16,6 +16,7 @@ ZYYG
   const hexExample = '48656c6c6f20576f726c64'; // 'Hello World' in HEX
   const base64Example = 'SGVsbG8gV29ybGQ='; // 'Hello World' in Base64
   const base64UrlExample = 'SGVsbG8gV29ybGQ'; // 'Hello World' in Base64 URL
+  const binaryExample = 'Hello World';
 
   describe('PEM input', () => {
     it('should decode PEM string to ArrayBuffer', () => {
@@ -53,15 +54,12 @@ ZYYG
     });
   });
 
-  describe('Unsupported format', () => {
-    it('should throw an error for unsupported input format', () => {
-      const invalidInput = 'ThisIsNotAValidFormat123!@#';
+  describe('Binary input', () => {
+    it('should decode Binary string to ArrayBuffer', () => {
+      const result = certificateRawToBuffer(binaryExample);
+      const decodedBinary = Convert.FromBinary(binaryExample);
 
-      expect(() => certificateRawToBuffer(invalidInput)).toThrow(
-        new TypeError(
-          "Unsupported format of 'raw' argument. Must be one of DER, PEM, HEX, Base64, or Base4Url",
-        ),
-      );
+      expect(result).toEqual(decodedBinary);
     });
   });
 });

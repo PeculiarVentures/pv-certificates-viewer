@@ -11,18 +11,6 @@ import { PemConverter } from './pem_converter';
 
 import { cryptoProvider } from './provider';
 
-const isASCII = (text: string) => {
-  for (let i = 0; i < text.length; i++) {
-    const code = text.charCodeAt(i);
-
-    if (code > 0xFF) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
 export const certificateRawToBuffer = (raw: string): ArrayBuffer => {
   if (PemConverter.isPem(raw)) {
     return PemConverter.decode(raw)[0];
@@ -40,11 +28,7 @@ export const certificateRawToBuffer = (raw: string): ArrayBuffer => {
     return Convert.FromBase64Url(raw);
   }
 
-  if (isASCII(raw)) {
-    return Convert.FromUtf8String(raw, 'ascii');
-  }
-
-  throw new TypeError("Unsupported format of 'raw' argument. Must be one of DER, PEM, HEX, Base64, or Base4Url");
+  return Convert.FromBinary(raw);
 };
 
 export const getCertificateThumbprint = async (
