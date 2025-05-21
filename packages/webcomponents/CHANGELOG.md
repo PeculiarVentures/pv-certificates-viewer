@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.4.0...v4.5.0) (2025-05-21)
+
+
+### Features
+
+* **crypto:** add isASCII utility function to validate ASCII strings in certificate processing ([bfdf5e8](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/bfdf5e8a92430d03165192db77c9f123b8a77021))
+* **crypto:** add support for binary input in certificateRawToBuffer function and update tests ([3c3bed9](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/3c3bed92a23a8faeea0b7200c632ffa57856dbcb))
+* **oids:** add new FIPS oids ([257d3a1](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/257d3a19db0f9d055be660bae7411b55c8338dea))
+
+
+
+
+
 # [4.4.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.3.2...v4.4.0) (2025-03-31)
 
 
