@@ -7,7 +7,6 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-
 import type { Attribute, TAttributeValue } from '../../../crypto/attribute';
 import { getStringByOID } from '../../../utils';
 import { RowValue } from '../row';

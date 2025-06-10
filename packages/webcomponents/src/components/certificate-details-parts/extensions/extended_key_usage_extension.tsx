@@ -8,11 +8,9 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { ExtendedKeyUsage } from '@peculiar/asn1-x509';
-
 import { getStringByOID } from '../../../utils';
 import { Extension } from '../../../crypto/extension';
 import { RowValue, TableRowTable } from '../row';
-
 import { BasicExtension } from './basic_extension';
 
 interface IExtendedKeyUsageExtensionProps {

@@ -8,12 +8,11 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { TNAuthorizationList } from '@peculiar/asn1-rfc8226';
-
 import { RowValue, TableRowTable } from '../row';
 import { Extension } from '../../../crypto/extension';
-
 import { BasicExtension } from './basic_extension';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 interface ITNAuthListExtensionProps {
   extension: Extension<TNAuthorizationList>;
 }

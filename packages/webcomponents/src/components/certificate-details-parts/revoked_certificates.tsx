@@ -7,13 +7,18 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { CRLReason, InvalidityDate, CertificateIssuer } from '@peculiar/asn1-x509';
+import {
+  CRLReason, InvalidityDate, CertificateIssuer,
+} from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
-
-import { dateShort, l10n, getStringByOID } from '../../utils';
+import {
+  dateShort, l10n, getStringByOID,
+} from '../../utils';
 import { IRevokedCertificate } from '../../crypto';
 import { GeneralNamePart } from './extensions/general_name_part';
-import { RowTitle, RowValue, TableRowTable } from './row';
+import {
+  RowTitle, RowValue, TableRowTable,
+} from './row';
 
 interface IRevokedCertificatesProps extends IGeneralNameOptions {
   revokedCertificates: IRevokedCertificate[];

@@ -8,10 +8,8 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { CertificateTemplate } from '@peculiar/asn1-x509-microsoft';
-
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
-
 import { BasicExtension } from './basic_extension';
 
 interface ICertificateTemplateExtensionProps {

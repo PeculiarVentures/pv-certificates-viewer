@@ -7,7 +7,6 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-
 import {
   X509Certificates,
   X509Certificate,
@@ -20,14 +19,14 @@ import { Button } from '../button';
 import { DownloadIcon } from '../icons';
 import { RowTitle } from './row';
 
-type CertificateType = X509Certificates
-| X509Certificate
-| X509AttributeCertificate
-| Pkcs10CertificateRequest
-| X509Crl;
+type TCertificateType = X509Certificates
+  | X509Certificate
+  | X509AttributeCertificate
+  | Pkcs10CertificateRequest
+  | X509Crl;
 
 interface IMiscellaneousProps {
-  certificate: CertificateType;
+  certificate: TCertificateType;
 }
 
 export const Miscellaneous: FunctionalComponent<IMiscellaneousProps> = (props) => {
@@ -40,8 +39,8 @@ export const Miscellaneous: FunctionalComponent<IMiscellaneousProps> = (props) =
     <tr>
       <td>
         <Button
-          onClick={() => certificate.downloadAsPEM()}
           startIcon={<DownloadIcon />}
+          onClick={() => certificate.downloadAsPEM()}
         >
           {l10n.getString('download.pem')}
         </Button>
@@ -50,8 +49,8 @@ export const Miscellaneous: FunctionalComponent<IMiscellaneousProps> = (props) =
     <tr>
       <td>
         <Button
-          onClick={() => certificate.downloadAsDER()}
           startIcon={<DownloadIcon />}
+          onClick={() => certificate.downloadAsDER()}
         >
           {l10n.getString('download.der')}
         </Button>

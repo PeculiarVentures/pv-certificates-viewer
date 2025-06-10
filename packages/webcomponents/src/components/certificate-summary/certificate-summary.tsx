@@ -11,12 +11,12 @@ import type { X509Certificate } from '../../crypto';
 import { dateShort, l10n } from '../../utils';
 import { Typography } from '../typography';
 
-interface CertificateSummaryProps {
+interface ICertificateSummaryProps {
   certificate: X509Certificate;
   showIssuer?: boolean;
 }
 
-export const CertificateSummary: FunctionalComponent<CertificateSummaryProps> = (props) => {
+export const CertificateSummary: FunctionalComponent<ICertificateSummaryProps> = (props) => {
   const {
     certificate,
     showIssuer,

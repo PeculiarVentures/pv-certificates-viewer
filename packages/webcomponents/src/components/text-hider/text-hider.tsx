@@ -21,7 +21,7 @@ import { ArrowBottomIcon, ArrowTopIcon } from '../icons';
   scoped: true,
 })
 export class TextHider {
-  @State() opened: boolean = false;
+  @State() opened = false;
 
   render() {
     return (
@@ -33,8 +33,8 @@ export class TextHider {
         </div>
         <Button
           class="action"
-          onClick={() => { this.opened = !this.opened; }}
           startIcon={this.opened ? <ArrowTopIcon color="secondary" /> : <ArrowBottomIcon color="secondary" />}
+          onClick={() => { this.opened = !this.opened; }}
         />
       </Host>
     );

@@ -1,6 +1,6 @@
-import { newE2EPage } from '@stencil/core/testing';
 import fs from 'fs';
 import path from 'path';
+import { newE2EPage } from '@stencil/core/testing';
 import { devices } from '../../tests';
 
 const testAssetsFolderPath = path.join(__dirname, 'test_assets');

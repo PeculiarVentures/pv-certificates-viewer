@@ -20,7 +20,9 @@ interface ISubjectKeyIdentifierExtensionProps extends ISubjectKeyIdentifierOptio
 
 export const SubjectKeyIdentifierExtension:
 FunctionalComponent<ISubjectKeyIdentifierExtensionProps> = (props) => {
-  const { extension, getSubjectKeyIdChildrenLink, getSubjectKeyIdSiblingsLink } = props;
+  const {
+    extension, getSubjectKeyIdChildrenLink, getSubjectKeyIdSiblingsLink,
+  } = props;
 
   const keyId = Convert.ToHex(extension.value.buffer);
   const childrenLink = getSubjectKeyIdChildrenLink(keyId);

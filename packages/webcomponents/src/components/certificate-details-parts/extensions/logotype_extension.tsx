@@ -14,11 +14,9 @@ import {
   LogotypeAudio,
 } from '@peculiar/asn1-x509-logotype';
 import { Convert } from 'pvtsutils';
-
 import { getStringByOID } from '../../../utils';
 import { Extension } from '../../../crypto/extension';
 import { RowValue } from '../row';
-
 import { BasicExtension } from './basic_extension';
 
 interface ILogotypeExtensionProps {

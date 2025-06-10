@@ -8,7 +8,6 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import type { InsuranceValue } from '@peculiar/asn1-ntqwac';
-
 import type { Attribute } from '../../../crypto/attribute';
 import { RowValue } from '../row';
 import { BasicAttribute } from './basic_attribute';
