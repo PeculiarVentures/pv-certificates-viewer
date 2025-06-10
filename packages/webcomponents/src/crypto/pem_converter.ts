@@ -62,7 +62,7 @@ export class PemConverter {
 
   public static isPem(data: string): boolean {
     return typeof data === 'string'
-      && new RegExp(rPem, 'g').test(data);
+      && new RegExp(rPem, 'g').test(data.replace(/\r/g, ''));
   }
 
   public static decodeWithHeaders(pem: string): PemStruct[] {
