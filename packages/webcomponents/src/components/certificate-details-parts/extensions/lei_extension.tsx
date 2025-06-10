@@ -8,10 +8,8 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { LeiChoice } from '@peculiar/asn1-lei';
-
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
-
 import { BasicExtension } from './basic_extension';
 
 interface ILeiExtensionProps extends ILeiOptions {

@@ -7,15 +7,15 @@
  */
 
 import { FunctionalComponent, h } from '@stencil/core';
-import type { TypographyType } from '../../interface';
+import type { TTypography } from '../../interface';
 import { Typography } from '../typography';
 
-interface LinkProps {
+interface ILinkProps {
   href: string;
-  variant?: TypographyType;
+  variant?: TTypography;
 }
 
-export const Link: FunctionalComponent<LinkProps> = (props, children) => {
+export const Link: FunctionalComponent<ILinkProps> = (props, children) => {
   const {
     href,
     variant,
@@ -26,7 +26,7 @@ export const Link: FunctionalComponent<LinkProps> = (props, children) => {
       component="a"
       variant={variant}
       color="secondary"
-      // @ts-ignore
+      // @ts-expect-error - href is a string
       href={href}
       target="_blank"
       rel="noreferrer noopener"

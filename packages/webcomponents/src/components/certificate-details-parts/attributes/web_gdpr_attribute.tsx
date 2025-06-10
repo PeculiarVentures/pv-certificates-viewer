@@ -8,7 +8,6 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import type { WebGDPR } from '@peculiar/asn1-ntqwac';
-
 import type { Attribute } from '../../../crypto/attribute';
 import { camelCaseToWords } from '../../../utils';
 import { GeneralNamePart } from '../extensions/general_name_part';

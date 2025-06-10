@@ -17,7 +17,6 @@ import {
 } from '@peculiar/asn1-x509';
 import { Convert, BufferSourceConverter } from 'pvtsutils';
 import { AsnParser } from '@peculiar/asn1-schema';
-
 import { OIDs } from '../../../constants/oids';
 import { RowValue, TableRowTable } from '../row';
 
@@ -38,7 +37,9 @@ interface IGeneralNamePartProps extends IGeneralNameOptions {
 }
 
 export const GeneralNamePart: FunctionalComponent<IGeneralNamePartProps> = (props) => {
-  const { generalName, getDNSNameLink, getIPAddressLink } = props;
+  const {
+    generalName, getDNSNameLink, getIPAddressLink,
+  } = props;
 
   if (!generalName) {
     return null;
@@ -76,7 +77,7 @@ export const GeneralNamePart: FunctionalComponent<IGeneralNamePartProps> = (prop
             value={text.toString()}
           />
         );
-      } catch (error) {
+      } catch {
         //
       }
 
@@ -91,7 +92,7 @@ export const GeneralNamePart: FunctionalComponent<IGeneralNamePartProps> = (prop
             />
           );
         }
-      } catch (error) {
+      } catch {
         //
       }
 

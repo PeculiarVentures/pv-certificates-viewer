@@ -5,20 +5,20 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { AttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
-import { ButtonMenuGroup } from "./components/button-menu/button-menu";
+import { TAttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
+import { IButtonMenuGroup } from "./components/button-menu/button-menu";
 import { X509Certificate, X509Certificates } from "./crypto";
-import { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
+import { TCertificateProp } from "./components/certificate-viewer/certificate-viewer";
 import { ICertificate } from "./components/certificates-viewer/certificates-viewer";
-import { CrlProp } from "./components/crl-viewer/crl-viewer";
-import { CsrProp } from "./components/csr-viewer/csr-viewer";
-export { AttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
-export { ButtonMenuGroup } from "./components/button-menu/button-menu";
+import { TCrlProp } from "./components/crl-viewer/crl-viewer";
+import { TCsrProp } from "./components/csr-viewer/csr-viewer";
+export { TAttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
+export { IButtonMenuGroup } from "./components/button-menu/button-menu";
 export { X509Certificate, X509Certificates } from "./crypto";
-export { CertificateProp } from "./components/certificate-viewer/certificate-viewer";
+export { TCertificateProp } from "./components/certificate-viewer/certificate-viewer";
 export { ICertificate } from "./components/certificates-viewer/certificates-viewer";
-export { CrlProp } from "./components/crl-viewer/crl-viewer";
-export { CsrProp } from "./components/csr-viewer/csr-viewer";
+export { TCrlProp } from "./components/crl-viewer/crl-viewer";
+export { TCsrProp } from "./components/csr-viewer/csr-viewer";
 export namespace Components {
     interface PeculiarAttributeCertificateViewer {
         /**
@@ -34,7 +34,7 @@ export namespace Components {
         /**
           * The certificate value for decode and show details. Use PEM or DER.
          */
-        "certificate": AttributeCertificateProp;
+        "certificate": TAttributeCertificateProp;
         /**
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
@@ -56,7 +56,7 @@ export namespace Components {
         "subjectKeyIdSiblingsLink"?: string;
     }
     interface PeculiarButtonMenu {
-        "groups": ButtonMenuGroup[];
+        "groups": IButtonMenuGroup[];
     }
     interface PeculiarCertificateChainViewer {
         /**
@@ -95,7 +95,7 @@ export namespace Components {
         /**
           * The certificate value for decode and show details. Use PEM or DER.
          */
-        "certificate": CertificateProp;
+        "certificate": TCertificateProp;
         /**
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
@@ -163,7 +163,7 @@ export namespace Components {
         /**
           * The certificate value for decode and show details. Use PEM or DER.
          */
-        "certificate": CrlProp;
+        "certificate": TCrlProp;
         /**
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
@@ -182,7 +182,7 @@ export namespace Components {
         /**
           * The certificate value for decode and show details. Use PEM or DER.
          */
-        "certificate": CsrProp;
+        "certificate": TCsrProp;
         /**
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
@@ -337,7 +337,7 @@ declare namespace LocalJSX {
         /**
           * The certificate value for decode and show details. Use PEM or DER.
          */
-        "certificate"?: AttributeCertificateProp;
+        "certificate"?: TAttributeCertificateProp;
         /**
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
@@ -359,7 +359,7 @@ declare namespace LocalJSX {
         "subjectKeyIdSiblingsLink"?: string;
     }
     interface PeculiarButtonMenu {
-        "groups"?: ButtonMenuGroup[];
+        "groups"?: IButtonMenuGroup[];
     }
     interface PeculiarCertificateChainViewer {
         /**
@@ -406,7 +406,7 @@ declare namespace LocalJSX {
         /**
           * The certificate value for decode and show details. Use PEM or DER.
          */
-        "certificate"?: CertificateProp;
+        "certificate"?: TCertificateProp;
         /**
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
@@ -482,7 +482,7 @@ declare namespace LocalJSX {
         /**
           * The certificate value for decode and show details. Use PEM or DER.
          */
-        "certificate"?: CrlProp;
+        "certificate"?: TCrlProp;
         /**
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
@@ -501,7 +501,7 @@ declare namespace LocalJSX {
         /**
           * The certificate value for decode and show details. Use PEM or DER.
          */
-        "certificate"?: CsrProp;
+        "certificate"?: TCsrProp;
         /**
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */

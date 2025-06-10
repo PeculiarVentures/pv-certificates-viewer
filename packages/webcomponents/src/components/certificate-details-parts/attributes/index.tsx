@@ -19,7 +19,6 @@ import {
   UnstructuredName,
   ChallengePassword,
 } from '@peculiar/asn1-pkcs9';
-
 import type { Attribute, TAttributeValue } from '../../../crypto/attribute';
 import { RowTitle } from '../row';
 import { NameAttribute } from './name_attribute';
@@ -57,7 +56,7 @@ export const Attributes: FunctionalComponent<IAttributesPtops> = (props) => {
         if (attribute.value instanceof Name) {
           return (
             <NameAttribute
-              attribute={attribute as any}
+              attribute={attribute as unknown as Attribute<Name>}
             />
           );
         }
@@ -65,7 +64,7 @@ export const Attributes: FunctionalComponent<IAttributesPtops> = (props) => {
         if (attribute.value instanceof ActivityDescription) {
           return (
             <ActivityDescriptionAttribute
-              attribute={attribute as any}
+              attribute={attribute as unknown as Attribute<ActivityDescription>}
             />
           );
         }
@@ -73,7 +72,7 @@ export const Attributes: FunctionalComponent<IAttributesPtops> = (props) => {
         if (attribute.value instanceof WebGDPR) {
           return (
             <WebGdprAttribute
-              attribute={attribute as any}
+              attribute={attribute as unknown as Attribute<WebGDPR>}
             />
           );
         }
@@ -81,7 +80,7 @@ export const Attributes: FunctionalComponent<IAttributesPtops> = (props) => {
         if (attribute.value instanceof InsuranceValue) {
           return (
             <InsuranceValueAttribute
-              attribute={attribute as any}
+              attribute={attribute as unknown as Attribute<InsuranceValue>}
             />
           );
         }
@@ -89,7 +88,7 @@ export const Attributes: FunctionalComponent<IAttributesPtops> = (props) => {
         if (attribute.value instanceof TypeRelationship) {
           return (
             <TypeRelationshipAttribute
-              attribute={attribute as any}
+              attribute={attribute as unknown as Attribute<TypeRelationship>}
             />
           );
         }
@@ -97,7 +96,7 @@ export const Attributes: FunctionalComponent<IAttributesPtops> = (props) => {
         if (attribute.value instanceof ValuationRanking) {
           return (
             <ValuationRankingAttribute
-              attribute={attribute as any}
+              attribute={attribute as unknown as Attribute<ValuationRanking>}
             />
           );
         }
@@ -105,7 +104,7 @@ export const Attributes: FunctionalComponent<IAttributesPtops> = (props) => {
         if (attribute.value instanceof UnstructuredName) {
           return (
             <UnstructuredNameAttribute
-              attribute={attribute as any}
+              attribute={attribute as unknown as Attribute<UnstructuredName>}
             />
           );
         }
@@ -113,7 +112,7 @@ export const Attributes: FunctionalComponent<IAttributesPtops> = (props) => {
         if (attribute.value instanceof ChallengePassword) {
           return (
             <ChallengePasswordAttribute
-              attribute={attribute as any}
+              attribute={attribute as unknown as Attribute<ChallengePassword>}
             />
           );
         }
@@ -121,7 +120,7 @@ export const Attributes: FunctionalComponent<IAttributesPtops> = (props) => {
         if (typeof attribute.value === 'string') {
           return (
             <AsStringAttribute
-              attribute={attribute as any}
+              attribute={attribute as unknown as Attribute<string>}
             />
           );
         }
@@ -131,7 +130,7 @@ export const Attributes: FunctionalComponent<IAttributesPtops> = (props) => {
             attribute={attribute}
           />
         );
-      } catch (error) {
+      } catch {
         console.error('Error render attribute:', attribute.asn.type);
 
         return null;

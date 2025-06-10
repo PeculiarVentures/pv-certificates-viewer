@@ -10,9 +10,7 @@ import {
 } from '@peculiar/asn1-cms';
 import { Certificate } from '@peculiar/asn1-x509';
 import { AsnConvert, OctetString } from '@peculiar/asn1-schema';
-
 import { Download } from '../utils';
-
 import { PemConverter } from './pem_converter';
 import { X509Certificate } from './x509_certificate';
 
@@ -28,7 +26,6 @@ export class X509Certificates extends Array<X509Certificate> {
       throw new Error('Unable to parse string. The array of elements is less than 2');
     }
 
-    // eslint-disable-next-line no-restricted-syntax
     for (const item of rawItems) {
       this.push(new X509Certificate(item));
     }
@@ -45,13 +42,10 @@ export class X509Certificates extends Array<X509Certificate> {
 
     signedData.version = 1;
     signedData.encapContentInfo.eContentType = id_data;
-    signedData.encapContentInfo.eContent = new EncapsulatedContent({
-      single: new OctetString(),
-    });
+    signedData.encapContentInfo.eContent = new EncapsulatedContent({ single: new OctetString() });
     signedData.certificates = new CertificateSet(
-      Array.from(this).map((o) => new CertificateChoices({
-        certificate: AsnConvert.parse(o.raw, Certificate),
-      })),
+      Array.from(this)
+        .map((o) => new CertificateChoices({ certificate: AsnConvert.parse(o.raw, Certificate) })),
     );
 
     const cms = new ContentInfo({

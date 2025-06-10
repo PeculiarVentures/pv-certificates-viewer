@@ -20,7 +20,7 @@ const rBase64Chars = '[a-zA-Z0-9=+/]+';
 const rBase64 = `(?:${rBase64Chars}${rEolGroup})+`;
 const rPem = `${rBeginTag}${rEolGroup}(?:((?:${rHeaderKey}: ${rHeaderValue})+))?${rEolGroup}?(${rBase64})${rEndTag}`;
 
-export interface PemHeader {
+export interface IPemHeader {
   key: string;
   value: string;
 }
@@ -28,7 +28,7 @@ export interface PemHeader {
 /**
  * Represents PEM structure
  */
-export interface PemStruct {
+export interface IPemStruct {
   /**
    * Type
    */
@@ -36,7 +36,7 @@ export interface PemStruct {
   /**
    * Headers
    */
-  headers: PemHeader[];
+  headers: IPemHeader[];
 
   /**
    * Decoded message data
@@ -44,13 +44,14 @@ export interface PemStruct {
   rawData: ArrayBuffer;
 }
 
-type AtLeast<T, K extends keyof T> = Partial<T> & Pick<T, K>;
+type TAtLeast<T, K extends keyof T> = Partial<T> & Pick<T, K>;
 
-export type PemStructEncodeParams = AtLeast<PemStruct, 'type' | 'rawData'>;
+export type TPemStructEncodeParams = TAtLeast<IPemStruct, 'type' | 'rawData'>;
 
 /**
  * Represents PEM Converter.
  */
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class PemConverter {
   public static CertificateTag = 'CERTIFICATE';
 
@@ -65,20 +66,20 @@ export class PemConverter {
       && new RegExp(rPem, 'g').test(data.replace(/\r/g, ''));
   }
 
-  public static decodeWithHeaders(pem: string): PemStruct[] {
-    // eslint-disable-next-line no-param-reassign
+  public static decodeWithHeaders(pem: string): IPemStruct[] {
     pem = pem.replace(/\r/g, ''); // CRLF -> LF
     const pattern = new RegExp(rPem, 'g');
 
-    const res: PemStruct[] = [];
+    const res: IPemStruct[] = [];
 
     let matches: RegExpExecArray | null = null;
+
     // eslint-disable-next-line no-cond-assign
     while (matches = pattern.exec(pem)) {
       // prepare pem encoded message
       const base64 = matches[3]
         .replace(new RegExp(`[${rEolChars}]+`, 'g'), '');
-      const pemStruct: PemStruct = {
+      const pemStruct: IPemStruct = {
         type: matches[1],
         headers: [],
         rawData: Convert.FromBase64(base64),
@@ -89,25 +90,30 @@ export class PemConverter {
 
       if (headersString) {
         const headers = headersString.split(new RegExp(rEolGroup, 'g'));
-        let lastHeader: PemHeader | null = null;
+        let lastHeader: IPemHeader | null = null;
 
-        // eslint-disable-next-line no-restricted-syntax
         for (const header of headers) {
           const [key, value] = header.split(/:(.*)/);
+
           if (value === undefined) {
             // value
             if (!lastHeader) {
               throw new Error('Cannot parse PEM string. Incorrect header value');
             }
+
             lastHeader.value += key.trim();
           } else {
             // key and value
             if (lastHeader) {
               pemStruct.headers.push(lastHeader);
             }
-            lastHeader = { key, value: value.trim() };
+
+            lastHeader = {
+              key, value: value.trim(),
+            };
           }
         }
+
         // add last header
         if (lastHeader) {
           pemStruct.headers.push(lastHeader);
@@ -131,25 +137,12 @@ export class PemConverter {
   }
 
   /**
-   * Encodes a list of PemStruct in PEM format
-   * @param structs A list of PemStruct
-   * @param tag PEM tag
-   */
-  public static encode(structs: PemStructEncodeParams[]): string;
-  /**
-   * Encodes a raw data in PEM format
-   * @param rawData Raw data
-   * @param tag PEM tag
-   */
-  public static encode(rawData: BufferSource, tag: string): string;
-  /**
    * Encodes a list of raws in PEM format
    * @param raws A list of raws
    * @param tag PEM tag
    */
-  public static encode(rawData: BufferSource[], tag: string): string;
   public static encode(
-    rawData: BufferSource | BufferSource[] | PemStructEncodeParams[],
+    rawData: BufferSource | BufferSource[] | TPemStructEncodeParams[],
     tag?: string,
   ) {
     if (Array.isArray(rawData)) {
@@ -168,10 +161,10 @@ export class PemConverter {
           }));
         });
       } else {
-        // encode PemStruct[]
+        // encode IPemStruct[]
         rawData.forEach((element) => {
           if (!('type' in element)) {
-            throw new TypeError('Cannot encode array of PemStruct in PEM format. Not all items of the array are PemStrut');
+            throw new TypeError('Cannot encode array of IPemStruct in PEM format. Not all items of the array are PemStrut');
           }
 
           raws.push(this.encodeStruct(element));
@@ -182,7 +175,7 @@ export class PemConverter {
     }
 
     if (!tag) {
-      throw new Error("Required argument 'tag' is missed");
+      throw new Error('Required argument \'tag\' is missed');
     }
 
     return this.encodeStruct({
@@ -196,14 +189,14 @@ export class PemConverter {
    * @param pem PEM structure for encoding
    * @returns Returns PEM encoded block
    */
-  private static encodeStruct(pem: PemStructEncodeParams): string {
+  private static encodeStruct(pem: TPemStructEncodeParams): string {
     const upperCaseType = pem.type.toLocaleUpperCase();
 
     const res: string[] = [];
+
     res.push(`-----BEGIN ${upperCaseType}-----`);
 
     if (pem.headers?.length) {
-      // eslint-disable-next-line no-restricted-syntax
       for (const header of pem.headers) {
         res.push(`${header.key}: ${header.value}`);
       }

@@ -8,7 +8,6 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import type { TypeRelationship } from '@peculiar/asn1-ntqwac';
-
 import type { Attribute } from '../../../crypto/attribute';
 import { l10n } from '../../../utils';
 import { RowValue } from '../row';

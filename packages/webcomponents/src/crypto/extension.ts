@@ -189,6 +189,7 @@ const extensionParsers = {
 };
 
 type TExtensionKeys = keyof typeof extensionParsers;
+
 export type TExtensionValue = InstanceType<typeof extensionParsers[TExtensionKeys]> | string;
 
 export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> {

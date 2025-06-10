@@ -8,7 +8,6 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import type { Name } from '@peculiar/asn1-x509';
-
 import { OIDs } from '../../../constants/oids';
 import { RowValue } from '../row';
 
@@ -16,6 +15,7 @@ interface INamePartProps {
   name: Name;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const NamePart: FunctionalComponent<INamePartProps> = (props): any[] => {
   const { name } = props;
 

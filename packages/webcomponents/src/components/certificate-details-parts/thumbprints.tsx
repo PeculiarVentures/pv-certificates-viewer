@@ -8,7 +8,6 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { l10n } from '../../utils';
-
 import { RowTitle, RowValue } from './row';
 
 interface IThumbprintsProps {

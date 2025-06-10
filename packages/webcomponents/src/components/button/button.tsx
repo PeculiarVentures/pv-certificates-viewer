@@ -6,17 +6,19 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { FunctionalComponent, h, VNode } from '@stencil/core';
+import {
+  FunctionalComponent, h, VNode,
+} from '@stencil/core';
 import { Typography } from '../typography';
 
-export interface ButtonProps {
+export interface IButtonProps {
   href?: string;
   class?: string;
   startIcon?: VNode;
   onClick?: (event: MouseEvent) => void;
 }
 
-export const Button: FunctionalComponent<ButtonProps> = (props, children) => {
+export const Button: FunctionalComponent<IButtonProps> = (props, children) => {
   const {
     href,
     class: classProp,
@@ -33,13 +35,13 @@ export const Button: FunctionalComponent<ButtonProps> = (props, children) => {
       href={isLink && href}
       target={isLink && '_blank'}
       rel={isLink && 'noreferrer noopener'}
-      onClick={onClick}
       class={{
         button: true,
         // eslint-disable-next-line react/destructuring-assignment
         m_no_padding: children.length === 0,
         [classProp]: Boolean(classProp),
       }}
+      onClick={onClick}
     >
       {startIcon}
       {/* eslint-disable-next-line react/destructuring-assignment */}

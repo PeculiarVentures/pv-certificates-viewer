@@ -8,13 +8,12 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { CRLNumber } from '@peculiar/asn1-x509';
-
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
 import { l10n } from '../../../utils';
-
 import { BasicExtension } from './basic_extension';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 interface ICRLNumberExtensionProps {
   extension: Extension<CRLNumber>;
 }

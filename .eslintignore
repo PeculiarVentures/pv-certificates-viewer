@@ -1,9 +1,0 @@
-**/node_modules/**
-**/dist/**
-**/dist-transpiled/**
-**/react-component-lib/**
-packages/webcomponents/loader/
-packages/webcomponents/www/
-packages/webcomponents/src/www-copy/
-packages/webcomponents/components/
-packages/webcomponents/hydrate/

@@ -1,4 +1,5 @@
 import { Config } from '@stencil/core';
+// eslint-disable-next-line import/namespace
 import { sass } from '@stencil/sass';
 
 export const config: Config = {
@@ -36,9 +37,7 @@ export const config: Config = {
       ],
       includeGlobalScripts: false,
     },
-    {
-      type: 'dist-hydrate-script',
-    },
+    { type: 'dist-hydrate-script' },
     {
       type: 'docs-readme',
       footer: '',

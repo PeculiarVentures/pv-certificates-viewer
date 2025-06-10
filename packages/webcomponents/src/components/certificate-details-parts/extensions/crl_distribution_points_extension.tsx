@@ -8,12 +8,11 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { CRLDistributionPoints } from '@peculiar/asn1-x509';
-
 import { Extension } from '../../../crypto/extension';
-
 import { BasicExtension } from './basic_extension';
 import { GeneralNamePart } from './general_name_part';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 interface ICRLDistributionPointsExtensionProps extends IGeneralNameOptions {
   extension: Extension<CRLDistributionPoints>;
 }

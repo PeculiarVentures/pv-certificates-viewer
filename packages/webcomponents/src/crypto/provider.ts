@@ -7,16 +7,16 @@
  */
 
 export class CryptoProvider {
-  private providers: Map<string, Crypto> = new Map();
+  private providers = new Map<string, Crypto>();
 
   public static DEFAULT = 'default';
 
-  public static isCryptoKeyPair(data: any): data is CryptoKeyPair {
-    return data && data.privateKey && data.publicKey;
+  public static isCryptoKeyPair(data: unknown): data is CryptoKeyPair {
+    return data && typeof data === 'object' && 'privateKey' in data && 'publicKey' in data;
   }
 
   constructor() {
-    // @ts-ignore
+    // @ts-expect-error - window.crypto is not typed
     const crypto = window.crypto || window.msCrypto;
 
     if (typeof crypto !== 'undefined') {
@@ -33,8 +33,6 @@ export class CryptoProvider {
    * Returns crypto by name
    * @param key Crypto name
    */
-  public get(key: string): Crypto;
-
   public get(key = CryptoProvider.DEFAULT) {
     const crypto = this.providers.get(key.toLowerCase());
 
@@ -52,7 +50,7 @@ export class CryptoProvider {
   public set(key: string | Crypto, value?: Crypto) {
     if (typeof key === 'string') {
       if (!value) {
-        throw new TypeError("Argument 'value' is required");
+        throw new TypeError('Argument \'value\' is required');
       }
 
       this.providers.set(key.toLowerCase(), value);

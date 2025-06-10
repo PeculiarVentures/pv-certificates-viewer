@@ -17,7 +17,6 @@ import {
   EventEmitter,
   Build,
 } from '@stencil/core';
-
 import { X509Certificate } from '../../crypto';
 import { OIDs } from '../../constants/oids';
 import { l10n } from '../../utils';
@@ -55,7 +54,7 @@ interface ICertificateDecoded {
   shadow: true,
 })
 export class CertificatesViewer {
-  private isHasRoots: boolean = false;
+  private isHasRoots = false;
 
   private mobileMediaQuery: MediaQueryList;
 
@@ -74,12 +73,12 @@ export class CertificatesViewer {
   /**
    * Use filter in the list when search is changed.
    */
-  @Prop() filterWithSearch: boolean = true;
+  @Prop() filterWithSearch = true;
 
   /**
    * Use highlight chapters in the list when search is changed.
    */
-  @Prop() highlightWithSearch: boolean = true;
+  @Prop() highlightWithSearch = true;
 
   /**
    * Mobile media query string to control screen view change.
@@ -100,9 +99,9 @@ export class CertificatesViewer {
    */
   @Event() detailsClose!: EventEmitter<void>;
 
-  @State() mobileScreenView: boolean = false;
+  @State() mobileScreenView = false;
 
-  @State() search: string = '';
+  @State() search = '';
 
   @State() certificatesDecoded: ICertificateDecoded[] = [];
 
@@ -110,7 +109,7 @@ export class CertificatesViewer {
 
   @State() certificateSelectedForDetails?: X509Certificate;
 
-  @State() isDecodeInProcess: boolean = true;
+  @State() isDecodeInProcess = true;
 
   private handleMediaQueryChange(event: MediaQueryListEvent) {
     this.mobileScreenView = event.matches;
@@ -149,7 +148,6 @@ export class CertificatesViewer {
 
     const data: ICertificateDecoded[] = [];
 
-    // eslint-disable-next-line no-restricted-syntax
     for (const certificate of this.certificates) {
       try {
         const decoded = new X509Certificate(certificate.value);
@@ -175,12 +173,10 @@ export class CertificatesViewer {
     this.certificatesDecoded = data;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private handleClickDownloadAsPem(certificate: ICertificateDecoded) {
     certificate.body.downloadAsPEM(certificate.name || certificate.body.commonName);
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private handleClickDownloadAsDer(certificate: ICertificateDecoded) {
     certificate.body.downloadAsDER(certificate.name || certificate.body.commonName);
   }
@@ -204,8 +200,10 @@ export class CertificatesViewer {
       : index;
   }
 
-  private handleSearch = (event: any) => {
-    this.search = event.target.value.trim();
+  private handleSearch = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+
+    this.search = target.value.trim();
   };
 
   private getMaxColSpanValue() {
@@ -220,7 +218,7 @@ export class CertificatesViewer {
 
   private renderCertificateButtonActions(certificate: ICertificateDecoded) {
     const isHasTestURLs = certificate.tests
-        && (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid);
+      && (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid);
 
     return (
       <peculiar-button-menu
@@ -251,26 +249,34 @@ export class CertificatesViewer {
               },
             ],
           },
-          ...(isHasTestURLs ? [{
-            title: l10n.getString('testURLs'),
-            options: [
-              ...(certificate.tests?.valid ? [{
-                text: l10n.getString('valid'),
-                href: certificate.tests.valid,
-                startIcon: <LinkIcon />,
-              }] : []),
-              ...(certificate.tests?.revoked ? [{
-                text: l10n.getString('revoked'),
-                href: certificate.tests.revoked,
-                startIcon: <LinkIcon />,
-              }] : []),
-              ...(certificate.tests?.expired ? [{
-                text: l10n.getString('expired'),
-                href: certificate.tests.expired,
-                startIcon: <LinkIcon />,
-              }] : []),
-            ],
-          }] : []),
+          ...(isHasTestURLs
+            ? [{
+                title: l10n.getString('testURLs'),
+                options: [
+                  ...(certificate.tests?.valid
+                    ? [{
+                        text: l10n.getString('valid'),
+                        href: certificate.tests.valid,
+                        startIcon: <LinkIcon />,
+                      }]
+                    : []),
+                  ...(certificate.tests?.revoked
+                    ? [{
+                        text: l10n.getString('revoked'),
+                        href: certificate.tests.revoked,
+                        startIcon: <LinkIcon />,
+                      }]
+                    : []),
+                  ...(certificate.tests?.expired
+                    ? [{
+                        text: l10n.getString('expired'),
+                        href: certificate.tests.expired,
+                        startIcon: <LinkIcon />,
+                      }]
+                    : []),
+                ],
+              }]
+            : []),
         ]}
       />
     );
@@ -396,9 +402,9 @@ export class CertificatesViewer {
                     <td>
                       {this.renderCertificateButtonActions(certificate)}
                       <Button
-                        // eslint-disable-next-line react/jsx-no-bind
-                        onClick={this.handleClickRow.bind(this, index)}
+
                         startIcon={isExpandedRow ? <ArrowTopIcon /> : <ArrowBottomIcon />}
+                        onClick={this.handleClickRow.bind(this, index)}
                       />
                     </td>
                   </tr>
@@ -413,17 +419,15 @@ export class CertificatesViewer {
 
       content.push([
         <tr
-          class={{
-            m_expanded: isExpandedRow,
-          }}
+          class={{ m_expanded: isExpandedRow }}
           key={certificate.body.thumbprints['SHA-1']}
         >
           <td>
             <Button
-              class="button_table_cell"
-              // eslint-disable-next-line react/jsx-no-bind
-              onClick={this.handleClickRow.bind(this, index)}
               startIcon={isExpandedRow ? <ArrowTopIcon /> : <ArrowBottomIcon />}
+              class="button_table_cell"
+
+              onClick={this.handleClickRow.bind(this, index)}
             />
           </td>
           {!this.isHasRoots && (
@@ -481,8 +485,8 @@ export class CertificatesViewer {
       >
         <div
           class="modal_backdrop"
-          onClick={this.handleModalClose}
           aria-hidden="true"
+          onClick={this.handleModalClose}
         />
         <div
           class="modal_container"
@@ -496,8 +500,8 @@ export class CertificatesViewer {
               {l10n.getString('certificateDetails')}
             </Typography>
             <Button
-              onClick={this.handleModalClose}
               startIcon={<CrossIcon />}
+              onClick={this.handleModalClose}
             />
           </header>
           <div class="modal_content">
@@ -519,12 +523,12 @@ export class CertificatesViewer {
     return (
       <div class="search_section">
         <input
-          onInput={this.handleSearch}
           type="search"
           value=""
           class="input_search t-b3 c-black"
           disabled={!this.certificatesDecoded.length}
           placeholder="Search"
+          onInput={this.handleSearch}
         />
       </div>
     );
@@ -570,7 +574,6 @@ export class CertificatesViewer {
     );
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private renderLoadingState() {
     return (
       <div class="loading_container">
@@ -607,7 +610,6 @@ export class CertificatesViewer {
           {!this.mobileScreenView && (
             <thead>
               <tr>
-                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                 <th />
                 {!this.isHasRoots && (
                   <th class="col_issuer">
@@ -632,7 +634,6 @@ export class CertificatesViewer {
                     &nbsp; (SHA-1)
                   </Typography>
                 </th>
-                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                 <th />
               </tr>
             </thead>

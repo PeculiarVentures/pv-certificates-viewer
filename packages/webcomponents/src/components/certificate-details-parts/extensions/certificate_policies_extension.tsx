@@ -7,13 +7,13 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { CertificatePolicies, UserNotice, DisplayText } from '@peculiar/asn1-x509';
+import {
+  CertificatePolicies, UserNotice, DisplayText,
+} from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
-
 import { getStringByOID } from '../../../utils';
 import { Extension } from '../../../crypto/extension';
 import { RowValue, TableRowTable } from '../row';
-
 import { BasicExtension } from './basic_extension';
 
 interface ICertificatePoliciesExtensionProps {

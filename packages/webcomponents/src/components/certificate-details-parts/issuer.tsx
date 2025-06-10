@@ -7,7 +7,6 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-
 import type { X509AttributeCertificate } from '../../crypto';
 import { l10n } from '../../utils';
 import { RowTitle } from './row';

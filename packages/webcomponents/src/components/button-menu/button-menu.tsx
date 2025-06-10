@@ -13,17 +13,17 @@ import {
   Prop,
   Host,
 } from '@stencil/core';
-import { Button, ButtonProps } from '../button';
+import { Button, IButtonProps } from '../button';
 import { Typography } from '../typography';
 import { ActionsIcon } from '../icons';
 
-export interface ButtonMenuGroupOptions extends ButtonProps {
+export interface IButtonMenuGroupOptions extends IButtonProps {
   text: string | string[];
 }
 
-export interface ButtonMenuGroup {
+export interface IButtonMenuGroup {
   title: string | string[];
-  options: ButtonMenuGroupOptions[];
+  options: IButtonMenuGroupOptions[];
 }
 
 @Component({
@@ -32,9 +32,9 @@ export interface ButtonMenuGroup {
   scoped: true,
 })
 export class ButtonMenu {
-  @Prop() groups: ButtonMenuGroup[] = [];
+  @Prop() groups: IButtonMenuGroup[] = [];
 
-  @State() open: boolean = false;
+  @State() open = false;
 
   handleClick = () => {
     this.open = !this.open;
@@ -43,14 +43,12 @@ export class ButtonMenu {
   render() {
     return (
       <Host
-        class={{
-          is_shown: this.open,
-        }}
+        class={{ is_shown: this.open }}
       >
         <Button
           class="button_popover"
-          onClick={this.handleClick}
           startIcon={<ActionsIcon />}
+          onClick={this.handleClick}
         />
         <div
           role="dialog"

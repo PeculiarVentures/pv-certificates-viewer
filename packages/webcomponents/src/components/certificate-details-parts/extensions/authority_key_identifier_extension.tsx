@@ -20,7 +20,9 @@ interface IAuthorityKeyIdentifierExtensionProps extends IAuthorityKeyIdentifierO
 
 export const AuthorityKeyIdentifierExtension:
 FunctionalComponent<IAuthorityKeyIdentifierExtensionProps> = (props) => {
-  const { extension, getAuthKeyIdParentLink, getAuthKeyIdSiblingsLink } = props;
+  const {
+    extension, getAuthKeyIdParentLink, getAuthKeyIdSiblingsLink,
+  } = props;
 
   const keyId = Convert.ToHex(extension.value.keyIdentifier.buffer);
   const parentLink = getAuthKeyIdParentLink(keyId);

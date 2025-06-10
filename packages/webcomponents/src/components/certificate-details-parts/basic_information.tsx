@@ -7,9 +7,7 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-
 import { dateShort, l10n } from '../../utils';
-
 import { RowTitle, RowValue } from './row';
 
 interface IBasicInformationProps {

@@ -8,9 +8,7 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { NameConstraints } from '@peculiar/asn1-x509';
-
 import { Extension } from '../../../crypto/extension';
-
 import { BasicExtension } from './basic_extension';
 import { GeneralNamePart } from './general_name_part';
 

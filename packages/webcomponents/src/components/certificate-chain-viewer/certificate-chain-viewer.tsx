@@ -13,14 +13,9 @@ import {
   State,
   Host,
 } from '@stencil/core';
-
-import {
-  X509Certificates,
-} from '../../crypto';
+import { X509Certificates } from '../../crypto';
 import { Typography } from '../typography';
-import {
-  Miscellaneous,
-} from '../certificate-details-parts';
+import { Miscellaneous } from '../certificate-details-parts';
 
 @Component({
   tag: 'peculiar-certificate-chain-viewer',
@@ -38,9 +33,8 @@ export class CertificateChainViewer {
    */
   @Prop({ reflect: true }) download?: boolean;
 
-  @State() selectedCertificateIndex: number = 0;
+  @State() selectedCertificateIndex = 0;
 
-  // eslint-disable-next-line class-methods-use-this
   private renderEmptyState() {
     return (
       <div class="status_wrapper">

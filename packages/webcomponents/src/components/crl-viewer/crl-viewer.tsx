@@ -15,9 +15,10 @@ import {
   Watch,
   Build,
 } from '@stencil/core';
-
 import { X509Crl } from '../../crypto';
-import { getDNSNameLink, getIPAddressLink, getLEILink } from '../../utils/third_party_links';
+import {
+  getDNSNameLink, getIPAddressLink, getLEILink,
+} from '../../utils/third_party_links';
 import {
   BasicInformation,
   IssuerName,
@@ -29,7 +30,7 @@ import {
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
 
-export type CrlProp = string | X509Crl;
+export type TCrlProp = string | X509Crl;
 
 @Component({
   tag: 'peculiar-crl-viewer',
@@ -46,7 +47,7 @@ export class CrlViewer {
   /**
    * The certificate value for decode and show details. Use PEM or DER.
    */
-  @Prop({ reflect: true }) certificate: CrlProp;
+  @Prop({ reflect: true }) certificate: TCrlProp;
 
   /**
    * If `true` - component will show split-button to download certificate as PEM or DER.
@@ -86,9 +87,9 @@ export class CrlViewer {
    */
   @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
 
-  @State() mobileScreenView: boolean = false;
+  @State() mobileScreenView = false;
 
-  @State() isDecodeInProcess: boolean = true;
+  @State() isDecodeInProcess = true;
 
   private handleMediaQueryChange(event: MediaQueryListEvent) {
     this.mobileScreenView = event.matches;
@@ -108,7 +109,7 @@ export class CrlViewer {
     this.mobileMediaQuery.removeEventListener('change', this.handleMediaQueryChange.bind(this));
   }
 
-  private async decodeCertificate(certificate: CrlProp) {
+  private async decodeCertificate(certificate: TCrlProp) {
     this.isDecodeInProcess = true;
 
     try {
@@ -147,8 +148,8 @@ export class CrlViewer {
    */
   @Watch('certificate')
   watchCertificateAndDecode(
-    newValue: CrlProp,
-    oldValue: CrlProp,
+    newValue: TCrlProp,
+    oldValue: TCrlProp,
   ) {
     if (typeof newValue === 'string' && typeof oldValue === 'string') {
       if (newValue !== oldValue) {
@@ -168,7 +169,6 @@ export class CrlViewer {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private renderErrorState() {
     return (
       <div class="status_wrapper">
@@ -179,7 +179,6 @@ export class CrlViewer {
     );
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private renderEmptyState() {
     return (
       <div class="status_wrapper">

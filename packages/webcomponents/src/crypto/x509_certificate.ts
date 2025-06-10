@@ -18,9 +18,7 @@ import {
 } from '@peculiar/asn1-x509-post-quantum';
 import { Certificate, SubjectPublicKeyInfo } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
-
 import { dateDiff, Download } from '../utils';
-
 import { Name, INameJSON } from './name';
 import { Extension, TExtensionValue } from './extension';
 import { AsnData } from './asn_data';
@@ -82,7 +80,7 @@ export class X509Certificate extends AsnData<Certificate> {
       || tbsCertificate.validity.notBefore.generalTime;
 
     if (!notBefore) {
-      throw new Error("Cannot get 'notBefore' value");
+      throw new Error('Cannot get \'notBefore\' value');
     }
 
     this.notBefore = notBefore;
@@ -91,7 +89,7 @@ export class X509Certificate extends AsnData<Certificate> {
       || tbsCertificate.validity.notAfter.generalTime;
 
     if (!notAfter) {
-      throw new Error("Cannot get 'notAfter' value");
+      throw new Error('Cannot get \'notAfter\' value');
     }
 
     this.notAfter = notAfter;
@@ -160,7 +158,7 @@ export class X509Certificate extends AsnData<Certificate> {
   }
 
   public async getThumbprint(
-    algorithm: string = 'SHA-1',
+    algorithm = 'SHA-1',
   ): Promise<void> {
     try {
       const thumbprint = await getCertificateThumbprint(algorithm, this.raw);

@@ -10,9 +10,7 @@ import { AsnConvert } from '@peculiar/asn1-schema';
 import type { GeneralName } from '@peculiar/asn1-x509';
 import { AttributeCertificate, Holder } from '@peculiar/asn1-x509-attr';
 import { Convert } from 'pvtsutils';
-
 import { dateDiff, Download } from '../utils';
-
 import { AsnData } from './asn_data';
 import { Extension, TExtensionValue } from './extension';
 import { Attribute, TAttributeValue } from './attribute';
@@ -63,7 +61,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     const notBefore = acinfo.attrCertValidityPeriod.notBeforeTime;
 
     if (!notBefore) {
-      throw new Error("Cannot get 'notBefore' value");
+      throw new Error('Cannot get \'notBefore\' value');
     }
 
     this.notBefore = notBefore;
@@ -71,7 +69,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     const notAfter = acinfo.attrCertValidityPeriod.notAfterTime;
 
     if (!notAfter) {
-      throw new Error("Cannot get 'notAfter' value");
+      throw new Error('Cannot get \'notAfter\' value');
     }
 
     this.notAfter = notAfter;
@@ -108,7 +106,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
   }
 
   public async getThumbprint(
-    algorithm: string = 'SHA-1',
+    algorithm = 'SHA-1',
   ): Promise<void> {
     try {
       const thumbprint = await getCertificateThumbprint(algorithm, this.raw);

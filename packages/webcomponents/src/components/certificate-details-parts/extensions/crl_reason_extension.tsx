@@ -8,12 +8,11 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { CRLReason } from '@peculiar/asn1-x509';
-
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
-
 import { BasicExtension } from './basic_extension';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 interface ICRLReasonExtensionProps {
   extension: Extension<CRLReason>;
 }

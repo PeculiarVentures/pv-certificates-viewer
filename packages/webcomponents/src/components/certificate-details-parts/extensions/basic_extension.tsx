@@ -7,7 +7,6 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-
 import { Extension, TExtensionValue } from '../../../crypto/extension';
 import { l10n, getStringByOID } from '../../../utils';
 import { RowValue } from '../row';

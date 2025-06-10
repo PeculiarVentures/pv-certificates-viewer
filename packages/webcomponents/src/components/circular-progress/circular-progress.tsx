@@ -22,14 +22,14 @@ export class CircularProgress {
   /**
    * Width/height of progress circle.
    */
-  @Prop() size: number = 24;
+  @Prop() size = 24;
 
   /**
    * Stroke width of progress bar circle.
    */
-  @Prop() width: number = 4;
+  @Prop() width = 4;
 
-  private box: number = 50;
+  private box = 50;
 
   render() {
     return (
@@ -51,9 +51,7 @@ export class CircularProgress {
               cy={this.box / 2}
               r={(this.box / 2) - 5}
               fill="none"
-              style={{
-                strokeWidth: `${this.width}px`,
-              }}
+              style={{ strokeWidth: `${this.width}px` }}
             />
             <circle
               class="circle_progress_circle"
@@ -61,9 +59,7 @@ export class CircularProgress {
               cy={this.box / 2}
               r={(this.box / 2) - 5}
               fill="none"
-              style={{
-                strokeWidth: `${this.width}px`,
-              }}
+              style={{ strokeWidth: `${this.width}px` }}
             />
           </svg>
         </div>

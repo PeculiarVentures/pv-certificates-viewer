@@ -8,9 +8,7 @@
 import { AsnConvert } from '@peculiar/asn1-schema';
 import { CertificateList, Time } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
-
 import { Download } from '../utils';
-
 import { Extension, TExtensionValue } from './extension';
 import { AsnData } from './asn_data';
 import { Name, INameJSON } from './name';
@@ -70,7 +68,7 @@ export class X509Crl extends AsnData<CertificateList> {
   }
 
   public async getThumbprint(
-    algorithm: string = 'SHA-1',
+    algorithm = 'SHA-1',
   ): Promise<void> {
     try {
       const thumbprint = await getCertificateThumbprint(algorithm, this.raw);

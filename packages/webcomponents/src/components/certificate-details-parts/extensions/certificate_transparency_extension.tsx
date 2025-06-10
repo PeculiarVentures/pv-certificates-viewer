@@ -8,12 +8,10 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import type { CertificateTransparency } from '@peculiar/asn1-cert-transparency';
-
 import type { Extension } from '../../../crypto/extension';
 import logs from '../../../constants/logs';
 import { dateShort } from '../../../utils';
 import { RowValue, TableRowTable } from '../row';
-
 import { BasicExtension } from './basic_extension';
 
 interface ICertificateTransparencyExtensionProps {

@@ -3,13 +3,13 @@
  * Copyright (c) Peculiar Ventures, LLC.
  *
  * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * LICENSE file in the root directory of Tthis source tree.
  */
 
 import { Convert } from 'pvtsutils';
-
 import { downloadFromBuffer } from './download_from_buffer';
 
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Download {
   public static cert = {
     asPEM: (pem: string, name: string) => {

@@ -68,6 +68,7 @@ describe('peculiar-certificates-viewer', () => {
       });
 
       const certificatesViewer = await page.find('peculiar-certificates-viewer');
+
       certificatesViewer.setProperty('certificates', certificates);
 
       await page.waitForChanges();

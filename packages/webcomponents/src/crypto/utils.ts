@@ -8,7 +8,6 @@
 
 import { Convert } from 'pvtsutils';
 import { PemConverter } from './pem_converter';
-
 import { cryptoProvider } from './provider';
 
 export const certificateRawToBuffer = (raw: string): ArrayBuffer => {

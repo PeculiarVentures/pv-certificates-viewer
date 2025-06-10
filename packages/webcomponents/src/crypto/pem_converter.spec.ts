@@ -46,8 +46,12 @@ ZYYG
     it('should encode multiple PEM structures', () => {
       const rawData = new ArrayBuffer(3);
       const pemStructs = [
-        { type: 'CERTIFICATE', rawData },
-        { type: 'CERTIFICATE REQUEST', rawData },
+        {
+          type: 'CERTIFICATE', rawData,
+        },
+        {
+          type: 'CERTIFICATE REQUEST', rawData,
+        },
       ];
       const pem = PemConverter.encode(pemStructs);
 
@@ -58,7 +62,7 @@ ZYYG
     it('should throw an error when tag is missing', () => {
       const rawData = new ArrayBuffer(3);
 
-      expect(() => PemConverter.encode(rawData as any)).toThrow(Error);
+      expect(() => PemConverter.encode(rawData)).toThrow(Error);
     });
   });
 });

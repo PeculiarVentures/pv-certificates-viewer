@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type                | Default |
-| -------- | --------- | ----------- | ------------------- | ------- |
-| `groups` | --        |             | `ButtonMenuGroup[]` | `[]`    |
+| Property | Attribute | Description | Type                 | Default |
+| -------- | --------- | ----------- | -------------------- | ------- |
+| `groups` | --        |             | `IButtonMenuGroup[]` | `[]`    |
 
 
 ## Dependencies

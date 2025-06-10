@@ -15,9 +15,10 @@ import {
   Watch,
   Build,
 } from '@stencil/core';
-
 import { X509AttributeCertificate } from '../../crypto';
-import { getDNSNameLink, getIPAddressLink, getLEILink } from '../../utils/third_party_links';
+import {
+  getDNSNameLink, getIPAddressLink, getLEILink,
+} from '../../utils/third_party_links';
 import {
   BasicInformation,
   Signature,
@@ -30,7 +31,7 @@ import {
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
 
-export type AttributeCertificateProp = string | X509AttributeCertificate;
+export type TAttributeCertificateProp = string | X509AttributeCertificate;
 
 @Component({
   tag: 'peculiar-attribute-certificate-viewer',
@@ -47,7 +48,7 @@ export class AttributeCertificateViewer {
   /**
    * The certificate value for decode and show details. Use PEM or DER.
    */
-  @Prop() certificate: AttributeCertificateProp;
+  @Prop() certificate: TAttributeCertificateProp;
 
   /**
    * If `true` - component will show split-button to download certificate as PEM or DER.
@@ -99,9 +100,9 @@ export class AttributeCertificateViewer {
    */
   @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
 
-  @State() mobileScreenView: boolean = false;
+  @State() mobileScreenView = false;
 
-  @State() isDecodeInProcess: boolean = true;
+  @State() isDecodeInProcess = true;
 
   private handleMediaQueryChange(event: MediaQueryListEvent) {
     this.mobileScreenView = event.matches;
@@ -121,7 +122,7 @@ export class AttributeCertificateViewer {
     this.mobileMediaQuery.removeEventListener('change', this.handleMediaQueryChange.bind(this));
   }
 
-  private async decodeCertificate(certificate: AttributeCertificateProp) {
+  private async decodeCertificate(certificate: TAttributeCertificateProp) {
     this.isDecodeInProcess = true;
 
     try {
@@ -151,8 +152,8 @@ export class AttributeCertificateViewer {
    */
   @Watch('certificate')
   watchCertificateAndDecode(
-    newValue: AttributeCertificateProp,
-    oldValue: AttributeCertificateProp,
+    newValue: TAttributeCertificateProp,
+    oldValue: TAttributeCertificateProp,
   ) {
     if (typeof newValue === 'string' && typeof oldValue === 'string') {
       if (newValue !== oldValue) {
@@ -184,7 +185,6 @@ export class AttributeCertificateViewer {
   private getSubjectKeyIdSiblingsLink = (value: string) => this.subjectKeyIdSiblingsLink
     ?.replace('{{subjectKeyId}}', value);
 
-  // eslint-disable-next-line class-methods-use-this
   private renderErrorState() {
     return (
       <div class="status_wrapper">
@@ -195,7 +195,6 @@ export class AttributeCertificateViewer {
     );
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private renderEmptyState() {
     return (
       <div class="status_wrapper">

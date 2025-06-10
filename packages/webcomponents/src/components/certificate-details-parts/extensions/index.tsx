@@ -41,13 +41,9 @@ import { Timestamp, ArchiveRevInfo } from '@peculiar/asn1-adobe-acrobat';
 import { LogotypeExtn } from '@peculiar/asn1-x509-logotype';
 import { TNAuthorizationList } from '@peculiar/asn1-rfc8226';
 import { NonStandardKeyDescription } from '@peculiar/asn1-android';
-
 import { RowTitle } from '../row';
 import { Extension, TExtensionValue } from '../../../crypto/extension';
-import {
-  CabforganizationIdentifier,
-} from '../../../crypto/extensions';
-
+import { CabforganizationIdentifier } from '../../../crypto/extensions';
 import { KeyUsageExtension } from './key_usage_extension';
 import { BasicConstraintsExtension } from './basic_constraints_extension';
 import { ExtendedKeyUsageExtension } from './extended_key_usage_extension';
@@ -110,7 +106,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof KeyUsage) {
           return (
             <KeyUsageExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<KeyUsage>}
             />
           );
         }
@@ -118,7 +114,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof BasicConstraints) {
           return (
             <BasicConstraintsExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<BasicConstraints>}
             />
           );
         }
@@ -126,7 +122,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof ExtendedKeyUsage) {
           return (
             <ExtendedKeyUsageExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<ExtendedKeyUsage>}
             />
           );
         }
@@ -134,7 +130,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof SubjectKeyIdentifier) {
           return (
             <SubjectKeyIdentifierExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<SubjectKeyIdentifier>}
               {...props}
             />
           );
@@ -143,7 +139,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof AuthorityKeyIdentifier) {
           return (
             <AuthorityKeyIdentifierExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<AuthorityKeyIdentifier>}
               {...props}
             />
           );
@@ -152,7 +148,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof CRLDistributionPoints) {
           return (
             <CRLDistributionPointsExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<CRLDistributionPoints>}
               {...props}
             />
           );
@@ -164,7 +160,10 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         ) {
           return (
             <InfoAccessSyntaxExtension
-              extension={extension as any}
+              extension={
+                extension as unknown as Extension<AuthorityInfoAccessSyntax
+                | SubjectInfoAccessSyntax>
+              }
               {...props}
             />
           );
@@ -173,7 +172,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof SubjectAlternativeName) {
           return (
             <SubjectAlternativeNameExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<SubjectAlternativeName>}
               {...props}
             />
           );
@@ -182,7 +181,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof CertificatePolicies) {
           return (
             <CertificatePoliciesExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<CertificatePolicies>}
             />
           );
         }
@@ -190,7 +189,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof CertificateTransparency) {
           return (
             <CertificateTransparencyExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<CertificateTransparency>}
             />
           );
         }
@@ -198,7 +197,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof NameConstraints) {
           return (
             <NameConstraintsExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<NameConstraints>}
               {...props}
             />
           );
@@ -207,7 +206,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof CertificateTemplate) {
           return (
             <CertificateTemplateExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<CertificateTemplate>}
             />
           );
         }
@@ -215,7 +214,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof EnrollCertTypeChoice) {
           return (
             <EnrollCertTypeChoiceExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<EnrollCertTypeChoice>}
             />
           );
         }
@@ -223,7 +222,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof CaVersion) {
           return (
             <CaVersionExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<CaVersion>}
             />
           );
         }
@@ -231,7 +230,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof QCStatements) {
           return (
             <QCStatementsExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<QCStatements>}
             />
           );
         }
@@ -239,7 +238,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof NetscapeComment) {
           return (
             <NetscapeCommentExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<NetscapeComment>}
             />
           );
         }
@@ -247,7 +246,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof NetscapeCertType) {
           return (
             <NetscapeCertTypeExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<NetscapeCertType>}
             />
           );
         }
@@ -255,7 +254,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof LeiRole) {
           return (
             <LeiRoleExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<LeiRole>}
             />
           );
         }
@@ -263,7 +262,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof LeiChoice) {
           return (
             <LeiExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<LeiChoice>}
               {...props}
             />
           );
@@ -272,7 +271,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof Timestamp) {
           return (
             <TimestampExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<Timestamp>}
               {...props}
             />
           );
@@ -281,7 +280,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof ArchiveRevInfo) {
           return (
             <ArchiveRevInfoExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<ArchiveRevInfo>}
             />
           );
         }
@@ -289,7 +288,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof CRLReason) {
           return (
             <CRLReasonExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<CRLReason>}
             />
           );
         }
@@ -297,7 +296,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof SubjectDirectoryAttributes) {
           return (
             <SubjectDirectoryAttributesExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<SubjectDirectoryAttributes>}
             />
           );
         }
@@ -305,7 +304,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof PrivateKeyUsagePeriod) {
           return (
             <PrivateKeyUsagePeriodExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<PrivateKeyUsagePeriod>}
             />
           );
         }
@@ -313,7 +312,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof EntrustVersionInfo) {
           return (
             <EntrustVersionInfoExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<EntrustVersionInfo>}
             />
           );
         }
@@ -321,7 +320,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof BiometricSyntax) {
           return (
             <BiometricSyntaxExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<BiometricSyntax>}
             />
           );
         }
@@ -329,7 +328,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof LogotypeExtn) {
           return (
             <LogotypeExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<LogotypeExtn>}
             />
           );
         }
@@ -337,7 +336,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof TNAuthorizationList) {
           return (
             <TNAuthListExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<TNAuthorizationList>}
             />
           );
         }
@@ -345,7 +344,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof PolicyConstraints) {
           return (
             <PolicyConstraintsExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<PolicyConstraints>}
             />
           );
         }
@@ -353,7 +352,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof PolicyMappings) {
           return (
             <PolicyMappingsExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<PolicyMappings>}
             />
           );
         }
@@ -361,7 +360,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof CRLNumber) {
           return (
             <CRLNumberExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<CRLNumber>}
             />
           );
         }
@@ -369,7 +368,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof IssuingDistributionPoint) {
           return (
             <IssuingDistributionPointExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<IssuingDistributionPoint>}
               {...props}
             />
           );
@@ -378,7 +377,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof NonStandardKeyDescription) {
           return (
             <KeyDescriptionExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<NonStandardKeyDescription>}
               {...props}
             />
           );
@@ -387,7 +386,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (extension.value instanceof CabforganizationIdentifier) {
           return (
             <CabforganizationIdentifierExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<CabforganizationIdentifier>}
               {...props}
             />
           );
@@ -396,7 +395,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
         if (typeof extension.value === 'string') {
           return (
             <AsStringExtension
-              extension={extension as any}
+              extension={extension as unknown as Extension<string>}
             />
           );
         }
@@ -406,7 +405,7 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
             extension={extension}
           />
         );
-      } catch (error) {
+      } catch {
         console.error('Error render extension:', extension.asn.extnID);
 
         return null;

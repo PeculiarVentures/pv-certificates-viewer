@@ -7,7 +7,6 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-
 import type { Attribute } from '../../../crypto/attribute';
 import { RowValue } from '../row';
 import { BasicAttribute } from './basic_attribute';

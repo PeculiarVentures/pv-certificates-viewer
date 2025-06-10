@@ -47,7 +47,6 @@ import {
   id_pkcs9_at_unstructuredName,
   UnstructuredName,
 } from '@peculiar/asn1-pkcs9';
-
 import { AsnData } from './asn_data';
 
 const attributesParsers = {
@@ -66,6 +65,7 @@ const attributesParsers = {
 };
 
 type TAttributeKeys = keyof typeof attributesParsers;
+
 export type TAttributeValue = InstanceType<typeof attributesParsers[TAttributeKeys]> | string;
 
 export class Attribute<T extends TAttributeValue> extends AsnData<AsnAttribute> {

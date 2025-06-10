@@ -19,7 +19,7 @@
     "build": "lerna run build",
     "test": "lerna run test",
     "clean": "lerna run --parallel clean",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./packages",
+    "lint": "eslint",
     "bootstrap": "yarn",
     "bootstrap:undo": "lerna clean --yes",
     "bootstrap:upgrade": "yarn upgrade-interactive --latest",
@@ -29,14 +29,8 @@
     "publish:canary": "lerna publish --canary"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "5.38.1",
-    "@typescript-eslint/parser": "5.38.1",
-    "eslint": "8.24.0",
-    "eslint-config-airbnb": "19.0.4",
-    "eslint-config-airbnb-typescript": "17.0.0",
-    "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-jsx-a11y": "6.6.1",
-    "eslint-plugin-react": "7.31.8",
+    "@peculiar/eslint-config-base": "^0.2.4",
+    "@peculiar/eslint-config-react": "^0.2.2",
     "lerna": "^8.2.1"
   },
   "license": "MIT",

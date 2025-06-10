@@ -8,7 +8,6 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import type { Name } from '@peculiar/asn1-x509';
-
 import type { Attribute } from '../../../crypto/attribute';
 import { BasicAttribute } from './basic_attribute';
 import { NamePart } from './name_part';

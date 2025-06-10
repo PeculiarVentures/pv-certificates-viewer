@@ -15,9 +15,10 @@ import {
   Watch,
   Build,
 } from '@stencil/core';
-
 import { Pkcs10CertificateRequest } from '../../crypto';
-import { getDNSNameLink, getIPAddressLink, getLEILink } from '../../utils/third_party_links';
+import {
+  getDNSNameLink, getIPAddressLink, getLEILink,
+} from '../../utils/third_party_links';
 import {
   BasicInformation,
   SubjectName,
@@ -30,7 +31,7 @@ import {
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
 
-export type CsrProp = string | Pkcs10CertificateRequest;
+export type TCsrProp = string | Pkcs10CertificateRequest;
 
 @Component({
   tag: 'peculiar-csr-viewer',
@@ -47,7 +48,7 @@ export class CsrViewer {
   /**
    * The certificate value for decode and show details. Use PEM or DER.
    */
-  @Prop({ reflect: true }) certificate: CsrProp;
+  @Prop({ reflect: true }) certificate: TCsrProp;
 
   /**
    * If `true` - component will show split-button to download certificate as PEM or DER.
@@ -81,9 +82,9 @@ export class CsrViewer {
    */
   @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
 
-  @State() mobileScreenView: boolean = false;
+  @State() mobileScreenView = false;
 
-  @State() isDecodeInProcess: boolean = true;
+  @State() isDecodeInProcess = true;
 
   private handleMediaQueryChange(event: MediaQueryListEvent) {
     this.mobileScreenView = event.matches;
@@ -103,7 +104,7 @@ export class CsrViewer {
     this.mobileMediaQuery.removeEventListener('change', this.handleMediaQueryChange.bind(this));
   }
 
-  private async decodeCertificate(certificate: CsrProp) {
+  private async decodeCertificate(certificate: TCsrProp) {
     this.isDecodeInProcess = true;
 
     try {
@@ -132,8 +133,8 @@ export class CsrViewer {
    */
   @Watch('certificate')
   watchCertificateAndDecode(
-    newValue: CsrProp,
-    oldValue: CsrProp,
+    newValue: TCsrProp,
+    oldValue: TCsrProp,
   ) {
     if (typeof newValue === 'string' && typeof oldValue === 'string') {
       if (newValue !== oldValue) {
@@ -153,10 +154,8 @@ export class CsrViewer {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private getAuthKeyIdParentLink = (value: string) => value;
 
-  // eslint-disable-next-line class-methods-use-this
   private getAuthKeyIdSiblingsLink = (value: string) => value;
 
   private getSubjectKeyIdChildrenLink = (value: string) => this.subjectKeyIdChildrenLink
@@ -165,7 +164,6 @@ export class CsrViewer {
   private getSubjectKeyIdSiblingsLink = (value: string) => this.subjectKeyIdSiblingsLink
     ?.replace('{{subjectKeyId}}', value);
 
-  // eslint-disable-next-line class-methods-use-this
   private renderErrorState() {
     return (
       <div class="status_wrapper">
@@ -176,7 +174,6 @@ export class CsrViewer {
     );
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private renderEmptyState() {
     return (
       <div class="status_wrapper">

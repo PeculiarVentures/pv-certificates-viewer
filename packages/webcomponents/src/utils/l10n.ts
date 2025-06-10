@@ -8,16 +8,14 @@
 
 import en from '../locales/en.json';
 
-type ReplacerType = {
+interface IReplacerType {
   pattern: string;
-  replacer: any;
-};
+  replacer: string;
+}
 
-const MESSAGES_ALL = {
-  en,
-};
+const MESSAGES_ALL = { en };
 
-export type SupportedMessagesType = keyof typeof MESSAGES_ALL;
+export type TSupportedMessagesType = keyof typeof MESSAGES_ALL;
 
 export class Localization {
   private locale: string;
@@ -25,16 +23,16 @@ export class Localization {
   constructor() {
     const language = window.navigator.language.slice(0, 2).toLowerCase();
 
-    this.setLocale(language as any);
+    this.setLocale(language as TSupportedMessagesType);
   }
 
-  setLocale = (locale: SupportedMessagesType) => {
+  setLocale = (locale: TSupportedMessagesType) => {
     this.locale = locale && MESSAGES_ALL[locale] ? locale : 'en';
   };
 
   getLocale = () => this.locale;
 
-  getString(id: keyof typeof en, replacer?: ReplacerType): string | string[] {
+  getString(id: keyof typeof en, replacer?: IReplacerType): string | string[] {
     const value = MESSAGES_ALL[this.locale][id];
 
     if (!value) {

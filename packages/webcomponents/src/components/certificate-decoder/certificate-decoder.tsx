@@ -15,7 +15,6 @@ import {
   Event,
   EventEmitter,
 } from '@stencil/core';
-
 import { readAsBinaryString } from '../../utils';
 import {
   X509Certificate,
@@ -49,10 +48,10 @@ export class CertificateDecoder {
   @Prop() certificateToDecode?: string;
 
   @State() certificateDecoded: X509Certificates
-  | X509Certificate
-  | X509AttributeCertificate
-  | Pkcs10CertificateRequest
-  | X509Crl;
+    | X509Certificate
+    | X509AttributeCertificate
+    | Pkcs10CertificateRequest
+    | X509Crl;
 
   /**
    * Emitted when the certificate has been successfully parsed.
@@ -85,6 +84,7 @@ export class CertificateDecoder {
     this.clearValue();
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private handleChangeInputFile = async (event: any) => {
     const element = event.target;
 
@@ -99,6 +99,7 @@ export class CertificateDecoder {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private handleChangeExample = (event: any) => {
     if (event.target.value) {
       this.decode(event.target.value);
@@ -107,6 +108,7 @@ export class CertificateDecoder {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private handleDropFile = async (event: any) => {
     event.stopPropagation();
     event.preventDefault();
@@ -219,8 +221,8 @@ export class CertificateDecoder {
             <input
               type="file"
               accept="application/pkix-cert,application/x-x509-ca-cert,application/x-x509-user-cert,application/pkcs10,application/pkix-crl,.csr,.req,.crl"
-              onChange={this.handleChangeInputFile}
               value=""
+              onChange={this.handleChangeInputFile}
             />
           </div>
           {this.certificateExamples?.length && (
