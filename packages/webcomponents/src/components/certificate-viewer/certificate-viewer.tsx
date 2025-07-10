@@ -15,11 +15,10 @@ import {
   Host,
   Build,
 } from '@stencil/core';
-
+import { X509Certificate } from '../../crypto';
 import {
-  X509Certificate,
-} from '../../crypto';
-import { getDNSNameLink, getIPAddressLink, getLEILink } from '../../utils/third_party_links';
+  getDNSNameLink, getIPAddressLink, getLEILink,
+} from '../../utils/third_party_links';
 import {
   BasicInformation,
   SubjectName,
@@ -32,7 +31,7 @@ import {
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
 
-export type CertificateProp = string | X509Certificate;
+export type TCertificateProp = string | X509Certificate;
 
 @Component({
   tag: 'peculiar-certificate-viewer',
@@ -49,7 +48,7 @@ export class CertificateViewer {
   /**
    * The certificate value for decode and show details. Use PEM or DER.
    */
-  @Prop({ reflect: true }) certificate: CertificateProp;
+  @Prop({ reflect: true }) certificate: TCertificateProp;
 
   /**
    * If `true` - component will show split-button to download certificate as PEM or DER.
@@ -107,9 +106,9 @@ export class CertificateViewer {
    */
   @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
 
-  @State() mobileScreenView: boolean = false;
+  @State() mobileScreenView = false;
 
-  @State() isDecodeInProcess: boolean = true;
+  @State() isDecodeInProcess = true;
 
   private handleMediaQueryChange(event: MediaQueryListEvent) {
     this.mobileScreenView = event.matches;
@@ -129,7 +128,7 @@ export class CertificateViewer {
     this.mobileMediaQuery.removeEventListener('change', this.handleMediaQueryChange.bind(this));
   }
 
-  private async decodeCertificate(certificate: CertificateProp) {
+  private async decodeCertificate(certificate: TCertificateProp) {
     this.isDecodeInProcess = true;
 
     try {
@@ -157,7 +156,7 @@ export class CertificateViewer {
    * Rerun decodeCertificate if previuos value not equal current value
    */
   @Watch('certificate')
-  watchCertificateAndDecode(newValue: CertificateProp, oldValue: CertificateProp) {
+  watchCertificateAndDecode(newValue: TCertificateProp, oldValue: TCertificateProp) {
     if (typeof newValue === 'string' && typeof oldValue === 'string') {
       if (newValue !== oldValue) {
         this.decodeCertificate(newValue);
@@ -189,7 +188,6 @@ export class CertificateViewer {
     return this.issuerDnLink;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private renderErrorState() {
     return (
       <div class="status_wrapper">
@@ -200,7 +198,6 @@ export class CertificateViewer {
     );
   }
 
-  // eslint-disable-next-line class-methods-use-this
   private renderEmptyState() {
     return (
       <div class="status_wrapper">

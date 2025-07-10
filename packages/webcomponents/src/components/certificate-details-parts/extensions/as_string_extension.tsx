@@ -7,10 +7,8 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
-
 import { BasicExtension } from './basic_extension';
 
 interface IAsStringExtensionProps {

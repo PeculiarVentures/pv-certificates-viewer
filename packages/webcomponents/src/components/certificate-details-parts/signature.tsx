@@ -8,11 +8,11 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { Convert } from 'pvtsutils';
-
 import { ISignature } from '../../crypto';
 import { l10n, getStringByOID } from '../../utils';
-
-import { RowTitle, RowValue, TableRowTable } from './row';
+import {
+  RowTitle, RowValue, TableRowTable,
+} from './row';
 
 interface ISignatureProps {
   signature: ISignature;

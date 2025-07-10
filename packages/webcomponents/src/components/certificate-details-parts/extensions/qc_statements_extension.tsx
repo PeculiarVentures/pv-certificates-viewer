@@ -22,13 +22,12 @@ import {
 } from '@peculiar/asn1-x509-qualified-etsi';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
-
 import { getStringByOID } from '../../../utils';
 import { Extension } from '../../../crypto/extension';
 import { RowValue, TableRowTable } from '../row';
-
 import { BasicExtension } from './basic_extension';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 interface IQCStatementsExtensionProps {
   extension: Extension<QCStatements>;
 }

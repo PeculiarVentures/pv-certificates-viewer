@@ -8,7 +8,6 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import type { ChallengePassword } from '@peculiar/asn1-pkcs9';
-
 import type { Attribute } from '../../../crypto/attribute';
 import { RowValue } from '../row';
 import { BasicAttribute } from './basic_attribute';

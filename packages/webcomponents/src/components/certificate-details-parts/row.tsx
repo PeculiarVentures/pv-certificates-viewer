@@ -106,26 +106,26 @@ export const RowValue: FunctionalComponent<IRowValueProps> = (props) => {
       </td>
       {hasValue && (
         <td
-          class={{
-            monospace,
-          }}
+          class={{ monospace }}
         >
-          {(isLink(value.toString()) || href) ? (
-            <Link
-              variant="b2"
-              href={href || value.toString()}
-            >
-              {value}
-            </Link>
-          ) : (
-            <Typography
-              variant="b2"
-              color="black"
-            >
-              {elementValue}
-              {extraValue}
-            </Typography>
-          )}
+          {(isLink(value.toString()) || href)
+            ? (
+                <Link
+                  variant="b2"
+                  href={href || value.toString()}
+                >
+                  {value}
+                </Link>
+              )
+            : (
+                <Typography
+                  variant="b2"
+                  color="black"
+                >
+                  {elementValue}
+                  {extraValue}
+                </Typography>
+              )}
         </td>
       )}
     </tr>

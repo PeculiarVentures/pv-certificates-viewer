@@ -1,4 +1,4 @@
-export type TypographyType = (
+export type TTypography = (
   'h1' |
   'h2' |
   'h3' |
@@ -15,7 +15,7 @@ export type TypographyType = (
   'c2'
 );
 
-export type ColorType = (
+export type TColor = (
   // primary
   'primary-tint-5' |
   'primary-tint-4' |
@@ -97,6 +97,6 @@ export type ColorType = (
   'extra-2'
 );
 
-// eslint-disable-next-line import/no-cycle
+// eslint-disable-next-line import/no-unresolved
 export * from './components';
 export * from './index';

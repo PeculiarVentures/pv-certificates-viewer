@@ -16,11 +16,9 @@ import {
 } from '@peculiar/asn1-android';
 import { Convert, BufferSourceConverter } from 'pvtsutils';
 import { AsnParser } from '@peculiar/asn1-schema';
-
 import { l10n, camelCaseToWords } from '../../../utils';
 import { Extension } from '../../../crypto/extension';
 import { RowValue, TableRowTable } from '../row';
-
 import { BasicExtension } from './basic_extension';
 
 interface IKeyDescriptionExtensionProps {
@@ -31,27 +29,31 @@ export const KeyDescriptionExtension:
 FunctionalComponent<IKeyDescriptionExtensionProps> = (props) => {
   const { extension } = props;
 
-  const renderRowValue = (data: Object) => Object.keys(data).map((keyName) => {
+  const renderRowValue = (data: object) => Object.keys(data).map((keyName) => {
     const keyValue = data[keyName];
     let value: string | number | string[] = '';
 
     switch (true) {
       case typeof keyValue === 'string' || typeof keyValue === 'number':
         value = keyValue;
+
         break;
 
       case keyValue instanceof IntegerSet:
         value = keyValue.join(', ');
+
         break;
 
       case typeof keyValue === 'boolean':
         value = keyValue
           ? l10n.getString('yes')
           : l10n.getString('no');
+
         break;
 
       case Object.is(keyValue, null):
         value = 'NULL';
+
         break;
 
       case keyValue instanceof RootOfTrust:
@@ -91,14 +93,14 @@ FunctionalComponent<IKeyDescriptionExtensionProps> = (props) => {
                 ),
               ];
             }
-          } catch (error) {
+          } catch {
             //
           }
         }
 
         try {
           value = Convert.ToString(keyValue);
-        } catch (error) {
+        } catch {
           value = Convert.ToHex(keyValue);
         }
 

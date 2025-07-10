@@ -8,11 +8,9 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { SubjectDirectoryAttributes } from '@peculiar/asn1-x509';
-
 import { Extension } from '../../../crypto/extension';
 import { getStringByOID } from '../../../utils';
 import { RowValue, TableRowTable } from '../row';
-
 import { BasicExtension } from './basic_extension';
 import { getAttributeValue } from './attribute_value';
 

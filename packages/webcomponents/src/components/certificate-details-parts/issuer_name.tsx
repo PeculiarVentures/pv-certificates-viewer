@@ -7,7 +7,6 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-
 import type { INameJSON } from '../../crypto/name';
 import { l10n } from '../../utils';
 import { Link } from '../link';
@@ -24,13 +23,15 @@ export const IssuerName: FunctionalComponent<ISubjectNameProps> = (props) => {
 
   return [
     <RowTitle
-      value={issuerDnLink ? (
-        <Link
-          href={issuerDnLink}
-        >
-          {title}
-        </Link>
-      ) : title}
+      value={issuerDnLink
+        ? (
+            <Link
+              href={issuerDnLink}
+            >
+              {title}
+            </Link>
+          )
+        : title}
     />,
     name.map((n) => (
       <RowValue

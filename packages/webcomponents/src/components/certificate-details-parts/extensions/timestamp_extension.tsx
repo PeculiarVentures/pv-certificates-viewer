@@ -8,11 +8,9 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { Timestamp } from '@peculiar/asn1-adobe-acrobat';
-
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
 import { l10n } from '../../../utils';
-
 import { BasicExtension } from './basic_extension';
 import { GeneralNamePart } from './general_name_part';
 

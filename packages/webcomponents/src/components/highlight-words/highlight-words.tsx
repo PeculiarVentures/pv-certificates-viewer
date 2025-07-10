@@ -20,7 +20,7 @@ export class HighlightWords {
 
   @Prop() search: string;
 
-  private tag: string = 'mark';
+  private tag = 'mark';
 
   componentDidLoad() {
     this.handleHighlightSearch();

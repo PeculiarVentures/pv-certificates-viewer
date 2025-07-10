@@ -6,14 +6,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-export type FileValue = string | ArrayBuffer | null;
-export interface IFileDataType extends Blob {
+export type TFileValue = string | ArrayBuffer | null;
+export interface IFileData extends Blob {
   name?: string;
   mimeType?: string;
   lastModified?: number;
 }
 export interface IReadFileResult {
-  value: FileValue;
+  value: TFileValue;
   fileName: string | undefined;
   fileSize: number | undefined;
   sourceMime: string | undefined;
@@ -31,7 +31,7 @@ export interface IReadFileResult {
  * ```
  */
 
-export function readAsBinaryString(file: IFileDataType): Promise<IReadFileResult> {
+export function readAsBinaryString(file: IFileData): Promise<IReadFileResult> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -60,7 +60,7 @@ export function readAsBinaryString(file: IFileDataType): Promise<IReadFileResult
  * ```
  */
 
-export function readAsArrayBuffer(file: IFileDataType): Promise<IReadFileResult> {
+export function readAsArrayBuffer(file: IFileData): Promise<IReadFileResult> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -89,7 +89,7 @@ export function readAsArrayBuffer(file: IFileDataType): Promise<IReadFileResult>
  * ```
  */
 
-export function readAsDataUrl(file: IFileDataType): Promise<IReadFileResult> {
+export function readAsDataUrl(file: IFileData): Promise<IReadFileResult> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -118,7 +118,7 @@ export function readAsDataUrl(file: IFileDataType): Promise<IReadFileResult> {
  * ```
  */
 
-export function readAsText(file: IFileDataType, options?: string): Promise<IReadFileResult> {
+export function readAsText(file: IFileData, options?: string): Promise<IReadFileResult> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 

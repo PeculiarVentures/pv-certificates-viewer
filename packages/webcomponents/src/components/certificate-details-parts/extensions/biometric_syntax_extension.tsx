@@ -9,11 +9,9 @@
 import { h, FunctionalComponent } from '@stencil/core';
 import { BiometricSyntax } from '@peculiar/asn1-x509-qualified';
 import { Convert } from 'pvtsutils';
-
 import { getStringByOID } from '../../../utils';
 import { Extension } from '../../../crypto/extension';
 import { RowValue, TableRowTable } from '../row';
-
 import { BasicExtension } from './basic_extension';
 
 interface IBiometricSyntaxExtensionProps {

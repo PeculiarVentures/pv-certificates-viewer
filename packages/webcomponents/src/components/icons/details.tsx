@@ -7,9 +7,9 @@
  */
 
 import { FunctionalComponent, h } from '@stencil/core';
-import type { ColorType } from '../../interface';
+import type { TColor } from '../../interface';
 
-export const DetailsIcon: FunctionalComponent<{ color?: ColorType }> = (props) => {
+export const DetailsIcon: FunctionalComponent<{ color?: TColor }> = (props) => {
   const { color = 'secondary' } = props;
 
   return (

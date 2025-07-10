@@ -21,13 +21,13 @@ export function downloadFromBuffer(
   value: ArrayBuffer,
   name: string,
   extension: string,
-  mime: string = 'application/octet-stream',
+  mime = 'application/octet-stream',
 ) {
   const blob = new Blob([value], { type: mime });
 
-  // @ts-ignore
-  if (navigator.msSaveBlob) { // IE10+ : (has Blob, but not a[download] or URL)
-    // @ts-ignore
+  // @ts-expect-error - IE10+ : (has Blob, but not a[download] or URL)
+  if (navigator.msSaveBlob) {
+    // @ts-expect-error - IE10+ : (has Blob, but not a[download] or URL)
     navigator.msSaveBlob(blob, `${name}.${extension}`);
 
     return new Promise((resolve) => {

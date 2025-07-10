@@ -8,10 +8,11 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { Convert } from 'pvtsutils';
-
 import type { X509AttributeCertificate } from '../../crypto';
 import { l10n, getStringByOID } from '../../utils';
-import { RowTitle, RowValue, TableRowTable } from './row';
+import {
+  RowTitle, RowValue, TableRowTable,
+} from './row';
 import { GeneralNamePart } from './extensions/general_name_part';
 
 interface IHolderProps {

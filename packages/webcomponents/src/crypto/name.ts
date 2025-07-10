@@ -11,6 +11,7 @@ import { AsnParser } from '@peculiar/asn1-schema';
 import { BufferSourceConverter } from 'pvtsutils';
 import { OIDs, OIDsShort } from '../constants/oids';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface INameJSON {
   type: string;
   name: string;

@@ -15,9 +15,7 @@ import {
   ExtensionRequest,
 } from '@peculiar/asn1-pkcs9';
 import { Convert } from 'pvtsutils';
-
 import { Download } from '../utils';
-
 import { AsnData } from './asn_data';
 import { Name, INameJSON } from './name';
 import { Attribute, TAttributeValue } from './attribute';
@@ -110,7 +108,7 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
   }
 
   public async getThumbprint(
-    algorithm: string = 'SHA-1',
+    algorithm = 'SHA-1',
   ): Promise<void> {
     try {
       const thumbprint = await getCertificateThumbprint(algorithm, this.raw);

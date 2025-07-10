@@ -9,10 +9,8 @@
 import { h, FunctionalComponent } from '@stencil/core';
 import { PolicyConstraints } from '@peculiar/asn1-x509';
 import { AsnIntegerArrayBufferConverter } from '@peculiar/asn1-schema';
-
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
-
 import { BasicExtension } from './basic_extension';
 
 interface IPolicyConstraintsExtensionProps {

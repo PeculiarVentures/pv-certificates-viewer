@@ -8,11 +8,9 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { IssuingDistributionPoint } from '@peculiar/asn1-x509';
-
 import { RowValue } from '../row';
 import { Extension } from '../../../crypto/extension';
 import { l10n } from '../../../utils';
-
 import { BasicExtension } from './basic_extension';
 import { GeneralNamePart } from './general_name_part';
 
@@ -20,8 +18,8 @@ interface IIssuingDistributionPointExtensionProps extends IGeneralNameOptions {
   extension: Extension<IssuingDistributionPoint>;
 }
 
-// eslint-disable-next-line max-len
-export const IssuingDistributionPointExtension: FunctionalComponent<IIssuingDistributionPointExtensionProps> = (props) => {
+export const IssuingDistributionPointExtension:
+FunctionalComponent<IIssuingDistributionPointExtensionProps> = (props) => {
   const { extension } = props;
 
   return (

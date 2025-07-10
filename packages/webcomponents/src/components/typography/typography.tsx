@@ -7,16 +7,16 @@
  */
 
 import { FunctionalComponent, h } from '@stencil/core';
-import type { TypographyType, ColorType } from '../../interface';
+import type { TTypography, TColor } from '../../interface';
 
-interface TypographyProps {
+interface ITypographyProps {
   component?: keyof JSX.IntrinsicElements;
-  variant?: TypographyType;
-  color?: ColorType;
+  variant?: TTypography;
+  color?: TColor;
   class?: string;
 }
 
-const variantMapping: Record<TypographyType, 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'> = {
+const variantMapping: Record<TTypography, 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'> = {
   h1: 'h1',
   h2: 'h2',
   h3: 'h3',
@@ -33,7 +33,7 @@ const variantMapping: Record<TypographyType, 'p' | 'span' | 'h1' | 'h2' | 'h3' |
   c2: 'p',
 };
 
-export const Typography: FunctionalComponent<TypographyProps> = (props, children) => {
+export const Typography: FunctionalComponent<ITypographyProps> = (props, children) => {
   const {
     component: componentProp,
     variant = 'b2',

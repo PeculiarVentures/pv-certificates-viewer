@@ -7,9 +7,9 @@
  */
 
 import { Convert } from 'pvtsutils';
-
 import { downloadFromBuffer } from './download_from_buffer';
 
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Download {
   public static cert = {
     asPEM: (pem: string, name: string) => {
