@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.6.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.5.0...v4.6.0) (2025-07-10)
+
+
+### Bug Fixes
+
+* **crypto:** update isPem method to handle carriage return characters in PEM validation ([f4e2f86](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/f4e2f86a03709963b05eb0e62a3d201b6c92f0a4))
+
+
+### Features
+
+* **oids:** add new OIDs for KP Client Authentication, Secure Shell Client, and FPKI Common Authentication Policy ([6ac0d91](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/6ac0d9100d3277561c63d0dd4a1d22fc7c0dd930))
+
+
+
+
+
 # [4.5.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.4.0...v4.5.0) (2025-05-21)
 
 
