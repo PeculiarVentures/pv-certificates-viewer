@@ -34,7 +34,7 @@ import {
 
 export interface ICertificate {
   value: string;
-  name?: string;
+  name?: string | ((certificate: X509Certificate) => string);
   tests?: {
     valid?: string;
     revoked?: string;
@@ -45,7 +45,7 @@ export interface ICertificate {
 interface ICertificateDecoded {
   body: X509Certificate;
   tests?: ICertificate['tests'];
-  name?: string;
+  name?: ICertificate['name'];
 }
 
 @Component({
@@ -173,12 +173,20 @@ export class CertificatesViewer {
     this.certificatesDecoded = data;
   }
 
+  private getCertificateName(certificate: ICertificateDecoded) {
+    if (typeof certificate.name === 'function') {
+      return certificate.name(certificate.body);
+    }
+
+    return certificate.name || certificate.body.commonName;
+  }
+
   private handleClickDownloadAsPem(certificate: ICertificateDecoded) {
-    certificate.body.downloadAsPEM(certificate.name || certificate.body.commonName);
+    certificate.body.downloadAsPEM(this.getCertificateName(certificate));
   }
 
   private handleClickDownloadAsDer(certificate: ICertificateDecoded) {
-    certificate.body.downloadAsDER(certificate.name || certificate.body.commonName);
+    certificate.body.downloadAsDER(this.getCertificateName(certificate));
   }
 
   private handleClickDetails = (certificate: X509Certificate) => {
@@ -314,8 +322,7 @@ export class CertificatesViewer {
         const certificateStringForSearch = [
           publicKeyValue,
           certificate.body.issuerCommonName,
-          certificate.name,
-          certificate.body.commonName,
+          this.getCertificateName(certificate),
           certificate.body.thumbprints['SHA-1'],
         ]
           .join(' ')
@@ -363,7 +370,7 @@ export class CertificatesViewer {
                     <td>
                       <Typography variant="b2" color="black">
                         <peculiar-highlight-words search={searchHighlight}>
-                          {certificate.name || certificate.body.commonName}
+                          {this.getCertificateName(certificate)}
                         </peculiar-highlight-words>
                       </Typography>
                     </td>
@@ -402,7 +409,6 @@ export class CertificatesViewer {
                     <td>
                       {this.renderCertificateButtonActions(certificate)}
                       <Button
-
                         startIcon={isExpandedRow ? <ArrowTopIcon /> : <ArrowBottomIcon />}
                         onClick={this.handleClickRow.bind(this, index)}
                       />
@@ -442,7 +448,7 @@ export class CertificatesViewer {
           <td>
             <Typography>
               <peculiar-highlight-words search={searchHighlight}>
-                {certificate.name || certificate.body.commonName}
+                {this.getCertificateName(certificate)}
               </peculiar-highlight-words>
             </Typography>
           </td>

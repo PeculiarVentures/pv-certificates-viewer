@@ -195,11 +195,7 @@ export class X509Certificate extends AsnData<Certificate> {
     for (let i = 0; i < this.issuer.length; i += 1) {
       const name = this.issuer[i];
 
-      if (name.shortName === 'CN') {
-        return name.value;
-      }
-
-      if (name.shortName === 'E') {
+      if (name.shortName === 'CN' || name.shortName === 'E' || name.shortName === 'O') {
         return name.value;
       }
     }
