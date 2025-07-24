@@ -7,10 +7,11 @@
  */
 
 import { FunctionalComponent, h } from '@stencil/core';
+import { type JSXBase } from '@stencil/core/internal';
 import type { TTypography, TColor } from '../../interface';
 
 interface ITypographyProps {
-  component?: keyof JSX.IntrinsicElements;
+  component?: keyof JSXBase.IntrinsicElements;
   variant?: TTypography;
   color?: TColor;
   class?: string;
@@ -54,6 +55,7 @@ export const Typography: FunctionalComponent<ITypographyProps> = (props, childre
         [classProp]: Boolean(classProp),
       }}
     >
+      <span></span>
       {children}
     </Component>
   );
