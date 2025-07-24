@@ -9,7 +9,7 @@
 
 | Property | Attribute | Description | Type                 | Default |
 | -------- | --------- | ----------- | -------------------- | ------- |
-| `groups` | --        |             | `IButtonMenuGroup[]` | `[]`    |
+| `groups` | `groups`  |             | `IButtonMenuGroup[]` | `[]`    |
 
 
 ## Dependencies

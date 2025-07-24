@@ -42,6 +42,7 @@ export namespace Components {
         /**
           * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
           * @example  (max-width: 900px)
+          * @default '(max-width: 900px)'
          */
         "mobileMediaQueryString"?: string;
         /**
@@ -56,6 +57,9 @@ export namespace Components {
         "subjectKeyIdSiblingsLink"?: string;
     }
     interface PeculiarButtonMenu {
+        /**
+          * @default []
+         */
         "groups": IButtonMenuGroup[];
     }
     interface PeculiarCertificateChainViewer {
@@ -107,6 +111,7 @@ export namespace Components {
         /**
           * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
           * @example  (max-width: 900px)
+          * @default '(max-width: 900px)'
          */
         "mobileMediaQueryString"?: string;
         /**
@@ -123,29 +128,35 @@ export namespace Components {
     interface PeculiarCertificatesViewer {
         /**
           * List of certificates values for decode and show in the list. <br /> **NOTE**: If you do not provide a `name` value when invocing the component it will take the first Subject CN value. <br /> **NOTE**: If you do not provide a `tests` this column will be ommited from the rendered page. <br /> **NOTE**: If the supplied certificates are self-signed the issuer column will be ommited.
+          * @default []
          */
         "certificates": ICertificate[];
         /**
           * Use filter in the list when search is changed.
+          * @default true
          */
         "filterWithSearch": boolean;
         /**
           * Use highlight chapters in the list when search is changed.
+          * @default true
          */
         "highlightWithSearch": boolean;
         /**
           * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
           * @example  (max-width: 900px)
+          * @default '(max-width: 900px)'
          */
         "mobileMediaQueryString"?: string;
     }
     interface PeculiarCircularProgress {
         /**
           * Width/height of progress circle.
+          * @default 24
          */
         "size": number;
         /**
           * Stroke width of progress bar circle.
+          * @default 4
          */
         "width": number;
     }
@@ -175,6 +186,7 @@ export namespace Components {
         /**
           * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
           * @example  (max-width: 900px)
+          * @default '(max-width: 900px)'
          */
         "mobileMediaQueryString"?: string;
     }
@@ -190,6 +202,7 @@ export namespace Components {
         /**
           * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
           * @example  (max-width: 900px)
+          * @default '(max-width: 900px)'
          */
         "mobileMediaQueryString"?: string;
         /**
@@ -345,6 +358,7 @@ declare namespace LocalJSX {
         /**
           * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
           * @example  (max-width: 900px)
+          * @default '(max-width: 900px)'
          */
         "mobileMediaQueryString"?: string;
         /**
@@ -359,6 +373,9 @@ declare namespace LocalJSX {
         "subjectKeyIdSiblingsLink"?: string;
     }
     interface PeculiarButtonMenu {
+        /**
+          * @default []
+         */
         "groups"?: IButtonMenuGroup[];
     }
     interface PeculiarCertificateChainViewer {
@@ -418,6 +435,7 @@ declare namespace LocalJSX {
         /**
           * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
           * @example  (max-width: 900px)
+          * @default '(max-width: 900px)'
          */
         "mobileMediaQueryString"?: string;
         /**
@@ -434,19 +452,23 @@ declare namespace LocalJSX {
     interface PeculiarCertificatesViewer {
         /**
           * List of certificates values for decode and show in the list. <br /> **NOTE**: If you do not provide a `name` value when invocing the component it will take the first Subject CN value. <br /> **NOTE**: If you do not provide a `tests` this column will be ommited from the rendered page. <br /> **NOTE**: If the supplied certificates are self-signed the issuer column will be ommited.
+          * @default []
          */
         "certificates"?: ICertificate[];
         /**
           * Use filter in the list when search is changed.
+          * @default true
          */
         "filterWithSearch"?: boolean;
         /**
           * Use highlight chapters in the list when search is changed.
+          * @default true
          */
         "highlightWithSearch"?: boolean;
         /**
           * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
           * @example  (max-width: 900px)
+          * @default '(max-width: 900px)'
          */
         "mobileMediaQueryString"?: string;
         /**
@@ -461,10 +483,12 @@ declare namespace LocalJSX {
     interface PeculiarCircularProgress {
         /**
           * Width/height of progress circle.
+          * @default 24
          */
         "size"?: number;
         /**
           * Stroke width of progress bar circle.
+          * @default 4
          */
         "width"?: number;
     }
@@ -494,6 +518,7 @@ declare namespace LocalJSX {
         /**
           * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
           * @example  (max-width: 900px)
+          * @default '(max-width: 900px)'
          */
         "mobileMediaQueryString"?: string;
     }
@@ -509,6 +534,7 @@ declare namespace LocalJSX {
         /**
           * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
           * @example  (max-width: 900px)
+          * @default '(max-width: 900px)'
          */
         "mobileMediaQueryString"?: string;
         /**
