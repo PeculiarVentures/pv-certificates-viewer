@@ -19,6 +19,12 @@ table {
   border-spacing: 0;
   border-collapse: collapse;
 
+  tr:last-child {
+    .divider {
+      display: none;
+    }
+  }
+
   td {
     padding: var(--pv-size-base-2) var(--pv-size-base-4);
     vertical-align: top;
