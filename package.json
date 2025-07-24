@@ -25,7 +25,7 @@
   "devDependencies": {
     "@peculiar/eslint-config-base": "^0.2.4",
     "@peculiar/eslint-config-react": "^0.2.2",
-    "lerna": "^8.2.1"
+    "lerna": "^8.2.3"
   },
   "license": "MIT",
   "author": "PeculiarVentures Team",
