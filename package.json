@@ -13,9 +13,9 @@
     "asn1"
   ],
   "scripts": {
-    "build": "pnpm -r build",
-    "test": "pnpm -r test",
-    "clean": "pnpm -r clean",
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "clean": "lerna run --parallel clean",
     "lint": "eslint",
     "dev": "pnpm --filter @peculiar/certificates-viewer dev",
     "prepare": "pnpm build",
