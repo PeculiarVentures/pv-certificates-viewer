@@ -17,8 +17,6 @@
     "test": "pnpm -r test",
     "clean": "pnpm -r clean",
     "lint": "eslint",
-    "bootstrap:undo": "lerna clean --yes",
-    "bootstrap:upgrade": "pnpm upgrade-interactive --latest",
     "dev": "pnpm --filter @peculiar/certificates-viewer dev",
     "prepare": "pnpm build",
     "publish:version": "lerna publish",
