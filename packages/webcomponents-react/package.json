@@ -20,10 +20,9 @@
     "dist/"
   ],
   "scripts": {
-    "build": "npm run clean && npm run compile",
+    "build": "pnpm clean && pnpm compile",
     "clean": "rimraf dist",
-    "compile": "rollup -c",
-    "test": "echo"
+    "compile": "rollup -c"
   },
   "license": "MIT",
   "author": "PeculiarVentures Team",
@@ -45,7 +44,7 @@
     "typescript": "^4.0.5"
   },
   "dependencies": {
-    "@peculiar/certificates-viewer": "^4.6.0",
+    "@peculiar/certificates-viewer": "workspace:*",
     "tslib": "^2.4.1"
   },
   "peerDependencies": {

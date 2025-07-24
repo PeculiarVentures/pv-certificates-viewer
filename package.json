@@ -1,9 +1,6 @@
 {
   "name": "peculiar-certificates-viewer-monorepo",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "keywords": [
     "certificates-viewer",
     "certificate-viewer",
@@ -16,15 +13,14 @@
     "asn1"
   ],
   "scripts": {
-    "build": "lerna run build",
-    "test": "lerna run test",
-    "clean": "lerna run --parallel clean",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "clean": "pnpm -r clean",
     "lint": "eslint",
-    "bootstrap": "yarn",
     "bootstrap:undo": "lerna clean --yes",
-    "bootstrap:upgrade": "yarn upgrade-interactive --latest",
-    "start:webcomponents": "yarn --cwd packages/webcomponents start",
-    "prepare": "yarn build",
+    "bootstrap:upgrade": "pnpm upgrade-interactive --latest",
+    "dev": "pnpm --filter @peculiar/certificates-viewer dev",
+    "prepare": "pnpm build",
     "publish:version": "lerna publish",
     "publish:canary": "lerna publish --canary"
   },
@@ -36,5 +32,5 @@
   "license": "MIT",
   "author": "PeculiarVentures Team",
   "homepage": "https://x509.io/",
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977"
 }

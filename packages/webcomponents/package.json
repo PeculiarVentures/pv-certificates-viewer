@@ -29,12 +29,12 @@
     "loader/"
   ],
   "scripts": {
-    "build": "npm run clean && stencil build --docs",
-    "start": "npm run clean && stencil build --dev --watch --serve",
+    "build": "pnpm clean && stencil build --docs",
+    "dev": "pnpm clean && stencil build --dev --watch --serve",
     "generate": "stencil generate",
     "deploy:gh-pages": "gh-pages -d www",
-    "clean": "rimraf dist loader www",
-    "test": "yarn test.unit",
+    "clean": "rimraf dist loader www components",
+    "test": "pnpm test.unit",
     "test.unit": "stencil test --spec",
     "test.e2e": "stencil test --e2e --maxWorkers=1",
     "test.e2e.update": "stencil test --e2e --updateSnapshot --maxWorkers=1"
