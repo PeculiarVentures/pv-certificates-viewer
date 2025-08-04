@@ -24,7 +24,6 @@ import {
   SubjectName,
   Signature,
   Thumbprints,
-  Extensions,
   Miscellaneous,
   PublicKey,
   Attributes,
@@ -220,18 +219,6 @@ export class CsrViewer {
 
           <Attributes
             attributes={this.certificateDecoded.attributes}
-            getLEILink={getLEILink}
-            getDNSNameLink={getDNSNameLink}
-            getIPAddressLink={getIPAddressLink}
-            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
-            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
-            getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
-            getSubjectKeyIdSiblingsLink={this.getSubjectKeyIdSiblingsLink}
-          />
-
-          <Extensions
-            extensions={this.certificateDecoded.extensions}
-            title="Extension Request"
             getLEILink={getLEILink}
             getDNSNameLink={getDNSNameLink}
             getIPAddressLink={getIPAddressLink}

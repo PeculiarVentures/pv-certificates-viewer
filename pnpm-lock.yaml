@@ -47,6 +47,9 @@ importers:
       '@peculiar/asn1-pkcs9':
         specifier: ^2.4.0
         version: 2.4.0
+      '@peculiar/asn1-private-key-stmt':
+        specifier: ^2.4.0
+        version: 2.4.0
       '@peculiar/asn1-rfc8226':
         specifier: ^2.4.0
         version: 2.4.0
@@ -709,6 +712,9 @@ packages:
 
   '@peculiar/asn1-pkcs9@2.4.0':
     resolution: {integrity: sha512-D7paqEVpu9wuWuClMN+vR5cqJWJITNPaMoa9R+FmkJ8ywF9UaS2JFI0RYclKILNoLdLg1N4eUCoJvM+ubsIIZQ==}
+
+  '@peculiar/asn1-private-key-stmt@2.4.0':
+    resolution: {integrity: sha512-JaeNrDSM+ZisDyW1IADE1nE5oF5owJWDW08WyIqzK14AYvbR0HNTXHlTv1yAsTGm0dD8sjsJMWclk1I6yf20mA==}
 
   '@peculiar/asn1-rfc8226@2.4.0':
     resolution: {integrity: sha512-3Sd83DjIcRt52Z5AqVjHxPG0f1udHMUlQ2japN6eBo4GgopKB9E6mbc2537nlQ8vOJJoVqimWGmhpytpNSJrmA==}
@@ -5479,6 +5485,14 @@ snapshots:
       '@peculiar/asn1-schema': 2.4.0
       '@peculiar/asn1-x509': 2.4.0
       '@peculiar/asn1-x509-attr': 2.4.0
+      asn1js: 3.0.6
+      tslib: 2.8.1
+
+  '@peculiar/asn1-private-key-stmt@2.4.0':
+    dependencies:
+      '@peculiar/asn1-cms': 2.4.0
+      '@peculiar/asn1-schema': 2.4.0
+      '@peculiar/asn1-x509': 2.4.0
       asn1js: 3.0.6
       tslib: 2.8.1
 

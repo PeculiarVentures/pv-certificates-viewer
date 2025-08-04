@@ -47,6 +47,10 @@ import {
   id_pkcs9_at_unstructuredName,
   UnstructuredName,
 } from '@peculiar/asn1-pkcs9';
+import {
+  id_at_statementOfPossession,
+  PrivateKeyPossessionStatement,
+} from '@peculiar/asn1-private-key-stmt';
 import { AsnData } from './asn_data';
 
 const attributesParsers = {
@@ -62,6 +66,7 @@ const attributesParsers = {
   [id_pkcs9_at_challengePassword]: ChallengePassword,
   [id_pkcs9_at_unstructuredName]: UnstructuredName,
   [id_pkcs9_at_extensionRequest]: ExtensionRequest,
+  [id_at_statementOfPossession]: PrivateKeyPossessionStatement,
 };
 
 type TAttributeKeys = keyof typeof attributesParsers;

@@ -18,7 +18,9 @@ import {
 import {
   UnstructuredName,
   ChallengePassword,
+  ExtensionRequest,
 } from '@peculiar/asn1-pkcs9';
+import { PrivateKeyPossessionStatement } from '@peculiar/asn1-private-key-stmt';
 import type { Attribute, TAttributeValue } from '../../../crypto/attribute';
 import { RowTitle } from '../row';
 import { NameAttribute } from './name_attribute';
@@ -31,6 +33,8 @@ import { BasicAttribute } from './basic_attribute';
 import { AsStringAttribute } from './as_string_attribute';
 import { UnstructuredNameAttribute } from './unstructured_name_attribute';
 import { ChallengePasswordAttribute } from './challenge_password_attribute';
+import { ExtensionRequestAttribute } from './extension_request_attribute';
+import { PrivateKeyPossessionStatementAttribute } from './private_key_possession_statement_attribute';
 
 interface IAttributesPtops extends
   IGeneralNameOptions,
@@ -57,6 +61,14 @@ export const Attributes: FunctionalComponent<IAttributesPtops> = (props) => {
           return (
             <NameAttribute
               attribute={attribute as unknown as Attribute<Name>}
+            />
+          );
+        }
+
+        if (attribute.value instanceof ExtensionRequest) {
+          return (
+            <ExtensionRequestAttribute
+              attribute={attribute as unknown as Attribute<ExtensionRequest>}
             />
           );
         }
@@ -113,6 +125,14 @@ export const Attributes: FunctionalComponent<IAttributesPtops> = (props) => {
           return (
             <ChallengePasswordAttribute
               attribute={attribute as unknown as Attribute<ChallengePassword>}
+            />
+          );
+        }
+
+        if (attribute.value instanceof PrivateKeyPossessionStatement) {
+          return (
+            <PrivateKeyPossessionStatementAttribute
+              attribute={attribute as unknown as Attribute<PrivateKeyPossessionStatement>}
             />
           );
         }

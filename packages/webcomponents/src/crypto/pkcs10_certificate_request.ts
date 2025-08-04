@@ -10,16 +10,11 @@ import { AsnConvert } from '@peculiar/asn1-schema';
 import { ECParameters, id_ecPublicKey } from '@peculiar/asn1-ecc';
 import { id_rsaEncryption, RSAPublicKey } from '@peculiar/asn1-rsa';
 import { CertificationRequest } from '@peculiar/asn1-csr';
-import {
-  id_pkcs9_at_extensionRequest,
-  ExtensionRequest,
-} from '@peculiar/asn1-pkcs9';
 import { Convert } from 'pvtsutils';
 import { Download } from '../utils';
 import { AsnData } from './asn_data';
 import { Name, INameJSON } from './name';
 import { Attribute, TAttributeValue } from './attribute';
-import { Extension, TExtensionValue } from './extension';
 import { PemConverter } from './pem_converter';
 import {
   certificateRawToBuffer,
@@ -43,8 +38,6 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
   public readonly version: number;
 
   public attributes: Attribute<TAttributeValue>[];
-
-  public extensions: Extension<TExtensionValue>[];
 
   public thumbprints: Record<string, string> = {};
 
@@ -127,15 +120,6 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
     if (certificationRequestInfo.attributes) {
       this.attributes = certificationRequestInfo.attributes
         .map((e) => new Attribute(AsnConvert.serialize(e)));
-
-      const extensionRequestAttribute = this.attributes.find(
-        (attribute) => attribute.asn.type === id_pkcs9_at_extensionRequest,
-      ) as Attribute<ExtensionRequest>;
-
-      if (extensionRequestAttribute) {
-        this.extensions = extensionRequestAttribute.value
-          .map((e) => new Extension(AsnConvert.serialize(e)));
-      }
     }
   }
 

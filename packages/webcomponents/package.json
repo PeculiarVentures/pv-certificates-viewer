@@ -48,6 +48,7 @@
     "@peculiar/asn1-lei": "^2.4.0",
     "@peculiar/asn1-ntqwac": "^2.4.0",
     "@peculiar/asn1-pkcs9": "^2.4.0",
+    "@peculiar/asn1-private-key-stmt": "^2.4.0",
     "@peculiar/asn1-rfc8226": "^2.4.0",
     "@peculiar/asn1-rsa": "^2.4.0",
     "@peculiar/asn1-schema": "^2.4.0",
