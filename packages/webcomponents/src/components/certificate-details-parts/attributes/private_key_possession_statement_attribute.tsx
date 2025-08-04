@@ -11,8 +11,9 @@ import { h, FunctionalComponent } from '@stencil/core';
 import { PrivateKeyPossessionStatement } from '@peculiar/asn1-private-key-stmt';
 import { Convert } from 'pvtsutils';
 import { Attribute } from '../../../crypto/attribute';
-import { TableRowTable } from '../row';
+import { RowValue, TableRowTable } from '../row';
 import { BasicAttribute } from './basic_attribute';
+import { NamePart } from './name_part';
 
 interface IPrivateKeyPossessionStatementAttributeProps {
   attribute: Attribute<PrivateKeyPossessionStatement>;
@@ -29,13 +30,31 @@ FunctionalComponent<IPrivateKeyPossessionStatementAttributeProps> = (props) => {
     <BasicAttribute
       attribute={attribute}
     >
-      {certificateRaw && (
+      <RowValue
+        name="Serial Number"
+        value={Convert.ToHex(attribute.value.signer.serialNumber)}
+        monospace
+      />
+      <RowValue
+        name="Issuer"
+        value=""
+      />
+      <TableRowTable>
+        <NamePart
+          name={attribute.value.signer.issuer}
+        />
+      </TableRowTable>
+      {certificateRaw && [
+        <RowValue
+          name="Certificate"
+          value=""
+        />,
         <TableRowTable>
           <peculiar-certificate-viewer
             certificate={Convert.ToBase64(certificateRaw)}
           />
-        </TableRowTable>
-      )}
+        </TableRowTable>,
+      ]}
     </BasicAttribute>
   );
 };
