@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.7.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.6.1...v4.7.0) (2025-08-07)
+
+
+### Features
+
+* **webcomponents:** add support for Private Key Possession Statement attribute ([59a9910](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/59a99105cc6f9a8f2fe17a33fa1f50e66a8bfcbd))
+* **webcomponents:** enhance Private Key Possession Statement attribute with additional details display ([64535fc](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/64535fcc6ea1c1f7898a4e24c1dbefc63e60a411))
+
+
+
+
+
 ## [4.6.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.6.0...v4.6.1) (2025-07-24)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer
