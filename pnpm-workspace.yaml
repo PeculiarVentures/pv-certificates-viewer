@@ -1,2 +1,5 @@
 packages:
-  - 'packages/*'
+  - packages/*
+overrides:
+  tmp@<=0.2.3: '>=0.2.4'
+  axios@<1.12.0: '>=1.12.0'
