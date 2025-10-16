@@ -30,6 +30,7 @@
 - [peculiar-attribute-certificate-viewer](../attribute-certificate-viewer)
 - [peculiar-csr-viewer](../csr-viewer)
 - [peculiar-crl-viewer](../crl-viewer)
+- [peculiar-ssh-certificate-viewer](../ssh-certificate-viewer)
 
 ### Graph
 ```mermaid
@@ -39,7 +40,9 @@ graph TD;
   peculiar-certificate-decoder --> peculiar-attribute-certificate-viewer
   peculiar-certificate-decoder --> peculiar-csr-viewer
   peculiar-certificate-decoder --> peculiar-crl-viewer
+  peculiar-certificate-decoder --> peculiar-ssh-certificate-viewer
   peculiar-certificate-chain-viewer --> peculiar-certificate-viewer
+  peculiar-ssh-certificate-viewer --> peculiar-text-hider
   style peculiar-certificate-decoder fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -45,5 +45,9 @@
   "crlEntryExtensions": "CRL Entry Extensions",
   "previewCertificate": "Preview certificate",
   "viewDetails": "View details",
-  "downloadOptions": "Download options"
+  "downloadOptions": "Download options",
+  "keyId": "Key ID",
+  "principals": "Principals",
+  "criticalOptions": "Critical Options",
+  "signingCA": "Signing CA"
 }

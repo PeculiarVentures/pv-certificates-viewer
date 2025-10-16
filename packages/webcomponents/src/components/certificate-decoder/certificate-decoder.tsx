@@ -22,6 +22,7 @@ import {
   Pkcs10CertificateRequest,
   X509Crl,
   X509Certificates,
+  SshCertificate,
 } from '../../crypto';
 import { Button } from '../button';
 import { Typography } from '../typography';
@@ -51,7 +52,8 @@ export class CertificateDecoder {
     | X509Certificate
     | X509AttributeCertificate
     | Pkcs10CertificateRequest
-    | X509Crl;
+    | X509Crl
+    | SshCertificate;
 
   /**
    * Emitted when the certificate has been successfully parsed.
@@ -130,13 +132,14 @@ export class CertificateDecoder {
     this.clearCertificate.emit();
   }
 
-  setValue(value: typeof this.certificateDecoded) {
+  async setValue(value: typeof this.certificateDecoded) {
     this.certificateDecoded = value;
-    this.inputPaste.value = value.toString('pem');
-    this.successParse.emit(value.toString('base64url'));
+
+    this.inputPaste.value = await value.toString('pem');
+    this.successParse.emit(await value.toString('base64url'));
   }
 
-  decode(value: string) {
+  async decode(value: string) {
     new Promise<X509Certificates>((resolve) => {
       resolve(new X509Certificates(value));
     })
@@ -144,6 +147,7 @@ export class CertificateDecoder {
       .catch(() => new X509AttributeCertificate(value))
       .catch(() => new Pkcs10CertificateRequest(value))
       .catch(() => new X509Crl(value))
+      .catch(() => new SshCertificate(value))
       .then((res: typeof this.certificateDecoded) => this.setValue(res))
       .catch((error) => {
         console.log(error);
@@ -198,6 +202,15 @@ export class CertificateDecoder {
       );
     }
 
+    if (this.certificateDecoded instanceof SshCertificate) {
+      return (
+        <peculiar-ssh-certificate-viewer
+          certificate={this.certificateDecoded}
+          download
+        />
+      );
+    }
+
     return null;
   }
 
@@ -220,7 +233,7 @@ export class CertificateDecoder {
             </Typography>
             <input
               type="file"
-              accept="application/pkix-cert,application/x-x509-ca-cert,application/x-x509-user-cert,application/pkcs10,application/pkix-crl,.csr,.req,.crl"
+              accept="application/pkix-cert,application/x-x509-ca-cert,application/x-x509-user-cert,application/pkcs10,application/pkix-crl,.csr,.req,.crl,.cert"
               value=""
               onChange={this.handleChangeInputFile}
             />

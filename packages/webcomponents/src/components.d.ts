@@ -12,6 +12,7 @@ import { TCertificateProp } from "./components/certificate-viewer/certificate-vi
 import { ICertificate } from "./components/certificates-viewer/certificates-viewer";
 import { TCrlProp } from "./components/crl-viewer/crl-viewer";
 import { TCsrProp } from "./components/csr-viewer/csr-viewer";
+import { TSshCertificateProp } from "./components/ssh-certificate-viewer/ssh-certificate-viewer";
 export { TAttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
 export { IButtonMenuGroup } from "./components/button-menu/button-menu";
 export { X509Certificate, X509Certificates } from "./crypto";
@@ -19,6 +20,7 @@ export { TCertificateProp } from "./components/certificate-viewer/certificate-vi
 export { ICertificate } from "./components/certificates-viewer/certificates-viewer";
 export { TCrlProp } from "./components/crl-viewer/crl-viewer";
 export { TCsrProp } from "./components/csr-viewer/csr-viewer";
+export { TSshCertificateProp } from "./components/ssh-certificate-viewer/ssh-certificate-viewer";
 export namespace Components {
     interface PeculiarAttributeCertificateViewer {
         /**
@@ -219,6 +221,22 @@ export namespace Components {
     interface PeculiarHighlightWords {
         "search": string;
     }
+    interface PeculiarSshCertificateViewer {
+        /**
+          * The certificate value for decode and show details. Use PEM or DER.
+         */
+        "certificate": TSshCertificateProp;
+        /**
+          * If `true` - component will show split-button to download certificate as PEM or DER.
+         */
+        "download"?: boolean;
+        /**
+          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+          * @example  (max-width: 900px)
+          * @default '(max-width: 900px)'
+         */
+        "mobileMediaQueryString"?: string;
+    }
     interface PeculiarTextHider {
     }
 }
@@ -315,6 +333,12 @@ declare global {
         prototype: HTMLPeculiarHighlightWordsElement;
         new (): HTMLPeculiarHighlightWordsElement;
     };
+    interface HTMLPeculiarSshCertificateViewerElement extends Components.PeculiarSshCertificateViewer, HTMLStencilElement {
+    }
+    var HTMLPeculiarSshCertificateViewerElement: {
+        prototype: HTMLPeculiarSshCertificateViewerElement;
+        new (): HTMLPeculiarSshCertificateViewerElement;
+    };
     interface HTMLPeculiarTextHiderElement extends Components.PeculiarTextHider, HTMLStencilElement {
     }
     var HTMLPeculiarTextHiderElement: {
@@ -332,6 +356,7 @@ declare global {
         "peculiar-crl-viewer": HTMLPeculiarCrlViewerElement;
         "peculiar-csr-viewer": HTMLPeculiarCsrViewerElement;
         "peculiar-highlight-words": HTMLPeculiarHighlightWordsElement;
+        "peculiar-ssh-certificate-viewer": HTMLPeculiarSshCertificateViewerElement;
         "peculiar-text-hider": HTMLPeculiarTextHiderElement;
     }
 }
@@ -551,6 +576,22 @@ declare namespace LocalJSX {
     interface PeculiarHighlightWords {
         "search"?: string;
     }
+    interface PeculiarSshCertificateViewer {
+        /**
+          * The certificate value for decode and show details. Use PEM or DER.
+         */
+        "certificate"?: TSshCertificateProp;
+        /**
+          * If `true` - component will show split-button to download certificate as PEM or DER.
+         */
+        "download"?: boolean;
+        /**
+          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+          * @example  (max-width: 900px)
+          * @default '(max-width: 900px)'
+         */
+        "mobileMediaQueryString"?: string;
+    }
     interface PeculiarTextHider {
     }
     interface IntrinsicElements {
@@ -564,6 +605,7 @@ declare namespace LocalJSX {
         "peculiar-crl-viewer": PeculiarCrlViewer;
         "peculiar-csr-viewer": PeculiarCsrViewer;
         "peculiar-highlight-words": PeculiarHighlightWords;
+        "peculiar-ssh-certificate-viewer": PeculiarSshCertificateViewer;
         "peculiar-text-hider": PeculiarTextHider;
     }
 }
@@ -581,6 +623,7 @@ declare module "@stencil/core" {
             "peculiar-crl-viewer": LocalJSX.PeculiarCrlViewer & JSXBase.HTMLAttributes<HTMLPeculiarCrlViewerElement>;
             "peculiar-csr-viewer": LocalJSX.PeculiarCsrViewer & JSXBase.HTMLAttributes<HTMLPeculiarCsrViewerElement>;
             "peculiar-highlight-words": LocalJSX.PeculiarHighlightWords & JSXBase.HTMLAttributes<HTMLPeculiarHighlightWordsElement>;
+            "peculiar-ssh-certificate-viewer": LocalJSX.PeculiarSshCertificateViewer & JSXBase.HTMLAttributes<HTMLPeculiarSshCertificateViewerElement>;
             "peculiar-text-hider": LocalJSX.PeculiarTextHider & JSXBase.HTMLAttributes<HTMLPeculiarTextHiderElement>;
         }
     }
