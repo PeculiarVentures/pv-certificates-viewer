@@ -18,9 +18,11 @@ import { defineCustomElement as definePeculiarCertificateViewer } from '@peculia
 import { defineCustomElement as definePeculiarCertificatesViewer } from '@peculiar/certificates-viewer/components/peculiar-certificates-viewer.js';
 import { defineCustomElement as definePeculiarCrlViewer } from '@peculiar/certificates-viewer/components/peculiar-crl-viewer.js';
 import { defineCustomElement as definePeculiarCsrViewer } from '@peculiar/certificates-viewer/components/peculiar-csr-viewer.js';
+import { defineCustomElement as definePeculiarSshCertificateViewer } from '@peculiar/certificates-viewer/components/peculiar-ssh-certificate-viewer.js';
 
 export const PeculiarAttributeCertificateViewer = /*@__PURE__*/createReactComponent<JSX.PeculiarAttributeCertificateViewer, HTMLPeculiarAttributeCertificateViewerElement>('peculiar-attribute-certificate-viewer', undefined, undefined, definePeculiarAttributeCertificateViewer);
 export const PeculiarCertificateViewer = /*@__PURE__*/createReactComponent<JSX.PeculiarCertificateViewer, HTMLPeculiarCertificateViewerElement>('peculiar-certificate-viewer', undefined, undefined, definePeculiarCertificateViewer);
 export const PeculiarCertificatesViewer = /*@__PURE__*/createReactComponent<JSX.PeculiarCertificatesViewer, HTMLPeculiarCertificatesViewerElement>('peculiar-certificates-viewer', undefined, undefined, definePeculiarCertificatesViewer);
 export const PeculiarCrlViewer = /*@__PURE__*/createReactComponent<JSX.PeculiarCrlViewer, HTMLPeculiarCrlViewerElement>('peculiar-crl-viewer', undefined, undefined, definePeculiarCrlViewer);
 export const PeculiarCsrViewer = /*@__PURE__*/createReactComponent<JSX.PeculiarCsrViewer, HTMLPeculiarCsrViewerElement>('peculiar-csr-viewer', undefined, undefined, definePeculiarCsrViewer);
+export const PeculiarSshCertificateViewer = /*@__PURE__*/createReactComponent<JSX.PeculiarSshCertificateViewer, HTMLPeculiarSshCertificateViewerElement>('peculiar-ssh-certificate-viewer', undefined, undefined, definePeculiarSshCertificateViewer);
