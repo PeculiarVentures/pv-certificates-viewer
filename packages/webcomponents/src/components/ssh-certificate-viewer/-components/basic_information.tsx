@@ -66,15 +66,15 @@ export const SshBasicInformation: FunctionalComponent<ISshBasicInformationProps>
     />,
     <RowValue
       name={l10n.getString('principals')}
-      value={principals.join(', ')}
+      value={principals.join(', ') || '(none)'}
     />,
     <RowValue
       name={l10n.getString('criticalOptions')}
-      value={Object.keys(criticalOptions).join(', ')}
+      value={Object.keys(criticalOptions).join(', ') || '(none)'}
     />,
     <RowValue
       name={l10n.getString('extensions')}
-      value={Object.keys(extensions).join(', ')}
+      value={Object.keys(extensions).join(', ') || '(none)'}
     />,
   ];
 };

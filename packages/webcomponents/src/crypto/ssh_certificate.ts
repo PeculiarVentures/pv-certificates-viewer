@@ -1,6 +1,6 @@
 import { SshCertificate as SshCertificateType, parseCertificate } from '@peculiar/ssh';
 import { Convert } from 'pvtsutils';
-import { dateDiff } from '../utils';
+import { dateDiff, Download } from '../utils';
 
 export class SshCertificate {
   public readonly serialNumber: string;
@@ -83,5 +83,16 @@ export class SshCertificate {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async toString(_format: 'pem' | 'base64' | 'base64url' = 'pem') {
     return this.#cert.toSSH();
+  }
+
+  public get commonName(): string {
+    return this.#cert.principals.join('_') || this.#cert.keyId || this.#cert.certType;
+  }
+
+  public async downloadAsSSH(name?: string) {
+    Download.certSSH.asSSH(
+      await this.toString(),
+      name || this.commonName,
+    );
   }
 }

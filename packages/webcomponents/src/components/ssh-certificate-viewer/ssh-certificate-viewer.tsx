@@ -20,6 +20,7 @@ import { Typography } from '../typography';
 import { SshBasicInformation } from './-components/basic_information';
 import { SshPublicKey } from './-components/public_key';
 import { SshSignatureKey } from './-components/signature_key';
+import { SshMiscellaneous } from './-components/miscellaneous';
 
 export type TSshCertificateProp = string | SshCertificate;
 
@@ -165,6 +166,12 @@ export class SshCertificateViewer {
           <SshSignatureKey
             key={this.certificateDecoded.signatureKey}
           />
+
+          {this.download && (
+            <SshMiscellaneous
+              certificate={this.certificateDecoded}
+            />
+          )}
         </table>
       </Host>
     );

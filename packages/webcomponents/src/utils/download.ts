@@ -90,4 +90,15 @@ export class Download {
       );
     },
   };
+
+  public static certSSH = {
+    asSSH: (value: string, name: string) => {
+      downloadFromBuffer(
+        Convert.FromString(value),
+        name,
+        'cert',
+        'application/ssh-cert',
+      );
+    },
+  };
 }
