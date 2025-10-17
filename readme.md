@@ -1,4 +1,13 @@
-# Peculiar Certificates Viewer
+<h1 align="center">Peculiar Certificates Viewer</h1>
+
+<div align="center">
+
+![GitHub License](https://img.shields.io/github/license/PeculiarVentures/pv-certificates-viewer)
+![NPM Version](https://img.shields.io/npm/v/%40peculiar%2Fcertificates-viewer?label=npm%40latest)
+[![](https://data.jsdelivr.com/v1/package/npm/@peculiar/certificates-viewer/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@peculiar/certificates-viewer)
+![NPM Downloads](https://img.shields.io/npm/dm/%40peculiar%2Fcertificates-viewer?label=npm)
+
+</div>
 
 Peculiar Certificates Viewer makes it easy for you to display certificate-related details in your web application.
 
