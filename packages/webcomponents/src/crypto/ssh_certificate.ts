@@ -38,7 +38,11 @@ export class SshCertificate {
   #cert: SshCertificateType;
 
   constructor(raw: string) {
-    const blob = parseCertificate(raw.trim());
+    const blob = parseCertificate(
+      Convert.isBase64Url(raw.trim())
+        ? Convert.ToString(Convert.FromBase64Url(raw.trim()))
+        : raw.trim(),
+    );
 
     // @ts-expect-error - SshCertificateType is not a constructor
     this.#cert = new SshCertificateType(blob) as SshCertificateType;
@@ -81,7 +85,13 @@ export class SshCertificate {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async toString(_format: 'pem' | 'base64' | 'base64url' = 'pem') {
+  public async toString(format: 'pem' | 'base64' | 'base64url' = 'pem') {
+    if (format === 'base64url') {
+      const blob = await this.#cert.toSSH();
+
+      return Convert.ToBase64Url(Convert.FromString(blob));
+    }
+
     return this.#cert.toSSH();
   }
 
