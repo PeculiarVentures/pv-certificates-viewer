@@ -28,9 +28,9 @@ export const SshMiscellaneous: FunctionalComponent<ISshMiscellaneousProps> = (pr
       <td>
         <Button
           startIcon={<DownloadIcon />}
-          onClick={() => certificate.downloadAsSSH()}
+          onClick={() => certificate.downloadAsPub()}
         >
-          {l10n.getString('download.ssh')}
+          {l10n.getString('download')}
         </Button>
       </td>
     </tr>,

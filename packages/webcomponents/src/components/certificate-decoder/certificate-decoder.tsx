@@ -233,7 +233,7 @@ export class CertificateDecoder {
             </Typography>
             <input
               type="file"
-              accept="application/pkix-cert,application/x-x509-ca-cert,application/x-x509-user-cert,application/pkcs10,application/pkix-crl,.csr,.req,.crl,.cert"
+              accept="application/pkix-cert,application/x-x509-ca-cert,application/x-x509-user-cert,application/pkcs10,application/pkix-crl,.csr,.req,.crl,.pub"
               value=""
               onChange={this.handleChangeInputFile}
             />

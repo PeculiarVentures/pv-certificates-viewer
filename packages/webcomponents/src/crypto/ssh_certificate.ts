@@ -89,10 +89,10 @@ export class SshCertificate {
     return this.#cert.principals.join('_') || this.#cert.keyId || this.#cert.certType;
   }
 
-  public async downloadAsSSH(name?: string) {
-    Download.certSSH.asSSH(
+  public async downloadAsPub(name?: string) {
+    Download.certSSH.asPub(
       await this.toString(),
-      name || this.commonName,
+      name || [this.commonName, 'cert'].join('-'),
     );
   }
 }
