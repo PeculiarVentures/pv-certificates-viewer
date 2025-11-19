@@ -35,8 +35,8 @@ interface IQCStatementsExtensionProps {
 export const QCStatementsExtension: FunctionalComponent<IQCStatementsExtensionProps> = (props) => {
   const { extension } = props;
 
-  function renderStatementInfo(statementId: string, statementInfo: ArrayBuffer) {
-    if (!statementInfo.byteLength) {
+  function renderStatementInfo(statementId: string, statementInfo?: ArrayBuffer) {
+    if (!statementInfo || !statementInfo.byteLength) {
       return null;
     }
 

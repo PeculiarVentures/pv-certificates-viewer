@@ -84,7 +84,6 @@ export class SshCertificate {
     };
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async toString(format: 'pem' | 'base64' | 'base64url' = 'pem') {
     if (format === 'base64url') {
       const blob = await this.#cert.toSSH();

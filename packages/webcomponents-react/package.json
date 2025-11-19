@@ -22,7 +22,8 @@
   "scripts": {
     "build": "npm run clean && npm run compile",
     "clean": "rimraf dist",
-    "compile": "rollup -c"
+    "compile": "rollup -c",
+    "test": "echo 'No tests yet'"
   },
   "license": "MIT",
   "author": "PeculiarVentures Team",
