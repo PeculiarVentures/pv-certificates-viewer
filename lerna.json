@@ -3,11 +3,14 @@
   "packages": [
     "packages/*"
   ],
-  "npmClient": "pnpm",
+  "npmClient": "npm",
+  "npmClientArgs": [
+    "ci"
+  ],
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "command": {
     "publish": {
       "conventionalCommits": true
     }
-  },
-  "$schema": "node_modules/lerna/schemas/lerna-schema.json"
+  }
 }

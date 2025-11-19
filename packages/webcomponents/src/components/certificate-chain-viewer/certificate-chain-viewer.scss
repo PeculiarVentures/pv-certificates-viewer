@@ -1,5 +1,5 @@
-@import '../../css/base.scss';
-@import '../certificate-viewer/certificate-viewer.scss';
+@use '../../css/base.scss';
+@use '../certificate-viewer/certificate-viewer.scss';
 
 :host {
   display: block;

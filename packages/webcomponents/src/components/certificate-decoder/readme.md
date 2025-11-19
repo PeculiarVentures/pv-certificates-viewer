@@ -9,7 +9,7 @@
 
 | Property              | Attribute               | Description                                                                | Type                                  | Default     |
 | --------------------- | ----------------------- | -------------------------------------------------------------------------- | ------------------------------------- | ----------- |
-| `certificateExamples` | `certificate-examples`  | The example certificate value for decode and show details. Use PEM or DER. | `{ title: string; value: string; }[]` | `undefined` |
+| `certificateExamples` | --                      | The example certificate value for decode and show details. Use PEM or DER. | `{ title: string; value: string; }[]` | `undefined` |
 | `certificateToDecode` | `certificate-to-decode` | The default certificate value for decode and show details. Use PEM or DER. | `string`                              | `undefined` |
 
 

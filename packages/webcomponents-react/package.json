@@ -20,7 +20,7 @@
     "dist/"
   ],
   "scripts": {
-    "build": "pnpm clean && pnpm compile",
+    "build": "npm run clean && npm run compile",
     "clean": "rimraf dist",
     "compile": "rollup -c"
   },

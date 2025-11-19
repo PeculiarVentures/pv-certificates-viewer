@@ -29,8 +29,8 @@
     "loader/"
   ],
   "scripts": {
-    "build": "pnpm clean && stencil build --docs",
-    "dev": "pnpm clean && stencil build --dev --watch --serve",
+    "build": "npm run clean && stencil build --docs",
+    "dev": "npm run clean && stencil build --dev --watch --serve",
     "generate": "stencil generate",
     "deploy:gh-pages": "gh-pages -d www",
     "clean": "rimraf dist loader www components",
