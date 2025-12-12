@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.8.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.7.0...v4.8.0) (2025-12-12)
+
+
+### Bug Fixes
+
+* **webcomponents:** improve SSH certificate parsing and enhance toString method for base64url format ([bd991b3](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/bd991b39d18ace4020f72bbe63f4b0ac3bf85697))
+
+
+### Features
+
+* **webcomponents-react:** register new SSH certificate viewer component ([cd095ea](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/cd095ea078f264c55f568a637feedc0cf11dfe73))
+* **webcomponents:** add Extensions field to Certificate Transparency details ([#165](https://github.com/PeculiarVentures/pv-certificates-viewer/issues/165)) ([8c18715](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/8c18715ee7a80bbb5aa822db458086aa9be47678))
+* **webcomponents:** add SSH certificate viewer component ([ca1aa6c](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/ca1aa6ca27c788db4de04a613495b6880652c449))
+* **webcomponents:** add SSH download functionality ([39ceb04](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/39ceb041bd6ced66b5390aba33c972ae519c8c1f))
+
+
+
+
+
 # [4.7.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.6.1...v4.7.0) (2025-08-07)
 
 

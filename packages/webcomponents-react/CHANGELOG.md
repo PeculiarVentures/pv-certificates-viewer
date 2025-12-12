@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.8.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.7.0...v4.8.0) (2025-12-12)
+
+
+### Features
+
+* **webcomponents-react:** register new SSH certificate viewer component ([cd095ea](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/cd095ea078f264c55f568a637feedc0cf11dfe73))
+
+
+
+
+
 # [4.7.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.6.1...v4.7.0) (2025-08-07)
 
 **Note:** Version bump only for package @peculiar/certificates-viewer-react
