@@ -59,6 +59,11 @@ FunctionalComponent<ICertificateTransparencyExtensionProps> = (props) => {
               value={signedCertificateTimestamp.signature}
               monospace
             />
+            <RowValue
+              name="Extensions"
+              value={signedCertificateTimestamp.extensions || undefined}
+              monospace
+            />
           </TableRowTable>
         )),
       ])}
