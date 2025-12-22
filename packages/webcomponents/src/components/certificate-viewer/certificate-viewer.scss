@@ -8,6 +8,8 @@
   min-height: 300px;
   word-wrap: break-word;
   word-break: break-word;
+
+  --pv-certificate-viewer-td-horizontal-padding: calc(var(--pv-size-base) * 4);
 }
 
 th, td {
@@ -26,7 +28,7 @@ table {
   }
 
   td {
-    padding: calc(var(--pv-size-base) * 2) calc(var(--pv-size-base) * 4);
+    padding: calc(var(--pv-size-base) * 2) var(--pv-certificate-viewer-td-horizontal-padding);
     vertical-align: top;
 
     &:first-child {
@@ -82,13 +84,13 @@ table {
         padding-top: calc(var(--pv-size-base) * 6);
 
         td {
-          padding: 0 calc(var(--pv-size-base) * 4);
+          padding: 0 var(--pv-certificate-viewer-td-horizontal-padding);
         }
       }
     }
 
     td {
-      padding: 0 calc(var(--pv-size-base) * 4);
+      padding: 0 var(--pv-certificate-viewer-td-horizontal-padding);
       width: 100% !important;
       max-width: 100% !important;
 
