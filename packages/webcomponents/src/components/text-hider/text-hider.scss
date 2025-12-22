@@ -1,7 +1,7 @@
 :host {
   display: flex;
   width: 100%;
-  gap: var(--pv-size-base-4);
+  gap: calc(var(--pv-size-base) * 4);
 
   &[aria-expanded="true"] {
     .content {

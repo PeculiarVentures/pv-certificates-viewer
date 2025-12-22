@@ -149,13 +149,13 @@ $cs:
   outline: none;
   font-family: inherit;
   border-radius: 4px;
-  height: var(--pv-size-base-6);
-  min-width: var(--pv-size-base-6);
-  padding: 0 var(--pv-size-base-2);
+  height: calc(var(--pv-size-base) * 6);
+  min-width: calc(var(--pv-size-base) * 6);
+  padding: 0 calc(var(--pv-size-base) * 2);
   transition: background-color 200ms ease 0s;
   align-items: center;
   justify-content: center;
-  gap: var(--pv-size-base-2);
+  gap: calc(var(--pv-size-base) * 2);
   font-size: 0;
 
   &.m_no_padding {

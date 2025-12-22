@@ -29,7 +29,7 @@
   z-index: 1;
   box-shadow: var(--pv-shadow-light-medium);
   background: var(--pv-color-white);
-  padding: var(--pv-size-base-2) 0;
+  padding: calc(var(--pv-size-base) * 2) 0;
   margin: var(--pv-size-base) 0;
   display: none;
 }
@@ -43,12 +43,12 @@
 .group {
   &:not(:last-child) {
     border-bottom: 1px solid var(--pv-color-gray-5);
-    padding-bottom: var(--pv-size-base-2);
+    padding-bottom: calc(var(--pv-size-base) * 2);
     margin-bottom: var(--pv-size-base);
   }
 }
 
 .group_title {
-  line-height: var(--pv-size-base-6);
-  padding: 0 var(--pv-size-base-2);
+  line-height: calc(var(--pv-size-base) * 6);
+  padding: 0 calc(var(--pv-size-base) * 2);
 }

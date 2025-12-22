@@ -10,8 +10,8 @@
   white-space: nowrap;
   overflow-x: auto;
   border-bottom: 1px solid var(--pv-color-gray-4);
-  padding: 0 var(--pv-size-base-4);
-  margin-bottom: var(--pv-size-base-6);
+  padding: 0 calc(var(--pv-size-base) * 4);
+  margin-bottom: calc(var(--pv-size-base) * 6);
 }
 
 .tab {
@@ -21,9 +21,9 @@
   box-sizing: border-box;
   border: none;
   border-bottom: 3px solid transparent;
-  min-height: var(--pv-size-base-12);
+  min-height: calc(var(--pv-size-base) * 12);
   height: 100%;
-  padding: 0 var(--pv-size-base-3);
+  padding: 0 calc(var(--pv-size-base) * 3);
   background-color: transparent;
   transition: background-color 200ms, color 200ms, border-color 200ms;
   display: inline-flex;
