@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.9.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.8.0...v4.9.0) (2025-12-22)
+
+
+### Features
+
+* **webcomponents:** replace fixed size variables with calculated values for consistent spacing across components ([cbe88ad](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/cbe88ad09e0d49c4aba209cda98405cb32f76ad9))
+
+
+
+
+
 # [4.8.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.7.0...v4.8.0) (2025-12-12)
 
 
