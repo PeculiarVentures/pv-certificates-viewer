@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { PolicyConstraints } from '@peculiar/asn1-x509';
+import { PolicyConstraints, id_ce_policyConstraints } from '@peculiar/asn1-x509';
 import { AsnParser, AsnIntegerArrayBufferConverter } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -47,3 +48,5 @@ export class PolicyConstraintsExtension extends BaseExtension {
     return result;
   }
 }
+
+ExtensionFactory.register(id_ce_policyConstraints, PolicyConstraintsExtension);

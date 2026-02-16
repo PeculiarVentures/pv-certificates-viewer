@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { KeyUsage } from '@peculiar/asn1-x509';
+import { KeyUsage, id_ce_keyUsage } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -34,3 +35,5 @@ export class KeyUsageExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_ce_keyUsage, KeyUsageExtension);

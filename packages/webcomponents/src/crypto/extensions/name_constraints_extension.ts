@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { NameConstraints } from '@peculiar/asn1-x509';
+import { NameConstraints, id_ce_nameConstraints } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
 
@@ -63,3 +64,5 @@ export class NameConstraintsExtension extends BaseExtension {
     return result as Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]>;
   }
 }
+
+ExtensionFactory.register(id_ce_nameConstraints, NameConstraintsExtension);

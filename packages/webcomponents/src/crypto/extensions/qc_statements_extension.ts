@@ -10,6 +10,7 @@ import {
   QCStatements,
   id_qcs_pkixQCSyntax_v2,
   SemanticsInformation,
+  id_pe_qcStatements,
 } from '@peculiar/asn1-x509-qualified';
 import {
   id_etsi_qcs_qcType,
@@ -21,6 +22,7 @@ import {
 } from '@peculiar/asn1-x509-qualified-etsi';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -105,3 +107,5 @@ export class QCStatementsExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_pe_qcStatements, QCStatementsExtension);

@@ -13,7 +13,9 @@ import {
 } from '@peculiar/asn1-android';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert, BufferSourceConverter } from 'pvtsutils';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { id_ce_keyDescription } from '@peculiar/asn1-android';
 
 type KeyDescriptionJSON = Record<
   string,
@@ -158,3 +160,5 @@ export class KeyDescriptionExtension extends BaseExtension {
     return result as KeyDescriptionJSON;
   }
 }
+
+ExtensionFactory.register(id_ce_keyDescription, KeyDescriptionExtension);

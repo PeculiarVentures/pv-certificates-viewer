@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { PolicyMappings } from '@peculiar/asn1-x509';
+import { PolicyMappings, id_ce_policyMappings } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { OIDs } from '../../constants/oids';
 import { BaseExtension } from './base_extension';
 
@@ -50,3 +51,5 @@ export class PolicyMappingsExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_ce_policyMappings, PolicyMappingsExtension);

@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { CertificateIssuer } from '@peculiar/asn1-x509';
+import { CertificateIssuer, id_ce_certificateIssuer } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { GeneralNameParser } from './general_name_parser';
 import { BaseExtension } from './base_extension';
 
@@ -38,3 +39,5 @@ export class CertificateIssuerExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_ce_certificateIssuer, CertificateIssuerExtension);

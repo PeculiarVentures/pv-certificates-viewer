@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { CRLNumber } from '@peculiar/asn1-x509';
+import { CRLNumber, id_ce_cRLNumber } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -34,3 +35,5 @@ export class CRLNumberExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_ce_cRLNumber, CRLNumberExtension);

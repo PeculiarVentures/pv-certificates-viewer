@@ -22,7 +22,17 @@ describe('ExtensionRequestAttribute', () => {
 
     expect(json).toEqual({
       Name: 'Extension Request',
-      Extensions: '3030302e0603551d1104273025a023060a2b060104018237140203a0150c136164647265737340646f6d61696e2e74657374',
+      Extensions: [
+        {
+          Name: 'Subject Alternative Name',
+          Critical: 'No',
+          Names: [
+            {
+              'Other Name': 'address@domain.test',
+            },
+          ],
+        }
+      ]
     });
   });
 });

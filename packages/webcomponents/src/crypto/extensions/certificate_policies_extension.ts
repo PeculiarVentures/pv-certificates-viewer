@@ -10,8 +10,10 @@ import {
   CertificatePolicies,
   UserNotice,
   DisplayText,
+  id_ce_certificatePolicies,
 } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -88,3 +90,5 @@ export class CertificatePoliciesExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_ce_certificatePolicies, CertificatePoliciesExtension);

@@ -6,9 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { SubjectDirectoryAttributes, Attribute } from '@peculiar/asn1-x509';
+import { SubjectDirectoryAttributes, Attribute, id_ce_subjectDirectoryAttributes } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -40,3 +41,5 @@ export class SubjectDirectoryAttributesExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_ce_subjectDirectoryAttributes, SubjectDirectoryAttributesExtension);

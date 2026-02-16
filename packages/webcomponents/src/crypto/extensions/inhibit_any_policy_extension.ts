@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { InhibitAnyPolicy } from '@peculiar/asn1-x509';
+import { InhibitAnyPolicy, id_ce_inhibitAnyPolicy } from '@peculiar/asn1-x509';
 import { AsnParser, AsnIntegerArrayBufferConverter } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -36,3 +37,5 @@ export class InhibitAnyPolicyExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_ce_inhibitAnyPolicy, InhibitAnyPolicyExtension);

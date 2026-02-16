@@ -7,8 +7,9 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
-import { CabforganizationIdentifier } from './cabforganization_identifier';
+import { CabforganizationIdentifier, id_cabforganizationIdentifier } from './cabforganization_identifier';
 
 /**
  * CABF Organization Identifier Extension
@@ -45,3 +46,5 @@ export class CabforganizationIdentifierExtension extends BaseExtension {
     return result;
   }
 }
+
+ExtensionFactory.register(id_cabforganizationIdentifier, CabforganizationIdentifierExtension);

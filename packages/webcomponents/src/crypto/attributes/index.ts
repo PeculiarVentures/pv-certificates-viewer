@@ -15,7 +15,6 @@ export * from './valuation_ranking_attribute';
 export * from './activity_description_attribute';
 export * from './web_gdpr_attribute';
 export * from './extension_request_attribute';
-export * from './name_attribute';
 export * from './private_key_possession_statement_attribute';
 export * from './domain_name_beneficiary_attribute';
 export * from './domain_name_legal_representative_attribute';

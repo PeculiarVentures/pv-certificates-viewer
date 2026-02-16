@@ -11,9 +11,11 @@ import {
   LogotypeInfo,
   LogotypeImage,
   LogotypeAudio,
+  id_pe_logotype,
 } from '@peculiar/asn1-x509-logotype';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
+import { ExtensionFactory } from './extension_factory';
 import { OIDs } from '../../constants/oids';
 import { BaseExtension } from './base_extension';
 
@@ -163,3 +165,5 @@ export class LogotypeExtension extends BaseExtension {
     >;
   }
 }
+
+ExtensionFactory.register(id_pe_logotype, LogotypeExtension);

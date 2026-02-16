@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { BasicConstraints } from '@peculiar/asn1-x509';
+import { BasicConstraints, id_ce_basicConstraints } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -35,3 +36,5 @@ export class BasicConstraintsExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_ce_basicConstraints, BasicConstraintsExtension);

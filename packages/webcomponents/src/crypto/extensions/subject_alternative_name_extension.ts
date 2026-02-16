@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { SubjectAlternativeName } from '@peculiar/asn1-x509';
+import { SubjectAlternativeName, id_ce_subjectAltName } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
 
@@ -37,3 +38,5 @@ export class SubjectAlternativeNameExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_ce_subjectAltName, SubjectAlternativeNameExtension);

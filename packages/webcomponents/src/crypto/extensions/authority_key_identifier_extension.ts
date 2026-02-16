@@ -6,9 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { AuthorityKeyIdentifier } from '@peculiar/asn1-x509';
+import { AuthorityKeyIdentifier, id_ce_authorityKeyIdentifier } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -35,3 +36,5 @@ export class AuthorityKeyIdentifierExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_ce_authorityKeyIdentifier, AuthorityKeyIdentifierExtension);

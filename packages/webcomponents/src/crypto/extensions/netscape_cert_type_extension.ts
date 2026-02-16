@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { NetscapeCertType } from '@peculiar/asn1-x509-netscape';
+import { NetscapeCertType, id_netscapeCertType } from '@peculiar/asn1-x509-netscape';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -34,3 +35,5 @@ export class NetscapeCertTypeExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_netscapeCertType, NetscapeCertTypeExtension);

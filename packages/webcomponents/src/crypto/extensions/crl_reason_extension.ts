@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { CRLReason } from '@peculiar/asn1-x509';
+import { CRLReason, id_ce_cRLReasons } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -34,3 +35,5 @@ export class CRLReasonExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_ce_cRLReasons, CRLReasonExtension);

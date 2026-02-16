@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { IssuingDistributionPoint } from '@peculiar/asn1-x509';
+import { IssuingDistributionPoint, id_ce_issuingDistributionPoint } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
 
@@ -69,3 +70,5 @@ export class IssuingDistributionPointExtension extends BaseExtension {
     >;
   }
 }
+
+ExtensionFactory.register(id_ce_issuingDistributionPoint, IssuingDistributionPointExtension);

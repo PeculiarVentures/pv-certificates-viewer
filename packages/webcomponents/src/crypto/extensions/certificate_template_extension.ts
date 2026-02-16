@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { CertificateTemplate } from '@peculiar/asn1-x509-microsoft';
+import { CertificateTemplate, id_certificateTemplate } from '@peculiar/asn1-x509-microsoft';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -36,3 +37,5 @@ export class CertificateTemplateExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_certificateTemplate, CertificateTemplateExtension);

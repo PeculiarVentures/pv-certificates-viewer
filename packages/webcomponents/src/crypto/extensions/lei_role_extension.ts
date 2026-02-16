@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { LeiRole } from '@peculiar/asn1-lei';
+import { LeiRole, id_role } from '@peculiar/asn1-lei';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -34,3 +35,5 @@ export class LeiRoleExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_role, LeiRoleExtension);

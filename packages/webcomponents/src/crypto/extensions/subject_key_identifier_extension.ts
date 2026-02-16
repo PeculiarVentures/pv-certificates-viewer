@@ -6,9 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { SubjectKeyIdentifier } from '@peculiar/asn1-x509';
+import { SubjectKeyIdentifier, id_ce_subjectKeyIdentifier } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -35,3 +36,5 @@ export class SubjectKeyIdentifierExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_ce_subjectKeyIdentifier, SubjectKeyIdentifierExtension);

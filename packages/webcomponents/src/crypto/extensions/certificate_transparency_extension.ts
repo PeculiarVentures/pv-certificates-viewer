@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { CertificateTransparency } from '@peculiar/asn1-cert-transparency';
+import { CertificateTransparency, id_certificateTransparency } from '@peculiar/asn1-cert-transparency';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import logs from '../../constants/logs';
 
@@ -46,3 +47,5 @@ export class CertificateTransparencyExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_certificateTransparency, CertificateTransparencyExtension);

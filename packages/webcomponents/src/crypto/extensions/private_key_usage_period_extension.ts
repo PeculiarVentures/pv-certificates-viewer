@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { PrivateKeyUsagePeriod } from '@peculiar/asn1-x509';
+import { PrivateKeyUsagePeriod, id_ce_privateKeyUsagePeriod } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -35,3 +36,5 @@ export class PrivateKeyUsagePeriodExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_ce_privateKeyUsagePeriod, PrivateKeyUsagePeriodExtension);

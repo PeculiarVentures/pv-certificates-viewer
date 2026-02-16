@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { TNAuthorizationList } from '@peculiar/asn1-rfc8226';
+import { TNAuthorizationList, id_pe_TNAuthList } from '@peculiar/asn1-rfc8226';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
 /**
@@ -51,3 +52,5 @@ export class TNAuthorizationListExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_pe_TNAuthList, TNAuthorizationListExtension);

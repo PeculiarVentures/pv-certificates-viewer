@@ -9,7 +9,9 @@
 import { ExtensionRequest } from '@peculiar/asn1-pkcs9';
 import { AsnParser, AsnConvert } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
+import { ExtensionFactory } from '../extensions';
 import { BaseAttribute } from './base_attribute';
+
 /**
  * Extension Request Attribute
  */
@@ -28,9 +30,27 @@ export class ExtensionRequestAttribute extends BaseAttribute {
 
   public override toJSON():
   Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
+    const extensions = this.value.map((e) => {
+      const extSerialized = AsnConvert.serialize(e);
+      const extension = ExtensionFactory.parse(extSerialized);
+
+      if (extension) {
+        return extension;
+      }
+
+      // Fallback: return a basic extension structure for unknown extensions
+      return {
+        toJSON: () => ({
+          Name: e.extnID,
+          Critical: e.critical ? 'Yes' : 'No',
+          Value: Convert.ToHex(e.extnValue),
+        }),
+      };
+    });
+
     return {
       Name: ExtensionRequestAttribute.NAME,
-      Extensions: Convert.ToHex(AsnConvert.serialize(this.value)),
+      Extensions: extensions.map((ext) => ext.toJSON()),
     } as Record<
       string,
       string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]

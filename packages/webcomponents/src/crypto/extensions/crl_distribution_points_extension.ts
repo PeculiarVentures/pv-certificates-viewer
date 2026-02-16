@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { CRLDistributionPoints } from '@peculiar/asn1-x509';
+import { CRLDistributionPoints, id_ce_cRLDistributionPoints } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
 
@@ -51,3 +52,6 @@ export class CRLDistributionPointsExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_ce_cRLDistributionPoints, CRLDistributionPointsExtension);
+ExtensionFactory.register('2.5.29.46', CRLDistributionPointsExtension);

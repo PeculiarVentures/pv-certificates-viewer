@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { SubjectInfoAccessSyntax } from '@peculiar/asn1-x509';
+import { SubjectInfoAccessSyntax, id_pe_subjectInfoAccess } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
 
@@ -48,3 +49,5 @@ export class SubjectInfoAccessSyntaxExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_pe_subjectInfoAccess, SubjectInfoAccessSyntaxExtension);

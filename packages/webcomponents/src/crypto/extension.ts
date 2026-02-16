@@ -142,6 +142,7 @@ import {
   CabforganizationIdentifier,
 } from './extensions';
 import { AsnData } from './asn_data';
+import './extension_registry'; // Ensure extensions are registered
 
 const extensionParsers = {
   [id_pe_authorityInfoAccess]: AuthorityInfoAccessSyntax,
@@ -221,3 +222,6 @@ export class Extension<T extends TExtensionValue> extends AsnData<AsnExtension> 
     }
   }
 }
+
+// Re-export ExtensionFactory for convenience
+export { ExtensionFactory } from './extensions/extension_factory';

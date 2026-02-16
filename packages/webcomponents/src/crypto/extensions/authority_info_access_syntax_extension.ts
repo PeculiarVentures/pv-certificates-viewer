@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { AuthorityInfoAccessSyntax } from '@peculiar/asn1-x509';
+import { AuthorityInfoAccessSyntax, id_pe_authorityInfoAccess } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
 
@@ -42,3 +43,5 @@ export class AuthorityInfoAccessSyntaxExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_pe_authorityInfoAccess, AuthorityInfoAccessSyntaxExtension);

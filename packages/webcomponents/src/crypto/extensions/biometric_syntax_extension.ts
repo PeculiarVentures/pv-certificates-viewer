@@ -6,9 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { BiometricSyntax } from '@peculiar/asn1-x509-qualified';
+import { BiometricSyntax, id_pe_biometricInfo } from '@peculiar/asn1-x509-qualified';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
+import { ExtensionFactory } from './extension_factory';
 import { OIDs } from '../../constants/oids';
 import { BaseExtension } from './base_extension';
 
@@ -60,3 +61,6 @@ export class BiometricSyntaxExtension extends BaseExtension {
     };
   }
 }
+
+ExtensionFactory.register(id_pe_biometricInfo, BiometricSyntaxExtension);
+ExtensionFactory.register('2.16.724.1.2.2.4.1', BiometricSyntaxExtension);
