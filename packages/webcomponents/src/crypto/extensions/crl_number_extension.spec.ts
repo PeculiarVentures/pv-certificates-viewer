@@ -21,10 +21,6 @@ describe('CRLNumberExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'CRL Number',
-      Critical: 'No',
-      Value: '3',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

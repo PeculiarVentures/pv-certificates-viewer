@@ -1,0 +1,481 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`X509Certificate toJSON should return a complete JSON object matching snapshot 1`] = `
+Object {
+  "$rows": Array [
+    Object {
+      "$rows": Array [
+        Object {
+          "name": "Type",
+          "value": "X.509 Certificate",
+        },
+        Object {
+          "collapse": false,
+          "monospace": true,
+          "name": "Serial Number",
+          "value": "01fd",
+        },
+        Object {
+          "name": "Version",
+          "value": "3",
+        },
+        Object {
+          "name": "Validity",
+          "value": "3 years",
+        },
+        Object {
+          "name": "Not Before",
+          "value": "2013-12-19T18:10:21.000Z",
+        },
+        Object {
+          "name": "Not After",
+          "value": "2016-12-19T18:10:21.000Z",
+        },
+      ],
+      "name": "Basic Information",
+      "type": "section",
+    },
+    Object {
+      "$rows": Array [
+        Object {
+          "name": "Domain Component",
+          "value": "gov",
+        },
+        Object {
+          "name": "Domain Component",
+          "value": "uspto",
+        },
+        Object {
+          "name": "Common Name",
+          "value": "Configuration",
+        },
+        Object {
+          "name": "Common Name",
+          "value": "Services",
+        },
+        Object {
+          "name": "Common Name",
+          "value": "Public Key Services",
+        },
+        Object {
+          "name": "Common Name",
+          "value": "AIA",
+        },
+        Object {
+          "name": "Common Name",
+          "value": "USPTO_INTR_CA1",
+        },
+      ],
+      "name": "Subject Name",
+      "type": "section",
+    },
+    Object {
+      "$rows": Array [
+        Object {
+          "name": "Country Name",
+          "value": "US",
+        },
+        Object {
+          "name": "Organization",
+          "value": "U.S. Government",
+        },
+        Object {
+          "name": "Organization Unit",
+          "value": "FPKI",
+        },
+        Object {
+          "name": "Common Name",
+          "value": "Federal Bridge CA 2013",
+        },
+      ],
+      "name": "Issuer Name",
+      "type": "section",
+    },
+    Object {
+      "$rows": Array [
+        Object {
+          "name": "Algorithm",
+          "value": "RSA Encryption (1.2.840.113549.1.1.1)",
+        },
+        Object {
+          "collapse": true,
+          "monospace": true,
+          "name": "Value",
+          "value": "30820122300d06092a864886f70d01010105000382010f003082010a0282010100b5700a95c57055aa4bd2b75c9013c48226ad708b909b47b6431997c36ef9de6a70f9ea059232cfc4918fce9df3773dbcf381ca6c1b08e55d116181721f106ee33862416c51a5f7304e93c290f6ea4c0f453e333a31102defb50808961ba22070430efc6e8e3330cf8e7b4dae9f63e0e81b37071b045925034503ca1f2a7e4e9b6e3c298f3a7f1907fcf435bd6f1c8c4d9dfe3e8e2c6d40a7b4e6302e5e6a19303a47d52599ab12a6ac80b39e54f106b81a6e3ff728c24e886b2eaed1101ae84b9763f23df2aa3b7861f6fa222e24b35beee30ad4646ce74d2c07c9b1bc15793487fe8e437ca0846ea400e2372d0f711e5f66eb295860a00da126d24b01ee9f150203010001",
+        },
+        Object {
+          "$groups": Array [
+            Array [
+              Object {
+                "name": "Modulus",
+                "value": "2048 bits",
+              },
+              Object {
+                "name": "Public Exponent",
+                "value": "65537",
+              },
+            ],
+          ],
+          "name": "Params",
+          "type": "rowGroup",
+        },
+      ],
+      "name": "Public Key Info",
+      "type": "section",
+    },
+    Object {
+      "$rows": Array [
+        Object {
+          "name": "Algorithm",
+          "value": "SHA256 with RSA Encryption (1.2.840.113549.1.1.11)",
+        },
+        Object {
+          "collapse": true,
+          "monospace": true,
+          "name": "Value",
+          "value": "1af448abd48a7660734a4cdcdf89b2b01f93975f836bd4c8a4f1294409cd38d37c314eca34c28af5570c49351f06605fa47ba39bb0d5898361e11eed61b9a5061994db54264a24be51090c53594398564228a8268f0db22dd4f19359df463020b0c24365b37fc8d48494194ae2fb171207fecfb9096f42bef88391bd3caf6136a32eab930983650c4cf03f29611252d0147ac132bb24b2bbde7ac8118717369117aa249cd05974dd0bb251d794b4bb3ed4a90ff67fc15b4f7b87aed77778a62b9356360507168ee02cf3f16a5da19a5cfb094680df7bf583d4f3e63e9524f2d3153699bacc70a6ab07a0f1a29553124c8f0ff6023c62b4b9099f6cf020006168",
+        },
+      ],
+      "name": "Signature",
+      "type": "section",
+    },
+    Object {
+      "$rows": Array [],
+      "name": "Fingerprints",
+      "type": "section",
+    },
+    Object {
+      "$rows": Extensions [
+        Object {
+          "$groups": Array [
+            Array [
+              Object {
+                "name": "Critical",
+                "value": "YES",
+              },
+              Object {
+                "name": "Certificate Authority",
+                "value": "Yes",
+              },
+            ],
+          ],
+          "name": "Basic Constraints (2.5.29.19)",
+          "type": "rowGroup",
+        },
+        Object {
+          "$groups": Array [
+            Array [
+              Object {
+                "name": "Critical",
+                "value": "NO",
+              },
+              Object {
+                "$groups": CertificatePolicies [
+                  Array [
+                    Object {
+                      "name": "Policy ID",
+                      "value": "FBCA Basic Policy (2.16.840.1.101.3.2.1.3.2)",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "name": "Policy ID",
+                      "value": "FBCA Medium Policy (2.16.840.1.101.3.2.1.3.3)",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "name": "Policy ID",
+                      "value": "FBCA Medium Hardware Policy (2.16.840.1.101.3.2.1.3.12)",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "name": "Policy ID",
+                      "value": "FPKI Common Authentication Policy (2.16.840.1.101.3.2.1.3.13)",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "name": "Policy ID",
+                      "value": "2.16.840.1.101.3.2.1.3.17",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "name": "Policy ID",
+                      "value": "2.16.840.1.101.3.2.1.3.39",
+                    },
+                  ],
+                ],
+                "name": "Policies",
+                "type": "rowGroup",
+              },
+            ],
+          ],
+          "name": "Certificate Policies (2.5.29.32)",
+          "type": "rowGroup",
+        },
+        Object {
+          "$groups": Array [
+            Array [
+              Object {
+                "name": "Critical",
+                "value": "NO",
+              },
+              Object {
+                "$groups": AuthorityInfoAccessSyntax [
+                  Array [
+                    Object {
+                      "name": "Method",
+                      "value": "1.3.6.1.5.5.7.48.2",
+                    },
+                    Object {
+                      "name": "URI",
+                      "value": "http://http.fpki.gov/bridge/caCertsIssuedTofbca2013.p7c",
+                    },
+                  ],
+                ],
+                "name": "Descriptions",
+                "type": "rowGroup",
+              },
+            ],
+          ],
+          "name": "Certificate Authority Information Access (1.3.6.1.5.5.7.1.1)",
+          "type": "rowGroup",
+        },
+        Object {
+          "$groups": Array [
+            Array [
+              Object {
+                "name": "Critical",
+                "value": "NO",
+              },
+              Object {
+                "$groups": PolicyMappings [
+                  Array [
+                    Object {
+                      "name": "Issuer Domain",
+                      "value": "FBCA Basic Policy (2.16.840.1.101.3.2.1.3.2)",
+                    },
+                    Object {
+                      "name": "Subject Domain",
+                      "value": "USPTO Basic 2003 (2.16.840.1.101.3.2.1.2.7)",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "name": "Issuer Domain",
+                      "value": "FBCA Medium Policy (2.16.840.1.101.3.2.1.3.3)",
+                    },
+                    Object {
+                      "name": "Subject Domain",
+                      "value": "USPTO Medium 2003 (2.16.840.1.101.3.2.1.2.8)",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "name": "Issuer Domain",
+                      "value": "FBCA Medium Hardware Policy (2.16.840.1.101.3.2.1.3.12)",
+                    },
+                    Object {
+                      "name": "Subject Domain",
+                      "value": "USPTO Medium Hardware (2.16.840.1.101.3.2.1.2.9)",
+                    },
+                  ],
+                ],
+                "name": "Policies",
+                "type": "rowGroup",
+              },
+            ],
+          ],
+          "name": "Policy Mappings (2.5.29.33)",
+          "type": "rowGroup",
+        },
+        Object {
+          "$groups": Array [
+            Array [
+              Object {
+                "name": "Critical",
+                "value": "YES",
+              },
+              Object {
+                "$groups": GeneralSubtrees [
+                  Array [
+                    Object {
+                      "$groups": Array [
+                        Name [
+                          Object {
+                            "name": "Domain Component",
+                            "value": "gov",
+                          },
+                          Object {
+                            "name": "Domain Component",
+                            "value": "uspto",
+                          },
+                        ],
+                      ],
+                      "name": "Directory Name",
+                      "type": "rowGroup",
+                    },
+                    Object {
+                      "name": "Minimum",
+                      "value": "0",
+                    },
+                  ],
+                ],
+                "name": "Permitted Subtrees",
+                "type": "rowGroup",
+              },
+            ],
+          ],
+          "name": "Name Constraints (2.5.29.30)",
+          "type": "rowGroup",
+        },
+        Object {
+          "$groups": Array [
+            Array [
+              Object {
+                "name": "Critical",
+                "value": "NO",
+              },
+              Object {
+                "$groups": SubjectInfoAccessSyntax [
+                  Array [
+                    Object {
+                      "name": "Method",
+                      "value": "1.3.6.1.5.5.7.48.5",
+                    },
+                    Object {
+                      "name": "URI",
+                      "value": "http://ipki.uspto.gov/IPKI/Certs/CAcertsIssuedByUSPTO.p7c",
+                    },
+                  ],
+                ],
+                "name": "Descriptions",
+                "type": "rowGroup",
+              },
+            ],
+          ],
+          "name": "Subject Info Access (1.3.6.1.5.5.7.1.11)",
+          "type": "rowGroup",
+        },
+        Object {
+          "$groups": Array [
+            Array [
+              Object {
+                "name": "Critical",
+                "value": "YES",
+              },
+              Object {
+                "name": "Require Explicit Policy",
+                "value": "0",
+              },
+              Object {
+                "name": "Inhibit Policy Mapping",
+                "value": "0",
+              },
+            ],
+          ],
+          "name": "Policy Constraints (2.5.29.36)",
+          "type": "rowGroup",
+        },
+        Object {
+          "$groups": Array [
+            Array [
+              Object {
+                "name": "Critical",
+                "value": "YES",
+              },
+              Object {
+                "name": "Skip Certs",
+                "value": "0",
+              },
+            ],
+          ],
+          "name": "Inhibit Any Policy (2.5.29.54)",
+          "type": "rowGroup",
+        },
+        Object {
+          "$groups": Array [
+            Array [
+              Object {
+                "name": "Critical",
+                "value": "YES",
+              },
+              Object {
+                "name": "Usage",
+                "value": "crlSign, keyCertSign",
+              },
+            ],
+          ],
+          "name": "Key Usage (2.5.29.15)",
+          "type": "rowGroup",
+        },
+        Object {
+          "$groups": Array [
+            Array [
+              Object {
+                "name": "Critical",
+                "value": "NO",
+              },
+              Object {
+                "collapse": false,
+                "monospace": true,
+                "name": "Key ID",
+                "value": "bbce747183344e593245155f406060dc2bb0b4e4",
+              },
+            ],
+          ],
+          "name": "Authority Key Identifier (2.5.29.35)",
+          "type": "rowGroup",
+        },
+        Object {
+          "$groups": Array [
+            Array [
+              Object {
+                "name": "Critical",
+                "value": "NO",
+              },
+              Object {
+                "$groups": Array [
+                  Array [
+                    Object {
+                      "name": "URI",
+                      "value": "http://http.fpki.gov/bridge/fbca2013.crl",
+                    },
+                  ],
+                ],
+                "name": "Distribution Point",
+                "type": "rowGroup",
+              },
+            ],
+          ],
+          "name": "CRL Distribution Points (2.5.29.31)",
+          "type": "rowGroup",
+        },
+        Object {
+          "$groups": Array [
+            Array [
+              Object {
+                "name": "Critical",
+                "value": "NO",
+              },
+              Object {
+                "collapse": false,
+                "monospace": true,
+                "name": "Key ID",
+                "value": "df3f39dbad6065505f33919a47a68e414eb54fdb",
+              },
+            ],
+          ],
+          "name": "Subject Key Identifier (2.5.29.14)",
+          "type": "rowGroup",
+        },
+      ],
+      "name": "Extensions",
+      "type": "section",
+    },
+  ],
+}
+`;

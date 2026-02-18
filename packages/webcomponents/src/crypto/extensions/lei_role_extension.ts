@@ -10,13 +10,12 @@ import { LeiRole, id_role } from '@peculiar/asn1-lei';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * LEI Role Extension
  */
 export class LeiRoleExtension extends BaseExtension {
-  public static override readonly NAME = 'LEI Role';
-
   public readonly value: LeiRole;
 
   constructor(raw: BufferSource) {
@@ -27,12 +26,11 @@ export class LeiRoleExtension extends BaseExtension {
     this.value = AsnParser.parse<LeiRole>(asnExtnValue, LeiRole);
   }
 
-  public override toJSON(): Record<string, string | number | boolean | Array<Record<string, string | number | boolean>>> {
-    return {
-      Name: LeiRoleExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Role: this.value.text,
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Role', this.value.text),
+    ]]);
   }
 }
 

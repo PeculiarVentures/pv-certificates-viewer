@@ -11,13 +11,13 @@ import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
+import { row, objectToRows, rowGroup } from '../rows_format';
+import type { RenderRow } from '../rows_format';
 
 /**
  * Name Constraints Extension
  */
 export class NameConstraintsExtension extends BaseExtension {
-  public static override readonly NAME = 'Name Constraints';
-
   public readonly value: NameConstraints;
 
   constructor(raw: BufferSource) {
@@ -28,40 +28,37 @@ export class NameConstraintsExtension extends BaseExtension {
     this.value = AsnParser.parse<NameConstraints>(asnExtnValue, NameConstraints);
   }
 
-  public override toJSON():
-  Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    const result: Record<string, string | number | boolean | Record<string, string>[]> = {
-      Name: NameConstraintsExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-    };
+  private subtreeToRows(subtree: { base: unknown; minimum?: unknown; maximum?: unknown }): RenderRow[] {
+    const baseObj = GeneralNameParser.toObject(subtree.base) as Record<string, unknown>;
+    const rows = objectToRows(baseObj);
 
-    if (this.value.excludedSubtrees && this.value.excludedSubtrees.length > 0) {
-      result['Excluded Subtrees'] = this.value.excludedSubtrees.map((subtree) => {
-        const subtreeData: Record<string, string> = GeneralNameParser.toObject(subtree.base);
-        if (subtree.minimum !== undefined) {
-          subtreeData.Minimum = subtree.minimum.toString();
-        }
-        if (subtree.maximum !== undefined) {
-          subtreeData.Maximum = subtree.maximum.toString();
-        }
-        return subtreeData;
-      });
+    if (subtree.minimum !== undefined) {
+      rows.push(row('Minimum', subtree.minimum.toString()));
     }
 
-    if (this.value.permittedSubtrees && this.value.permittedSubtrees.length > 0) {
-      result['Permitted Subtrees'] = this.value.permittedSubtrees.map((subtree) => {
-        const subtreeData: Record<string, string> = GeneralNameParser.toObject(subtree.base);
-        if (subtree.minimum !== undefined) {
-          subtreeData.Minimum = subtree.minimum.toString();
-        }
-        if (subtree.maximum !== undefined) {
-          subtreeData.Maximum = subtree.maximum.toString();
-        }
-        return subtreeData;
-      });
+    if (subtree.maximum !== undefined) {
+      rows.push(row('Maximum', subtree.maximum.toString()));
     }
 
-    return result as Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]>;
+    return rows;
+  }
+
+  public override toJSON() {
+    const rows: RenderRow[] = [
+      row('Critical', this.critical),
+    ];
+
+    if (this.value.excludedSubtrees?.length) {
+      rows.push(rowGroup('Excluded Subtrees', this.value.excludedSubtrees.map((s) => this.subtreeToRows(s))));
+    }
+
+    if (this.value.permittedSubtrees?.length) {
+      rows.push(rowGroup('Permitted Subtrees', this.value.permittedSubtrees.map((s) => this.subtreeToRows(s))));
+    }
+
+    return rowGroup(this.name, [[
+      ...rows,
+    ]]);
   }
 }
 

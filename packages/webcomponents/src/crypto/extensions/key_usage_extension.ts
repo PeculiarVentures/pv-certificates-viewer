@@ -10,13 +10,12 @@ import { KeyUsage, id_ce_keyUsage } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * Key Usage Extension
  */
 export class KeyUsageExtension extends BaseExtension {
-  public static override readonly NAME = 'Key Usage';
-
   public readonly value: KeyUsage;
 
   constructor(raw: BufferSource) {
@@ -27,12 +26,11 @@ export class KeyUsageExtension extends BaseExtension {
     this.value = AsnParser.parse<KeyUsage>(asnExtnValue, KeyUsage);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: KeyUsageExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Usage: this.value.toJSON().join(', '),
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Usage', this.value.toJSON().join(', ')),
+    ]]);
   }
 }
 

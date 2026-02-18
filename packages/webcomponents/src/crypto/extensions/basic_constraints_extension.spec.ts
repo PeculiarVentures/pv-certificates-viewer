@@ -22,11 +22,6 @@ describe('BasicConstraintsExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Basic Constraints',
-      Critical: 'Yes',
-      'Certificate Authority': 'Yes',
-      'Path Length Constraint': 0,
-    });
+    expect(json).toMatchSnapshot();
   });
 });

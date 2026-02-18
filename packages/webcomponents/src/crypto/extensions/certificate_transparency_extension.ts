@@ -8,16 +8,15 @@
 
 import { CertificateTransparency, id_certificateTransparency } from '@peculiar/asn1-cert-transparency';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { row, rowGroup } from '../rows_format';
+import logs from '../../constants/logs';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
-import logs from '../../constants/logs';
 
 /**
  * Certificate Transparency Extension
  */
 export class CertificateTransparencyExtension extends BaseExtension {
-  public static override readonly NAME = 'Certificate Transparency';
-
   public readonly value: CertificateTransparency;
 
   constructor(raw: BufferSource) {
@@ -28,23 +27,26 @@ export class CertificateTransparencyExtension extends BaseExtension {
     this.value = AsnParser.parse<CertificateTransparency>(asnExtnValue, CertificateTransparency);
   }
 
-  public override toJSON():
-  Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    const signedCertificateTimestamps = this.value.toJSON().map((sct) => ({
-      Version: sct.version + 1,
-      'Log Key ID': sct.logId,
-      'Log Operator': logs[sct.logId] || undefined,
-      Timestamp: new Date(sct.timestamp).toUTCString(),
-      'Signature Algorithm': `${sct.hashAlgorithm} ${sct.signatureAlgorithm}`.toUpperCase(),
-      Signature: sct.signature,
-      Extensions: sct.extensions || undefined,
-    }));
+  public override toJSON() {
+    const sctRows = this.value.toJSON().map((sct) => {
+      const rows = [
+        row('Version', sct.version + 1),
+        row('Log Key ID', sct.logId),
+        row('Timestamp', new Date(sct.timestamp).toUTCString()),
+        row('Signature Algorithm', `${sct.hashAlgorithm} ${sct.signatureAlgorithm}`.toUpperCase()),
+        row('Signature', sct.signature),
+      ];
 
-    return {
-      Name: CertificateTransparencyExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      'Signed Certificate Timestamps': signedCertificateTimestamps,
-    };
+      if (logs[sct.logId]) rows.splice(2, 0, row('Log Operator', logs[sct.logId]));
+      if (sct.extensions) rows.push(row('Extensions', typeof sct.extensions === 'string' ? sct.extensions : JSON.stringify(sct.extensions)));
+
+      return rows;
+    });
+
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      rowGroup('Signed Certificate Timestamps', sctRows),
+    ]]);
   }
 }
 

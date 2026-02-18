@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubjectDirectoryAttributesExtension should return correct JSON structure 1`] = `
+Object {
+  "$groups": Array [
+    Array [
+      Object {
+        "name": "Critical",
+        "value": "NO",
+      },
+      Object {
+        "$groups": Array [
+          Array [
+            Object {
+              "name": "Type",
+              "value": "1.3.6.1.5.5.7.9.4",
+            },
+            Object {
+              "name": "Value",
+              "value": "DE",
+            },
+          ],
+        ],
+        "name": "Attribute",
+        "type": "rowGroup",
+      },
+      Object {
+        "$groups": Array [
+          Array [
+            Object {
+              "name": "Type",
+              "value": "1.3.6.1.5.5.7.9.3",
+            },
+            Object {
+              "name": "Value",
+              "value": "F",
+            },
+          ],
+        ],
+        "name": "Attribute",
+        "type": "rowGroup",
+      },
+      Object {
+        "$groups": Array [
+          Array [
+            Object {
+              "name": "Type",
+              "value": "1.3.6.1.5.5.7.9.1",
+            },
+            Object {
+              "name": "Value",
+              "value": "19711014120000Z",
+            },
+          ],
+        ],
+        "name": "Attribute",
+        "type": "rowGroup",
+      },
+      Object {
+        "$groups": Array [
+          Array [
+            Object {
+              "name": "Type",
+              "value": "1.3.6.1.5.5.7.9.2",
+            },
+            Object {
+              "name": "Value",
+              "value": "	Darmstadt",
+            },
+          ],
+        ],
+        "name": "Attribute",
+        "type": "rowGroup",
+      },
+    ],
+  ],
+  "name": "Subject Directory Attributes (2.5.29.9)",
+  "type": "rowGroup",
+}
+`;

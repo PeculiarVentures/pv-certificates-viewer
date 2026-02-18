@@ -21,22 +21,6 @@ describe('NameConstraintsExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Name Constraints',
-      Critical: 'Yes',
-      'Permitted Subtrees': [
-        {
-          'Directory Name': [
-            {
-              '0.9.2342.19200300.100.1.25': 'gov',
-            },
-            {
-              '0.9.2342.19200300.100.1.25': 'uspto',
-            },
-          ],
-          Minimum: '0',
-        },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

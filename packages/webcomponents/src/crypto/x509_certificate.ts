@@ -16,17 +16,29 @@ import {
   CompositeSignatureValue,
   CompositeParams,
 } from '@peculiar/asn1-x509-post-quantum';
-import { Certificate, SubjectPublicKeyInfo } from '@peculiar/asn1-x509';
+import {
+  Certificate,
+  Extension as AsnExtension,
+  SubjectPublicKeyInfo,
+} from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
-import { dateDiff, Download } from '../utils';
+import { dateDiff, Download, getStringByOID } from '../utils';
+import { ExtensionFactory } from './extensions';
 import { Name, INameJSON } from './name';
-import { Extension, TExtensionValue } from './extension';
 import { AsnData } from './asn_data';
 import { PemConverter } from './pem_converter';
 import {
   certificateRawToBuffer,
   getCertificateThumbprint,
 } from './utils';
+import {
+  RowsFormat,
+  RenderRow,
+  row,
+  hexRow,
+  section,
+  rowGroup,
+} from './rows_format';
 
 export interface ISignature {
   algorithm: string;
@@ -55,8 +67,6 @@ export class X509Certificate extends AsnData<Certificate> {
   public readonly notAfter: Date;
 
   public readonly validity: string;
-
-  public extensions: Extension<TExtensionValue>[];
 
   public readonly version: number;
 
@@ -94,15 +104,6 @@ export class X509Certificate extends AsnData<Certificate> {
 
     this.notAfter = notAfter;
     this.validity = dateDiff(this.notBefore, this.notAfter);
-  }
-
-  public parseExtensions() {
-    const { tbsCertificate } = this.asn;
-
-    if (tbsCertificate.extensions) {
-      this.extensions = tbsCertificate.extensions
-        .map((e) => new Extension(AsnConvert.serialize(e)));
-    }
   }
 
   private getPublicKeyInfo(publicKeyInfo: SubjectPublicKeyInfo) {
@@ -254,5 +255,104 @@ export class X509Certificate extends AsnData<Certificate> {
       this.raw,
       name || this.commonName,
     );
+  }
+
+  public toJSON(): RowsFormat {
+    const extensionRows: RenderRow[] = this.asn.tbsCertificate.extensions.map((e) => {
+      const raw = AsnConvert.serialize(e);
+      const ext = ExtensionFactory.parse(raw);
+
+      if (ext) {
+        return ext.toJSON();
+      }
+
+      const asnExt = AsnConvert.parse(raw, AsnExtension);
+
+      return rowGroup(asnExt.extnID, [[
+        row('Critical', asnExt.critical ? 'Yes' : 'No'),
+        hexRow('Value', Convert.ToHex(asnExt.extnValue.buffer)),
+      ]]);
+    });
+
+    return {
+      $rows: [
+        section('Basic Information', [
+          row('Type', this.type),
+          hexRow('Serial Number', this.serialNumber),
+          row('Version', this.version),
+          row('Validity', this.validity),
+          row('Not Before', this.notBefore.toISOString()),
+          row('Not After', this.notAfter.toISOString()),
+        ]),
+        section('Subject Name', this.subject.map((n) => row(n.name, n.value))),
+        section('Issuer Name', this.issuer.map((n) => row(n.name, n.value))),
+        section('Public Key Info', this.getPublicKeyRows(this.publicKey)),
+        section('Signature', this.getSignatureRows()),
+        section('Fingerprints', Object.entries(this.thumbprints).map(([alg, val]) => row(alg, val))),
+        section('Extensions', extensionRows),
+      ],
+    };
+  }
+
+  private getPublicKeyRows(key: IPublicKey): RenderRow[] {
+    const rows: RenderRow[] = [
+      row('Algorithm', getStringByOID(key.algorithm)),
+      hexRow('Value', Convert.ToHex(key.value)),
+    ];
+
+    const publicKeyParamsRows = this.serializePublicKeyParamsToRows(key.params);
+
+    if (publicKeyParamsRows?.length) {
+      rows.push(rowGroup('Params', [publicKeyParamsRows]));
+    }
+
+    return rows;
+  }
+
+  private serializePublicKeyParamsToRows(
+    params: ECParameters | RSAPublicKey | IPublicKey[],
+  ): RenderRow[] {
+    if (Array.isArray(params)) {
+      return params.map((param) => rowGroup(
+        'Key',
+        [this.getPublicKeyRows(param)],
+      ));
+    }
+
+    if (params instanceof ECParameters) {
+      return [row('Named Curve', getStringByOID(params.namedCurve))];
+    }
+
+    if (params instanceof RSAPublicKey) {
+      let length = params.modulus.byteLength;
+
+      if (length % 2) {
+        length -= 1;
+      }
+
+      return [
+        row('Modulus', `${length * 8} bits`),
+        row('Public Exponent', params.publicExponent.byteLength === 3 ? 65537 : 3),
+      ];
+    }
+
+    return [];
+  }
+
+  private getSignatureRows(): RenderRow[] {
+    const { algorithm, value, params } = this.signature;
+    const rows: RenderRow[] = [
+      row('Algorithm', getStringByOID(algorithm)),
+      hexRow('Value', Convert.ToHex(value)),
+    ];
+
+    if (params?.length) {
+      rows.push(section('Params', params.map((param) => section(param.algorithm, [
+        row('Algorithm', param.algorithm),
+        hexRow('Value', Convert.ToHex(param.value)),
+      ]))));
+    }
+
+    return rows;
   }
 }

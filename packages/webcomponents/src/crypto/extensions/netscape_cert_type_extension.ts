@@ -10,13 +10,12 @@ import { NetscapeCertType, id_netscapeCertType } from '@peculiar/asn1-x509-netsc
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * Netscape Certificate Type Extension
  */
 export class NetscapeCertTypeExtension extends BaseExtension {
-  public static override readonly NAME = 'Netscape Certificate Type';
-
   public readonly value: NetscapeCertType;
 
   constructor(raw: BufferSource) {
@@ -27,12 +26,11 @@ export class NetscapeCertTypeExtension extends BaseExtension {
     this.value = AsnParser.parse<NetscapeCertType>(asnExtnValue, NetscapeCertType);
   }
 
-  public override toJSON(): Record<string, string | number | boolean | Array<Record<string, string | number | boolean>>> {
-    return {
-      Name: NetscapeCertTypeExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Type: this.value.toJSON().join(', '),
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Type', this.value.toJSON().join(', ')),
+    ]]);
   }
 }
 

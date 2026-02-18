@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubjectKeyIdentifierExtension should return correct JSON structure 1`] = `
+Object {
+  "$groups": Array [
+    Array [
+      Object {
+        "name": "Critical",
+        "value": "NO",
+      },
+      Object {
+        "collapse": false,
+        "monospace": true,
+        "name": "Key ID",
+        "value": "a84a6a63047dddbae6d139b7a64565eff3a8eca1",
+      },
+    ],
+  ],
+  "name": "Subject Key Identifier (2.5.29.14)",
+  "type": "rowGroup",
+}
+`;

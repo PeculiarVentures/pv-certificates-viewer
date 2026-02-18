@@ -10,13 +10,12 @@ import { TNAuthorizationList, id_pe_TNAuthList } from '@peculiar/asn1-rfc8226';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * TN Authorization List Extension
  */
 export class TNAuthorizationListExtension extends BaseExtension {
-  public static override readonly NAME = 'TN Authorization List';
-
   public readonly value: TNAuthorizationList;
 
   constructor(raw: BufferSource) {
@@ -27,29 +26,24 @@ export class TNAuthorizationListExtension extends BaseExtension {
     this.value = AsnParser.parse<TNAuthorizationList>(asnExtnValue, TNAuthorizationList);
   }
 
-  public override toJSON():
-  Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    const entries = this.value.map((entry) => {
-      const entryData: Record<string, string | number> = {
-        SPC: entry.spc,
-      };
+  public override toJSON() {
+    const entryRows = this.value.map((entry) => {
+      const rows = [row('SPC', entry.spc)];
 
       if (entry.range) {
-        entryData.Range = `start=${entry.range.start} count==${entry.range.count}`;
+        rows.push(row('Range', `start=${entry.range.start} count=${entry.range.count}`));
       }
-
       if (entry.one !== undefined) {
-        entryData.One = entry.one;
+        rows.push(row('One', entry.one));
       }
 
-      return entryData;
+      return rowGroup('Entry', [rows]);
     });
 
-    return {
-      Name: TNAuthorizationListExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Entries: entries,
-    };
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      ...entryRows,
+    ]]);
   }
 }
 

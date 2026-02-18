@@ -21,10 +21,6 @@ describe('DeltaCRLIndicatorExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Delta CRL Indicator',
-      Critical: 'Yes',
-      Value: '1',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

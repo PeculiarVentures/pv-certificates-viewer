@@ -23,12 +23,6 @@ describe('TimestampExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Timestamp',
-      Critical: 'No',
-      Version: 1,
-      URI: 'http://ts.quovadisglobal.com/be',
-      'Requires Auth': 'No',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

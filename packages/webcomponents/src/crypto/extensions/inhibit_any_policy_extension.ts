@@ -10,13 +10,12 @@ import { InhibitAnyPolicy, id_ce_inhibitAnyPolicy } from '@peculiar/asn1-x509';
 import { AsnParser, AsnIntegerArrayBufferConverter } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * Inhibit Any Policy Extension
  */
 export class InhibitAnyPolicyExtension extends BaseExtension {
-  public static override readonly NAME = 'Inhibit Any Policy';
-
   public readonly value: InhibitAnyPolicy;
 
   constructor(raw: BufferSource) {
@@ -27,14 +26,11 @@ export class InhibitAnyPolicyExtension extends BaseExtension {
     this.value = AsnParser.parse<InhibitAnyPolicy>(asnExtnValue, InhibitAnyPolicy);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: InhibitAnyPolicyExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      'Skip Certs': AsnIntegerArrayBufferConverter.toASN(
-        this.value.value,
-      ).valueBlock.toString(),
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Skip Certs', AsnIntegerArrayBufferConverter.toASN(this.value.value).valueBlock.toString()),
+    ]]);
   }
 }
 

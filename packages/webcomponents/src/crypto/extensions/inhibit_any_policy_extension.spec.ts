@@ -21,10 +21,6 @@ describe('InhibitAnyPolicyExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Inhibit Any Policy',
-      Critical: 'Yes',
-      'Skip Certs': '0',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

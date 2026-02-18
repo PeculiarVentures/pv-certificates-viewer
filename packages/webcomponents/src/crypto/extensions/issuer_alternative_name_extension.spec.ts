@@ -21,14 +21,6 @@ describe('IssuerAlternativeNameExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Issuer Alternative Name',
-      Critical: 'No',
-      Names: [
-        { 'DNS Name': 'issuer.example.com' },
-        { 'RFC 822 Name': 'issuer@example.com' },
-        { 'IP Address': '192.168.1.1' },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

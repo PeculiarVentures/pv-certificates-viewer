@@ -21,10 +21,6 @@ describe('SubjectKeyIdentifierExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Subject Key Identifier',
-      Critical: 'No',
-      'Key ID': 'a84a6a63047dddbae6d139b7a64565eff3a8eca1',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

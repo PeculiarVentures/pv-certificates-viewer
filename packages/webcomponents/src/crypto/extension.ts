@@ -137,12 +137,7 @@ import {
   id_ce_keyDescription,
   NonStandardKeyDescription,
 } from '@peculiar/asn1-android';
-import {
-  id_cabforganizationIdentifier,
-  CabforganizationIdentifier,
-} from './extensions';
 import { AsnData } from './asn_data';
-import './extension_registry'; // Ensure extensions are registered
 
 const extensionParsers = {
   [id_pe_authorityInfoAccess]: AuthorityInfoAccessSyntax,
@@ -186,7 +181,6 @@ const extensionParsers = {
   [id_ce_cRLNumber]: CRLNumber,
   [id_ce_deltaCRLIndicator]: BaseCRLNumber,
   [id_ce_keyDescription]: NonStandardKeyDescription,
-  [id_cabforganizationIdentifier]: CabforganizationIdentifier,
 };
 
 type TExtensionKeys = keyof typeof extensionParsers;

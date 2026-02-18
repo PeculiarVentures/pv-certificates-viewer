@@ -10,13 +10,12 @@ import { CertificateTemplate, id_certificateTemplate } from '@peculiar/asn1-x509
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * Certificate Template Extension
  */
 export class CertificateTemplateExtension extends BaseExtension {
-  public static override readonly NAME = 'Certificate Template';
-
   public readonly value: CertificateTemplate;
 
   constructor(raw: BufferSource) {
@@ -27,14 +26,13 @@ export class CertificateTemplateExtension extends BaseExtension {
     this.value = AsnParser.parse<CertificateTemplate>(asnExtnValue, CertificateTemplate);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: CertificateTemplateExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      'Template ID': this.value.templateID,
-      'Template Major Version': this.value.templateMajorVersion,
-      'Template Minor Version': this.value.templateMinorVersion,
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Template ID', this.value.templateID),
+      row('Template Major Version', this.value.templateMajorVersion),
+      row('Template Minor Version', this.value.templateMinorVersion),
+    ]]);
   }
 }
 

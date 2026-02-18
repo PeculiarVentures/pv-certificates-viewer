@@ -11,13 +11,12 @@ import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
+import { row, rowGroup, objectToRows } from '../rows_format';
 
 /**
  * Timestamp Extension
  */
 export class TimestampExtension extends BaseExtension {
-  public static override readonly NAME = 'Timestamp';
-
   public readonly value: Timestamp;
 
   constructor(raw: BufferSource) {
@@ -28,22 +27,15 @@ export class TimestampExtension extends BaseExtension {
     this.value = AsnParser.parse<Timestamp>(asnExtnValue, Timestamp);
   }
 
-  public override toJSON():
-  Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    const result: Record<string, string | number | boolean> = {
-      Name: TimestampExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Version: this.value.version,
-      'Requires Auth': this.value.requiresAuth ? 'Yes' : 'No',
-    };
+  public override toJSON() {
+    const rows = [
+      row('Critical', this.critical),
+      row('Version', this.value.version),
+      row('Requires Auth', this.value.requiresAuth ? 'Yes' : 'No'),
+      ...(this.value.location ? objectToRows(GeneralNameParser.toObject(this.value.location) as Record<string, unknown>) : []),
+    ];
 
-    if (this.value.location) {
-      const locationData = GeneralNameParser.toObject(this.value.location);
-
-      Object.assign(result, locationData);
-    }
-
-    return result as Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]>;
+    return rowGroup(this.name, [rows]);
   }
 }
 

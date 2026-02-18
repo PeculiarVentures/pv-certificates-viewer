@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExtendedKeyUsageExtension should return correct JSON structure 1`] = `
+Object {
+  "$groups": Array [
+    Array [
+      Object {
+        "name": "Critical",
+        "value": "NO",
+      },
+      Object {
+        "name": "Purposes",
+        "value": "Client Authentication, Email Protection",
+      },
+    ],
+  ],
+  "name": "Extended Key Usage (2.5.29.37)",
+  "type": "rowGroup",
+}
+`;

@@ -11,13 +11,12 @@ import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { OIDs } from '../../constants/oids';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * Policy Mappings Extension
  */
 export class PolicyMappingsExtension extends BaseExtension {
-  public static override readonly NAME = 'Policy Mappings';
-
   public readonly value: PolicyMappings;
 
   constructor(raw: BufferSource) {
@@ -28,27 +27,21 @@ export class PolicyMappingsExtension extends BaseExtension {
     this.value = AsnParser.parse<PolicyMappings>(asnExtnValue, PolicyMappings);
   }
 
-  public override toJSON():
-  Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    const policies = this.value.map((policy) => {
+  public override toJSON() {
+    const policyRows = this.value.map((policy) => {
       const issuerOid = OIDs[policy.issuerDomainPolicy] || policy.issuerDomainPolicy;
       const subjectOid = OIDs[policy.subjectDomainPolicy] || policy.subjectDomainPolicy;
 
-      return {
-        'Issuer Domain': issuerOid === policy.issuerDomainPolicy
-          ? policy.issuerDomainPolicy
-          : `${issuerOid} (${policy.issuerDomainPolicy})`,
-        'Subject Domain': subjectOid === policy.subjectDomainPolicy
-          ? policy.subjectDomainPolicy
-          : `${subjectOid} (${policy.subjectDomainPolicy})`,
-      };
+      return [
+        row('Issuer Domain', issuerOid === policy.issuerDomainPolicy ? policy.issuerDomainPolicy : `${issuerOid} (${policy.issuerDomainPolicy})`),
+        row('Subject Domain', subjectOid === policy.subjectDomainPolicy ? policy.subjectDomainPolicy : `${subjectOid} (${policy.subjectDomainPolicy})`),
+      ];
     });
 
-    return {
-      Name: PolicyMappingsExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Policies: policies,
-    };
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      rowGroup('Policies', policyRows),
+    ]]);
   }
 }
 

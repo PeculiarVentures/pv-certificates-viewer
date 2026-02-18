@@ -10,13 +10,12 @@ import { ArchiveRevInfo, id_adbe_archiveRevInfo } from '@peculiar/asn1-adobe-acr
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * Archive Rev Info Extension
  */
 export class ArchiveRevInfoExtension extends BaseExtension {
-  public static override readonly NAME = 'Archive Rev Info';
-
   public readonly value: ArchiveRevInfo;
 
   constructor(raw: BufferSource) {
@@ -27,12 +26,11 @@ export class ArchiveRevInfoExtension extends BaseExtension {
     this.value = AsnParser.parse<ArchiveRevInfo>(asnExtnValue, ArchiveRevInfo);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: ArchiveRevInfoExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Version: this.value.version,
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Version', this.value.version),
+    ]]);
   }
 }
 

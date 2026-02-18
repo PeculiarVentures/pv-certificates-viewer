@@ -21,10 +21,6 @@ describe('KeyUsageExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Key Usage',
-      Critical: 'Yes',
-      Usage: 'crlSign, digitalSignature, keyCertSign',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

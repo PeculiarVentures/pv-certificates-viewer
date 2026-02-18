@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NameConstraintsExtension should return correct JSON structure 1`] = `
+Object {
+  "$groups": Array [
+    Array [
+      Object {
+        "name": "Critical",
+        "value": "YES",
+      },
+      Object {
+        "$groups": GeneralSubtrees [
+          Array [
+            Object {
+              "$groups": Array [
+                Name [
+                  Object {
+                    "name": "Domain Component",
+                    "value": "gov",
+                  },
+                  Object {
+                    "name": "Domain Component",
+                    "value": "uspto",
+                  },
+                ],
+              ],
+              "name": "Directory Name",
+              "type": "rowGroup",
+            },
+            Object {
+              "name": "Minimum",
+              "value": "0",
+            },
+          ],
+        ],
+        "name": "Permitted Subtrees",
+        "type": "rowGroup",
+      },
+    ],
+  ],
+  "name": "Name Constraints (2.5.29.30)",
+  "type": "rowGroup",
+}
+`;

@@ -8,6 +8,7 @@
 
 import { BasicConstraints, id_ce_basicConstraints } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -15,8 +16,6 @@ import { BaseExtension } from './base_extension';
  * Basic Constraints Extension
  */
 export class BasicConstraintsExtension extends BaseExtension {
-  public static override readonly NAME = 'Basic Constraints';
-
   public readonly value: BasicConstraints;
 
   constructor(raw: BufferSource) {
@@ -27,13 +26,12 @@ export class BasicConstraintsExtension extends BaseExtension {
     this.value = AsnParser.parse<BasicConstraints>(asnExtnValue, BasicConstraints);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: BasicConstraintsExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      'Certificate Authority': this.value.cA ? 'Yes' : 'No',
-      'Path Length Constraint': this.value.pathLenConstraint ?? '',
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Certificate Authority', this.value.cA ? 'Yes' : 'No'),
+      ...(this.value.pathLenConstraint !== undefined ? [row('Path Length Constraint', this.value.pathLenConstraint)] : []),
+    ]]);
   }
 }
 

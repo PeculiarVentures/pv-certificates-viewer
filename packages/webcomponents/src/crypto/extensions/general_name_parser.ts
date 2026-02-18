@@ -15,6 +15,7 @@ import {
 } from '@peculiar/asn1-x509';
 import { Convert, BufferSourceConverter } from 'pvtsutils';
 import { AsnParser, AsnConvert } from '@peculiar/asn1-schema';
+import { getStringByOID } from '../../utils';
 
 const names: Record<keyof GeneralName, string> = {
   otherName: 'Other Name',
@@ -75,9 +76,13 @@ export class GeneralNameParser {
     // Check directoryName
     if (generalName.directoryName) {
       result[names.directoryName] = generalName.directoryName.map((relativeDistinguishedName) => (
-        relativeDistinguishedName.map((attributeTypeAndValue) => ({
-          [attributeTypeAndValue.type]: attributeTypeAndValue.value.toString(),
-        }))
+        relativeDistinguishedName.map((attributeTypeAndValue) => {
+          const name = getStringByOID(attributeTypeAndValue.type, true);
+
+          return {
+            [name]: attributeTypeAndValue.value.toString(),
+          };
+        })
       )).flat();
     }
 
@@ -102,6 +107,7 @@ export class GeneralNameParser {
           }
         }
       } else {
+        // @ts-ignore
         result[names.otherName] = Convert.ToHex(generalName.otherName.value);
       }
     }
@@ -110,6 +116,7 @@ export class GeneralNameParser {
     if (generalName.ediPartyName) {
       const value = generalName.ediPartyName instanceof EDIPartyName
         ? generalName.ediPartyName.partyName.toString()
+        // @ts-ignore
         : generalName.ediPartyName.partyName.toString();
 
       result[names.ediPartyName] = value;

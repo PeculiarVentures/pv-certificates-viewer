@@ -23,12 +23,6 @@ describe('CertificateTemplateExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Certificate Template',
-      Critical: 'No',
-      'Template ID': '1.3.6.1.4.1.311.21.8.4659868.14977541.11682196.5068793.8777523.134.1.27',
-      'Template Major Version': 105,
-      'Template Minor Version': 0,
-    });
+    expect(json).toMatchSnapshot();
   });
 });

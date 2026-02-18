@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CRLDistributionPointsExtension should return correct JSON structure 1`] = `
+Object {
+  "$groups": Array [
+    Array [
+      Object {
+        "name": "Critical",
+        "value": "NO",
+      },
+      Object {
+        "$groups": Array [
+          Array [
+            Object {
+              "$groups": Array [
+                Name [
+                  Object {
+                    "name": "Country Name",
+                    "value": "US",
+                  },
+                  Object {
+                    "name": "Organization",
+                    "value": "Adobe Systems Incorporated",
+                  },
+                  Object {
+                    "name": "Organization Unit",
+                    "value": "Adobe Trust Services",
+                  },
+                  Object {
+                    "name": "Common Name",
+                    "value": "Adobe Root CA",
+                  },
+                  Object {
+                    "name": "Common Name",
+                    "value": "CRL1",
+                  },
+                ],
+              ],
+              "name": "Directory Name",
+              "type": "rowGroup",
+            },
+          ],
+        ],
+        "name": "Distribution Point",
+        "type": "rowGroup",
+      },
+    ],
+  ],
+  "name": "CRL Distribution Points (2.5.29.31)",
+  "type": "rowGroup",
+}
+`;

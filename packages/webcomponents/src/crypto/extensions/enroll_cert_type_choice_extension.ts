@@ -10,13 +10,12 @@ import { EnrollCertTypeChoice, id_enrollCertType } from '@peculiar/asn1-x509-mic
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * Enroll Cert Type Choice Extension
  */
 export class EnrollCertTypeChoiceExtension extends BaseExtension {
-  public static override readonly NAME = 'Enroll Cert Type';
-
   public readonly value: EnrollCertTypeChoice;
 
   constructor(raw: BufferSource) {
@@ -27,12 +26,11 @@ export class EnrollCertTypeChoiceExtension extends BaseExtension {
     this.value = AsnParser.parse<EnrollCertTypeChoice>(asnExtnValue, EnrollCertTypeChoice);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: EnrollCertTypeChoiceExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Value: this.value.toString(),
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Value', this.value.toString()),
+    ]]);
   }
 }
 

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeltaCRLIndicatorExtension should return correct JSON structure 1`] = `
+Object {
+  "$groups": Array [
+    Array [
+      Object {
+        "name": "Critical",
+        "value": "YES",
+      },
+      Object {
+        "name": "Value",
+        "value": "1",
+      },
+    ],
+  ],
+  "name": "Delta CRL Indicator (2.5.29.27)",
+  "type": "rowGroup",
+}
+`;

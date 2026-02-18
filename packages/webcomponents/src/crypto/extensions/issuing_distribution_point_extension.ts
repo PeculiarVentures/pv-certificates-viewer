@@ -11,13 +11,12 @@ import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
+import { row, rowGroup, objectToRows } from '../rows_format';
 
 /**
  * Issuing Distribution Point Extension
  */
 export class IssuingDistributionPointExtension extends BaseExtension {
-  public static override readonly NAME = 'Issuing Distribution Point';
-
   public readonly value: IssuingDistributionPoint;
 
   constructor(raw: BufferSource) {
@@ -31,43 +30,23 @@ export class IssuingDistributionPointExtension extends BaseExtension {
     );
   }
 
-  public override toJSON():
-  Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    const result: Record<string, string | number | boolean | Record<string, string>[]> = {
-      Name: IssuingDistributionPointExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-    };
+  public override toJSON() {
+    const rows = [row('Critical', this.critical)];
 
-    if (this.value.distributionPoint?.fullName) {
-      result['Distribution Point'] = this.value.distributionPoint.fullName.map((gn) =>
-        GeneralNameParser.toObject(gn),
-      );
+    if (this.value.distributionPoint?.fullName?.length) {
+      rows.push(rowGroup('Distribution Point', [this.value.distributionPoint.fullName.flatMap(
+        (gn) => objectToRows(GeneralNameParser.toObject(gn) as Record<string, unknown>),
+      )]));
     }
-
     if (this.value.onlySomeReasons) {
-      result['Only Some Reasons'] = this.value.onlySomeReasons.toJSON().join(', ');
+      rows.push(row('Only Some Reasons', this.value.onlySomeReasons.toJSON().join(', ')));
     }
+    if (this.value.indirectCRL) rows.push(row('Indirect CRL', 'Yes'));
+    if (this.value.onlyContainsUserCerts) rows.push(row('Only Contains User Certs', 'Yes'));
+    if (this.value.onlyContainsAttributeCerts) rows.push(row('Only Contains Attribute Certs', 'Yes'));
+    if (this.value.onlyContainsCACerts) rows.push(row('Only Contains CA Certs', 'Yes'));
 
-    if (this.value.indirectCRL) {
-      result['Indirect CRL'] = 'Yes';
-    }
-
-    if (this.value.onlyContainsUserCerts) {
-      result['Only Contains User Certs'] = 'Yes';
-    }
-
-    if (this.value.onlyContainsAttributeCerts) {
-      result['Only Contains Attribute Certs'] = 'Yes';
-    }
-
-    if (this.value.onlyContainsCACerts) {
-      result['Only Contains CA Certs'] = 'Yes';
-    }
-
-    return result as Record<
-      string,
-      string | number | boolean | Record<string, Record<string, string>[]>[]
-    >;
+    return rowGroup(this.name, [rows]);
   }
 }
 

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BasicConstraintsExtension should return correct JSON structure 1`] = `
+Object {
+  "$groups": Array [
+    Array [
+      Object {
+        "name": "Critical",
+        "value": "YES",
+      },
+      Object {
+        "name": "Certificate Authority",
+        "value": "Yes",
+      },
+      Object {
+        "name": "Path Length Constraint",
+        "value": "0",
+      },
+    ],
+  ],
+  "name": "Basic Constraints (2.5.29.19)",
+  "type": "rowGroup",
+}
+`;

@@ -21,27 +21,6 @@ describe('SubjectDirectoryAttributesExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Subject Directory Attributes',
-      Critical: 'No',
-      Attributes: [
-        {
-          Type: '1.3.6.1.5.5.7.9.4',
-          Value: '\u0013\u0002DE',
-        },
-        {
-          Type: '1.3.6.1.5.5.7.9.3',
-          Value: '\u0013\u0001F',
-        },
-        {
-          Type: '1.3.6.1.5.5.7.9.1',
-          Value: '\u0018\u000f19711014120000Z',
-        },
-        {
-          Type: '1.3.6.1.5.5.7.9.2',
-          Value: '\f\tDarmstadt',
-        },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

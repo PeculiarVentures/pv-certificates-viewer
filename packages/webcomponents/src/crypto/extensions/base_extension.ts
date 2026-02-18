@@ -8,20 +8,28 @@
 
 import { Extension as AsnExtension } from '@peculiar/asn1-x509';
 import { AsnData } from '../asn_data';
+import { getStringByOID } from '../../utils/get_string_by_oid';
+import type { RenderRow } from '../rows_format';
 
 /**
- * Base class for all extension types
+ * Base class for all extension types.
+ * Display name is derived from OID: "OIDs[extnID] (extnID)" so the same extension
+ * class can show different names when registered for multiple OIDs.
  */
 export abstract class BaseExtension extends AsnData<AsnExtension> {
-  public static readonly NAME: string;
-
   constructor(raw: BufferSource) {
     super(raw, AsnExtension);
   }
 
-  public get critical(): boolean {
-    return this.asn.critical ?? false;
+  public get critical(): string {
+    return this.asn.critical ? 'YES' : 'NO';
   }
 
-  public abstract toJSON(): Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]>;
+  /** Display name based on OID: "OIDs[oid] (oid)" when in OIDs map, else the OID string. */
+  public get name(): string {
+    return getStringByOID(this.asn.extnID);
+  }
+
+  /** Returns a section RenderRow for this extension (name + $rows) */
+  public abstract toJSON(): RenderRow;
 }

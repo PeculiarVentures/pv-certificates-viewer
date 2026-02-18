@@ -21,27 +21,6 @@ describe('CertificatePoliciesExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Certificate Policies',
-      Critical: 'No',
-      Policies: [
-        {
-          'Policy ID': '1.3.6.1.4.1.13177.10.1.2.2',
-          Qualifiers: [
-            {
-              'Qualifier ID': '1.3.6.1.5.5.7.2.1',
-              Value: 'http://www.firmaprofesional.com/cps',
-            },
-            {
-              'Qualifier ID': '1.3.6.1.5.5.7.2.2',
-              Value: 'Éste es un Certificado Corporativo de Persona Física cualificado para su uso sin DCCF. Dirección del prestador de servicios de confianza: Paseo de la Bonanova, 47. 08017 Barcelona',
-            },
-          ],
-        },
-        {
-          'Policy ID': '0.4.0.194112.1.0',
-        },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

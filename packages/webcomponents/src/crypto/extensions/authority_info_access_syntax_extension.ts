@@ -11,13 +11,12 @@ import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
+import { row, objectToRows, rowGroup } from '../rows_format';
 
 /**
  * Authority Info Access Syntax Extension
  */
 export class AuthorityInfoAccessSyntaxExtension extends BaseExtension {
-  public static override readonly NAME = 'Authority Info Access';
-
   public readonly value: AuthorityInfoAccessSyntax;
 
   constructor(raw: BufferSource) {
@@ -28,19 +27,20 @@ export class AuthorityInfoAccessSyntaxExtension extends BaseExtension {
     this.value = AsnParser.parse<AuthorityInfoAccessSyntax>(asnExtnValue, AuthorityInfoAccessSyntax);
   }
 
-  public override toJSON(): Record<string, string | number | boolean | Record<string, string | number | boolean>[]> {
-    const descriptions = this.value.map((description) => {
-      return {
+  public override toJSON() {
+    const descriptionRows = this.value.map((description) => {
+      const locationObj = GeneralNameParser.toObject(description.accessLocation) as Record<string, unknown>;
+
+      return objectToRows({
         Method: description.accessMethod,
-        ...GeneralNameParser.toObject(description.accessLocation),
-      };
+        ...locationObj,
+      });
     });
 
-    return {
-      Name: AuthorityInfoAccessSyntaxExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Descriptions: descriptions,
-    };
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      rowGroup('Descriptions', descriptionRows),
+    ]]);
   }
 }
 

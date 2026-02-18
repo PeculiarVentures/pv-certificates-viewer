@@ -10,13 +10,12 @@ import { NetscapeComment, id_netscapeComment } from '@peculiar/asn1-x509-netscap
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * Netscape Comment Extension
  */
 export class NetscapeCommentExtension extends BaseExtension {
-  public static override readonly NAME = 'Netscape Comment';
-
   public readonly value: NetscapeComment;
 
   constructor(raw: BufferSource) {
@@ -27,12 +26,11 @@ export class NetscapeCommentExtension extends BaseExtension {
     this.value = AsnParser.parse<NetscapeComment>(asnExtnValue, NetscapeComment);
   }
 
-  public override toJSON(): Record<string, string | number | boolean | Array<Record<string, string | number | boolean>>> {
-    return {
-      Name: NetscapeCommentExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Comment: this.value.value,
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Comment', this.value.value),
+    ]]);
   }
 }
 

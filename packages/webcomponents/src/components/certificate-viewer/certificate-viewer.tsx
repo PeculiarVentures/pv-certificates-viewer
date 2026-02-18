@@ -17,16 +17,7 @@ import {
 } from '@stencil/core';
 import { X509Certificate } from '../../crypto';
 import {
-  getDNSNameLink, getIPAddressLink, getLEILink,
-} from '../../utils/third_party_links';
-import {
-  BasicInformation,
-  SubjectName,
-  IssuerName,
-  PublicKey,
-  Signature,
-  Thumbprints,
-  Extensions,
+  JsonCertificateParser,
   Miscellaneous,
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
@@ -140,7 +131,6 @@ export class CertificateViewer {
         return;
       }
 
-      this.certificateDecoded.parseExtensions();
       await this.certificateDecoded.getThumbprint('SHA-1');
       await this.certificateDecoded.getThumbprint('SHA-256');
     } catch (error) {
@@ -172,22 +162,6 @@ export class CertificateViewer {
     }
   }
 
-  private getAuthKeyIdParentLink = (value: string) => this.authKeyIdParentLink
-    ?.replace('{{authKeyId}}', value);
-
-  private getAuthKeyIdSiblingsLink = (value: string) => this.authKeyIdSiblingsLink
-    ?.replace('{{authKeyId}}', value);
-
-  private getSubjectKeyIdChildrenLink = (value: string) => this.subjectKeyIdChildrenLink
-    ?.replace('{{subjectKeyId}}', value);
-
-  private getSubjectKeyIdSiblingsLink = (value: string) => this.subjectKeyIdSiblingsLink
-    ?.replace('{{subjectKeyId}}', value);
-
-  private getIssuerDnLink() {
-    return this.issuerDnLink;
-  }
-
   private renderErrorState() {
     return (
       <div class="status_wrapper">
@@ -217,45 +191,15 @@ export class CertificateViewer {
       return this.renderEmptyState();
     }
 
+    const certificateJson = this.certificateDecoded.toJSON();
+
     return (
       <Host
         data-mobile-screen-view={String(this.mobileScreenView)}
       >
         <table>
-          <BasicInformation
-            {...this.certificateDecoded}
-          />
-
-          <SubjectName
-            name={this.certificateDecoded.subject}
-          />
-
-          <IssuerName
-            name={this.certificateDecoded.issuer}
-            issuerDnLink={this.getIssuerDnLink()}
-          />
-
-          <PublicKey
-            publicKey={this.certificateDecoded.publicKey}
-          />
-
-          <Signature
-            signature={this.certificateDecoded.signature}
-          />
-
-          <Thumbprints
-            thumbprints={this.certificateDecoded.thumbprints}
-          />
-
-          <Extensions
-            extensions={this.certificateDecoded.extensions}
-            getLEILink={getLEILink}
-            getDNSNameLink={getDNSNameLink}
-            getIPAddressLink={getIPAddressLink}
-            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
-            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
-            getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
-            getSubjectKeyIdSiblingsLink={this.getSubjectKeyIdSiblingsLink}
+          <JsonCertificateParser
+            json={certificateJson}
           />
 
           {this.download && (

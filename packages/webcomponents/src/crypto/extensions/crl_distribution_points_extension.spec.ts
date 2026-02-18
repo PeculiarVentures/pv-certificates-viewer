@@ -21,24 +21,6 @@ describe('CRLDistributionPointsExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'CRL Distribution Points',
-      Critical: 'No',
-      'Distribution Points': [
-        {
-          'Distribution Point': [
-            {
-              'Directory Name': [
-                { '2.5.4.6': 'US' },
-                { '2.5.4.10': 'Adobe Systems Incorporated' },
-                { '2.5.4.11': 'Adobe Trust Services' },
-                { '2.5.4.3': 'Adobe Root CA' },
-                { '2.5.4.3': 'CRL1' },
-              ],
-            },
-          ],
-        },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

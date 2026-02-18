@@ -10,13 +10,12 @@ import { EntrustVersionInfo, id_entrust_entrustVersInfo } from '@peculiar/asn1-x
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * Entrust Version Info Extension
  */
 export class EntrustVersionInfoExtension extends BaseExtension {
-  public static override readonly NAME = 'Entrust Version Info';
-
   public readonly value: EntrustVersionInfo;
 
   constructor(raw: BufferSource) {
@@ -27,13 +26,12 @@ export class EntrustVersionInfoExtension extends BaseExtension {
     this.value = AsnParser.parse<EntrustVersionInfo>(asnExtnValue, EntrustVersionInfo);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: EntrustVersionInfoExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Version: this.value.entrustVers,
-      'Info Flags': this.value.entrustInfoFlags.toJSON().join(', '),
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Version', this.value.entrustVers),
+      row('Info Flags', this.value.entrustInfoFlags.toJSON().join(', ')),
+    ]]);
   }
 }
 

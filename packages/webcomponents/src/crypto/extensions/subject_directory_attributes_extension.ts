@@ -11,13 +11,12 @@ import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * Subject Directory Attributes Extension
  */
 export class SubjectDirectoryAttributesExtension extends BaseExtension {
-  public static override readonly NAME = 'Subject Directory Attributes';
-
   public readonly value: SubjectDirectoryAttributes;
 
   constructor(raw: BufferSource) {
@@ -28,17 +27,16 @@ export class SubjectDirectoryAttributesExtension extends BaseExtension {
     this.value = AsnParser.parse<SubjectDirectoryAttributes>(asnExtnValue, SubjectDirectoryAttributes);
   }
 
-  public override toJSON(): Record<string, string | number | boolean | Record<string, string | number | boolean>[]> {
-    const attributes = this.value.map((attribute: Attribute) => ({
-      Type: attribute.type,
-      Value: Convert.ToString(attribute.values[0]),
-    }));
+  public override toJSON() {
+    const attrRows = this.value.map((attribute: Attribute) => rowGroup('Attribute', [[
+      row('Type', attribute.type),
+      row('Value', Convert.ToString(attribute.values[0])),
+    ]]));
 
-    return {
-      Name: SubjectDirectoryAttributesExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Attributes: attributes,
-    };
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      ...attrRows,
+    ]]);
   }
 }
 

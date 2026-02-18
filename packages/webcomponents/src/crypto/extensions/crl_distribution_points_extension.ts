@@ -11,13 +11,12 @@ import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
+import { row, objectToRows, rowGroup } from '../rows_format';
 
 /**
  * CRL Distribution Points Extension
  */
 export class CRLDistributionPointsExtension extends BaseExtension {
-  public static override readonly NAME = 'CRL Distribution Points';
-
   public readonly value: CRLDistributionPoints;
 
   constructor(raw: BufferSource) {
@@ -28,28 +27,29 @@ export class CRLDistributionPointsExtension extends BaseExtension {
     this.value = AsnParser.parse<CRLDistributionPoints>(asnExtnValue, CRLDistributionPoints);
   }
 
-  public override toJSON():
-  Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    type TDistributionPointData = Record<string, Record<string, string>[]>;
-    const distributionPoints = this.value.map((point) => {
-      const pointData: TDistributionPointData = {};
+  public override toJSON() {
+    const dpRows = this.value.map((point) => {
+      const rows = [];
 
-      if (point.distributionPoint?.fullName) {
-        pointData['Distribution Point'] = point.distributionPoint.fullName.map((gn) => GeneralNameParser.toObject(gn));
+      if (point.distributionPoint?.fullName?.length) {
+        rows.push(rowGroup('Distribution Point', point.distributionPoint.fullName.map(
+          (gn) => objectToRows(GeneralNameParser.toObject(gn) as Record<string, unknown>),
+        )));
       }
 
-      if (point.cRLIssuer && point.cRLIssuer.length > 0) {
-        pointData['CRL Issuer'] = point.cRLIssuer.map((gn) => GeneralNameParser.toObject(gn));
+      if (point.cRLIssuer?.length) {
+        rows.push(rowGroup('CRL Issuer', point.cRLIssuer.map(
+          (gn) => objectToRows(GeneralNameParser.toObject(gn) as Record<string, unknown>),
+        )));
       }
 
-      return pointData;
-    });
+      return rows;
+    }).flat();
 
-    return {
-      Name: CRLDistributionPointsExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      'Distribution Points': distributionPoints,
-    };
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      ...dpRows,
+    ]]);
   }
 }
 

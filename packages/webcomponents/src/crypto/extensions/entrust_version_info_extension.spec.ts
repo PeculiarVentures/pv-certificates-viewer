@@ -22,11 +22,6 @@ describe('EntrustVersionInfoExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Entrust Version Info',
-      Critical: 'No',
-      Version: 'V6.0:4.0',
-      'Info Flags': 'keyUpdateAllowed',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

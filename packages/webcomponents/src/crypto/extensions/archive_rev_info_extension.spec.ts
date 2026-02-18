@@ -21,10 +21,6 @@ describe('ArchiveRevInfoExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Archive Rev Info',
-      Critical: 'No',
-      Version: 1,
-    });
+    expect(json).toMatchSnapshot();
   });
 });

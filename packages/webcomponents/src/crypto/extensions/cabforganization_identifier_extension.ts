@@ -9,14 +9,13 @@
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 import { CabforganizationIdentifier, id_cabforganizationIdentifier } from './cabforganization_identifier';
 
 /**
  * CABF Organization Identifier Extension
  */
 export class CabforganizationIdentifierExtension extends BaseExtension {
-  public static override readonly NAME = 'CABF Organization Identifier';
-
   public readonly value: CabforganizationIdentifier;
 
   constructor(raw: BufferSource) {
@@ -30,20 +29,19 @@ export class CabforganizationIdentifierExtension extends BaseExtension {
     );
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    const result: Record<string, string | number | boolean> = {
-      Name: CabforganizationIdentifierExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      'Registration Scheme Identifier': this.value.registrationSchemeIdentifier,
-      'Registration Country': this.value.registrationCountry,
-      'Registration Reference': this.value.registrationReference,
-    };
+  public override toJSON() {
+    const rows = [
+      row('Critical', this.critical),
+      row('Registration Scheme Identifier', this.value.registrationSchemeIdentifier),
+      row('Registration Country', this.value.registrationCountry),
+      row('Registration Reference', this.value.registrationReference),
+    ];
 
     if (this.value.registrationStateOrProvince) {
-      result['Registration State Or Province'] = this.value.registrationStateOrProvince;
+      rows.push(row('Registration State Or Province', this.value.registrationStateOrProvince));
     }
 
-    return result;
+    return rowGroup(this.name, [rows]);
   }
 }
 

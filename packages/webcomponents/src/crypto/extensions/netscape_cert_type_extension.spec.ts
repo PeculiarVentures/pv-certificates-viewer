@@ -21,10 +21,6 @@ describe('NetscapeCertTypeExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Netscape Certificate Type',
-      Critical: 'No',
-      Type: 'objectSigningCa, sMimeCa, sslCa',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

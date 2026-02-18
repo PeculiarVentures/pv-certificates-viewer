@@ -21,15 +21,6 @@ describe('SubjectInfoAccessSyntaxExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Subject Info Access',
-      Critical: 'No',
-      Descriptions: [
-        {
-          Method: '1.3.6.1.5.5.7.48.5',
-          URI: 'http://ipki.uspto.gov/IPKI/Certs/CAcertsIssuedByUSPTO.p7c',
-        },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

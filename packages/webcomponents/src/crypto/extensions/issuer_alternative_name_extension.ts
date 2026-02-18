@@ -11,13 +11,13 @@ import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
+import { row, rowGroup, objectToRows } from '../rows_format';
+import type { RenderRow } from '../rows_format';
 
 /**
  * Issuer Alternative Name Extension
  */
 export class IssuerAlternativeNameExtension extends BaseExtension {
-  public static override readonly NAME = 'Issuer Alternative Name';
-
   public readonly value: IssueAlternativeName;
 
   constructor(raw: BufferSource) {
@@ -28,15 +28,25 @@ export class IssuerAlternativeNameExtension extends BaseExtension {
     this.value = AsnParser.parse<IssueAlternativeName>(asnExtnValue, IssueAlternativeName);
   }
 
-  public override toJSON():
-  Record<string, string | number | boolean | Record<string, string | number | boolean>[]> {
-    const names = this.value.map((generalName) => GeneralNameParser.toObject(generalName));
+  public override toJSON() {
+    const nameRows: RenderRow[] = this.value.flatMap((generalName) => {
+      const obj = GeneralNameParser.toObject(generalName);
 
-    return {
-      Name: IssuerAlternativeNameExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Names: names,
-    };
+      if (Object.keys(obj).length === 1) {
+        const [[k, v]] = Object.entries(obj);
+
+        if (typeof v === 'string' || typeof v === 'number') {
+          return [row(k, v)];
+        }
+      }
+
+      return [rowGroup('Name', [objectToRows(obj as Record<string, unknown>)])];
+    });
+
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      ...nameRows,
+    ]]);
   }
 }
 

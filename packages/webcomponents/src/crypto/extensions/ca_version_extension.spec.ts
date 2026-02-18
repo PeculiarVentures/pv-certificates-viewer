@@ -22,11 +22,6 @@ describe('CaVersionExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'CA Version',
-      Critical: 'No',
-      'Certificate Index': 0,
-      'Key Index': 0,
-    });
+    expect(json).toMatchSnapshot();
   });
 });

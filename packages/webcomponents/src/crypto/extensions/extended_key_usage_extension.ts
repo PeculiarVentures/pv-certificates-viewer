@@ -8,6 +8,8 @@
 
 import { ExtendedKeyUsage, id_ce_extKeyUsage } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { getStringByOID } from '../../utils';
+import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -15,8 +17,6 @@ import { BaseExtension } from './base_extension';
  * Extended Key Usage Extension
  */
 export class ExtendedKeyUsageExtension extends BaseExtension {
-  public static override readonly NAME = 'Extended Key Usage';
-
   public readonly value: ExtendedKeyUsage;
 
   constructor(raw: BufferSource) {
@@ -27,16 +27,11 @@ export class ExtendedKeyUsageExtension extends BaseExtension {
     this.value = AsnParser.parse<ExtendedKeyUsage>(asnExtnValue, ExtendedKeyUsage);
   }
 
-  public override toJSON(): Record<string, string | number | boolean | Record<string, string | number | boolean>[]> {
-    const purposes = this.value.map((purpose) => ({
-      Purpose: purpose,
-    }));
-
-    return {
-      Name: ExtendedKeyUsageExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Purposes: purposes,
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Purposes', this.value.map((purpose) => getStringByOID(purpose, true)).join(', ')),
+    ]]);
   }
 }
 

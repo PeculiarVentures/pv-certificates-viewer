@@ -10,13 +10,12 @@ import { InvalidityDate, id_ce_invalidityDate } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * Invalidity Date Extension
  */
 export class InvalidityDateExtension extends BaseExtension {
-  public static override readonly NAME = 'Invalidity Date';
-
   public readonly value: InvalidityDate;
 
   constructor(raw: BufferSource) {
@@ -27,12 +26,11 @@ export class InvalidityDateExtension extends BaseExtension {
     this.value = AsnParser.parse<InvalidityDate>(asnExtnValue, InvalidityDate);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: InvalidityDateExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Date: this.value.value.toISOString(),
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Date', this.value.value.toISOString()),
+    ]]);
   }
 }
 

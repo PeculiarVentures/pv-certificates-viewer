@@ -24,13 +24,6 @@ describe('CabforganizationIdentifierExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'CABF Organization Identifier',
-      Critical: 'No',
-      'Registration Scheme Identifier': 'NTR',
-      'Registration Country': 'US',
-      'Registration State Or Province': 'CA',
-      'Registration Reference': '27380834',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

@@ -20,19 +20,6 @@ describe('ExtensionRequestAttribute', () => {
 
     const json = attribute.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Extension Request',
-      Extensions: [
-        {
-          Name: 'Subject Alternative Name',
-          Critical: 'No',
-          Names: [
-            {
-              'Other Name': 'address@domain.test',
-            },
-          ],
-        }
-      ]
-    });
+    expect(json).toMatchSnapshot();
   });
 });

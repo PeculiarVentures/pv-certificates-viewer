@@ -8,6 +8,9 @@
 
 import { SubjectInfoAccessSyntax, id_pe_subjectInfoAccess } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import {
+  row, objectToRows, rowGroup,
+} from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
@@ -16,8 +19,6 @@ import { GeneralNameParser } from './general_name_parser';
  * Subject Info Access Syntax Extension
  */
 export class SubjectInfoAccessSyntaxExtension extends BaseExtension {
-  public static override readonly NAME = 'Subject Info Access';
-
   public readonly value: SubjectInfoAccessSyntax;
 
   constructor(raw: BufferSource) {
@@ -31,22 +32,20 @@ export class SubjectInfoAccessSyntaxExtension extends BaseExtension {
     );
   }
 
-  public override toJSON(): Record<
-    string,
-    string | number | boolean | Record<string, string | number | boolean>[]
-  > {
-    const descriptions = this.value.map((description) => {
-      return {
-        Method: description.accessMethod,
-        ...GeneralNameParser.toObject(description.accessLocation),
-      };
+  public override toJSON() {
+    const descriptionRows = this.value.map((description) => {
+      const locationObj = GeneralNameParser.toObject(description.accessLocation) as Record<string, unknown>;
+
+      return [
+        row('Method', description.accessMethod),
+        ...objectToRows(locationObj),
+      ];
     });
 
-    return {
-      Name: SubjectInfoAccessSyntaxExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Descriptions: descriptions,
-    };
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      rowGroup('Descriptions', descriptionRows),
+    ]]);
   }
 }
 

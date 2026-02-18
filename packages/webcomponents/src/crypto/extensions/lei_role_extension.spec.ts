@@ -21,10 +21,6 @@ describe('LeiRoleExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'LEI Role',
-      Critical: 'No',
-      Role: 'CEO',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

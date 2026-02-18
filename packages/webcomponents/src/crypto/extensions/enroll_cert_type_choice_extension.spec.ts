@@ -21,10 +21,6 @@ describe('EnrollCertTypeChoiceExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Enroll Cert Type',
-      Critical: 'No',
-      Value: 'SubCA',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

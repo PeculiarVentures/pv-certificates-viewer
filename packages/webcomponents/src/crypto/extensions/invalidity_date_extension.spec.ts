@@ -21,10 +21,6 @@ describe('InvalidityDateExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Invalidity Date',
-      Critical: 'No',
-      Date: '2023-01-15T10:30:00.000Z',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

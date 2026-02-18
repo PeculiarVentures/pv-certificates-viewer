@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CertificateIssuerExtension should return correct JSON structure 1`] = `
+Object {
+  "$groups": Array [
+    Array [
+      Object {
+        "name": "Critical",
+        "value": "NO",
+      },
+      Object {
+        "$groups": Array [
+          Array [
+            Object {
+              "$groups": Array [
+                Name [
+                  Object {
+                    "name": "Common Name",
+                    "value": "t",
+                  },
+                  Object {
+                    "name": "Organization Unit",
+                    "value": "x",
+                  },
+                  Object {
+                    "name": "Organization",
+                    "value": "y",
+                  },
+                ],
+              ],
+              "name": "Directory Name",
+              "type": "rowGroup",
+            },
+          ],
+        ],
+        "name": "Issuer",
+        "type": "rowGroup",
+      },
+    ],
+  ],
+  "name": "Certificate Issuer (2.5.29.29)",
+  "type": "rowGroup",
+}
+`;

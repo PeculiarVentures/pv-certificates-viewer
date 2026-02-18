@@ -21,23 +21,6 @@ describe('PolicyMappingsExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Policy Mappings',
-      Critical: 'No',
-      Policies: [
-        {
-          'Issuer Domain': 'FBCA Basic Policy (2.16.840.1.101.3.2.1.3.2)',
-          'Subject Domain': 'USPTO Basic 2003 (2.16.840.1.101.3.2.1.2.7)',
-        },
-        {
-          'Issuer Domain': 'FBCA Medium Policy (2.16.840.1.101.3.2.1.3.3)',
-          'Subject Domain': 'USPTO Medium 2003 (2.16.840.1.101.3.2.1.2.8)',
-        },
-        {
-          'Issuer Domain': 'FBCA Medium Hardware Policy (2.16.840.1.101.3.2.1.3.12)',
-          'Subject Domain': 'USPTO Medium Hardware (2.16.840.1.101.3.2.1.2.9)',
-        },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

@@ -18,13 +18,13 @@ import { Convert } from 'pvtsutils';
 import { ExtensionFactory } from './extension_factory';
 import { OIDs } from '../../constants/oids';
 import { BaseExtension } from './base_extension';
+import { row, hexRow, rowGroup } from '../rows_format';
+import type { RenderRow } from '../rows_format';
 
 /**
  * Logotype Extension
  */
 export class LogotypeExtension extends BaseExtension {
-  public static override readonly NAME = 'Logotype';
-
   public readonly value: LogotypeExtn;
 
   constructor(raw: BufferSource) {
@@ -122,47 +122,43 @@ export class LogotypeExtension extends BaseExtension {
     return Object.keys(logoData).length > 0 ? logoData : undefined;
   }
 
-  public override toJSON(): Record<
-    string,
-    string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]
-  > {
-    const result: Record<string, unknown> = {
-      Name: LogotypeExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-    };
+  public override toJSON() {
+    const rows = [row('Critical', this.critical)];
 
     const subjectLogo = this.renderLogo('Subject', this.value.subjectLogo);
 
     if (subjectLogo) {
-      result['Subject Logo'] = subjectLogo;
+      rows.push(rowGroup('Subject Logo', [this.logoDataToRows(subjectLogo)]));
     }
-
     const issuerLogo = this.renderLogo('Issuer', this.value.issuerLogo);
 
     if (issuerLogo) {
-      result['Issuer Logo'] = issuerLogo;
+      rows.push(rowGroup('Issuer Logo', [this.logoDataToRows(issuerLogo)]));
     }
-
-    if (this.value.communityLogos && this.value.communityLogos.length > 0) {
-      const communityLogosData: Record<string, Record<string, string>[]>[] = [];
-
-      this.value.communityLogos.forEach((logo) => {
+    if (this.value.communityLogos?.length) {
+      const communityRows = this.value.communityLogos.flatMap((logo) => {
         const logoData = this.renderLogo('Community', logo);
 
-        if (logoData) {
-          communityLogosData.push(logoData as Record<string, Record<string, string>[]>);
-        }
+        return logoData ? [rowGroup('Community Logo', [this.logoDataToRows(logoData)])] : [];
       });
-
-      if (communityLogosData.length > 0) {
-        result['Community Logos'] = communityLogosData;
-      }
+      rows.push(...communityRows);
     }
 
-    return result as Record<
-      string,
-      string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]
-    >;
+    return rowGroup(this.name, [rows]);
+  }
+
+  private logoDataToRows(logoData: Record<string, Record<string, string>[]>): RenderRow[] {
+    const rows: RenderRow[] = [];
+
+    for (const [key, items] of Object.entries(logoData)) {
+      rows.push(rowGroup(key, items.map((item, i) => [
+        rowGroup(`Item ${i + 1}`, [
+          Object.entries(item).map(([k, v]) => (v && /^[0-9a-fA-F]+$/.test(v) && v.length > 20 ? hexRow(k, v) : row(k, v))),
+        ]),
+      ])));
+    }
+
+    return rows;
   }
 }
 

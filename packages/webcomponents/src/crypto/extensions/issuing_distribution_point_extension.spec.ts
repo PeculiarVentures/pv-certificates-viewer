@@ -22,15 +22,6 @@ describe('IssuingDistributionPointExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Issuing Distribution Point',
-      Critical: 'Yes',
-      'Distribution Point': [
-        {
-          URI: 'http://crls.pki.goog/gts1p5/7UCuXZuLUIg.crl',
-        },
-      ],
-      'Only Contains User Certs': 'Yes',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

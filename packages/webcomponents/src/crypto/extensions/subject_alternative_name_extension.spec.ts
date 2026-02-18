@@ -21,24 +21,6 @@ describe('SubjectAlternativeNameExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Subject Alternative Name',
-      Critical: 'No',
-      Names: [
-        {
-          'RFC 822 Name': 'stephan.wolf@gleif.org',
-        },
-        {
-          'Directory Name': [
-            {
-              '1.3.6.1.4.1.13177.0.1': 'Wolf',
-            },
-            {
-              '1.3.6.1.4.1.13177.0.2': 'Stephan',
-            },
-          ]
-        },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

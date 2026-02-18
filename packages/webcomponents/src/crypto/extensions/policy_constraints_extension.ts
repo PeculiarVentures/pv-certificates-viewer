@@ -10,13 +10,12 @@ import { PolicyConstraints, id_ce_policyConstraints } from '@peculiar/asn1-x509'
 import { AsnParser, AsnIntegerArrayBufferConverter } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * Policy Constraints Extension
  */
 export class PolicyConstraintsExtension extends BaseExtension {
-  public static override readonly NAME = 'Policy Constraints';
-
   public readonly value: PolicyConstraints;
 
   constructor(raw: BufferSource) {
@@ -27,25 +26,22 @@ export class PolicyConstraintsExtension extends BaseExtension {
     this.value = AsnParser.parse<PolicyConstraints>(asnExtnValue, PolicyConstraints);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    const result: Record<string, string | number | boolean> = {
-      Name: PolicyConstraintsExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-    };
+  public override toJSON() {
+    const rows = [
+      row('Critical', this.critical),
+    ];
 
     if (this.value.requireExplicitPolicy) {
-      result['Require Explicit Policy'] = AsnIntegerArrayBufferConverter.toASN(
-        this.value.requireExplicitPolicy,
-      ).valueBlock.toString();
+      rows.push(row('Require Explicit Policy', AsnIntegerArrayBufferConverter.toASN(this.value.requireExplicitPolicy).valueBlock.toString()));
     }
 
     if (this.value.inhibitPolicyMapping) {
-      result['Inhibit Policy Mapping'] = AsnIntegerArrayBufferConverter.toASN(
-        this.value.inhibitPolicyMapping,
-      ).valueBlock.toString();
+      rows.push(row('Inhibit Policy Mapping', AsnIntegerArrayBufferConverter.toASN(this.value.inhibitPolicyMapping).valueBlock.toString()));
     }
 
-    return result;
+    return rowGroup(this.name, [[
+      ...rows,
+    ]]);
   }
 }
 

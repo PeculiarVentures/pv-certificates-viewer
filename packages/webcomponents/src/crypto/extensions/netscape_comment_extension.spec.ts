@@ -21,10 +21,6 @@ describe('NetscapeCommentExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Netscape Comment',
-      Critical: 'No',
-      Comment: 'FIGYELEM! Ezen tanusitvany a Netlock Kft. Minositett Szolgaltatasi Szabalyzataban leirt eljarasok alapjan keszult. A kibocsatott tanusitvanyhoz tartozo magankulcs a jogszabalyi rendelkezeseknek megfelelo Biztonsagos Alairas Letrehozo Eszkozben (BALE) keszult. A minositett elektronikus alairas joghatas ervenyesulesenek, valamint elfogadasanak feltetele a Minositett Szolgaltatasi Szabalyzatban, az Altalanos Szerzodesi Feltetelekben eloirt ellenorzesi eljaras megtetele. A dokumentumok megtalalhatok a https://www.netlock.hu/docs/ cimen vagy kerhetok az info@netlock.net e-mail cimen. WARNING! This certificate has been issued as a qualified certificate. The corresponding private key has been generated on a Secure Signature Creation Device (SSCD). The issuance and the use of this certificate are subject to the Netlock Qualified CPS available at https://www.netlock.hudocs/ or by e-mail at info@netlock.net',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CertificatePoliciesExtension should return correct JSON structure 1`] = `
+Object {
+  "$groups": Array [
+    Array [
+      Object {
+        "name": "Critical",
+        "value": "NO",
+      },
+      Object {
+        "$groups": CertificatePolicies [
+          Array [
+            Object {
+              "name": "Policy ID",
+              "value": "Corporate certificates for Natural Person (1.3.6.1.4.1.13177.10.1.2.2)",
+            },
+            Object {
+              "$groups": Array [
+                Array [
+                  Object {
+                    "name": "Qualifier ID",
+                    "value": "Certificate Policy Statement (1.3.6.1.5.5.7.2.1)",
+                  },
+                  Object {
+                    "name": "Value",
+                    "value": "http://www.firmaprofesional.com/cps",
+                  },
+                ],
+                Array [
+                  Object {
+                    "name": "Qualifier ID",
+                    "value": "User Notice (1.3.6.1.5.5.7.2.2)",
+                  },
+                  Object {
+                    "name": "Value",
+                    "value": "Éste es un Certificado Corporativo de Persona Física cualificado para su uso sin DCCF. Dirección del prestador de servicios de confianza: Paseo de la Bonanova, 47. 08017 Barcelona",
+                  },
+                ],
+              ],
+              "name": "Qualifiers",
+              "type": "rowGroup",
+            },
+          ],
+          Array [
+            Object {
+              "name": "Policy ID",
+              "value": "QCP Natural Person (0.4.0.194112.1.0)",
+            },
+          ],
+        ],
+        "name": "Policies",
+        "type": "rowGroup",
+      },
+    ],
+  ],
+  "name": "Certificate Policies (2.5.29.32)",
+  "type": "rowGroup",
+}
+`;

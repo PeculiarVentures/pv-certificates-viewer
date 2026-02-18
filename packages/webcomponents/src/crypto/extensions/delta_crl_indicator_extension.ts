@@ -10,13 +10,12 @@ import { BaseCRLNumber, id_ce_deltaCRLIndicator } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * Delta CRL Indicator Extension
  */
 export class DeltaCRLIndicatorExtension extends BaseExtension {
-  public static override readonly NAME = 'Delta CRL Indicator';
-
   public readonly value: BaseCRLNumber;
 
   constructor(raw: BufferSource) {
@@ -27,12 +26,11 @@ export class DeltaCRLIndicatorExtension extends BaseExtension {
     this.value = AsnParser.parse<BaseCRLNumber>(asnExtnValue, BaseCRLNumber);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: DeltaCRLIndicatorExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Value: this.value.value.toString(),
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Value', this.value.value.toString()),
+    ]]);
   }
 }
 

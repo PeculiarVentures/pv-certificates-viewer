@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArchiveRevInfoExtension should return correct JSON structure 1`] = `
+Object {
+  "$groups": Array [
+    Array [
+      Object {
+        "name": "Critical",
+        "value": "NO",
+      },
+      Object {
+        "name": "Version",
+        "value": "1",
+      },
+    ],
+  ],
+  "name": "Adobe Archive Rev Info (1.2.840.113583.1.1.9.2)",
+  "type": "rowGroup",
+}
+`;

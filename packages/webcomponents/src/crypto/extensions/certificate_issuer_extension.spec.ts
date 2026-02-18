@@ -21,24 +21,6 @@ describe('CertificateIssuerExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Certificate Issuer',
-      Critical: 'No',
-      Issuers: [
-        {
-          'Directory Name': [
-            {
-              '2.5.4.3': 't',
-            },
-            {
-              '2.5.4.11': 'x',
-            },
-            {
-              '2.5.4.10': 'y',
-            },
-          ],
-        },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

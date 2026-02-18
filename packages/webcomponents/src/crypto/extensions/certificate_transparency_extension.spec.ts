@@ -21,38 +21,6 @@ describe('CertificateTransparencyExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Certificate Transparency',
-      Critical: 'No',
-      'Signed Certificate Timestamps': [
-        {
-          Version: 1,
-          'Log Key ID': 'bbd9dfbc1f8a71b593942397aa927b473857950aab52e81a909664368e1ed185',
-          'Log Operator': 'Google \u201cSkydiver\u201d',
-          Timestamp: 'Mon, 04 Mar 2019 14:08:01 GMT',
-          'Signature Algorithm': 'SHA256 ECDSA',
-          Signature: 'MEUCIBlkZCJyRrA8wQQVI1LZzGhHfy18JdS9nFyDUFuLWSPYAiEA60/mzcUHYW02dy2L4VhcyaQhzXI5UYfbEvxU2j9/Luw=',
-          Extensions: undefined,
-        },
-        {
-          Version: 1,
-          'Log Key ID': '5614069a2fd7c2ecd3f5e1bd44b23ec74676b9bc99115cc0ef949855d689d0dd',
-          'Log Operator': 'DigiCert Server',
-          Timestamp: 'Mon, 04 Mar 2019 14:08:01 GMT',
-          'Signature Algorithm': 'SHA256 ECDSA',
-          Signature: 'MEYCIQCnEg/deVYLcsOpRbgSZCWTFWiItTv5Uc5xah48b8BKpAIhAJfy/3z8TSF+xNOoApUt8xDIlswOrGrsPlhLncs8Rl0K',
-          Extensions: undefined,
-        },
-        {
-          Version: 1,
-          'Log Key ID': '8775bfe7597cf88c43995fbdf36eff568d475636ff4ab560c1b4eaff5ea0830f',
-          'Log Operator': 'DigiCert Server 2',
-          Timestamp: 'Mon, 04 Mar 2019 14:08:01 GMT',
-          'Signature Algorithm': 'SHA256 ECDSA',
-          Signature: 'MEQCIHzl5hWuq4bAZOpcYh3sa1wrjdc6p8qWVokM52qUm7GDAiBYeYUCQ1OJmnG6LIAYUW0u/pZYJN5WXQO3SqKEl433/w==',
-          Extensions: undefined,
-        },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

@@ -10,13 +10,12 @@ import { CRLNumber, id_ce_cRLNumber } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * CRL Number Extension
  */
 export class CRLNumberExtension extends BaseExtension {
-  public static override readonly NAME = 'CRL Number';
-
   public readonly value: CRLNumber;
 
   constructor(raw: BufferSource) {
@@ -27,12 +26,11 @@ export class CRLNumberExtension extends BaseExtension {
     this.value = AsnParser.parse<CRLNumber>(asnExtnValue, CRLNumber);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: CRLNumberExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Value: this.value.value.toString(),
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Value', this.value.value.toString()),
+    ]]);
   }
 }
 

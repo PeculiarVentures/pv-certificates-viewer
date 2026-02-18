@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KeyDescriptionExtension should return correct JSON structure 1`] = `
+Object {
+  "$groups": Array [
+    Array [
+      Object {
+        "name": "Critical",
+        "value": "NO",
+      },
+      Object {
+        "name": "Attestation Version",
+        "value": "100",
+      },
+      Object {
+        "name": "Attestation Security Level",
+        "value": "1",
+      },
+      Object {
+        "name": "Keymaster Version",
+        "value": "100",
+      },
+      Object {
+        "name": "Keymaster Security Level",
+        "value": "1",
+      },
+      Object {
+        "name": "Attestation Challenge",
+        "value": "1b1ada35ac426eb1f845c87ee29f0ec3",
+      },
+      Object {
+        "name": "Unique Id",
+        "value": "",
+      },
+      Object {
+        "$groups": Array [
+          NonStandardAuthorizationList [
+            Object {
+              "name": "attestationApplicationId",
+              "value": "304f312930270421636f6d2e7469636b7069636b6c6c632e63656f627269656e2e7469636b7069636b0202012931220420ce016851b704da76fdedde34ab314a155ca5a5db31266d2685fcbf281ab51028",
+            },
+          ],
+        ],
+        "name": "Software Enforced",
+        "type": "rowGroup",
+      },
+      Object {
+        "$groups": Array [
+          NonStandardAuthorizationList [
+            Object {
+              "name": "purpose",
+              "value": "3, 2",
+            },
+            Object {
+              "name": "algorithm",
+              "value": "3",
+            },
+            Object {
+              "name": "keySize",
+              "value": "256",
+            },
+            Object {
+              "name": "digest",
+              "value": "4",
+            },
+            Object {
+              "name": "ecCurve",
+              "value": "1",
+            },
+            Object {
+              "name": "origin",
+              "value": "0",
+            },
+            Object {
+              "$groups": Array [
+                Array [
+                  Object {
+                    "name": "verifiedBootKey",
+                    "value": "9fb52f0954613f221af4f4070c31415ed44c1a81d51889db0946632599b3e946",
+                  },
+                  Object {
+                    "name": "verifiedBootState",
+                    "value": "0",
+                  },
+                  Object {
+                    "name": "verifiedBootHash",
+                    "value": "ffaeec3477824dd82e09b6400602dcb274eb4e89dcb6093ad1f6ede964ed73c3",
+                  },
+                ],
+              ],
+              "name": "rootOfTrust",
+              "type": "rowGroup",
+            },
+            Object {
+              "name": "osVersion",
+              "value": "120000",
+            },
+            Object {
+              "name": "osPatchLevel",
+              "value": "202308",
+            },
+            Object {
+              "name": "attestationIdModel",
+              "value": "motorola edge (2022)",
+            },
+            Object {
+              "name": "attestationIdManufacturer",
+              "value": "motorola",
+            },
+            Object {
+              "name": "attestationIdProduct",
+              "value": "tesla_g_sys",
+            },
+            Object {
+              "name": "attestationIdDevice",
+              "value": "tesla",
+            },
+            Object {
+              "name": "attestationIdBrand",
+              "value": "motorola",
+            },
+            Object {
+              "name": "vendorPatchLevel",
+              "value": "20230801",
+            },
+            Object {
+              "name": "bootPatchLevel",
+              "value": "20230801",
+            },
+          ],
+        ],
+        "name": "Tee Enforced",
+        "type": "rowGroup",
+      },
+    ],
+  ],
+  "name": "1.3.6.1.5.5.7.1.17",
+  "type": "rowGroup",
+}
+`;

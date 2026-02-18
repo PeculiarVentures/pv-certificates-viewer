@@ -11,13 +11,12 @@ import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, hexRow, rowGroup } from '../rows_format';
 
 /**
  * Subject Key Identifier Extension
  */
 export class SubjectKeyIdentifierExtension extends BaseExtension {
-  public static override readonly NAME = 'Subject Key Identifier';
-
   public readonly value: SubjectKeyIdentifier;
 
   constructor(raw: BufferSource) {
@@ -28,12 +27,11 @@ export class SubjectKeyIdentifierExtension extends BaseExtension {
     this.value = AsnParser.parse<SubjectKeyIdentifier>(asnExtnValue, SubjectKeyIdentifier);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: SubjectKeyIdentifierExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      'Key ID': Convert.ToHex(this.value.buffer),
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      hexRow('Key ID', Convert.ToHex(this.value.buffer)),
+    ]]);
   }
 }
 

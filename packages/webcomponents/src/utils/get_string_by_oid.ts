@@ -8,11 +8,16 @@
 
 import { OIDs } from '../constants/oids';
 
-export function getStringByOID(value: string) {
-  const oid = OIDs[value];
+/** Get display name for OID. Format: "OIDs[oid] (oid)" when found, else the raw OID. */
+export function getStringByOID(value: string, onlyLabel = false): string {
+  const label = OIDs[value];
 
-  if (oid) {
-    return `${oid} (${value})`;
+  if (onlyLabel) {
+    return label || value;
+  }
+
+  if (label) {
+    return `${label} (${value})`;
   }
 
   return value;

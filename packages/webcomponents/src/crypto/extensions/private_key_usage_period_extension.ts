@@ -10,13 +10,12 @@ import { PrivateKeyUsagePeriod, id_ce_privateKeyUsagePeriod } from '@peculiar/as
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * Private Key Usage Period Extension
  */
 export class PrivateKeyUsagePeriodExtension extends BaseExtension {
-  public static override readonly NAME = 'Private Key Usage Period';
-
   public readonly value: PrivateKeyUsagePeriod;
 
   constructor(raw: BufferSource) {
@@ -27,13 +26,12 @@ export class PrivateKeyUsagePeriodExtension extends BaseExtension {
     this.value = AsnParser.parse<PrivateKeyUsagePeriod>(asnExtnValue, PrivateKeyUsagePeriod);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: PrivateKeyUsagePeriodExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      'Not Before': new Date(this.value.notBefore).toUTCString(),
-      'Not After': new Date(this.value.notAfter).toUTCString(),
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Not Before', new Date(this.value.notBefore).toUTCString()),
+      row('Not After', new Date(this.value.notAfter).toUTCString()),
+    ]]);
   }
 }
 

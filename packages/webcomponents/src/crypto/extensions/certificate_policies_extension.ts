@@ -13,6 +13,8 @@ import {
   id_ce_certificatePolicies,
 } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { row, rowGroup } from '../rows_format';
+import { getStringByOID } from '../../utils';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -20,8 +22,6 @@ import { BaseExtension } from './base_extension';
  * Certificate Policies Extension
  */
 export class CertificatePoliciesExtension extends BaseExtension {
-  public static override readonly NAME = 'Certificate Policies';
-
   public readonly value: CertificatePolicies;
 
   constructor(raw: BufferSource) {
@@ -58,36 +58,33 @@ export class CertificatePoliciesExtension extends BaseExtension {
     return undefined;
   }
 
-  public override toJSON(): Record<string, string | number | boolean | Record<string, string | Record<string, string>[]>[]> {
-    type TPolicyData = Record<string, string | Record<string, string>[]>;
-    const policies: TPolicyData[] = this.value.map((policy) => {
-      const policyData: TPolicyData = { 'Policy ID': policy.policyIdentifier };
+  public override toJSON() {
+    const policyRows = this.value.map((policy) => {
+      const rows = [row('Policy ID', getStringByOID(policy.policyIdentifier))];
 
-      if (policy.policyQualifiers && policy.policyQualifiers.length > 0) {
-        policyData.Qualifiers = policy.policyQualifiers.map((qualifier) => {
-          const qualifierData: Record<string, string> = { 'Qualifier ID': qualifier.policyQualifierId };
-
+      if (policy.policyQualifiers?.length) {
+        rows.push(rowGroup('Qualifiers', policy.policyQualifiers.map((qualifier) => {
           const parsedValue = this.parseQualifierValue(
             qualifier.policyQualifierId,
             qualifier.qualifier,
           );
+          const qualifierRows = [row('Qualifier ID', getStringByOID(qualifier.policyQualifierId))];
 
           if (parsedValue !== undefined) {
-            qualifierData.Value = parsedValue;
+            qualifierRows.push(row('Value', parsedValue));
           }
 
-          return qualifierData;
-        });
+          return qualifierRows;
+        })));
       }
 
-      return policyData;
+      return rows;
     });
 
-    return {
-      Name: CertificatePoliciesExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Policies: policies,
-    };
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      rowGroup('Policies', policyRows),
+    ]]);
   }
 }
 

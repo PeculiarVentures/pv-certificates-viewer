@@ -22,11 +22,6 @@ describe('PrivateKeyUsagePeriodExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Private Key Usage Period',
-      Critical: 'No',
-      'Not Before': 'Wed, 08 Jan 2003 23:37:23 GMT',
-      'Not After': 'Mon, 09 Jan 2023 00:07:23 GMT',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

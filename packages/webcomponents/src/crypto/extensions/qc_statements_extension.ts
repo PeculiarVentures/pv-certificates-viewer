@@ -22,6 +22,8 @@ import {
 } from '@peculiar/asn1-x509-qualified-etsi';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
+import { getStringByOID } from '../../utils';
+import { row, hexRow, rowGroup, objectToRows } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -29,8 +31,6 @@ import { BaseExtension } from './base_extension';
  * QC Statements Extension
  */
 export class QCStatementsExtension extends BaseExtension {
-  public static override readonly NAME = 'QC Statements';
-
   public readonly value: QCStatements;
 
   constructor(raw: BufferSource) {
@@ -81,30 +81,26 @@ export class QCStatementsExtension extends BaseExtension {
     return Convert.ToHex(statementInfo);
   }
 
-  public override toJSON(): Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    const statements = this.value.map((statement) => {
-      const statementData: Record<string, string | number | boolean | Record<string, string>[]> = {
-        'Statement ID': statement.statementId,
-      };
-
+  public override toJSON() {
+    const statementRows = this.value.map((statement) => {
+      const rows = [row('Statement ID', getStringByOID(statement.statementId))];
       const parsedInfo = this.parseStatementInfo(statement.statementId, statement.statementInfo);
 
       if (parsedInfo !== undefined) {
         if (typeof parsedInfo === 'string') {
-          statementData.Info = parsedInfo;
+          rows.push(hexRow('Info', parsedInfo));
         } else {
-          Object.assign(statementData, parsedInfo);
+          rows.push(...objectToRows(parsedInfo as Record<string, unknown>));
         }
       }
 
-      return statementData;
+      return rows;
     });
 
-    return {
-      Name: QCStatementsExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Statements: statements,
-    };
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      rowGroup('Statements', statementRows),
+    ]]);
   }
 }
 

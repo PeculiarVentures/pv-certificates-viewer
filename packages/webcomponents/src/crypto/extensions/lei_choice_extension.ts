@@ -10,13 +10,12 @@ import { LeiChoice, id_lei } from '@peculiar/asn1-lei';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * Legal Entity Identifier (LEI) Choice Extension
  */
 export class LeiChoiceExtension extends BaseExtension {
-  public static override readonly NAME = 'Legal Entity Identifier';
-
   public readonly value: LeiChoice;
 
   constructor(raw: BufferSource) {
@@ -27,12 +26,11 @@ export class LeiChoiceExtension extends BaseExtension {
     this.value = AsnParser.parse<LeiChoice>(asnExtnValue, LeiChoice);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: LeiChoiceExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Identifier: this.value.text,
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Identifier', this.value.text),
+    ]]);
   }
 }
 

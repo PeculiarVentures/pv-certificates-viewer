@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QCStatementsExtension should return correct JSON structure 1`] = `
+Object {
+  "$groups": Array [
+    Array [
+      Object {
+        "name": "Critical",
+        "value": "NO",
+      },
+      Object {
+        "$groups": QCStatements [
+          Array [
+            Object {
+              "name": "Statement ID",
+              "value": "ETSI QCS Compliance (0.4.0.1862.1.1)",
+            },
+          ],
+          Array [
+            Object {
+              "name": "Statement ID",
+              "value": "ETSI QC Type Web (0.4.0.1862.1.6.3)",
+            },
+          ],
+        ],
+        "name": "Statements",
+        "type": "rowGroup",
+      },
+    ],
+  ],
+  "name": "Qualified Certificate Statements (1.3.6.1.5.5.7.1.3)",
+  "type": "rowGroup",
+}
+`;
+
+exports[`QCStatementsExtension should return correct JSON structure with multiple statements 1`] = `
+Object {
+  "$groups": Array [
+    Array [
+      Object {
+        "name": "Critical",
+        "value": "NO",
+      },
+      Object {
+        "$groups": QCStatements [
+          Array [
+            Object {
+              "name": "Statement ID",
+              "value": "ETSI QCS Compliance (0.4.0.1862.1.1)",
+            },
+          ],
+          Array [
+            Object {
+              "name": "Statement ID",
+              "value": "ETSI QCS Retention Period (0.4.0.1862.1.3)",
+            },
+            Object {
+              "name": "Retention Period",
+              "value": "15 years",
+            },
+          ],
+          Array [
+            Object {
+              "name": "Statement ID",
+              "value": "ETSI QC Type (0.4.0.1862.1.6)",
+            },
+            Object {
+              "name": "QC Types",
+              "value": "0.4.0.1862.1.6.1",
+            },
+          ],
+          Array [
+            Object {
+              "name": "Statement ID",
+              "value": "ETSI QCS PDS (0.4.0.1862.1.5)",
+            },
+            Object {
+              "$groups": Array [
+                PdsLocations [
+                  Object {
+                    "name": "URL",
+                    "value": "https://www.firmaprofesional.com/cps/pds_en.pdf",
+                  },
+                  Object {
+                    "name": "Language",
+                    "value": "en",
+                  },
+                ],
+              ],
+              "name": "PDS Locations",
+              "type": "rowGroup",
+            },
+          ],
+        ],
+        "name": "Statements",
+        "type": "rowGroup",
+      },
+    ],
+  ],
+  "name": "Qualified Certificate Statements (1.3.6.1.5.5.7.1.3)",
+  "type": "rowGroup",
+}
+`;

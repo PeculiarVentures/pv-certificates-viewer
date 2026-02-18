@@ -21,31 +21,6 @@ describe('BiometricSyntaxExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Biometric Syntax',
-      Critical: 'No',
-      Biometrics: [
-        {
-          Type: 1,
-          Algorithm: 'SHA-256 (2.16.840.1.101.3.4.2.1)',
-          Hash: '30514605c99246c91d43e0980446411248a66bd2bd1c6c27ca6c3b6b17a02444',
-        },
-        {
-          Type: 0,
-          Algorithm: 'SHA-256 (2.16.840.1.101.3.4.2.1)',
-          Hash: '16d21caa94f2d4c52321157cd8070cec3963b673ba264618a4e62ebd0076e62b',
-        },
-        {
-          OID: '2.16.724.1.2.2.4.2.1',
-          Algorithm: 'SHA-256 (2.16.840.1.101.3.4.2.1)',
-          Hash: '3b8e3d6e84e9af530433e9fe208e4f4dec3897ce6b402e637fc7d5a71eac6075',
-        },
-        {
-          OID: '2.16.724.1.2.2.4.2.6',
-          Algorithm: 'SHA-256 (2.16.840.1.101.3.4.2.1)',
-          Hash: 'cc53f08e65711f88bf932b6085d5b35bed4cb8c6f76d8a648a1af5475641fbf5',
-        },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

@@ -10,27 +10,20 @@ import {
   NonStandardKeyDescription,
   IntegerSet,
   RootOfTrust,
+  id_ce_keyDescription,
 } from '@peculiar/asn1-android';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert, BufferSourceConverter } from 'pvtsutils';
+import {
+  row, hexRow, rowGroup, objectToRows,
+} from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
-import { id_ce_keyDescription } from '@peculiar/asn1-android';
-
-type KeyDescriptionJSON = Record<
-  string,
-  | string
-  | number
-  | boolean
-  | Record<string, string | number | boolean | Record<string, string>[]>[]
->;
 
 /**
  * Key Description Extension (Android Key Attestation)
  */
 export class KeyDescriptionExtension extends BaseExtension {
-  public static override readonly NAME = 'Key Description';
-
   public readonly value: NonStandardKeyDescription;
 
   constructor(raw: BufferSource) {
@@ -102,62 +95,52 @@ export class KeyDescriptionExtension extends BaseExtension {
     return String(value);
   }
 
-  private convertAuthorizationList(
-    authList: unknown[],
-  ): Record<string, unknown>[] {
-    return authList.map((item) => {
-      const result: Record<string, unknown> = {};
-
-      for (const [key, value] of Object.entries(item)) {
-        result[key] = this.convertValueToJSON(value);
-      }
-
-      return result;
-    });
-  }
-
-  public override toJSON(): KeyDescriptionJSON {
-    const result: Record<string, unknown> = {
-      Name: KeyDescriptionExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      AttestationVersion: this.value.attestationVersion,
-      AttestationSecurityLevel: this.value.attestationSecurityLevel,
-      KeymasterVersion: this.value.keymasterVersion,
-      KeymasterSecurityLevel: this.value.keymasterSecurityLevel,
-    };
+  public override toJSON() {
+    const rows = [
+      row('Critical', this.critical),
+      row('Attestation Version', this.value.attestationVersion),
+      row('Attestation Security Level', this.value.attestationSecurityLevel),
+      row('Keymaster Version', this.value.keymasterVersion),
+      row('Keymaster Security Level', this.value.keymasterSecurityLevel),
+    ];
 
     if (this.value.attestationChallenge) {
       try {
-        result.AttestationChallenge = Convert.ToString(this.value.attestationChallenge);
+        rows.push(row('Attestation Challenge', Convert.ToString(this.value.attestationChallenge)));
       } catch {
-        result.AttestationChallenge = Convert.ToHex(this.value.attestationChallenge);
+        rows.push(hexRow('Attestation Challenge', Convert.ToHex(this.value.attestationChallenge)));
       }
     }
 
     if (this.value.uniqueId) {
       try {
-        result.UniqueId = Convert.ToString(this.value.uniqueId);
+        rows.push(row('Unique Id', Convert.ToString(this.value.uniqueId)));
       } catch {
-        result.UniqueId = Convert.ToHex(this.value.uniqueId);
+        rows.push(hexRow('Unique Id', Convert.ToHex(this.value.uniqueId)));
       }
     }
 
-    if (
-      this.value.softwareEnforced
-      && this.value.softwareEnforced.length > 0
-    ) {
-      result.SoftwareEnforced = this.convertAuthorizationList(
-        this.value.softwareEnforced,
-      );
+    if (this.value.softwareEnforced?.length) {
+      rows.push(rowGroup('Software Enforced', [this.convertAuthorizationListToRows(this.value.softwareEnforced).flat()]));
     }
 
-    if (this.value.teeEnforced && this.value.teeEnforced.length > 0) {
-      result.TeeEnforced = this.convertAuthorizationList(
-        this.value.teeEnforced,
-      );
+    if (this.value.teeEnforced?.length) {
+      rows.push(rowGroup('Tee Enforced', [this.convertAuthorizationListToRows(this.value.teeEnforced).flat()]));
     }
 
-    return result as KeyDescriptionJSON;
+    return rowGroup(this.name, [rows]);
+  }
+
+  private convertAuthorizationListToRows(authList: unknown[]) {
+    return authList.map((item) => {
+      const converted: Record<string, unknown> = {};
+
+      for (const [key, value] of Object.entries(item)) {
+        converted[key] = this.convertValueToJSON(value);
+      }
+
+      return objectToRows(converted);
+    });
   }
 }
 

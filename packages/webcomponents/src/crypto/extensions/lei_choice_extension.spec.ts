@@ -21,10 +21,6 @@ describe('LeiChoiceExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Legal Entity Identifier',
-      Critical: 'No',
-      Identifier: '506700GE1G29325QX363',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

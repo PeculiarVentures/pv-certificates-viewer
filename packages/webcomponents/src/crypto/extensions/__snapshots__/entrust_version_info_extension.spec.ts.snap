@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EntrustVersionInfoExtension should return correct JSON structure 1`] = `
+Object {
+  "$groups": Array [
+    Array [
+      Object {
+        "name": "Critical",
+        "value": "NO",
+      },
+      Object {
+        "name": "Version",
+        "value": "V6.0:4.0",
+      },
+      Object {
+        "name": "Info Flags",
+        "value": "keyUpdateAllowed",
+      },
+    ],
+  ],
+  "name": "Entrust Version Info (1.2.840.113533.7.65.0)",
+  "type": "rowGroup",
+}
+`;

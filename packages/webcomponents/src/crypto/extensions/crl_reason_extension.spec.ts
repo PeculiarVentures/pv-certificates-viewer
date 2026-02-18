@@ -21,10 +21,6 @@ describe('CRLReasonExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'CRL Reason',
-      Critical: 'No',
-      Reason: 'cessationOfOperation',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

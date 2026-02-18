@@ -11,13 +11,12 @@ import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, hexRow, rowGroup } from '../rows_format';
 
 /**
  * Authority Key Identifier Extension
  */
 export class AuthorityKeyIdentifierExtension extends BaseExtension {
-  public static override readonly NAME = 'Authority Key Identifier';
-
   public readonly value: AuthorityKeyIdentifier;
 
   constructor(raw: BufferSource) {
@@ -28,12 +27,11 @@ export class AuthorityKeyIdentifierExtension extends BaseExtension {
     this.value = AsnParser.parse<AuthorityKeyIdentifier>(asnExtnValue, AuthorityKeyIdentifier);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: AuthorityKeyIdentifierExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      'Key ID': this.value.keyIdentifier ? Convert.ToHex(this.value.keyIdentifier.buffer) : '',
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      hexRow('Key ID', this.value.keyIdentifier ? Convert.ToHex(this.value.keyIdentifier.buffer) : ''),
+    ]]);
   }
 }
 

@@ -43,7 +43,6 @@ import { TNAuthorizationList } from '@peculiar/asn1-rfc8226';
 import { NonStandardKeyDescription } from '@peculiar/asn1-android';
 import { RowTitle } from '../row';
 import { Extension, TExtensionValue } from '../../../crypto/extension';
-import { CabforganizationIdentifier } from '../../../crypto/extensions';
 import { KeyUsageExtension } from './key_usage_extension';
 import { BasicConstraintsExtension } from './basic_constraints_extension';
 import { ExtendedKeyUsageExtension } from './extended_key_usage_extension';
@@ -79,7 +78,6 @@ import { PolicyMappingsExtension } from './policy_mappings_extension';
 import { CRLNumberExtension } from './crl_number_extension';
 import { IssuingDistributionPointExtension } from './issuing_distribution_point_extension';
 import { KeyDescriptionExtension } from './key_description_extension';
-import { CabforganizationIdentifierExtension } from './cabforganization_identifier_extension';
 
 interface IExtensionsProps extends
   IGeneralNameOptions,
@@ -378,15 +376,6 @@ export const Extensions: FunctionalComponent<IExtensionsProps> = (props) => {
           return (
             <KeyDescriptionExtension
               extension={extension as unknown as Extension<NonStandardKeyDescription>}
-              {...props}
-            />
-          );
-        }
-
-        if (extension.value instanceof CabforganizationIdentifier) {
-          return (
-            <CabforganizationIdentifierExtension
-              extension={extension as unknown as Extension<CabforganizationIdentifier>}
               {...props}
             />
           );

@@ -10,3 +10,4 @@ export { Miscellaneous } from './miscellaneous';
 export { RevokedCertificates } from './revoked_certificates';
 export { Holder } from './holder';
 export { Issuer } from './issuer';
+export { JsonCertificateParser } from './json_certificate_parser';

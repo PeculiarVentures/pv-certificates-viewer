@@ -21,10 +21,6 @@ describe('AuthorityKeyIdentifierExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Authority Key Identifier',
-      Critical: 'No',
-      'Key ID': '6ba5bdcf9dfa235978126417ae1e72d89a804ae8',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

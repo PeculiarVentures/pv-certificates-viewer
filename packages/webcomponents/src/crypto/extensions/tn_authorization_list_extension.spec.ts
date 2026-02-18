@@ -21,14 +21,6 @@ describe('TNAuthorizationListExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'TN Authorization List',
-      Critical: 'No',
-      Entries: [
-        {
-          SPC: '709J',
-        },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

@@ -12,13 +12,12 @@ import { Convert } from 'pvtsutils';
 import { ExtensionFactory } from './extension_factory';
 import { OIDs } from '../../constants/oids';
 import { BaseExtension } from './base_extension';
+import { row, hexRow, rowGroup } from '../rows_format';
 
 /**
  * Biometric Syntax Extension
  */
 export class BiometricSyntaxExtension extends BaseExtension {
-  public static override readonly NAME = 'Biometric Syntax';
-
   public readonly value: BiometricSyntax;
 
   constructor(raw: BufferSource) {
@@ -29,36 +28,29 @@ export class BiometricSyntaxExtension extends BaseExtension {
     this.value = AsnParser.parse<BiometricSyntax>(asnExtnValue, BiometricSyntax);
   }
 
-  public override toJSON():
-  Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    const biometrics = this.value.map((data) => {
-      const biometricData: Record<string, string | number> = {};
+  public override toJSON() {
+    const bioRows = this.value.map((data) => {
+      const rows = [];
 
       if (data.typeOfBiometricData.biometricDataOid) {
         const oid = OIDs[data.typeOfBiometricData.biometricDataOid];
-        biometricData.OID = oid ? `${oid} (${data.typeOfBiometricData.biometricDataOid})` : data.typeOfBiometricData.biometricDataOid;
+        rows.push(row('OID', oid ? `${oid} (${data.typeOfBiometricData.biometricDataOid})` : data.typeOfBiometricData.biometricDataOid));
       }
-
       if (data.typeOfBiometricData.predefinedBiometricType !== undefined) {
-        biometricData.Type = data.typeOfBiometricData.predefinedBiometricType;
+        rows.push(row('Type', data.typeOfBiometricData.predefinedBiometricType));
       }
-
       const algorithmOid = OIDs[data.hashAlgorithm.algorithm];
-      biometricData.Algorithm = algorithmOid ? `${algorithmOid} (${data.hashAlgorithm.algorithm})` : data.hashAlgorithm.algorithm;
-      biometricData.Hash = Convert.ToHex(data.biometricDataHash.buffer);
+      rows.push(row('Algorithm', algorithmOid ? `${algorithmOid} (${data.hashAlgorithm.algorithm})` : data.hashAlgorithm.algorithm));
+      rows.push(hexRow('Hash', Convert.ToHex(data.biometricDataHash.buffer)));
+      if (data.sourceDataUri) rows.push(row('Source Uri', data.sourceDataUri));
 
-      if (data.sourceDataUri) {
-        biometricData['Source Uri'] = data.sourceDataUri;
-      }
-
-      return biometricData;
+      return rowGroup('Biometric', [rows]);
     });
 
-    return {
-      Name: BiometricSyntaxExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Biometrics: biometrics,
-    };
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      ...bioRows,
+    ]]);
   }
 }
 

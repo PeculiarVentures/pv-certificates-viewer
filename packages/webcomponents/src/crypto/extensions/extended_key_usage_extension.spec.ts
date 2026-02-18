@@ -21,13 +21,6 @@ describe('ExtendedKeyUsageExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Extended Key Usage',
-      Critical: 'No',
-      Purposes: [
-        { Purpose: '1.3.6.1.5.5.7.3.2' },
-        { Purpose: '1.3.6.1.5.5.7.3.4' },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

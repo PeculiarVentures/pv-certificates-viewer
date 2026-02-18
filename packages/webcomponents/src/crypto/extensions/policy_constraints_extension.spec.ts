@@ -22,11 +22,6 @@ describe('PolicyConstraintsExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Policy Constraints',
-      Critical: 'Yes',
-      'Require Explicit Policy': '0',
-      'Inhibit Policy Mapping': '0',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

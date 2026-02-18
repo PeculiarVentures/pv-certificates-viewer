@@ -21,19 +21,6 @@ describe('AuthorityInfoAccessSyntaxExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Authority Info Access',
-      Critical: 'No',
-      Descriptions: [
-        {
-          Method: '1.3.6.1.5.5.7.48.2',
-          URI: 'http://crl.firmaprofesional.com/cualificados.crt',
-        },
-        {
-          Method: '1.3.6.1.5.5.7.48.1',
-          URI: 'http://ocsp.firmaprofesional.com',
-        },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

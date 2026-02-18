@@ -21,47 +21,6 @@ describe('LogotypeExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Logotype',
-      Critical: 'No',
-      'Subject Logo': {
-        Images: [
-          {
-            'Image Type': 'image/gif',
-            'Image Hash Algorithm': 'SHA-256',
-            'Image Hash': '6a58502e5967f9ddd18afebd0db1fe60a5131bdf0fb2bef0b5734550ba1bbf19',
-            'Image URL': 'http://www.smime.example/logo.gif',
-          },
-          {
-            'Image Type': 'image/jpeg',
-            'Image Hash Algorithm': 'SHA-256',
-            'Image Hash': 'bdcb7b75276d8c1b33a42cdeac7972da4ad9f279840a58586ace2f0280ead7a5',
-            'Image URL': 'http://www.smime.example/logo.jpg',
-          },
-        ],
-      },
-      'Community Logos': [
-        {
-          Images: [
-            {
-              'Image Type': 'image/jpeg',
-              'Image Hash Algorithm': 'SHA-256',
-              'Image Hash': 'affc101646cb5625b4997de5893eae3a846f5a02d382d6da8ed4eef87cbd1ded',
-              'Image URL': 'http://www.example.net/images/logo.jpg',
-            },
-          ],
-        },
-        {
-          Images: [
-            {
-              'Image Type': 'image/gif',
-              'Image Hash Algorithm': 'SHA-256',
-              'Image Hash': '88908181adfb66ae2f66d049a04d8ea0ec4ea86442385b364abf2c8bd2e9e966',
-              'Image URL': 'http://www.example.org/logo-image.gif',
-            },
-          ],
-        },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

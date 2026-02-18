@@ -11,6 +11,7 @@ import { AsnParser, AsnConvert } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
 import { ExtensionFactory } from '../extensions';
 import { BaseAttribute } from './base_attribute';
+import { row, hexRow, section } from '../rows_format';
 
 /**
  * Extension Request Attribute
@@ -28,32 +29,28 @@ export class ExtensionRequestAttribute extends BaseAttribute {
     this.value = AsnParser.parse<ExtensionRequest>(asnAttrValue, ExtensionRequest);
   }
 
-  public override toJSON():
-  Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    const extensions = this.value.map((e) => {
+  // @ts-ignore
+  public override toJSON() {
+    const extensionRows = this.value.map((e) => {
       const extSerialized = AsnConvert.serialize(e);
       const extension = ExtensionFactory.parse(extSerialized);
 
       if (extension) {
-        return extension;
+        return extension.toJSON();
       }
 
-      // Fallback: return a basic extension structure for unknown extensions
-      return {
-        toJSON: () => ({
-          Name: e.extnID,
-          Critical: e.critical ? 'Yes' : 'No',
-          Value: Convert.ToHex(e.extnValue),
-        }),
-      };
+      return section(e.extnID, [
+        row('Critical', e.critical ? 'Yes' : 'No'),
+        hexRow('Value', Convert.ToHex(e.extnValue)),
+      ]);
     });
 
     return {
-      Name: ExtensionRequestAttribute.NAME,
-      Extensions: extensions.map((ext) => ext.toJSON()),
-    } as Record<
-      string,
-      string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]
-    >;
+      $rows: [
+        section(ExtensionRequestAttribute.NAME, [
+          section('Extensions', extensionRows),
+        ]),
+      ],
+    };
   }
 }

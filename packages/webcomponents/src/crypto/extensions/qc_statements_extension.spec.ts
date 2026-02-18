@@ -21,14 +21,7 @@ describe('QCStatementsExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'QC Statements',
-      Critical: 'No',
-      Statements: [
-        { 'Statement ID': '0.4.0.1862.1.1' },
-        { 'Statement ID': '0.4.0.1862.1.6.3' },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 
   it('should return correct JSON structure with multiple statements', () => {
@@ -42,29 +35,6 @@ describe('QCStatementsExtension', () => {
 
     const json = extension.toJSON();
 
-    expect(json).toEqual({
-      Name: 'QC Statements',
-      Critical: 'No',
-      Statements: [
-        { 'Statement ID': '0.4.0.1862.1.1' },
-        {
-          'Statement ID': '0.4.0.1862.1.3',
-          'Retention Period': '15 years',
-        },
-        {
-          'Statement ID': '0.4.0.1862.1.6',
-          'QC Types': '0.4.0.1862.1.6.1',
-        },
-        {
-          'Statement ID': '0.4.0.1862.1.5',
-          'PDS Locations': [
-            {
-              URL: 'https://www.firmaprofesional.com/cps/pds_en.pdf',
-              Language: 'en',
-            },
-          ],
-        },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

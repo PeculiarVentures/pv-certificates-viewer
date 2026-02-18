@@ -10,13 +10,12 @@ import { CaVersion, id_caVersion } from '@peculiar/asn1-x509-microsoft';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * CA Version Extension
  */
 export class CaVersionExtension extends BaseExtension {
-  public static override readonly NAME = 'CA Version';
-
   public readonly value: CaVersion;
 
   constructor(raw: BufferSource) {
@@ -27,15 +26,14 @@ export class CaVersionExtension extends BaseExtension {
     this.value = AsnParser.parse<CaVersion>(asnExtnValue, CaVersion);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
+  public override toJSON() {
     const version = this.value.getVersion();
 
-    return {
-      Name: CaVersionExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      'Certificate Index': version.certificateIndex,
-      'Key Index': version.keyIndex,
-    };
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Certificate Index', version.certificateIndex),
+      row('Key Index', version.keyIndex),
+    ]]);
   }
 }
 

@@ -10,13 +10,12 @@ import { CRLReason, id_ce_cRLReasons } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
+import { row, rowGroup } from '../rows_format';
 
 /**
  * CRL Reason Extension
  */
 export class CRLReasonExtension extends BaseExtension {
-  public static override readonly NAME = 'CRL Reason';
-
   public readonly value: CRLReason;
 
   constructor(raw: BufferSource) {
@@ -27,12 +26,11 @@ export class CRLReasonExtension extends BaseExtension {
     this.value = AsnParser.parse<CRLReason>(asnExtnValue, CRLReason);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: CRLReasonExtension.NAME,
-      Critical: this.critical ? 'Yes' : 'No',
-      Reason: this.value.toJSON(),
-    };
+  public override toJSON() {
+    return rowGroup(this.name, [[
+      row('Critical', this.critical),
+      row('Reason', this.value.toJSON()),
+    ]]);
   }
 }
 
