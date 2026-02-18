@@ -79,9 +79,7 @@ export class GeneralNameParser {
         relativeDistinguishedName.map((attributeTypeAndValue) => {
           const name = getStringByOID(attributeTypeAndValue.type, true);
 
-          return {
-            [name]: attributeTypeAndValue.value.toString(),
-          };
+          return { [name]: attributeTypeAndValue.value.toString() };
         })
       )).flat();
     }

@@ -9,9 +9,11 @@
 import { AuthorityKeyIdentifier, id_ce_authorityKeyIdentifier } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
+import {
+  row, hexRow, rowGroup,
+} from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
-import { row, hexRow, rowGroup } from '../rows_format';
 
 /**
  * Authority Key Identifier Extension

@@ -13,25 +13,25 @@
  * 2. section - big title (RowTitle) + flat rows, no TableRowTable
  * 3. rowGroup - label like RowValue + rows in TableRowTable
  */
-export type RenderRow =
+export type RenderRow
+  = | {
+    type?: 'row';
+    name: string;
+    value: string | number;
+    monospace?: boolean;
+    collapse?: boolean;
+    href?: string;
+  }
   | {
-      type?: 'row';
-      name: string;
-      value: string | number;
-      monospace?: boolean;
-      collapse?: boolean;
-      href?: string;
-    }
+    type?: 'section';
+    name: string;
+    $rows: RenderRow[];
+  }
   | {
-      type?: 'section';
-      name: string;
-      $rows: RenderRow[];
-    }
-  | {
-      type: 'rowGroup';
-      name: string;
-      $groups: RenderRow[][];
-    };
+    type: 'rowGroup';
+    name: string;
+    $groups: RenderRow[][];
+  };
 
 export interface RowsFormat {
   $rows: RenderRow[];

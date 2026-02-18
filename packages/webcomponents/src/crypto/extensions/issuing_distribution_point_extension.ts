@@ -8,10 +8,12 @@
 
 import { IssuingDistributionPoint, id_ce_issuingDistributionPoint } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import {
+  row, rowGroup, objectToRows,
+} from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
-import { row, rowGroup, objectToRows } from '../rows_format';
 
 /**
  * Issuing Distribution Point Extension
@@ -38,9 +40,11 @@ export class IssuingDistributionPointExtension extends BaseExtension {
         (gn) => objectToRows(GeneralNameParser.toObject(gn) as Record<string, unknown>),
       )]));
     }
+
     if (this.value.onlySomeReasons) {
       rows.push(row('Only Some Reasons', this.value.onlySomeReasons.toJSON().join(', ')));
     }
+
     if (this.value.indirectCRL) rows.push(row('Indirect CRL', 'Yes'));
     if (this.value.onlyContainsUserCerts) rows.push(row('Only Contains User Certs', 'Yes'));
     if (this.value.onlyContainsAttributeCerts) rows.push(row('Only Contains Attribute Certs', 'Yes'));

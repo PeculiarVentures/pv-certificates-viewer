@@ -28,15 +28,14 @@ export class DomainNameBeneficiaryAttribute extends BaseAttribute {
 
   public override toJSON():
   Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    const result: Record<string, unknown> = {
-      Name: DomainNameBeneficiaryAttribute.NAME,
-    };
+    const result: Record<string, unknown> = { Name: DomainNameBeneficiaryAttribute.NAME };
 
     const nameParts: Record<string, string>[] = [];
 
     this.value.forEach((rdn) => {
       rdn.forEach((atv) => {
         const value = atv.value.toString();
+
         nameParts.push({ [atv.type]: value });
       });
     });

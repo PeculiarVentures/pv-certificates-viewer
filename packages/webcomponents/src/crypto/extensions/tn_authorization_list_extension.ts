@@ -8,9 +8,9 @@
 
 import { TNAuthorizationList, id_pe_TNAuthList } from '@peculiar/asn1-rfc8226';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
-import { row, rowGroup } from '../rows_format';
 
 /**
  * TN Authorization List Extension
@@ -33,6 +33,7 @@ export class TNAuthorizationListExtension extends BaseExtension {
       if (entry.range) {
         rows.push(row('Range', `start=${entry.range.start} count=${entry.range.count}`));
       }
+
       if (entry.one !== undefined) {
         rows.push(row('One', entry.one));
       }

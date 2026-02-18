@@ -40,6 +40,7 @@ export class PrivateKeyPossessionStatementAttribute extends BaseAttribute {
       this.value.signer.issuer.forEach((rdn) => {
         rdn.forEach((atv) => {
           const value = atv.value.toString();
+
           issuerParts.push({ [atv.type]: value });
         });
       });

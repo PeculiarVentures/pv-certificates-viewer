@@ -8,9 +8,9 @@
 
 import { EnrollCertTypeChoice, id_enrollCertType } from '@peculiar/asn1-x509-microsoft';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
-import { row, rowGroup } from '../rows_format';
 
 /**
  * Enroll Cert Type Choice Extension

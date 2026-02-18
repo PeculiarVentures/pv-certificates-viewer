@@ -29,9 +29,7 @@ export class WebGdprAttribute extends BaseAttribute {
 
   public override toJSON():
   Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    const result: Record<string, unknown> = {
-      Name: WebGdprAttribute.NAME,
-    };
+    const result: Record<string, unknown> = { Name: WebGdprAttribute.NAME };
 
     if (this.value.assessmentAuthority) {
       result['Assessment Authority'] = GeneralNameParser.toObject(this.value.assessmentAuthority);

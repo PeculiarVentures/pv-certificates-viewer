@@ -8,9 +8,9 @@
 
 import { PolicyConstraints, id_ce_policyConstraints } from '@peculiar/asn1-x509';
 import { AsnParser, AsnIntegerArrayBufferConverter } from '@peculiar/asn1-schema';
+import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
-import { row, rowGroup } from '../rows_format';
 
 /**
  * Policy Constraints Extension

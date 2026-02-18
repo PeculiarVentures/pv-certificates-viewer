@@ -7,12 +7,12 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
+import type { RenderRow, RowsFormat } from '../../crypto/rows_format';
 import {
   RowTitle,
   RowValue,
   TableRowTable,
 } from './row';
-import type { RenderRow, RowsFormat } from '../../crypto/rows_format';
 
 interface IJsonCertificateParserProps {
   json: RowsFormat;
@@ -58,10 +58,13 @@ function renderRows(rows: RenderRow[]): unknown[] {
           ...renderRows(r.$rows),
         );
       }
+
       continue;
     }
 
-    const { name, value, monospace, collapse, href } = r as { name: string; value: string | number; monospace?: boolean; collapse?: boolean; href?: string };
+    const {
+      name, value, monospace, collapse, href,
+    } = r as { name: string; value: string | number; monospace?: boolean; collapse?: boolean; href?: string };
 
     if (value === undefined || value === null) {
       continue;

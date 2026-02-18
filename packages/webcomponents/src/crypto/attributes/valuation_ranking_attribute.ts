@@ -27,9 +27,7 @@ export class ValuationRankingAttribute extends BaseAttribute {
   }
 
   public override toJSON(): Record<string, string | number | boolean | Record<string, string | number | boolean>[]> {
-    const result: Record<string, string | number> = {
-      Name: ValuationRankingAttribute.NAME,
-    };
+    const result: Record<string, string | number> = { Name: ValuationRankingAttribute.NAME };
 
     Object.keys(this.value).forEach((keyName) => {
       const value = this.value[keyName];

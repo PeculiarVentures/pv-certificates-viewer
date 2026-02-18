@@ -8,10 +8,12 @@
 
 import { CRLDistributionPoints, id_ce_cRLDistributionPoints } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import {
+  row, objectToRows, rowGroup,
+} from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
-import { row, objectToRows, rowGroup } from '../rows_format';
 
 /**
  * CRL Distribution Points Extension

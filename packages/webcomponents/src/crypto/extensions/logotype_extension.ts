@@ -15,11 +15,13 @@ import {
 } from '@peculiar/asn1-x509-logotype';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
-import { ExtensionFactory } from './extension_factory';
 import { OIDs } from '../../constants/oids';
-import { BaseExtension } from './base_extension';
-import { row, hexRow, rowGroup } from '../rows_format';
+import {
+  row, hexRow, rowGroup,
+} from '../rows_format';
 import type { RenderRow } from '../rows_format';
+import { BaseExtension } from './base_extension';
+import { ExtensionFactory } from './extension_factory';
 
 /**
  * Logotype Extension
@@ -44,9 +46,7 @@ export class LogotypeExtension extends BaseExtension {
 
     return image.map((img) => {
       const { imageDetails } = img;
-      const imageData: Record<string, string> = {
-        'Image Type': imageDetails.mediaType,
-      };
+      const imageData: Record<string, string> = { 'Image Type': imageDetails.mediaType };
 
       if (imageDetails.logotypeHash && imageDetails.logotypeHash.length > 0) {
         const hashAlgOid = imageDetails.logotypeHash[0].hashAlg.algorithm;
@@ -75,9 +75,7 @@ export class LogotypeExtension extends BaseExtension {
 
     return audio.map((aud) => {
       const { audioDetails } = aud;
-      const audioData: Record<string, string> = {
-        'Audio Type': audioDetails.mediaType,
-      };
+      const audioData: Record<string, string> = { 'Audio Type': audioDetails.mediaType };
 
       if (audioDetails.logotypeHash && audioDetails.logotypeHash.length > 0) {
         const hashAlgOid = audioDetails.logotypeHash[0].hashAlg.algorithm;
@@ -130,17 +128,20 @@ export class LogotypeExtension extends BaseExtension {
     if (subjectLogo) {
       rows.push(rowGroup('Subject Logo', [this.logoDataToRows(subjectLogo)]));
     }
+
     const issuerLogo = this.renderLogo('Issuer', this.value.issuerLogo);
 
     if (issuerLogo) {
       rows.push(rowGroup('Issuer Logo', [this.logoDataToRows(issuerLogo)]));
     }
+
     if (this.value.communityLogos?.length) {
       const communityRows = this.value.communityLogos.flatMap((logo) => {
         const logoData = this.renderLogo('Community', logo);
 
         return logoData ? [rowGroup('Community Logo', [this.logoDataToRows(logoData)])] : [];
       });
+
       rows.push(...communityRows);
     }
 

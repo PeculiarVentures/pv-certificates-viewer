@@ -23,7 +23,9 @@ import {
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
 import { getStringByOID } from '../../utils';
-import { row, hexRow, rowGroup, objectToRows } from '../rows_format';
+import {
+  row, hexRow, rowGroup, objectToRows,
+} from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 

@@ -27,9 +27,7 @@ export class TypeRelationshipAttribute extends BaseAttribute {
   }
 
   public override toJSON(): Record<string, string | number | boolean> {
-    const result: Record<string, string | number | boolean> = {
-      Name: TypeRelationshipAttribute.NAME,
-    };
+    const result: Record<string, string | number | boolean> = { Name: TypeRelationshipAttribute.NAME };
 
     Object.keys(this.value).forEach((keyName) => {
       result[keyName] = this.value[keyName].toNumber() ? 'Yes' : 'No';

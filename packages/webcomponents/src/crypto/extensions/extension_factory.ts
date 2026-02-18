@@ -44,6 +44,7 @@ export class ExtensionFactory {
       return null;
     } catch (error) {
       console.error('Error parsing extension:', error);
+
       return null;
     }
   }

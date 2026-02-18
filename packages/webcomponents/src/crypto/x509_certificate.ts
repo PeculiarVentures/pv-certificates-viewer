@@ -22,7 +22,9 @@ import {
   SubjectPublicKeyInfo,
 } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
-import { dateDiff, Download, getStringByOID } from '../utils';
+import {
+  dateDiff, Download, getStringByOID,
+} from '../utils';
 import { ExtensionFactory } from './extensions';
 import { Name, INameJSON } from './name';
 import { AsnData } from './asn_data';
@@ -340,17 +342,19 @@ export class X509Certificate extends AsnData<Certificate> {
   }
 
   private getSignatureRows(): RenderRow[] {
-    const { algorithm, value, params } = this.signature;
+    const {
+      algorithm, value, params,
+    } = this.signature;
     const rows: RenderRow[] = [
       row('Algorithm', getStringByOID(algorithm)),
-      hexRow('Value', Convert.ToHex(value)),
+      row('Value', Convert.ToHex(value)),
     ];
 
     if (params?.length) {
-      rows.push(section('Params', params.map((param) => section(param.algorithm, [
+      rows.push(rowGroup('Params', [params.map((param) => rowGroup(param.algorithm, [[
         row('Algorithm', param.algorithm),
-        hexRow('Value', Convert.ToHex(param.value)),
-      ]))));
+        row('Value', Convert.ToHex(param.value)),
+      ]]))]));
     }
 
     return rows;

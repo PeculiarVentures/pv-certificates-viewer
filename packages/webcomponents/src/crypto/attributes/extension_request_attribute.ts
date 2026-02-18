@@ -10,8 +10,10 @@ import { ExtensionRequest } from '@peculiar/asn1-pkcs9';
 import { AsnParser, AsnConvert } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
 import { ExtensionFactory } from '../extensions';
+import {
+  row, hexRow, section,
+} from '../rows_format';
 import { BaseAttribute } from './base_attribute';
-import { row, hexRow, section } from '../rows_format';
 
 /**
  * Extension Request Attribute

@@ -8,9 +8,9 @@
 
 import { BaseCRLNumber, id_ce_deltaCRLIndicator } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
-import { row, rowGroup } from '../rows_format';
 
 /**
  * Delta CRL Indicator Extension

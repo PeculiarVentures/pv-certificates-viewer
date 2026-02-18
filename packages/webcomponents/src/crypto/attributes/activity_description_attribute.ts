@@ -29,9 +29,7 @@ export class ActivityDescriptionAttribute extends BaseAttribute {
 
   public override toJSON():
   Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    const result: Record<string, unknown> = {
-      Name: ActivityDescriptionAttribute.NAME,
-    };
+    const result: Record<string, unknown> = { Name: ActivityDescriptionAttribute.NAME };
 
     if (this.value.codeAuthority) {
       result['Code Authority'] = GeneralNameParser.toObject(this.value.codeAuthority);

@@ -8,10 +8,10 @@
 
 import { PolicyMappings, id_ce_policyMappings } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { ExtensionFactory } from './extension_factory';
 import { OIDs } from '../../constants/oids';
-import { BaseExtension } from './base_extension';
 import { row, rowGroup } from '../rows_format';
+import { ExtensionFactory } from './extension_factory';
+import { BaseExtension } from './base_extension';
 
 /**
  * Policy Mappings Extension

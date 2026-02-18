@@ -8,11 +8,13 @@
 
 import { CertificateIssuer, id_ce_certificateIssuer } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import {
+  row, rowGroup, objectToRows,
+} from '../rows_format';
+import type { RenderRow } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { GeneralNameParser } from './general_name_parser';
 import { BaseExtension } from './base_extension';
-import { row, rowGroup, objectToRows } from '../rows_format';
-import type { RenderRow } from '../rows_format';
 
 /**
  * Certificate Issuer Extension

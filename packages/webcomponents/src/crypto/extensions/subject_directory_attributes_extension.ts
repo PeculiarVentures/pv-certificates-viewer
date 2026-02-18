@@ -6,12 +6,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { SubjectDirectoryAttributes, Attribute, id_ce_subjectDirectoryAttributes } from '@peculiar/asn1-x509';
+import {
+  SubjectDirectoryAttributes, Attribute, id_ce_subjectDirectoryAttributes,
+} from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
+import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
-import { row, rowGroup } from '../rows_format';
 
 /**
  * Subject Directory Attributes Extension
