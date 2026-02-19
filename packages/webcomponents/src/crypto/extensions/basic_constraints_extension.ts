@@ -8,7 +8,6 @@
 
 import { BasicConstraints, id_ce_basicConstraints } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -27,11 +26,16 @@ export class BasicConstraintsExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      row('Certificate Authority', this.value.cA ? 'Yes' : 'No'),
-      ...(this.value.pathLenConstraint !== undefined ? [row('Path Length Constraint', this.value.pathLenConstraint)] : []),
-    ]]);
+    const content: Record<string, string | number> = {
+      Critical: this.critical,
+      'Certificate Authority': this.value.cA ? 'Yes' : 'No',
+    };
+
+    if (this.value.pathLenConstraint !== undefined) {
+      content['Path Length Constraint'] = this.value.pathLenConstraint;
+    }
+
+    return { [this.name]: content };
   }
 }
 

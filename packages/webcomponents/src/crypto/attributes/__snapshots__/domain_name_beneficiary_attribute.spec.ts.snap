@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DomainNameBeneficiaryAttribute should return correct JSON structure 1`] = `
+Object {
+  "Domain Name Beneficiary (0.4.0.9496.1)": Object {
+    "Names": Object {
+      "$flat": true,
+      "value": Array [
+        Object {
+          "Common Name": "Nowina",
+        },
+        Object {
+          "Organization": "Nowina Solutions",
+        },
+        Object {
+          "Country Name": "LU",
+        },
+        Object {
+          "Locality": "Kehlen",
+        },
+        Object {
+          "Postal Code": "8287",
+        },
+        Object {
+          "Street Address": "Zone industrielle 15",
+        },
+        Object {
+          "Telephone Number": "+352-661-231-914",
+        },
+        Object {
+          "Email": "info@nowina.lu",
+        },
+        Object {
+          "Organization Identifier": "VATLU-26850682",
+        },
+        Object {
+          "Organization Identifier": "LEIXG-2221002QQJ6K8YQYQD08",
+        },
+      ],
+    },
+  },
+}
+`;

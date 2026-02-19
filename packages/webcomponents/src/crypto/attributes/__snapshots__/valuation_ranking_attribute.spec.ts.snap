@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ValuationRankingAttribute should return correct JSON structure 1`] = `
+Object {
+  "Valuation ranking (0.4.0.9496.9)": Object {
+    "Value": "500/500, 40/50, 30/50, 2/5, 1/5",
+  },
+}
+`;

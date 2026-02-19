@@ -2,19 +2,9 @@
 
 exports[`InhibitAnyPolicyExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
-      Object {
-        "name": "Critical",
-        "value": "YES",
-      },
-      Object {
-        "name": "Skip Certs",
-        "value": "0",
-      },
-    ],
-  ],
-  "name": "Inhibit Any Policy (2.5.29.54)",
-  "type": "rowGroup",
+  "Inhibit Any Policy (2.5.29.54)": Object {
+    "Critical": "YES",
+    "Skip Certs": "0",
+  },
 }
 `;

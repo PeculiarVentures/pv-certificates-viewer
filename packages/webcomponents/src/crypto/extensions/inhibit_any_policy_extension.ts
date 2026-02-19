@@ -8,7 +8,6 @@
 
 import { InhibitAnyPolicy, id_ce_inhibitAnyPolicy } from '@peculiar/asn1-x509';
 import { AsnParser, AsnIntegerArrayBufferConverter } from '@peculiar/asn1-schema';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -27,10 +26,12 @@ export class InhibitAnyPolicyExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      row('Skip Certs', AsnIntegerArrayBufferConverter.toASN(this.value.value).valueBlock.toString()),
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        'Skip Certs': AsnIntegerArrayBufferConverter.toASN(this.value.value).valueBlock.toString(),
+      },
+    };
   }
 }
 

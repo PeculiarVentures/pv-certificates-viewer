@@ -8,6 +8,9 @@
 
 import { Extension as AsnExtension } from '@peculiar/asn1-x509';
 import { AsnConvert } from '@peculiar/asn1-schema';
+import { Convert } from 'pvtsutils';
+import { getStringByOID } from '../../utils';
+import type { IJsonRenderObject } from '../../components/certificate-details-parts/json_to_html_parser';
 import { BaseExtension } from './base_extension';
 
 type ExtensionClass = new (raw: BufferSource) => BaseExtension;
@@ -41,6 +44,8 @@ export class ExtensionFactory {
         return new ExtensionClass(raw);
       }
 
+      console.warn('Extension not registered:', asnExtension.extnID);
+
       return null;
     } catch (error) {
       console.error('Error parsing extension:', error);
@@ -50,20 +55,23 @@ export class ExtensionFactory {
   }
 
   /**
-   * Get the registered extension class for a given OID
-   * @param oid - The OID string
-   * @returns The extension class constructor, or null if not registered
+   * Get extension as JSON for rendering. Uses registered parser if available,
+   * otherwise returns fallback with Critical and hex Value.
    */
-  public static get(oid: string): ExtensionClass | null {
-    return ExtensionFactory.extensionClasses[oid] || null;
-  }
+  public static toJSON(raw: BufferSource): IJsonRenderObject {
+    const ext = ExtensionFactory.parse(raw);
 
-  /**
-   * Check if an OID is registered
-   * @param oid - The OID string
-   * @returns True if the OID is registered, false otherwise
-   */
-  public static has(oid: string): boolean {
-    return oid in ExtensionFactory.extensionClasses;
+    if (ext) {
+      return ext.toJSON();
+    }
+
+    const asnExt = AsnConvert.parse(raw, AsnExtension);
+
+    return {
+      [getStringByOID(asnExt.extnID)]: {
+        Critical: asnExt.critical ? 'YES' : 'NO',
+        Value: Convert.ToHex(asnExt.extnValue.buffer),
+      },
+    };
   }
 }

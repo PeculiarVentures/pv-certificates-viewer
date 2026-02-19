@@ -2,169 +2,46 @@
 
 exports[`LogotypeExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
+  "Logo Type (1.3.6.1.5.5.7.1.12)": Object {
+    "Community Logos": Array [
       Object {
-        "name": "Critical",
-        "value": "NO",
+        "Images": Array [
+          Object {
+            "Image Hash": "affc101646cb5625b4997de5893eae3a846f5a02d382d6da8ed4eef87cbd1ded",
+            "Image Hash Algorithm": "SHA-256",
+            "Image Type": "image/jpeg",
+            "Image URL": "http://www.example.net/images/logo.jpg",
+          },
+        ],
       },
       Object {
-        "$groups": Array [
-          Array [
-            Object {
-              "$groups": Array [
-                Array [
-                  Object {
-                    "$groups": Array [
-                      Array [
-                        Object {
-                          "name": "Image Type",
-                          "value": "image/gif",
-                        },
-                        Object {
-                          "name": "Image Hash Algorithm",
-                          "value": "SHA-256",
-                        },
-                        Object {
-                          "collapse": true,
-                          "monospace": true,
-                          "name": "Image Hash",
-                          "value": "6a58502e5967f9ddd18afebd0db1fe60a5131bdf0fb2bef0b5734550ba1bbf19",
-                        },
-                        Object {
-                          "name": "Image URL",
-                          "value": "http://www.smime.example/logo.gif",
-                        },
-                      ],
-                    ],
-                    "name": "Item 1",
-                    "type": "rowGroup",
-                  },
-                ],
-                Array [
-                  Object {
-                    "$groups": Array [
-                      Array [
-                        Object {
-                          "name": "Image Type",
-                          "value": "image/jpeg",
-                        },
-                        Object {
-                          "name": "Image Hash Algorithm",
-                          "value": "SHA-256",
-                        },
-                        Object {
-                          "collapse": true,
-                          "monospace": true,
-                          "name": "Image Hash",
-                          "value": "bdcb7b75276d8c1b33a42cdeac7972da4ad9f279840a58586ace2f0280ead7a5",
-                        },
-                        Object {
-                          "name": "Image URL",
-                          "value": "http://www.smime.example/logo.jpg",
-                        },
-                      ],
-                    ],
-                    "name": "Item 2",
-                    "type": "rowGroup",
-                  },
-                ],
-              ],
-              "name": "Images",
-              "type": "rowGroup",
-            },
-          ],
+        "Images": Array [
+          Object {
+            "Image Hash": "88908181adfb66ae2f66d049a04d8ea0ec4ea86442385b364abf2c8bd2e9e966",
+            "Image Hash Algorithm": "SHA-256",
+            "Image Type": "image/gif",
+            "Image URL": "http://www.example.org/logo-image.gif",
+          },
         ],
-        "name": "Subject Logo",
-        "type": "rowGroup",
-      },
-      Object {
-        "$groups": Array [
-          Array [
-            Object {
-              "$groups": Array [
-                Array [
-                  Object {
-                    "$groups": Array [
-                      Array [
-                        Object {
-                          "name": "Image Type",
-                          "value": "image/jpeg",
-                        },
-                        Object {
-                          "name": "Image Hash Algorithm",
-                          "value": "SHA-256",
-                        },
-                        Object {
-                          "collapse": true,
-                          "monospace": true,
-                          "name": "Image Hash",
-                          "value": "affc101646cb5625b4997de5893eae3a846f5a02d382d6da8ed4eef87cbd1ded",
-                        },
-                        Object {
-                          "name": "Image URL",
-                          "value": "http://www.example.net/images/logo.jpg",
-                        },
-                      ],
-                    ],
-                    "name": "Item 1",
-                    "type": "rowGroup",
-                  },
-                ],
-              ],
-              "name": "Images",
-              "type": "rowGroup",
-            },
-          ],
-        ],
-        "name": "Community Logo",
-        "type": "rowGroup",
-      },
-      Object {
-        "$groups": Array [
-          Array [
-            Object {
-              "$groups": Array [
-                Array [
-                  Object {
-                    "$groups": Array [
-                      Array [
-                        Object {
-                          "name": "Image Type",
-                          "value": "image/gif",
-                        },
-                        Object {
-                          "name": "Image Hash Algorithm",
-                          "value": "SHA-256",
-                        },
-                        Object {
-                          "collapse": true,
-                          "monospace": true,
-                          "name": "Image Hash",
-                          "value": "88908181adfb66ae2f66d049a04d8ea0ec4ea86442385b364abf2c8bd2e9e966",
-                        },
-                        Object {
-                          "name": "Image URL",
-                          "value": "http://www.example.org/logo-image.gif",
-                        },
-                      ],
-                    ],
-                    "name": "Item 1",
-                    "type": "rowGroup",
-                  },
-                ],
-              ],
-              "name": "Images",
-              "type": "rowGroup",
-            },
-          ],
-        ],
-        "name": "Community Logo",
-        "type": "rowGroup",
       },
     ],
-  ],
-  "name": "Logo Type (1.3.6.1.5.5.7.1.12)",
-  "type": "rowGroup",
+    "Critical": "NO",
+    "Subject Logo": Object {
+      "Images": Array [
+        Object {
+          "Image Hash": "6a58502e5967f9ddd18afebd0db1fe60a5131bdf0fb2bef0b5734550ba1bbf19",
+          "Image Hash Algorithm": "SHA-256",
+          "Image Type": "image/gif",
+          "Image URL": "http://www.smime.example/logo.gif",
+        },
+        Object {
+          "Image Hash": "bdcb7b75276d8c1b33a42cdeac7972da4ad9f279840a58586ace2f0280ead7a5",
+          "Image Hash Algorithm": "SHA-256",
+          "Image Type": "image/jpeg",
+          "Image URL": "http://www.smime.example/logo.jpg",
+        },
+      ],
+    },
+  },
 }
 `;

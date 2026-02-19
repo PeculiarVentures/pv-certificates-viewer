@@ -2,21 +2,9 @@
 
 exports[`AuthorityKeyIdentifierExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
-      Object {
-        "name": "Critical",
-        "value": "NO",
-      },
-      Object {
-        "collapse": false,
-        "monospace": true,
-        "name": "Key ID",
-        "value": "6ba5bdcf9dfa235978126417ae1e72d89a804ae8",
-      },
-    ],
-  ],
-  "name": "Authority Key Identifier (2.5.29.35)",
-  "type": "rowGroup",
+  "Authority Key Identifier (2.5.29.35)": Object {
+    "Critical": "NO",
+    "Key ID": "6ba5bdcf9dfa235978126417ae1e72d89a804ae8",
+  },
 }
 `;

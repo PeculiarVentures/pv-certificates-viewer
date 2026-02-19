@@ -8,7 +8,6 @@
 
 import { KeyUsage, id_ce_keyUsage } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -27,10 +26,12 @@ export class KeyUsageExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      row('Usage', this.value.toJSON().join(', ')),
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        Usage: this.value.toJSON().join(', '),
+      },
+    };
   }
 }
 

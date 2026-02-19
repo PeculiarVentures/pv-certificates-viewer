@@ -13,7 +13,6 @@ import {
   id_ce_certificatePolicies,
 } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { row, rowGroup } from '../rows_format';
 import { getStringByOID } from '../../utils';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
@@ -59,32 +58,32 @@ export class CertificatePoliciesExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    const policyRows = this.value.map((policy) => {
-      const rows = [row('Policy ID', getStringByOID(policy.policyIdentifier))];
+    const policies = this.value.map((policy) => {
+      const obj: Record<string, unknown> = { 'Policy ID': getStringByOID(policy.policyIdentifier) };
 
       if (policy.policyQualifiers?.length) {
-        rows.push(rowGroup('Qualifiers', policy.policyQualifiers.map((qualifier) => {
+        obj.Qualifiers = policy.policyQualifiers.map((qualifier) => {
           const parsedValue = this.parseQualifierValue(
             qualifier.policyQualifierId,
             qualifier.qualifier,
           );
-          const qualifierRows = [row('Qualifier ID', getStringByOID(qualifier.policyQualifierId))];
+          const q: Record<string, string> = { 'Qualifier ID': getStringByOID(qualifier.policyQualifierId) };
 
           if (parsedValue !== undefined) {
-            qualifierRows.push(row('Value', parsedValue));
+            q.Value = parsedValue;
           }
 
-          return qualifierRows;
-        })));
+          return q;
+        });
       }
 
-      return rows;
+      return obj;
     });
 
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      rowGroup('Policies', policyRows),
-    ]]);
+    return this.extJson({
+      Critical: this.critical,
+      Policies: policies,
+    });
   }
 }
 

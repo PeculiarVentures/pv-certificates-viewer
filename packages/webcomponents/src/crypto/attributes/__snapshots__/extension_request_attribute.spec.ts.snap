@@ -2,35 +2,19 @@
 
 exports[`ExtensionRequestAttribute should return correct JSON structure 1`] = `
 Object {
-  "$rows": Array [
-    Object {
-      "$rows": Array [
-        Object {
-          "$rows": ExtensionRequest [
+  "Extension Request (1.2.840.113549.1.9.14)": Object {
+    "Extensions": ExtensionRequest [
+      Object {
+        "Subject Alternative Name (2.5.29.17)": Object {
+          "Critical": "NO",
+          "Names": SubjectAlternativeName [
             Object {
-              "$groups": Array [
-                Array [
-                  Object {
-                    "name": "Critical",
-                    "value": "NO",
-                  },
-                  Object {
-                    "name": "Other Name",
-                    "value": "address@domain.test",
-                  },
-                ],
-              ],
-              "name": "Subject Alternative Name (2.5.29.17)",
-              "type": "rowGroup",
+              "Other Name": "address@domain.test",
             },
           ],
-          "name": "Extensions",
-          "type": "section",
         },
-      ],
-      "name": "Extension Request",
-      "type": "section",
-    },
-  ],
+      },
+    ],
+  },
 }
 `;

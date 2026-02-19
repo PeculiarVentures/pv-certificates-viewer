@@ -8,9 +8,7 @@
 
 import { Timestamp, id_adbe_timestamp } from '@peculiar/asn1-adobe-acrobat';
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  row, rowGroup, objectToRows,
-} from '../rows_format';
+import type { IJsonRenderObject } from '../../components/certificate-details-parts/json_to_html_parser';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
@@ -30,14 +28,17 @@ export class TimestampExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    const rows = [
-      row('Critical', this.critical),
-      row('Version', this.value.version),
-      row('Requires Auth', this.value.requiresAuth ? 'Yes' : 'No'),
-      ...(this.value.location ? objectToRows(GeneralNameParser.toObject(this.value.location) as Record<string, unknown>) : []),
-    ];
+    const content: Record<string, unknown> = {
+      Critical: this.critical,
+      Version: this.value.version,
+      'Requires Auth': this.value.requiresAuth ? 'Yes' : 'No',
+    };
 
-    return rowGroup(this.name, [rows]);
+    if (this.value.location) {
+      Object.assign(content, GeneralNameParser.toObject(this.value.location) as IJsonRenderObject);
+    }
+
+    return this.extJson(content);
   }
 }
 

@@ -6,18 +6,32 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
+import { Attribute } from '@peculiar/asn1-x509';
 import { AsnData } from '../asn_data';
+import { getStringByOID } from '../../utils/get_string_by_oid';
+import type { IJsonRenderObject } from '../../components/certificate-details-parts/json_to_html_parser';
 
 /**
- * Base class for all attribute types
+ * Base class for all attribute types.
+ * Display name is derived from OID via getStringByOID.
  */
-export abstract class BaseAttribute extends AsnData<AsnAttribute> {
+export abstract class BaseAttribute extends AsnData<Attribute> {
   public static readonly NAME: string;
 
   constructor(raw: BufferSource) {
-    super(raw, AsnAttribute);
+    super(raw, Attribute);
   }
 
-  public abstract toJSON(): Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]>;
+  /** Display name based on OID: "OIDs[oid] (oid)" when in OIDs map, else the OID string. */
+  public get name(): string {
+    return getStringByOID(this.asn.type);
+  }
+
+  /** Returns { [this.name]: content } for JsonToHtmlParser (TJsonRenderFormat section value). */
+  public abstract toJSON(): IJsonRenderObject;
+
+  /** Build attribute JSON with correct typing. Use for content that may have Record<string, unknown> values. */
+  protected attrJson(content: Record<string, unknown>): IJsonRenderObject {
+    return { [this.name]: content } as IJsonRenderObject;
+  }
 }

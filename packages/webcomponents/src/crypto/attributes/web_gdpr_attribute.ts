@@ -6,9 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { WebGDPR } from '@peculiar/asn1-ntqwac';
+import { WebGDPR, id_WebGDPR } from '@peculiar/asn1-ntqwac';
 import { AsnParser } from '@peculiar/asn1-schema';
+import type { IJsonRenderObject } from '../../components/certificate-details-parts/json_to_html_parser';
 import { GeneralNameParser } from '../extensions/general_name_parser';
+import { AttributeFactory } from './attribute_factory';
 import { BaseAttribute } from './base_attribute';
 
 /**
@@ -27,33 +29,31 @@ export class WebGdprAttribute extends BaseAttribute {
     this.value = AsnParser.parse<WebGDPR>(asnAttrValue, WebGDPR);
   }
 
-  public override toJSON():
-  Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    const result: Record<string, unknown> = { Name: WebGdprAttribute.NAME };
+  public override toJSON() {
+    const content: Record<string, unknown> = {};
 
     if (this.value.assessmentAuthority) {
-      result['Assessment Authority'] = GeneralNameParser.toObject(this.value.assessmentAuthority);
+      content['Assessment Authority'] = GeneralNameParser.toObject(this.value.assessmentAuthority) as IJsonRenderObject;
     }
 
     if (this.value.assessmentLocation) {
-      result['Assessment Location'] = GeneralNameParser.toObject(this.value.assessmentLocation);
+      content['Assessment Location'] = GeneralNameParser.toObject(this.value.assessmentLocation) as IJsonRenderObject;
     }
 
     if (this.value.assessmentRef) {
-      result['Assessment Ref'] = GeneralNameParser.toObject(this.value.assessmentRef);
+      content['Assessment Ref'] = GeneralNameParser.toObject(this.value.assessmentRef) as IJsonRenderObject;
     }
 
     if (this.value.dataStorageTerritory) {
-      result['Data Storage Territory'] = this.value.dataStorageTerritory;
+      content['Data Storage Territory'] = this.value.dataStorageTerritory;
     }
 
     if (this.value.description) {
-      result.Description = this.value.description;
+      content.Description = this.value.description;
     }
 
-    return result as Record<
-      string,
-      string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]
-    >;
+    return this.attrJson(content);
   }
 }
+
+AttributeFactory.register(id_WebGDPR, WebGdprAttribute);

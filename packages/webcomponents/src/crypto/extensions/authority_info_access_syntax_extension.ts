@@ -8,9 +8,6 @@
 
 import { AuthorityInfoAccessSyntax, id_pe_authorityInfoAccess } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  row, objectToRows, rowGroup,
-} from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
@@ -30,19 +27,21 @@ export class AuthorityInfoAccessSyntaxExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    const descriptionRows = this.value.map((description) => {
+    const descriptions = this.value.map((description) => {
       const locationObj = GeneralNameParser.toObject(description.accessLocation) as Record<string, unknown>;
 
-      return objectToRows({
+      return {
         Method: description.accessMethod,
         ...locationObj,
-      });
+      };
     });
 
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      rowGroup('Descriptions', descriptionRows),
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        Descriptions: descriptions,
+      },
+    };
   }
 }
 

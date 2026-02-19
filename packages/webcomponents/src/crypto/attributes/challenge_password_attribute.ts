@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { ChallengePassword } from '@peculiar/asn1-pkcs9';
+import { ChallengePassword, id_pkcs9_at_challengePassword } from '@peculiar/asn1-pkcs9';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { AttributeFactory } from './attribute_factory';
 import { BaseAttribute } from './base_attribute';
 
 /**
@@ -26,10 +27,9 @@ export class ChallengePasswordAttribute extends BaseAttribute {
     this.value = AsnParser.parse<ChallengePassword>(asnAttrValue, ChallengePassword);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: ChallengePasswordAttribute.NAME,
-      Value: this.value.toString(),
-    };
+  public override toJSON() {
+    return this.attrJson({ Value: this.value.toString() });
   }
 }
+
+AttributeFactory.register(id_pkcs9_at_challengePassword, ChallengePasswordAttribute);

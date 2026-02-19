@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`X509Crl toJSON should return a complete JSON object matching snapshot 1`] = `
+Object {
+  "Basic Information": Object {
+    "Last Update": "2013-02-18T10:32:00.000Z",
+    "Next Update": "2013-02-18T10:42:00.000Z",
+    "Type": "X.509 Certificate Revocation List",
+    "Version": 2,
+  },
+  "Extensions": Object {
+    "$flat": true,
+    "value": Array [
+      Object {
+        "Authority Key Identifier (2.5.29.35)": Object {
+          "Critical": "NO",
+          "Key ID": "be1201ccaaea1180da2eadb2eac7b5fb9ff9ad34",
+        },
+      },
+      Object {
+        "CRL Number (2.5.29.20)": Object {
+          "Critical": "NO",
+          "Value": "3",
+        },
+      },
+    ],
+  },
+  "Fingerprints": Object {},
+  "Issuer Name": Object {
+    "$flat": true,
+    "value": Array [
+      Object {
+        "Organization": "Sample Signer Organization",
+      },
+      Object {
+        "Organization Unit": "Sample Signer Unit",
+      },
+      Object {
+        "Common Name": "Sample Signer Cert",
+      },
+    ],
+  },
+  "Revoked Certificates": Object {
+    "$flat": true,
+    "value": Array [
+      Object {
+        "147947 (serial number)": Object {
+          "Extensions": Object {
+            "$flat": true,
+            "value": Array [
+              Object {
+                "CRL Reason (2.5.29.21)": Object {
+                  "Critical": "NO",
+                  "Reason": "affiliationChanged",
+                },
+              },
+              Object {
+                "Invalidity Date (2.5.29.24)": Object {
+                  "Critical": "NO",
+                  "Date": "2013-02-18T10:22:00.000Z",
+                },
+              },
+            ],
+          },
+          "Revocation Date": "2013-02-18T10:22:12.000Z",
+        },
+      },
+      Object {
+        "147948 (serial number)": Object {
+          "Extensions": Object {
+            "$flat": true,
+            "value": Array [
+              Object {
+                "CRL Reason (2.5.29.21)": Object {
+                  "Critical": "NO",
+                  "Reason": "certificateHold",
+                },
+              },
+              Object {
+                "Invalidity Date (2.5.29.24)": Object {
+                  "Critical": "NO",
+                  "Date": "2013-02-18T10:22:00.000Z",
+                },
+              },
+            ],
+          },
+          "Revocation Date": "2013-02-18T10:22:22.000Z",
+        },
+      },
+      Object {
+        "147949 (serial number)": Object {
+          "Extensions": Object {
+            "$flat": true,
+            "value": Array [
+              Object {
+                "CRL Reason (2.5.29.21)": Object {
+                  "Critical": "NO",
+                  "Reason": "superseded",
+                },
+              },
+              Object {
+                "Invalidity Date (2.5.29.24)": Object {
+                  "Critical": "NO",
+                  "Date": "2013-02-18T10:22:00.000Z",
+                },
+              },
+            ],
+          },
+          "Revocation Date": "2013-02-18T10:22:32.000Z",
+        },
+      },
+      Object {
+        "14794a (serial number)": Object {
+          "Extensions": Object {
+            "$flat": true,
+            "value": Array [
+              Object {
+                "CRL Reason (2.5.29.21)": Object {
+                  "Critical": "NO",
+                  "Reason": "keyCompromise",
+                },
+              },
+              Object {
+                "Invalidity Date (2.5.29.24)": Object {
+                  "Critical": "NO",
+                  "Date": "2013-02-18T10:22:00.000Z",
+                },
+              },
+            ],
+          },
+          "Revocation Date": "2013-02-18T10:22:42.000Z",
+        },
+      },
+      Object {
+        "14794b (serial number)": Object {
+          "Extensions": Object {
+            "$flat": true,
+            "value": Array [
+              Object {
+                "CRL Reason (2.5.29.21)": Object {
+                  "Critical": "NO",
+                  "Reason": "cessationOfOperation",
+                },
+              },
+              Object {
+                "Invalidity Date (2.5.29.24)": Object {
+                  "Critical": "NO",
+                  "Date": "2013-02-18T10:22:00.000Z",
+                },
+              },
+            ],
+          },
+          "Revocation Date": "2013-02-18T10:22:51.000Z",
+        },
+      },
+    ],
+  },
+  "Signature": Object {
+    "Algorithm": "SHA1 with RSA Encryption (1.2.840.113549.1.1.5)",
+    "Value": "4221be81f1c37976665bce21138a68a8b43cbe16c3af4bddcb78359290d8d74c6ffe6c6827ae6dda429801ee1793f0bda8eecd90b635f60da4ce4982f79d9fc86e7fd1f12d20f846cd431764e7f95ae82111c62469f84d93506f0b0dbd786153214462af0a0b92232506d0cc065bac1aa95b5de8aef5bbbbe1214fd389d7fa65276c4cc8693cf16e3d489de23dbd537ab5d1218517a702b750f38ef51c0b01c6847034d8c7a7ef41206450033cb5a62e0d0782529487589959c046b5ebfff15b148a3ca3b0cd3bd82e94b794f0372aebb616fde76f9e2a59b12cd813d28e61558c635e1b702d0b0bed0661af2a403350cb62a4239220c8ee196fb7b42e0c64c9",
+  },
+}
+`;

@@ -2,41 +2,18 @@
 
 exports[`AuthorityInfoAccessSyntaxExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
+  "Certificate Authority Information Access (1.3.6.1.5.5.7.1.1)": Object {
+    "Critical": "NO",
+    "Descriptions": AuthorityInfoAccessSyntax [
       Object {
-        "name": "Critical",
-        "value": "NO",
+        "Method": "1.3.6.1.5.5.7.48.2",
+        "URI": "http://crl.firmaprofesional.com/cualificados.crt",
       },
       Object {
-        "$groups": AuthorityInfoAccessSyntax [
-          Array [
-            Object {
-              "name": "Method",
-              "value": "1.3.6.1.5.5.7.48.2",
-            },
-            Object {
-              "name": "URI",
-              "value": "http://crl.firmaprofesional.com/cualificados.crt",
-            },
-          ],
-          Array [
-            Object {
-              "name": "Method",
-              "value": "1.3.6.1.5.5.7.48.1",
-            },
-            Object {
-              "name": "URI",
-              "value": "http://ocsp.firmaprofesional.com",
-            },
-          ],
-        ],
-        "name": "Descriptions",
-        "type": "rowGroup",
+        "Method": "1.3.6.1.5.5.7.48.1",
+        "URI": "http://ocsp.firmaprofesional.com",
       },
     ],
-  ],
-  "name": "Certificate Authority Information Access (1.3.6.1.5.5.7.1.1)",
-  "type": "rowGroup",
+  },
 }
 `;

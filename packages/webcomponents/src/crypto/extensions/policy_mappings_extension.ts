@@ -9,7 +9,6 @@
 import { PolicyMappings, id_ce_policyMappings } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { OIDs } from '../../constants/oids';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -28,20 +27,22 @@ export class PolicyMappingsExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    const policyRows = this.value.map((policy) => {
+    const policies = this.value.map((policy) => {
       const issuerOid = OIDs[policy.issuerDomainPolicy] || policy.issuerDomainPolicy;
       const subjectOid = OIDs[policy.subjectDomainPolicy] || policy.subjectDomainPolicy;
 
-      return [
-        row('Issuer Domain', issuerOid === policy.issuerDomainPolicy ? policy.issuerDomainPolicy : `${issuerOid} (${policy.issuerDomainPolicy})`),
-        row('Subject Domain', subjectOid === policy.subjectDomainPolicy ? policy.subjectDomainPolicy : `${subjectOid} (${policy.subjectDomainPolicy})`),
-      ];
+      return {
+        'Issuer Domain': issuerOid === policy.issuerDomainPolicy ? policy.issuerDomainPolicy : `${issuerOid} (${policy.issuerDomainPolicy})`,
+        'Subject Domain': subjectOid === policy.subjectDomainPolicy ? policy.subjectDomainPolicy : `${subjectOid} (${policy.subjectDomainPolicy})`,
+      };
     });
 
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      rowGroup('Policies', policyRows),
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        Policies: policies,
+      },
+    };
   }
 }
 

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnstructuredNameAttribute should return correct JSON structure 1`] = `
+Object {
+  "Unstructured Name (1.2.840.113549.1.9.2)": Object {
+    "Value": "test name",
+  },
+}
+`;

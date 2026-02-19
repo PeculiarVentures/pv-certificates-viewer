@@ -2,43 +2,28 @@
 
 exports[`CertificateIssuerExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
+  "Certificate Issuer (2.5.29.29)": Object {
+    "Critical": "NO",
+    "Issuers": CertificateIssuer [
       Object {
-        "name": "Critical",
-        "value": "NO",
-      },
-      Object {
-        "$groups": Array [
-          Array [
-            Object {
-              "$groups": Array [
-                Name [
-                  Object {
-                    "name": "Common Name",
-                    "value": "t",
-                  },
-                  Object {
-                    "name": "Organization Unit",
-                    "value": "x",
-                  },
-                  Object {
-                    "name": "Organization",
-                    "value": "y",
-                  },
-                ],
-              ],
-              "name": "Directory Name",
-              "type": "rowGroup",
-            },
-          ],
-        ],
-        "name": "Issuer",
-        "type": "rowGroup",
+        "Issuer": Object {
+          "Directory Name": Object {
+            "$flat": true,
+            "value": Array [
+              Object {
+                "Common Name": "t",
+              },
+              Object {
+                "Organization Unit": "x",
+              },
+              Object {
+                "Organization": "y",
+              },
+            ],
+          },
+        },
       },
     ],
-  ],
-  "name": "Certificate Issuer (2.5.29.29)",
-  "type": "rowGroup",
+  },
 }
 `;

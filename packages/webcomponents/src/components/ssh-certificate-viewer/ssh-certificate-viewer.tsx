@@ -17,9 +17,7 @@ import {
 } from '@stencil/core';
 import { SshCertificate } from '../../crypto';
 import { Typography } from '../typography';
-import { SshBasicInformation } from './-components/basic_information';
-import { SshPublicKey } from './-components/public_key';
-import { SshSignatureKey } from './-components/signature_key';
+import { JsonToHtmlParser } from '../certificate-details-parts';
 import { SshMiscellaneous } from './-components/miscellaneous';
 
 export type TSshCertificateProp = string | SshCertificate;
@@ -89,7 +87,6 @@ export class SshCertificateViewer {
         return;
       }
 
-      // this.certificateDecoded.parseExtensions();
       await this.certificateDecoded.parsePublicKey();
       await this.certificateDecoded.parseSignatureKey();
     } catch (error) {
@@ -150,21 +147,15 @@ export class SshCertificateViewer {
       return this.renderEmptyState();
     }
 
+    const certificateJson = this.certificateDecoded.toJSON();
+
     return (
       <Host
         data-mobile-screen-view={String(this.mobileScreenView)}
       >
         <table>
-          <SshBasicInformation
-            {...this.certificateDecoded}
-          />
-
-          <SshPublicKey
-            key={this.certificateDecoded.publicKey}
-          />
-
-          <SshSignatureKey
-            key={this.certificateDecoded.signatureKey}
+          <JsonToHtmlParser
+            data={certificateJson}
           />
 
           {this.download && (

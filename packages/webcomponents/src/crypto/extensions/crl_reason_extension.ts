@@ -8,7 +8,6 @@
 
 import { CRLReason, id_ce_cRLReasons } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -27,10 +26,12 @@ export class CRLReasonExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      row('Reason', this.value.toJSON()),
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        Reason: this.value.toJSON(),
+      },
+    };
   }
 }
 

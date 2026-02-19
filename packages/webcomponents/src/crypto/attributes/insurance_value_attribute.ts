@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { InsuranceValue } from '@peculiar/asn1-ntqwac';
+import { InsuranceValue, id_InsuranceValue } from '@peculiar/asn1-ntqwac';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { AttributeFactory } from './attribute_factory';
 import { BaseAttribute } from './base_attribute';
 
 /**
@@ -26,10 +27,9 @@ export class InsuranceValueAttribute extends BaseAttribute {
     this.value = AsnParser.parse<InsuranceValue>(asnAttrValue, InsuranceValue);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: InsuranceValueAttribute.NAME,
-      Value: `${this.value.base} * 10^${this.value.degree} ${this.value.location}`,
-    };
+  public override toJSON() {
+    return this.attrJson({ Value: `${this.value.base} * 10^${this.value.degree} ${this.value.location}` });
   }
 }
+
+AttributeFactory.register(id_InsuranceValue, InsuranceValueAttribute);

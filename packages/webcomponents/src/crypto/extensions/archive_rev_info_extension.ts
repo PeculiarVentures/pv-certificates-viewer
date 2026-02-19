@@ -8,7 +8,6 @@
 
 import { ArchiveRevInfo, id_adbe_archiveRevInfo } from '@peculiar/asn1-adobe-acrobat';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -27,10 +26,12 @@ export class ArchiveRevInfoExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      row('Version', this.value.version),
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        Version: this.value.version,
+      },
+    };
   }
 }
 

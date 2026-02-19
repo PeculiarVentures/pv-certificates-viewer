@@ -11,10 +11,16 @@ import { ECParameters, id_ecPublicKey } from '@peculiar/asn1-ecc';
 import { id_rsaEncryption, RSAPublicKey } from '@peculiar/asn1-rsa';
 import { CertificationRequest } from '@peculiar/asn1-csr';
 import { Convert } from 'pvtsutils';
-import { Download } from '../utils';
+import { Download, getStringByOID } from '../utils';
+import type {
+  TJsonRenderFormat,
+  TJsonRenderValue,
+  IJsonRenderObject,
+} from '../components/certificate-details-parts/json_to_html_parser';
+import { ArrayFlat } from '../components/certificate-details-parts/json_to_html_parser';
+import { AttributeFactory } from './attributes';
 import { AsnData } from './asn_data';
 import { Name, INameJSON } from './name';
-import { Attribute, TAttributeValue } from './attribute';
 import { PemConverter } from './pem_converter';
 import {
   certificateRawToBuffer,
@@ -36,8 +42,6 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
   public readonly subject: INameJSON[];
 
   public readonly version: number;
-
-  public attributes: Attribute<TAttributeValue>[];
 
   public thumbprints: Record<string, string> = {};
 
@@ -114,15 +118,6 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
     }
   }
 
-  public parseAttributes() {
-    const { certificationRequestInfo } = this.asn;
-
-    if (certificationRequestInfo.attributes) {
-      this.attributes = certificationRequestInfo.attributes
-        .map((e) => new Attribute(AsnConvert.serialize(e)));
-    }
-  }
-
   public toString(format: 'pem' | 'base64' | 'base64url' = 'pem'): string {
     switch (format) {
       case 'pem':
@@ -146,5 +141,53 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
       this.raw,
       name || this.commonName,
     );
+  }
+
+  public toJSON(): TJsonRenderFormat {
+    const attributeItems: TJsonRenderValue[] = this.asn.certificationRequestInfo.attributes?.map((attr) => (
+      AttributeFactory.toJSON(AsnConvert.serialize(attr))
+    )) || [];
+
+    return {
+      'Basic Information': {
+        Type: this.type,
+        Version: this.version,
+      },
+      'Subject Name': new ArrayFlat(...this.subject.map((n) => ({ [n.name]: n.value }))),
+      'Public Key Info': this.getPublicKeyJson(this.publicKey),
+      Signature: this.getSignatureJson(),
+      Fingerprints: this.thumbprints,
+      ...(attributeItems.length > 0 && { Attributes: ArrayFlat.from(attributeItems) }),
+    };
+  }
+
+  private getPublicKeyJson(key: IPublicKey): IJsonRenderObject {
+    const out: IJsonRenderObject = {
+      Algorithm: getStringByOID(key.algorithm),
+      Value: Convert.ToHex(key.value),
+    };
+
+    if (key.params instanceof ECParameters) {
+      out.Params = { 'Named Curve': getStringByOID(key.params.namedCurve) };
+    } else if (key.params instanceof RSAPublicKey) {
+      let length = key.params.modulus.byteLength;
+
+      if (length % 2) length -= 1;
+      out.Params = {
+        Modulus: `${length * 8} bits`,
+        'Public Exponent': key.params.publicExponent.byteLength === 3 ? 65537 : 3,
+      };
+    }
+
+    return out;
+  }
+
+  private getSignatureJson(): IJsonRenderObject {
+    const { algorithm, value } = this.signature;
+
+    return {
+      Algorithm: getStringByOID(algorithm),
+      Value: Convert.ToHex(value),
+    };
   }
 }

@@ -8,7 +8,6 @@
 
 import { CertificateTemplate, id_certificateTemplate } from '@peculiar/asn1-x509-microsoft';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -27,12 +26,14 @@ export class CertificateTemplateExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      row('Template ID', this.value.templateID),
-      row('Template Major Version', this.value.templateMajorVersion),
-      row('Template Minor Version', this.value.templateMinorVersion),
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        'Template ID': this.value.templateID,
+        'Template Major Version': this.value.templateMajorVersion,
+        'Template Minor Version': this.value.templateMinorVersion,
+      },
+    };
   }
 }
 

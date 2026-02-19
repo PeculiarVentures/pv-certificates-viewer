@@ -10,11 +10,11 @@ import {
   GeneralName,
   OtherName,
   DisplayText,
-  EDIPartyName,
   UserNotice,
 } from '@peculiar/asn1-x509';
 import { Convert, BufferSourceConverter } from 'pvtsutils';
 import { AsnParser, AsnConvert } from '@peculiar/asn1-schema';
+import { ArrayFlat } from '../../components/certificate-details-parts/json_to_html_parser';
 import { getStringByOID } from '../../utils';
 
 const names: Record<keyof GeneralName, string> = {
@@ -75,13 +75,13 @@ export class GeneralNameParser {
 
     // Check directoryName
     if (generalName.directoryName) {
-      result[names.directoryName] = generalName.directoryName.map((relativeDistinguishedName) => (
+      result[names.directoryName] = ArrayFlat.from(generalName.directoryName.map((relativeDistinguishedName) => (
         relativeDistinguishedName.map((attributeTypeAndValue) => {
           const name = getStringByOID(attributeTypeAndValue.type, true);
 
           return { [name]: attributeTypeAndValue.value.toString() };
         })
-      )).flat();
+      )).flat());
     }
 
     // Check otherName
@@ -105,19 +105,14 @@ export class GeneralNameParser {
           }
         }
       } else {
-        // @ts-ignore
+        // @ts-expect-error - generalName.otherName is not an instance of OtherName
         result[names.otherName] = Convert.ToHex(generalName.otherName.value);
       }
     }
 
     // Check ediPartyName
     if (generalName.ediPartyName) {
-      const value = generalName.ediPartyName instanceof EDIPartyName
-        ? generalName.ediPartyName.partyName.toString()
-        // @ts-ignore
-        : generalName.ediPartyName.partyName.toString();
-
-      result[names.ediPartyName] = value;
+      result[names.ediPartyName] = generalName.ediPartyName.partyName.toString();
     }
 
     // Check x400Address

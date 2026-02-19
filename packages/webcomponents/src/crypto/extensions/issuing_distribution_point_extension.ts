@@ -8,9 +8,7 @@
 
 import { IssuingDistributionPoint, id_ce_issuingDistributionPoint } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  row, rowGroup, objectToRows,
-} from '../rows_format';
+import type { IJsonRenderObject } from '../../components/certificate-details-parts/json_to_html_parser';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
@@ -33,24 +31,24 @@ export class IssuingDistributionPointExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    const rows = [row('Critical', this.critical)];
+    const content: Record<string, unknown> = { Critical: this.critical };
 
     if (this.value.distributionPoint?.fullName?.length) {
-      rows.push(rowGroup('Distribution Point', [this.value.distributionPoint.fullName.flatMap(
-        (gn) => objectToRows(GeneralNameParser.toObject(gn) as Record<string, unknown>),
-      )]));
+      content['Distribution Point'] = this.value.distributionPoint.fullName.map(
+        (gn) => GeneralNameParser.toObject(gn) as IJsonRenderObject,
+      );
     }
 
     if (this.value.onlySomeReasons) {
-      rows.push(row('Only Some Reasons', this.value.onlySomeReasons.toJSON().join(', ')));
+      content['Only Some Reasons'] = this.value.onlySomeReasons.toJSON().join(', ');
     }
 
-    if (this.value.indirectCRL) rows.push(row('Indirect CRL', 'Yes'));
-    if (this.value.onlyContainsUserCerts) rows.push(row('Only Contains User Certs', 'Yes'));
-    if (this.value.onlyContainsAttributeCerts) rows.push(row('Only Contains Attribute Certs', 'Yes'));
-    if (this.value.onlyContainsCACerts) rows.push(row('Only Contains CA Certs', 'Yes'));
+    if (this.value.indirectCRL) content['Indirect CRL'] = 'Yes';
+    if (this.value.onlyContainsUserCerts) content['Only Contains User Certs'] = 'Yes';
+    if (this.value.onlyContainsAttributeCerts) content['Only Contains Attribute Certs'] = 'Yes';
+    if (this.value.onlyContainsCACerts) content['Only Contains CA Certs'] = 'Yes';
 
-    return rowGroup(this.name, [rows]);
+    return this.extJson(content);
   }
 }
 

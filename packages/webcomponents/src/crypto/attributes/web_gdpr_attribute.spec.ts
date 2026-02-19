@@ -24,13 +24,6 @@ describe('WebGdprAttribute', () => {
 
     const json = attribute.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Web GDPR',
-      'Assessment Authority': { 'RFC 822 Name': 'GDPR CAB' },
-      'Assessment Location': { URI: 'https://gdprcab.lu/nowina' },
-      'Assessment Ref': { 'RFC 822 Name': 'Certificate n°124/2020' },
-      'Data Storage Territory': 'LU',
-      Description: 'Nowina Solutions has been shown to be GDPR compliant in its signature creation activities',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

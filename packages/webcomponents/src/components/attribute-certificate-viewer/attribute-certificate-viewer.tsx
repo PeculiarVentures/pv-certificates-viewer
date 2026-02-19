@@ -17,17 +17,8 @@ import {
 } from '@stencil/core';
 import { X509AttributeCertificate } from '../../crypto';
 import {
-  getDNSNameLink, getIPAddressLink, getLEILink,
-} from '../../utils/third_party_links';
-import {
-  BasicInformation,
-  Signature,
-  Thumbprints,
-  Extensions,
+  JsonToHtmlParser,
   Miscellaneous,
-  Attributes,
-  Holder,
-  Issuer,
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
 
@@ -134,8 +125,6 @@ export class AttributeCertificateViewer {
         return;
       }
 
-      this.certificateDecoded.parseExtensions();
-      this.certificateDecoded.parseAttributes();
       await this.certificateDecoded.getThumbprint('SHA-1');
       await this.certificateDecoded.getThumbprint('SHA-256');
     } catch (error) {
@@ -173,18 +162,6 @@ export class AttributeCertificateViewer {
     }
   }
 
-  private getAuthKeyIdParentLink = (value: string) => this.authKeyIdParentLink
-    ?.replace('{{authKeyId}}', value);
-
-  private getAuthKeyIdSiblingsLink = (value: string) => this.authKeyIdSiblingsLink
-    ?.replace('{{authKeyId}}', value);
-
-  private getSubjectKeyIdChildrenLink = (value: string) => this.subjectKeyIdChildrenLink
-    ?.replace('{{subjectKeyId}}', value);
-
-  private getSubjectKeyIdSiblingsLink = (value: string) => this.subjectKeyIdSiblingsLink
-    ?.replace('{{subjectKeyId}}', value);
-
   private renderErrorState() {
     return (
       <div class="status_wrapper">
@@ -214,51 +191,15 @@ export class AttributeCertificateViewer {
       return this.renderEmptyState();
     }
 
+    const certificateJson = this.certificateDecoded.toJSON();
+
     return (
       <Host
         data-mobile-screen-view={String(this.mobileScreenView)}
       >
         <table>
-          <BasicInformation
-            {...this.certificateDecoded}
-          />
-
-          <Issuer
-            issuer={this.certificateDecoded.issuer}
-          />
-
-          <Holder
-            holder={this.certificateDecoded.holder}
-          />
-
-          <Signature
-            signature={this.certificateDecoded.signature}
-          />
-
-          <Thumbprints
-            thumbprints={this.certificateDecoded.thumbprints}
-          />
-
-          <Attributes
-            attributes={this.certificateDecoded.attributes}
-            getLEILink={getLEILink}
-            getDNSNameLink={getDNSNameLink}
-            getIPAddressLink={getIPAddressLink}
-            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
-            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
-            getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
-            getSubjectKeyIdSiblingsLink={this.getSubjectKeyIdSiblingsLink}
-          />
-
-          <Extensions
-            extensions={this.certificateDecoded.extensions}
-            getLEILink={getLEILink}
-            getDNSNameLink={getDNSNameLink}
-            getIPAddressLink={getIPAddressLink}
-            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
-            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
-            getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
-            getSubjectKeyIdSiblingsLink={this.getSubjectKeyIdSiblingsLink}
+          <JsonToHtmlParser
+            data={certificateJson}
           />
 
           {this.download && (

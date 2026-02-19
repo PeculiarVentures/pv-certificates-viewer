@@ -20,9 +20,6 @@ describe('UnstructuredNameAttribute', () => {
 
     const json = attribute.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Unstructured Name',
-      Value: 'test name',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

@@ -8,7 +8,6 @@
 
 import { NetscapeComment, id_netscapeComment } from '@peculiar/asn1-x509-netscape';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -27,10 +26,12 @@ export class NetscapeCommentExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      row('Comment', this.value.value),
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        Comment: this.value.value,
+      },
+    };
   }
 }
 

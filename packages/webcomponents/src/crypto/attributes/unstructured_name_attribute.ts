@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { UnstructuredName } from '@peculiar/asn1-pkcs9';
+import { UnstructuredName, id_pkcs9_at_unstructuredName } from '@peculiar/asn1-pkcs9';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { AttributeFactory } from './attribute_factory';
 import { BaseAttribute } from './base_attribute';
 
 /**
@@ -26,10 +27,9 @@ export class UnstructuredNameAttribute extends BaseAttribute {
     this.value = AsnParser.parse<UnstructuredName>(asnAttrValue, UnstructuredName);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    return {
-      Name: UnstructuredNameAttribute.NAME,
-      Value: this.value.toString(),
-    };
+  public override toJSON() {
+    return this.attrJson({ Value: this.value.toString() });
   }
 }
+
+AttributeFactory.register(id_pkcs9_at_unstructuredName, UnstructuredNameAttribute);

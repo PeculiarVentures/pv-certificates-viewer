@@ -20,20 +20,6 @@ describe('DomainNameTechnicalOperatorAttribute', () => {
 
     const json = attribute.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Domain Name Technical Operator',
-      'Name Parts': [
-        { '2.5.4.3': 'Nowina' },
-        { '2.5.4.10': 'Nowina Solutions' },
-        { '2.5.4.6': 'LU' },
-        { '2.5.4.7': 'Kehlen' },
-        { '2.5.4.17': '8287' },
-        { '2.5.4.9': 'Zone industrielle 15' },
-        { '2.5.4.20': '+352-661-231-914' },
-        { '1.2.840.113549.1.9.1': 'info@nowina.lu' },
-        { '2.5.4.97': 'VATLU-26850682' },
-        { '2.5.4.97': 'LEIXG-2221002QQJ6K8YQYQD08' },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

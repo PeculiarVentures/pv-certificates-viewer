@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DomainNameLegalRepresentativeAttribute should return correct JSON structure 1`] = `
+Object {
+  "DNB Legal representative (0.4.0.9496.2)": Object {
+    "Names": Object {
+      "$flat": true,
+      "value": Array [
+        Object {
+          "Given Name": "Olivier",
+        },
+        Object {
+          "Surname": "Barette",
+        },
+        Object {
+          "Organization": "Nowina Solutions",
+        },
+        Object {
+          "Country Name": "BE",
+        },
+        Object {
+          "Serial Number": "PASBE-AB123456",
+        },
+      ],
+    },
+  },
+}
+`;

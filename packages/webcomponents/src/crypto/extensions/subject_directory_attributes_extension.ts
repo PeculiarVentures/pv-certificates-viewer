@@ -11,7 +11,6 @@ import {
 } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -30,15 +29,17 @@ export class SubjectDirectoryAttributesExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    const attrRows = this.value.map((attribute: Attribute) => rowGroup('Attribute', [[
-      row('Type', attribute.type),
-      row('Value', Convert.ToString(attribute.values[0])),
-    ]]));
+    const attributes = this.value.map((attribute: Attribute) => ({
+      Type: attribute.type,
+      Value: Convert.ToString(attribute.values[0]),
+    }));
 
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      ...attrRows,
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        Attributes: attributes,
+      },
+    };
   }
 }
 

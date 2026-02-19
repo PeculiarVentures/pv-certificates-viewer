@@ -2,27 +2,13 @@
 
 exports[`TNAuthorizationListExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
+  "Telephone Number Authorization List (1.3.6.1.5.5.7.1.26)": Object {
+    "Critical": "NO",
+    "Entries": TNAuthorizationList [
       Object {
-        "name": "Critical",
-        "value": "NO",
-      },
-      Object {
-        "$groups": Array [
-          Array [
-            Object {
-              "name": "SPC",
-              "value": "709J",
-            },
-          ],
-        ],
-        "name": "Entry",
-        "type": "rowGroup",
+        "SPC": "709J",
       },
     ],
-  ],
-  "name": "Telephone Number Authorization List (1.3.6.1.5.5.7.1.26)",
-  "type": "rowGroup",
+  },
 }
 `;

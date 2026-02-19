@@ -7,7 +7,6 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { CabforganizationIdentifier, id_cabforganizationIdentifier } from './cabforganization_identifier';
@@ -30,18 +29,18 @@ export class CabforganizationIdentifierExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    const rows = [
-      row('Critical', this.critical),
-      row('Registration Scheme Identifier', this.value.registrationSchemeIdentifier),
-      row('Registration Country', this.value.registrationCountry),
-      row('Registration Reference', this.value.registrationReference),
-    ];
+    const content: Record<string, string> = {
+      Critical: this.critical,
+      'Registration Scheme Identifier': this.value.registrationSchemeIdentifier,
+      'Registration Country': this.value.registrationCountry,
+      'Registration Reference': this.value.registrationReference,
+    };
 
     if (this.value.registrationStateOrProvince) {
-      rows.push(row('Registration State Or Province', this.value.registrationStateOrProvince));
+      content['Registration State Or Province'] = this.value.registrationStateOrProvince;
     }
 
-    return rowGroup(this.name, [rows]);
+    return { [this.name]: content };
   }
 }
 

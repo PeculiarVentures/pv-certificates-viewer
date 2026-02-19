@@ -6,9 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { ActivityDescription } from '@peculiar/asn1-ntqwac';
+import { ActivityDescription, id_ActivityDescription } from '@peculiar/asn1-ntqwac';
 import { AsnParser } from '@peculiar/asn1-schema';
+import type { IJsonRenderObject } from '../../components/certificate-details-parts/json_to_html_parser';
 import { GeneralNameParser } from '../extensions/general_name_parser';
+import { AttributeFactory } from './attribute_factory';
 import { BaseAttribute } from './base_attribute';
 
 /**
@@ -27,29 +29,27 @@ export class ActivityDescriptionAttribute extends BaseAttribute {
     this.value = AsnParser.parse<ActivityDescription>(asnAttrValue, ActivityDescription);
   }
 
-  public override toJSON():
-  Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    const result: Record<string, unknown> = { Name: ActivityDescriptionAttribute.NAME };
+  public override toJSON() {
+    const content: Record<string, unknown> = {};
 
     if (this.value.codeAuthority) {
-      result['Code Authority'] = GeneralNameParser.toObject(this.value.codeAuthority);
+      content['Code Authority'] = GeneralNameParser.toObject(this.value.codeAuthority) as IJsonRenderObject;
     }
 
     if (this.value.codeId) {
-      result['Code ID'] = GeneralNameParser.toObject(this.value.codeId);
+      content['Code ID'] = GeneralNameParser.toObject(this.value.codeId) as IJsonRenderObject;
     }
 
     if (this.value.shortName) {
-      result['Short Name'] = this.value.shortName;
+      content['Short Name'] = this.value.shortName;
     }
 
     if (this.value.shortDescription) {
-      result['Short Description'] = this.value.shortDescription;
+      content['Short Description'] = this.value.shortDescription;
     }
 
-    return result as Record<
-      string,
-      string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]
-    >;
+    return this.attrJson(content);
   }
 }
+
+AttributeFactory.register(id_ActivityDescription, ActivityDescriptionAttribute);

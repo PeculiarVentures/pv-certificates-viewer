@@ -8,10 +8,6 @@
 
 import { NameConstraints, id_ce_nameConstraints } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  row, objectToRows, rowGroup,
-} from '../rows_format';
-import type { RenderRow } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
@@ -30,37 +26,32 @@ export class NameConstraintsExtension extends BaseExtension {
     this.value = AsnParser.parse<NameConstraints>(asnExtnValue, NameConstraints);
   }
 
-  private subtreeToRows(subtree: { base: unknown; minimum?: unknown; maximum?: unknown }): RenderRow[] {
-    const baseObj = GeneralNameParser.toObject(subtree.base) as Record<string, unknown>;
-    const rows = objectToRows(baseObj);
+  private subtreeToObject(subtree: { base: unknown; minimum?: unknown; maximum?: unknown }): Record<string, unknown> {
+    const obj = { ...GeneralNameParser.toObject(subtree.base) } as Record<string, unknown>;
 
     if (subtree.minimum !== undefined) {
-      rows.push(row('Minimum', subtree.minimum.toString()));
+      obj.Minimum = subtree.minimum.toString();
     }
 
     if (subtree.maximum !== undefined) {
-      rows.push(row('Maximum', subtree.maximum.toString()));
+      obj.Maximum = subtree.maximum.toString();
     }
 
-    return rows;
+    return obj;
   }
 
   public override toJSON() {
-    const rows: RenderRow[] = [
-      row('Critical', this.critical),
-    ];
+    const content: Record<string, unknown> = { Critical: this.critical };
 
     if (this.value.excludedSubtrees?.length) {
-      rows.push(rowGroup('Excluded Subtrees', this.value.excludedSubtrees.map((s) => this.subtreeToRows(s))));
+      content['Excluded Subtrees'] = this.value.excludedSubtrees.map((s) => this.subtreeToObject(s));
     }
 
     if (this.value.permittedSubtrees?.length) {
-      rows.push(rowGroup('Permitted Subtrees', this.value.permittedSubtrees.map((s) => this.subtreeToRows(s))));
+      content['Permitted Subtrees'] = this.value.permittedSubtrees.map((s) => this.subtreeToObject(s));
     }
 
-    return rowGroup(this.name, [[
-      ...rows,
-    ]]);
+    return this.extJson(content);
   }
 }
 

@@ -23,9 +23,7 @@ import {
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
 import { getStringByOID } from '../../utils';
-import {
-  row, hexRow, rowGroup, objectToRows,
-} from '../rows_format';
+import type { IJsonRenderObject } from '../../components/certificate-details-parts/json_to_html_parser';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -84,25 +82,25 @@ export class QCStatementsExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    const statementRows = this.value.map((statement) => {
-      const rows = [row('Statement ID', getStringByOID(statement.statementId))];
+    const statements = this.value.map((statement) => {
+      const obj: Record<string, unknown> = { 'Statement ID': getStringByOID(statement.statementId) };
       const parsedInfo = this.parseStatementInfo(statement.statementId, statement.statementInfo);
 
       if (parsedInfo !== undefined) {
         if (typeof parsedInfo === 'string') {
-          rows.push(hexRow('Info', parsedInfo));
+          obj.Info = parsedInfo;
         } else {
-          rows.push(...objectToRows(parsedInfo as Record<string, unknown>));
+          Object.assign(obj, parsedInfo as IJsonRenderObject);
         }
       }
 
-      return rows;
+      return obj;
     });
 
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      rowGroup('Statements', statementRows),
-    ]]);
+    return this.extJson({
+      Critical: this.critical,
+      Statements: statements,
+    });
   }
 }
 

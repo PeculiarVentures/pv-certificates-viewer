@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TypeRelationshipAttribute should return correct JSON structure 1`] = `
+Object {
+  "Type of relationship between DNB/DNO/DNT (0.4.0.9496.5)": Object {
+    "DNBvsDNO": "Yes",
+    "DNBvsDNT": "Yes",
+    "DNOvsDNT": "Yes",
+  },
+}
+`;

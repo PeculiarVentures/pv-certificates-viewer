@@ -2,27 +2,19 @@
 
 exports[`IssuerAlternativeNameExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
+  "Issuer Alternative Name (2.5.29.18)": Object {
+    "Critical": "NO",
+    "Names": IssueAlternativeName [
       Object {
-        "name": "Critical",
-        "value": "NO",
+        "DNS Name": "issuer.example.com",
       },
       Object {
-        "name": "DNS Name",
-        "value": "issuer.example.com",
+        "RFC 822 Name": "issuer@example.com",
       },
       Object {
-        "name": "RFC 822 Name",
-        "value": "issuer@example.com",
-      },
-      Object {
-        "name": "IP Address",
-        "value": "192.168.1.1",
+        "IP Address": "192.168.1.1",
       },
     ],
-  ],
-  "name": "Issuer Alternative Name (2.5.29.18)",
-  "type": "rowGroup",
+  },
 }
 `;

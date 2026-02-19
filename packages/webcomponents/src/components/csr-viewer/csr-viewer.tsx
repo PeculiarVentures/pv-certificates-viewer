@@ -17,16 +17,8 @@ import {
 } from '@stencil/core';
 import { Pkcs10CertificateRequest } from '../../crypto';
 import {
-  getDNSNameLink, getIPAddressLink, getLEILink,
-} from '../../utils/third_party_links';
-import {
-  BasicInformation,
-  SubjectName,
-  Signature,
-  Thumbprints,
+  JsonToHtmlParser,
   Miscellaneous,
-  PublicKey,
-  Attributes,
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
 
@@ -115,7 +107,6 @@ export class CsrViewer {
         return;
       }
 
-      this.certificateDecoded.parseAttributes();
       await this.certificateDecoded.getThumbprint('SHA-1');
       await this.certificateDecoded.getThumbprint('SHA-256');
     } catch (error) {
@@ -153,16 +144,6 @@ export class CsrViewer {
     }
   }
 
-  private getAuthKeyIdParentLink = (value: string) => value;
-
-  private getAuthKeyIdSiblingsLink = (value: string) => value;
-
-  private getSubjectKeyIdChildrenLink = (value: string) => this.subjectKeyIdChildrenLink
-    ?.replace('{{subjectKeyId}}', value);
-
-  private getSubjectKeyIdSiblingsLink = (value: string) => this.subjectKeyIdSiblingsLink
-    ?.replace('{{subjectKeyId}}', value);
-
   private renderErrorState() {
     return (
       <div class="status_wrapper">
@@ -192,40 +173,15 @@ export class CsrViewer {
       return this.renderEmptyState();
     }
 
+    const certificateJson = this.certificateDecoded.toJSON();
+
     return (
       <Host
         data-mobile-screen-view={String(this.mobileScreenView)}
       >
         <table>
-          <BasicInformation
-            {...this.certificateDecoded}
-          />
-
-          <SubjectName
-            name={this.certificateDecoded.subject}
-          />
-
-          <PublicKey
-            publicKey={this.certificateDecoded.publicKey}
-          />
-
-          <Signature
-            signature={this.certificateDecoded.signature}
-          />
-
-          <Thumbprints
-            thumbprints={this.certificateDecoded.thumbprints}
-          />
-
-          <Attributes
-            attributes={this.certificateDecoded.attributes}
-            getLEILink={getLEILink}
-            getDNSNameLink={getDNSNameLink}
-            getIPAddressLink={getIPAddressLink}
-            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
-            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
-            getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
-            getSubjectKeyIdSiblingsLink={this.getSubjectKeyIdSiblingsLink}
+          <JsonToHtmlParser
+            data={certificateJson}
           />
 
           {this.download && (

@@ -2,99 +2,34 @@
 
 exports[`CertificateTransparencyExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
+  "Certificate Transparency (1.3.6.1.4.1.11129.2.4.2)": Object {
+    "Critical": "NO",
+    "Signed Certificate Timestamps": Array [
       Object {
-        "name": "Critical",
-        "value": "NO",
+        "Log Key ID": "bbd9dfbc1f8a71b593942397aa927b473857950aab52e81a909664368e1ed185",
+        "Log Operator": "Google “Skydiver”",
+        "Signature": "MEUCIBlkZCJyRrA8wQQVI1LZzGhHfy18JdS9nFyDUFuLWSPYAiEA60/mzcUHYW02dy2L4VhcyaQhzXI5UYfbEvxU2j9/Luw=",
+        "Signature Algorithm": "SHA256 ECDSA",
+        "Timestamp": "Mon, 04 Mar 2019 14:08:01 GMT",
+        "Version": 1,
       },
       Object {
-        "$groups": Array [
-          Array [
-            Object {
-              "name": "Version",
-              "value": "1",
-            },
-            Object {
-              "name": "Log Key ID",
-              "value": "bbd9dfbc1f8a71b593942397aa927b473857950aab52e81a909664368e1ed185",
-            },
-            Object {
-              "name": "Log Operator",
-              "value": "Google “Skydiver”",
-            },
-            Object {
-              "name": "Timestamp",
-              "value": "Mon, 04 Mar 2019 14:08:01 GMT",
-            },
-            Object {
-              "name": "Signature Algorithm",
-              "value": "SHA256 ECDSA",
-            },
-            Object {
-              "name": "Signature",
-              "value": "MEUCIBlkZCJyRrA8wQQVI1LZzGhHfy18JdS9nFyDUFuLWSPYAiEA60/mzcUHYW02dy2L4VhcyaQhzXI5UYfbEvxU2j9/Luw=",
-            },
-          ],
-          Array [
-            Object {
-              "name": "Version",
-              "value": "1",
-            },
-            Object {
-              "name": "Log Key ID",
-              "value": "5614069a2fd7c2ecd3f5e1bd44b23ec74676b9bc99115cc0ef949855d689d0dd",
-            },
-            Object {
-              "name": "Log Operator",
-              "value": "DigiCert Server",
-            },
-            Object {
-              "name": "Timestamp",
-              "value": "Mon, 04 Mar 2019 14:08:01 GMT",
-            },
-            Object {
-              "name": "Signature Algorithm",
-              "value": "SHA256 ECDSA",
-            },
-            Object {
-              "name": "Signature",
-              "value": "MEYCIQCnEg/deVYLcsOpRbgSZCWTFWiItTv5Uc5xah48b8BKpAIhAJfy/3z8TSF+xNOoApUt8xDIlswOrGrsPlhLncs8Rl0K",
-            },
-          ],
-          Array [
-            Object {
-              "name": "Version",
-              "value": "1",
-            },
-            Object {
-              "name": "Log Key ID",
-              "value": "8775bfe7597cf88c43995fbdf36eff568d475636ff4ab560c1b4eaff5ea0830f",
-            },
-            Object {
-              "name": "Log Operator",
-              "value": "DigiCert Server 2",
-            },
-            Object {
-              "name": "Timestamp",
-              "value": "Mon, 04 Mar 2019 14:08:01 GMT",
-            },
-            Object {
-              "name": "Signature Algorithm",
-              "value": "SHA256 ECDSA",
-            },
-            Object {
-              "name": "Signature",
-              "value": "MEQCIHzl5hWuq4bAZOpcYh3sa1wrjdc6p8qWVokM52qUm7GDAiBYeYUCQ1OJmnG6LIAYUW0u/pZYJN5WXQO3SqKEl433/w==",
-            },
-          ],
-        ],
-        "name": "Signed Certificate Timestamps",
-        "type": "rowGroup",
+        "Log Key ID": "5614069a2fd7c2ecd3f5e1bd44b23ec74676b9bc99115cc0ef949855d689d0dd",
+        "Log Operator": "DigiCert Server",
+        "Signature": "MEYCIQCnEg/deVYLcsOpRbgSZCWTFWiItTv5Uc5xah48b8BKpAIhAJfy/3z8TSF+xNOoApUt8xDIlswOrGrsPlhLncs8Rl0K",
+        "Signature Algorithm": "SHA256 ECDSA",
+        "Timestamp": "Mon, 04 Mar 2019 14:08:01 GMT",
+        "Version": 1,
+      },
+      Object {
+        "Log Key ID": "8775bfe7597cf88c43995fbdf36eff568d475636ff4ab560c1b4eaff5ea0830f",
+        "Log Operator": "DigiCert Server 2",
+        "Signature": "MEQCIHzl5hWuq4bAZOpcYh3sa1wrjdc6p8qWVokM52qUm7GDAiBYeYUCQ1OJmnG6LIAYUW0u/pZYJN5WXQO3SqKEl433/w==",
+        "Signature Algorithm": "SHA256 ECDSA",
+        "Timestamp": "Mon, 04 Mar 2019 14:08:01 GMT",
+        "Version": 1,
       },
     ],
-  ],
-  "name": "Certificate Transparency (1.3.6.1.4.1.11129.2.4.2)",
-  "type": "rowGroup",
+  },
 }
 `;

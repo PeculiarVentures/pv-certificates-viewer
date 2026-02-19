@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { ValuationRanking } from '@peculiar/asn1-ntqwac';
+import { ValuationRanking, id_ValuationRanking } from '@peculiar/asn1-ntqwac';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { AttributeFactory } from './attribute_factory';
 import { BaseAttribute } from './base_attribute';
 
 /**
@@ -26,10 +27,8 @@ export class ValuationRankingAttribute extends BaseAttribute {
     this.value = AsnParser.parse<ValuationRanking>(asnAttrValue, ValuationRanking);
   }
 
-  public override toJSON(): Record<string, string | number | boolean | Record<string, string | number | boolean>[]> {
-    const result: Record<string, string | number> = { Name: ValuationRankingAttribute.NAME };
-
-    Object.keys(this.value).forEach((keyName) => {
+  public override toJSON() {
+    const content: string[] = Object.keys(this.value).map((keyName) => {
       const value = this.value[keyName];
       let ratio = 1;
 
@@ -39,9 +38,11 @@ export class ValuationRankingAttribute extends BaseAttribute {
         ratio = 10;
       }
 
-      result[keyName] = `${value}/${5 * ratio}`;
+      return `${value}/${5 * ratio}`;
     });
 
-    return result;
+    return this.attrJson({ Value: content.join(', ') });
   }
 }
+
+AttributeFactory.register(id_ValuationRanking, ValuationRankingAttribute);

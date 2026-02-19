@@ -1,0 +1,326 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`X509AttributeCertificate toJSON should return a complete JSON object matching snapshot 1`] = `
+Object {
+  "Attributes": Object {
+    "$flat": true,
+    "value": Array [
+      Object {
+        "Domain Name Beneficiary (0.4.0.9496.1)": Object {
+          "Names": Object {
+            "$flat": true,
+            "value": Array [
+              Object {
+                "Common Name": "Nowina",
+              },
+              Object {
+                "Organization": "Nowina Solutions",
+              },
+              Object {
+                "Country Name": "LU",
+              },
+              Object {
+                "Locality": "Kehlen",
+              },
+              Object {
+                "Postal Code": "8287",
+              },
+              Object {
+                "Street Address": "Zone industrielle 15",
+              },
+              Object {
+                "Telephone Number": "+352-661-231-914",
+              },
+              Object {
+                "Email": "info@nowina.lu",
+              },
+              Object {
+                "Organization Identifier": "VATLU-26850682",
+              },
+              Object {
+                "Organization Identifier": "LEIXG-2221002QQJ6K8YQYQD08",
+              },
+            ],
+          },
+        },
+      },
+      Object {
+        "DNB Legal representative (0.4.0.9496.2)": Object {
+          "Names": Object {
+            "$flat": true,
+            "value": Array [
+              Object {
+                "Given Name": "Olivier",
+              },
+              Object {
+                "Surname": "Barette",
+              },
+              Object {
+                "Organization": "Nowina Solutions",
+              },
+              Object {
+                "Country Name": "BE",
+              },
+              Object {
+                "Serial Number": "PASBE-AB123456",
+              },
+            ],
+          },
+        },
+      },
+      Object {
+        "Domain Name Owner (0.4.0.9496.3)": Object {
+          "Names": Object {
+            "$flat": true,
+            "value": Array [
+              Object {
+                "Common Name": "Nowina",
+              },
+              Object {
+                "Organization": "Nowina Solutions",
+              },
+              Object {
+                "Country Name": "LU",
+              },
+              Object {
+                "Locality": "Kehlen",
+              },
+              Object {
+                "Postal Code": "8287",
+              },
+              Object {
+                "Street Address": "Zone industrielle 15",
+              },
+              Object {
+                "Telephone Number": "+352-661-231-914",
+              },
+              Object {
+                "Email": "info@nowina.lu",
+              },
+              Object {
+                "Organization Identifier": "VATLU-26850682",
+              },
+              Object {
+                "Organization Identifier": "LEIXG-2221002QQJ6K8YQYQD08",
+              },
+            ],
+          },
+        },
+      },
+      Object {
+        "Domain Name Technical Operator (0.4.0.9496.4)": Object {
+          "Names": Object {
+            "$flat": true,
+            "value": Array [
+              Object {
+                "Common Name": "Nowina",
+              },
+              Object {
+                "Organization": "Nowina Solutions",
+              },
+              Object {
+                "Country Name": "LU",
+              },
+              Object {
+                "Locality": "Kehlen",
+              },
+              Object {
+                "Postal Code": "8287",
+              },
+              Object {
+                "Street Address": "Zone industrielle 15",
+              },
+              Object {
+                "Telephone Number": "+352-661-231-914",
+              },
+              Object {
+                "Email": "info@nowina.lu",
+              },
+              Object {
+                "Organization Identifier": "VATLU-26850682",
+              },
+              Object {
+                "Organization Identifier": "LEIXG-2221002QQJ6K8YQYQD08",
+              },
+            ],
+          },
+        },
+      },
+      Object {
+        "Type of relationship between DNB/DNO/DNT (0.4.0.9496.5)": Object {
+          "DNBvsDNO": "Yes",
+          "DNBvsDNT": "Yes",
+          "DNOvsDNT": "Yes",
+        },
+      },
+      Object {
+        "DNB Main Activity Description (0.4.0.9496.6)": Object {
+          "Code Authority": Object {
+            "RFC 822 Name": "NACEBEL",
+          },
+          "Code ID": Object {
+            "RFC 822 Name": "66.010",
+          },
+          "Short Description": "La société a pour objet le développement, la vente et la mise en place de solutions informatiques (software et hardware) destinées aux entreprises publiques et privées, en ce compris la consultance dans le domaine informatique, le développement, la mise en place, le support et la maintenance de systèmes d'information, ainsi que la vente de matériel et de programmes, ainsi que toutes les opérations se rapportant directement ou indirectement à cette activité.",
+          "Short Name": "Computer programming activities",
+        },
+      },
+      Object {
+        "GDPR compliance attestation reference (0.4.0.9496.7)": Object {
+          "Assessment Authority": Object {
+            "RFC 822 Name": "GDPR CAB",
+          },
+          "Assessment Location": Object {
+            "URI": "https://gdprcab.lu/nowina",
+          },
+          "Assessment Ref": Object {
+            "RFC 822 Name": "Certificate n°124/2020",
+          },
+          "Data Storage Territory": "LU",
+          "Description": "Nowina Solutions has been shown to be GDPR compliant in its signature creation activities",
+        },
+      },
+      Object {
+        "Insurance coverage attestation (0.4.0.9496.8)": Object {
+          "Value": "1000 * 10^2 EUR",
+        },
+      },
+      Object {
+        "Valuation ranking (0.4.0.9496.9)": Object {
+          "Value": "500/500, 40/50, 30/50, 2/5, 1/5",
+        },
+      },
+    ],
+  },
+  "Basic Information": Object {
+    "Not After": "2020-09-26T10:48:28.000Z",
+    "Not Before": "2020-07-15T15:53:08.000Z",
+    "Serial Number": "0a",
+    "Type": "X.509 Attribute Certificate",
+    "Validity": "2 months",
+    "Version": 1,
+  },
+  "Extensions": Object {
+    "$flat": true,
+    "value": Array [
+      Object {
+        "Authority Key Identifier (2.5.29.35)": Object {
+          "Critical": "NO",
+          "Key ID": "30d7d41448262d8e986c49335440a4838eb55858",
+        },
+      },
+      Object {
+        "Certificate Authority Information Access (1.3.6.1.5.5.7.1.1)": Object {
+          "Critical": "NO",
+          "Descriptions": AuthorityInfoAccessSyntax [
+            Object {
+              "Method": "1.3.6.1.5.5.7.48.2",
+              "URI": "http://nt-qwac.nowina.solutions/res/qwactsp/ntqwacservice.crt",
+            },
+          ],
+        },
+      },
+      Object {
+        "CRL Distribution Points (2.5.29.31)": Object {
+          "Critical": "NO",
+          "Distribution Points": CRLDistributionPoints [
+            Object {
+              "Distribution Point": Array [
+                Object {
+                  "URI": "http://nt-qwac.nowina.solutions/res/qwactsp/ntqwacservice.crl",
+                },
+              ],
+            },
+          ],
+        },
+      },
+      Object {
+        "Qualified Certificate Statements (1.3.6.1.5.5.7.1.3)": Object {
+          "Critical": "NO",
+          "Statements": QCStatements [
+            Object {
+              "Statement ID": "ETSI QCS Compliance (0.4.0.1862.1.1)",
+            },
+            Object {
+              "Statement ID": "ETSI QC Type Web (0.4.0.1862.1.6.3)",
+            },
+          ],
+        },
+      },
+      Object {
+        "Certificate Policies (2.5.29.32)": Object {
+          "Critical": "YES",
+          "Policies": CertificatePolicies [
+            Object {
+              "Policy ID": "QCP Web (0.4.0.194112.1.4)",
+            },
+          ],
+        },
+      },
+    ],
+  },
+  "Fingerprints": Object {},
+  "Holder": Object {
+    "Base Certificate ID": Object {
+      "Issuer": GeneralNames [
+        Object {
+          "Directory Name": Object {
+            "$flat": true,
+            "value": Array [
+              Object {
+                "Country Name": "US",
+              },
+              Object {
+                "Organization": "Let's Encrypt",
+              },
+              Object {
+                "Common Name": "Let's Encrypt Authority X3",
+              },
+            ],
+          },
+        },
+      ],
+      "Serial": "040d3615d468cab766ab4a0247132f7cf4a9",
+    },
+    "Digest Info": Object {
+      "Algorithm": "2.16.840.1.101.3.4.2.1",
+      "Type": 1,
+      "Value": "9d375964b293e87d01b612c70cd4bff5ae7a3eeb326078925bab2fbb5a0d0eb4",
+    },
+  },
+  "Issuer Name": Object {
+    "$flat": true,
+    "value": Array [
+      Object {
+        "Directory Name": Object {
+          "$flat": true,
+          "value": Array [
+            Object {
+              "Country Name": "BE",
+            },
+            Object {
+              "State": "Brussels",
+            },
+            Object {
+              "Locality": "Brussels",
+            },
+            Object {
+              "Organization": "Test Qualified Trust Service Provider for QWACs",
+            },
+            Object {
+              "Organization Unit": "TEST TSP",
+            },
+            Object {
+              "Common Name": "QWAC service",
+            },
+          ],
+        },
+      },
+    ],
+  },
+  "Signature": Object {
+    "Algorithm": "SHA256 with RSA Encryption (1.2.840.113549.1.1.11)",
+    "Value": "6e9d8b68ace5653c3b6953db8bb2e9743a76657e13bb9c3198ccd22a21d5e67cdfc8c45402111157033573a4c8a1481903c0b3d46b533ec03a3107ef4143b0ad7ed525a0bc0c60acd4b0018a37fc1cdec0e14ebc12343808151fe8334eb7907bd473f27b1ce62b7e1be63e3f9012bc3a02e8e9978ca8a789d4e4b3aeee8f183d3d44bf4c5cd15d671bd411c4b84ab8e3e9d13b59b405b43be40727f05c1a8b94298066350e8eb01499bc71a838d08c23cb4efb1d821ac04ce99841f1c49edc07d0410452818eed47b554250a1a60a8f288133ff652163f987d874208270a97cb46f09ef279db26952bcda0ffab7966890f93e3ba282172b0fc9651f75e8d784d",
+  },
+}
+`;

@@ -14,9 +14,7 @@ import {
 } from '@peculiar/asn1-android';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert, BufferSourceConverter } from 'pvtsutils';
-import {
-  row, hexRow, rowGroup, objectToRows,
-} from '../rows_format';
+import { ArrayFlat } from '../../components/certificate-details-parts/json_to_html_parser';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -96,50 +94,54 @@ export class KeyDescriptionExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    const rows = [
-      row('Critical', this.critical),
-      row('Attestation Version', this.value.attestationVersion),
-      row('Attestation Security Level', this.value.attestationSecurityLevel),
-      row('Keymaster Version', this.value.keymasterVersion),
-      row('Keymaster Security Level', this.value.keymasterSecurityLevel),
-    ];
+    const content: Record<string, unknown> = {
+      Critical: this.critical,
+      'Attestation Version': this.value.attestationVersion,
+      'Attestation Security Level': this.value.attestationSecurityLevel,
+      'Keymaster Version': this.value.keymasterVersion,
+      'Keymaster Security Level': this.value.keymasterSecurityLevel,
+    };
 
     if (this.value.attestationChallenge) {
       try {
-        rows.push(row('Attestation Challenge', Convert.ToString(this.value.attestationChallenge)));
+        content['Attestation Challenge'] = Convert.ToString(this.value.attestationChallenge);
       } catch {
-        rows.push(hexRow('Attestation Challenge', Convert.ToHex(this.value.attestationChallenge)));
+        content['Attestation Challenge'] = Convert.ToHex(this.value.attestationChallenge);
       }
     }
 
     if (this.value.uniqueId) {
       try {
-        rows.push(row('Unique Id', Convert.ToString(this.value.uniqueId)));
+        content['Unique Id'] = Convert.ToString(this.value.uniqueId);
       } catch {
-        rows.push(hexRow('Unique Id', Convert.ToHex(this.value.uniqueId)));
+        content['Unique Id'] = Convert.ToHex(this.value.uniqueId);
       }
     }
 
     if (this.value.softwareEnforced?.length) {
-      rows.push(rowGroup('Software Enforced', [this.convertAuthorizationListToRows(this.value.softwareEnforced).flat()]));
+      content['Software Enforced'] = ArrayFlat.from(this.convertAuthorizationListToObject(this.value.softwareEnforced));
     }
 
     if (this.value.teeEnforced?.length) {
-      rows.push(rowGroup('Tee Enforced', [this.convertAuthorizationListToRows(this.value.teeEnforced).flat()]));
+      content['Tee Enforced'] = ArrayFlat.from(this.convertAuthorizationListToObject(this.value.teeEnforced));
     }
 
-    return rowGroup(this.name, [rows]);
+    return this.extJson(content);
   }
 
-  private convertAuthorizationListToRows(authList: unknown[]) {
+  private convertAuthorizationListToObject(authList: unknown[]) {
     return authList.map((item) => {
       const converted: Record<string, unknown> = {};
 
       for (const [key, value] of Object.entries(item)) {
-        converted[key] = this.convertValueToJSON(value);
+        const convertedValue = this.convertValueToJSON(value);
+
+        if (convertedValue !== null) {
+          converted[key] = convertedValue;
+        }
       }
 
-      return objectToRows(converted);
+      return converted;
     });
   }
 }

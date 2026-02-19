@@ -8,10 +8,7 @@
 
 import { IssueAlternativeName, id_ce_issuerAltName } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  row, rowGroup, objectToRows,
-} from '../rows_format';
-import type { RenderRow } from '../rows_format';
+import type { IJsonRenderObject } from '../../components/certificate-details-parts/json_to_html_parser';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
@@ -31,24 +28,26 @@ export class IssuerAlternativeNameExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    const nameRows: RenderRow[] = this.value.flatMap((generalName) => {
-      const obj = GeneralNameParser.toObject(generalName);
+    const names = this.value.map((generalName) => {
+      const obj = GeneralNameParser.toObject(generalName) as Record<string, unknown>;
 
       if (Object.keys(obj).length === 1) {
         const [[k, v]] = Object.entries(obj);
 
         if (typeof v === 'string' || typeof v === 'number') {
-          return [row(k, v)];
+          return { [k]: v };
         }
       }
 
-      return [rowGroup('Name', [objectToRows(obj as Record<string, unknown>)])];
+      return { Name: obj as IJsonRenderObject };
     });
 
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      ...nameRows,
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        Names: names,
+      },
+    };
   }
 }
 

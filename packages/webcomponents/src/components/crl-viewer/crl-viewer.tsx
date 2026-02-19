@@ -17,16 +17,8 @@ import {
 } from '@stencil/core';
 import { X509Crl } from '../../crypto';
 import {
-  getDNSNameLink, getIPAddressLink, getLEILink,
-} from '../../utils/third_party_links';
-import {
-  BasicInformation,
-  IssuerName,
-  Signature,
-  Thumbprints,
-  Extensions,
+  JsonToHtmlParser,
   Miscellaneous,
-  RevokedCertificates,
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
 
@@ -121,7 +113,6 @@ export class CrlViewer {
         return;
       }
 
-      this.certificateDecoded.parseExtensions();
       await this.certificateDecoded.getThumbprint('SHA-1');
       await this.certificateDecoded.getThumbprint('SHA-256');
     } catch (error) {
@@ -131,16 +122,6 @@ export class CrlViewer {
     }
 
     this.isDecodeInProcess = false;
-  }
-
-  private getAuthKeyIdParentLink = (value: string) => this.authKeyIdParentLink
-    ?.replace('{{authKeyId}}', value);
-
-  private getAuthKeyIdSiblingsLink = (value: string) => this.authKeyIdSiblingsLink
-    ?.replace('{{authKeyId}}', value);
-
-  private getIssuerDnLink() {
-    return this.issuerDnLink;
   }
 
   /**
@@ -198,41 +179,15 @@ export class CrlViewer {
       return this.renderEmptyState();
     }
 
+    const certificateJson = this.certificateDecoded.toJSON();
+
     return (
       <Host
         data-mobile-screen-view={String(this.mobileScreenView)}
       >
         <table>
-          <BasicInformation
-            {...this.certificateDecoded}
-          />
-
-          <IssuerName
-            name={this.certificateDecoded.issuer}
-            issuerDnLink={this.getIssuerDnLink()}
-          />
-
-          <Signature
-            signature={this.certificateDecoded.signature}
-          />
-
-          <Thumbprints
-            thumbprints={this.certificateDecoded.thumbprints}
-          />
-
-          <Extensions
-            extensions={this.certificateDecoded.extensions}
-            getLEILink={getLEILink}
-            getDNSNameLink={getDNSNameLink}
-            getIPAddressLink={getIPAddressLink}
-            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
-            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
-          />
-
-          <RevokedCertificates
-            revokedCertificates={this.certificateDecoded.revokedCertificates}
-            getDNSNameLink={getDNSNameLink}
-            getIPAddressLink={getIPAddressLink}
+          <JsonToHtmlParser
+            data={certificateJson}
           />
 
           {this.download && (

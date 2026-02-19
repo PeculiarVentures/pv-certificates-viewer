@@ -20,15 +20,6 @@ describe('DomainNameLegalRepresentativeAttribute', () => {
 
     const json = attribute.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Domain Name Legal Representative',
-      'Name Parts': [
-        { '2.5.4.42': 'Olivier' },
-        { '2.5.4.4': 'Barette' },
-        { '2.5.4.10': 'Nowina Solutions' },
-        { '2.5.4.6': 'BE' },
-        { '2.5.4.5': 'PASBE-AB123456' },
-      ],
-    });
+    expect(json).toMatchSnapshot();
   });
 });

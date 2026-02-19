@@ -16,10 +16,6 @@ import {
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
 import { OIDs } from '../../constants/oids';
-import {
-  row, hexRow, rowGroup,
-} from '../rows_format';
-import type { RenderRow } from '../rows_format';
 import { BaseExtension } from './base_extension';
 import { ExtensionFactory } from './extension_factory';
 
@@ -121,45 +117,46 @@ export class LogotypeExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    const rows = [row('Critical', this.critical)];
+    const content: Record<string, unknown> = { Critical: this.critical };
 
     const subjectLogo = this.renderLogo('Subject', this.value.subjectLogo);
 
     if (subjectLogo) {
-      rows.push(rowGroup('Subject Logo', [this.logoDataToRows(subjectLogo)]));
+      content['Subject Logo'] = this.logoDataToObject(subjectLogo);
     }
 
     const issuerLogo = this.renderLogo('Issuer', this.value.issuerLogo);
 
     if (issuerLogo) {
-      rows.push(rowGroup('Issuer Logo', [this.logoDataToRows(issuerLogo)]));
+      content['Issuer Logo'] = this.logoDataToObject(issuerLogo);
     }
 
     if (this.value.communityLogos?.length) {
-      const communityRows = this.value.communityLogos.flatMap((logo) => {
-        const logoData = this.renderLogo('Community', logo);
-
-        return logoData ? [rowGroup('Community Logo', [this.logoDataToRows(logoData)])] : [];
-      });
-
-      rows.push(...communityRows);
+      content['Community Logos'] = this.value.communityLogos
+        .map((logo) => this.renderLogo('Community', logo))
+        .filter((logoData): logoData is Record<string, Record<string, string>[]> => !!logoData)
+        .map((logoData) => this.logoDataToObject(logoData));
     }
 
-    return rowGroup(this.name, [rows]);
+    return this.extJson(content);
   }
 
-  private logoDataToRows(logoData: Record<string, Record<string, string>[]>): RenderRow[] {
-    const rows: RenderRow[] = [];
+  private logoDataToObject(logoData: Record<string, Record<string, string>[]>): Record<string, unknown> {
+    const result: Record<string, unknown> = {};
 
     for (const [key, items] of Object.entries(logoData)) {
-      rows.push(rowGroup(key, items.map((item, i) => [
-        rowGroup(`Item ${i + 1}`, [
-          Object.entries(item).map(([k, v]) => (v && /^[0-9a-fA-F]+$/.test(v) && v.length > 20 ? hexRow(k, v) : row(k, v))),
-        ]),
-      ])));
+      result[key] = items.map((item) => {
+        const itemObj: Record<string, string> = {};
+
+        for (const [k, v] of Object.entries(item)) {
+          itemObj[k] = v ?? '';
+        }
+
+        return itemObj;
+      });
     }
 
-    return rows;
+    return result;
   }
 }
 

@@ -9,9 +9,6 @@
 import { AuthorityKeyIdentifier, id_ce_authorityKeyIdentifier } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
-import {
-  row, hexRow, rowGroup,
-} from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -30,10 +27,12 @@ export class AuthorityKeyIdentifierExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      hexRow('Key ID', this.value.keyIdentifier ? Convert.ToHex(this.value.keyIdentifier.buffer) : ''),
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        'Key ID': this.value.keyIdentifier ? Convert.ToHex(this.value.keyIdentifier.buffer) : '',
+      },
+    };
   }
 }
 

@@ -20,9 +20,6 @@ describe('InsuranceValueAttribute', () => {
 
     const json = attribute.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Insurance Value',
-      Value: '1000 * 10^2 EUR',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

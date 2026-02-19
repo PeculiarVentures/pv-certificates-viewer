@@ -20,11 +20,6 @@ describe('TypeRelationshipAttribute', () => {
 
     const json = attribute.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Type Relationship',
-      DNBvsDNO: 'Yes',
-      DNBvsDNT: 'Yes',
-      DNOvsDNT: 'Yes',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

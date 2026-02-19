@@ -8,7 +8,6 @@
 
 import { LeiRole, id_role } from '@peculiar/asn1-lei';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -27,10 +26,12 @@ export class LeiRoleExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      row('Role', this.value.text),
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        Role: this.value.text,
+      },
+    };
   }
 }
 

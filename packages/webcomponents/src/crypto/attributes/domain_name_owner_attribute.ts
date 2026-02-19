@@ -6,8 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { DomainNameOwner } from '@peculiar/asn1-ntqwac';
+import { DomainNameOwner, id_DomainNameOwner } from '@peculiar/asn1-ntqwac';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { getStringByOID } from '../../utils';
+import { ArrayFlat } from '../../components/certificate-details-parts';
+import { AttributeFactory } from './attribute_factory';
 import { BaseAttribute } from './base_attribute';
 
 /**
@@ -26,25 +29,13 @@ export class DomainNameOwnerAttribute extends BaseAttribute {
     this.value = AsnParser.parse<DomainNameOwner>(asnAttrValue, DomainNameOwner);
   }
 
-  public override toJSON():
-  Record<string, string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]> {
-    const result: Record<string, unknown> = { Name: DomainNameOwnerAttribute.NAME };
-
-    const nameParts: Record<string, string>[] = [];
-
-    this.value.forEach((rdn) => {
-      rdn.forEach((atv) => {
-        const value = atv.value.toString();
-
-        nameParts.push({ [atv.type]: value });
-      });
+  public override toJSON() {
+    return this.attrJson({
+      Names: ArrayFlat.from(this.value.flat().map((atv) => (
+        { [getStringByOID(atv.type, true)]: atv.value.toString() }
+      ))),
     });
-
-    result['Name Parts'] = nameParts;
-
-    return result as Record<
-      string,
-      string | number | boolean | Record<string, string | number | boolean | Record<string, string>[]>[]
-    >;
   }
 }
+
+AttributeFactory.register(id_DomainNameOwner, DomainNameOwnerAttribute);

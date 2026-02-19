@@ -2,43 +2,24 @@
 
 exports[`NameConstraintsExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
+  "Name Constraints (2.5.29.30)": Object {
+    "Critical": "YES",
+    "Permitted Subtrees": GeneralSubtrees [
       Object {
-        "name": "Critical",
-        "value": "YES",
-      },
-      Object {
-        "$groups": GeneralSubtrees [
-          Array [
+        "Directory Name": Object {
+          "$flat": true,
+          "value": Array [
             Object {
-              "$groups": Array [
-                Name [
-                  Object {
-                    "name": "Domain Component",
-                    "value": "gov",
-                  },
-                  Object {
-                    "name": "Domain Component",
-                    "value": "uspto",
-                  },
-                ],
-              ],
-              "name": "Directory Name",
-              "type": "rowGroup",
+              "Domain Component": "gov",
             },
             Object {
-              "name": "Minimum",
-              "value": "0",
+              "Domain Component": "uspto",
             },
           ],
-        ],
-        "name": "Permitted Subtrees",
-        "type": "rowGroup",
+        },
+        "Minimum": "0",
       },
     ],
-  ],
-  "name": "Name Constraints (2.5.29.30)",
-  "type": "rowGroup",
+  },
 }
 `;

@@ -20,13 +20,6 @@ describe('ValuationRankingAttribute', () => {
 
     const json = attribute.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Valuation Ranking',
-      stars5: '500/500',
-      stars4: '40/50',
-      stars3: '30/50',
-      stars2: '2/5',
-      stars1: '1/5',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

@@ -6,10 +6,16 @@
  * LICENSE file in the root directory of this source tree.
  */
 import { AsnConvert } from '@peculiar/asn1-schema';
-import { CertificateList, Time } from '@peculiar/asn1-x509';
+import { CertificateList } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
-import { Download } from '../utils';
-import { Extension, TExtensionValue } from './extension';
+import { Download, getStringByOID } from '../utils';
+import type {
+  TJsonRenderFormat,
+  TJsonRenderValue,
+  IJsonRenderObject,
+} from '../components/certificate-details-parts/json_to_html_parser';
+import { ArrayFlat } from '../components/certificate-details-parts/json_to_html_parser';
+import { ExtensionFactory } from './extensions';
 import { AsnData } from './asn_data';
 import { Name, INameJSON } from './name';
 import { PemConverter } from './pem_converter';
@@ -23,12 +29,6 @@ interface ISignature {
   value: BufferSource;
 }
 
-export interface IRevokedCertificate {
-  userCertificate: ArrayBuffer;
-  revocationDate: Time;
-  crlEntryExtensions?: Extension<TExtensionValue>[];
-}
-
 export class X509Crl extends AsnData<CertificateList> {
   public readonly issuer: INameJSON[];
 
@@ -37,10 +37,6 @@ export class X509Crl extends AsnData<CertificateList> {
   public readonly lastUpdate: Date;
 
   public readonly nextUpdate: Date;
-
-  public extensions: Extension<TExtensionValue>[];
-
-  public revokedCertificates: IRevokedCertificate[];
 
   public thumbprints: Record<string, string> = {};
 
@@ -57,14 +53,6 @@ export class X509Crl extends AsnData<CertificateList> {
     this.version = tbsCertList.version + 1;
     this.lastUpdate = tbsCertList.thisUpdate.getTime();
     this.nextUpdate = tbsCertList.nextUpdate.getTime();
-
-    this.revokedCertificates = (tbsCertList.revokedCertificates || [])
-      .map((revokedCertificate) => ({
-        revocationDate: revokedCertificate.revocationDate,
-        userCertificate: revokedCertificate.userCertificate,
-        crlEntryExtensions: revokedCertificate.crlEntryExtensions
-          ?.map((e) => new Extension(AsnConvert.serialize(e))),
-      }));
   }
 
   public async getThumbprint(
@@ -106,15 +94,6 @@ export class X509Crl extends AsnData<CertificateList> {
     return '';
   }
 
-  public parseExtensions() {
-    const { tbsCertList } = this.asn;
-
-    if (tbsCertList.crlExtensions) {
-      this.extensions = tbsCertList.crlExtensions
-        .map((e) => new Extension(AsnConvert.serialize(e)));
-    }
-  }
-
   public toString(format: 'pem' | 'base64' | 'base64url' = 'pem'): string {
     switch (format) {
       case 'pem':
@@ -138,5 +117,47 @@ export class X509Crl extends AsnData<CertificateList> {
       this.raw,
       name || this.commonName,
     );
+  }
+
+  public toJSON(): TJsonRenderFormat {
+    const { tbsCertList } = this.asn;
+
+    const extensionItems: TJsonRenderValue[] = (tbsCertList.crlExtensions || []).map((e) => (
+      ExtensionFactory.toJSON(AsnConvert.serialize(e))
+    ));
+
+    const revokedItems: IJsonRenderObject[] = (tbsCertList.revokedCertificates || []).map((revoked) => {
+      return {
+        [`${Convert.ToHex(revoked.userCertificate)} (serial number)`]: {
+          'Revocation Date': revoked.revocationDate.getTime().toISOString(),
+          Extensions: ArrayFlat.from(revoked.crlEntryExtensions?.map((e) => ExtensionFactory.toJSON(AsnConvert.serialize(e))) || []),
+        },
+      };
+    });
+
+    const result: TJsonRenderFormat = {
+      'Basic Information': {
+        Type: this.type,
+        Version: this.version,
+        'Last Update': this.lastUpdate.toISOString(),
+        'Next Update': this.nextUpdate.toISOString(),
+      },
+      'Issuer Name': new ArrayFlat(...this.issuer.map((n) => ({ [n.name]: n.value }))),
+      Signature: this.getSignatureJson(),
+      Fingerprints: this.thumbprints,
+      ...(extensionItems.length > 0 && { Extensions: ArrayFlat.from(extensionItems) }),
+      ...(revokedItems.length > 0 && { 'Revoked Certificates': ArrayFlat.from(revokedItems) }),
+    };
+
+    return result;
+  }
+
+  private getSignatureJson(): IJsonRenderObject {
+    const { algorithm, value } = this.signature;
+
+    return {
+      Algorithm: getStringByOID(algorithm),
+      Value: Convert.ToHex(value),
+    };
   }
 }

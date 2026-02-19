@@ -10,10 +10,17 @@ import { AsnConvert } from '@peculiar/asn1-schema';
 import type { GeneralName } from '@peculiar/asn1-x509';
 import { AttributeCertificate, Holder } from '@peculiar/asn1-x509-attr';
 import { Convert } from 'pvtsutils';
-import { dateDiff, Download } from '../utils';
+import { dateDiff, Download, getStringByOID } from '../utils';
+import type {
+  TJsonRenderFormat,
+  TJsonRenderValue,
+  IJsonRenderObject,
+} from '../components/certificate-details-parts/json_to_html_parser';
+import { ArrayFlat } from '../components/certificate-details-parts/json_to_html_parser';
+import { AttributeFactory } from './attributes';
 import { AsnData } from './asn_data';
-import { Extension, TExtensionValue } from './extension';
-import { Attribute, TAttributeValue } from './attribute';
+import { ExtensionFactory } from './extensions';
+import { GeneralNameParser } from './extensions/general_name_parser';
 import { PemConverter } from './pem_converter';
 import {
   certificateRawToBuffer,
@@ -35,10 +42,6 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
   public readonly notAfter: Date;
 
   public readonly validity: string;
-
-  public extensions: Extension<TExtensionValue>[];
-
-  public attributes: Attribute<TAttributeValue>[];
 
   public thumbprints: Record<string, string> = {};
 
@@ -87,24 +90,6 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     };
   }
 
-  public parseExtensions() {
-    const { acinfo } = this.asn;
-
-    if (acinfo.extensions) {
-      this.extensions = acinfo.extensions
-        .map((e) => new Extension(AsnConvert.serialize(e)));
-    }
-  }
-
-  public parseAttributes() {
-    const { acinfo } = this.asn;
-
-    if (acinfo.attributes) {
-      this.attributes = acinfo.attributes
-        .map((e) => new Attribute(AsnConvert.serialize(e)));
-    }
-  }
-
   public async getThumbprint(
     algorithm = 'SHA-1',
   ): Promise<void> {
@@ -146,5 +131,66 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
       this.raw,
       name || this.commonName,
     );
+  }
+
+  public toJSON(): TJsonRenderFormat {
+    const { acinfo } = this.asn;
+
+    const extensionItems: TJsonRenderValue[] = (acinfo.extensions || []).map((e) => (
+      ExtensionFactory.toJSON(AsnConvert.serialize(e))
+    ));
+
+    const attributeItems: TJsonRenderValue[] = (acinfo.attributes || []).map((attrAsn) => (
+      AttributeFactory.toJSON(AsnConvert.serialize(attrAsn))
+    ));
+
+    return {
+      'Basic Information': {
+        Type: this.type,
+        'Serial Number': this.serialNumber,
+        Version: this.version,
+        Validity: this.validity,
+        'Not Before': this.notBefore.toISOString(),
+        'Not After': this.notAfter.toISOString(),
+      },
+      'Issuer Name': ArrayFlat.from(this.issuer.map((item) => (
+        GeneralNameParser.toObject(item)
+      ))),
+      Holder: {
+        ...(this.holder.baseCertificateID && {
+          'Base Certificate ID': {
+            Serial: Convert.ToHex(this.holder.baseCertificateID.serial),
+            Issuer: this.holder.baseCertificateID.issuer.map((item) => (
+              GeneralNameParser.toObject(item)
+            )),
+          },
+        }),
+        ...(this.holder.entityName && {
+          'Entity Name': this.holder.entityName.map((item) => (
+            GeneralNameParser.toObject(item)
+          )),
+        }),
+        ...(this.holder.objectDigestInfo && {
+          'Digest Info': {
+            Algorithm: this.holder.objectDigestInfo.digestAlgorithm.algorithm,
+            Value: Convert.ToHex(this.holder.objectDigestInfo.objectDigest),
+            Type: this.holder.objectDigestInfo.digestedObjectType,
+          },
+        }),
+      },
+      Signature: this.getSignatureJson(),
+      Fingerprints: this.thumbprints,
+      ...(attributeItems.length > 0 && { Attributes: ArrayFlat.from(attributeItems) }),
+      ...(extensionItems.length > 0 && { Extensions: ArrayFlat.from(extensionItems) }),
+    };
+  }
+
+  private getSignatureJson(): IJsonRenderObject {
+    const { algorithm, value } = this.signature;
+
+    return {
+      Algorithm: getStringByOID(algorithm),
+      Value: Convert.ToHex(value),
+    };
   }
 }

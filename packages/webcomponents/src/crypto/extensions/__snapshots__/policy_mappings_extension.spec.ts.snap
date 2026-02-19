@@ -2,51 +2,22 @@
 
 exports[`PolicyMappingsExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
+  "Policy Mappings (2.5.29.33)": Object {
+    "Critical": "NO",
+    "Policies": PolicyMappings [
       Object {
-        "name": "Critical",
-        "value": "NO",
+        "Issuer Domain": "FBCA Basic Policy (2.16.840.1.101.3.2.1.3.2)",
+        "Subject Domain": "USPTO Basic 2003 (2.16.840.1.101.3.2.1.2.7)",
       },
       Object {
-        "$groups": PolicyMappings [
-          Array [
-            Object {
-              "name": "Issuer Domain",
-              "value": "FBCA Basic Policy (2.16.840.1.101.3.2.1.3.2)",
-            },
-            Object {
-              "name": "Subject Domain",
-              "value": "USPTO Basic 2003 (2.16.840.1.101.3.2.1.2.7)",
-            },
-          ],
-          Array [
-            Object {
-              "name": "Issuer Domain",
-              "value": "FBCA Medium Policy (2.16.840.1.101.3.2.1.3.3)",
-            },
-            Object {
-              "name": "Subject Domain",
-              "value": "USPTO Medium 2003 (2.16.840.1.101.3.2.1.2.8)",
-            },
-          ],
-          Array [
-            Object {
-              "name": "Issuer Domain",
-              "value": "FBCA Medium Hardware Policy (2.16.840.1.101.3.2.1.3.12)",
-            },
-            Object {
-              "name": "Subject Domain",
-              "value": "USPTO Medium Hardware (2.16.840.1.101.3.2.1.2.9)",
-            },
-          ],
-        ],
-        "name": "Policies",
-        "type": "rowGroup",
+        "Issuer Domain": "FBCA Medium Policy (2.16.840.1.101.3.2.1.3.3)",
+        "Subject Domain": "USPTO Medium 2003 (2.16.840.1.101.3.2.1.2.8)",
+      },
+      Object {
+        "Issuer Domain": "FBCA Medium Hardware Policy (2.16.840.1.101.3.2.1.3.12)",
+        "Subject Domain": "USPTO Medium Hardware (2.16.840.1.101.3.2.1.2.9)",
       },
     ],
-  ],
-  "name": "Policy Mappings (2.5.29.33)",
-  "type": "rowGroup",
+  },
 }
 `;

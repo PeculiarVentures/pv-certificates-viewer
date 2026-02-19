@@ -8,7 +8,6 @@
 
 import { InvalidityDate, id_ce_invalidityDate } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -27,10 +26,12 @@ export class InvalidityDateExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      row('Date', this.value.value.toISOString()),
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        Date: this.value.value.toISOString(),
+      },
+    };
   }
 }
 

@@ -2,23 +2,10 @@
 
 exports[`CaVersionExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
-      Object {
-        "name": "Critical",
-        "value": "NO",
-      },
-      Object {
-        "name": "Certificate Index",
-        "value": "0",
-      },
-      Object {
-        "name": "Key Index",
-        "value": "0",
-      },
-    ],
-  ],
-  "name": "Microsoft Certification Authority Renewal (1.3.6.1.4.1.311.21.1)",
-  "type": "rowGroup",
+  "Microsoft Certification Authority Renewal (1.3.6.1.4.1.311.21.1)": Object {
+    "Certificate Index": 0,
+    "Critical": "NO",
+    "Key Index": 0,
+  },
 }
 `;

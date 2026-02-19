@@ -2,19 +2,9 @@
 
 exports[`InvalidityDateExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
-      Object {
-        "name": "Critical",
-        "value": "NO",
-      },
-      Object {
-        "name": "Date",
-        "value": "2023-01-15T10:30:00.000Z",
-      },
-    ],
-  ],
-  "name": "Invalidity Date (2.5.29.24)",
-  "type": "rowGroup",
+  "Invalidity Date (2.5.29.24)": Object {
+    "Critical": "NO",
+    "Date": "2023-01-15T10:30:00.000Z",
+  },
 }
 `;

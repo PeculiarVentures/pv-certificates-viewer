@@ -23,12 +23,6 @@ describe('ActivityDescriptionAttribute', () => {
 
     const json = attribute.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Activity Description',
-      'Code Authority': { 'RFC 822 Name': 'NACEBEL' },
-      'Code ID': { 'RFC 822 Name': '66.010' },
-      'Short Name': 'Computer programming activities',
-      'Short Description': 'La société a pour objet le développement, la vente et la mise en place de solutions informatiques (software et hardware) destinées aux entreprises publiques et privées, en ce compris la consultance dans le domaine informatique, le développement, la mise en place, le support et la maintenance de systèmes d\'information, ainsi que la vente de matériel et de programmes, ainsi que toutes les opérations se rapportant directement ou indirectement à cette activité.',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

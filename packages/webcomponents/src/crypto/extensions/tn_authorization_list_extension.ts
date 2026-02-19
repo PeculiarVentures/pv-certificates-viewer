@@ -8,7 +8,6 @@
 
 import { TNAuthorizationList, id_pe_TNAuthList } from '@peculiar/asn1-rfc8226';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -27,24 +26,26 @@ export class TNAuthorizationListExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    const entryRows = this.value.map((entry) => {
-      const rows = [row('SPC', entry.spc)];
+    const entries = this.value.map((entry) => {
+      const obj: Record<string, string | number> = { SPC: entry.spc };
 
       if (entry.range) {
-        rows.push(row('Range', `start=${entry.range.start} count=${entry.range.count}`));
+        obj.Range = `start=${entry.range.start} count=${entry.range.count}`;
       }
 
       if (entry.one !== undefined) {
-        rows.push(row('One', entry.one));
+        obj.One = entry.one;
       }
 
-      return rowGroup('Entry', [rows]);
+      return obj;
     });
 
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      ...entryRows,
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        Entries: entries,
+      },
+    };
   }
 }
 

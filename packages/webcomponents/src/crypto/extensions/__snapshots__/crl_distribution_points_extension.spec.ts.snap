@@ -2,51 +2,36 @@
 
 exports[`CRLDistributionPointsExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
+  "CRL Distribution Points (2.5.29.31)": Object {
+    "Critical": "NO",
+    "Distribution Points": CRLDistributionPoints [
       Object {
-        "name": "Critical",
-        "value": "NO",
-      },
-      Object {
-        "$groups": Array [
-          Array [
-            Object {
-              "$groups": Array [
-                Name [
-                  Object {
-                    "name": "Country Name",
-                    "value": "US",
-                  },
-                  Object {
-                    "name": "Organization",
-                    "value": "Adobe Systems Incorporated",
-                  },
-                  Object {
-                    "name": "Organization Unit",
-                    "value": "Adobe Trust Services",
-                  },
-                  Object {
-                    "name": "Common Name",
-                    "value": "Adobe Root CA",
-                  },
-                  Object {
-                    "name": "Common Name",
-                    "value": "CRL1",
-                  },
-                ],
+        "Distribution Point": Array [
+          Object {
+            "Directory Name": Object {
+              "$flat": true,
+              "value": Array [
+                Object {
+                  "Country Name": "US",
+                },
+                Object {
+                  "Organization": "Adobe Systems Incorporated",
+                },
+                Object {
+                  "Organization Unit": "Adobe Trust Services",
+                },
+                Object {
+                  "Common Name": "Adobe Root CA",
+                },
+                Object {
+                  "Common Name": "CRL1",
+                },
               ],
-              "name": "Directory Name",
-              "type": "rowGroup",
             },
-          ],
+          },
         ],
-        "name": "Distribution Point",
-        "type": "rowGroup",
       },
     ],
-  ],
-  "name": "CRL Distribution Points (2.5.29.31)",
-  "type": "rowGroup",
+  },
 }
 `;

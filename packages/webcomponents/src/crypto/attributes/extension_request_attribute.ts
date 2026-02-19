@@ -6,13 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { ExtensionRequest } from '@peculiar/asn1-pkcs9';
+import { ExtensionRequest, id_pkcs9_at_extensionRequest } from '@peculiar/asn1-pkcs9';
 import { AsnParser, AsnConvert } from '@peculiar/asn1-schema';
-import { Convert } from 'pvtsutils';
 import { ExtensionFactory } from '../extensions';
-import {
-  row, hexRow, section,
-} from '../rows_format';
+import { AttributeFactory } from './attribute_factory';
 import { BaseAttribute } from './base_attribute';
 
 /**
@@ -31,28 +28,11 @@ export class ExtensionRequestAttribute extends BaseAttribute {
     this.value = AsnParser.parse<ExtensionRequest>(asnAttrValue, ExtensionRequest);
   }
 
-  // @ts-ignore
   public override toJSON() {
-    const extensionRows = this.value.map((e) => {
-      const extSerialized = AsnConvert.serialize(e);
-      const extension = ExtensionFactory.parse(extSerialized);
+    const extensions = this.value.map((e) => ExtensionFactory.toJSON(AsnConvert.serialize(e)));
 
-      if (extension) {
-        return extension.toJSON();
-      }
-
-      return section(e.extnID, [
-        row('Critical', e.critical ? 'Yes' : 'No'),
-        hexRow('Value', Convert.ToHex(e.extnValue)),
-      ]);
-    });
-
-    return {
-      $rows: [
-        section(ExtensionRequestAttribute.NAME, [
-          section('Extensions', extensionRows),
-        ]),
-      ],
-    };
+    return this.attrJson({ Extensions: extensions });
   }
 }
+
+AttributeFactory.register(id_pkcs9_at_extensionRequest, ExtensionRequestAttribute);

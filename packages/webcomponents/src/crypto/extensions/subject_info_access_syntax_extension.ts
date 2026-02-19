@@ -8,9 +8,7 @@
 
 import { SubjectInfoAccessSyntax, id_pe_subjectInfoAccess } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  row, objectToRows, rowGroup,
-} from '../rows_format';
+import type { IJsonRenderObject } from '../../components/certificate-details-parts/json_to_html_parser';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
@@ -33,19 +31,21 @@ export class SubjectInfoAccessSyntaxExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    const descriptionRows = this.value.map((description) => {
+    const descriptions = this.value.map((description) => {
       const locationObj = GeneralNameParser.toObject(description.accessLocation) as Record<string, unknown>;
 
-      return [
-        row('Method', description.accessMethod),
-        ...objectToRows(locationObj),
-      ];
+      return {
+        Method: description.accessMethod,
+        ...(locationObj as IJsonRenderObject),
+      };
     });
 
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      rowGroup('Descriptions', descriptionRows),
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        Descriptions: descriptions,
+      },
+    };
   }
 }
 

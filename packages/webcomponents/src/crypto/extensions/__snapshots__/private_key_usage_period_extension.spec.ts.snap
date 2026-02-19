@@ -2,23 +2,10 @@
 
 exports[`PrivateKeyUsagePeriodExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
-      Object {
-        "name": "Critical",
-        "value": "NO",
-      },
-      Object {
-        "name": "Not Before",
-        "value": "Wed, 08 Jan 2003 23:37:23 GMT",
-      },
-      Object {
-        "name": "Not After",
-        "value": "Mon, 09 Jan 2023 00:07:23 GMT",
-      },
-    ],
-  ],
-  "name": "Private Key Usage Period (2.5.29.16)",
-  "type": "rowGroup",
+  "Private Key Usage Period (2.5.29.16)": Object {
+    "Critical": "NO",
+    "Not After": "Mon, 09 Jan 2023 00:07:23 GMT",
+    "Not Before": "Wed, 08 Jan 2003 23:37:23 GMT",
+  },
 }
 `;

@@ -2,19 +2,9 @@
 
 exports[`KeyUsageExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
-      Object {
-        "name": "Critical",
-        "value": "YES",
-      },
-      Object {
-        "name": "Usage",
-        "value": "crlSign, digitalSignature, keyCertSign",
-      },
-    ],
-  ],
-  "name": "Key Usage (2.5.29.15)",
-  "type": "rowGroup",
+  "Key Usage (2.5.29.15)": Object {
+    "Critical": "YES",
+    "Usage": "crlSign, digitalSignature, keyCertSign",
+  },
 }
 `;

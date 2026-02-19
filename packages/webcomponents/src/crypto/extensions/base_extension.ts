@@ -6,19 +6,19 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Extension as AsnExtension } from '@peculiar/asn1-x509';
+import { Extension } from '@peculiar/asn1-x509';
 import { AsnData } from '../asn_data';
 import { getStringByOID } from '../../utils/get_string_by_oid';
-import type { RenderRow } from '../rows_format';
+import type { IJsonRenderObject } from '../../components/certificate-details-parts/json_to_html_parser';
 
 /**
  * Base class for all extension types.
- * Display name is derived from OID: "OIDs[extnID] (extnID)" so the same extension
+ * Display name is derived from OID: "OIDs[oid] (extnID)" so the same extension
  * class can show different names when registered for multiple OIDs.
  */
-export abstract class BaseExtension extends AsnData<AsnExtension> {
+export abstract class BaseExtension extends AsnData<Extension> {
   constructor(raw: BufferSource) {
-    super(raw, AsnExtension);
+    super(raw, Extension);
   }
 
   public get critical(): string {
@@ -30,6 +30,11 @@ export abstract class BaseExtension extends AsnData<AsnExtension> {
     return getStringByOID(this.asn.extnID);
   }
 
-  /** Returns a section RenderRow for this extension (name + $rows) */
-  public abstract toJSON(): RenderRow;
+  /** Returns { [this.name]: content } for JsonToHtmlParser (TJsonRenderFormat section value). */
+  public abstract toJSON(): IJsonRenderObject;
+
+  /** Build extension JSON with correct typing. Use for content that may have Record<string, unknown> values. */
+  protected extJson(content: Record<string, unknown>): IJsonRenderObject {
+    return { [this.name]: content } as IJsonRenderObject;
+  }
 }

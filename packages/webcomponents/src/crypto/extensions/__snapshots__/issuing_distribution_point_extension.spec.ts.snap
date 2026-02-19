@@ -2,31 +2,14 @@
 
 exports[`IssuingDistributionPointExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
+  "Issuing Distribution Point (2.5.29.28)": Object {
+    "Critical": "YES",
+    "Distribution Point": Array [
       Object {
-        "name": "Critical",
-        "value": "YES",
-      },
-      Object {
-        "$groups": Array [
-          Array [
-            Object {
-              "name": "URI",
-              "value": "http://crls.pki.goog/gts1p5/7UCuXZuLUIg.crl",
-            },
-          ],
-        ],
-        "name": "Distribution Point",
-        "type": "rowGroup",
-      },
-      Object {
-        "name": "Only Contains User Certs",
-        "value": "Yes",
+        "URI": "http://crls.pki.goog/gts1p5/7UCuXZuLUIg.crl",
       },
     ],
-  ],
-  "name": "Issuing Distribution Point (2.5.29.28)",
-  "type": "rowGroup",
+    "Only Contains User Certs": "Yes",
+  },
 }
 `;

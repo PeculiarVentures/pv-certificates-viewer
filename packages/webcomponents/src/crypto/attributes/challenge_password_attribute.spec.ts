@@ -20,9 +20,6 @@ describe('ChallengePasswordAttribute', () => {
 
     const json = attribute.toJSON();
 
-    expect(json).toEqual({
-      Name: 'Challenge Password',
-      Value: 'testpassword',
-    });
+    expect(json).toMatchSnapshot();
   });
 });

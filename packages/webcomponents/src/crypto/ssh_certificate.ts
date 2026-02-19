@@ -1,6 +1,7 @@
 import { SshCertificate as SshCertificateType, parseCertificate } from '@peculiar/ssh';
 import { Convert } from 'pvtsutils';
 import { dateDiff, Download } from '../utils';
+import type { TJsonRenderFormat, IJsonRenderObject } from '../components/certificate-details-parts/json_to_html_parser';
 
 export class SshCertificate {
   public readonly serialNumber: string;
@@ -103,5 +104,47 @@ export class SshCertificate {
       await this.toString(),
       name || [this.commonName, 'cert'].join('-'),
     );
+  }
+
+  public toJSON(): TJsonRenderFormat {
+    const basic: IJsonRenderObject = {
+      Type: this.type,
+      'Serial Number': this.serialNumber,
+      Validity: this.validity,
+      'Not Before': this.notBefore.toISOString(),
+      'Not After': this.notAfter.toISOString(),
+      'Key ID': this.keyId,
+      Principals: this.principals.length > 0 ? this.principals.join(', ') : '(none)',
+      'Critical Options': Object.keys(this.criticalOptions).length > 0
+        ? this.criticalOptions
+        : { '(none)': '' },
+      Extensions: Object.keys(this.extensions).length > 0
+        ? this.extensions
+        : { '(none)': '' },
+    };
+
+    const result: TJsonRenderFormat = {
+      'Basic Information': basic,
+    };
+
+    if (this.publicKey) {
+      result['Public Key Info'] = {
+        Algorithm: this.publicKey.algorithm,
+        Type: this.publicKey.type,
+        Value: this.publicKey.value,
+        'Thumbprint (SHA-256)': this.publicKey.thumbprint,
+      };
+    }
+
+    if (this.signatureKey) {
+      result['Signature Key'] = {
+        Algorithm: this.signatureKey.algorithm,
+        Type: this.signatureKey.type,
+        Value: this.signatureKey.value,
+        'Thumbprint (SHA-256)': this.signatureKey.thumbprint,
+      };
+    }
+
+    return result;
   }
 }

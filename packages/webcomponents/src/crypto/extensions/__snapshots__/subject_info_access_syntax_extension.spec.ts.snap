@@ -2,31 +2,14 @@
 
 exports[`SubjectInfoAccessSyntaxExtension should return correct JSON structure 1`] = `
 Object {
-  "$groups": Array [
-    Array [
+  "Subject Info Access (1.3.6.1.5.5.7.1.11)": Object {
+    "Critical": "NO",
+    "Descriptions": SubjectInfoAccessSyntax [
       Object {
-        "name": "Critical",
-        "value": "NO",
-      },
-      Object {
-        "$groups": SubjectInfoAccessSyntax [
-          Array [
-            Object {
-              "name": "Method",
-              "value": "1.3.6.1.5.5.7.48.5",
-            },
-            Object {
-              "name": "URI",
-              "value": "http://ipki.uspto.gov/IPKI/Certs/CAcertsIssuedByUSPTO.p7c",
-            },
-          ],
-        ],
-        "name": "Descriptions",
-        "type": "rowGroup",
+        "Method": "1.3.6.1.5.5.7.48.5",
+        "URI": "http://ipki.uspto.gov/IPKI/Certs/CAcertsIssuedByUSPTO.p7c",
       },
     ],
-  ],
-  "name": "Subject Info Access (1.3.6.1.5.5.7.1.11)",
-  "type": "rowGroup",
+  },
 }
 `;

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InsuranceValueAttribute should return correct JSON structure 1`] = `
+Object {
+  "Insurance coverage attestation (0.4.0.9496.8)": Object {
+    "Value": "1000 * 10^2 EUR",
+  },
+}
+`;

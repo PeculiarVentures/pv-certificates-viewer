@@ -8,7 +8,6 @@
 
 import { EntrustVersionInfo, id_entrust_entrustVersInfo } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -27,11 +26,13 @@ export class EntrustVersionInfoExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      row('Version', this.value.entrustVers),
-      row('Info Flags', this.value.entrustInfoFlags.toJSON().join(', ')),
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        Version: this.value.entrustVers,
+        'Info Flags': this.value.entrustInfoFlags.toJSON().join(', '),
+      },
+    };
   }
 }
 

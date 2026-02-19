@@ -8,7 +8,6 @@
 
 import { PrivateKeyUsagePeriod, id_ce_privateKeyUsagePeriod } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -27,11 +26,13 @@ export class PrivateKeyUsagePeriodExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      row('Not Before', new Date(this.value.notBefore).toUTCString()),
-      row('Not After', new Date(this.value.notAfter).toUTCString()),
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        'Not Before': new Date(this.value.notBefore).toUTCString(),
+        'Not After': new Date(this.value.notAfter).toUTCString(),
+      },
+    };
   }
 }
 

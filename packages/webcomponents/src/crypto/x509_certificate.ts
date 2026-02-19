@@ -18,13 +18,18 @@ import {
 } from '@peculiar/asn1-x509-post-quantum';
 import {
   Certificate,
-  Extension as AsnExtension,
   SubjectPublicKeyInfo,
 } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 import {
   dateDiff, Download, getStringByOID,
 } from '../utils';
+import type {
+  TJsonRenderFormat,
+  TJsonRenderValue,
+  IJsonRenderObject,
+} from '../components/certificate-details-parts/json_to_html_parser';
+import { ArrayFlat } from '../components/certificate-details-parts/json_to_html_parser';
 import { ExtensionFactory } from './extensions';
 import { Name, INameJSON } from './name';
 import { AsnData } from './asn_data';
@@ -33,14 +38,6 @@ import {
   certificateRawToBuffer,
   getCertificateThumbprint,
 } from './utils';
-import {
-  RowsFormat,
-  RenderRow,
-  row,
-  hexRow,
-  section,
-  rowGroup,
-} from './rows_format';
 
 export interface ISignature {
   algorithm: string;
@@ -259,70 +256,53 @@ export class X509Certificate extends AsnData<Certificate> {
     );
   }
 
-  public toJSON(): RowsFormat {
-    const extensionRows: RenderRow[] = this.asn.tbsCertificate.extensions.map((e) => {
-      const raw = AsnConvert.serialize(e);
-      const ext = ExtensionFactory.parse(raw);
-
-      if (ext) {
-        return ext.toJSON();
-      }
-
-      const asnExt = AsnConvert.parse(raw, AsnExtension);
-
-      return rowGroup(asnExt.extnID, [[
-        row('Critical', asnExt.critical ? 'Yes' : 'No'),
-        hexRow('Value', Convert.ToHex(asnExt.extnValue.buffer)),
-      ]]);
-    });
+  public toJSON(): TJsonRenderFormat {
+    const extensionItems: TJsonRenderValue[] = this.asn.tbsCertificate.extensions.map((e) => (
+      ExtensionFactory.toJSON(AsnConvert.serialize(e))
+    ));
 
     return {
-      $rows: [
-        section('Basic Information', [
-          row('Type', this.type),
-          hexRow('Serial Number', this.serialNumber),
-          row('Version', this.version),
-          row('Validity', this.validity),
-          row('Not Before', this.notBefore.toISOString()),
-          row('Not After', this.notAfter.toISOString()),
-        ]),
-        section('Subject Name', this.subject.map((n) => row(n.name, n.value))),
-        section('Issuer Name', this.issuer.map((n) => row(n.name, n.value))),
-        section('Public Key Info', this.getPublicKeyRows(this.publicKey)),
-        section('Signature', this.getSignatureRows()),
-        section('Fingerprints', Object.entries(this.thumbprints).map(([alg, val]) => row(alg, val))),
-        section('Extensions', extensionRows),
-      ],
+      'Basic Information': {
+        Type: this.type,
+        'Serial Number': this.serialNumber,
+        Version: this.version,
+        Validity: this.validity,
+        'Not Before': this.notBefore.toISOString(),
+        'Not After': this.notAfter.toISOString(),
+      },
+      'Subject Name': new ArrayFlat(...this.subject.map((n) => ({ [n.name]: n.value }))),
+      'Issuer Name': new ArrayFlat(...this.issuer.map((n) => ({ [n.name]: n.value }))),
+      'Public Key Info': this.getPublicKeyJson(this.publicKey),
+      Signature: this.getSignatureJson(),
+      Fingerprints: this.thumbprints,
+      Extensions: ArrayFlat.from(extensionItems),
     };
   }
 
-  private getPublicKeyRows(key: IPublicKey): RenderRow[] {
-    const rows: RenderRow[] = [
-      row('Algorithm', getStringByOID(key.algorithm)),
-      hexRow('Value', Convert.ToHex(key.value)),
-    ];
+  private getPublicKeyJson(key: IPublicKey): IJsonRenderObject {
+    const out: IJsonRenderObject = {
+      Algorithm: getStringByOID(key.algorithm),
+      Value: Convert.ToHex(key.value),
+    };
 
-    const publicKeyParamsRows = this.serializePublicKeyParamsToRows(key.params);
+    const paramsJson = this.serializePublicKeyParamsToJson(key.params);
 
-    if (publicKeyParamsRows?.length) {
-      rows.push(rowGroup('Params', [publicKeyParamsRows]));
+    if (paramsJson !== undefined && paramsJson !== null) {
+      out.Params = paramsJson;
     }
 
-    return rows;
+    return out;
   }
 
-  private serializePublicKeyParamsToRows(
-    params: ECParameters | RSAPublicKey | IPublicKey[],
-  ): RenderRow[] {
+  private serializePublicKeyParamsToJson(
+    params: ECParameters | RSAPublicKey | IPublicKey[] | undefined,
+  ): TJsonRenderValue | undefined {
     if (Array.isArray(params)) {
-      return params.map((param) => rowGroup(
-        'Key',
-        [this.getPublicKeyRows(param)],
-      ));
+      return params.map((param) => this.getPublicKeyJson(param));
     }
 
     if (params instanceof ECParameters) {
-      return [row('Named Curve', getStringByOID(params.namedCurve))];
+      return { 'Named Curve': getStringByOID(params.namedCurve) };
     }
 
     if (params instanceof RSAPublicKey) {
@@ -332,31 +312,31 @@ export class X509Certificate extends AsnData<Certificate> {
         length -= 1;
       }
 
-      return [
-        row('Modulus', `${length * 8} bits`),
-        row('Public Exponent', params.publicExponent.byteLength === 3 ? 65537 : 3),
-      ];
+      return {
+        Modulus: `${length * 8} bits`,
+        'Public Exponent': params.publicExponent.byteLength === 3 ? 65537 : 3,
+      };
     }
 
-    return [];
+    return undefined;
   }
 
-  private getSignatureRows(): RenderRow[] {
+  private getSignatureJson(): IJsonRenderObject {
     const {
       algorithm, value, params,
     } = this.signature;
-    const rows: RenderRow[] = [
-      row('Algorithm', getStringByOID(algorithm)),
-      row('Value', Convert.ToHex(value)),
-    ];
+    const out: IJsonRenderObject = {
+      Algorithm: getStringByOID(algorithm),
+      Value: Convert.ToHex(value),
+    };
 
     if (params?.length) {
-      rows.push(rowGroup('Params', [params.map((param) => rowGroup(param.algorithm, [[
-        row('Algorithm', param.algorithm),
-        row('Value', Convert.ToHex(param.value)),
-      ]]))]));
+      out.Params = params.map((param) => ({
+        Algorithm: param.algorithm,
+        Value: Convert.ToHex(param.value),
+      }));
     }
 
-    return rows;
+    return out;
   }
 }

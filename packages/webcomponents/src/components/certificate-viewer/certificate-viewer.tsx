@@ -17,7 +17,7 @@ import {
 } from '@stencil/core';
 import { X509Certificate } from '../../crypto';
 import {
-  JsonCertificateParser,
+  JsonToHtmlParser,
   Miscellaneous,
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
@@ -198,8 +198,8 @@ export class CertificateViewer {
         data-mobile-screen-view={String(this.mobileScreenView)}
       >
         <table>
-          <JsonCertificateParser
-            json={certificateJson}
+          <JsonToHtmlParser
+            data={certificateJson}
           />
 
           {this.download && (

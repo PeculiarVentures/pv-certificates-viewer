@@ -8,7 +8,6 @@
 
 import { CaVersion, id_caVersion } from '@peculiar/asn1-x509-microsoft';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { row, rowGroup } from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 
@@ -29,11 +28,13 @@ export class CaVersionExtension extends BaseExtension {
   public override toJSON() {
     const version = this.value.getVersion();
 
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      row('Certificate Index', version.certificateIndex),
-      row('Key Index', version.keyIndex),
-    ]]);
+    return {
+      [this.name]: {
+        Critical: this.critical,
+        'Certificate Index': version.certificateIndex,
+        'Key Index': version.keyIndex,
+      },
+    };
   }
 }
 

@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { TypeRelationship } from '@peculiar/asn1-ntqwac';
+import { TypeRelationship, id_TypeRelationship } from '@peculiar/asn1-ntqwac';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { AttributeFactory } from './attribute_factory';
 import { BaseAttribute } from './base_attribute';
 
 /**
@@ -26,13 +27,15 @@ export class TypeRelationshipAttribute extends BaseAttribute {
     this.value = AsnParser.parse<TypeRelationship>(asnAttrValue, TypeRelationship);
   }
 
-  public override toJSON(): Record<string, string | number | boolean> {
-    const result: Record<string, string | number | boolean> = { Name: TypeRelationshipAttribute.NAME };
+  public override toJSON() {
+    const content: Record<string, string> = {};
 
     Object.keys(this.value).forEach((keyName) => {
-      result[keyName] = this.value[keyName].toNumber() ? 'Yes' : 'No';
+      content[keyName] = this.value[keyName].toNumber() ? 'Yes' : 'No';
     });
 
-    return result;
+    return this.attrJson(content);
   }
 }
+
+AttributeFactory.register(id_TypeRelationship, TypeRelationshipAttribute);

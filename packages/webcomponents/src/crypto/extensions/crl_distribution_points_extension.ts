@@ -8,9 +8,6 @@
 
 import { CRLDistributionPoints, id_ce_cRLDistributionPoints } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  row, objectToRows, rowGroup,
-} from '../rows_format';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
@@ -30,28 +27,28 @@ export class CRLDistributionPointsExtension extends BaseExtension {
   }
 
   public override toJSON() {
-    const dpRows = this.value.map((point) => {
-      const rows = [];
+    const distributionPoints = this.value.map((point) => {
+      const obj: Record<string, unknown> = {};
 
       if (point.distributionPoint?.fullName?.length) {
-        rows.push(rowGroup('Distribution Point', point.distributionPoint.fullName.map(
-          (gn) => objectToRows(GeneralNameParser.toObject(gn) as Record<string, unknown>),
-        )));
+        obj['Distribution Point'] = point.distributionPoint.fullName.map(
+          (gn) => GeneralNameParser.toObject(gn),
+        );
       }
 
       if (point.cRLIssuer?.length) {
-        rows.push(rowGroup('CRL Issuer', point.cRLIssuer.map(
-          (gn) => objectToRows(GeneralNameParser.toObject(gn) as Record<string, unknown>),
-        )));
+        obj['CRL Issuer'] = point.cRLIssuer.map(
+          (gn) => GeneralNameParser.toObject(gn),
+        );
       }
 
-      return rows;
-    }).flat();
+      return obj;
+    });
 
-    return rowGroup(this.name, [[
-      row('Critical', this.critical),
-      ...dpRows,
-    ]]);
+    return this.extJson({
+      Critical: this.critical,
+      'Distribution Points': distributionPoints,
+    });
   }
 }
 
