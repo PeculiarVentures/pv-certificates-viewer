@@ -49,7 +49,7 @@ Object {
           "Critical": "NO",
           "Descriptions": AuthorityInfoAccessSyntax [
             Object {
-              "Method": "1.3.6.1.5.5.7.48.2",
+              "Method": "CA Issuers (1.3.6.1.5.5.7.48.2)",
               "URI": "http://http.fpki.gov/bridge/caCertsIssuedTofbca2013.p7c",
             },
           ],
@@ -100,7 +100,7 @@ Object {
           "Critical": "NO",
           "Descriptions": SubjectInfoAccessSyntax [
             Object {
-              "Method": "1.3.6.1.5.5.7.48.5",
+              "Method": "CA Repository (1.3.6.1.5.5.7.48.5)",
               "URI": "http://ipki.uspto.gov/IPKI/Certs/CAcertsIssuedByUSPTO.p7c",
             },
           ],

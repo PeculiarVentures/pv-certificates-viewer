@@ -6,7 +6,7 @@ Object {
     "Critical": "NO",
     "Descriptions": SubjectInfoAccessSyntax [
       Object {
-        "Method": "1.3.6.1.5.5.7.48.5",
+        "Method": "CA Repository (1.3.6.1.5.5.7.48.5)",
         "URI": "http://ipki.uspto.gov/IPKI/Certs/CAcertsIssuedByUSPTO.p7c",
       },
     ],

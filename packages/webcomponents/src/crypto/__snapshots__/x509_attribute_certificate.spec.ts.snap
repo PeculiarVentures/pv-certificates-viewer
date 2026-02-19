@@ -214,7 +214,7 @@ Object {
           "Critical": "NO",
           "Descriptions": AuthorityInfoAccessSyntax [
             Object {
-              "Method": "1.3.6.1.5.5.7.48.2",
+              "Method": "CA Issuers (1.3.6.1.5.5.7.48.2)",
               "URI": "http://nt-qwac.nowina.solutions/res/qwactsp/ntqwacservice.crt",
             },
           ],

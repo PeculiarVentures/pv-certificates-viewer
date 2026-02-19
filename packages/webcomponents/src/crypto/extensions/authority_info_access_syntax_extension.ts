@@ -8,6 +8,7 @@
 
 import { AuthorityInfoAccessSyntax, id_pe_authorityInfoAccess } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { getStringByOID } from '../../utils';
 import { ExtensionFactory } from './extension_factory';
 import { BaseExtension } from './base_extension';
 import { GeneralNameParser } from './general_name_parser';
@@ -31,7 +32,7 @@ export class AuthorityInfoAccessSyntaxExtension extends BaseExtension {
       const locationObj = GeneralNameParser.toObject(description.accessLocation) as Record<string, unknown>;
 
       return {
-        Method: description.accessMethod,
+        Method: getStringByOID(description.accessMethod),
         ...locationObj,
       };
     });
