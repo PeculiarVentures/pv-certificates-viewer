@@ -44,7 +44,7 @@ Object {
     "$flat": true,
     "value": Array [
       Object {
-        "147947 (serial number)": Object {
+        "Serial 147947": Object {
           "Extensions": Object {
             "$flat": true,
             "value": Array [
@@ -66,7 +66,7 @@ Object {
         },
       },
       Object {
-        "147948 (serial number)": Object {
+        "Serial 147948": Object {
           "Extensions": Object {
             "$flat": true,
             "value": Array [
@@ -88,7 +88,7 @@ Object {
         },
       },
       Object {
-        "147949 (serial number)": Object {
+        "Serial 147949": Object {
           "Extensions": Object {
             "$flat": true,
             "value": Array [
@@ -110,7 +110,7 @@ Object {
         },
       },
       Object {
-        "14794a (serial number)": Object {
+        "Serial 14794a": Object {
           "Extensions": Object {
             "$flat": true,
             "value": Array [
@@ -132,7 +132,7 @@ Object {
         },
       },
       Object {
-        "14794b (serial number)": Object {
+        "Serial 14794b": Object {
           "Extensions": Object {
             "$flat": true,
             "value": Array [
