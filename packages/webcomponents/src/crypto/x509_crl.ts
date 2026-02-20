@@ -128,7 +128,7 @@ export class X509Crl extends AsnData<CertificateList> {
 
     const revokedItems: IJsonRenderObject[] = (tbsCertList.revokedCertificates || []).map((revoked) => {
       return {
-        [`${Convert.ToHex(revoked.userCertificate)} (serial number)`]: {
+        [`Serial ${Convert.ToHex(revoked.userCertificate)}`]: {
           'Revocation Date': revoked.revocationDate.getTime().toISOString(),
           Extensions: ArrayFlat.from(revoked.crlEntryExtensions?.map((e) => ExtensionFactory.toJSON(AsnConvert.serialize(e))) || []),
         },

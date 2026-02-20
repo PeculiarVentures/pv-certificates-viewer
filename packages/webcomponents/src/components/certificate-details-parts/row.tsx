@@ -7,6 +7,7 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
+import { Convert } from 'pvtsutils';
 import isLink from '../../utils/is_link';
 import { Typography } from '../typography';
 import { Link } from '../link';
@@ -54,7 +55,6 @@ export const RowTitle: FunctionalComponent<IRowTitleProps> = (props) => {
 interface IRowValueProps {
   name: string | string[];
   value: string | number | string[];
-  monospace?: boolean;
   collapse?: boolean;
   href?: string;
   extraValue?: Element[];
@@ -64,8 +64,6 @@ export const RowValue: FunctionalComponent<IRowValueProps> = (props) => {
   const {
     name,
     value,
-    monospace,
-    collapse,
     href,
     extraValue,
   } = props;
@@ -80,7 +78,10 @@ export const RowValue: FunctionalComponent<IRowValueProps> = (props) => {
 
   let elementValue;
 
-  if (collapse) {
+  const isHexValue = Convert.isHex(value) && value.length > 128;
+  const isLinkValue = isLink(value.toString());
+
+  if (isHexValue) {
     elementValue = (
       <peculiar-text-hider>
         {value}
@@ -106,9 +107,9 @@ export const RowValue: FunctionalComponent<IRowValueProps> = (props) => {
       </td>
       {hasValue && (
         <td
-          class={{ monospace }}
+          class={{ monospace: isHexValue }}
         >
-          {(isLink(value.toString()) || href)
+          {(isLinkValue || href)
             ? (
                 <Link
                   variant="b2"

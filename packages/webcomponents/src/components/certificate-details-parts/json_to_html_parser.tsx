@@ -80,115 +80,142 @@ function isFlatRows(value: unknown): value is ArrayFlat | IFlatRowsMarker {
   );
 }
 
+function isObjectItem(item: unknown): item is Record<string, TJsonRenderValue> {
+  return typeof item === 'object' && item !== null && !Array.isArray(item);
+}
+
 interface IJsonToHtmlParserProps {
   data: TJsonRenderFormat;
 }
 
-function formatRowValue(value: string | number | boolean): string | number {
+function formatPrimitive(value: string | number | boolean): string | number {
   if (value === true) return 'Yes';
   if (value === false) return 'No';
 
   return typeof value === 'number' ? value : String(value);
 }
 
-function renderValue(key: string, value: TJsonRenderValue): unknown[] {
-  const elements: unknown[] = [];
+function renderPrimitive(label: string, value: string | number | boolean): unknown[] {
+  return [<RowValue name={label} value={formatPrimitive(value)} />];
+}
 
-  if (value === null || value === undefined) {
-    return elements;
+function renderFlatRows(
+  label: string,
+  items: TJsonRenderValue[],
+  renderObject: (obj: Record<string, TJsonRenderValue>) => unknown[],
+  opts?: { omitLabelRow?: boolean; skipTableWrapper?: boolean },
+): unknown[] {
+  const content = items.flatMap((item) => (
+    isObjectItem(item)
+      ? renderObject(item)
+      : [<RowValue name={label} value={String(item)} />]
+  ));
+
+  if (opts?.skipTableWrapper) {
+    return content;
   }
 
-  if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
-    elements.push(
-      <RowValue name={key} value={formatRowValue(value)} />,
-    );
+  const table = <TableRowTable>{content}</TableRowTable>;
 
-    return elements;
+  return opts?.omitLabelRow ? [table] : [<RowValue name={label} value="" />, table];
+}
+
+function renderArray(
+  label: string,
+  arr: TJsonRenderValue[],
+  renderObject: (obj: Record<string, TJsonRenderValue>) => unknown[],
+  opts?: { omitLabelRow?: boolean; skipTableWrapper?: boolean },
+): unknown[] {
+  const valid = arr.filter((i) => i !== null && i !== undefined);
+  const hasObjects = valid.some(isObjectItem);
+
+  if (hasObjects) {
+    const items = valid.flatMap((item) => (
+      isObjectItem(item)
+        ? renderObject(item)
+        : [<RowValue name={label} value={String(item)} />]
+    ));
+
+    if (opts?.skipTableWrapper) {
+      return items;
+    }
+
+    const tables = valid.map((item) => (
+      <TableRowTable>
+        {isObjectItem(item)
+          ? renderObject(item)
+          : [<RowValue name={label} value={String(item)} />]}
+      </TableRowTable>
+    ));
+
+    return opts?.omitLabelRow ? tables : [<RowValue name={label} value="" />, ...tables];
+  }
+
+  return [<RowValue name={label} value={valid.map(String).join(', ')} />];
+}
+
+interface IRenderOptions {
+  omitLabelRow?: boolean;
+  skipTableWrapper?: boolean;
+}
+
+type TRenderLabeledValue = (
+  lbl: string,
+  val: TJsonRenderValue,
+  opts?: IRenderOptions,
+) => unknown[];
+
+function renderNestedObject(
+  label: string,
+  obj: Record<string, TJsonRenderValue>,
+  renderLabeledValue: TRenderLabeledValue,
+  opts?: IRenderOptions,
+): unknown[] {
+  const content = Object.entries(obj).flatMap(([k, v]) => (
+    v == null ? [] : renderLabeledValue(k, v)
+  ));
+
+  if (opts?.skipTableWrapper) {
+    return content;
+  }
+
+  const table = <TableRowTable>{content}</TableRowTable>;
+
+  return opts?.omitLabelRow ? [table] : [<RowValue name={label} value="" />, table];
+}
+
+function renderLabeledValue(
+  label: string,
+  value: TJsonRenderValue,
+  opts?: IRenderOptions,
+): unknown[] {
+  if (value === null || value === undefined) return [];
+
+  if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+    return renderPrimitive(label, value);
   }
 
   if (isFlatRows(value)) {
-    const flatItems = Array.isArray(value)
-      ? value
-      : (value as unknown as IFlatRowsMarker).value;
+    const items = Array.isArray(value) ? value : (value as IFlatRowsMarker).value;
 
-    elements.push(
-      <RowValue name={key} value="" />,
-      <TableRowTable>
-        {flatItems.flatMap((item) => {
-          if (typeof item === 'object' && item !== null && !Array.isArray(item)) {
-            return renderObject(item as Record<string, TJsonRenderValue>);
-          }
-
-          return [<RowValue name={key} value={String(item)} />];
-        })}
-      </TableRowTable>,
-    );
-
-    return elements;
+    return renderFlatRows(label, items, renderObject, opts);
   }
 
   if (Array.isArray(value)) {
-    const hasObjects = value.some(
-      (item) => typeof item === 'object' && item !== null && !Array.isArray(item),
-    );
-
-    if (hasObjects) {
-      const groupElements = value
-        .filter((item) => item !== null && item !== undefined)
-        .map((item) => {
-          if (typeof item === 'object' && item !== null && !Array.isArray(item)) {
-            return renderObject(item as Record<string, TJsonRenderValue>);
-          }
-
-          return [<RowValue name={key} value={String(item)} />];
-        });
-
-      elements.push(
-        <RowValue name={key} value="" />,
-        ...groupElements.map((group) => (
-          <TableRowTable>
-            {group}
-          </TableRowTable>
-        )),
-      );
-    } else {
-      const primitives = value
-        .filter((item) => item !== null && item !== undefined)
-        .map((item) => String(item));
-
-      elements.push(
-        <RowValue name={key} value={primitives.join(', ')} />,
-      );
-    }
-
-    return elements;
+    return renderArray(label, value, renderObject, opts);
   }
 
   if (typeof value === 'object') {
-    const inner = renderObject(value as Record<string, TJsonRenderValue>);
-
-    elements.push(
-      <RowValue name={key} value="" />,
-      <TableRowTable>
-        {inner}
-      </TableRowTable>,
-    );
-
-    return elements;
+    return renderNestedObject(label, value, renderLabeledValue, opts);
   }
 
-  return elements;
+  return [];
 }
 
 function renderObject(obj: Record<string, TJsonRenderValue>): unknown[] {
-  const elements: unknown[] = [];
-
-  for (const [key, value] of Object.entries(obj)) {
-    if (value === null || value === undefined) continue;
-    elements.push(...renderValue(key, value));
-  }
-
-  return elements;
+  return Object.entries(obj).flatMap(([key, val]) => (
+    val == null ? [] : renderLabeledValue(key, val)
+  ));
 }
 
 export const JsonToHtmlParser: FunctionalComponent<IJsonToHtmlParserProps> = (props) => {
@@ -203,55 +230,10 @@ export const JsonToHtmlParser: FunctionalComponent<IJsonToHtmlParserProps> = (pr
   for (const [sectionName, sectionValue] of Object.entries(data)) {
     if (sectionValue === null || sectionValue === undefined) continue;
 
-    let content: unknown[];
-
-    if (typeof sectionValue === 'string' || typeof sectionValue === 'number' || typeof sectionValue === 'boolean') {
-      content = [<RowValue name={sectionName} value={formatRowValue(sectionValue)} />];
-    } else if (isFlatRows(sectionValue)) {
-      const flatItems = Array.isArray(sectionValue)
-        ? sectionValue
-        : (sectionValue as unknown as IFlatRowsMarker).value;
-
-      content = flatItems.flatMap((item) => {
-        if (typeof item === 'object' && item !== null && !Array.isArray(item)) {
-          return renderObject(item as Record<string, TJsonRenderValue>);
-        }
-
-        return [<RowValue name={sectionName} value={String(item)} />];
-      });
-    } else if (Array.isArray(sectionValue)) {
-      const hasObjects = sectionValue.some(
-        (item) => typeof item === 'object' && item !== null && !Array.isArray(item),
-      );
-
-      if (hasObjects) {
-        const groupElements = sectionValue
-          .filter((item) => item !== null && item !== undefined)
-          .map((item) => {
-            if (typeof item === 'object' && item !== null && !Array.isArray(item)) {
-              return renderObject(item as Record<string, TJsonRenderValue>);
-            }
-
-            return [<RowValue name={sectionName} value={String(item)} />];
-          });
-
-        content = [
-          ...groupElements.map((group) => (
-            <TableRowTable>
-              {group}
-            </TableRowTable>
-          )),
-        ];
-      } else {
-        const primitives = sectionValue
-          .filter((item) => item !== null && item !== undefined)
-          .map((item) => String(item));
-
-        content = [<RowValue name={sectionName} value={primitives.join(', ')} />];
-      }
-    } else {
-      content = renderObject(sectionValue as Record<string, TJsonRenderValue>);
-    }
+    const content = renderLabeledValue(sectionName, sectionValue, {
+      omitLabelRow: true,
+      skipTableWrapper: true,
+    });
 
     sections.push(
       <RowTitle value={sectionName} />,
