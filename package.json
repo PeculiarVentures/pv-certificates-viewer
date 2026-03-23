@@ -26,8 +26,8 @@
     "publish:canary": "lerna publish --canary"
   },
   "devDependencies": {
-    "@peculiar/eslint-config-base": "^0.2.4",
-    "@peculiar/eslint-config-react": "^0.2.2",
+    "@peculiar/eslint-config-base": "^0.2.9",
+    "@peculiar/eslint-config-react": "^0.2.9",
     "lerna": "^9.0.6"
   },
   "license": "MIT",
