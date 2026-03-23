@@ -7,18 +7,18 @@
 
 ## Properties
 
-| Property              | Attribute               | Description                                                                | Type                                  | Default     |
-| --------------------- | ----------------------- | -------------------------------------------------------------------------- | ------------------------------------- | ----------- |
-| `certificateExamples` | --                      | The example certificate value for decode and show details. Use PEM or DER. | `{ title: string; value: string; }[]` | `undefined` |
-| `certificateToDecode` | `certificate-to-decode` | The default certificate value for decode and show details. Use PEM or DER. | `string`                              | `undefined` |
+| Property              | Attribute               | Description                                                               | Type                                  | Default     |
+| --------------------- | ----------------------- | ------------------------------------------------------------------------- | ------------------------------------- | ----------- |
+| `certificateExamples` | --                      | Pre-loaded example certificates available in the "Load example" dropdown. | `{ title: string; value: string; }[]` | `undefined` |
+| `certificateToDecode` | `certificate-to-decode` | A certificate to decode on first load (PEM or Base64 DER).                | `string`                              | `undefined` |
 
 
 ## Events
 
-| Event              | Description                                                | Type                  |
-| ------------------ | ---------------------------------------------------------- | --------------------- |
-| `clearCertificate` | Emitted when the certificate has been removed.             | `CustomEvent<void>`   |
-| `successParse`     | Emitted when the certificate has been successfully parsed. | `CustomEvent<string>` |
+| Event              | Description                                              | Type                  |
+| ------------------ | -------------------------------------------------------- | --------------------- |
+| `clearCertificate` | Emitted when the input has been cleared.                 | `CustomEvent<void>`   |
+| `successParse`     | Emitted when a certificate has been successfully parsed. | `CustomEvent<string>` |
 
 
 ## Dependencies

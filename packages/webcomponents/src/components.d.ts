@@ -76,14 +76,14 @@ export namespace Components {
     }
     interface PeculiarCertificateDecoder {
         /**
-          * The example certificate value for decode and show details. Use PEM or DER.
+          * Pre-loaded example certificates available in the "Load example" dropdown.
          */
         "certificateExamples"?: {
     title: string;
     value: string;
   }[];
         /**
-          * The default certificate value for decode and show details. Use PEM or DER.
+          * A certificate to decode on first load (PEM or Base64 DER).
          */
         "certificateToDecode"?: string;
     }
@@ -415,22 +415,22 @@ declare namespace LocalJSX {
     }
     interface PeculiarCertificateDecoder {
         /**
-          * The example certificate value for decode and show details. Use PEM or DER.
+          * Pre-loaded example certificates available in the "Load example" dropdown.
          */
         "certificateExamples"?: {
     title: string;
     value: string;
   }[];
         /**
-          * The default certificate value for decode and show details. Use PEM or DER.
+          * A certificate to decode on first load (PEM or Base64 DER).
          */
         "certificateToDecode"?: string;
         /**
-          * Emitted when the certificate has been removed.
+          * Emitted when the input has been cleared.
          */
         "onClearCertificate"?: (event: PeculiarCertificateDecoderCustomEvent<void>) => void;
         /**
-          * Emitted when the certificate has been successfully parsed.
+          * Emitted when a certificate has been successfully parsed.
          */
         "onSuccessParse"?: (event: PeculiarCertificateDecoderCustomEvent<string>) => void;
     }

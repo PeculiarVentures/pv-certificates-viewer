@@ -1,22 +1,17 @@
 (() => {
   // Constants.
   const CERTIFICATE_DECODER_ELEMENT = document.createElement('peculiar-certificate-decoder');
-  const HISTORY = window.HistoryLibrary.createBrowserHistory();
   const searchParams = new URLSearchParams(window.location.search);
+  const setSearch = (search) => {
+    window.history.replaceState(null, '', search);
+  };
 
   // Listeners.
   CERTIFICATE_DECODER_ELEMENT.addEventListener('successParse', (event) => {
-    HISTORY.replace(`?cert=${event.detail}`);
-
-    setTimeout(() => {
-      window.scrollTo({
-        top: 560,
-        behavior: 'smooth',
-      });
-    }, 50);
+    setSearch(`?cert=${encodeURIComponent(event.detail)}`);
   });
   CERTIFICATE_DECODER_ELEMENT.addEventListener('clearCertificate', () => {
-    HISTORY.replace('/');
+    setSearch(window.location.pathname);
   });
 
   // Default props.

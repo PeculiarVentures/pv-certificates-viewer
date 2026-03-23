@@ -16,7 +16,7 @@ export default tseslint.config([
       '@typescript-eslint/prefer-for-of': 0,
       'react/no-unknown-property': [
         2,
-        { ignore: ['class', 'clip-path', 'clip-rule', 'stop-color', 'stroke-width', 'fill-rule'] },
+        { ignore: ['class', 'clip-path', 'clip-rule', 'stop-color', 'stroke-width', 'fill-rule', 'stroke-linecap', 'stroke-linejoin'] },
       ],
       'react/jsx-key': 0,
       '@typescript-eslint/no-unused-vars': [
