@@ -72,7 +72,7 @@
     "gh-pages": "^5.0.0",
     "jest": "27.0.3",
     "jest-cli": "27.4.5",
-    "jest-image-snapshot": "^6.5.1",
+    "jest-image-snapshot": "^6.5.2",
     "puppeteer": "^23.11.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.9.5"
