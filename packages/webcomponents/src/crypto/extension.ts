@@ -140,6 +140,9 @@ import {
 import {
   id_cabforganizationIdentifier,
   CabforganizationIdentifier,
+
+  id_appleDeveloperIdDate,
+  AppleDeveloperIdDate,
 } from './extensions';
 import { AsnData } from './asn_data';
 
@@ -186,6 +189,7 @@ const extensionParsers = {
   [id_ce_deltaCRLIndicator]: BaseCRLNumber,
   [id_ce_keyDescription]: NonStandardKeyDescription,
   [id_cabforganizationIdentifier]: CabforganizationIdentifier,
+  [id_appleDeveloperIdDate]: AppleDeveloperIdDate,
 };
 
 type TExtensionKeys = keyof typeof extensionParsers;
