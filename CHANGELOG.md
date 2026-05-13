@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.9.2](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.9.1...v4.9.2) (2026-05-13)
+
+
+### Features
+
+* **ci:** enhance contribution guidelines and implement CI workflows ([cb20dd7](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/cb20dd7db9ce924099b6e0335d208798b2b71e2e))
+* **webcomponents:** add Apple Developer ID date extension and related components ([31cbafd](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/31cbafd219ad1310f4f43774b7310bc12099646a))
+
+
+
+
+
 ## [4.9.1](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.9.0...v4.9.1) (2025-12-22)
 
 **Note:** Version bump only for package peculiar-certificates-viewer-monorepo
