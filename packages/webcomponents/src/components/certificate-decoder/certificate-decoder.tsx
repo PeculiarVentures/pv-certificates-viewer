@@ -53,6 +53,9 @@ export class CertificateDecoder {
     | X509Crl
     | SshCertificate;
 
+  /** Mirrors textarea content so Clear/Decode enable after paste without a decode. */
+  @State() private inputHasText = false;
+
   /** Emitted when a certificate has been successfully parsed. */
   @Event() successParse!: EventEmitter<string>;
 
@@ -110,10 +113,15 @@ export class CertificateDecoder {
     }
   };
 
+  private syncInputHasText = () => {
+    this.inputHasText = Boolean(this.inputPaste?.value);
+  };
+
   // ─── Core operations ───────────────────────────────────────────────────────
 
   clearValue() {
     this.inputPaste.value = '';
+    this.inputHasText = false;
     this.certificateDecoded = null;
     this.clearCertificate.emit();
   }
@@ -121,6 +129,7 @@ export class CertificateDecoder {
   async setValue(value: typeof this.certificateDecoded) {
     this.certificateDecoded = value;
     this.inputPaste.value = await value.toString('pem');
+    this.inputHasText = true;
     this.successParse.emit(await value.toString('base64url'));
   }
 
@@ -174,6 +183,7 @@ export class CertificateDecoder {
 
   render() {
     const hasDecoded = !!this.certificateDecoded;
+    const canActOnInput = hasDecoded || this.inputHasText;
 
     return (
       <Host class="relative grid h-full min-h-0 w-full grid-cols-1 overflow-hidden bg-gray-100 font-sans min-[821px]:grid-cols-2 max-[820px]:h-auto">
@@ -230,7 +240,7 @@ export class CertificateDecoder {
               <button
                 type="button"
                 class="inline-flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-md border border-gray-300 bg-white px-2.5 py-1 font-mono text-xs tracking-wide text-gray-700 transition-all duration-150 hover:opacity-80 disabled:pointer-events-none disabled:cursor-default disabled:opacity-40"
-                disabled={!hasDecoded && !this.inputPaste?.value}
+                disabled={!canActOnInput}
                 onClick={this.handleClickClear}
               >
                 Clear
@@ -239,7 +249,7 @@ export class CertificateDecoder {
               <button
                 type="button"
                 class="inline-flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-md bg-blue-600 px-2.5 py-1 font-mono text-xs tracking-wide text-white transition-all duration-150 hover:opacity-80 disabled:pointer-events-none disabled:cursor-default disabled:opacity-40"
-                disabled={!hasDecoded && !this.inputPaste?.value}
+                disabled={!canActOnInput}
                 onClick={this.handleClickDecode}
               >
                 Decode →
@@ -251,6 +261,7 @@ export class CertificateDecoder {
             class="min-h-0 w-full flex-1 resize-none border-0 bg-gray-100 px-4 py-4 font-mono text-xs leading-snug tracking-wide text-blue-800 caret-blue-600 outline-none transition-colors duration-150 placeholder:italic placeholder:text-gray-400 focus:bg-white"
             placeholder={'Paste a PEM or Base64 DER certificate here,\nor drag & drop a .pem / .crt file…\n\n-----BEGIN CERTIFICATE-----\nMIIFaz…\n-----END CERTIFICATE-----'}
             ref={(el) => { this.inputPaste = el as HTMLTextAreaElement; }}
+            onInput={this.syncInputHasText}
             onDrop={this.handleDrop}
           />
         </div>
