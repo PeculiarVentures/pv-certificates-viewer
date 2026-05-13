@@ -30,7 +30,8 @@
   "homepage": "https://x509.io/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PeculiarVentures/pv-certificates-viewer.git"
+    "url": "https://github.com/PeculiarVentures/pv-certificates-viewer",
+    "directory": "packages/webcomponents-react"
   },
   "publishConfig": {
     "access": "public"

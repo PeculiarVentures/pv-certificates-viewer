@@ -1,0 +1,84 @@
+name: Publish to npm
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'lerna.json'
+      - 'packages/*/package.json'
+      - 'packages/*/CHANGELOG.md'
+
+jobs:
+  publish:
+    if: |
+      startsWith(github.event.head_commit.message, 'chore: release version bump') ||
+      contains(github.event.head_commit.message, 'release/version-bump')
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm run test
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create git tag and GitHub Release
+        run: |
+          version=$(jq -r '.version' lerna.json)
+          tag="v${version}"
+
+          if git ls-remote --exit-code --tags origin "refs/tags/${tag}" >/dev/null 2>&1; then
+            echo "Tag ${tag} already exists"
+            git fetch origin "refs/tags/${tag}:refs/tags/${tag}"
+          else
+            echo "Creating tag: ${tag}"
+            git tag "$tag" -m "chore: release $tag"
+            git push origin "$tag"
+          fi
+
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "GitHub Release ${tag} already exists"
+          else
+            echo "Creating GitHub Release for ${tag}"
+            gh release create "$tag" \
+              --title "$tag" \
+              --generate-notes
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Publish packages that match the tags we just pushed
+      - name: Publish to npm with Lerna
+        run: |
+          npx lerna publish from-git \
+            --yes \
+            --no-private
+        env:
+          NPM_CONFIG_ACCESS: public
+          NPM_CONFIG_PROVENANCE: true

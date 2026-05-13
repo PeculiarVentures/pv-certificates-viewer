@@ -21,9 +21,7 @@
     "clean": "lerna run --parallel clean",
     "lint": "eslint",
     "dev": "npm run --workspace @peculiar/certificates-viewer dev",
-    "prepare": "npm run build",
-    "publish:version": "lerna publish",
-    "publish:canary": "lerna publish --canary"
+    "prepare": "npm run build"
   },
   "devDependencies": {
     "@peculiar/eslint-config-base": "^0.2.9",
