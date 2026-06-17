@@ -1,0 +1,2748 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`X509Certificate should parse the test certificate Adobe Systems Incorporated.cer 1`] = `
+X509Certificate {
+  "extensions": Extensions [
+    {
+      "children": [
+        {
+          "title": "Type",
+          "value": "objectSigningCa, sMimeCa, sslCa",
+        },
+      ],
+      "critical": false,
+      "oid": "2.16.840.1.113730.1.1",
+    },
+    {
+      "children": CRLDistributionPoints [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "title": "Country Name",
+                  "value": "US",
+                },
+                {
+                  "title": "Organization",
+                  "value": "Adobe Systems Incorporated",
+                },
+                {
+                  "title": "Organization Unit",
+                  "value": "Adobe Trust Services",
+                },
+                {
+                  "title": "Common Name",
+                  "value": "Adobe Root CA",
+                },
+                {
+                  "title": "Common Name",
+                  "value": "CRL1",
+                },
+              ],
+              "title": "Directory Name",
+            },
+          ],
+          "title": "Distribution Points",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.31",
+    },
+    {
+      "children": [
+        {
+          "title": "Not Before",
+          "value": "Wed, 08 Jan 2003 23:37:23 GMT",
+        },
+        {
+          "title": "Not After",
+          "value": "Mon, 09 Jan 2023 00:07:23 GMT",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.16",
+    },
+    {
+      "children": [
+        {
+          "title": "Usage",
+          "value": "crlSign, keyCertSign",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.15",
+    },
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "82b7384a93aa9b10ef80bbd954e2f10ffb809cde",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.35",
+    },
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "82b7384a93aa9b10ef80bbd954e2f10ffb809cde",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.14",
+    },
+    {
+      "children": [
+        {
+          "title": "CA",
+          "value": true,
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.19",
+    },
+    {
+      "children": [
+        {
+          "title": "Version",
+          "value": "V6.0:4.0",
+        },
+        {
+          "title": "Flags",
+          "value": "keyUpdateAllowed",
+        },
+      ],
+      "critical": false,
+      "oid": "1.2.840.113533.7.65.0",
+    },
+  ],
+  "issuer": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "US",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "Adobe Systems Incorporated",
+    },
+    {
+      "name": "Organization Unit",
+      "shortName": "OU",
+      "type": "2.5.4.11",
+      "value": "Adobe Trust Services",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "Adobe Root CA",
+    },
+  ],
+  "notAfter": 2023-01-09T00:07:23.000Z,
+  "notBefore": 2003-01-08T23:37:23.000Z,
+  "serialNumber": "3e1cbd28",
+  "subject": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "US",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "Adobe Systems Incorporated",
+    },
+    {
+      "name": "Organization Unit",
+      "shortName": "OU",
+      "type": "2.5.4.11",
+      "value": "Adobe Trust Services",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "Adobe Root CA",
+    },
+  ],
+  "tag": "CERTIFICATE",
+  "thumbprints": {},
+  "type": "X.509 Certificate",
+  "validity": "20 years",
+  "version": 3,
+}
+`;
+
+exports[`X509Certificate should parse the test certificate Android Keystore Key.cer 1`] = `
+X509Certificate {
+  "extensions": Extensions [
+    {
+      "children": [
+        {
+          "title": "Usage",
+          "value": "digitalSignature",
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.15",
+    },
+    {
+      "children": [
+        {
+          "title": "Attestation Version",
+          "value": 100,
+        },
+        {
+          "title": "Attestation Security Level",
+          "value": "trustedEnvironment",
+        },
+        {
+          "title": "Keymaster Version",
+          "value": 100,
+        },
+        {
+          "title": "Keymaster Security Level",
+          "value": "trustedEnvironment",
+        },
+        {
+          "title": "Attestation Challenge",
+          "value": "1b1ada35ac426eb1f845c87ee29f0ec3",
+        },
+        {
+          "children": [
+            {
+              "title": "Attestation Application Id",
+              "value": "304f312930270421636f6d2e7469636b7069636b6c6c632e63656f627269656e2e7469636b7069636b0202012931220420ce016851b704da76fdedde34ab314a155ca5a5db31266d2685fcbf281ab51028",
+            },
+          ],
+          "title": "Software Enforced",
+        },
+        {
+          "children": [
+            {
+              "title": "Purpose",
+              "value": "3, 2",
+            },
+            {
+              "title": "Algorithm",
+              "value": 3,
+            },
+            {
+              "title": "Key Size",
+              "value": 256,
+            },
+            {
+              "title": "Digest",
+              "value": "4",
+            },
+            {
+              "title": "Ec Curve",
+              "value": 1,
+            },
+            {
+              "title": "No Auth Required",
+              "value": true,
+            },
+            {
+              "title": "Origin",
+              "value": 0,
+            },
+            {
+              "children": [
+                {
+                  "title": "Verified Boot Key",
+                  "value": "9fb52f0954613f221af4f4070c31415ed44c1a81d51889db0946632599b3e946",
+                },
+                {
+                  "title": "Device Locked",
+                  "value": true,
+                },
+                {
+                  "title": "Boot State",
+                  "value": "verified",
+                },
+                {
+                  "title": "Boot Hash",
+                  "value": "ffaeec3477824dd82e09b6400602dcb274eb4e89dcb6093ad1f6ede964ed73c3",
+                },
+              ],
+              "title": "Root Of Trust",
+            },
+            {
+              "title": "Os Version",
+              "value": 120000,
+            },
+            {
+              "title": "Os Patch Level",
+              "value": 202308,
+            },
+            {
+              "title": "Attestation Id Model",
+              "value": "motorola edge (2022)",
+            },
+            {
+              "title": "Attestation Id Manufacturer",
+              "value": "motorola",
+            },
+            {
+              "title": "Attestation Id Product",
+              "value": "tesla_g_sys",
+            },
+            {
+              "title": "Attestation Id Device",
+              "value": "tesla",
+            },
+            {
+              "title": "Attestation Id Brand",
+              "value": "motorola",
+            },
+            {
+              "title": "Vendor Patch Level",
+              "value": "20230801",
+            },
+            {
+              "title": "Boot Patch Level",
+              "value": "20230801",
+            },
+          ],
+          "title": "TEE Enforced",
+        },
+      ],
+      "critical": false,
+      "oid": "1.3.6.1.4.1.11129.2.1.17",
+    },
+  ],
+  "issuer": [
+    {
+      "name": "Title",
+      "shortName": "T",
+      "type": "2.5.4.12",
+      "value": "TEE",
+    },
+    {
+      "name": "Serial Number",
+      "shortName": "serialNumber",
+      "type": "2.5.4.5",
+      "value": "6e789a703f37936d293f68090e8c2f0b",
+    },
+  ],
+  "notAfter": 2048-01-01T00:00:00.000Z,
+  "notBefore": 1970-01-01T00:00:00.000Z,
+  "serialNumber": "01",
+  "subject": [
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "Android Keystore Key",
+    },
+  ],
+  "tag": "CERTIFICATE",
+  "thumbprints": {},
+  "type": "X.509 Certificate",
+  "validity": "78 years",
+  "version": 3,
+}
+`;
+
+exports[`X509Certificate should parse the test certificate COMMISSION DE L'UNION EUROPEENNE-COMMISSIE VAN DE EUROPESE UNIE.cer 1`] = `
+X509Certificate {
+  "extensions": Extensions [
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "4832c7a87e624a9e0500dece97fa531be0a34cfc",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.35",
+    },
+    {
+      "children": [
+        {
+          "children": AuthorityInfoAccessSyntax [
+            {
+              "children": [
+                {
+                  "title": "Method",
+                  "value": "1.3.6.1.5.5.7.48.2",
+                },
+                {
+                  "title": "URI",
+                  "value": "http://crt.harica.gr/HaricaQWACSubCAR1.cer",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Method",
+                  "value": "1.3.6.1.5.5.7.48.1",
+                },
+                {
+                  "title": "URI",
+                  "value": "http://ocsp.harica.gr",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Descriptions",
+        },
+      ],
+      "critical": false,
+      "oid": "1.3.6.1.5.5.7.1.1",
+    },
+    {
+      "children": SubjectAlternativeName [
+        {
+          "title": "DNS Name",
+          "value": "eidas.ec.europa.eu",
+        },
+        {
+          "title": "DNS Name",
+          "value": "esignature.ec.europa.eu",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.17",
+    },
+    {
+      "children": [
+        {
+          "children": CertificatePolicies [
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "2.23.140.1.2.2",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "0.4.0.194112.1.5",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "1.3.6.1.4.1.26513.1.1.1.7",
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "title": "Qualifier",
+                          "value": "1.3.6.1.5.5.7.2.1",
+                        },
+                        {
+                          "title": "Value",
+                          "value": "https://repo.harica.gr/documents/CPS",
+                        },
+                      ],
+                      "title": "",
+                    },
+                  ],
+                  "title": "Qualifiers",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Policies",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.32",
+    },
+    {
+      "children": [
+        {
+          "children": ExtendedKeyUsage [
+            {
+              "title": "Purpose",
+              "value": "1.3.6.1.5.5.7.3.2",
+            },
+            {
+              "title": "Purpose",
+              "value": "1.3.6.1.5.5.7.3.1",
+            },
+          ],
+          "title": "Purposes",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.37",
+    },
+    {
+      "children": [
+        {
+          "children": QCStatements [
+            {
+              "children": [
+                {
+                  "title": "Statement",
+                  "value": "1.3.6.1.5.5.7.11.2",
+                },
+                {
+                  "title": "Semantics Identifier",
+                  "value": "ETSI QCS Semantics ID Legal",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Statement",
+                  "value": "0.4.0.1862.1.1",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Statement",
+                  "value": "0.4.0.1862.1.6",
+                },
+                {
+                  "title": "QC Types",
+                  "value": "ETSI QC Type Web",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Statement",
+                  "value": "0.4.0.1862.1.5",
+                },
+                {
+                  "children": PdsLocations [
+                    {
+                      "children": [
+                        {
+                          "title": "URL",
+                          "value": "https://repo.harica.gr/documents/QualifiedLegalPDS-EN.pdf",
+                        },
+                        {
+                          "title": "Language",
+                          "value": "en",
+                        },
+                      ],
+                      "title": "",
+                    },
+                    {
+                      "children": [
+                        {
+                          "title": "URL",
+                          "value": "https://repo.harica.gr/documents/QualifiedLegalPDS-EL.pdf",
+                        },
+                        {
+                          "title": "Language",
+                          "value": "el",
+                        },
+                      ],
+                      "title": "",
+                    },
+                  ],
+                  "title": "PDS Locations",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Statements",
+        },
+      ],
+      "critical": false,
+      "oid": "1.3.6.1.5.5.7.1.3",
+    },
+    {
+      "children": CRLDistributionPoints [
+        {
+          "children": [
+            {
+              "title": "URI",
+              "value": "http://crl.harica.gr/HaricaQWACSubCAR1.crl",
+            },
+          ],
+          "title": "Distribution Points",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.31",
+    },
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "98bfc65bfb82e577d9e213480db360b171de2b15",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.14",
+    },
+    {
+      "children": [
+        {
+          "title": "Usage",
+          "value": "digitalSignature, keyEncipherment",
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.15",
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "title": "Version",
+                  "value": 0,
+                },
+                {
+                  "title": "Log ID",
+                  "value": "76ff883f0ab6fb9551c261ccf587ba34b4a4cdbb29dc68420a9fe6674c5a3a74",
+                },
+                {
+                  "title": "Timestamp",
+                  "value": "2023-03-15T17:27:53.906Z",
+                },
+                {
+                  "title": "Hash Algorithm",
+                  "value": "sha256",
+                },
+                {
+                  "title": "Signature Algorithm",
+                  "value": "ecdsa",
+                },
+                {
+                  "title": "Signature",
+                  "value": "MEUCIEGhLQg0XiDDp+zdVB2eE6uuEzSSvxCFprzmr6toMsHnAiEA+2CEuIZD4r77jmn5HAkwf0Tm4aA8bi2DsDvkikbNeec=",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Version",
+                  "value": 0,
+                },
+                {
+                  "title": "Log ID",
+                  "value": "dab6bf6b3fb5b6229f9bc2bb5c6be87091716cbb51848534bda43d3048d7fbab",
+                },
+                {
+                  "title": "Timestamp",
+                  "value": "2023-03-15T17:27:54.045Z",
+                },
+                {
+                  "title": "Hash Algorithm",
+                  "value": "sha256",
+                },
+                {
+                  "title": "Signature Algorithm",
+                  "value": "ecdsa",
+                },
+                {
+                  "title": "Signature",
+                  "value": "MEUCIQDYIUpd8dPBBwqEf379xxsltWrPw/lGjM3jjgH2Bq6b0wIget/kDOY1dUfMkC+giWMz+vIPr2/loS7N2YEYsqNpXlc=",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Version",
+                  "value": 0,
+                },
+                {
+                  "title": "Log ID",
+                  "value": "3b5377753e2db9804e8b305b06fe403b67d84fc3f4c7bd000d2d726fe1fad417",
+                },
+                {
+                  "title": "Timestamp",
+                  "value": "2023-03-15T17:27:54.099Z",
+                },
+                {
+                  "title": "Hash Algorithm",
+                  "value": "sha256",
+                },
+                {
+                  "title": "Signature Algorithm",
+                  "value": "ecdsa",
+                },
+                {
+                  "title": "Signature",
+                  "value": "MEYCIQCgaRjPF9fKmQ6gbI5jLH/pWOzKifQtOwvQAWvDIq9JaQIhALfT3O9Oi/EMB7APgV+AlN9xqrsW1KqZQUl+A9n7ZUpW",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Timestamps",
+        },
+      ],
+      "critical": false,
+      "oid": "1.3.6.1.4.1.11129.2.4.2",
+    },
+  ],
+  "issuer": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "GR",
+    },
+    {
+      "name": "Locality",
+      "shortName": "L",
+      "type": "2.5.4.7",
+      "value": "Athens",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "Greek Universities Network (GUnet)",
+    },
+    {
+      "name": "Organization Identifier",
+      "shortName": "OI",
+      "type": "2.5.4.97",
+      "value": "VATGR-099028220",
+    },
+    {
+      "name": "Organization Unit",
+      "shortName": "OU",
+      "type": "2.5.4.11",
+      "value": "Hellenic Academic and Research Institutions CA",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "HARICA QWAC RSA SubCA R1",
+    },
+  ],
+  "notAfter": 2024-04-15T16:55:08.000Z,
+  "notBefore": 2023-03-15T17:17:45.000Z,
+  "serialNumber": "1a990bfe77bc59880bbc3d964149f514",
+  "subject": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "BE",
+    },
+    {
+      "name": "Locality",
+      "shortName": "L",
+      "type": "2.5.4.7",
+      "value": "Bruxelles",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "COMMISSION DE L'UNION EUROPEENNE-COMMISSIE VAN DE EUROPESE UNIE",
+    },
+    {
+      "name": "Organization Identifier",
+      "shortName": "OI",
+      "type": "2.5.4.97",
+      "value": "NTRBE-0949.383.342",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "eidas.ec.europa.eu",
+    },
+  ],
+  "tag": "CERTIFICATE",
+  "thumbprints": {},
+  "type": "X.509 Certificate",
+  "validity": "a year",
+  "version": 3,
+}
+`;
+
+exports[`X509Certificate should parse the test certificate Configuration.cer 1`] = `
+X509Certificate {
+  "extensions": Extensions [
+    {
+      "children": [
+        {
+          "title": "CA",
+          "value": true,
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.19",
+    },
+    {
+      "children": [
+        {
+          "children": CertificatePolicies [
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "2.16.840.1.101.3.2.1.3.2",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "2.16.840.1.101.3.2.1.3.3",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "2.16.840.1.101.3.2.1.3.12",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "2.16.840.1.101.3.2.1.3.13",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "2.16.840.1.101.3.2.1.3.17",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "2.16.840.1.101.3.2.1.3.39",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Policies",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.32",
+    },
+    {
+      "children": [
+        {
+          "children": AuthorityInfoAccessSyntax [
+            {
+              "children": [
+                {
+                  "title": "Method",
+                  "value": "1.3.6.1.5.5.7.48.2",
+                },
+                {
+                  "title": "URI",
+                  "value": "http://http.fpki.gov/bridge/caCertsIssuedTofbca2013.p7c",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Descriptions",
+        },
+      ],
+      "critical": false,
+      "oid": "1.3.6.1.5.5.7.1.1",
+    },
+    {
+      "children": [
+        {
+          "children": PolicyMappings [
+            {
+              "children": [
+                {
+                  "title": "Issuer Domain Policy",
+                  "value": "2.16.840.1.101.3.2.1.3.2",
+                },
+                {
+                  "title": "Subject Domain Policy",
+                  "value": "2.16.840.1.101.3.2.1.2.7",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Issuer Domain Policy",
+                  "value": "2.16.840.1.101.3.2.1.3.3",
+                },
+                {
+                  "title": "Subject Domain Policy",
+                  "value": "2.16.840.1.101.3.2.1.2.8",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Issuer Domain Policy",
+                  "value": "2.16.840.1.101.3.2.1.3.12",
+                },
+                {
+                  "title": "Subject Domain Policy",
+                  "value": "2.16.840.1.101.3.2.1.2.9",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Mappings",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.33",
+    },
+    {
+      "children": [
+        {
+          "children": GeneralSubtrees [
+            {
+              "children": [
+                {
+                  "title": "Domain Component",
+                  "value": "gov",
+                },
+                {
+                  "title": "Domain Component",
+                  "value": "uspto",
+                },
+              ],
+              "title": "Directory Name",
+            },
+          ],
+          "title": "Permitted Subtrees",
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.30",
+    },
+    {
+      "children": [
+        {
+          "children": SubjectInfoAccessSyntax [
+            {
+              "children": [
+                {
+                  "title": "Method",
+                  "value": "1.3.6.1.5.5.7.48.5",
+                },
+                {
+                  "title": "URI",
+                  "value": "http://ipki.uspto.gov/IPKI/Certs/CAcertsIssuedByUSPTO.p7c",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Descriptions",
+        },
+      ],
+      "critical": false,
+      "oid": "1.3.6.1.5.5.7.1.11",
+    },
+    {
+      "children": [
+        {
+          "title": "Require Explicit Policy",
+          "value": 0,
+        },
+        {
+          "title": "Inhibit Policy Mapping",
+          "value": 0,
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.36",
+    },
+    {
+      "children": [
+        {
+          "title": "Skip Certs",
+          "value": 0,
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.54",
+    },
+    {
+      "children": [
+        {
+          "title": "Usage",
+          "value": "crlSign, keyCertSign",
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.15",
+    },
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "bbce747183344e593245155f406060dc2bb0b4e4",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.35",
+    },
+    {
+      "children": CRLDistributionPoints [
+        {
+          "children": [
+            {
+              "title": "URI",
+              "value": "http://http.fpki.gov/bridge/fbca2013.crl",
+            },
+          ],
+          "title": "Distribution Points",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.31",
+    },
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "df3f39dbad6065505f33919a47a68e414eb54fdb",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.14",
+    },
+  ],
+  "issuer": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "US",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "U.S. Government",
+    },
+    {
+      "name": "Organization Unit",
+      "shortName": "OU",
+      "type": "2.5.4.11",
+      "value": "FPKI",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "Federal Bridge CA 2013",
+    },
+  ],
+  "notAfter": 2016-12-19T18:10:21.000Z,
+  "notBefore": 2013-12-19T18:10:21.000Z,
+  "serialNumber": "01fd",
+  "subject": [
+    {
+      "name": "Domain Component",
+      "shortName": "DC",
+      "type": "0.9.2342.19200300.100.1.25",
+      "value": "gov",
+    },
+    {
+      "name": "Domain Component",
+      "shortName": "DC",
+      "type": "0.9.2342.19200300.100.1.25",
+      "value": "uspto",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "Configuration",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "Services",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "Public Key Services",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "AIA",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "USPTO_INTR_CA1",
+    },
+  ],
+  "tag": "CERTIFICATE",
+  "thumbprints": {},
+  "type": "X.509 Certificate",
+  "validity": "3 years",
+  "version": 3,
+}
+`;
+
+exports[`X509Certificate should parse the test certificate Entity Name From Registration.cer 1`] = `
+X509Certificate {
+  "extensions": Extensions [
+    {
+      "children": [
+        {
+          "title": "Usage",
+          "value": "digitalSignature",
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.15",
+    },
+    {
+      "children": [
+        {
+          "title": "CA",
+          "value": false,
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.19",
+    },
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "8106e2e52f7f49532659935c87bcc2e6a4117400",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.14",
+    },
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "6db0f95d654edc80877c6fdd02ddd3b1606f72b0",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.35",
+    },
+    {
+      "children": [
+        {
+          "title": "Service Provider Code",
+          "value": "709J",
+        },
+      ],
+      "critical": false,
+      "oid": "1.3.6.1.5.5.7.1.26",
+    },
+    {
+      "children": [
+        {
+          "children": CertificatePolicies [
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "2.16.840.1.114569.1.1.1",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Policies",
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.32",
+    },
+  ],
+  "issuer": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "US",
+    },
+    {
+      "name": "State",
+      "shortName": "ST",
+      "type": "2.5.4.8",
+      "value": "WA",
+    },
+    {
+      "name": "Locality",
+      "shortName": "L",
+      "type": "2.5.4.7",
+      "value": "Seattle",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "Martini Security, LLC.",
+    },
+    {
+      "name": "Organization Unit",
+      "shortName": "OU",
+      "type": "2.5.4.11",
+      "value": "Dev",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "SHAKEN G1",
+    },
+  ],
+  "notAfter": 2022-08-17T19:28:00.000Z,
+  "notBefore": 2021-08-17T19:28:00.000Z,
+  "serialNumber": "2fb024e190d89ced2487ea1506576813d4fc0c59",
+  "subject": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "US",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "Entity Name From Registration",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "SHAKEN 709J",
+    },
+  ],
+  "tag": "CERTIFICATE",
+  "thumbprints": {},
+  "type": "X.509 Certificate",
+  "validity": "a year",
+  "version": 3,
+}
+`;
+
+exports[`X509Certificate should parse the test certificate European Commission.cer 1`] = `
+X509Certificate {
+  "extensions": Extensions [
+    {
+      "children": [
+        {
+          "children": AuthorityInfoAccessSyntax [
+            {
+              "children": [
+                {
+                  "title": "Method",
+                  "value": "1.3.6.1.5.5.7.48.2",
+                },
+                {
+                  "title": "URI",
+                  "value": "http://trust.quovadisglobal.com/qvbecag2.crt",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Method",
+                  "value": "1.3.6.1.5.5.7.48.1",
+                },
+                {
+                  "title": "URI",
+                  "value": "http://uw.ocsp.quovadisglobal.com",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Descriptions",
+        },
+      ],
+      "critical": false,
+      "oid": "1.3.6.1.5.5.7.1.1",
+    },
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "e811fc46be23b48f3ef7b1d778df0997b8ec4524",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.14",
+    },
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "87c9bc3197127a73bb7ec03d4551b401259551ab",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.35",
+    },
+    {
+      "children": [
+        {
+          "children": CertificatePolicies [
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "1.3.6.1.4.1.8024.1.400",
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "title": "Qualifier",
+                          "value": "1.3.6.1.5.5.7.2.1",
+                        },
+                        {
+                          "title": "Value",
+                          "value": "http://www.quovadisglobal.com/repository",
+                        },
+                      ],
+                      "title": "",
+                    },
+                  ],
+                  "title": "Qualifiers",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "0.4.0.194112.1.3",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Policies",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.32",
+    },
+    {
+      "children": CRLDistributionPoints [
+        {
+          "children": [
+            {
+              "title": "URI",
+              "value": "http://crl.quovadisglobal.com/qvbecag2.crl",
+            },
+          ],
+          "title": "Distribution Points",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.31",
+    },
+    {
+      "children": [
+        {
+          "title": "Usage",
+          "value": "digitalSignature, nonRepudiation",
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.15",
+    },
+    {
+      "children": [
+        {
+          "children": ExtendedKeyUsage [
+            {
+              "title": "Purpose",
+              "value": "1.3.6.1.5.5.7.3.2",
+            },
+            {
+              "title": "Purpose",
+              "value": "1.3.6.1.5.5.7.3.4",
+            },
+            {
+              "title": "Purpose",
+              "value": "1.3.6.1.4.1.311.10.3.12",
+            },
+          ],
+          "title": "Purposes",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.37",
+    },
+    {
+      "children": [
+        {
+          "title": "Version",
+          "value": 1,
+        },
+      ],
+      "critical": false,
+      "oid": "1.2.840.113583.1.1.9.2",
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "title": "Version",
+              "value": 1,
+            },
+            {
+              "children": [
+                {
+                  "title": "URI",
+                  "value": "http://ts.quovadisglobal.com/be",
+                },
+              ],
+              "title": "Location",
+            },
+            {
+              "title": "Requires Auth",
+              "value": false,
+            },
+          ],
+          "title": "Timestamp",
+        },
+      ],
+      "critical": false,
+      "oid": "1.2.840.113583.1.1.9.1",
+    },
+    {
+      "children": [
+        {
+          "children": QCStatements [
+            {
+              "children": [
+                {
+                  "title": "Statement",
+                  "value": "1.3.6.1.5.5.7.11.2",
+                },
+                {
+                  "title": "Semantics Identifier",
+                  "value": "ETSI QCS Semantics ID Legal",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Statement",
+                  "value": "0.4.0.1862.1.1",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Statement",
+                  "value": "0.4.0.1862.1.4",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Statement",
+                  "value": "0.4.0.1862.1.6",
+                },
+                {
+                  "title": "QC Types",
+                  "value": "ETSI QC Type eSeal",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Statement",
+                  "value": "0.4.0.1862.1.5",
+                },
+                {
+                  "children": PdsLocations [
+                    {
+                      "children": [
+                        {
+                          "title": "URL",
+                          "value": "https://www.quovadisglobal.com/repository",
+                        },
+                        {
+                          "title": "Language",
+                          "value": "en",
+                        },
+                      ],
+                      "title": "",
+                    },
+                  ],
+                  "title": "PDS Locations",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Statements",
+        },
+      ],
+      "critical": false,
+      "oid": "1.3.6.1.5.5.7.1.3",
+    },
+  ],
+  "issuer": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "BE",
+    },
+    {
+      "name": "Organization Identifier",
+      "shortName": "OI",
+      "type": "2.5.4.97",
+      "value": "NTRBE-0537698318",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "QuoVadis Trustlink BVBA",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "QuoVadis Belgium Issuing CA G2",
+    },
+  ],
+  "notAfter": 2021-03-07T16:10:00.000Z,
+  "notBefore": 2018-03-07T16:00:43.000Z,
+  "serialNumber": "59772e700669b7669fb012c5cdd13c3a281a0911",
+  "subject": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "BE",
+    },
+    {
+      "name": "Organization Unit",
+      "shortName": "OU",
+      "type": "2.5.4.11",
+      "value": "DG CONNECT",
+    },
+    {
+      "name": "Organization Identifier",
+      "shortName": "OI",
+      "type": "2.5.4.97",
+      "value": "VATBE-0949.383.342",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "European Commission",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "EC_CNECT",
+    },
+  ],
+  "tag": "CERTIFICATE",
+  "thumbprints": {},
+  "type": "X.509 Certificate",
+  "validity": "3 years",
+  "version": 3,
+}
+`;
+
+exports[`X509Certificate should parse the test certificate Le Banque.cer 1`] = `
+X509Certificate {
+  "extensions": Extensions [
+    {
+      "children": [
+        {
+          "title": "Usage",
+          "value": "digitalSignature",
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.15",
+    },
+    {
+      "children": [
+        {
+          "children": AuthorityInfoAccessSyntax [
+            {
+              "children": [
+                {
+                  "title": "Method",
+                  "value": "1.3.6.1.5.5.7.48.1",
+                },
+                {
+                  "title": "URI",
+                  "value": "http://ocsp.certsrus.com",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Method",
+                  "value": "1.3.6.1.5.5.7.48.2",
+                },
+                {
+                  "title": "URI",
+                  "value": "http://cacerts.certsrus.com/IssuingCA.crt",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Descriptions",
+        },
+      ],
+      "critical": false,
+      "oid": "1.3.6.1.5.5.7.1.1",
+    },
+    {
+      "children": [
+        {
+          "children": CertificatePolicies [
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "2.23.140.1.1",
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "title": "Qualifier",
+                          "value": "1.3.6.1.5.5.7.2.1",
+                        },
+                        {
+                          "title": "Value",
+                          "value": "https://certsrus.com/carte-blanche.pdf",
+                        },
+                      ],
+                      "title": "",
+                    },
+                  ],
+                  "title": "Qualifiers",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Policies",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.32",
+    },
+    {
+      "children": [
+        {
+          "title": "CA",
+          "value": false,
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.19",
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "title": "Scheme",
+              "value": "FOO",
+            },
+            {
+              "title": "Country",
+              "value": "FR",
+            },
+            {
+              "title": "Reference",
+              "value": "1",
+            },
+          ],
+          "title": "Organization Identifier",
+        },
+      ],
+      "critical": false,
+      "oid": "2.23.140.3.1",
+    },
+    {
+      "children": CRLDistributionPoints [
+        {
+          "children": [
+            {
+              "title": "URI",
+              "value": "http://crl.certsrus.com/IssuingCA.crl",
+            },
+          ],
+          "title": "Distribution Points",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.31",
+    },
+    {
+      "children": SubjectAlternativeName [
+        {
+          "title": "DNS Name",
+          "value": "example.com",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.17",
+    },
+    {
+      "children": [
+        {
+          "children": ExtendedKeyUsage [
+            {
+              "title": "Purpose",
+              "value": "1.3.6.1.5.5.7.3.1",
+            },
+            {
+              "title": "Purpose",
+              "value": "1.3.6.1.5.5.7.3.2",
+            },
+          ],
+          "title": "Purposes",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.37",
+    },
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "ecbdde59adfd9b5517e7704c06579f2122b07700",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.35",
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "title": "Version",
+                  "value": 0,
+                },
+                {
+                  "title": "Log ID",
+                  "value": "e83ed0da3ef5063532e75728bc896bc903d3cbd1116beceb69e1777d6d06bd6e",
+                },
+                {
+                  "title": "Timestamp",
+                  "value": "2022-08-18T08:06:30.186Z",
+                },
+                {
+                  "title": "Hash Algorithm",
+                  "value": "sha256",
+                },
+                {
+                  "title": "Signature Algorithm",
+                  "value": "ecdsa",
+                },
+                {
+                  "title": "Signature",
+                  "value": "MEUCIHs+6jJWkeuI2P5kykNHTrhPAxMZSy64VMaEuutSDrWyAiEAv+Ly0kSFrzuQLJ9/L75bgv23YDlkRLJWzegvYzn/9BQ=",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Version",
+                  "value": 0,
+                },
+                {
+                  "title": "Log ID",
+                  "value": "6f5376ac31f03119d89900a45115ff77151c11d902c10029068db2089a37d913",
+                },
+                {
+                  "title": "Timestamp",
+                  "value": "2022-08-18T08:06:29.587Z",
+                },
+                {
+                  "title": "Hash Algorithm",
+                  "value": "sha256",
+                },
+                {
+                  "title": "Signature Algorithm",
+                  "value": "ecdsa",
+                },
+                {
+                  "title": "Signature",
+                  "value": "MEUCIQDjQIrvebt4pWddMIrp/+Jlb9TE2g8dlIT3ScFZ5CWN9QIgA2E8Vq4NID9h4fbLZ+7mTwWjSDOZR2xsSbcFWB+nK78=",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Version",
+                  "value": 0,
+                },
+                {
+                  "title": "Log ID",
+                  "value": "b3737707e18450f86386d605a9dc11094a792db1670c0b87dcf0030e7936a59a",
+                },
+                {
+                  "title": "Timestamp",
+                  "value": "2022-08-18T08:06:29.959Z",
+                },
+                {
+                  "title": "Hash Algorithm",
+                  "value": "sha256",
+                },
+                {
+                  "title": "Signature Algorithm",
+                  "value": "ecdsa",
+                },
+                {
+                  "title": "Signature",
+                  "value": "MEUCIFh5BS/XvfG5nyXwwIf6rgbORC6RPElBSG29o5fVk7W2AiEAredQHi3IEl2tYKAexlSE1zGdauQ8UYidPrOEL7Co29g=",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Timestamps",
+        },
+      ],
+      "critical": false,
+      "oid": "1.3.6.1.4.1.11129.2.4.2",
+    },
+  ],
+  "issuer": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "US",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "Certs R Us",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "Certs R Us Issuing CA G1",
+    },
+  ],
+  "notAfter": 2023-09-19T08:06:26.000Z,
+  "notBefore": 2022-08-18T08:06:27.000Z,
+  "serialNumber": "4bd2a373509658ac023ba7c6",
+  "subject": [
+    {
+      "name": "Business Category",
+      "shortName": "businessCategory",
+      "type": "2.5.4.15",
+      "value": "Private Organization",
+    },
+    {
+      "name": "Serial Number",
+      "shortName": "serialNumber",
+      "type": "2.5.4.5",
+      "value": "1",
+    },
+    {
+      "name": "Jurisdiction Of Incorporation C",
+      "shortName": "jurisdictionCountry",
+      "type": "1.3.6.1.4.1.311.60.2.1.3",
+      "value": "FR",
+    },
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "FR",
+    },
+    {
+      "name": "State",
+      "shortName": "ST",
+      "type": "2.5.4.8",
+      "value": "Paris",
+    },
+    {
+      "name": "Locality",
+      "shortName": "L",
+      "type": "2.5.4.7",
+      "value": "Paris",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "Le Banque",
+    },
+  ],
+  "tag": "CERTIFICATE",
+  "thumbprints": {},
+  "type": "X.509 Certificate",
+  "validity": "a year",
+  "version": 3,
+}
+`;
+
+exports[`X509Certificate should parse the test certificate Martini Security, LLC.cer 1`] = `
+X509Certificate {
+  "extensions": Extensions [
+    {
+      "children": [
+        {
+          "title": "Usage",
+          "value": "keyCertSign",
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.15",
+    },
+    {
+      "children": [
+        {
+          "title": "CA",
+          "value": true,
+        },
+        {
+          "title": "Path Length Constraint",
+          "value": 0,
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.19",
+    },
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "aaaf00de420f95827e3ea123c07648f2b23ae101",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.14",
+    },
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "791ed7342f91be368f795a222e6fbb4239feebb7",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.35",
+    },
+    {
+      "children": CRLDistributionPoints [
+        {
+          "children": [
+            {
+              "title": "URI",
+              "value": "https://authenticate-api.iconectiv.com/download/v1/crl",
+            },
+            {
+              "children": [
+                {
+                  "title": "Locality",
+                  "value": "Bridgewater",
+                },
+                {
+                  "title": "State",
+                  "value": "NJ",
+                },
+                {
+                  "title": "Common Name",
+                  "value": "STI-PA CRL",
+                },
+                {
+                  "title": "Country Name",
+                  "value": "US",
+                },
+                {
+                  "title": "Organization",
+                  "value": "STI-PA",
+                },
+              ],
+              "title": "Directory Name",
+            },
+          ],
+          "title": "Distribution Points",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.31",
+    },
+    {
+      "children": [
+        {
+          "children": CertificatePolicies [
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "2.16.840.1.114569.1.1.3",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Policies",
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.32",
+    },
+  ],
+  "issuer": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "US",
+    },
+    {
+      "name": "State",
+      "shortName": "ST",
+      "type": "2.5.4.8",
+      "value": "WA",
+    },
+    {
+      "name": "Locality",
+      "shortName": "L",
+      "type": "2.5.4.7",
+      "value": "Seattle",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "Martini Security, LLC",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "Martini Security SHAKEN R1",
+    },
+  ],
+  "notAfter": 2027-05-02T14:01:00.000Z,
+  "notBefore": 2022-05-03T14:01:00.000Z,
+  "serialNumber": "47ce52fb00f6548992472572f3aff23a4480ca5e",
+  "subject": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "US",
+    },
+    {
+      "name": "State",
+      "shortName": "ST",
+      "type": "2.5.4.8",
+      "value": "WA",
+    },
+    {
+      "name": "Locality",
+      "shortName": "L",
+      "type": "2.5.4.7",
+      "value": "Seattle",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "Martini Security, LLC",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "Martini Security SHAKEN G1",
+    },
+  ],
+  "tag": "CERTIFICATE",
+  "thumbprints": {},
+  "type": "X.509 Certificate",
+  "validity": "5 years",
+  "version": 3,
+}
+`;
+
+exports[`X509Certificate should parse the test certificate Ministerie van Justitie en Veiligheid.cer 1`] = `
+X509Certificate {
+  "extensions": Extensions [
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "bceb5efbd80de882ae8646bd3b7cb26fd12c7f0a",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.35",
+    },
+    {
+      "children": [
+        {
+          "children": AuthorityInfoAccessSyntax [
+            {
+              "children": [
+                {
+                  "title": "Method",
+                  "value": "1.3.6.1.5.5.7.48.2",
+                },
+                {
+                  "title": "URI",
+                  "value": "http://trust.quovadisglobal.com/quovadisqualifiedwebicag2.crt",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Method",
+                  "value": "1.3.6.1.5.5.7.48.1",
+                },
+                {
+                  "title": "URI",
+                  "value": "http://ocsp.quovadisglobal.com",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Descriptions",
+        },
+      ],
+      "critical": false,
+      "oid": "1.3.6.1.5.5.7.1.1",
+    },
+    {
+      "children": SubjectAlternativeName [
+        {
+          "title": "DNS Name",
+          "value": "api.c10.containers.vernieuwingsdomein.nl",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.17",
+    },
+    {
+      "children": [
+        {
+          "children": CertificatePolicies [
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "0.4.0.194112.1.4",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "1.3.6.1.4.1.8024.0.2.100.1.2",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "1.3.6.1.4.1.8024.1.450",
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "title": "Qualifier",
+                          "value": "1.3.6.1.5.5.7.2.1",
+                        },
+                        {
+                          "title": "Value",
+                          "value": "http://www.quovadisglobal.com/repository",
+                        },
+                      ],
+                      "title": "",
+                    },
+                  ],
+                  "title": "Qualifiers",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "2.23.140.1.1",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Policies",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.32",
+    },
+    {
+      "children": [
+        {
+          "children": ExtendedKeyUsage [
+            {
+              "title": "Purpose",
+              "value": "1.3.6.1.5.5.7.3.2",
+            },
+            {
+              "title": "Purpose",
+              "value": "1.3.6.1.5.5.7.3.1",
+            },
+          ],
+          "title": "Purposes",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.37",
+    },
+    {
+      "children": [
+        {
+          "children": QCStatements [
+            {
+              "children": [
+                {
+                  "title": "Statement",
+                  "value": "1.3.6.1.5.5.7.11.2",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Statement",
+                  "value": "0.4.0.1862.1.1",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Statement",
+                  "value": "0.4.0.1862.1.6",
+                },
+                {
+                  "title": "QC Types",
+                  "value": "ETSI QC Type Web",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Statement",
+                  "value": "0.4.0.1862.1.5",
+                },
+                {
+                  "children": PdsLocations [
+                    {
+                      "children": [
+                        {
+                          "title": "URL",
+                          "value": "https://www.quovadisglobal.com/repository",
+                        },
+                        {
+                          "title": "Language",
+                          "value": "en",
+                        },
+                      ],
+                      "title": "",
+                    },
+                  ],
+                  "title": "PDS Locations",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Statements",
+        },
+      ],
+      "critical": false,
+      "oid": "1.3.6.1.5.5.7.1.3",
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "title": "Scheme",
+              "value": "NTR",
+            },
+            {
+              "title": "Country",
+              "value": "US",
+            },
+            {
+              "title": "State Or Province",
+              "value": "CA",
+            },
+            {
+              "title": "Reference",
+              "value": "27380834",
+            },
+          ],
+          "title": "Organization Identifier",
+        },
+      ],
+      "critical": false,
+      "oid": "2.23.140.3.1",
+    },
+    {
+      "children": CRLDistributionPoints [
+        {
+          "children": [
+            {
+              "title": "URI",
+              "value": "http://crl.quovadisglobal.com/quovadisqualifiedwebicag2.crl",
+            },
+          ],
+          "title": "Distribution Points",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.31",
+    },
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "c8ccb5ec83ef1bcd3a022dacdd3badf07679d192",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.14",
+    },
+    {
+      "children": [
+        {
+          "title": "Usage",
+          "value": "digitalSignature, keyEncipherment",
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.15",
+    },
+    {
+      "children": [
+        {
+          "title": "Raw Value",
+          "value": "0500",
+        },
+      ],
+      "critical": true,
+      "oid": "1.3.6.1.4.1.11129.2.4.3",
+    },
+  ],
+  "issuer": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "NL",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "QuoVadis Trustlink B.V.",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "QuoVadis Qualified Web ICA G2",
+    },
+  ],
+  "notAfter": 2024-08-07T08:26:00.000Z,
+  "notBefore": 2023-08-07T08:31:28.000Z,
+  "serialNumber": "7a4dcb4b21044ec2b4e5f7094f407f8153a89ba5",
+  "subject": [
+    {
+      "name": "Jurisdiction Of Incorporation C",
+      "shortName": "jurisdictionCountry",
+      "type": "1.3.6.1.4.1.311.60.2.1.3",
+      "value": "NL",
+    },
+    {
+      "name": "Business Category",
+      "shortName": "businessCategory",
+      "type": "2.5.4.15",
+      "value": "Government Entity",
+    },
+    {
+      "name": "Serial Number",
+      "shortName": "serialNumber",
+      "type": "2.5.4.5",
+      "value": "27380834",
+    },
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "NL",
+    },
+    {
+      "name": "State",
+      "shortName": "ST",
+      "type": "2.5.4.8",
+      "value": "Zuid-Holland",
+    },
+    {
+      "name": "Locality",
+      "shortName": "L",
+      "type": "2.5.4.7",
+      "value": "'s-Gravenhage",
+    },
+    {
+      "name": "Organization Identifier",
+      "shortName": "OI",
+      "type": "2.5.4.97",
+      "value": "NTRUS-27380834",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "Ministerie van Justitie en Veiligheid",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "api.c10.containers.vernieuwingsdomein.nl",
+    },
+  ],
+  "tag": "CERTIFICATE",
+  "thumbprints": {},
+  "type": "X.509 Certificate",
+  "validity": "a year",
+  "version": 3,
+}
+`;
+
+exports[`X509Certificate should parse the test certificate Test Certificates 2011.cer 1`] = `
+X509Certificate {
+  "extensions": Extensions [
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "580184241bbc2b52944a3da510721451f5af3ac9",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.35",
+    },
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "32072c9e745d2d5d29bbb17a8d3b1552b47d4278",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.14",
+    },
+    {
+      "children": [
+        {
+          "title": "Usage",
+          "value": "crlSign, keyCertSign",
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.15",
+    },
+    {
+      "children": [
+        {
+          "children": CertificatePolicies [
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "2.16.840.1.101.3.2.1.48.1",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Policies",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.32",
+    },
+    {
+      "children": [
+        {
+          "title": "CA",
+          "value": true,
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.19",
+    },
+    {
+      "children": [
+        {
+          "title": "Require Explicit Policy",
+          "value": 0,
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.36",
+    },
+  ],
+  "issuer": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "US",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "Test Certificates 2011",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "Good CA",
+    },
+  ],
+  "notAfter": 2030-12-31T08:30:00.000Z,
+  "notBefore": 2010-01-01T08:30:00.000Z,
+  "serialNumber": "11",
+  "subject": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "US",
+    },
+    {
+      "name": "Organization",
+      "shortName": "O",
+      "type": "2.5.4.10",
+      "value": "Test Certificates 2011",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "Good subCA",
+    },
+  ],
+  "tag": "CERTIFICATE",
+  "thumbprints": {},
+  "type": "X.509 Certificate",
+  "validity": "21 years",
+  "version": 3,
+}
+`;
+
+exports[`X509Certificate should parse the test certificate Test ed25519.cer 1`] = `
+X509Certificate {
+  "extensions": Extensions [
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "6ba5bdcf9dfa235978126417ae1e72d89a804ae8",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.14",
+    },
+    {
+      "children": [
+        {
+          "title": "Key Identifier",
+          "value": "6ba5bdcf9dfa235978126417ae1e72d89a804ae8",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.35",
+    },
+    {
+      "children": [
+        {
+          "title": "CA",
+          "value": true,
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.19",
+    },
+  ],
+  "issuer": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "IT",
+    },
+    {
+      "name": "Locality",
+      "shortName": "L",
+      "type": "2.5.4.7",
+      "value": "Milano",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "Test ed25519",
+    },
+  ],
+  "notAfter": 2030-09-02T13:25:26.000Z,
+  "notBefore": 2020-09-02T13:25:26.000Z,
+  "serialNumber": "7c8e6449d70ed92d3e2e4a5d2f76f6554246d746",
+  "subject": [
+    {
+      "name": "Country Name",
+      "shortName": "C",
+      "type": "2.5.4.6",
+      "value": "IT",
+    },
+    {
+      "name": "Locality",
+      "shortName": "L",
+      "type": "2.5.4.7",
+      "value": "Milano",
+    },
+    {
+      "name": "Common Name",
+      "shortName": "CN",
+      "type": "2.5.4.3",
+      "value": "Test ed25519",
+    },
+  ],
+  "tag": "CERTIFICATE",
+  "thumbprints": {},
+  "type": "X.509 Certificate",
+  "validity": "10 years",
+  "version": 3,
+}
+`;

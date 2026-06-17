@@ -47,6 +47,7 @@ graph TD;
   peculiar-certificates-viewer --> peculiar-highlight-words
   peculiar-certificates-viewer --> peculiar-certificate-viewer
   peculiar-certificates-viewer --> peculiar-circular-progress
+  peculiar-certificate-viewer --> peculiar-text-hider
   style peculiar-certificates-viewer fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

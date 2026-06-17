@@ -1,0 +1,74 @@
+/**
+ * @license
+ * Copyright (c) Peculiar Ventures, LLC.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+import { GeneralName } from '@peculiar/asn1-x509';
+import { Convert } from 'pvtsutils';
+import { Name } from '../name';
+import type { ExtensionNode } from './types';
+import { node, section } from './builders';
+
+export function parseGeneralName(gn: GeneralName): ExtensionNode {
+  // --- Simple string types (library decodes these directly) ---
+
+  if (gn.uniformResourceIdentifier != null) {
+    return node('URI', gn.uniformResourceIdentifier);
+  }
+
+  if (gn.dNSName != null) {
+    return node('DNS Name', gn.dNSName);
+  }
+
+  if (gn.rfc822Name != null) {
+    return node('RFC 822 Name', gn.rfc822Name);
+  }
+
+  if (gn.registeredID != null) {
+    return node('Registered ID', gn.registeredID);
+  }
+
+  // iPAddress: AsnIpConverter already converts the raw bytes to a dotted/colon string
+  if (gn.iPAddress != null) {
+    return node('IP Address', gn.iPAddress);
+  }
+
+  // --- Structured types ---
+
+  if (gn.otherName != null) {
+    return section('Other Name', [
+      node('Type ID', gn.otherName.typeId),
+      node('Value', Convert.ToHex(gn.otherName.value)),
+    ]);
+  }
+
+  if (gn.ediPartyName != null) {
+    const children: ExtensionNode[] = [];
+
+    if (gn.ediPartyName.nameAssigner != null) {
+      children.push(node('Name Assigner', gn.ediPartyName.nameAssigner.toString()));
+    }
+
+    children.push(node('Party Name', gn.ediPartyName.partyName.toString()));
+
+    return section('EDI Party Name', children);
+  }
+
+  if (gn.directoryName != null) {
+    const attrs = new Name(gn.directoryName).toJSON();
+
+    return section('Directory Name', attrs.map((attr) => (
+      node(attr.name ?? attr.type, attr.value)
+    )));
+  }
+
+  // x400Address: opaque ORAddress bytes → hex
+  if (gn.x400Address != null) {
+    return node('X400 Address', Convert.ToHex(gn.x400Address));
+  }
+
+  return node('Unknown', '');
+}
