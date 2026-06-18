@@ -14,6 +14,7 @@ import {
 } from '@peculiar/asn1-cert-transparency';
 import type { ExtensionParser, ParsedExtension } from '../types';
 import { node, section } from '../builders';
+import { dateShort } from '../../../utils';
 
 export class CertificateTransparencyParser implements ExtensionParser {
   readonly oids = [id_certificateTransparency];
@@ -29,7 +30,7 @@ export class CertificateTransparencyParser implements ExtensionParser {
         section('Timestamps', scts.map((sct) => section('', [
           node('Version', sct.version),
           node('Log ID', sct.logId),
-          node('Timestamp', sct.timestamp.toISOString()),
+          node('Timestamp', dateShort(sct.timestamp)),
           node('Hash Algorithm', sct.hashAlgorithm),
           node('Signature Algorithm', sct.signatureAlgorithm),
           node('Signature', sct.signature),

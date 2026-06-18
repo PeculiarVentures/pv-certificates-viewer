@@ -24,13 +24,13 @@ import {
   BasicInformation,
   Signature,
   Thumbprints,
-  Extensions,
   Miscellaneous,
   Attributes,
   Holder,
   Issuer,
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
+import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
 
 export type TAttributeCertificateProp = string | X509AttributeCertificate;
 
@@ -238,11 +238,8 @@ export class AttributeCertificateViewer {
             {...linkTemplateResolvers}
           />
 
-          <Extensions
+          <ParsedExtensions
             extensions={this.certificateDecoded.extensions}
-            getLEILink={getLEILink}
-            getDNSNameLink={getDNSNameLink}
-            getIPAddressLink={getIPAddressLink}
             {...linkTemplateResolvers}
           />
 

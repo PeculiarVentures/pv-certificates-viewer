@@ -14,6 +14,7 @@ import {
 } from '@peculiar/asn1-x509';
 import type { ExtensionParser, ParsedExtension } from '../types';
 import { node } from '../builders';
+import { dateShort } from '../../../utils';
 
 export class InvalidityDateParser implements ExtensionParser {
   readonly oids = [id_ce_invalidityDate];
@@ -24,7 +25,7 @@ export class InvalidityDateParser implements ExtensionParser {
     return {
       oid: extension.extnID,
       critical: extension.critical ?? false,
-      children: [node('Invalidity Date', id.value.toISOString())],
+      children: [node('Invalidity Date', dateShort(id.value))],
     };
   }
 }

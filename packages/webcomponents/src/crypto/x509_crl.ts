@@ -5,11 +5,10 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import { AsnConvert } from '@peculiar/asn1-schema';
+
 import { CertificateList, Time } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 import { Download } from '../utils';
-import { Extension, TExtensionValue } from './extension';
 import { AsnData } from './asn_data';
 import { Name, INameJSON } from './name';
 import { PemConverter } from './pem_converter';
@@ -17,6 +16,7 @@ import {
   certificateRawToBuffer,
   getCertificateThumbprint,
 } from './utils';
+import { type ParsedExtension, parseExtension } from './extension-parsers';
 
 interface ISignature {
   algorithm: string;
@@ -26,7 +26,7 @@ interface ISignature {
 export interface IRevokedCertificate {
   userCertificate: ArrayBuffer;
   revocationDate: Time;
-  crlEntryExtensions?: Extension<TExtensionValue>[];
+  crlEntryExtensions?: ParsedExtension[];
 }
 
 export class X509Crl extends AsnData<CertificateList> {
@@ -38,7 +38,7 @@ export class X509Crl extends AsnData<CertificateList> {
 
   public readonly nextUpdate: Date;
 
-  public extensions: Extension<TExtensionValue>[];
+  public extensions: ParsedExtension[];
 
   public revokedCertificates: IRevokedCertificate[];
 
@@ -63,7 +63,7 @@ export class X509Crl extends AsnData<CertificateList> {
         revocationDate: revokedCertificate.revocationDate,
         userCertificate: revokedCertificate.userCertificate,
         crlEntryExtensions: revokedCertificate.crlEntryExtensions
-          ?.map((e) => new Extension(AsnConvert.serialize(e))),
+          ?.map(parseExtension),
       }));
   }
 
@@ -110,8 +110,7 @@ export class X509Crl extends AsnData<CertificateList> {
     const { tbsCertList } = this.asn;
 
     if (tbsCertList.crlExtensions) {
-      this.extensions = tbsCertList.crlExtensions
-        .map((e) => new Extension(AsnConvert.serialize(e)));
+      this.extensions = tbsCertList.crlExtensions.map(parseExtension);
     }
   }
 

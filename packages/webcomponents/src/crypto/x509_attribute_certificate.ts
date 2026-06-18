@@ -12,13 +12,13 @@ import { AttributeCertificate, Holder } from '@peculiar/asn1-x509-attr';
 import { Convert } from 'pvtsutils';
 import { dateDiff, Download } from '../utils';
 import { AsnData } from './asn_data';
-import { Extension, TExtensionValue } from './extension';
 import { Attribute, TAttributeValue } from './attribute';
 import { PemConverter } from './pem_converter';
 import {
   certificateRawToBuffer,
   getCertificateThumbprint,
 } from './utils';
+import { type ParsedExtension, parseExtension } from './extension-parsers';
 
 interface ISignature {
   algorithm: string;
@@ -36,7 +36,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
 
   public readonly validity: string;
 
-  public extensions: Extension<TExtensionValue>[];
+  public extensions: ParsedExtension[];
 
   public attributes: Attribute<TAttributeValue>[];
 
@@ -91,8 +91,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     const { acinfo } = this.asn;
 
     if (acinfo.extensions) {
-      this.extensions = acinfo.extensions
-        .map((e) => new Extension(AsnConvert.serialize(e)));
+      this.extensions = acinfo.extensions.map(parseExtension);
     }
   }
 

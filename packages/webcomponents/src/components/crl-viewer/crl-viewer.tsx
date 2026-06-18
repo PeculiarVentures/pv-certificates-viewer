@@ -16,20 +16,17 @@ import {
   Build,
 } from '@stencil/core';
 import { X509Crl } from '../../crypto';
-import {
-  getDNSNameLink, getIPAddressLink, getLEILink,
-} from '../../utils/third_party_links';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import {
   BasicInformation,
   IssuerName,
   Signature,
   Thumbprints,
-  Extensions,
   Miscellaneous,
   RevokedCertificates,
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
+import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
 
 export type TCrlProp = string | X509Crl;
 
@@ -213,18 +210,13 @@ export class CrlViewer {
             thumbprints={this.certificateDecoded.thumbprints}
           />
 
-          <Extensions
+          <ParsedExtensions
             extensions={this.certificateDecoded.extensions}
-            getLEILink={getLEILink}
-            getDNSNameLink={getDNSNameLink}
-            getIPAddressLink={getIPAddressLink}
             {...linkTemplateResolvers}
           />
 
           <RevokedCertificates
             revokedCertificates={this.certificateDecoded.revokedCertificates}
-            getDNSNameLink={getDNSNameLink}
-            getIPAddressLink={getIPAddressLink}
           />
 
           {this.download && (

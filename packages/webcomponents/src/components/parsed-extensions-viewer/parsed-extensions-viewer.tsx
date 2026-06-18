@@ -24,6 +24,7 @@ import {
 } from '../../utils/third_party_links';
 
 export interface IParsedExtensionsProps extends Partial<ILinkTemplateResolvers> {
+  title?: string;
   extensions: ParsedExtension[];
 }
 
@@ -155,14 +156,18 @@ function renderNode(nodeData: ExtensionNode, ctx: TLinkContext) {
 }
 
 export const ParsedExtensions: FunctionalComponent<IParsedExtensionsProps> = (props) => {
-  const { extensions, ...ctx } = props;
+  const {
+    extensions,
+    title = 'Extensions',
+    ...ctx
+  } = props;
 
   if (!extensions?.length) {
     return null;
   }
 
   return [
-    <RowTitle value="Extensions" />,
+    <RowTitle value={title} />,
     extensions.map((extension) => {
       return [
         <tr>
