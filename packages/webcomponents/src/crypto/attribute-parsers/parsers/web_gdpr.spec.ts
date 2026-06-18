@@ -13,28 +13,35 @@ describe('WebGDPRParser', () => {
   });
 
   it('parses GDPR assessment fields', () => {
-    const result = parser.parse(makeAttrRaw(id_WebGDPR, WEB_GDPR_HEX));
-
-    expect(result.oid).toBe('0.4.0.9496.7');
-    expect(result.children).toHaveLength(5);
-    expect(result.children[0]?.title).toBe('Assessment Authority');
-    expect(result.children[0]?.children?.[0]).toEqual({
-      title: 'RFC 822 Name', value: 'GDPR CAB',
-    });
-    expect(result.children[1]?.title).toBe('Assessment Reference');
-    expect(result.children[1]?.children?.[0]).toEqual({
-      title: 'RFC 822 Name', value: 'Certificate n°124/2020',
-    });
-    expect(result.children[2]?.title).toBe('Assessment Location');
-    expect(result.children[2]?.children?.[0]).toEqual({
-      title: 'URI', value: 'https://gdprcab.lu/nowina',
-    });
-    expect(result.children[3]).toEqual({
-      title: 'Data Storage Territory', value: 'LU',
-    });
-    expect(result.children[4]).toEqual({
-      title: 'Description',
-      value: 'Nowina Solutions has been shown to be GDPR compliant in its signature creation activities',
+    expect(parser.parse(makeAttrRaw(id_WebGDPR, WEB_GDPR_HEX))).toEqual({
+      oid: '0.4.0.9496.7',
+      children: [
+        {
+          title: 'Assessment Authority',
+          children: [{
+            title: 'RFC 822 Name', value: 'GDPR CAB',
+          }],
+        },
+        {
+          title: 'Assessment Reference',
+          children: [{
+            title: 'RFC 822 Name', value: 'Certificate n°124/2020',
+          }],
+        },
+        {
+          title: 'Assessment Location',
+          children: [{
+            title: 'URI', value: 'https://gdprcab.lu/nowina',
+          }],
+        },
+        {
+          title: 'Data Storage Territory', value: 'LU',
+        },
+        {
+          title: 'Description',
+          value: 'Nowina Solutions has been shown to be GDPR compliant in its signature creation activities',
+        },
+      ],
     });
   });
 });

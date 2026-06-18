@@ -17,7 +17,7 @@ import {
   ExtensionRequest,
 } from '@peculiar/asn1-pkcs9';
 import type { AttributeParser, ParsedAttribute } from '../types';
-import { node } from '../../extension-parsers/builders';
+import { node, section } from '../../extension-parsers/builders';
 import { parseExtension } from '../../extension-parsers';
 
 export class ChallengePasswordParser implements AttributeParser {
@@ -55,7 +55,7 @@ export class ExtensionRequestParser implements AttributeParser {
 
     return {
       oid: attribute.type,
-      children: er.map(parseExtension),
+      children: [section('Extensions', er.map(parseExtension))],
     };
   }
 }

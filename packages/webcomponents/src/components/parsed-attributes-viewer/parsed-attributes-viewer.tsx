@@ -10,7 +10,9 @@ import { h, FunctionalComponent } from '@stencil/core';
 import { id_pkcs9_at_extensionRequest } from '@peculiar/asn1-pkcs9';
 import { getStringByOID } from '../../utils/get_string_by_oid';
 import { Typography } from '../typography';
-import { RowTitle } from '../certificate-details-parts/row';
+import {
+  RowTitle, RowValue, TableRowTable,
+} from '../certificate-details-parts/row';
 import type { ILinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import type { ParsedAttribute } from '../../crypto/attribute-parsers/types';
 import type { ParsedExtension } from '../../crypto/extension-parsers/types';
@@ -33,36 +35,37 @@ export const ParsedAttributes: FunctionalComponent<IParsedAttributesProps> = (pr
     return null;
   }
 
-  const extensionReqAttr = attributes
-    .find((a) => a.oid === id_pkcs9_at_extensionRequest);
-  const otherAttrs = extensionReqAttr
-    ? attributes.filter((a) => a.oid !== id_pkcs9_at_extensionRequest)
-    : attributes;
-
   return [
-    otherAttrs.length > 0 && [
-      <RowTitle value={title} />,
-      otherAttrs.map((attribute) => [
-        <tr>
-          <td colSpan={2}>
-            <Typography variant="s2" color="gray-9">
-              {getStringByOID(attribute.oid)}
-            </Typography>
-          </td>
-        </tr>,
-        attribute.children.map((child) => renderNode(child, ctx)),
-        <tr>
-          <td colSpan={2} class="divider">
-            <span />
-          </td>
-        </tr>,
-      ]),
-    ],
-    extensionReqAttr?.children.length > 0 && (
-      <ParsedExtensions
-        extensions={extensionReqAttr.children as ParsedExtension[]}
-        {...ctx}
-      />
-    ),
+    <RowTitle value={title} />,
+    attributes.map((attribute) => [
+      <tr>
+        <td colSpan={2}>
+          <Typography variant="s2" color="gray-9">
+            {getStringByOID(attribute.oid)}
+          </Typography>
+        </td>
+      </tr>,
+      attribute.oid === id_pkcs9_at_extensionRequest
+        ? attribute.children.map((child) => ([
+            <RowValue
+              name={'title' in child ? child.title : ''}
+              value=""
+            />,
+            <TableRowTable>
+              <ParsedExtensions
+                title=""
+                extensions={child.children as ParsedExtension[]}
+              />
+            </TableRowTable>,
+          ]))
+        : (
+            attribute.children.map((child) => renderNode(child, ctx))
+          ),
+      <tr>
+        <td colSpan={2} class="divider">
+          <span />
+        </td>
+      </tr>,
+    ]),
   ];
 };

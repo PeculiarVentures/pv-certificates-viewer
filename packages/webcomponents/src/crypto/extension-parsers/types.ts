@@ -37,7 +37,7 @@ export interface ExtensionParser {
 
 export interface ParsedAttribute {
   oid: string;
-  children: ExtensionNode[];
+  children: (ExtensionNode | ParsedExtension)[];
 }
 
 export interface AttributeParser {

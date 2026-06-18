@@ -6,8 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { GeneralName } from '@peculiar/asn1-x509';
+import { GeneralName, DisplayText } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
+import { AsnParser } from '@peculiar/asn1-schema';
 import { Name } from '../name';
 import type { ExtensionNode } from './types';
 import { node, section } from './builders';
@@ -39,9 +40,11 @@ export function parseGeneralName(gn: GeneralName): ExtensionNode {
   // --- Structured types ---
 
   if (gn.otherName != null) {
+    const otherName = AsnParser.parse(gn.otherName.value, DisplayText);
+
     return section('Other Name', [
-      node('Type ID', gn.otherName.typeId),
-      node('Value', Convert.ToHex(gn.otherName.value)),
+      node('Type', gn.otherName.typeId),
+      node('Value', otherName.toString()),
     ]);
   }
 

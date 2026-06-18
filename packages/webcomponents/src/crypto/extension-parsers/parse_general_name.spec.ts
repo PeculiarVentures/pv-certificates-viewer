@@ -82,7 +82,7 @@ describe('parseGeneralName', () => {
 
   // --- structured types ---
 
-  it('parses otherName into a section with typeId and hex value', () => {
+  it('parses otherName into a section with type and decoded value', () => {
     const on = new OtherName({
       typeId: '1.3.6.1.4.1.311.20.2.3',
       value: new Uint8Array([0x0c, 0x05, 0x61, 0x64, 0x6d, 0x69, 0x6e]).buffer,
@@ -92,10 +92,10 @@ describe('parseGeneralName', () => {
       title: 'Other Name',
       children: [
         {
-          title: 'Type ID', value: '1.3.6.1.4.1.311.20.2.3',
+          title: 'Type', value: '1.3.6.1.4.1.311.20.2.3',
         },
         {
-          title: 'Value', value: '0c0561646d696e',
+          title: 'Value', value: 'admin',
         },
       ],
     });

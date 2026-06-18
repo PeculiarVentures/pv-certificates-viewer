@@ -65,21 +65,24 @@ describe('ExtensionRequestParser', () => {
     ))).toEqual({
       oid: '1.2.840.113549.1.9.14',
       children: [{
-        oid: '2.5.29.17',
-        critical: false,
-        children: [
-          {
-            title: 'Other Name',
-            children: [
-              {
-                title: 'Type ID', value: '1.3.6.1.4.1.311.20.2.3',
-              },
-              {
-                title: 'Value', value: '0c136164647265737340646f6d61696e2e74657374',
-              },
-            ],
-          },
-        ],
+        title: 'Extensions',
+        children: [{
+          oid: '2.5.29.17',
+          critical: false,
+          children: [
+            {
+              title: 'Other Name',
+              children: [
+                {
+                  title: 'Type', value: '1.3.6.1.4.1.311.20.2.3',
+                },
+                {
+                  title: 'Value', value: 'address@domain.test',
+                },
+              ],
+            },
+          ],
+        }],
       }],
     });
   });
