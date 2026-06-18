@@ -27,7 +27,12 @@ describe('CRLDistributionPointsParser', () => {
           title: 'Distribution Points',
           children: [
             {
-              title: 'URI', value: 'http://crl.harica.gr/HaricaQWACSubCAR1.crl',
+              title: '',
+              children: [
+                {
+                  title: 'URI', value: 'http://crl.harica.gr/HaricaQWACSubCAR1.crl',
+                },
+              ],
             },
           ],
         },
@@ -37,58 +42,45 @@ describe('CRLDistributionPointsParser', () => {
 
   it('parses multiple distribution points', () => {
     // Two DistributionPoints each with one URI fullName.
-    // URI 1: "http://a.com" (12 bytes)  context [6] 0x86 0c ...
+    // URI 1: "http://a.com" (12 bytes)
     // URI 2: "http://b.com" (12 bytes)
-    //
-    // GeneralName [6] IMPLICIT: 86 0c 687474703a2f2f612e636f6d
-    // GeneralNames SEQUENCE: 30 0e 86 0c ...
-    // DistributionPointName [0]: a0 10 30 0e 86 0c ...
-    // DistributionPoint SEQUENCE: 30 12 a0 10 ...
-    //
-    // For URI "http://a.com" (12 bytes): 86 0c 687474703a2f2f612e636f6d
-    // GeneralNames: 30 0e 86 0c ...  (16 bytes)
-    // fullName [0]: a0 10 30 0e ...  (18 bytes)
-    // DP SEQUENCE: 30 12 a0 10 ...  (20 bytes)
-    //
-    // CRLDistributionPoints SEQUENCE OF:
-    //   30 28 30 12 a0 10 30 0e 86 0c ... 30 12 a0 10 30 0e 86 0c ...
-    // OCTET STRING: 04 2a 30 28 ...
-    // OID 2.5.29.31: 06 03 55 1d 1f
-    // Extension: 30 31 06 03 55 1d 1f 04 2a 30 28 ...
     const uriA = '687474703a2f2f612e636f6d'; // "http://a.com"
     const uriB = '687474703a2f2f622e636f6d'; // "http://b.com"
-    // fullName [0] IMPLICIT replaces the GeneralNames SEQUENCE tag (30 → a0)
-    // distributionPoint [0] EXPLICIT wraps the DistributionPointName CHOICE
-    const gnA = `860c${uriA}`; // GeneralName [6] IMPLICIT IA5String, 12-byte value  → 14 bytes
+    const gnA = `860c${uriA}`; // GeneralName [6] IMPLICIT IA5String
     const gnB = `860c${uriB}`;
-    const fnA = `a00e${gnA}`; // fullName [0] IMPLICIT (replaces SEQUENCE OF tag)  → 16 bytes
+    const fnA = `a00e${gnA}`; // fullName [0] IMPLICIT (replaces SEQUENCE OF tag)
     const fnB = `a00e${gnB}`;
-    const dpnA = `a010${fnA}`; // distributionPoint [0] EXPLICIT                    → 18 bytes
+    const dpnA = `a010${fnA}`; // distributionPoint [0] EXPLICIT
     const dpnB = `a010${fnB}`;
-    const dpA = `3012${dpnA}`; // DistributionPoint SEQUENCE                        → 20 bytes
+    const dpA = `3012${dpnA}`; // DistributionPoint SEQUENCE
     const dpB = `3012${dpnB}`;
-    const crlDPs = `3028${dpA}${dpB}`; // CRLDistributionPoints SEQUENCE OF          → 42 bytes
-    const octetStr = `042a${crlDPs}`; // extnValue OCTET STRING                     → 44 bytes
-    const oid = '0603551d1f'; // OID 2.5.29.31                               →  5 bytes
-    const extHex = `3031${oid}${octetStr}`; // Extension SEQUENCE (5+44=49 bytes)
+    const crlDPs = `3028${dpA}${dpB}`; // CRLDistributionPoints SEQUENCE OF
+    const octetStr = `042a${crlDPs}`; // extnValue OCTET STRING
+    const oid = '0603551d1f'; // OID 2.5.29.31
+    const extHex = `3031${oid}${octetStr}`;
 
     const ext = AsnParser.parse(Convert.FromHex(extHex), Extension);
 
-    const result = parser.parse(ext);
-
-    expect(result.oid).toBe('2.5.29.31');
-    expect(result.children).toHaveLength(2);
-    expect(result.children[0]).toEqual({
-      title: 'Distribution Points',
-      children: [{
-        title: 'URI', value: 'http://a.com',
-      }],
-    });
-    expect(result.children[1]).toEqual({
-      title: 'Distribution Points',
-      children: [{
-        title: 'URI', value: 'http://b.com',
-      }],
+    expect(parser.parse(ext)).toEqual({
+      oid: '2.5.29.31',
+      critical: false,
+      children: [
+        {
+          title: 'Distribution Points',
+          children: [
+            {
+              title: '', children: [{
+                title: 'URI', value: 'http://a.com',
+              }],
+            },
+            {
+              title: '', children: [{
+                title: 'URI', value: 'http://b.com',
+              }],
+            },
+          ],
+        },
+      ],
     });
   });
 });

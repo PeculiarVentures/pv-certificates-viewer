@@ -14,33 +14,38 @@ X509Certificate {
       "oid": "2.16.840.1.113730.1.1",
     },
     {
-      "children": CRLDistributionPoints [
+      "children": [
         {
-          "children": [
+          "children": CRLDistributionPoints [
             {
               "children": [
                 {
-                  "title": "Country Name",
-                  "value": "US",
-                },
-                {
-                  "title": "Organization",
-                  "value": "Adobe Systems Incorporated",
-                },
-                {
-                  "title": "Organization Unit",
-                  "value": "Adobe Trust Services",
-                },
-                {
-                  "title": "Common Name",
-                  "value": "Adobe Root CA",
-                },
-                {
-                  "title": "Common Name",
-                  "value": "CRL1",
+                  "children": [
+                    {
+                      "title": "Country Name",
+                      "value": "US",
+                    },
+                    {
+                      "title": "Organization",
+                      "value": "Adobe Systems Incorporated",
+                    },
+                    {
+                      "title": "Organization Unit",
+                      "value": "Adobe Trust Services",
+                    },
+                    {
+                      "title": "Common Name",
+                      "value": "Adobe Root CA",
+                    },
+                    {
+                      "title": "Common Name",
+                      "value": "CRL1",
+                    },
+                  ],
+                  "title": "Directory Name",
                 },
               ],
-              "title": "Directory Name",
+              "title": "",
             },
           ],
           "title": "Distribution Points",
@@ -607,12 +612,17 @@ X509Certificate {
       "oid": "1.3.6.1.5.5.7.1.3",
     },
     {
-      "children": CRLDistributionPoints [
+      "children": [
         {
-          "children": [
+          "children": CRLDistributionPoints [
             {
-              "title": "URI",
-              "value": "http://crl.harica.gr/HaricaQWACSubCAR1.crl",
+              "children": [
+                {
+                  "title": "URI",
+                  "value": "http://crl.harica.gr/HaricaQWACSubCAR1.crl",
+                },
+              ],
+              "title": "",
             },
           ],
           "title": "Distribution Points",
@@ -1066,12 +1076,17 @@ X509Certificate {
       "oid": "2.5.29.35",
     },
     {
-      "children": CRLDistributionPoints [
+      "children": [
         {
-          "children": [
+          "children": CRLDistributionPoints [
             {
-              "title": "URI",
-              "value": "http://http.fpki.gov/bridge/fbca2013.crl",
+              "children": [
+                {
+                  "title": "URI",
+                  "value": "http://http.fpki.gov/bridge/fbca2013.crl",
+                },
+              ],
+              "title": "",
             },
           ],
           "title": "Distribution Points",
@@ -1423,12 +1438,17 @@ X509Certificate {
       "oid": "2.5.29.32",
     },
     {
-      "children": CRLDistributionPoints [
+      "children": [
         {
-          "children": [
+          "children": CRLDistributionPoints [
             {
-              "title": "URI",
-              "value": "http://crl.quovadisglobal.com/qvbecag2.crl",
+              "children": [
+                {
+                  "title": "URI",
+                  "value": "http://crl.quovadisglobal.com/qvbecag2.crl",
+                },
+              ],
+              "title": "",
             },
           ],
           "title": "Distribution Points",
@@ -1782,12 +1802,17 @@ X509Certificate {
       "oid": "2.23.140.3.1",
     },
     {
-      "children": CRLDistributionPoints [
+      "children": [
         {
-          "children": [
+          "children": CRLDistributionPoints [
             {
-              "title": "URI",
-              "value": "http://crl.certsrus.com/IssuingCA.crl",
+              "children": [
+                {
+                  "title": "URI",
+                  "value": "http://crl.certsrus.com/IssuingCA.crl",
+                },
+              ],
+              "title": "",
             },
           ],
           "title": "Distribution Points",
@@ -2057,37 +2082,42 @@ X509Certificate {
       "oid": "2.5.29.35",
     },
     {
-      "children": CRLDistributionPoints [
+      "children": [
         {
-          "children": [
-            {
-              "title": "URI",
-              "value": "https://authenticate-api.iconectiv.com/download/v1/crl",
-            },
+          "children": CRLDistributionPoints [
             {
               "children": [
                 {
-                  "title": "Locality",
-                  "value": "Bridgewater",
+                  "title": "URI",
+                  "value": "https://authenticate-api.iconectiv.com/download/v1/crl",
                 },
                 {
-                  "title": "State",
-                  "value": "NJ",
-                },
-                {
-                  "title": "Common Name",
-                  "value": "STI-PA CRL",
-                },
-                {
-                  "title": "Country Name",
-                  "value": "US",
-                },
-                {
-                  "title": "Organization",
-                  "value": "STI-PA",
+                  "children": [
+                    {
+                      "title": "Locality",
+                      "value": "Bridgewater",
+                    },
+                    {
+                      "title": "State",
+                      "value": "NJ",
+                    },
+                    {
+                      "title": "Common Name",
+                      "value": "STI-PA CRL",
+                    },
+                    {
+                      "title": "Country Name",
+                      "value": "US",
+                    },
+                    {
+                      "title": "Organization",
+                      "value": "STI-PA",
+                    },
+                  ],
+                  "title": "Directory Name",
                 },
               ],
-              "title": "Directory Name",
+              "title": "",
             },
           ],
           "title": "Distribution Points",
@@ -2433,12 +2463,17 @@ X509Certificate {
       "oid": "2.23.140.3.1",
     },
     {
-      "children": CRLDistributionPoints [
+      "children": [
         {
-          "children": [
+          "children": CRLDistributionPoints [
             {
-              "title": "URI",
-              "value": "http://crl.quovadisglobal.com/quovadisqualifiedwebicag2.crl",
+              "children": [
+                {
+                  "title": "URI",
+                  "value": "http://crl.quovadisglobal.com/quovadisqualifiedwebicag2.crl",
+                },
+              ],
+              "title": "",
             },
           ],
           "title": "Distribution Points",

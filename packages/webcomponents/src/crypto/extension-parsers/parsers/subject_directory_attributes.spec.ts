@@ -21,17 +21,14 @@ describe('SubjectDirectoryAttributesParser', () => {
       critical: false,
       children: [
         {
-          title: 'Business Category',
-          children: [{
-            title: 'Value', value: 'Test123',
-          }],
+          title: '2.5.4.15', value: 'Test123',
         },
       ],
     });
   });
 
-  it('uses raw OID for unknown attribute types', () => {
-    // SubjectDirectoryAttributes: type=1.2.3.4.5, value=OCTET STRING "deadbeef"
+  it('uses raw OID for unknown attribute types and hex for unparseable values', () => {
+    // SubjectDirectoryAttributes: type=1.2.3.4.5, value=OCTET STRING 0xdeadbeef
     // SDA: 3010300e06042a03040531060404deadbeef
     expect(parser.parse(makeExtRaw(
       id_ce_subjectDirectoryAttributes,
@@ -41,10 +38,7 @@ describe('SubjectDirectoryAttributesParser', () => {
       critical: false,
       children: [
         {
-          title: '1.2.3.4.5',
-          children: [{
-            title: 'Value', value: '0404deadbeef',
-          }],
+          title: '1.2.3.4.5', value: '0404deadbeef',
         },
       ],
     });

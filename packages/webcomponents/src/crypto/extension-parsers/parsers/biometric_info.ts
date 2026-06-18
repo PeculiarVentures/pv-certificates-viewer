@@ -14,7 +14,6 @@ import {
   PredefinedBiometricType,
 } from '@peculiar/asn1-x509-qualified';
 import { Convert } from 'pvtsutils';
-import { OIDs } from '../../../constants/oids';
 import type {
   ExtensionNode, ExtensionParser, ParsedExtension,
 } from '../types';
@@ -34,26 +33,28 @@ export class BiometricInfoParser implements ExtensionParser {
     return {
       oid: extension.extnID,
       critical: extension.critical ?? false,
-      children: Array.from(bio).map((data) => {
-        const children: ExtensionNode[] = [];
+      children: [
+        section('Biometrics', bio.map((data) => {
+          const children: ExtensionNode[] = [];
 
-        const { predefinedBiometricType, biometricDataOid } = data.typeOfBiometricData;
+          const { predefinedBiometricType, biometricDataOid } = data.typeOfBiometricData;
 
-        if (predefinedBiometricType != null) {
-          children.push(node('Type', BIOMETRIC_TYPE_LABELS[predefinedBiometricType] ?? String(predefinedBiometricType)));
-        } else if (biometricDataOid) {
-          children.push(node('Type', OIDs[biometricDataOid] ?? biometricDataOid));
-        }
+          if (predefinedBiometricType != null) {
+            children.push(node('Type', BIOMETRIC_TYPE_LABELS[predefinedBiometricType] ?? String(predefinedBiometricType)));
+          } else if (biometricDataOid) {
+            children.push(node('OID', biometricDataOid));
+          }
 
-        children.push(node('Hash Algorithm', OIDs[data.hashAlgorithm.algorithm] ?? data.hashAlgorithm.algorithm));
-        children.push(node('Hash', Convert.ToHex(data.biometricDataHash)));
+          children.push(node('Hash Algorithm', data.hashAlgorithm.algorithm));
+          children.push(node('Hash', Convert.ToHex(data.biometricDataHash)));
 
-        if (data.sourceDataUri != null) {
-          children.push(node('Source URI', data.sourceDataUri));
-        }
+          if (data.sourceDataUri != null) {
+            children.push(node('Source URI', data.sourceDataUri));
+          }
 
-        return section('Biometric Data', children);
-      }),
+          return section('', children);
+        })),
+      ],
     };
   }
 }

@@ -13,7 +13,6 @@ import {
   id_ce_cRLDistributionPoints,
 } from '@peculiar/asn1-x509';
 import type {
-  ExtensionNode,
   ExtensionParser,
   ParsedExtension,
 } from '../types';
@@ -30,19 +29,12 @@ export class CRLDistributionPointsParser implements ExtensionParser {
     return {
       oid: extension.extnID,
       critical: extension.critical ?? false,
-      children: points.map((point) => {
-        const children: ExtensionNode[] = [];
-
-        for (const gn of point.distributionPoint?.fullName ?? []) {
-          children.push(parseGeneralName(gn));
-        }
-
-        for (const gn of point.cRLIssuer ?? []) {
-          children.push(parseGeneralName(gn));
-        }
-
-        return section('Distribution Points', children);
-      }),
+      children: [
+        section('Distribution Points', points.map((point) => section('', [
+          ...(point.distributionPoint?.fullName ?? []).map((gn) => parseGeneralName(gn)),
+          ...(point.cRLIssuer ?? []).map((gn) => parseGeneralName(gn)),
+        ]))),
+      ],
     };
   }
 }

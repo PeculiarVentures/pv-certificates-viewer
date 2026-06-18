@@ -14,9 +14,8 @@ import {
   SubjectDirectoryAttributes,
 } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
-import { OIDs } from '../../../constants/oids';
 import type { ExtensionParser, ParsedExtension } from '../types';
-import { node, section } from '../builders';
+import { node } from '../builders';
 
 function decodeAttributeValue(buf: ArrayBuffer): string {
   try {
@@ -36,10 +35,9 @@ export class SubjectDirectoryAttributesParser implements ExtensionParser {
       oid: extension.extnID,
       critical: extension.critical ?? false,
       children: sda.map((attribute) => {
-        const label = OIDs[attribute.type] ?? attribute.type;
-        const values = attribute.values.map((v) => node('Value', decodeAttributeValue(v)));
+        const values = attribute.values.map((v) => decodeAttributeValue(v));
 
-        return section(label, values);
+        return node(attribute.type, values.join(', '));
       }),
     };
   }

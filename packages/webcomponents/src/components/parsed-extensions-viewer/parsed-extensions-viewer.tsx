@@ -36,7 +36,7 @@ function renderNode(node: ExtensionNode) {
           <tr>
             <td colSpan={2}>
               <Typography variant="b2" color="gray-9">
-                {node.title}
+                {getStringByOID(node.title)}
               </Typography>
             </td>
           </tr>
@@ -48,8 +48,8 @@ function renderNode(node: ExtensionNode) {
 
   return (
     <RowValue
-      name={node.title}
-      value={node.value != null ? String(node.value) : ''}
+      name={getStringByOID(node.title, true)}
+      value={node.value != null ? getStringByOID(String(node.value)) : ''}
     />
   );
 }
