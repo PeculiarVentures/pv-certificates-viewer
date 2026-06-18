@@ -15,16 +15,18 @@ import {
   id_ce_certificatePolicies,
 } from '@peculiar/asn1-x509';
 import type {
-  ExtensionNode,
-  ExtensionParser,
-  ParsedExtension,
+  IExtensionNode,
+  IExtensionParser,
+  IParsedExtension,
 } from '../types';
 import { node, section } from '../builders';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const id_qt_cps = '1.3.6.1.5.5.7.2.1';
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const id_qt_unotice = '1.3.6.1.5.5.7.2.2';
 
-function parseQualifierValue(qualifier: ArrayBuffer, qualifierId: string): ExtensionNode | null {
+function parseQualifierValue(qualifier: ArrayBuffer, qualifierId: string): IExtensionNode | null {
   if (qualifierId === id_qt_cps) {
     try {
       return node('Value', AsnParser.parse(qualifier, DisplayText).toString());
@@ -48,10 +50,10 @@ function parseQualifierValue(qualifier: ArrayBuffer, qualifierId: string): Exten
   return null;
 }
 
-export class CertificatePoliciesParser implements ExtensionParser {
+export class CertificatePoliciesParser implements IExtensionParser {
   readonly oids = [id_ce_certificatePolicies];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const policies = AsnParser.parse(extension.extnValue.buffer, CertificatePolicies);
 
     return {

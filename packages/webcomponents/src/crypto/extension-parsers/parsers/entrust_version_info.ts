@@ -13,16 +13,16 @@ import {
   id_entrust_entrustVersInfo,
 } from '@peculiar/asn1-x509';
 import type {
-  ExtensionNode, ExtensionParser, ParsedExtension,
+  IExtensionNode, IExtensionParser, IParsedExtension,
 } from '../types';
 import { node } from '../builders';
 
-export class EntrustVersionInfoParser implements ExtensionParser {
+export class EntrustVersionInfoParser implements IExtensionParser {
   readonly oids = [id_entrust_entrustVersInfo];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const evi = AsnParser.parse(extension.extnValue.buffer, EntrustVersionInfo);
-    const children: ExtensionNode[] = [node('Version', evi.entrustVers)];
+    const children: IExtensionNode[] = [node('Version', evi.entrustVers)];
 
     const flags = evi.entrustInfoFlags.toJSON();
 

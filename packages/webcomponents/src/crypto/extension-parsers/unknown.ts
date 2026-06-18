@@ -8,13 +8,13 @@
 
 import { Convert } from 'pvtsutils';
 import type { Extension } from '@peculiar/asn1-x509';
-import type { ParsedExtension } from './types';
+import type { IParsedExtension } from './types';
 
-export interface UnknownExtension extends ParsedExtension {
+export interface IUnknownExtension extends IParsedExtension {
   children: [{ title: 'Raw Value'; value: string }];
 }
 
-export function parseUnknown(extension: Extension): UnknownExtension {
+export function parseUnknown(extension: Extension): IUnknownExtension {
   const raw = Convert.ToHex(extension.extnValue.buffer);
 
   return {

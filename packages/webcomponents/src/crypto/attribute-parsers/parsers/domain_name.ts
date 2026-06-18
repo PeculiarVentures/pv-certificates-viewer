@@ -19,13 +19,13 @@ import {
   DomainNameTechnicalOperator,
 } from '@peculiar/asn1-ntqwac';
 import { Name } from '../../name';
-import type { AttributeParser, ParsedAttribute } from '../types';
+import type { IAttributeParser, IParsedAttribute } from '../types';
 import { node } from '../../extension-parsers/builders';
 
 function parseDomainName(
   attribute: AsnAttribute,
   DomainNameClass: typeof DomainNameBeneficiary,
-): ParsedAttribute {
+): IParsedAttribute {
   const dn = AsnParser.parse(attribute.values[0], DomainNameClass);
   const attrs = new Name(dn).toJSON();
 
@@ -35,34 +35,34 @@ function parseDomainName(
   };
 }
 
-export class DomainNameBeneficiaryParser implements AttributeParser {
+export class DomainNameBeneficiaryParser implements IAttributeParser {
   readonly oids = [id_DomainNameBeneficiary];
 
-  parse(attribute: AsnAttribute): ParsedAttribute {
+  parse(attribute: AsnAttribute): IParsedAttribute {
     return parseDomainName(attribute, DomainNameBeneficiary);
   }
 }
 
-export class DomainNameLegalRepresentativeParser implements AttributeParser {
+export class DomainNameLegalRepresentativeParser implements IAttributeParser {
   readonly oids = [id_DomainNameLegalRepresentative];
 
-  parse(attribute: AsnAttribute): ParsedAttribute {
+  parse(attribute: AsnAttribute): IParsedAttribute {
     return parseDomainName(attribute, DomainNameLegalRepresentative);
   }
 }
 
-export class DomainNameOwnerParser implements AttributeParser {
+export class DomainNameOwnerParser implements IAttributeParser {
   readonly oids = [id_DomainNameOwner];
 
-  parse(attribute: AsnAttribute): ParsedAttribute {
+  parse(attribute: AsnAttribute): IParsedAttribute {
     return parseDomainName(attribute, DomainNameOwner);
   }
 }
 
-export class DomainNameTechnicalOperatorParser implements AttributeParser {
+export class DomainNameTechnicalOperatorParser implements IAttributeParser {
   readonly oids = [id_DomainNameTechnicalOperator];
 
-  parse(attribute: AsnAttribute): ParsedAttribute {
+  parse(attribute: AsnAttribute): IParsedAttribute {
     return parseDomainName(attribute, DomainNameTechnicalOperator);
   }
 }

@@ -12,14 +12,14 @@ import {
   id_ce_invalidityDate,
   InvalidityDate,
 } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 import { dateShort } from '../../../utils';
 
-export class InvalidityDateParser implements ExtensionParser {
+export class InvalidityDateParser implements IExtensionParser {
   readonly oids = [id_ce_invalidityDate];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const id = AsnParser.parse(extension.extnValue.buffer, InvalidityDate);
 
     return {

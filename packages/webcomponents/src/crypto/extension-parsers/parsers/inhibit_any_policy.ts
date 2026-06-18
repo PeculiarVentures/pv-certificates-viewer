@@ -13,7 +13,7 @@ import {
   InhibitAnyPolicy,
 } from '@peculiar/asn1-x509';
 import { BufferSourceConverter } from 'pvtsutils';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
 function decodeInteger(value: ArrayBuffer): number {
@@ -27,10 +27,10 @@ function decodeInteger(value: ArrayBuffer): number {
   return result >>> 0;
 }
 
-export class InhibitAnyPolicyParser implements ExtensionParser {
+export class InhibitAnyPolicyParser implements IExtensionParser {
   readonly oids = [id_ce_inhibitAnyPolicy];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const iap = AsnParser.parse(extension.extnValue.buffer, InhibitAnyPolicy);
 
     return {

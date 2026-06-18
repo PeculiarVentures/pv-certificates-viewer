@@ -14,14 +14,14 @@ import {
   id_adbe_timestamp,
 } from '@peculiar/asn1-adobe-acrobat';
 import type { Extension } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 import { parseGeneralName } from '../parse_general_name';
 
-export class AdobeTimestampParser implements ExtensionParser {
+export class AdobeTimestampParser implements IExtensionParser {
   readonly oids = [id_adbe_timestamp];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const ts = AsnParser.parse(extension.extnValue.buffer, Timestamp);
 
     return {
@@ -38,10 +38,10 @@ export class AdobeTimestampParser implements ExtensionParser {
   }
 }
 
-export class AdobeArchiveRevInfoParser implements ExtensionParser {
+export class AdobeArchiveRevInfoParser implements IExtensionParser {
   readonly oids = [id_adbe_archiveRevInfo];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const ari = AsnParser.parse(extension.extnValue.buffer, ArchiveRevInfo);
 
     return {

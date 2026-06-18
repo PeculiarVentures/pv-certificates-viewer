@@ -12,13 +12,13 @@ import {
   id_ce_issuerAltName,
   IssueAlternativeName,
 } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { parseGeneralName } from '../parse_general_name';
 
-export class IssuerAlternativeNameParser implements ExtensionParser {
+export class IssuerAlternativeNameParser implements IExtensionParser {
   readonly oids = [id_ce_issuerAltName];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const ian = AsnParser.parse(extension.extnValue.buffer, IssueAlternativeName);
 
     return {

@@ -7,20 +7,20 @@
  */
 
 import type {
-  ExtensionNode, ExtensionNodeType, Primitive,
+  IExtensionNode, TExtensionNodeType, TPrimitive,
 } from './types';
 
 export const node = (
   title: string,
-  value: Primitive,
-  _type?: ExtensionNodeType,
-): ExtensionNode => ({
+  value: TPrimitive,
+  _type?: TExtensionNodeType,
+): IExtensionNode => ({
   title,
   value,
   ...(_type && { _type }),
 });
 
-export const section = (title: string, children: ExtensionNode[]): ExtensionNode => ({
+export const section = (title: string, children: IExtensionNode[]): IExtensionNode => ({
   title,
   children,
 });

@@ -8,9 +8,9 @@
 
 // Shared node types are defined alongside extension types for true unification.
 export type {
-  Primitive,
-  ExtensionNodeType,
-  ExtensionNode,
-  ParsedAttribute,
-  AttributeParser,
+  TPrimitive,
+  TExtensionNodeType,
+  IExtensionNode,
+  IParsedAttribute,
+  IAttributeParser,
 } from '../extension-parsers/types';

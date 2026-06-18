@@ -13,13 +13,13 @@ import {
   SubjectKeyIdentifier,
   id_ce_subjectKeyIdentifier,
 } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
-export class SubjectKeyIdentifierParser implements ExtensionParser {
+export class SubjectKeyIdentifierParser implements IExtensionParser {
   readonly oids = [id_ce_subjectKeyIdentifier];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const ski = AsnParser.parse(extension.extnValue.buffer, SubjectKeyIdentifier);
 
     return {

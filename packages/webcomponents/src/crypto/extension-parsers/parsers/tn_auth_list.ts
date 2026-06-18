@@ -13,16 +13,16 @@ import {
 } from '@peculiar/asn1-rfc8226';
 import type { Extension } from '@peculiar/asn1-x509';
 import type {
-  ExtensionParser, ParsedExtension, ExtensionNode,
+  IExtensionParser, IParsedExtension, IExtensionNode,
 } from '../types';
 import { node, section } from '../builders';
 
-export class TNAuthorizationListParser implements ExtensionParser {
+export class TNAuthorizationListParser implements IExtensionParser {
   readonly oids = [id_pe_TNAuthList];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const list = AsnParser.parse(extension.extnValue.buffer, TNAuthorizationList);
-    const children: ExtensionNode[] = [];
+    const children: IExtensionNode[] = [];
 
     for (const entry of Array.from(list)) {
       if (entry.spc != null) {

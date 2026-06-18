@@ -14,13 +14,13 @@ import {
   id_ce_cRLNumber,
   id_ce_deltaCRLIndicator,
 } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
-export class CRLNumberParser implements ExtensionParser {
+export class CRLNumberParser implements IExtensionParser {
   readonly oids = [id_ce_cRLNumber];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const crlNum = AsnParser.parse(extension.extnValue.buffer, CRLNumber);
 
     return {
@@ -31,10 +31,10 @@ export class CRLNumberParser implements ExtensionParser {
   }
 }
 
-export class CRLDeltaIndicatorParser implements ExtensionParser {
+export class CRLDeltaIndicatorParser implements IExtensionParser {
   readonly oids = [id_ce_deltaCRLIndicator];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const base = AsnParser.parse(extension.extnValue.buffer, BaseCRLNumber);
 
     return {

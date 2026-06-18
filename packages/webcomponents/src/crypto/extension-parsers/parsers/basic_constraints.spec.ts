@@ -12,7 +12,6 @@ describe('BasicConstraintsParser', () => {
 
   it('parses cA=true with pathLenConstraint=0', () => {
     const ext = AsnParser.parse(
-      // SEQUENCE { OID 2.5.29.19, BOOLEAN TRUE (critical), OCTET STRING { SEQUENCE { BOOLEAN TRUE, INTEGER 0 } } }
       Convert.FromHex('30120603551d130101ff040830060101ff020100'),
       Extension,
     );
@@ -33,7 +32,6 @@ describe('BasicConstraintsParser', () => {
 
   it('parses cA=true without pathLenConstraint', () => {
     const ext = AsnParser.parse(
-      // SEQUENCE { OID 2.5.29.19, BOOLEAN TRUE (critical), OCTET STRING { SEQUENCE { BOOLEAN TRUE } } }
       Convert.FromHex('300f0603551d130101ff040530030101ff'),
       Extension,
     );

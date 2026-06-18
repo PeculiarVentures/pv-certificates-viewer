@@ -16,13 +16,13 @@ import {
   id_enrollCertType,
 } from '@peculiar/asn1-x509-microsoft';
 import type { Extension } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 
-export class CertificateTemplateParser implements ExtensionParser {
+export class CertificateTemplateParser implements IExtensionParser {
   readonly oids = [id_certificateTemplate];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const tpl = AsnParser.parse(extension.extnValue.buffer, CertificateTemplate);
     const children = [
       node('Template ID', tpl.templateID),
@@ -44,10 +44,10 @@ export class CertificateTemplateParser implements ExtensionParser {
   }
 }
 
-export class EnrollCertTypeParser implements ExtensionParser {
+export class EnrollCertTypeParser implements IExtensionParser {
   readonly oids = [id_enrollCertType];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const ect = AsnParser.parse(extension.extnValue.buffer, EnrollCertTypeChoice);
 
     return {
@@ -60,10 +60,10 @@ export class EnrollCertTypeParser implements ExtensionParser {
   }
 }
 
-export class CaVersionParser implements ExtensionParser {
+export class CaVersionParser implements IExtensionParser {
   readonly oids = [id_caVersion];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const cv = AsnParser.parse(extension.extnValue.buffer, CaVersion);
     const { certificateIndex, keyIndex } = cv.getVersion();
 

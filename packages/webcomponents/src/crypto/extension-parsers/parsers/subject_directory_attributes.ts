@@ -14,7 +14,7 @@ import {
   SubjectDirectoryAttributes,
 } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
 function decodeAttributeValue(buf: ArrayBuffer): string {
@@ -25,10 +25,10 @@ function decodeAttributeValue(buf: ArrayBuffer): string {
   }
 }
 
-export class SubjectDirectoryAttributesParser implements ExtensionParser {
+export class SubjectDirectoryAttributesParser implements IExtensionParser {
   readonly oids = [id_ce_subjectDirectoryAttributes];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const sda = AsnParser.parse(extension.extnValue.buffer, SubjectDirectoryAttributes);
 
     return {

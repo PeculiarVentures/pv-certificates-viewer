@@ -26,7 +26,7 @@ import {
   certificateRawToBuffer,
   getCertificateThumbprint,
 } from './utils';
-import { type ParsedExtension, parseExtension } from './extension-parsers';
+import { type IParsedExtension, parseExtension } from './extension-parsers';
 
 export interface ISignature {
   algorithm: string;
@@ -56,7 +56,7 @@ export class X509Certificate extends AsnData<Certificate> {
 
   public readonly validity: string;
 
-  public extensions: ParsedExtension[];
+  public extensions: IParsedExtension[];
 
   public readonly version: number;
 

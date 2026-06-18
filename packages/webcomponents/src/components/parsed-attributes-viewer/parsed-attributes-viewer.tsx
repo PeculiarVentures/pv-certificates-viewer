@@ -14,14 +14,14 @@ import {
   RowTitle, RowValue, TableRowTable,
 } from '../certificate-details-parts/row';
 import type { ILinkTemplateResolvers } from '../../utils/link_template_resolvers';
-import type { ParsedAttribute } from '../../crypto/attribute-parsers/types';
-import type { ParsedExtension } from '../../crypto/extension-parsers/types';
+import type { IParsedAttribute } from '../../crypto/attribute-parsers/types';
+import type { IParsedExtension } from '../../crypto/extension-parsers/types';
 import { renderNode } from '../parsed-node-renderer/render_node';
 import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
 
 export interface IParsedAttributesProps extends Partial<ILinkTemplateResolvers> {
   title?: string;
-  attributes: ParsedAttribute[];
+  attributes: IParsedAttribute[];
 }
 
 export const ParsedAttributes: FunctionalComponent<IParsedAttributesProps> = (props) => {
@@ -54,7 +54,7 @@ export const ParsedAttributes: FunctionalComponent<IParsedAttributesProps> = (pr
             <TableRowTable>
               <ParsedExtensions
                 title=""
-                extensions={child.children as ParsedExtension[]}
+                extensions={child.children as IParsedExtension[]}
               />
             </TableRowTable>,
           ]))

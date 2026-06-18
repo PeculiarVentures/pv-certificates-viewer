@@ -7,14 +7,14 @@
  */
 
 import type { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
-import type { ParsedAttribute } from './types';
+import type { IParsedAttribute } from './types';
 import type { AttributeParserRegistry } from './registry';
 import { parseUnknownAttribute } from './unknown';
 
 export function parseAttribute(
   attribute: AsnAttribute,
   registry: AttributeParserRegistry,
-): ParsedAttribute {
+): IParsedAttribute {
   const parser = registry.get(attribute.type);
 
   if (!parser) {

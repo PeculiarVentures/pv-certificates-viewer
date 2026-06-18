@@ -26,7 +26,7 @@ import {
   ExtensionRequestParser,
 } from './parsers/pkcs9';
 import { PrivateKeyPossessionStatementParser } from './parsers/private_key_possession_statement';
-import type { ParsedAttribute } from './types';
+import type { IParsedAttribute } from './types';
 
 export const registry = new AttributeParserRegistry();
 
@@ -51,7 +51,7 @@ registry.register(new ExtensionRequestParser());
 // Private Key Possession Statement
 registry.register(new PrivateKeyPossessionStatementParser());
 
-export function parseAttribute(attribute: AsnAttribute): ParsedAttribute {
+export function parseAttribute(attribute: AsnAttribute): IParsedAttribute {
   return _parseAttribute(attribute, registry);
 }
 

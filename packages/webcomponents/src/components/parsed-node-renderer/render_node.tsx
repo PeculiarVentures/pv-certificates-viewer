@@ -20,13 +20,13 @@ import {
   getLEILink,
 } from '../../utils/third_party_links';
 import type { ILinkTemplateResolvers } from '../../utils/link_template_resolvers';
-import type { ExtensionNode } from '../../crypto/extension-parsers/types';
+import type { IExtensionNode } from '../../crypto/extension-parsers/types';
 
 export type { ILinkTemplateResolvers };
 
 export type TNodeLinkContext = Partial<ILinkTemplateResolvers>;
 
-function resolveHref(nodeData: ExtensionNode): string | undefined {
+function resolveHref(nodeData: IExtensionNode): string | undefined {
   if (!nodeData._type || nodeData.value == null) return undefined;
   const v = String(nodeData.value);
 
@@ -38,7 +38,7 @@ function resolveHref(nodeData: ExtensionNode): string | undefined {
   }
 }
 
-export function renderLeafNode(nodeData: ExtensionNode, ctx: TNodeLinkContext) {
+export function renderLeafNode(nodeData: IExtensionNode, ctx: TNodeLinkContext) {
   const title = getStringByOID(nodeData.title, true);
   const href = resolveHref(nodeData);
   const value = nodeData.value != null ? getStringByOID(String(nodeData.value)) : '';
@@ -118,7 +118,7 @@ export function renderLeafNode(nodeData: ExtensionNode, ctx: TNodeLinkContext) {
   );
 }
 
-export function renderNode(nodeData: ExtensionNode, ctx: TNodeLinkContext): any {
+export function renderNode(nodeData: IExtensionNode, ctx: TNodeLinkContext) {
   if (nodeData.title && !nodeData.value?.toString()) {
     return [
       <RowValue

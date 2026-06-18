@@ -12,13 +12,13 @@ import {
   id_ce_policyMappings,
   PolicyMappings,
 } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { section, node } from '../builders';
 
-export class PolicyMappingsParser implements ExtensionParser {
+export class PolicyMappingsParser implements IExtensionParser {
   readonly oids = [id_ce_policyMappings];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const mappings = AsnParser.parse(extension.extnValue.buffer, PolicyMappings);
 
     return {

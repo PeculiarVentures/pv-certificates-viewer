@@ -12,13 +12,13 @@ import {
   Extension,
   id_ce_certificateIssuer,
 } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { parseGeneralName } from '../parse_general_name';
 
-export class CertificateIssuerParser implements ExtensionParser {
+export class CertificateIssuerParser implements IExtensionParser {
   readonly oids = [id_ce_certificateIssuer];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const issuer = AsnParser.parse(extension.extnValue.buffer, CertificateIssuer);
 
     return {

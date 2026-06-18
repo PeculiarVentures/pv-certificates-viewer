@@ -6,18 +6,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import type { AttributeParser } from './types';
+import type { IAttributeParser } from './types';
 
 export class AttributeParserRegistry {
-  private readonly parsers = new Map<string, AttributeParser>();
+  private readonly parsers = new Map<string, IAttributeParser>();
 
-  register(parser: AttributeParser): void {
+  register(parser: IAttributeParser): void {
     for (const oid of parser.oids) {
       this.parsers.set(oid, parser);
     }
   }
 
-  get(oid: string): AttributeParser | undefined {
+  get(oid: string): IAttributeParser | undefined {
     return this.parsers.get(oid);
   }
 }

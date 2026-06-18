@@ -12,13 +12,13 @@ import {
   Extension,
   id_ce_basicConstraints,
 } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
-export class BasicConstraintsParser implements ExtensionParser {
+export class BasicConstraintsParser implements IExtensionParser {
   readonly oids = [id_ce_basicConstraints];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const bc = AsnParser.parse(extension.extnValue.buffer, BasicConstraints);
 
     const children = [node('CA', bc.cA ?? false)];

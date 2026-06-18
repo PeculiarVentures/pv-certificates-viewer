@@ -12,8 +12,6 @@ describe('BiometricInfoParser', () => {
   });
 
   it('parses a biometric entry with predefined type picture', () => {
-    // BiometricSyntax: type=picture(0), hashAlg=SHA-256 (2.16.840.1.101.3.4.2.1), hash=deadbeef01020304
-    // Computed: 301c301a020100300b06096086480165030402010408deadbeef01020304
     expect(parser.parse(makeExtRaw(
       id_pe_biometricInfo,
       '301c301a020100300b06096086480165030402010408deadbeef01020304',
@@ -45,9 +43,6 @@ describe('BiometricInfoParser', () => {
   });
 
   it('parses sourceDataUri when present', () => {
-    // BiometricSyntax: type=handwrittenSignature(1), hashAlg=SHA-1 (1.3.14.3.2.26),
-    //                  hash=aabbccdd, sourceDataUri=http://example.com/bio.dat
-    // Computed: 3030302e020101300706052b0e03021a0404aabbccdd161a687474703a2f2f6578616d706c652e636f6d2f62696f2e646174
     expect(parser.parse(makeExtRaw(
       id_pe_biometricInfo,
       '3030302e020101300706052b0e03021a0404aabbccdd161a687474703a2f2f6578616d706c652e636f6d2f62696f2e646174',

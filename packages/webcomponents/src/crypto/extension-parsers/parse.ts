@@ -7,14 +7,14 @@
  */
 
 import type { Extension } from '@peculiar/asn1-x509';
-import type { ParsedExtension } from './types';
+import type { IParsedExtension } from './types';
 import type { ExtensionParserRegistry } from './registry';
 import { parseUnknown } from './unknown';
 
 export function parseExtension(
   extension: Extension,
   registry: ExtensionParserRegistry,
-): ParsedExtension {
+): IParsedExtension {
   const parser = registry.get(extension.extnID);
 
   if (!parser) {

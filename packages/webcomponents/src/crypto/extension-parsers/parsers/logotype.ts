@@ -14,13 +14,13 @@ import {
 } from '@peculiar/asn1-x509-logotype';
 import type { Extension } from '@peculiar/asn1-x509';
 import type {
-  ExtensionParser, ParsedExtension, ExtensionNode,
+  IExtensionParser, IParsedExtension, IExtensionNode,
 } from '../types';
 import { node, section } from '../builders';
 
-function parseLogotypeInfo(info: LogotypeInfo): ExtensionNode[] {
+function parseLogotypeInfo(info: LogotypeInfo): IExtensionNode[] {
   if (info.direct) {
-    const children: ExtensionNode[] = [];
+    const children: IExtensionNode[] = [];
 
     for (const img of info.direct.image ?? []) {
       children.push(section('Image', [
@@ -46,12 +46,12 @@ function parseLogotypeInfo(info: LogotypeInfo): ExtensionNode[] {
   return [];
 }
 
-export class LogotypeParser implements ExtensionParser {
+export class LogotypeParser implements IExtensionParser {
   readonly oids = [id_pe_logotype];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const logotype = AsnParser.parse(extension.extnValue.buffer, LogotypeExtn);
-    const children: ExtensionNode[] = [];
+    const children: IExtensionNode[] = [];
 
     if (logotype.communityLogos?.length) {
       children.push(section('Community Logos', logotype.communityLogos.flatMap(parseLogotypeInfo)));

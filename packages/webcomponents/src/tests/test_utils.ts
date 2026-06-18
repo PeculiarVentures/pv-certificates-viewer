@@ -7,6 +7,7 @@
  */
 
 import { Attribute, Extension } from '@peculiar/asn1-x509';
+import { OctetString } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
 
 /**
@@ -15,11 +16,11 @@ import { Convert } from 'pvtsutils';
  * `AsnParser` would normally read from `extnValue.buffer`).
  */
 export function makeExtRaw(oid: string, valueHex: string, critical = false): Extension {
-  const ext = new Extension();
-
-  ext.extnID = oid;
-  ext.critical = critical;
-  ext.extnValue = { buffer: Convert.FromHex(valueHex) } as any;
+  const ext = new Extension({
+    extnID: oid,
+    critical,
+    extnValue: new OctetString(Convert.FromHex(valueHex)),
+  });
 
   return ext;
 }
@@ -30,10 +31,10 @@ export function makeExtRaw(oid: string, valueHex: string, critical = false): Ext
  * `AsnParser` would normally read from `attribute.values[0]`).
  */
 export function makeAttrRaw(oid: string, valueHex: string): Attribute {
-  const attr = new Attribute();
-
-  attr.type = oid;
-  attr.values = [Convert.FromHex(valueHex)];
+  const attr = new Attribute({
+    type: oid,
+    values: [Convert.FromHex(valueHex)],
+  });
 
   return attr;
 }

@@ -12,13 +12,13 @@ import {
   KeyUsage,
   id_ce_keyUsage,
 } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
-export class KeyUsageParser implements ExtensionParser {
+export class KeyUsageParser implements IExtensionParser {
   readonly oids = [id_ce_keyUsage];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const ku = AsnParser.parse(extension.extnValue.buffer, KeyUsage);
 
     return {

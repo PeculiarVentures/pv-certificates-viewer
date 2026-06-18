@@ -9,14 +9,14 @@
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
 import { id_ActivityDescription, ActivityDescription } from '@peculiar/asn1-ntqwac';
-import type { AttributeParser, ParsedAttribute } from '../types';
+import type { IAttributeParser, IParsedAttribute } from '../types';
 import { node, section } from '../../extension-parsers/builders';
 import { parseGeneralName } from '../../extension-parsers/parse_general_name';
 
-export class ActivityDescriptionParser implements AttributeParser {
+export class ActivityDescriptionParser implements IAttributeParser {
   readonly oids = [id_ActivityDescription];
 
-  parse(attribute: AsnAttribute): ParsedAttribute {
+  parse(attribute: AsnAttribute): IParsedAttribute {
     const ad = AsnParser.parse(attribute.values[0], ActivityDescription);
     const children = [
       section('Code Authority', [parseGeneralName(ad.codeAuthority)]),

@@ -8,7 +8,7 @@
 
 import { AsnParser } from '@peculiar/asn1-schema';
 import type { Extension } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 import {
   CabforganizationIdentifier,
@@ -19,10 +19,10 @@ import {
   id_appleDeveloperIdDate,
 } from '../../extensions/apple_developer_id_date';
 
-export class CabfOrganizationIdentifierParser implements ExtensionParser {
+export class CabfOrganizationIdentifierParser implements IExtensionParser {
   readonly oids = [id_cabforganizationIdentifier];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const cabf = AsnParser.parse(extension.extnValue.buffer, CabforganizationIdentifier);
     const children = [
       node('Scheme', cabf.registrationSchemeIdentifier),
@@ -43,10 +43,10 @@ export class CabfOrganizationIdentifierParser implements ExtensionParser {
   }
 }
 
-export class AppleDeveloperIdDateParser implements ExtensionParser {
+export class AppleDeveloperIdDateParser implements IExtensionParser {
   readonly oids = [id_appleDeveloperIdDate];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const dateExt = AsnParser.parse(extension.extnValue.buffer, AppleDeveloperIdDate);
 
     return {

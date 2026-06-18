@@ -10,10 +10,10 @@ import { GeneralName, DisplayText } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Name } from '../name';
-import type { ExtensionNode } from './types';
+import type { IExtensionNode } from './types';
 import { node, section } from './builders';
 
-export function parseGeneralName(gn: GeneralName): ExtensionNode {
+export function parseGeneralName(gn: GeneralName): IExtensionNode {
   // --- Simple string types (library decodes these directly) ---
 
   if (gn.uniformResourceIdentifier != null) {
@@ -49,7 +49,7 @@ export function parseGeneralName(gn: GeneralName): ExtensionNode {
   }
 
   if (gn.ediPartyName != null) {
-    const children: ExtensionNode[] = [];
+    const children: IExtensionNode[] = [];
 
     if (gn.ediPartyName.nameAssigner != null) {
       children.push(node('Name Assigner', gn.ediPartyName.nameAssigner.toString()));

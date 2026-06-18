@@ -14,17 +14,17 @@ import {
 } from '@peculiar/asn1-private-key-stmt';
 import { Convert } from 'pvtsutils';
 import type {
-  AttributeParser, ExtensionNode, ParsedAttribute,
+  IAttributeParser, IExtensionNode, IParsedAttribute,
 } from '../types';
 import { node, section } from '../../extension-parsers/builders';
 import { Name } from '../../name';
 
-export class PrivateKeyPossessionStatementParser implements AttributeParser {
+export class PrivateKeyPossessionStatementParser implements IAttributeParser {
   readonly oids = [id_at_statementOfPossession];
 
-  parse(attribute: AsnAttribute): ParsedAttribute {
+  parse(attribute: AsnAttribute): IParsedAttribute {
     const pks = AsnParser.parse(attribute.values[0], PrivateKeyPossessionStatement);
-    const children: ExtensionNode[] = [];
+    const children: IExtensionNode[] = [];
 
     children.push(node('Serial Number', Convert.ToHex(pks.signer.serialNumber)));
 

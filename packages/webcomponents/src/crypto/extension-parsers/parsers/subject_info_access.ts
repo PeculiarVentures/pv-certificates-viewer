@@ -12,14 +12,14 @@ import {
   id_pe_subjectInfoAccess,
   SubjectInfoAccessSyntax,
 } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 import { parseGeneralName } from '../parse_general_name';
 
-export class SubjectInfoAccessParser implements ExtensionParser {
+export class SubjectInfoAccessParser implements IExtensionParser {
   readonly oids = [id_pe_subjectInfoAccess];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const sia = AsnParser.parse(extension.extnValue.buffer, SubjectInfoAccessSyntax);
 
     return {

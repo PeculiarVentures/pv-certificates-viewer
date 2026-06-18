@@ -12,13 +12,13 @@ import {
   Extension,
   id_ce_cRLReasons,
 } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
-export class CRLReasonParser implements ExtensionParser {
+export class CRLReasonParser implements IExtensionParser {
   readonly oids = [id_ce_cRLReasons];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const reason = AsnParser.parse(extension.extnValue.buffer, CRLReason);
 
     return {

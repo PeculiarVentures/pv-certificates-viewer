@@ -21,13 +21,13 @@ import {
 import { Convert, BufferSourceConverter } from 'pvtsutils';
 import { camelCaseToWords } from '../../../utils/camel_case_to_words';
 import type {
-  ExtensionNode,
-  ExtensionParser,
-  ParsedExtension,
+  IExtensionNode,
+  IExtensionParser,
+  IParsedExtension,
 } from '../types';
 import { node, section } from '../builders';
 
-function formatAuthValue(key: string, value: unknown): ExtensionNode | null {
+function formatAuthValue(key: string, value: unknown): IExtensionNode | null {
   if (value === undefined) return null;
 
   if (value === null) {
@@ -56,7 +56,7 @@ function formatAuthValue(key: string, value: unknown): ExtensionNode | null {
   if (key === 'attestationApplicationId' && BufferSourceConverter.isBufferSource(value)) {
     try {
       const appId = AsnParser.parse(value as BufferSource, AttestationApplicationId);
-      const items: ExtensionNode[] = [];
+      const items: IExtensionNode[] = [];
 
       if (appId.packageInfos.length > 0) {
         items.push(section('Package Infos', appId.packageInfos.map((pkg) => section('', [
@@ -92,7 +92,7 @@ function formatAuthValue(key: string, value: unknown): ExtensionNode | null {
   return null;
 }
 
-function parseAuthList(list: NonStandardAuthorizationList): ExtensionNode[] {
+function parseAuthList(list: NonStandardAuthorizationList): IExtensionNode[] {
   const combined: Record<string, unknown> = {};
 
   for (const auth of list) {
@@ -107,15 +107,15 @@ function parseAuthList(list: NonStandardAuthorizationList): ExtensionNode[] {
 
   return Object.entries(combined)
     .map(([key, value]) => formatAuthValue(key, value))
-    .filter((n): n is ExtensionNode => n != null);
+    .filter((n): n is IExtensionNode => n != null);
 }
 
-export class KeyDescriptionParser implements ExtensionParser {
+export class KeyDescriptionParser implements IExtensionParser {
   readonly oids = [id_ce_keyDescription];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const kd = AsnParser.parse(extension.extnValue.buffer, NonStandardKeyDescription);
-    const children: ExtensionNode[] = [];
+    const children: IExtensionNode[] = [];
     const attestVer = kd.attestationVersion;
 
     children.push(node('Attestation Version', typeof attestVer === 'number' ? attestVer : Number(attestVer)));

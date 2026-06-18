@@ -15,7 +15,7 @@ import {
 } from '@peculiar/asn1-x509-qualified';
 import { Convert } from 'pvtsutils';
 import type {
-  ExtensionNode, ExtensionParser, ParsedExtension,
+  IExtensionNode, IExtensionParser, IParsedExtension,
 } from '../types';
 import { node, section } from '../builders';
 
@@ -24,10 +24,10 @@ const BIOMETRIC_TYPE_LABELS: Record<number, string> = {
   [PredefinedBiometricType.handwrittenSignature]: 'Handwritten Signature',
 };
 
-export class BiometricInfoParser implements ExtensionParser {
+export class BiometricInfoParser implements IExtensionParser {
   readonly oids = [id_pe_biometricInfo, '2.16.724.1.2.2.4.1'];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const bio = AsnParser.parse(extension.extnValue.buffer, BiometricSyntax);
 
     return {
@@ -35,7 +35,7 @@ export class BiometricInfoParser implements ExtensionParser {
       critical: extension.critical ?? false,
       children: [
         section('Biometrics', bio.map((data) => {
-          const children: ExtensionNode[] = [];
+          const children: IExtensionNode[] = [];
 
           const { predefinedBiometricType, biometricDataOid } = data.typeOfBiometricData;
 

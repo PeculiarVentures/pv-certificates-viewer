@@ -14,12 +14,12 @@ import {
   RowValue,
 } from '../certificate-details-parts/row';
 import type { ILinkTemplateResolvers } from '../../utils/link_template_resolvers';
-import type { ParsedExtension } from '../../crypto/extension-parsers/types';
+import type { IParsedExtension } from '../../crypto/extension-parsers/types';
 import { renderNode } from '../parsed-node-renderer/render_node';
 
 export interface IParsedExtensionsProps extends Partial<ILinkTemplateResolvers> {
   title?: string;
-  extensions: ParsedExtension[];
+  extensions: IParsedExtension[];
 }
 
 export const ParsedExtensions: FunctionalComponent<IParsedExtensionsProps> = (props) => {

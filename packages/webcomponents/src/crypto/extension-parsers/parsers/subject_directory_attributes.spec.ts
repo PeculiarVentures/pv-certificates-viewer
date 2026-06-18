@@ -11,8 +11,6 @@ describe('SubjectDirectoryAttributesParser', () => {
   });
 
   it('parses an attribute with a UTF8String value', () => {
-    // SubjectDirectoryAttributes: Attribute { type=2.5.4.15 businessCategory, value=UTF8String "Test123" }
-    // SDA: 3010300e060355040f31090c0754657374313233
     expect(parser.parse(makeExtRaw(
       id_ce_subjectDirectoryAttributes,
       '3010300e060355040f31090c0754657374313233',
@@ -28,8 +26,6 @@ describe('SubjectDirectoryAttributesParser', () => {
   });
 
   it('uses raw OID for unknown attribute types and hex for unparseable values', () => {
-    // SubjectDirectoryAttributes: type=1.2.3.4.5, value=OCTET STRING 0xdeadbeef
-    // SDA: 3010300e06042a03040531060404deadbeef
     expect(parser.parse(makeExtRaw(
       id_ce_subjectDirectoryAttributes,
       '3010300e06042a03040531060404deadbeef',

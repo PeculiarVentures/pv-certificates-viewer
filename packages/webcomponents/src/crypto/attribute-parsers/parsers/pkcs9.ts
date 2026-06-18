@@ -16,14 +16,14 @@ import {
   id_pkcs9_at_extensionRequest,
   ExtensionRequest,
 } from '@peculiar/asn1-pkcs9';
-import type { AttributeParser, ParsedAttribute } from '../types';
+import type { IAttributeParser, IParsedAttribute } from '../types';
 import { node, section } from '../../extension-parsers/builders';
 import { parseExtension } from '../../extension-parsers';
 
-export class ChallengePasswordParser implements AttributeParser {
+export class ChallengePasswordParser implements IAttributeParser {
   readonly oids = [id_pkcs9_at_challengePassword];
 
-  parse(attribute: AsnAttribute): ParsedAttribute {
+  parse(attribute: AsnAttribute): IParsedAttribute {
     const cp = AsnParser.parse(attribute.values[0], ChallengePassword);
 
     return {
@@ -33,10 +33,10 @@ export class ChallengePasswordParser implements AttributeParser {
   }
 }
 
-export class UnstructuredNameParser implements AttributeParser {
+export class UnstructuredNameParser implements IAttributeParser {
   readonly oids = [id_pkcs9_at_unstructuredName];
 
-  parse(attribute: AsnAttribute): ParsedAttribute {
+  parse(attribute: AsnAttribute): IParsedAttribute {
     const un = AsnParser.parse(attribute.values[0], UnstructuredName);
     const value = un.utf8String ?? un.ia5String ?? un.toString();
 
@@ -47,10 +47,10 @@ export class UnstructuredNameParser implements AttributeParser {
   }
 }
 
-export class ExtensionRequestParser implements AttributeParser {
+export class ExtensionRequestParser implements IAttributeParser {
   readonly oids = [id_pkcs9_at_extensionRequest];
 
-  parse(attribute: AsnAttribute): ParsedAttribute {
+  parse(attribute: AsnAttribute): IParsedAttribute {
     const er = AsnParser.parse(attribute.values[0], ExtensionRequest);
 
     return {

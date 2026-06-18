@@ -25,13 +25,14 @@ import {
 import { Convert } from 'pvtsutils';
 import { OIDs } from '../../../constants/oids';
 import type {
-  ExtensionNode,
-  ExtensionParser,
-  ParsedExtension,
+  IExtensionNode,
+  IExtensionParser,
+  IParsedExtension,
 } from '../types';
 import { node, section } from '../builders';
+import { parseGeneralName } from '../parse_general_name';
 
-function parseStatementInfo(statementId: string, statementInfo?: ArrayBuffer): ExtensionNode[] {
+function parseStatementInfo(statementId: string, statementInfo?: ArrayBuffer): IExtensionNode[] {
   if (!statementInfo || !statementInfo.byteLength) {
     return [];
   }
@@ -39,16 +40,13 @@ function parseStatementInfo(statementId: string, statementInfo?: ArrayBuffer): E
   try {
     if (statementId === id_qcs_pkixQCSyntax_v2) {
       const si = AsnParser.parse(statementInfo, SemanticsInformation);
-      const children: ExtensionNode[] = [];
+      const children: IExtensionNode[] = [];
 
       if (si.semanticsIdentifier) {
         children.push(node('Semantics Identifier', OIDs[si.semanticsIdentifier] ?? si.semanticsIdentifier));
       }
 
       for (const gn of si.nameRegistrationAuthorities ?? []) {
-        // inline the authority as a child; re-use the general name parser lazily to avoid circular dep
-        const { parseGeneralName } = require('../parse_general_name');
-
         children.push(parseGeneralName(gn));
       }
 
@@ -84,10 +82,10 @@ function parseStatementInfo(statementId: string, statementInfo?: ArrayBuffer): E
   return [node('Info', Convert.ToHex(statementInfo))];
 }
 
-export class QCStatementsParser implements ExtensionParser {
+export class QCStatementsParser implements IExtensionParser {
   readonly oids = [id_pe_qcStatements];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const stmts = AsnParser.parse(extension.extnValue.buffer, QCStatements);
 
     return {

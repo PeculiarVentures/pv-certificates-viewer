@@ -9,13 +9,13 @@
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
 import { id_InsuranceValue, InsuranceValue } from '@peculiar/asn1-ntqwac';
-import type { AttributeParser, ParsedAttribute } from '../types';
+import type { IAttributeParser, IParsedAttribute } from '../types';
 import { node } from '../../extension-parsers/builders';
 
-export class InsuranceValueParser implements AttributeParser {
+export class InsuranceValueParser implements IAttributeParser {
   readonly oids = [id_InsuranceValue];
 
-  parse(attribute: AsnAttribute): ParsedAttribute {
+  parse(attribute: AsnAttribute): IParsedAttribute {
     const iv = AsnParser.parse(attribute.values[0], InsuranceValue);
 
     return {

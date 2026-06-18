@@ -13,19 +13,19 @@ import {
   PrivateKeyUsagePeriod,
 } from '@peculiar/asn1-x509';
 import type {
-  ExtensionNode,
-  ExtensionParser,
-  ParsedExtension,
+  IExtensionNode,
+  IExtensionParser,
+  IParsedExtension,
 } from '../types';
 import { node } from '../builders';
 import { dateShort } from '../../../utils';
 
-export class PrivateKeyUsagePeriodParser implements ExtensionParser {
+export class PrivateKeyUsagePeriodParser implements IExtensionParser {
   readonly oids = [id_ce_privateKeyUsagePeriod];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const pkup = AsnParser.parse(extension.extnValue.buffer, PrivateKeyUsagePeriod);
-    const children: ExtensionNode[] = [];
+    const children: IExtensionNode[] = [];
 
     if (pkup.notBefore != null) {
       children.push(node('Not Before', dateShort(pkup.notBefore)));

@@ -8,39 +8,39 @@
 
 import type { Attribute as AsnAttribute, Extension } from '@peculiar/asn1-x509';
 
-export type Primitive = string | number | boolean;
+export type TPrimitive = string | number | boolean;
 
-export type ExtensionNodeType
+export type TExtensionNodeType
   = | 'dNSName'
     | 'iPAddress'
     | 'authorityKeyId'
     | 'subjectKeyId'
     | 'lei';
 
-export interface ExtensionNode {
+export interface IExtensionNode {
   title?: string;
-  value?: Primitive;
-  children?: ExtensionNode[];
-  _type?: ExtensionNodeType;
+  value?: TPrimitive;
+  children?: IExtensionNode[];
+  _type?: TExtensionNodeType;
 }
 
-export interface ParsedExtension {
+export interface IParsedExtension {
   oid: string;
   critical: boolean;
-  children: ExtensionNode[];
+  children: IExtensionNode[];
 }
 
-export interface ExtensionParser {
+export interface IExtensionParser {
   oids: string[];
-  parse(extension: Extension): ParsedExtension;
+  parse(extension: Extension): IParsedExtension;
 }
 
-export interface ParsedAttribute {
+export interface IParsedAttribute {
   oid: string;
-  children: (ExtensionNode | ParsedExtension)[];
+  children: (IExtensionNode | IParsedExtension)[];
 }
 
-export interface AttributeParser {
+export interface IAttributeParser {
   oids: string[];
-  parse(attribute: AsnAttribute): ParsedAttribute;
+  parse(attribute: AsnAttribute): IParsedAttribute;
 }

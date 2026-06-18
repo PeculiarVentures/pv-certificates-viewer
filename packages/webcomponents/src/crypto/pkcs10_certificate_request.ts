@@ -15,7 +15,7 @@ import { Download } from '../utils';
 import { AsnData } from './asn_data';
 import { Name, INameJSON } from './name';
 import { PemConverter } from './pem_converter';
-import { type ParsedAttribute, parseAttribute } from './attribute-parsers';
+import { type IParsedAttribute, parseAttribute } from './attribute-parsers';
 import {
   certificateRawToBuffer,
   getCertificateThumbprint,
@@ -37,7 +37,7 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
 
   public readonly version: number;
 
-  public attributes: ParsedAttribute[];
+  public attributes: IParsedAttribute[];
 
   public thumbprints: Record<string, string> = {};
 

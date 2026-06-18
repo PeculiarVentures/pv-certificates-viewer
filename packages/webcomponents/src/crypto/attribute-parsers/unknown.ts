@@ -8,9 +8,9 @@
 
 import { Convert } from 'pvtsutils';
 import type { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
-import type { ParsedAttribute } from './types';
+import type { IParsedAttribute } from './types';
 
-export function parseUnknownAttribute(attribute: AsnAttribute): ParsedAttribute {
+export function parseUnknownAttribute(attribute: AsnAttribute): IParsedAttribute {
   const raw = attribute.values[0]
     ? Convert.ToHex(attribute.values[0])
     : '';

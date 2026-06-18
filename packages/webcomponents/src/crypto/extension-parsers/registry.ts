@@ -6,18 +6,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import type { ExtensionParser } from './types';
+import type { IExtensionParser } from './types';
 
 export class ExtensionParserRegistry {
-  private readonly parsers = new Map<string, ExtensionParser>();
+  private readonly parsers = new Map<string, IExtensionParser>();
 
-  register(parser: ExtensionParser): void {
+  register(parser: IExtensionParser): void {
     for (const oid of parser.oids) {
       this.parsers.set(oid, parser);
     }
   }
 
-  get(oid: string): ExtensionParser | undefined {
+  get(oid: string): IExtensionParser | undefined {
     return this.parsers.get(oid);
   }
 }

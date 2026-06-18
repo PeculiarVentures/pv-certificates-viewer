@@ -14,13 +14,13 @@ import {
   NetscapeCertType,
 } from '@peculiar/asn1-x509-netscape';
 import type { Extension } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
-export class NetscapeCommentParser implements ExtensionParser {
+export class NetscapeCommentParser implements IExtensionParser {
   readonly oids = [id_netscapeComment];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const comment = AsnParser.parse(extension.extnValue.buffer, NetscapeComment);
 
     return {
@@ -31,10 +31,10 @@ export class NetscapeCommentParser implements ExtensionParser {
   }
 }
 
-export class NetscapeCertTypeParser implements ExtensionParser {
+export class NetscapeCertTypeParser implements IExtensionParser {
   readonly oids = [id_netscapeCertType];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const certType = AsnParser.parse(extension.extnValue.buffer, NetscapeCertType);
     const flags = certType.toJSON();
 

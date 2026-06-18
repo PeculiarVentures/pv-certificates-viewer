@@ -12,14 +12,14 @@ import {
   CertificateTransparency,
   id_certificateTransparency,
 } from '@peculiar/asn1-cert-transparency';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 import { dateShort } from '../../../utils';
 
-export class CertificateTransparencyParser implements ExtensionParser {
+export class CertificateTransparencyParser implements IExtensionParser {
   readonly oids = [id_certificateTransparency];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const ct = AsnParser.parse(extension.extnValue.buffer, CertificateTransparency);
     const scts = ct.toJSON();
 

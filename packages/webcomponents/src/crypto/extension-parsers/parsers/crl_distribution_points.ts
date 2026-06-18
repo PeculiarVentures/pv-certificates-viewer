@@ -13,17 +13,17 @@ import {
   id_ce_cRLDistributionPoints,
 } from '@peculiar/asn1-x509';
 import type {
-  ExtensionParser,
-  ParsedExtension,
+  IExtensionParser,
+  IParsedExtension,
 } from '../types';
 import { section } from '../builders';
 import { parseGeneralName } from '../parse_general_name';
 
-export class CRLDistributionPointsParser implements ExtensionParser {
+export class CRLDistributionPointsParser implements IExtensionParser {
   // '2.16.724.1.2.2.4.1' is an alias used by some Spanish certs; same encoding
   readonly oids = [id_ce_cRLDistributionPoints, '2.5.29.46'];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const points = AsnParser.parse(extension.extnValue.buffer, CRLDistributionPoints);
 
     return {

@@ -16,8 +16,8 @@ import {
   certificateRawToBuffer,
   getCertificateThumbprint,
 } from './utils';
-import { type ParsedExtension, parseExtension } from './extension-parsers';
-import { type ParsedAttribute, parseAttribute } from './attribute-parsers';
+import { type IParsedExtension, parseExtension } from './extension-parsers';
+import { type IParsedAttribute, parseAttribute } from './attribute-parsers';
 
 interface ISignature {
   algorithm: string;
@@ -35,9 +35,9 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
 
   public readonly validity: string;
 
-  public extensions: ParsedExtension[];
+  public extensions: IParsedExtension[];
 
-  public attributes: ParsedAttribute[];
+  public attributes: IParsedAttribute[];
 
   public thumbprints: Record<string, string> = {};
 

@@ -16,7 +16,7 @@ import {
   certificateRawToBuffer,
   getCertificateThumbprint,
 } from './utils';
-import { type ParsedExtension, parseExtension } from './extension-parsers';
+import { type IParsedExtension, parseExtension } from './extension-parsers';
 
 interface ISignature {
   algorithm: string;
@@ -26,7 +26,7 @@ interface ISignature {
 export interface IRevokedCertificate {
   userCertificate: ArrayBuffer;
   revocationDate: Time;
-  crlEntryExtensions?: ParsedExtension[];
+  crlEntryExtensions?: IParsedExtension[];
 }
 
 export class X509Crl extends AsnData<CertificateList> {
@@ -38,7 +38,7 @@ export class X509Crl extends AsnData<CertificateList> {
 
   public readonly nextUpdate: Date;
 
-  public extensions: ParsedExtension[];
+  public extensions: IParsedExtension[];
 
   public revokedCertificates: IRevokedCertificate[];
 

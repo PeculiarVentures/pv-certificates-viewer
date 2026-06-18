@@ -14,7 +14,7 @@ import {
 } from '@peculiar/asn1-x509';
 import { BufferSourceConverter } from 'pvtsutils';
 import type {
-  ExtensionNode, ExtensionParser, ParsedExtension,
+  IExtensionNode, IExtensionParser, IParsedExtension,
 } from '../types';
 import { node } from '../builders';
 
@@ -34,12 +34,12 @@ function decodeSkipCerts(value: ArrayBuffer): number {
   return result >>> 0; // treat as unsigned 32-bit
 }
 
-export class PolicyConstraintsParser implements ExtensionParser {
+export class PolicyConstraintsParser implements IExtensionParser {
   readonly oids = [id_ce_policyConstraints];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const pc = AsnParser.parse(extension.extnValue.buffer, PolicyConstraints);
-    const children: ExtensionNode[] = [];
+    const children: IExtensionNode[] = [];
 
     if (pc.requireExplicitPolicy != null) {
       children.push(node('Require Explicit Policy', decodeSkipCerts(pc.requireExplicitPolicy)));

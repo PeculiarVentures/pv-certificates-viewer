@@ -14,16 +14,16 @@ import {
   NameConstraints,
 } from '@peculiar/asn1-x509';
 import type {
-  ExtensionNode,
-  ExtensionParser,
-  ParsedExtension,
+  IExtensionNode,
+  IExtensionParser,
+  IParsedExtension,
 } from '../types';
 import { node, section } from '../builders';
 import { parseGeneralName } from '../parse_general_name';
 
-function parseSubtrees(subtrees: GeneralSubtrees): ExtensionNode[] {
+function parseSubtrees(subtrees: GeneralSubtrees): IExtensionNode[] {
   return subtrees.map((subtree) => {
-    const children: ExtensionNode[] = [parseGeneralName(subtree.base)];
+    const children: IExtensionNode[] = [parseGeneralName(subtree.base)];
 
     if (subtree.minimum !== 0) {
       children.push(node('Minimum', subtree.minimum));
@@ -37,12 +37,12 @@ function parseSubtrees(subtrees: GeneralSubtrees): ExtensionNode[] {
   }).flat();
 }
 
-export class NameConstraintsParser implements ExtensionParser {
+export class NameConstraintsParser implements IExtensionParser {
   readonly oids = [id_ce_nameConstraints];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const nc = AsnParser.parse(extension.extnValue.buffer, NameConstraints);
-    const children: ExtensionNode[] = [];
+    const children: IExtensionNode[] = [];
 
     if (nc.permittedSubtrees != null) {
       children.push(section('Permitted Subtrees', parseSubtrees(nc.permittedSubtrees)));

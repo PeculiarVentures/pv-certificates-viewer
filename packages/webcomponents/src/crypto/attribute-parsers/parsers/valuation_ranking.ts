@@ -9,7 +9,7 @@
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
 import { id_ValuationRanking, ValuationRanking } from '@peculiar/asn1-ntqwac';
-import type { AttributeParser, ParsedAttribute } from '../types';
+import type { IAttributeParser, IParsedAttribute } from '../types';
 import { node } from '../../extension-parsers/builders';
 
 function formatRank(value: number): string {
@@ -21,10 +21,10 @@ function formatRank(value: number): string {
   return `${value}/${5 * ratio}`;
 }
 
-export class ValuationRankingParser implements AttributeParser {
+export class ValuationRankingParser implements IAttributeParser {
   readonly oids = [id_ValuationRanking];
 
-  parse(attribute: AsnAttribute): ParsedAttribute {
+  parse(attribute: AsnAttribute): IParsedAttribute {
     const vr = AsnParser.parse(attribute.values[0], ValuationRanking);
 
     const children = (Object.keys(vr) as (keyof ValuationRanking)[])

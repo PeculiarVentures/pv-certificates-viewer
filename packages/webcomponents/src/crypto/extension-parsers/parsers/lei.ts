@@ -14,13 +14,13 @@ import {
   id_role,
 } from '@peculiar/asn1-lei';
 import type { Extension } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 
-export class LeiParser implements ExtensionParser {
+export class LeiParser implements IExtensionParser {
   readonly oids = [id_lei];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const lei = AsnParser.parse(extension.extnValue.buffer, LeiChoice);
     const children = [];
 
@@ -46,10 +46,10 @@ export class LeiParser implements ExtensionParser {
   }
 }
 
-export class LeiRoleParser implements ExtensionParser {
+export class LeiRoleParser implements IExtensionParser {
   readonly oids = [id_role];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const role = AsnParser.parse(extension.extnValue.buffer, LeiRole);
 
     return {

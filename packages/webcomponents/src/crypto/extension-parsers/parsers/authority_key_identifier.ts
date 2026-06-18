@@ -14,17 +14,17 @@ import {
   id_ce_authorityKeyIdentifier,
 } from '@peculiar/asn1-x509';
 import type {
-  ExtensionNode, ExtensionParser, ParsedExtension,
+  IExtensionNode, IExtensionParser, IParsedExtension,
 } from '../types';
 import { node } from '../builders';
 
-export class AuthorityKeyIdentifierParser implements ExtensionParser {
+export class AuthorityKeyIdentifierParser implements IExtensionParser {
   readonly oids = [id_ce_authorityKeyIdentifier];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const aki = AsnParser.parse(extension.extnValue.buffer, AuthorityKeyIdentifier);
 
-    const children: ExtensionNode[] = [];
+    const children: IExtensionNode[] = [];
 
     if (aki.keyIdentifier != null) {
       children.push(node('Key Identifier', Convert.ToHex(aki.keyIdentifier.buffer), 'authorityKeyId'));

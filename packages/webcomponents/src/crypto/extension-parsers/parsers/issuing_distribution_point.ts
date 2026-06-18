@@ -13,20 +13,20 @@ import {
   IssuingDistributionPoint,
 } from '@peculiar/asn1-x509';
 import type {
-  ExtensionNode, ExtensionParser, ParsedExtension,
+  IExtensionNode, IExtensionParser, IParsedExtension,
 } from '../types';
 import { node, section } from '../builders';
 import { parseGeneralName } from '../parse_general_name';
 
-export class IssuingDistributionPointParser implements ExtensionParser {
+export class IssuingDistributionPointParser implements IExtensionParser {
   readonly oids = [id_ce_issuingDistributionPoint];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const idp = AsnParser.parse(extension.extnValue.buffer, IssuingDistributionPoint);
-    const children: ExtensionNode[] = [];
+    const children: IExtensionNode[] = [];
 
     if (idp.distributionPoint != null) {
-      const dpChildren: ExtensionNode[] = [];
+      const dpChildren: IExtensionNode[] = [];
 
       for (const gn of idp.distributionPoint.fullName ?? []) {
         dpChildren.push(parseGeneralName(gn));

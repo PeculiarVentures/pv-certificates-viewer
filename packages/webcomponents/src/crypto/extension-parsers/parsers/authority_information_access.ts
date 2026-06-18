@@ -12,14 +12,14 @@ import {
   Extension,
   id_pe_authorityInfoAccess,
 } from '@peculiar/asn1-x509';
-import type { ExtensionParser, ParsedExtension } from '../types';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 import { parseGeneralName } from '../parse_general_name';
 
-export class AuthorityInformationAccessParser implements ExtensionParser {
+export class AuthorityInformationAccessParser implements IExtensionParser {
   readonly oids = [id_pe_authorityInfoAccess];
 
-  parse(extension: Extension): ParsedExtension {
+  parse(extension: Extension): IParsedExtension {
     const aia = AsnParser.parse(extension.extnValue.buffer, AuthorityInfoAccessSyntax);
 
     return {

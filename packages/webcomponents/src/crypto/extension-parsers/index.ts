@@ -45,7 +45,7 @@ import { AdobeTimestampParser, AdobeArchiveRevInfoParser } from './parsers/adobe
 import { LogotypeParser } from './parsers/logotype';
 import { TNAuthorizationListParser } from './parsers/tn_auth_list';
 import { CabfOrganizationIdentifierParser, AppleDeveloperIdDateParser } from './parsers/cabf_and_apple';
-import type { ParsedExtension } from './types';
+import type { IParsedExtension } from './types';
 
 export const registry = new ExtensionParserRegistry();
 
@@ -108,7 +108,7 @@ registry.register(new TNAuthorizationListParser());
 registry.register(new CabfOrganizationIdentifierParser());
 registry.register(new AppleDeveloperIdDateParser());
 
-export function parseExtension(extension: Extension): ParsedExtension {
+export function parseExtension(extension: Extension): IParsedExtension {
   return _parseExtension(extension, registry);
 }
 
