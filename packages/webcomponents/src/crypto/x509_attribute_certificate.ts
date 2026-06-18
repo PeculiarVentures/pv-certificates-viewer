@@ -6,19 +6,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { AsnConvert } from '@peculiar/asn1-schema';
 import type { GeneralName } from '@peculiar/asn1-x509';
 import { AttributeCertificate, Holder } from '@peculiar/asn1-x509-attr';
 import { Convert } from 'pvtsutils';
 import { dateDiff, Download } from '../utils';
 import { AsnData } from './asn_data';
-import { Attribute, TAttributeValue } from './attribute';
 import { PemConverter } from './pem_converter';
 import {
   certificateRawToBuffer,
   getCertificateThumbprint,
 } from './utils';
 import { type ParsedExtension, parseExtension } from './extension-parsers';
+import { type ParsedAttribute, parseAttribute } from './attribute-parsers';
 
 interface ISignature {
   algorithm: string;
@@ -38,7 +37,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
 
   public extensions: ParsedExtension[];
 
-  public attributes: Attribute<TAttributeValue>[];
+  public attributes: ParsedAttribute[];
 
   public thumbprints: Record<string, string> = {};
 
@@ -99,8 +98,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     const { acinfo } = this.asn;
 
     if (acinfo.attributes) {
-      this.attributes = acinfo.attributes
-        .map((e) => new Attribute(AsnConvert.serialize(e)));
+      this.attributes = acinfo.attributes.map(parseAttribute);
     }
   }
 

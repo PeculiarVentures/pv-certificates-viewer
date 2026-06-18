@@ -673,7 +673,7 @@ X509Certificate {
                 },
                 {
                   "title": "Timestamp",
-                  "value": "2023-03-15T17:27:53.906Z",
+                  "value": "Wed, 15 Mar 2023 17:27:53 GMT",
                 },
                 {
                   "title": "Hash Algorithm",
@@ -702,7 +702,7 @@ X509Certificate {
                 },
                 {
                   "title": "Timestamp",
-                  "value": "2023-03-15T17:27:54.045Z",
+                  "value": "Wed, 15 Mar 2023 17:27:54 GMT",
                 },
                 {
                   "title": "Hash Algorithm",
@@ -731,7 +731,7 @@ X509Certificate {
                 },
                 {
                   "title": "Timestamp",
-                  "value": "2023-03-15T17:27:54.099Z",
+                  "value": "Wed, 15 Mar 2023 17:27:54 GMT",
                 },
                 {
                   "title": "Hash Algorithm",
@@ -1890,7 +1890,7 @@ X509Certificate {
                 },
                 {
                   "title": "Timestamp",
-                  "value": "2022-08-18T08:06:30.186Z",
+                  "value": "Thu, 18 Aug 2022 08:06:30 GMT",
                 },
                 {
                   "title": "Hash Algorithm",
@@ -1919,7 +1919,7 @@ X509Certificate {
                 },
                 {
                   "title": "Timestamp",
-                  "value": "2022-08-18T08:06:29.587Z",
+                  "value": "Thu, 18 Aug 2022 08:06:29 GMT",
                 },
                 {
                   "title": "Hash Algorithm",
@@ -1948,7 +1948,7 @@ X509Certificate {
                 },
                 {
                   "title": "Timestamp",
-                  "value": "2022-08-18T08:06:29.959Z",
+                  "value": "Thu, 18 Aug 2022 08:06:29 GMT",
                 },
                 {
                   "title": "Hash Algorithm",

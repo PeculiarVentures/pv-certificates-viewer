@@ -16,21 +16,18 @@ import {
   Build,
 } from '@stencil/core';
 import { X509AttributeCertificate } from '../../crypto';
-import {
-  getDNSNameLink, getIPAddressLink, getLEILink,
-} from '../../utils/third_party_links';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import {
   BasicInformation,
   Signature,
   Thumbprints,
   Miscellaneous,
-  Attributes,
   Holder,
   Issuer,
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
 import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
+import { ParsedAttributes } from '../parsed-attributes-viewer/parsed-attributes-viewer';
 
 export type TAttributeCertificateProp = string | X509AttributeCertificate;
 
@@ -230,11 +227,8 @@ export class AttributeCertificateViewer {
             thumbprints={this.certificateDecoded.thumbprints}
           />
 
-          <Attributes
+          <ParsedAttributes
             attributes={this.certificateDecoded.attributes}
-            getLEILink={getLEILink}
-            getDNSNameLink={getDNSNameLink}
-            getIPAddressLink={getIPAddressLink}
             {...linkTemplateResolvers}
           />
 

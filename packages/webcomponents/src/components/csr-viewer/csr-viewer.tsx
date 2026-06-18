@@ -16,9 +16,6 @@ import {
   Build,
 } from '@stencil/core';
 import { Pkcs10CertificateRequest } from '../../crypto';
-import {
-  getDNSNameLink, getIPAddressLink, getLEILink,
-} from '../../utils/third_party_links';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import {
   BasicInformation,
@@ -27,9 +24,9 @@ import {
   Thumbprints,
   Miscellaneous,
   PublicKey,
-  Attributes,
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
+import { ParsedAttributes } from '../parsed-attributes-viewer/parsed-attributes-viewer';
 
 export type TCsrProp = string | Pkcs10CertificateRequest;
 
@@ -210,11 +207,8 @@ export class CsrViewer {
             thumbprints={this.certificateDecoded.thumbprints}
           />
 
-          <Attributes
+          <ParsedAttributes
             attributes={this.certificateDecoded.attributes}
-            getLEILink={getLEILink}
-            getDNSNameLink={getDNSNameLink}
-            getIPAddressLink={getIPAddressLink}
             {...linkTemplateResolvers}
           />
 

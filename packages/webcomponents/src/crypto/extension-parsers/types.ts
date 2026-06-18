@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import type { Extension } from '@peculiar/asn1-x509';
+import type { Attribute as AsnAttribute, Extension } from '@peculiar/asn1-x509';
 
 export type Primitive = string | number | boolean;
 
@@ -33,4 +33,14 @@ export interface ParsedExtension {
 export interface ExtensionParser {
   oids: string[];
   parse(extension: Extension): ParsedExtension;
+}
+
+export interface ParsedAttribute {
+  oid: string;
+  children: ExtensionNode[];
+}
+
+export interface AttributeParser {
+  oids: string[];
+  parse(attribute: AsnAttribute): ParsedAttribute;
 }

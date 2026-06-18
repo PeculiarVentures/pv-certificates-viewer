@@ -14,8 +14,8 @@ import { Convert } from 'pvtsutils';
 import { Download } from '../utils';
 import { AsnData } from './asn_data';
 import { Name, INameJSON } from './name';
-import { Attribute, TAttributeValue } from './attribute';
 import { PemConverter } from './pem_converter';
+import { type ParsedAttribute, parseAttribute } from './attribute-parsers';
 import {
   certificateRawToBuffer,
   getCertificateThumbprint,
@@ -37,7 +37,7 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
 
   public readonly version: number;
 
-  public attributes: Attribute<TAttributeValue>[];
+  public attributes: ParsedAttribute[];
 
   public thumbprints: Record<string, string> = {};
 
@@ -118,8 +118,7 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
     const { certificationRequestInfo } = this.asn;
 
     if (certificationRequestInfo.attributes) {
-      this.attributes = certificationRequestInfo.attributes
-        .map((e) => new Attribute(AsnConvert.serialize(e)));
+      this.attributes = certificationRequestInfo.attributes.map(parseAttribute);
     }
   }
 

@@ -1,0 +1,61 @@
+/**
+ * @license
+ * Copyright (c) Peculiar Ventures, LLC.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+import { AsnParser } from '@peculiar/asn1-schema';
+import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
+import {
+  id_pkcs9_at_challengePassword,
+  ChallengePassword,
+  id_pkcs9_at_unstructuredName,
+  UnstructuredName,
+  id_pkcs9_at_extensionRequest,
+  ExtensionRequest,
+} from '@peculiar/asn1-pkcs9';
+import type { AttributeParser, ParsedAttribute } from '../types';
+import { node } from '../../extension-parsers/builders';
+import { parseExtension } from '../../extension-parsers';
+
+export class ChallengePasswordParser implements AttributeParser {
+  readonly oids = [id_pkcs9_at_challengePassword];
+
+  parse(attribute: AsnAttribute): ParsedAttribute {
+    const cp = AsnParser.parse(attribute.values[0], ChallengePassword);
+
+    return {
+      oid: attribute.type,
+      children: [node('Value', cp.toString())],
+    };
+  }
+}
+
+export class UnstructuredNameParser implements AttributeParser {
+  readonly oids = [id_pkcs9_at_unstructuredName];
+
+  parse(attribute: AsnAttribute): ParsedAttribute {
+    const un = AsnParser.parse(attribute.values[0], UnstructuredName);
+    const value = un.utf8String ?? un.ia5String ?? un.toString();
+
+    return {
+      oid: attribute.type,
+      children: [node('Value', value ?? '')],
+    };
+  }
+}
+
+export class ExtensionRequestParser implements AttributeParser {
+  readonly oids = [id_pkcs9_at_extensionRequest];
+
+  parse(attribute: AsnAttribute): ParsedAttribute {
+    const er = AsnParser.parse(attribute.values[0], ExtensionRequest);
+
+    return {
+      oid: attribute.type,
+      children: er.map(parseExtension),
+    };
+  }
+}

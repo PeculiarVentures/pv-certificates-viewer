@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Extension } from '@peculiar/asn1-x509';
+import { Attribute, Extension } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 
 /**
@@ -22,4 +22,18 @@ export function makeExtRaw(oid: string, valueHex: string, critical = false): Ext
   ext.extnValue = { buffer: Convert.FromHex(valueHex) } as any;
 
   return ext;
+}
+
+/**
+ * Build a minimal Attribute object from a raw DER-encoded value hex string.
+ * The `valueHex` should be the DER bytes of the attribute value (what
+ * `AsnParser` would normally read from `attribute.values[0]`).
+ */
+export function makeAttrRaw(oid: string, valueHex: string): Attribute {
+  const attr = new Attribute();
+
+  attr.type = oid;
+  attr.values = [Convert.FromHex(valueHex)];
+
+  return attr;
 }

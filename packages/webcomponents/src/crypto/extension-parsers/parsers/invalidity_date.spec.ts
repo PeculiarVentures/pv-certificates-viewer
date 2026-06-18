@@ -20,7 +20,7 @@ describe('InvalidityDateParser', () => {
       oid: '2.5.29.24',
       critical: false,
       children: [{
-        title: 'Invalidity Date', value: '2023-01-15T12:00:00.000Z',
+        title: 'Invalidity Date', value: 'Sun, 15 Jan 2023 12:00:00 GMT',
       }],
     });
   });
