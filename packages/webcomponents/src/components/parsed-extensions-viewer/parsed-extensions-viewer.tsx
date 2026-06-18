@@ -32,13 +32,15 @@ function renderNode(node: ExtensionNode) {
   if (node.children?.length) {
     return (
       <TableRowTable>
-        <tr>
-          <td colSpan={2}>
-            <Typography variant="b2" color="gray-9">
-              {node.title}
-            </Typography>
-          </td>
-        </tr>
+        {node.title && (
+          <tr>
+            <td colSpan={2}>
+              <Typography variant="b2" color="gray-9">
+                {node.title}
+              </Typography>
+            </td>
+          </tr>
+        )}
         {node.children.map(renderNode)}
       </TableRowTable>
     );

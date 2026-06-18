@@ -16,6 +16,7 @@ import {
   IntegerSet,
   RootOfTrust,
   VerifiedBootState,
+  AttestationApplicationId,
 } from '@peculiar/asn1-android';
 import { Convert, BufferSourceConverter } from 'pvtsutils';
 import { camelCaseToWords } from '../../../utils/camel_case_to_words';
@@ -50,6 +51,30 @@ function formatAuthValue(key: string, value: unknown): ExtensionNode | null {
         ? [node('Boot Hash', Convert.ToHex(value.verifiedBootHash))]
         : []),
     ]);
+  }
+
+  if (key === 'attestationApplicationId' && BufferSourceConverter.isBufferSource(value)) {
+    try {
+      const appId = AsnParser.parse(value as BufferSource, AttestationApplicationId);
+      const items: ExtensionNode[] = [];
+
+      if (appId.packageInfos.length > 0) {
+        items.push(section('Package Infos', appId.packageInfos.map((pkg) => section('', [
+          node('Package Name', Convert.ToString(pkg.packageName)),
+          node('Version', pkg.version),
+        ]))));
+      }
+
+      if (appId.signatureDigests.length > 0) {
+        items.push(section('Signature Digests', appId.signatureDigests.map((digest) => (
+          node('Digest', Convert.ToHex(digest))
+        ))));
+      }
+
+      return section(camelCaseToWords(key), items);
+    } catch {
+      // fall through to generic buffer handling
+    }
   }
 
   if (BufferSourceConverter.isBufferSource(value)) {
@@ -108,7 +133,6 @@ export class KeyDescriptionParser implements ExtensionParser {
     const swNodes = parseAuthList(kd.softwareEnforced);
 
     if (swNodes.length > 0) {
-      // TODO: add AttestationApplicationId support
       children.push(section('Software Enforced', swNodes));
     }
 

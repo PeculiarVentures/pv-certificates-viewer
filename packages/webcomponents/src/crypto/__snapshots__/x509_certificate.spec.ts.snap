@@ -219,8 +219,36 @@ X509Certificate {
         {
           "children": [
             {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "title": "Package Name",
+                          "value": "com.tickpickllc.ceobrien.tickpick",
+                        },
+                        {
+                          "title": "Version",
+                          "value": 297,
+                        },
+                      ],
+                      "title": "",
+                    },
+                  ],
+                  "title": "Package Infos",
+                },
+                {
+                  "children": [
+                    {
+                      "title": "Digest",
+                      "value": "ce016851b704da76fdedde34ab314a155ca5a5db31266d2685fcbf281ab51028",
+                    },
+                  ],
+                  "title": "Signature Digests",
+                },
+              ],
               "title": "Attestation Application Id",
-              "value": "304f312930270421636f6d2e7469636b7069636b6c6c632e63656f627269656e2e7469636b7069636b0202012931220420ce016851b704da76fdedde34ab314a155ca5a5db31266d2685fcbf281ab51028",
             },
           ],
           "title": "Software Enforced",

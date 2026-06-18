@@ -1,4 +1,4 @@
-import { Extension, id_ce_extKeyUsage } from '@peculiar/asn1-x509';
+import { id_ce_extKeyUsage } from '@peculiar/asn1-x509';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { ExtendedKeyUsageParser } from './extended_key_usage';
 
