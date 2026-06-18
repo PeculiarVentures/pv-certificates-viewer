@@ -81,6 +81,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "authorityKeyId",
           "title": "Key Identifier",
           "value": "82b7384a93aa9b10ef80bbd954e2f10ffb809cde",
         },
@@ -91,6 +92,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "subjectKeyId",
           "title": "Key Identifier",
           "value": "82b7384a93aa9b10ef80bbd954e2f10ffb809cde",
         },
@@ -392,6 +394,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "authorityKeyId",
           "title": "Key Identifier",
           "value": "4832c7a87e624a9e0500dece97fa531be0a34cfc",
         },
@@ -439,10 +442,12 @@ X509Certificate {
     {
       "children": SubjectAlternativeName [
         {
+          "_type": "dNSName",
           "title": "DNS Name",
           "value": "eidas.ec.europa.eu",
         },
         {
+          "_type": "dNSName",
           "title": "DNS Name",
           "value": "esignature.ec.europa.eu",
         },
@@ -634,6 +639,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "subjectKeyId",
           "title": "Key Identifier",
           "value": "98bfc65bfb82e577d9e213480db360b171de2b15",
         },
@@ -1068,6 +1074,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "authorityKeyId",
           "title": "Key Identifier",
           "value": "bbce747183344e593245155f406060dc2bb0b4e4",
         },
@@ -1098,6 +1105,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "subjectKeyId",
           "title": "Key Identifier",
           "value": "df3f39dbad6065505f33919a47a68e414eb54fdb",
         },
@@ -1213,6 +1221,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "subjectKeyId",
           "title": "Key Identifier",
           "value": "8106e2e52f7f49532659935c87bcc2e6a4117400",
         },
@@ -1223,6 +1232,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "authorityKeyId",
           "title": "Key Identifier",
           "value": "6db0f95d654edc80877c6fdd02ddd3b1606f72b0",
         },
@@ -1373,6 +1383,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "subjectKeyId",
           "title": "Key Identifier",
           "value": "e811fc46be23b48f3ef7b1d778df0997b8ec4524",
         },
@@ -1383,6 +1394,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "authorityKeyId",
           "title": "Key Identifier",
           "value": "87c9bc3197127a73bb7ec03d4551b401259551ab",
         },
@@ -1824,6 +1836,7 @@ X509Certificate {
     {
       "children": SubjectAlternativeName [
         {
+          "_type": "dNSName",
           "title": "DNS Name",
           "value": "example.com",
         },
@@ -1853,6 +1866,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "authorityKeyId",
           "title": "Key Identifier",
           "value": "ecbdde59adfd9b5517e7704c06579f2122b07700",
         },
@@ -2064,6 +2078,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "subjectKeyId",
           "title": "Key Identifier",
           "value": "aaaf00de420f95827e3ea123c07648f2b23ae101",
         },
@@ -2074,6 +2089,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "authorityKeyId",
           "title": "Key Identifier",
           "value": "791ed7342f91be368f795a222e6fbb4239feebb7",
         },
@@ -2228,6 +2244,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "authorityKeyId",
           "title": "Key Identifier",
           "value": "bceb5efbd80de882ae8646bd3b7cb26fd12c7f0a",
         },
@@ -2275,6 +2292,7 @@ X509Certificate {
     {
       "children": SubjectAlternativeName [
         {
+          "_type": "dNSName",
           "title": "DNS Name",
           "value": "api.c10.containers.vernieuwingsdomein.nl",
         },
@@ -2485,6 +2503,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "subjectKeyId",
           "title": "Key Identifier",
           "value": "c8ccb5ec83ef1bcd3a022dacdd3badf07679d192",
         },
@@ -2606,6 +2625,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "authorityKeyId",
           "title": "Key Identifier",
           "value": "580184241bbc2b52944a3da510721451f5af3ac9",
         },
@@ -2616,6 +2636,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "subjectKeyId",
           "title": "Key Identifier",
           "value": "32072c9e745d2d5d29bbb17a8d3b1552b47d4278",
         },
@@ -2731,6 +2752,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "subjectKeyId",
           "title": "Key Identifier",
           "value": "6ba5bdcf9dfa235978126417ae1e72d89a804ae8",
         },
@@ -2741,6 +2763,7 @@ X509Certificate {
     {
       "children": [
         {
+          "_type": "authorityKeyId",
           "title": "Key Identifier",
           "value": "6ba5bdcf9dfa235978126417ae1e72d89a804ae8",
         },

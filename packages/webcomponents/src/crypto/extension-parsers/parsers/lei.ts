@@ -25,7 +25,7 @@ export class LeiParser implements ExtensionParser {
     const children = [];
 
     if (lei.struct != null) {
-      children.push(node('LEI Code', lei.struct.leiCode));
+      children.push(node('LEI Code', lei.struct.leiCode, 'lei'));
 
       if (lei.struct.leiRole != null) {
         children.push(node('LEI Role', lei.struct.leiRole));
@@ -41,7 +41,7 @@ export class LeiParser implements ExtensionParser {
     return {
       oid: extension.extnID,
       critical: extension.critical ?? false,
-      children: [node('LEI Code', lei.text ?? '')],
+      children: [node('LEI Code', lei.text ?? '', 'lei')],
     };
   }
 }

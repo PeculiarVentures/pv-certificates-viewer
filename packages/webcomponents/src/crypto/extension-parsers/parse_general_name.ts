@@ -20,7 +20,7 @@ export function parseGeneralName(gn: GeneralName): ExtensionNode {
   }
 
   if (gn.dNSName != null) {
-    return node('DNS Name', gn.dNSName);
+    return node('DNS Name', gn.dNSName, 'dNSName');
   }
 
   if (gn.rfc822Name != null) {
@@ -33,7 +33,7 @@ export function parseGeneralName(gn: GeneralName): ExtensionNode {
 
   // iPAddress: AsnIpConverter already converts the raw bytes to a dotted/colon string
   if (gn.iPAddress != null) {
-    return node('IP Address', gn.iPAddress);
+    return node('IP Address', gn.iPAddress, 'iPAddress');
   }
 
   // --- Structured types ---

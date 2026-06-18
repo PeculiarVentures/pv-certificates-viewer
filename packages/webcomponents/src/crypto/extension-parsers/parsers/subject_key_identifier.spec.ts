@@ -22,7 +22,7 @@ describe('SubjectKeyIdentifierParser', () => {
       critical: false,
       children: [
         {
-          title: 'Key Identifier', value: 'aabbccddee112233445566778899aabbccddeeff',
+          title: 'Key Identifier', value: 'aabbccddee112233445566778899aabbccddeeff', _type: 'subjectKeyId',
         },
       ],
     });

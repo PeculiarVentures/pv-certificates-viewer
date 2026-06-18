@@ -22,7 +22,7 @@ describe('AuthorityKeyIdentifierParser', () => {
       critical: false,
       children: [
         {
-          title: 'Key Identifier', value: '0102030405060708090a0b0c0d0e0f10',
+          title: 'Key Identifier', value: '0102030405060708090a0b0c0d0e0f10', _type: 'authorityKeyId',
         },
       ],
     });
@@ -40,7 +40,7 @@ describe('AuthorityKeyIdentifierParser', () => {
       critical: false,
       children: [
         {
-          title: 'Key Identifier', value: '0a0b0c0d',
+          title: 'Key Identifier', value: '0a0b0c0d', _type: 'authorityKeyId',
         },
         {
           title: 'Serial Number', value: '0102',

@@ -20,7 +20,7 @@ describe('SubjectAlternativeNameParser', () => {
       critical: false,
       children: [
         {
-          title: 'DNS Name', value: 'example.com',
+          title: 'DNS Name', value: 'example.com', _type: 'dNSName',
         },
         {
           title: 'URI', value: 'http://example.com',
@@ -57,7 +57,7 @@ describe('SubjectAlternativeNameParser', () => {
       critical: false,
       children: [
         {
-          title: 'IP Address', value: '192.0.2.1',
+          title: 'IP Address', value: '192.0.2.1', _type: 'iPAddress',
         },
       ],
     });

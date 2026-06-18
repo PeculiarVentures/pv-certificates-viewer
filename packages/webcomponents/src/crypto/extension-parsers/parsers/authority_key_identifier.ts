@@ -27,7 +27,7 @@ export class AuthorityKeyIdentifierParser implements ExtensionParser {
     const children: ExtensionNode[] = [];
 
     if (aki.keyIdentifier != null) {
-      children.push(node('Key Identifier', Convert.ToHex(aki.keyIdentifier.buffer)));
+      children.push(node('Key Identifier', Convert.ToHex(aki.keyIdentifier.buffer), 'authorityKeyId'));
     }
 
     if (aki.authorityCertSerialNumber != null) {

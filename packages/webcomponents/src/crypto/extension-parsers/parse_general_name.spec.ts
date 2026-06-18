@@ -45,6 +45,7 @@ describe('parseGeneralName', () => {
     expect(parseGeneralName(gn({ dNSName: 'example.com' }))).toEqual({
       title: 'DNS Name',
       value: 'example.com',
+      _type: 'dNSName',
     });
   });
 
@@ -67,6 +68,7 @@ describe('parseGeneralName', () => {
     expect(parseGeneralName(gn({ iPAddress: '10.0.0.1' }))).toEqual({
       title: 'IP Address',
       value: '10.0.0.1',
+      _type: 'iPAddress',
     });
   });
 
@@ -74,6 +76,7 @@ describe('parseGeneralName', () => {
     expect(parseGeneralName(gn({ iPAddress: '2001:db8::1' }))).toEqual({
       title: 'IP Address',
       value: '2001:db8::1',
+      _type: 'iPAddress',
     });
   });
 

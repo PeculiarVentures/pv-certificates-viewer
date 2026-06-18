@@ -26,7 +26,7 @@ describe('NameConstraintsParser', () => {
           title: 'Permitted Subtrees',
           children: [
             {
-              title: 'DNS Name', value: '.example.com',
+              title: 'DNS Name', value: '.example.com', _type: 'dNSName',
             },
           ],
         },
@@ -34,7 +34,7 @@ describe('NameConstraintsParser', () => {
           title: 'Excluded Subtrees',
           children: [
             {
-              title: 'DNS Name', value: '.evil.com',
+              title: 'DNS Name', value: '.evil.com', _type: 'dNSName',
             },
           ],
         },
@@ -57,7 +57,7 @@ describe('NameConstraintsParser', () => {
           title: 'Permitted Subtrees',
           children: [
             {
-              title: 'DNS Name', value: 'sub.example.com',
+              title: 'DNS Name', value: 'sub.example.com', _type: 'dNSName',
             },
             {
               title: 'Minimum', value: 1,
@@ -86,7 +86,7 @@ describe('NameConstraintsParser', () => {
           title: 'Permitted Subtrees',
           children: [
             {
-              title: 'DNS Name', value: '.example.com',
+              title: 'DNS Name', value: '.example.com', _type: 'dNSName',
             },
           ],
         },

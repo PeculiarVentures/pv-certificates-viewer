@@ -19,6 +19,7 @@ import { X509Crl } from '../../crypto';
 import {
   getDNSNameLink, getIPAddressLink, getLEILink,
 } from '../../utils/third_party_links';
+import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import {
   BasicInformation,
   IssuerName,
@@ -133,16 +134,6 @@ export class CrlViewer {
     this.isDecodeInProcess = false;
   }
 
-  private getAuthKeyIdParentLink = (value: string) => this.authKeyIdParentLink
-    ?.replace('{{authKeyId}}', value);
-
-  private getAuthKeyIdSiblingsLink = (value: string) => this.authKeyIdSiblingsLink
-    ?.replace('{{authKeyId}}', value);
-
-  private getIssuerDnLink() {
-    return this.issuerDnLink;
-  }
-
   /**
    * Rerun decodeCertificate if previuos value not equal current value
    */
@@ -198,6 +189,8 @@ export class CrlViewer {
       return this.renderEmptyState();
     }
 
+    const linkTemplateResolvers = buildLinkTemplateResolvers(this);
+
     return (
       <Host
         data-mobile-screen-view={String(this.mobileScreenView)}
@@ -209,7 +202,7 @@ export class CrlViewer {
 
           <IssuerName
             name={this.certificateDecoded.issuer}
-            issuerDnLink={this.getIssuerDnLink()}
+            issuerDnLink={linkTemplateResolvers.getIssuerDnLink()}
           />
 
           <Signature
@@ -225,8 +218,7 @@ export class CrlViewer {
             getLEILink={getLEILink}
             getDNSNameLink={getDNSNameLink}
             getIPAddressLink={getIPAddressLink}
-            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
-            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
+            {...linkTemplateResolvers}
           />
 
           <RevokedCertificates

@@ -6,11 +6,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import type { ExtensionNode, Primitive } from './types';
+import type {
+  ExtensionNode, ExtensionNodeType, Primitive,
+} from './types';
 
-export const node = (title: string, value: Primitive): ExtensionNode => ({
+export const node = (
+  title: string,
+  value: Primitive,
+  _type?: ExtensionNodeType,
+): ExtensionNode => ({
   title,
   value,
+  ...(_type && { _type }),
 });
 
 export const section = (title: string, children: ExtensionNode[]): ExtensionNode => ({

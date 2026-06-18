@@ -16,6 +16,7 @@ import {
   Build,
 } from '@stencil/core';
 import { X509Certificate } from '../../crypto';
+import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import {
   BasicInformation,
   SubjectName,
@@ -169,22 +170,6 @@ export class CertificateViewer {
     }
   }
 
-  // private getAuthKeyIdParentLink = (value: string) => this.authKeyIdParentLink
-  //   ?.replace('{{authKeyId}}', value);
-
-  // private getAuthKeyIdSiblingsLink = (value: string) => this.authKeyIdSiblingsLink
-  //   ?.replace('{{authKeyId}}', value);
-
-  // private getSubjectKeyIdChildrenLink = (value: string) => this.subjectKeyIdChildrenLink
-  //   ?.replace('{{subjectKeyId}}', value);
-
-  // private getSubjectKeyIdSiblingsLink = (value: string) => this.subjectKeyIdSiblingsLink
-  //   ?.replace('{{subjectKeyId}}', value);
-
-  private getIssuerDnLink() {
-    return this.issuerDnLink;
-  }
-
   private renderErrorState() {
     return (
       <div class="status_wrapper">
@@ -214,6 +199,8 @@ export class CertificateViewer {
       return this.renderEmptyState();
     }
 
+    const linkTemplateResolvers = buildLinkTemplateResolvers(this);
+
     return (
       <Host
         data-mobile-screen-view={String(this.mobileScreenView)}
@@ -229,7 +216,7 @@ export class CertificateViewer {
 
           <IssuerName
             name={this.certificateDecoded.issuer}
-            issuerDnLink={this.getIssuerDnLink()}
+            issuerDnLink={linkTemplateResolvers.getIssuerDnLink()}
           />
 
           <PublicKey
@@ -246,6 +233,7 @@ export class CertificateViewer {
 
           <ParsedExtensions
             extensions={this.certificateDecoded.extensions}
+            {...linkTemplateResolvers}
           />
 
           {this.download && (

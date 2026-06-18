@@ -19,6 +19,7 @@ import { X509AttributeCertificate } from '../../crypto';
 import {
   getDNSNameLink, getIPAddressLink, getLEILink,
 } from '../../utils/third_party_links';
+import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import {
   BasicInformation,
   Signature,
@@ -173,18 +174,6 @@ export class AttributeCertificateViewer {
     }
   }
 
-  private getAuthKeyIdParentLink = (value: string) => this.authKeyIdParentLink
-    ?.replace('{{authKeyId}}', value);
-
-  private getAuthKeyIdSiblingsLink = (value: string) => this.authKeyIdSiblingsLink
-    ?.replace('{{authKeyId}}', value);
-
-  private getSubjectKeyIdChildrenLink = (value: string) => this.subjectKeyIdChildrenLink
-    ?.replace('{{subjectKeyId}}', value);
-
-  private getSubjectKeyIdSiblingsLink = (value: string) => this.subjectKeyIdSiblingsLink
-    ?.replace('{{subjectKeyId}}', value);
-
   private renderErrorState() {
     return (
       <div class="status_wrapper">
@@ -213,6 +202,8 @@ export class AttributeCertificateViewer {
     if (!this.certificateDecoded) {
       return this.renderEmptyState();
     }
+
+    const linkTemplateResolvers = buildLinkTemplateResolvers(this);
 
     return (
       <Host
@@ -244,10 +235,7 @@ export class AttributeCertificateViewer {
             getLEILink={getLEILink}
             getDNSNameLink={getDNSNameLink}
             getIPAddressLink={getIPAddressLink}
-            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
-            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
-            getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
-            getSubjectKeyIdSiblingsLink={this.getSubjectKeyIdSiblingsLink}
+            {...linkTemplateResolvers}
           />
 
           <Extensions
@@ -255,10 +243,7 @@ export class AttributeCertificateViewer {
             getLEILink={getLEILink}
             getDNSNameLink={getDNSNameLink}
             getIPAddressLink={getIPAddressLink}
-            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
-            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
-            getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
-            getSubjectKeyIdSiblingsLink={this.getSubjectKeyIdSiblingsLink}
+            {...linkTemplateResolvers}
           />
 
           {this.download && (

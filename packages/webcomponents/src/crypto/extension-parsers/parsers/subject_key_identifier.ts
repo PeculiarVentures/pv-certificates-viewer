@@ -26,7 +26,7 @@ export class SubjectKeyIdentifierParser implements ExtensionParser {
       oid: extension.extnID,
       critical: extension.critical ?? false,
       children: [
-        node('Key Identifier', Convert.ToHex(ski.buffer)),
+        node('Key Identifier', Convert.ToHex(ski.buffer), 'subjectKeyId'),
       ],
     };
   }

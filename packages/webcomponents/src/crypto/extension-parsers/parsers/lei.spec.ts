@@ -26,7 +26,7 @@ describe('LeiParser', () => {
       oid: id_lei,
       critical: false,
       children: [{
-        title: 'LEI Code', value: '529900T8BM49AURSDO55',
+        title: 'LEI Code', value: '529900T8BM49AURSDO55', _type: 'lei',
       }],
     });
   });

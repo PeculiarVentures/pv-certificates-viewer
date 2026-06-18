@@ -19,6 +19,7 @@ import { Pkcs10CertificateRequest } from '../../crypto';
 import {
   getDNSNameLink, getIPAddressLink, getLEILink,
 } from '../../utils/third_party_links';
+import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import {
   BasicInformation,
   SubjectName,
@@ -153,16 +154,6 @@ export class CsrViewer {
     }
   }
 
-  private getAuthKeyIdParentLink = (value: string) => value;
-
-  private getAuthKeyIdSiblingsLink = (value: string) => value;
-
-  private getSubjectKeyIdChildrenLink = (value: string) => this.subjectKeyIdChildrenLink
-    ?.replace('{{subjectKeyId}}', value);
-
-  private getSubjectKeyIdSiblingsLink = (value: string) => this.subjectKeyIdSiblingsLink
-    ?.replace('{{subjectKeyId}}', value);
-
   private renderErrorState() {
     return (
       <div class="status_wrapper">
@@ -191,6 +182,8 @@ export class CsrViewer {
     if (!this.certificateDecoded) {
       return this.renderEmptyState();
     }
+
+    const linkTemplateResolvers = buildLinkTemplateResolvers(this);
 
     return (
       <Host
@@ -222,10 +215,7 @@ export class CsrViewer {
             getLEILink={getLEILink}
             getDNSNameLink={getDNSNameLink}
             getIPAddressLink={getIPAddressLink}
-            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
-            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
-            getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
-            getSubjectKeyIdSiblingsLink={this.getSubjectKeyIdSiblingsLink}
+            {...linkTemplateResolvers}
           />
 
           {this.download && (
