@@ -53,7 +53,7 @@ export class X509Crl extends AsnData<CertificateList> {
 
     const { tbsCertList } = this.asn;
 
-    this.issuer = new Name(tbsCertList.issuer).toJSON();
+    this.issuer = Name.parse(tbsCertList.issuer);
     this.version = tbsCertList.version + 1;
     this.lastUpdate = tbsCertList.thisUpdate.getTime();
     this.nextUpdate = tbsCertList.nextUpdate.getTime();
@@ -98,7 +98,7 @@ export class X509Crl extends AsnData<CertificateList> {
     for (let i = 0; i < this.issuer.length; i += 1) {
       const name = this.issuer[i];
 
-      if (name.shortName === 'CN' || name.shortName === 'E' || name.shortName === 'O') {
+      if (name.short === 'CN' || name.short === 'E' || name.short === 'O') {
         return name.value;
       }
     }

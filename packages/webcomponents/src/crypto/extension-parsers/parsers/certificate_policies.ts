@@ -13,6 +13,8 @@ import {
   Extension,
   UserNotice,
   id_ce_certificatePolicies,
+  id_qt_csp,
+  id_qt_unotice,
 } from '@peculiar/asn1-x509';
 import type {
   IExtensionNode,
@@ -21,13 +23,8 @@ import type {
 } from '../types';
 import { node, section } from '../builders';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const id_qt_cps = '1.3.6.1.5.5.7.2.1';
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const id_qt_unotice = '1.3.6.1.5.5.7.2.2';
-
 function parseQualifierValue(qualifier: ArrayBuffer, qualifierId: string): IExtensionNode | null {
-  if (qualifierId === id_qt_cps) {
+  if (qualifierId === id_qt_csp) {
     try {
       return node('Value', AsnParser.parse(qualifier, DisplayText).toString());
     } catch {

@@ -50,7 +50,7 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
 
     const { certificationRequestInfo } = this.asn;
 
-    this.subject = new Name(certificationRequestInfo.subject).toJSON();
+    this.subject = Name.parse(certificationRequestInfo.subject);
     this.version = certificationRequestInfo.version;
   }
 
@@ -92,7 +92,7 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
     for (let i = 0; i < this.subject.length; i += 1) {
       const name = this.subject[i];
 
-      if (name.shortName === 'CN' || name.shortName === 'E' || name.shortName === 'O') {
+      if (name.short === 'CN' || name.short === 'E' || name.short === 'O') {
         return name.value;
       }
     }

@@ -72,8 +72,8 @@ export class X509Certificate extends AsnData<Certificate> {
     const { tbsCertificate } = this.asn;
 
     this.serialNumber = Convert.ToHex(tbsCertificate.serialNumber);
-    this.subject = new Name(tbsCertificate.subject).toJSON();
-    this.issuer = new Name(tbsCertificate.issuer).toJSON();
+    this.subject = Name.parse(tbsCertificate.subject);
+    this.issuer = Name.parse(tbsCertificate.issuer);
     this.version = tbsCertificate.version + 1;
 
     const notBefore = tbsCertificate.validity.notBefore.utcTime
@@ -178,7 +178,7 @@ export class X509Certificate extends AsnData<Certificate> {
     for (let i = 0; i < this.subject.length; i += 1) {
       const name = this.subject[i];
 
-      if (name.shortName === 'CN' || name.shortName === 'E' || name.shortName === 'O') {
+      if (name.short === 'CN' || name.short === 'E' || name.short === 'O') {
         return name.value;
       }
     }
@@ -194,7 +194,7 @@ export class X509Certificate extends AsnData<Certificate> {
     for (let i = 0; i < this.issuer.length; i += 1) {
       const name = this.issuer[i];
 
-      if (name.shortName === 'CN' || name.shortName === 'E' || name.shortName === 'O') {
+      if (name.short === 'CN' || name.short === 'E' || name.short === 'O') {
         return name.value;
       }
     }
@@ -213,7 +213,7 @@ export class X509Certificate extends AsnData<Certificate> {
 
     return this.subject
       .map((name) => (
-        `${name.shortName}=${name.value}`
+        `${name.short}=${name.value}`
       ))
       .join(', ');
   }
@@ -225,7 +225,7 @@ export class X509Certificate extends AsnData<Certificate> {
 
     return this.issuer
       .map((name) => (
-        `${name.shortName}=${name.value}`
+        `${name.short}=${name.value}`
       ))
       .join(', ');
   }

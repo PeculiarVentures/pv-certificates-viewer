@@ -135,19 +135,18 @@ describe('parseGeneralName', () => {
     });
   });
 
-  it('parses directoryName — known OID uses full name from OIDs as title', () => {
-    // 2.5.4.3 = 'Common Name' in OIDs
+  it('parses directoryName — uses OID as title', () => {
     const result = parseGeneralName(directoryNameGn('2.5.4.3', 'Test CA'));
 
     expect(result).toEqual({
       title: 'Directory Name',
       children: [{
-        title: 'Common Name', value: 'Test CA',
+        title: '2.5.4.3', value: 'Test CA',
       }],
     });
   });
 
-  it('parses directoryName — unknown OID falls back to raw OID as title', () => {
+  it('parses directoryName — unknown OID uses raw OID as title', () => {
     const result = parseGeneralName(directoryNameGn('1.2.3.4.99', 'Unknown'));
 
     expect(result).toEqual({
@@ -177,10 +176,10 @@ describe('parseGeneralName', () => {
       title: 'Directory Name',
       children: [
         {
-          title: 'Common Name', value: 'Test CA',
+          title: '2.5.4.3', value: 'Test CA',
         },
         {
-          title: 'Organization', value: 'Test Org',
+          title: '2.5.4.10', value: 'Test Org',
         },
       ],
     });

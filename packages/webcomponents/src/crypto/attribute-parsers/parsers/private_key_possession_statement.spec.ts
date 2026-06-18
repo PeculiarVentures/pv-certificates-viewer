@@ -23,7 +23,7 @@ describe('PrivateKeyPossessionStatementParser', () => {
         {
           title: 'Issuer',
           children: [{
-            title: 'Common Name', value: 'Test CA',
+            title: '2.5.4.3', value: 'Test CA',
           }],
         },
       ],

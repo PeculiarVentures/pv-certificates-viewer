@@ -28,9 +28,9 @@ export class PrivateKeyPossessionStatementParser implements IAttributeParser {
 
     children.push(node('Serial Number', Convert.ToHex(pks.signer.serialNumber)));
 
-    const issuerAttrs = new Name(pks.signer.issuer).toJSON();
+    const issuerAttrs = Name.parse(pks.signer.issuer);
 
-    children.push(section('Issuer', issuerAttrs.map((a) => node(a.name ?? a.type, a.value))));
+    children.push(section('Issuer', issuerAttrs.map((a) => node(a.type, a.value))));
 
     if (pks.cert) {
       children.push(node('Certificate', Convert.ToBase64(AsnConvert.serialize(pks.cert))));

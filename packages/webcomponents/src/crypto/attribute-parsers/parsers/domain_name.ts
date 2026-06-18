@@ -27,11 +27,11 @@ function parseDomainName(
   DomainNameClass: typeof DomainNameBeneficiary,
 ): IParsedAttribute {
   const dn = AsnParser.parse(attribute.values[0], DomainNameClass);
-  const attrs = new Name(dn).toJSON();
+  const attrs = Name.parse(dn);
 
   return {
     oid: attribute.type,
-    children: attrs.map((a) => node(a.name ?? a.type, a.value)),
+    children: attrs.map((a) => node(a.type, a.value)),
   };
 }
 

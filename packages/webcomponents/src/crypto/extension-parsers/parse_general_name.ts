@@ -61,10 +61,10 @@ export function parseGeneralName(gn: GeneralName): IExtensionNode {
   }
 
   if (gn.directoryName != null) {
-    const attrs = new Name(gn.directoryName).toJSON();
+    const attrs = Name.parse(gn.directoryName);
 
     return section('Directory Name', attrs.map((attr) => (
-      node(attr.name ?? attr.type, attr.value)
+      node(attr.type, attr.value)
     )));
   }
 
