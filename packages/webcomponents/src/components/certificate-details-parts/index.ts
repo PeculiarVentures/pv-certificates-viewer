@@ -4,8 +4,6 @@ export { SubjectName } from './subject_name';
 export { IssuerName } from './issuer_name';
 export { Signature } from './signature';
 export { Thumbprints } from './thumbprints';
-export { Extensions } from './extensions';
-export { Attributes } from './attributes';
 export { Miscellaneous } from './miscellaneous';
 export { RevokedCertificates } from './revoked_certificates';
 export { Holder } from './holder';

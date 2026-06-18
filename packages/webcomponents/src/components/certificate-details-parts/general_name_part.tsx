@@ -17,8 +17,8 @@ import {
 } from '@peculiar/asn1-x509';
 import { Convert, BufferSourceConverter } from 'pvtsutils';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { OIDs } from '../../../constants/oids';
-import { RowValue, TableRowTable } from '../row';
+import { OIDs } from '../../constants/oids';
+import { RowValue, TableRowTable } from './row';
 
 const names: Record<keyof GeneralName, string> = {
   otherName: 'Other Name',

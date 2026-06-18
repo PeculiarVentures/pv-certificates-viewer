@@ -13,7 +13,7 @@ import { l10n, getStringByOID } from '../../utils';
 import {
   RowTitle, RowValue, TableRowTable,
 } from './row';
-import { GeneralNamePart } from './extensions/general_name_part';
+import { GeneralNamePart } from './general_name_part';
 
 interface IHolderProps {
   holder: X509AttributeCertificate['holder'];
