@@ -14,7 +14,7 @@ describe('AdobeTimestampParser', () => {
   const parser = new AdobeTimestampParser();
 
   it('registers correct OID', () => {
-    expect(parser.oids).toContain(id_adbe_timestamp);
+    expect(parser.oids).toEqual([id_adbe_timestamp]);
   });
 
   it('parses Timestamp with URI location', () => {
@@ -53,7 +53,7 @@ describe('AdobeArchiveRevInfoParser', () => {
   const parser = new AdobeArchiveRevInfoParser();
 
   it('registers correct OID', () => {
-    expect(parser.oids).toContain(id_adbe_archiveRevInfo);
+    expect(parser.oids).toEqual([id_adbe_archiveRevInfo]);
   });
 
   it('parses ArchiveRevInfo version', () => {

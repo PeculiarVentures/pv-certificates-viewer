@@ -7,7 +7,6 @@ describe('PrivateKeyPossessionStatementParser', () => {
 
   it('exposes the correct OID', () => {
     expect(parser.oids).toEqual([id_at_statementOfPossession]);
-    expect(parser.oids).toContain('1.3.6.1.4.1.22112.2.1');
   });
 
   it('parses signer serial number and issuer name', () => {

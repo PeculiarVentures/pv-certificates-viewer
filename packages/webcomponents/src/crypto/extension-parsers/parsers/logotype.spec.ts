@@ -14,7 +14,7 @@ describe('LogotypeParser', () => {
   const parser = new LogotypeParser();
 
   it('registers correct OID', () => {
-    expect(parser.oids).toContain(id_pe_logotype);
+    expect(parser.oids).toEqual([id_pe_logotype]);
   });
 
   it('parses subject logo with direct image and URI', () => {

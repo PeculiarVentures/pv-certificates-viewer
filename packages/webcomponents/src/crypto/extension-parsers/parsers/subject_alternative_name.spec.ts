@@ -6,8 +6,7 @@ describe('SubjectAlternativeNameParser', () => {
   const parser = new SubjectAlternativeNameParser();
 
   it('exposes the correct OID', () => {
-    expect(parser.oids).toContain(id_ce_subjectAltName);
-    expect(parser.oids).toContain('2.5.29.17');
+    expect(parser.oids).toEqual([id_ce_subjectAltName]);
   });
 
   it('parses DNS name and URI', () => {

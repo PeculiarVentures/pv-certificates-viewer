@@ -6,8 +6,7 @@ describe('CRLReasonParser', () => {
   const parser = new CRLReasonParser();
 
   it('exposes the correct OID', () => {
-    expect(parser.oids).toContain(id_ce_cRLReasons);
-    expect(parser.oids).toContain('2.5.29.21');
+    expect(parser.oids).toEqual([id_ce_cRLReasons]);
   });
 
   it('parses keyCompromise reason', () => {

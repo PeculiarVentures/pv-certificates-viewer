@@ -1,6 +1,5 @@
-import { AsnParser } from '@peculiar/asn1-schema';
-import { Extension, id_ce_basicConstraints } from '@peculiar/asn1-x509';
-import { Convert } from 'pvtsutils';
+import { id_ce_basicConstraints } from '@peculiar/asn1-x509';
+import { makeExtRaw } from '../../../tests/test_utils';
 import { BasicConstraintsParser } from './basic_constraints';
 
 describe('BasicConstraintsParser', () => {
@@ -11,12 +10,11 @@ describe('BasicConstraintsParser', () => {
   });
 
   it('parses cA=true with pathLenConstraint=0', () => {
-    const ext = AsnParser.parse(
-      Convert.FromHex('30120603551d130101ff040830060101ff020100'),
-      Extension,
-    );
-
-    expect(parser.parse(ext)).toEqual({
+    expect(parser.parse(makeExtRaw(
+      id_ce_basicConstraints,
+      '30060101ff020100',
+      true,
+    ))).toEqual({
       oid: '2.5.29.19',
       critical: true,
       children: [
@@ -31,12 +29,11 @@ describe('BasicConstraintsParser', () => {
   });
 
   it('parses cA=true without pathLenConstraint', () => {
-    const ext = AsnParser.parse(
-      Convert.FromHex('300f0603551d130101ff040530030101ff'),
-      Extension,
-    );
-
-    expect(parser.parse(ext)).toEqual({
+    expect(parser.parse(makeExtRaw(
+      id_ce_basicConstraints,
+      '30030101ff',
+      true,
+    ))).toEqual({
       oid: '2.5.29.19',
       critical: true,
       children: [{
@@ -46,13 +43,10 @@ describe('BasicConstraintsParser', () => {
   });
 
   it('defaults cA to false when absent', () => {
-    const ext = AsnParser.parse(
-      // SEQUENCE { OID 2.5.29.19, OCTET STRING { SEQUENCE {} } }  — empty BasicConstraints
-      Convert.FromHex('30090603551d1304023000'),
-      Extension,
-    );
-
-    expect(parser.parse(ext)).toEqual({
+    expect(parser.parse(makeExtRaw(
+      id_ce_basicConstraints,
+      '3000',
+    ))).toEqual({
       oid: '2.5.29.19',
       critical: false,
       children: [{

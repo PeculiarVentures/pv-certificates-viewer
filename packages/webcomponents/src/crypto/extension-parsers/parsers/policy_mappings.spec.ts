@@ -6,8 +6,7 @@ describe('PolicyMappingsParser', () => {
   const parser = new PolicyMappingsParser();
 
   it('exposes the correct OID', () => {
-    expect(parser.oids).toContain(id_ce_policyMappings);
-    expect(parser.oids).toContain('2.5.29.33');
+    expect(parser.oids).toEqual([id_ce_policyMappings]);
   });
 
   it('parses a single policy mapping', () => {

@@ -15,7 +15,7 @@ describe('CabfOrganizationIdentifierParser', () => {
   const parser = new CabfOrganizationIdentifierParser();
 
   it('registers correct OID', () => {
-    expect(parser.oids).toContain(id_cabforganizationIdentifier);
+    expect(parser.oids).toEqual([id_cabforganizationIdentifier]);
   });
 
   it('parses CABF organization identifier with all fields', () => {
@@ -82,7 +82,7 @@ describe('AppleDeveloperIdDateParser', () => {
   const parser = new AppleDeveloperIdDateParser();
 
   it('registers correct OID', () => {
-    expect(parser.oids).toContain(id_appleDeveloperIdDate);
+    expect(parser.oids).toEqual([id_appleDeveloperIdDate]);
   });
 
   it('parses Apple Developer ID date', () => {

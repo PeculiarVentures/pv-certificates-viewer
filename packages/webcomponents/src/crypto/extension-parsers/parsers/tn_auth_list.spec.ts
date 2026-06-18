@@ -14,7 +14,7 @@ describe('TNAuthorizationListParser', () => {
   const parser = new TNAuthorizationListParser();
 
   it('registers correct OID', () => {
-    expect(parser.oids).toContain(id_pe_TNAuthList);
+    expect(parser.oids).toEqual([id_pe_TNAuthList]);
   });
 
   it('parses telephone number entry', () => {

@@ -14,7 +14,7 @@ describe('LeiParser', () => {
   const parser = new LeiParser();
 
   it('registers correct OID', () => {
-    expect(parser.oids).toContain(id_lei);
+    expect(parser.oids).toEqual([id_lei]);
   });
 
   it('parses LEI PrintableString code', () => {
@@ -36,7 +36,7 @@ describe('LeiRoleParser', () => {
   const parser = new LeiRoleParser();
 
   it('registers correct OID', () => {
-    expect(parser.oids).toContain(id_role);
+    expect(parser.oids).toEqual([id_role]);
   });
 
   it('parses LEI Role', () => {

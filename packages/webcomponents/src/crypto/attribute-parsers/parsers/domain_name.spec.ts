@@ -21,7 +21,6 @@ describe('DomainNameBeneficiaryParser', () => {
 
   it('exposes the correct OID', () => {
     expect(parser.oids).toEqual([id_DomainNameBeneficiary]);
-    expect(parser.oids).toContain('0.4.0.9496.1');
   });
 
   it('parses a domain name RDN set', () => {
@@ -68,7 +67,6 @@ describe('DomainNameLegalRepresentativeParser', () => {
 
   it('exposes the correct OID', () => {
     expect(parser.oids).toEqual([id_DomainNameLegalRepresentative]);
-    expect(parser.oids).toContain('0.4.0.9496.2');
   });
 
   it('parses a domain name RDN set', () => {
@@ -100,7 +98,44 @@ describe('DomainNameOwnerParser', () => {
 
   it('exposes the correct OID', () => {
     expect(parser.oids).toEqual([id_DomainNameOwner]);
-    expect(parser.oids).toContain('0.4.0.9496.3');
+  });
+
+  it('parses a domain name RDN set', () => {
+    expect(parser.parse(makeAttrRaw(id_DomainNameOwner, BENEFICIARY_HEX))).toEqual({
+      oid: '0.4.0.9496.3',
+      children: [
+        {
+          title: 'Common Name', value: 'Nowina',
+        },
+        {
+          title: 'Organization', value: 'Nowina Solutions',
+        },
+        {
+          title: 'Country Name', value: 'LU',
+        },
+        {
+          title: 'Locality', value: 'Kehlen',
+        },
+        {
+          title: 'Postal Code', value: '8287',
+        },
+        {
+          title: 'Street Address', value: 'Zone industrielle 15',
+        },
+        {
+          title: 'Telephone Number', value: '+352-661-231-914',
+        },
+        {
+          title: 'Email', value: 'info@nowina.lu',
+        },
+        {
+          title: 'Organization Identifier', value: 'VATLU-26850682',
+        },
+        {
+          title: 'Organization Identifier', value: 'LEIXG-2221002QQJ6K8YQYQD08',
+        },
+      ],
+    });
   });
 });
 
@@ -109,6 +144,43 @@ describe('DomainNameTechnicalOperatorParser', () => {
 
   it('exposes the correct OID', () => {
     expect(parser.oids).toEqual([id_DomainNameTechnicalOperator]);
-    expect(parser.oids).toContain('0.4.0.9496.4');
+  });
+
+  it('parses a domain name RDN set', () => {
+    expect(parser.parse(makeAttrRaw(id_DomainNameTechnicalOperator, BENEFICIARY_HEX))).toEqual({
+      oid: '0.4.0.9496.4',
+      children: [
+        {
+          title: 'Common Name', value: 'Nowina',
+        },
+        {
+          title: 'Organization', value: 'Nowina Solutions',
+        },
+        {
+          title: 'Country Name', value: 'LU',
+        },
+        {
+          title: 'Locality', value: 'Kehlen',
+        },
+        {
+          title: 'Postal Code', value: '8287',
+        },
+        {
+          title: 'Street Address', value: 'Zone industrielle 15',
+        },
+        {
+          title: 'Telephone Number', value: '+352-661-231-914',
+        },
+        {
+          title: 'Email', value: 'info@nowina.lu',
+        },
+        {
+          title: 'Organization Identifier', value: 'VATLU-26850682',
+        },
+        {
+          title: 'Organization Identifier', value: 'LEIXG-2221002QQJ6K8YQYQD08',
+        },
+      ],
+    });
   });
 });

@@ -6,8 +6,7 @@ describe('SubjectDirectoryAttributesParser', () => {
   const parser = new SubjectDirectoryAttributesParser();
 
   it('exposes the correct OID', () => {
-    expect(parser.oids).toContain(id_ce_subjectDirectoryAttributes);
-    expect(parser.oids).toContain('2.5.29.9');
+    expect(parser.oids).toEqual([id_ce_subjectDirectoryAttributes]);
   });
 
   it('parses an attribute with a UTF8String value', () => {

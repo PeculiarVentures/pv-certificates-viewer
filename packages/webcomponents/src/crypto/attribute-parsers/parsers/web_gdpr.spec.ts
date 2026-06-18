@@ -9,7 +9,6 @@ describe('WebGDPRParser', () => {
 
   it('exposes the correct OID', () => {
     expect(parser.oids).toEqual([id_WebGDPR]);
-    expect(parser.oids).toContain('0.4.0.9496.7');
   });
 
   it('parses GDPR assessment fields', () => {

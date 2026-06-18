@@ -6,8 +6,7 @@ describe('PrivateKeyUsagePeriodParser', () => {
   const parser = new PrivateKeyUsagePeriodParser();
 
   it('exposes the correct OID', () => {
-    expect(parser.oids).toContain(id_ce_privateKeyUsagePeriod);
-    expect(parser.oids).toContain('2.5.29.16');
+    expect(parser.oids).toEqual([id_ce_privateKeyUsagePeriod]);
   });
 
   it('parses notBefore and notAfter', () => {

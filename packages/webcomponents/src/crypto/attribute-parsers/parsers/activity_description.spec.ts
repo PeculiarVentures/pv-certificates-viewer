@@ -11,7 +11,6 @@ describe('ActivityDescriptionParser', () => {
 
   it('exposes the correct OID', () => {
     expect(parser.oids).toEqual([id_ActivityDescription]);
-    expect(parser.oids).toContain('0.4.0.9496.6');
   });
 
   it('parses activity description fields', () => {

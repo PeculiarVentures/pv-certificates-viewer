@@ -7,7 +7,6 @@ describe('ValuationRankingParser', () => {
 
   it('exposes the correct OID', () => {
     expect(parser.oids).toEqual([id_ValuationRanking]);
-    expect(parser.oids).toContain('0.4.0.9496.9');
   });
 
   it('formats star ratings as fractions', () => {

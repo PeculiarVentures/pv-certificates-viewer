@@ -6,8 +6,7 @@ describe('InhibitAnyPolicyParser', () => {
   const parser = new InhibitAnyPolicyParser();
 
   it('exposes the correct OID', () => {
-    expect(parser.oids).toContain(id_ce_inhibitAnyPolicy);
-    expect(parser.oids).toContain('2.5.29.54');
+    expect(parser.oids).toEqual([id_ce_inhibitAnyPolicy]);
   });
 
   it('parses skip certs = 2', () => {

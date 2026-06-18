@@ -6,8 +6,7 @@ describe('NetscapeCommentParser', () => {
   const parser = new NetscapeCommentParser();
 
   it('exposes the correct OID', () => {
-    expect(parser.oids).toContain(id_netscapeComment);
-    expect(parser.oids).toContain('2.16.840.1.113730.1.13');
+    expect(parser.oids).toEqual([id_netscapeComment]);
   });
 
   it('parses a comment string', () => {
@@ -27,8 +26,7 @@ describe('NetscapeCertTypeParser', () => {
   const parser = new NetscapeCertTypeParser();
 
   it('exposes the correct OID', () => {
-    expect(parser.oids).toContain(id_netscapeCertType);
-    expect(parser.oids).toContain('2.16.840.1.113730.1.1');
+    expect(parser.oids).toEqual([id_netscapeCertType]);
   });
 
   it('parses sslClient flag', () => {

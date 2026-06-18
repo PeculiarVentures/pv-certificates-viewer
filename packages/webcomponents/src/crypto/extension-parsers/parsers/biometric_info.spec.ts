@@ -6,9 +6,7 @@ describe('BiometricInfoParser', () => {
   const parser = new BiometricInfoParser();
 
   it('exposes the correct OIDs', () => {
-    expect(parser.oids).toContain(id_pe_biometricInfo);
-    expect(parser.oids).toContain('1.3.6.1.5.5.7.1.2');
-    expect(parser.oids).toContain('2.16.724.1.2.2.4.1');
+    expect(parser.oids).toEqual([id_pe_biometricInfo, '2.16.724.1.2.2.4.1']);
   });
 
   it('parses a biometric entry with predefined type picture', () => {

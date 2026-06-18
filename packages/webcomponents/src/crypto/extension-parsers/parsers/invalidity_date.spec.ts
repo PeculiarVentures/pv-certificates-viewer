@@ -6,8 +6,7 @@ describe('InvalidityDateParser', () => {
   const parser = new InvalidityDateParser();
 
   it('exposes the correct OID', () => {
-    expect(parser.oids).toContain(id_ce_invalidityDate);
-    expect(parser.oids).toContain('2.5.29.24');
+    expect(parser.oids).toEqual([id_ce_invalidityDate]);
   });
 
   it('parses a GeneralizedTime date', () => {

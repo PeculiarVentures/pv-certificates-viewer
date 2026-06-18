@@ -6,8 +6,7 @@ describe('IssuingDistributionPointParser', () => {
   const parser = new IssuingDistributionPointParser();
 
   it('exposes the correct OID', () => {
-    expect(parser.oids).toContain(id_ce_issuingDistributionPoint);
-    expect(parser.oids).toContain('2.5.29.28');
+    expect(parser.oids).toEqual([id_ce_issuingDistributionPoint]);
   });
 
   it('parses onlyContainsCACerts flag', () => {

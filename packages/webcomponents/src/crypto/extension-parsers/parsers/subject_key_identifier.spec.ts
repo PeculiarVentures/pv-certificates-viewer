@@ -1,6 +1,5 @@
-import { AsnParser } from '@peculiar/asn1-schema';
-import { Extension, id_ce_subjectKeyIdentifier } from '@peculiar/asn1-x509';
-import { Convert } from 'pvtsutils';
+import { id_ce_subjectKeyIdentifier } from '@peculiar/asn1-x509';
+import { makeExtRaw } from '../../../tests/test_utils';
 import { SubjectKeyIdentifierParser } from './subject_key_identifier';
 
 describe('SubjectKeyIdentifierParser', () => {
@@ -11,18 +10,16 @@ describe('SubjectKeyIdentifierParser', () => {
   });
 
   it('parses the key identifier as a hex string', () => {
-    // Extension { OID 2.5.29.14, OCTET STRING { OctetString(20 bytes) } }
-    const ext = AsnParser.parse(
-      Convert.FromHex('301d0603551d0e04160414aabbccddee112233445566778899aabbccddeeff'),
-      Extension,
-    );
-
-    expect(parser.parse(ext)).toEqual({
+    // Real extension from Adobe Systems Incorporated.cer (test_assets)
+    expect(parser.parse(makeExtRaw(
+      id_ce_subjectKeyIdentifier,
+      '041482b7384a93aa9b10ef80bbd954e2f10ffb809cde',
+    ))).toEqual({
       oid: '2.5.29.14',
       critical: false,
       children: [
         {
-          title: 'Key Identifier', value: 'aabbccddee112233445566778899aabbccddeeff', _type: 'subjectKeyId',
+          title: 'Key Identifier', value: '82b7384a93aa9b10ef80bbd954e2f10ffb809cde', _type: 'subjectKeyId',
         },
       ],
     });

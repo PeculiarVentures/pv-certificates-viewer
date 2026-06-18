@@ -7,7 +7,6 @@ describe('TypeRelationshipParser', () => {
 
   it('exposes the correct OID', () => {
     expect(parser.oids).toEqual([id_TypeRelationship]);
-    expect(parser.oids).toContain('0.4.0.9496.5');
   });
 
   it('parses relationship flags as Yes/No', () => {

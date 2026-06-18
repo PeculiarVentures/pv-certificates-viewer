@@ -6,8 +6,7 @@ describe('ExtendedKeyUsageParser', () => {
   const parser = new ExtendedKeyUsageParser();
 
   it('exposes the correct OID', () => {
-    expect(parser.oids).toContain(id_ce_extKeyUsage);
-    expect(parser.oids).toContain('2.5.29.37');
+    expect(parser.oids).toEqual([id_ce_extKeyUsage]);
   });
 
   it('parses serverAuth and clientAuth', () => {

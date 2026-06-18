@@ -6,8 +6,7 @@ describe('CRLNumberParser', () => {
   const parser = new CRLNumberParser();
 
   it('exposes the correct OID', () => {
-    expect(parser.oids).toContain(id_ce_cRLNumber);
-    expect(parser.oids).toContain('2.5.29.20');
+    expect(parser.oids).toEqual([id_ce_cRLNumber]);
   });
 
   it('parses CRL number 42', () => {
@@ -26,8 +25,7 @@ describe('CRLDeltaIndicatorParser', () => {
   const parser = new CRLDeltaIndicatorParser();
 
   it('exposes the correct OID', () => {
-    expect(parser.oids).toContain(id_ce_deltaCRLIndicator);
-    expect(parser.oids).toContain('2.5.29.27');
+    expect(parser.oids).toEqual([id_ce_deltaCRLIndicator]);
   });
 
   it('parses base CRL number 10', () => {

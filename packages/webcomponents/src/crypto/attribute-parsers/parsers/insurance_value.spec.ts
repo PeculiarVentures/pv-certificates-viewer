@@ -7,7 +7,6 @@ describe('InsuranceValueParser', () => {
 
   it('exposes the correct OID', () => {
     expect(parser.oids).toEqual([id_InsuranceValue]);
-    expect(parser.oids).toContain('0.4.0.9496.8');
   });
 
   it('formats base, degree, and currency location', () => {

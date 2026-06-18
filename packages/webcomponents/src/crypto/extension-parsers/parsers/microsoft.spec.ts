@@ -22,7 +22,7 @@ describe('CertificateTemplateParser', () => {
   const parser = new CertificateTemplateParser();
 
   it('registers correct OID', () => {
-    expect(parser.oids).toContain(id_certificateTemplate);
+    expect(parser.oids).toEqual([id_certificateTemplate]);
   });
 
   it('parses CertificateTemplate with versions', () => {
@@ -52,7 +52,7 @@ describe('EnrollCertTypeParser', () => {
   const parser = new EnrollCertTypeParser();
 
   it('registers correct OID', () => {
-    expect(parser.oids).toContain(id_enrollCertType);
+    expect(parser.oids).toEqual([id_enrollCertType]);
   });
 
   it('parses EnrollCertType BMPString', () => {
@@ -74,7 +74,7 @@ describe('CaVersionParser', () => {
   const parser = new CaVersionParser();
 
   it('registers correct OID', () => {
-    expect(parser.oids).toContain(id_caVersion);
+    expect(parser.oids).toEqual([id_caVersion]);
   });
 
   it('parses CaVersion integer into certificateIndex and keyIndex', () => {

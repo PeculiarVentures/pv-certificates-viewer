@@ -6,8 +6,7 @@ describe('NameConstraintsParser', () => {
   const parser = new NameConstraintsParser();
 
   it('exposes the correct OID', () => {
-    expect(parser.oids).toContain(id_ce_nameConstraints);
-    expect(parser.oids).toContain('2.5.29.30');
+    expect(parser.oids).toEqual([id_ce_nameConstraints]);
   });
 
   it('parses permittedSubtrees and excludedSubtrees with DNS names', () => {

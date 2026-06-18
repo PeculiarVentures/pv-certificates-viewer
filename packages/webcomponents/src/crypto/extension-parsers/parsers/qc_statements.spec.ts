@@ -6,8 +6,7 @@ describe('QCStatementsParser', () => {
   const parser = new QCStatementsParser();
 
   it('exposes the correct OID', () => {
-    expect(parser.oids).toContain(id_pe_qcStatements);
-    expect(parser.oids).toContain('1.3.6.1.5.5.7.1.3');
+    expect(parser.oids).toEqual([id_pe_qcStatements]);
   });
 
   it('parses pkixQCSyntax-v2 with semanticsIdentifier', () => {
