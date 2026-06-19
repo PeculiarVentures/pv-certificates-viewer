@@ -7,73 +7,26 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { Convert } from 'pvtsutils';
-import type { X509AttributeCertificate } from '../../crypto';
-import { l10n, getStringByOID } from '../../utils';
-import {
-  RowTitle, RowValue, TableRowTable,
-} from './row';
-import { GeneralNamePart } from './general_name_part';
+import type { IExtensionNode } from '../../crypto/extension-parsers/types';
+import { l10n } from '../../utils';
+import { renderNode } from '../parsed-node-renderer/render_node';
+import { RowTitle } from './row';
 
 interface IHolderProps {
-  holder: X509AttributeCertificate['holder'];
+  holder: IExtensionNode[];
 }
 
 export const Holder: FunctionalComponent<IHolderProps> = (props) => {
   const { holder } = props;
 
-  if (!holder) {
+  if (!holder?.length) {
     return null;
   }
-
-  const { baseCertificateID, objectDigestInfo } = holder;
 
   return [
     <RowTitle
       value={l10n.getString('holder')}
     />,
-    baseCertificateID && ([
-      baseCertificateID.issuer.map((item) => (
-        <GeneralNamePart
-          generalName={item}
-          getDNSNameLink={() => ''}
-          getIPAddressLink={() => ''}
-        />
-      )),
-      <tr>
-        <td />
-        <td />
-      </tr>,
-      <RowValue
-        name={l10n.getString('serialNumber')}
-        value={Convert.ToHex(baseCertificateID.serial)}
-        monospace
-      />,
-      <tr>
-        <td />
-        <td />
-      </tr>,
-    ]),
-    objectDigestInfo && ([
-      <RowValue
-        name={l10n.getString('digestInfo')}
-        value=""
-      />,
-      <TableRowTable>
-        <RowValue
-          name={l10n.getString('algorithm')}
-          value={getStringByOID(objectDigestInfo.digestAlgorithm.algorithm)}
-        />
-        <RowValue
-          name={l10n.getString('value')}
-          value={Convert.ToHex(objectDigestInfo.objectDigest)}
-          monospace
-        />
-        <RowValue
-          name={l10n.getString('type')}
-          value={objectDigestInfo.digestedObjectType}
-        />
-      </TableRowTable>,
-    ]),
+    ...holder.map((n) => renderNode(n, {})),
   ];
 };

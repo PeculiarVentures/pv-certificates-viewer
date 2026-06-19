@@ -1,0 +1,485 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`X509AttributeCertificate should parse the test certificate ntqwac-x509-attribute.crt 1`] = `
+X509AttributeCertificate {
+  "attributes": [
+    {
+      "children": [
+        {
+          "title": "2.5.4.3",
+          "value": "Nowina",
+        },
+        {
+          "title": "2.5.4.10",
+          "value": "Nowina Solutions",
+        },
+        {
+          "title": "2.5.4.6",
+          "value": "LU",
+        },
+        {
+          "title": "2.5.4.7",
+          "value": "Kehlen",
+        },
+        {
+          "title": "2.5.4.17",
+          "value": "8287",
+        },
+        {
+          "title": "2.5.4.9",
+          "value": "Zone industrielle 15",
+        },
+        {
+          "title": "2.5.4.20",
+          "value": "+352-661-231-914",
+        },
+        {
+          "title": "1.2.840.113549.1.9.1",
+          "value": "info@nowina.lu",
+        },
+        {
+          "title": "2.5.4.97",
+          "value": "VATLU-26850682",
+        },
+        {
+          "title": "2.5.4.97",
+          "value": "LEIXG-2221002QQJ6K8YQYQD08",
+        },
+      ],
+      "oid": "0.4.0.9496.1",
+    },
+    {
+      "children": [
+        {
+          "title": "2.5.4.42",
+          "value": "Olivier",
+        },
+        {
+          "title": "2.5.4.4",
+          "value": "Barette",
+        },
+        {
+          "title": "2.5.4.10",
+          "value": "Nowina Solutions",
+        },
+        {
+          "title": "2.5.4.6",
+          "value": "BE",
+        },
+        {
+          "title": "2.5.4.5",
+          "value": "PASBE-AB123456",
+        },
+      ],
+      "oid": "0.4.0.9496.2",
+    },
+    {
+      "children": [
+        {
+          "title": "2.5.4.3",
+          "value": "Nowina",
+        },
+        {
+          "title": "2.5.4.10",
+          "value": "Nowina Solutions",
+        },
+        {
+          "title": "2.5.4.6",
+          "value": "LU",
+        },
+        {
+          "title": "2.5.4.7",
+          "value": "Kehlen",
+        },
+        {
+          "title": "2.5.4.17",
+          "value": "8287",
+        },
+        {
+          "title": "2.5.4.9",
+          "value": "Zone industrielle 15",
+        },
+        {
+          "title": "2.5.4.20",
+          "value": "+352-661-231-914",
+        },
+        {
+          "title": "1.2.840.113549.1.9.1",
+          "value": "info@nowina.lu",
+        },
+        {
+          "title": "2.5.4.97",
+          "value": "VATLU-26850682",
+        },
+        {
+          "title": "2.5.4.97",
+          "value": "LEIXG-2221002QQJ6K8YQYQD08",
+        },
+      ],
+      "oid": "0.4.0.9496.3",
+    },
+    {
+      "children": [
+        {
+          "title": "2.5.4.3",
+          "value": "Nowina",
+        },
+        {
+          "title": "2.5.4.10",
+          "value": "Nowina Solutions",
+        },
+        {
+          "title": "2.5.4.6",
+          "value": "LU",
+        },
+        {
+          "title": "2.5.4.7",
+          "value": "Kehlen",
+        },
+        {
+          "title": "2.5.4.17",
+          "value": "8287",
+        },
+        {
+          "title": "2.5.4.9",
+          "value": "Zone industrielle 15",
+        },
+        {
+          "title": "2.5.4.20",
+          "value": "+352-661-231-914",
+        },
+        {
+          "title": "1.2.840.113549.1.9.1",
+          "value": "info@nowina.lu",
+        },
+        {
+          "title": "2.5.4.97",
+          "value": "VATLU-26850682",
+        },
+        {
+          "title": "2.5.4.97",
+          "value": "LEIXG-2221002QQJ6K8YQYQD08",
+        },
+      ],
+      "oid": "0.4.0.9496.4",
+    },
+    {
+      "children": [
+        {
+          "title": "DNBvsDNO",
+          "value": "Yes",
+        },
+        {
+          "title": "DNBvsDNT",
+          "value": "Yes",
+        },
+        {
+          "title": "DNOvsDNT",
+          "value": "Yes",
+        },
+      ],
+      "oid": "0.4.0.9496.5",
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "title": "RFC 822 Name",
+              "value": "NACEBEL",
+            },
+          ],
+          "title": "Code Authority",
+        },
+        {
+          "children": [
+            {
+              "title": "RFC 822 Name",
+              "value": "66.010",
+            },
+          ],
+          "title": "Code ID",
+        },
+        {
+          "title": "Short Name",
+          "value": "Computer programming activities",
+        },
+        {
+          "title": "Short Description",
+          "value": "La société a pour objet le développement, la vente et la mise en place de solutions informatiques (software et hardware) destinées aux entreprises publiques et privées, en ce compris la consultance dans le domaine informatique, le développement, la mise en place, le support et la maintenance de systèmes d'information, ainsi que la vente de matériel et de programmes, ainsi que toutes les opérations se rapportant directement ou indirectement à cette activité.",
+        },
+      ],
+      "oid": "0.4.0.9496.6",
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "title": "RFC 822 Name",
+              "value": "GDPR CAB",
+            },
+          ],
+          "title": "Assessment Authority",
+        },
+        {
+          "children": [
+            {
+              "title": "RFC 822 Name",
+              "value": "Certificate n°124/2020",
+            },
+          ],
+          "title": "Assessment Reference",
+        },
+        {
+          "children": [
+            {
+              "title": "URI",
+              "value": "https://gdprcab.lu/nowina",
+            },
+          ],
+          "title": "Assessment Location",
+        },
+        {
+          "title": "Data Storage Territory",
+          "value": "LU",
+        },
+        {
+          "title": "Description",
+          "value": "Nowina Solutions has been shown to be GDPR compliant in its signature creation activities",
+        },
+      ],
+      "oid": "0.4.0.9496.7",
+    },
+    {
+      "children": [
+        {
+          "title": "Value",
+          "value": "1000 * 10^2 EUR",
+        },
+      ],
+      "oid": "0.4.0.9496.8",
+    },
+    {
+      "children": [
+        {
+          "title": "stars5",
+          "value": "500/500",
+        },
+        {
+          "title": "stars4",
+          "value": "40/50",
+        },
+        {
+          "title": "stars3",
+          "value": "30/50",
+        },
+        {
+          "title": "stars2",
+          "value": "2/5",
+        },
+        {
+          "title": "stars1",
+          "value": "1/5",
+        },
+      ],
+      "oid": "0.4.0.9496.9",
+    },
+  ],
+  "extensions": Extensions [
+    {
+      "children": [
+        {
+          "_type": "authorityKeyId",
+          "title": "Key Identifier",
+          "value": "30d7d41448262d8e986c49335440a4838eb55858",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.35",
+    },
+    {
+      "children": [
+        {
+          "children": AuthorityInfoAccessSyntax [
+            {
+              "children": [
+                {
+                  "title": "Method",
+                  "value": "1.3.6.1.5.5.7.48.2",
+                },
+                {
+                  "title": "URI",
+                  "value": "http://nt-qwac.nowina.solutions/res/qwactsp/ntqwacservice.crt",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Descriptions",
+        },
+      ],
+      "critical": false,
+      "oid": "1.3.6.1.5.5.7.1.1",
+    },
+    {
+      "children": [
+        {
+          "children": CRLDistributionPoints [
+            {
+              "children": [
+                {
+                  "title": "URI",
+                  "value": "http://nt-qwac.nowina.solutions/res/qwactsp/ntqwacservice.crl",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Distribution Points",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.31",
+    },
+    {
+      "children": [
+        {
+          "children": QCStatements [
+            {
+              "children": [
+                {
+                  "title": "Statement",
+                  "value": "0.4.0.1862.1.1",
+                },
+              ],
+              "title": "",
+            },
+            {
+              "children": [
+                {
+                  "title": "Statement",
+                  "value": "0.4.0.1862.1.6.3",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Statements",
+        },
+      ],
+      "critical": false,
+      "oid": "1.3.6.1.5.5.7.1.3",
+    },
+    {
+      "children": [
+        {
+          "children": CertificatePolicies [
+            {
+              "children": [
+                {
+                  "title": "Policy",
+                  "value": "0.4.0.194112.1.4",
+                },
+              ],
+              "title": "",
+            },
+          ],
+          "title": "Policies",
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.32",
+    },
+  ],
+  "holder": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "title": "2.5.4.6",
+                  "value": "US",
+                },
+                {
+                  "title": "2.5.4.10",
+                  "value": "Let's Encrypt",
+                },
+                {
+                  "title": "2.5.4.3",
+                  "value": "Let's Encrypt Authority X3",
+                },
+              ],
+              "title": "Directory Name",
+            },
+          ],
+          "title": "Issuer",
+        },
+        {
+          "title": "Serial Number",
+          "value": "040d3615d468cab766ab4a0247132f7cf4a9",
+        },
+      ],
+      "title": "Base Certificate ID",
+    },
+    {
+      "children": [
+        {
+          "title": "Type",
+          "value": "publicKeyCert",
+        },
+        {
+          "title": "Algorithm",
+          "value": "2.16.840.1.101.3.4.2.1",
+        },
+        {
+          "title": "Digest",
+          "value": "9d375964b293e87d01b612c70cd4bff5ae7a3eeb326078925bab2fbb5a0d0eb4",
+        },
+      ],
+      "title": "Digest Info",
+    },
+  ],
+  "issuer": [
+    {
+      "children": [
+        {
+          "title": "2.5.4.6",
+          "value": "BE",
+        },
+        {
+          "title": "2.5.4.8",
+          "value": "Brussels",
+        },
+        {
+          "title": "2.5.4.7",
+          "value": "Brussels",
+        },
+        {
+          "title": "2.5.4.10",
+          "value": "Test Qualified Trust Service Provider for QWACs",
+        },
+        {
+          "title": "2.5.4.11",
+          "value": "TEST TSP",
+        },
+        {
+          "title": "2.5.4.3",
+          "value": "QWAC service",
+        },
+      ],
+      "title": "Directory Name",
+    },
+  ],
+  "notAfter": 2020-09-26T10:48:28.000Z,
+  "notBefore": 2020-07-15T15:53:08.000Z,
+  "serialNumber": "0a",
+  "tag": "ATTRIBUTE CERTIFICATE",
+  "thumbprints": {},
+  "type": "X.509 Attribute Certificate",
+  "validity": "2 months",
+  "version": 1,
+}
+`;

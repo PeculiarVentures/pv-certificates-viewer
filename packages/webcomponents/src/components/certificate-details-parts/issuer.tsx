@@ -7,19 +7,19 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import type { X509AttributeCertificate } from '../../crypto';
+import type { IExtensionNode } from '../../crypto/extension-parsers/types';
 import { l10n } from '../../utils';
+import { renderNode } from '../parsed-node-renderer/render_node';
 import { RowTitle } from './row';
-import { GeneralNamePart } from './general_name_part';
 
 interface IIssuerProps {
-  issuer: X509AttributeCertificate['issuer'];
+  issuer: IExtensionNode[];
 }
 
 export const Issuer: FunctionalComponent<IIssuerProps> = (props) => {
   const { issuer } = props;
 
-  if (!issuer) {
+  if (!issuer?.length) {
     return null;
   }
 
@@ -27,12 +27,6 @@ export const Issuer: FunctionalComponent<IIssuerProps> = (props) => {
     <RowTitle
       value={l10n.getString('issuer')}
     />,
-    issuer.map((item) => (
-      <GeneralNamePart
-        generalName={item}
-        getDNSNameLink={() => ''}
-        getIPAddressLink={() => ''}
-      />
-    )),
+    ...issuer.map((n) => renderNode(n, {})),
   ];
 };

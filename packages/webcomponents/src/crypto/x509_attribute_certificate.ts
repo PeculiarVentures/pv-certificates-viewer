@@ -6,8 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import type { GeneralName } from '@peculiar/asn1-x509';
-import { AttributeCertificate, Holder } from '@peculiar/asn1-x509-attr';
+import { AttributeCertificate } from '@peculiar/asn1-x509-attr';
 import { Convert } from 'pvtsutils';
 import { dateDiff, Download } from '../utils';
 import { AsnData } from './asn_data';
@@ -16,8 +15,14 @@ import {
   certificateRawToBuffer,
   getCertificateThumbprint,
 } from './utils';
-import { type IParsedExtension, parseExtension } from './extension-parsers';
+import {
+  type IParsedExtension,
+  parseExtension,
+  type IExtensionNode,
+} from './extension-parsers';
 import { type IParsedAttribute, parseAttribute } from './attribute-parsers';
+import { parseHolder } from './extension-parsers/parse_holder';
+import { parseIssuer } from './extension-parsers/parse_issuer';
 
 interface ISignature {
   algorithm: string;
@@ -39,11 +44,11 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
 
   public attributes: IParsedAttribute[];
 
+  public holder: IExtensionNode[];
+
   public thumbprints: Record<string, string> = {};
 
-  public readonly issuer: GeneralName[];
-
-  public holder: Holder;
+  public readonly issuer: IExtensionNode[];
 
   public readonly type = 'X.509 Attribute Certificate';
 
@@ -73,8 +78,8 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
 
     this.notAfter = notAfter;
     this.validity = dateDiff(this.notBefore, this.notAfter);
-    this.issuer = acinfo.issuer.v1Form || acinfo.issuer.v2Form?.issuerName;
-    this.holder = acinfo.holder;
+    this.issuer = parseIssuer(acinfo.issuer);
+    this.holder = parseHolder(acinfo.holder);
   }
 
   public get signature(): ISignature {
