@@ -43,7 +43,7 @@ function parseStatementInfo(statementId: string, statementInfo?: ArrayBuffer): I
       const children: IExtensionNode[] = [];
 
       if (si.semanticsIdentifier) {
-        children.push(node('Semantics Identifier', OIDs[si.semanticsIdentifier] ?? si.semanticsIdentifier));
+        children.push(node('Semantics Identifier', si.semanticsIdentifier));
       }
 
       for (const gn of si.nameRegistrationAuthorities ?? []) {

@@ -531,7 +531,7 @@ X509Certificate {
                 },
                 {
                   "title": "Semantics Identifier",
-                  "value": "ETSI QCS Semantics ID Legal",
+                  "value": "0.4.0.194121.1.2",
                 },
               ],
               "title": "",
@@ -1510,7 +1510,7 @@ X509Certificate {
                 },
                 {
                   "title": "Semantics Identifier",
-                  "value": "ETSI QCS Semantics ID Legal",
+                  "value": "0.4.0.194121.1.2",
                 },
               ],
               "title": "",
