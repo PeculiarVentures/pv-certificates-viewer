@@ -23,7 +23,9 @@ export function parseExtension(
 
   try {
     return parser.parse(extension);
-  } catch {
+  } catch (error) {
+    console.warn('Error parsing extension:', extension.extnID, error);
+
     return parseUnknown(extension);
   }
 }

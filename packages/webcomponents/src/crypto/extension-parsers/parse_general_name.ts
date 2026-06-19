@@ -6,7 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { GeneralName, DisplayText } from '@peculiar/asn1-x509';
+import {
+  GeneralName,
+  DisplayText,
+  UserNotice,
+} from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Name } from '../name';
@@ -40,11 +44,34 @@ export function parseGeneralName(gn: GeneralName): IExtensionNode {
   // --- Structured types ---
 
   if (gn.otherName != null) {
-    const otherName = AsnParser.parse(gn.otherName.value, DisplayText);
+    let value: string;
+
+    try {
+      value = AsnParser.parse(gn.otherName.value, DisplayText).toString();
+    } catch {
+      try {
+        const userNotice = AsnParser.parse(gn.otherName.value, UserNotice);
+        const parts: string[] = [];
+
+        if (userNotice.noticeRef != null) {
+          const nums = userNotice.noticeRef.noticeNumbers.join(', ');
+
+          parts.push(`${userNotice.noticeRef.organization.toString()} (${nums})`);
+        }
+
+        if (userNotice.explicitText != null) {
+          parts.push(userNotice.explicitText.toString());
+        }
+
+        value = parts.join('; ');
+      } catch {
+        value = Convert.ToHex(gn.otherName.value);
+      }
+    }
 
     return section('Other Name', [
       node('Type', gn.otherName.typeId),
-      node('Value', otherName.toString()),
+      node('Value', value),
     ]);
   }
 
