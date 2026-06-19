@@ -112,7 +112,8 @@ export function renderLeafNode(nodeData: IExtensionNode, ctx: TNodeLinkContext) 
   return (
     <RowValue
       name={title}
-      value={value}
+      // eslint-disable-next-line no-nested-ternary
+      value={typeof nodeData.value === 'boolean' ? (nodeData.value ? 'YES' : 'NO') : value}
       href={href}
     />
   );
