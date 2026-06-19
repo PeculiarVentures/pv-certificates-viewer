@@ -52,8 +52,9 @@ You may also be interested in our web component for viewing and verifying signed
 
 - Adobe Archive Rev Info (1.2.840.113583.1.1.9.2).
 - Adobe Time-stamp (1.2.840.113583.1.1.9.1).
-- Authority Key Identifier (2.5.29.35).
 - Android Key Attestation (1.3.6.1.4.1.11129.2.1.17).
+- Apple Developer ID Date (1.2.840.113635.100.6.1.33).
+- Authority Key Identifier (2.5.29.35).
 - Basic Constraints (2.5.29.19).
 - Biometric Info (1.3.6.1.5.5.7.1.2).
 - CABF Organization Identifier (2.23.140.3.1).
@@ -75,9 +76,9 @@ You may also be interested in our web component for viewing and verifying signed
 - Key Usage (2.5.29.15).
 - Legal Entity Identifier (1.3.6.1.4.1.52266.1).
 - Logo Type (1.3.6.1.5.5.7.1.12).
+- Microsoft CA Version (1.3.6.1.4.1.311.21.1).
 - Microsoft Certificate Template (1.3.6.1.4.1.311.21.7).
 - Microsoft Certificate Type (1.3.6.1.4.1.311.20.2).
-- Microsoft Certification Authority Renewal (1.3.6.1.4.1.311.21.1).
 - Name Constraints (2.5.29.30).
 - Netscape Certificate Type (2.16.840.1.113730.1.1).
 - Netscape Comment (2.16.840.1.113730.1.13).
@@ -104,6 +105,7 @@ You may also be interested in our web component for viewing and verifying signed
 - Extension Request (1.2.840.113549.1.9.14).
 - GDPR compliance attestation reference (0.4.0.9496.7).
 - Insurance coverage attestation (0.4.0.9496.8).
+- Private Key Possession Statement (1.3.6.1.4.1.22112.2.1).
 - Type of relationship between DNB/DNO/DNT (0.4.0.9496.5).
 - Unstructured Name (1.2.840.113549.1.9.2).
 - Valuation ranking (0.4.0.9496.9).
