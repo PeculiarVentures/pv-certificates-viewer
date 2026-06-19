@@ -16,9 +16,7 @@ import {
   Build,
 } from '@stencil/core';
 import { Pkcs10CertificateRequest } from '../../crypto';
-import {
-  getDNSNameLink, getIPAddressLink, getLEILink,
-} from '../../utils/third_party_links';
+import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import {
   BasicInformation,
   SubjectName,
@@ -26,9 +24,9 @@ import {
   Thumbprints,
   Miscellaneous,
   PublicKey,
-  Attributes,
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
+import { ParsedAttributes } from '../parsed-attributes-viewer/parsed-attributes-viewer';
 
 export type TCsrProp = string | Pkcs10CertificateRequest;
 
@@ -153,16 +151,6 @@ export class CsrViewer {
     }
   }
 
-  private getAuthKeyIdParentLink = (value: string) => value;
-
-  private getAuthKeyIdSiblingsLink = (value: string) => value;
-
-  private getSubjectKeyIdChildrenLink = (value: string) => this.subjectKeyIdChildrenLink
-    ?.replace('{{subjectKeyId}}', value);
-
-  private getSubjectKeyIdSiblingsLink = (value: string) => this.subjectKeyIdSiblingsLink
-    ?.replace('{{subjectKeyId}}', value);
-
   private renderErrorState() {
     return (
       <div class="status_wrapper">
@@ -192,6 +180,8 @@ export class CsrViewer {
       return this.renderEmptyState();
     }
 
+    const linkTemplateResolvers = buildLinkTemplateResolvers(this);
+
     return (
       <Host
         data-mobile-screen-view={String(this.mobileScreenView)}
@@ -217,15 +207,9 @@ export class CsrViewer {
             thumbprints={this.certificateDecoded.thumbprints}
           />
 
-          <Attributes
+          <ParsedAttributes
             attributes={this.certificateDecoded.attributes}
-            getLEILink={getLEILink}
-            getDNSNameLink={getDNSNameLink}
-            getIPAddressLink={getIPAddressLink}
-            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
-            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
-            getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
-            getSubjectKeyIdSiblingsLink={this.getSubjectKeyIdSiblingsLink}
+            {...linkTemplateResolvers}
           />
 
           {this.download && (

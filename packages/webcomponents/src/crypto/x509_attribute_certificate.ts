@@ -6,19 +6,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { AsnConvert } from '@peculiar/asn1-schema';
 import type { GeneralName } from '@peculiar/asn1-x509';
 import { AttributeCertificate, Holder } from '@peculiar/asn1-x509-attr';
 import { Convert } from 'pvtsutils';
 import { dateDiff, Download } from '../utils';
 import { AsnData } from './asn_data';
-import { Extension, TExtensionValue } from './extension';
-import { Attribute, TAttributeValue } from './attribute';
 import { PemConverter } from './pem_converter';
 import {
   certificateRawToBuffer,
   getCertificateThumbprint,
 } from './utils';
+import { type IParsedExtension, parseExtension } from './extension-parsers';
+import { type IParsedAttribute, parseAttribute } from './attribute-parsers';
 
 interface ISignature {
   algorithm: string;
@@ -36,9 +35,9 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
 
   public readonly validity: string;
 
-  public extensions: Extension<TExtensionValue>[];
+  public extensions: IParsedExtension[];
 
-  public attributes: Attribute<TAttributeValue>[];
+  public attributes: IParsedAttribute[];
 
   public thumbprints: Record<string, string> = {};
 
@@ -91,8 +90,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     const { acinfo } = this.asn;
 
     if (acinfo.extensions) {
-      this.extensions = acinfo.extensions
-        .map((e) => new Extension(AsnConvert.serialize(e)));
+      this.extensions = acinfo.extensions.map(parseExtension);
     }
   }
 
@@ -100,8 +98,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     const { acinfo } = this.asn;
 
     if (acinfo.attributes) {
-      this.attributes = acinfo.attributes
-        .map((e) => new Attribute(AsnConvert.serialize(e)));
+      this.attributes = acinfo.attributes.map(parseAttribute);
     }
   }
 

@@ -14,8 +14,8 @@ import { Convert } from 'pvtsutils';
 import { Download } from '../utils';
 import { AsnData } from './asn_data';
 import { Name, INameJSON } from './name';
-import { Attribute, TAttributeValue } from './attribute';
 import { PemConverter } from './pem_converter';
+import { type IParsedAttribute, parseAttribute } from './attribute-parsers';
 import {
   certificateRawToBuffer,
   getCertificateThumbprint,
@@ -37,7 +37,7 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
 
   public readonly version: number;
 
-  public attributes: Attribute<TAttributeValue>[];
+  public attributes: IParsedAttribute[];
 
   public thumbprints: Record<string, string> = {};
 
@@ -50,7 +50,7 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
 
     const { certificationRequestInfo } = this.asn;
 
-    this.subject = new Name(certificationRequestInfo.subject).toJSON();
+    this.subject = Name.parse(certificationRequestInfo.subject);
     this.version = certificationRequestInfo.version;
   }
 
@@ -92,7 +92,7 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
     for (let i = 0; i < this.subject.length; i += 1) {
       const name = this.subject[i];
 
-      if (name.shortName === 'CN' || name.shortName === 'E' || name.shortName === 'O') {
+      if (name.short === 'CN' || name.short === 'E' || name.short === 'O') {
         return name.value;
       }
     }
@@ -118,8 +118,7 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
     const { certificationRequestInfo } = this.asn;
 
     if (certificationRequestInfo.attributes) {
-      this.attributes = certificationRequestInfo.attributes
-        .map((e) => new Attribute(AsnConvert.serialize(e)));
+      this.attributes = certificationRequestInfo.attributes.map(parseAttribute);
     }
   }
 

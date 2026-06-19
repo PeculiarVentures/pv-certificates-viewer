@@ -16,20 +16,18 @@ import {
   Build,
 } from '@stencil/core';
 import { X509AttributeCertificate } from '../../crypto';
-import {
-  getDNSNameLink, getIPAddressLink, getLEILink,
-} from '../../utils/third_party_links';
+import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import {
   BasicInformation,
   Signature,
   Thumbprints,
-  Extensions,
   Miscellaneous,
-  Attributes,
   Holder,
   Issuer,
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
+import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
+import { ParsedAttributes } from '../parsed-attributes-viewer/parsed-attributes-viewer';
 
 export type TAttributeCertificateProp = string | X509AttributeCertificate;
 
@@ -173,18 +171,6 @@ export class AttributeCertificateViewer {
     }
   }
 
-  private getAuthKeyIdParentLink = (value: string) => this.authKeyIdParentLink
-    ?.replace('{{authKeyId}}', value);
-
-  private getAuthKeyIdSiblingsLink = (value: string) => this.authKeyIdSiblingsLink
-    ?.replace('{{authKeyId}}', value);
-
-  private getSubjectKeyIdChildrenLink = (value: string) => this.subjectKeyIdChildrenLink
-    ?.replace('{{subjectKeyId}}', value);
-
-  private getSubjectKeyIdSiblingsLink = (value: string) => this.subjectKeyIdSiblingsLink
-    ?.replace('{{subjectKeyId}}', value);
-
   private renderErrorState() {
     return (
       <div class="status_wrapper">
@@ -214,6 +200,8 @@ export class AttributeCertificateViewer {
       return this.renderEmptyState();
     }
 
+    const linkTemplateResolvers = buildLinkTemplateResolvers(this);
+
     return (
       <Host
         data-mobile-screen-view={String(this.mobileScreenView)}
@@ -239,26 +227,14 @@ export class AttributeCertificateViewer {
             thumbprints={this.certificateDecoded.thumbprints}
           />
 
-          <Attributes
+          <ParsedAttributes
             attributes={this.certificateDecoded.attributes}
-            getLEILink={getLEILink}
-            getDNSNameLink={getDNSNameLink}
-            getIPAddressLink={getIPAddressLink}
-            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
-            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
-            getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
-            getSubjectKeyIdSiblingsLink={this.getSubjectKeyIdSiblingsLink}
+            {...linkTemplateResolvers}
           />
 
-          <Extensions
+          <ParsedExtensions
             extensions={this.certificateDecoded.extensions}
-            getLEILink={getLEILink}
-            getDNSNameLink={getDNSNameLink}
-            getIPAddressLink={getIPAddressLink}
-            getAuthKeyIdParentLink={this.getAuthKeyIdParentLink}
-            getAuthKeyIdSiblingsLink={this.getAuthKeyIdSiblingsLink}
-            getSubjectKeyIdChildrenLink={this.getSubjectKeyIdChildrenLink}
-            getSubjectKeyIdSiblingsLink={this.getSubjectKeyIdSiblingsLink}
+            {...linkTemplateResolvers}
           />
 
           {this.download && (

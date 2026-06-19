@@ -27,6 +27,7 @@
 ```mermaid
 graph TD;
   peculiar-certificate-chain-viewer --> peculiar-certificate-viewer
+  peculiar-certificate-viewer --> peculiar-text-hider
   peculiar-certificate-decoder --> peculiar-certificate-chain-viewer
   style peculiar-certificate-chain-viewer fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -42,6 +42,10 @@ graph TD;
   peculiar-certificate-decoder --> peculiar-crl-viewer
   peculiar-certificate-decoder --> peculiar-ssh-certificate-viewer
   peculiar-certificate-chain-viewer --> peculiar-certificate-viewer
+  peculiar-certificate-viewer --> peculiar-text-hider
+  peculiar-attribute-certificate-viewer --> peculiar-text-hider
+  peculiar-csr-viewer --> peculiar-text-hider
+  peculiar-crl-viewer --> peculiar-text-hider
   peculiar-ssh-certificate-viewer --> peculiar-text-hider
   style peculiar-certificate-decoder fill:#f9f,stroke:#333,stroke-width:4px
 ```

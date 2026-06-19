@@ -21,7 +21,7 @@ export const ArrowTopIcon: FunctionalComponent<{ color?: TColor }> = (props) => 
     >
       <path
         stroke={`var(--pv-color-${color})`}
-        // eslint-disable-next-line react/no-unknown-property
+
         stroke-linecap="round"
         stroke-width="1.5"
         d="m11.222 17.722 3.852-4.28a.2.2 0 0 1 .297 0l3.851 4.28"

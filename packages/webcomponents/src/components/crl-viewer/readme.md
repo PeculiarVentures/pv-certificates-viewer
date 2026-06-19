@@ -23,9 +23,14 @@
 
  - [peculiar-certificate-decoder](../certificate-decoder)
 
+### Depends on
+
+- [peculiar-text-hider](../text-hider)
+
 ### Graph
 ```mermaid
 graph TD;
+  peculiar-crl-viewer --> peculiar-text-hider
   peculiar-certificate-decoder --> peculiar-crl-viewer
   style peculiar-crl-viewer fill:#f9f,stroke:#333,stroke-width:4px
 ```

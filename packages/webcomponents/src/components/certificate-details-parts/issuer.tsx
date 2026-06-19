@@ -10,7 +10,7 @@ import { h, FunctionalComponent } from '@stencil/core';
 import type { X509AttributeCertificate } from '../../crypto';
 import { l10n } from '../../utils';
 import { RowTitle } from './row';
-import { GeneralNamePart } from './extensions/general_name_part';
+import { GeneralNamePart } from './general_name_part';
 
 interface IIssuerProps {
   issuer: X509AttributeCertificate['issuer'];
