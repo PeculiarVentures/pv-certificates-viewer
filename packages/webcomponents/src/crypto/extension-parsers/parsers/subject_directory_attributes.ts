@@ -7,6 +7,7 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
+import { DateOfBirth, id_pkcs9_at_dateOfBirth } from '@peculiar/asn1-pkcs9';
 import {
   AttributeValue,
   Extension,
@@ -16,8 +17,25 @@ import {
 import { Convert } from 'pvtsutils';
 import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
+import { dateShort } from '../../../utils';
 
-function decodeAttributeValue(buf: ArrayBuffer): string {
+function decodeDateOfBirth(buf: ArrayBuffer): string | null {
+  try {
+    return dateShort(AsnParser.parse(buf, DateOfBirth).value);
+  } catch {
+    return null;
+  }
+}
+
+function decodeAttributeValue(attributeType: string, buf: ArrayBuffer): string {
+  if (attributeType === id_pkcs9_at_dateOfBirth) {
+    const dateOfBirth = decodeDateOfBirth(buf);
+
+    if (dateOfBirth) {
+      return dateOfBirth;
+    }
+  }
+
   try {
     return AsnParser.parse(buf, AttributeValue).toString();
   } catch {
@@ -35,7 +53,7 @@ export class SubjectDirectoryAttributesParser implements IExtensionParser {
       oid: extension.extnID,
       critical: extension.critical ?? false,
       children: sda.map((attribute) => {
-        const values = attribute.values.map((v) => decodeAttributeValue(v));
+        const values = attribute.values.map((v) => decodeAttributeValue(attribute.type, v));
 
         return node(attribute.type, values.join(', '));
       }),
