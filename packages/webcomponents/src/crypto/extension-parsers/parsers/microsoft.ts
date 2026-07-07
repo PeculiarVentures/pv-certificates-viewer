@@ -17,7 +17,12 @@ import {
 } from '@peculiar/asn1-x509-microsoft';
 import type { Extension } from '@peculiar/asn1-x509';
 import type { IExtensionParser, IParsedExtension } from '../types';
-import { node, section } from '../builders';
+import { node } from '../builders';
+import { dateShort } from '../../../utils';
+import {
+  id_msCRLNextPublish,
+  MsCRLNextPublish,
+} from '../../extensions/microsoft_crl_next_publish';
 
 export class CertificateTemplateParser implements IExtensionParser {
   readonly oids = [id_certificateTemplate];
@@ -65,16 +70,28 @@ export class CaVersionParser implements IExtensionParser {
 
   parse(extension: Extension): IParsedExtension {
     const cv = AsnParser.parse(extension.extnValue.buffer, CaVersion);
-    const { certificateIndex, keyIndex } = cv.getVersion();
 
     return {
       oid: extension.extnID,
       critical: extension.critical ?? false,
       children: [
-        section('CA Version', [
-          node('Certificate Index', certificateIndex),
-          node('Key Index', keyIndex),
-        ]),
+        node('Version', cv.toString()),
+      ],
+    };
+  }
+}
+
+export class CRLNextPublishParser implements IExtensionParser {
+  readonly oids = [id_msCRLNextPublish];
+
+  parse(extension: Extension): IParsedExtension {
+    const np = AsnParser.parse(extension.extnValue.buffer, MsCRLNextPublish);
+
+    return {
+      oid: extension.extnID,
+      critical: extension.critical ?? false,
+      children: [
+        node('Next Publish', dateShort(np.nextPublish)),
       ],
     };
   }

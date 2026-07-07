@@ -38,7 +38,7 @@ import { BiometricInfoParser } from './parsers/biometric_info';
 import { QCStatementsParser } from './parsers/qc_statements';
 import { KeyDescriptionParser } from './parsers/key_description';
 import {
-  CertificateTemplateParser, EnrollCertTypeParser, CaVersionParser,
+  CertificateTemplateParser, EnrollCertTypeParser, CaVersionParser, CRLNextPublishParser,
 } from './parsers/microsoft';
 import { LeiParser, LeiRoleParser } from './parsers/lei';
 import { AdobeTimestampParser, AdobeArchiveRevInfoParser } from './parsers/adobe_acrobat';
@@ -89,6 +89,7 @@ registry.register(new KeyDescriptionParser());
 registry.register(new CertificateTemplateParser());
 registry.register(new EnrollCertTypeParser());
 registry.register(new CaVersionParser());
+registry.register(new CRLNextPublishParser());
 
 // LEI extensions (RFC 7773)
 registry.register(new LeiParser());
@@ -145,7 +146,7 @@ export { BiometricInfoParser } from './parsers/biometric_info';
 export { QCStatementsParser } from './parsers/qc_statements';
 export { KeyDescriptionParser } from './parsers/key_description';
 export {
-  CertificateTemplateParser, EnrollCertTypeParser, CaVersionParser,
+  CertificateTemplateParser, EnrollCertTypeParser, CaVersionParser, CRLNextPublishParser,
 } from './parsers/microsoft';
 export { LeiParser, LeiRoleParser } from './parsers/lei';
 export { AdobeTimestampParser, AdobeArchiveRevInfoParser } from './parsers/adobe_acrobat';

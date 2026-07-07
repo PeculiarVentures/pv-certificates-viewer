@@ -11,11 +11,14 @@ import {
   id_enrollCertType,
   id_caVersion,
 } from '@peculiar/asn1-x509-microsoft';
+import { id_msCRLNextPublish } from '../../extensions/microsoft_crl_next_publish';
 import { makeExtRaw } from '../../../tests/test_utils';
+import { dateShort } from '../../../utils';
 import {
   CertificateTemplateParser,
   EnrollCertTypeParser,
   CaVersionParser,
+  CRLNextPublishParser,
 } from './microsoft';
 
 describe('CertificateTemplateParser', () => {
@@ -77,24 +80,38 @@ describe('CaVersionParser', () => {
     expect(parser.oids).toEqual([id_caVersion]);
   });
 
-  it('parses CaVersion integer into certificateIndex and keyIndex', () => {
-    // INTEGER 0x00010000 → keyIndex=1, certificateIndex=0
+  it('parses CaVersion integer into readable version', () => {
+    // INTEGER 0x00010000 => V0.1
     expect(parser.parse(makeExtRaw(id_caVersion, '020400010000'))).toEqual({
       oid: id_caVersion,
       critical: false,
       children: [
         {
-          title: 'CA Version',
-          children: [
-            {
-              title: 'Certificate Index', value: 0,
-            },
-            {
-              title: 'Key Index', value: 1,
-            },
-          ],
+          title: 'Version', value: 'V0.1',
         },
       ],
+    });
+  });
+});
+
+describe('CRLNextPublishParser', () => {
+  const parser = new CRLNextPublishParser();
+
+  it('registers correct OID', () => {
+    expect(parser.oids).toEqual([id_msCRLNextPublish]);
+  });
+
+  it('parses CRL Next Publish date', () => {
+    // GeneralizedTime 20260707100000Z
+    expect(parser.parse(makeExtRaw(
+      id_msCRLNextPublish,
+      '180F32303236303730373130303030305A',
+    ))).toEqual({
+      oid: id_msCRLNextPublish,
+      critical: false,
+      children: [{
+        title: 'Next Publish', value: dateShort('2026-07-07T10:00:00.000Z'),
+      }],
     });
   });
 });

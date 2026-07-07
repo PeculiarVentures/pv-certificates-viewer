@@ -77,6 +77,7 @@ You may also be interested in our web component for viewing and verifying signed
 - Legal Entity Identifier (1.3.6.1.4.1.52266.1).
 - Logo Type (1.3.6.1.5.5.7.1.12).
 - Microsoft CA Version (1.3.6.1.4.1.311.21.1).
+- Microsoft CRL Next Publish (1.3.6.1.4.1.311.21.4).
 - Microsoft Certificate Template (1.3.6.1.4.1.311.21.7).
 - Microsoft Certificate Type (1.3.6.1.4.1.311.20.2).
 - Name Constraints (2.5.29.30).
