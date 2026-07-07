@@ -42,6 +42,9 @@ export class CertificateViewer {
   private certificateDecodeError: Error;
 
   private mobileMediaQuery: MediaQueryList;
+  private readonly mediaQueryChangeHandler = (event: MediaQueryListEvent) => {
+    this.mobileScreenView = event.matches;
+  };
 
   /**
    * The certificate value for decode and show details. Use PEM or DER.
@@ -108,22 +111,20 @@ export class CertificateViewer {
 
   @State() isDecodeInProcess = true;
 
-  private handleMediaQueryChange(event: MediaQueryListEvent) {
-    this.mobileScreenView = event.matches;
-  }
-
   componentWillLoad() {
     this.decodeCertificate(this.certificate);
 
     if (Build.isBrowser) {
       this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
-      this.mobileMediaQuery.addEventListener('change', this.handleMediaQueryChange.bind(this));
+      this.mobileMediaQuery.addEventListener('change', this.mediaQueryChangeHandler);
       this.mobileScreenView = this.mobileMediaQuery.matches;
     }
   }
 
   disconnectedCallback() {
-    this.mobileMediaQuery.removeEventListener('change', this.handleMediaQueryChange.bind(this));
+    if (this.mobileMediaQuery) {
+      this.mobileMediaQuery.removeEventListener('change', this.mediaQueryChangeHandler);
+    }
   }
 
   private async decodeCertificate(certificate: TCertificateProp) {

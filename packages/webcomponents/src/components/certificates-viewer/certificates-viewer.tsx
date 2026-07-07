@@ -57,6 +57,9 @@ export class CertificatesViewer {
   private isHasRoots = false;
 
   private mobileMediaQuery: MediaQueryList;
+  private readonly mediaQueryChangeHandler = (event: MediaQueryListEvent) => {
+    this.mobileScreenView = event.matches;
+  };
 
   /**
    * List of certificates values for decode and show in the list.
@@ -111,22 +114,20 @@ export class CertificatesViewer {
 
   @State() isDecodeInProcess = true;
 
-  private handleMediaQueryChange(event: MediaQueryListEvent) {
-    this.mobileScreenView = event.matches;
-  }
-
   componentWillLoad() {
     this.certificatesDecodeAndSet();
 
     if (Build.isBrowser) {
       this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
-      this.mobileMediaQuery.addEventListener('change', this.handleMediaQueryChange.bind(this));
+      this.mobileMediaQuery.addEventListener('change', this.mediaQueryChangeHandler);
       this.mobileScreenView = this.mobileMediaQuery.matches;
     }
   }
 
   disconnectedCallback() {
-    this.mobileMediaQuery.removeEventListener('change', this.handleMediaQueryChange.bind(this));
+    if (this.mobileMediaQuery) {
+      this.mobileMediaQuery.removeEventListener('change', this.mediaQueryChangeHandler);
+    }
   }
 
   @Watch('certificates')
