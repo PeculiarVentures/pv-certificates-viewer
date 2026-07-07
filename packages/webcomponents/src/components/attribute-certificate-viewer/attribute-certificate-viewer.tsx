@@ -39,7 +39,7 @@ export type TAttributeCertificateProp = string | X509AttributeCertificate;
 export class AttributeCertificateViewer {
   private certificateDecoded: X509AttributeCertificate;
 
-  private certificateDecodeError: Error;
+  private certificateDecodeError?: Error;
 
   private mobileMediaQuery: MediaQueryList;
 
@@ -122,6 +122,7 @@ export class AttributeCertificateViewer {
 
   private async decodeCertificate(certificate: TAttributeCertificateProp) {
     this.isDecodeInProcess = true;
+    this.certificateDecodeError = undefined;
 
     try {
       if (certificate instanceof X509AttributeCertificate) {
@@ -140,9 +141,9 @@ export class AttributeCertificateViewer {
       this.certificateDecodeError = error;
 
       console.error('Error certificate parse:', error);
+    } finally {
+      this.isDecodeInProcess = false;
     }
-
-    this.isDecodeInProcess = false;
   }
 
   /**

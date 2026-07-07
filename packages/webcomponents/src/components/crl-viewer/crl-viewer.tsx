@@ -38,7 +38,7 @@ export type TCrlProp = string | X509Crl;
 export class CrlViewer {
   private certificateDecoded: X509Crl;
 
-  private certificateDecodeError: Error;
+  private certificateDecodeError?: Error;
 
   private mobileMediaQuery: MediaQueryList;
 
@@ -109,6 +109,7 @@ export class CrlViewer {
 
   private async decodeCertificate(certificate: TCrlProp) {
     this.isDecodeInProcess = true;
+    this.certificateDecodeError = undefined;
 
     try {
       if (certificate instanceof X509Crl) {
@@ -126,9 +127,9 @@ export class CrlViewer {
       this.certificateDecodeError = error;
 
       console.error('Error certificate parse:', error);
+    } finally {
+      this.isDecodeInProcess = false;
     }
-
-    this.isDecodeInProcess = false;
   }
 
   /**
