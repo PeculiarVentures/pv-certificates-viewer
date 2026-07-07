@@ -28,6 +28,7 @@ import {
 import { Typography } from '../typography';
 import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
 import { ParsedAttributes } from '../parsed-attributes-viewer/parsed-attributes-viewer';
+import { runViewerDecode } from '../_shared/decode';
 
 export type TAttributeCertificateProp = string | X509AttributeCertificate;
 
@@ -122,29 +123,36 @@ export class AttributeCertificateViewer {
   }
 
   private async decodeCertificate(certificate: TAttributeCertificateProp) {
-    this.isDecodeInProcess = true;
-    this.certificateDecodeError = undefined;
+    await runViewerDecode<X509AttributeCertificate>({
+      setLoading: (isLoading) => {
+        this.isDecodeInProcess = isLoading;
+      },
+      onStart: () => {
+        this.certificateDecodeError = undefined;
+      },
+      run: () => {
+        if (certificate instanceof X509AttributeCertificate) {
+          return certificate;
+        }
 
-    try {
-      if (certificate instanceof X509AttributeCertificate) {
-        this.certificateDecoded = certificate;
-      } else if (typeof certificate === 'string') {
-        this.certificateDecoded = new X509AttributeCertificate(certificate);
-      } else {
-        return;
-      }
+        if (typeof certificate === 'string') {
+          return new X509AttributeCertificate(certificate);
+        }
 
-      this.certificateDecoded.parseExtensions();
-      this.certificateDecoded.parseAttributes();
-      await this.certificateDecoded.getThumbprint('SHA-1');
-      await this.certificateDecoded.getThumbprint('SHA-256');
-    } catch (error) {
-      this.certificateDecodeError = error;
-
-      console.error('Error certificate parse:', error);
-    } finally {
-      this.isDecodeInProcess = false;
-    }
+        return undefined;
+      },
+      onSuccess: async (decoded) => {
+        decoded.parseExtensions();
+        decoded.parseAttributes();
+        await decoded.getThumbprint('SHA-1');
+        await decoded.getThumbprint('SHA-256');
+        this.certificateDecoded = decoded;
+      },
+      onError: (error) => {
+        this.certificateDecodeError = error as Error;
+        console.error('Error certificate parse:', error);
+      },
+    });
   }
 
   /**

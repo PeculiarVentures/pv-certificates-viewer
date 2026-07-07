@@ -27,6 +27,7 @@ import {
 } from '../certificate-details-parts';
 import { Typography } from '../typography';
 import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
+import { runViewerDecode } from '../_shared/decode';
 
 export type TCrlProp = string | X509Crl;
 
@@ -109,28 +110,35 @@ export class CrlViewer {
   }
 
   private async decodeCertificate(certificate: TCrlProp) {
-    this.isDecodeInProcess = true;
-    this.certificateDecodeError = undefined;
+    await runViewerDecode<X509Crl>({
+      setLoading: (isLoading) => {
+        this.isDecodeInProcess = isLoading;
+      },
+      onStart: () => {
+        this.certificateDecodeError = undefined;
+      },
+      run: () => {
+        if (certificate instanceof X509Crl) {
+          return certificate;
+        }
 
-    try {
-      if (certificate instanceof X509Crl) {
-        this.certificateDecoded = certificate;
-      } else if (typeof certificate === 'string') {
-        this.certificateDecoded = new X509Crl(certificate);
-      } else {
-        return;
-      }
+        if (typeof certificate === 'string') {
+          return new X509Crl(certificate);
+        }
 
-      this.certificateDecoded.parseExtensions();
-      await this.certificateDecoded.getThumbprint('SHA-1');
-      await this.certificateDecoded.getThumbprint('SHA-256');
-    } catch (error) {
-      this.certificateDecodeError = error;
-
-      console.error('Error certificate parse:', error);
-    } finally {
-      this.isDecodeInProcess = false;
-    }
+        return undefined;
+      },
+      onSuccess: async (decoded) => {
+        decoded.parseExtensions();
+        await decoded.getThumbprint('SHA-1');
+        await decoded.getThumbprint('SHA-256');
+        this.certificateDecoded = decoded;
+      },
+      onError: (error) => {
+        this.certificateDecodeError = error as Error;
+        console.error('Error certificate parse:', error);
+      },
+    });
   }
 
   /**
