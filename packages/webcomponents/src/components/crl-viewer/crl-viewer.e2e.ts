@@ -31,12 +31,16 @@ describe('peculiar-crl-viewer', () => {
             height: device.viewport.height,
           });
 
+          const body = await page.$('peculiar-crl-viewer');
+
           const image = await page.screenshot({
-            fullPage: true,
             encoding: 'base64',
+            clip: await body.boundingBox(),
           });
 
           expect(image).toMatchImageSnapshot();
+
+          await page.close();
         });
       });
     });

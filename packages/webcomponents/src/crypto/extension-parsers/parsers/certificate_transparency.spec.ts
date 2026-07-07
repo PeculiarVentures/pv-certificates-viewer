@@ -25,13 +25,13 @@ describe('CertificateTransparencyParser', () => {
             title: '',
             children: [
               {
-                title: 'Version', value: 0,
-              },
-              {
-                title: 'Log ID', value: 'e83ed0da3ef5063532e75728bc896bc903d3cbd1116beceb69e1777d6d06bd6e',
+                title: 'Log ID', value: 'Google \'Argon2023\' log',
               },
               {
                 title: 'Timestamp', value: 'Thu, 18 Aug 2022 08:06:30 GMT',
+              },
+              {
+                title: 'Version', value: 0,
               },
               {
                 title: 'Hash Algorithm', value: 'sha256',
@@ -49,13 +49,13 @@ describe('CertificateTransparencyParser', () => {
             title: '',
             children: [
               {
-                title: 'Version', value: 0,
-              },
-              {
-                title: 'Log ID', value: '6f5376ac31f03119d89900a45115ff77151c11d902c10029068db2089a37d913',
+                title: 'Log ID', value: 'Sectigo \'Mammoth\' CT log',
               },
               {
                 title: 'Timestamp', value: 'Thu, 18 Aug 2022 08:06:29 GMT',
+              },
+              {
+                title: 'Version', value: 0,
               },
               {
                 title: 'Hash Algorithm', value: 'sha256',
@@ -73,13 +73,13 @@ describe('CertificateTransparencyParser', () => {
             title: '',
             children: [
               {
-                title: 'Version', value: 0,
-              },
-              {
-                title: 'Log ID', value: 'b3737707e18450f86386d605a9dc11094a792db1670c0b87dcf0030e7936a59a',
+                title: 'Log ID', value: 'DigiCert Nessie2023 Log',
               },
               {
                 title: 'Timestamp', value: 'Thu, 18 Aug 2022 08:06:29 GMT',
+              },
+              {
+                title: 'Version', value: 0,
               },
               {
                 title: 'Hash Algorithm', value: 'sha256',

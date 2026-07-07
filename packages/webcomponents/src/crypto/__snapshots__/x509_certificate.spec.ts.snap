@@ -653,16 +653,16 @@ X509Certificate {
             {
               "children": [
                 {
-                  "title": "Version",
-                  "value": 0,
-                },
-                {
                   "title": "Log ID",
-                  "value": "76ff883f0ab6fb9551c261ccf587ba34b4a4cdbb29dc68420a9fe6674c5a3a74",
+                  "value": "Google 'Xenon2024' log",
                 },
                 {
                   "title": "Timestamp",
                   "value": "Wed, 15 Mar 2023 17:27:53 GMT",
+                },
+                {
+                  "title": "Version",
+                  "value": 0,
                 },
                 {
                   "title": "Hash Algorithm",
@@ -682,16 +682,16 @@ X509Certificate {
             {
               "children": [
                 {
-                  "title": "Version",
-                  "value": 0,
-                },
-                {
                   "title": "Log ID",
-                  "value": "dab6bf6b3fb5b6229f9bc2bb5c6be87091716cbb51848534bda43d3048d7fbab",
+                  "value": "Cloudflare 'Nimbus2024' Log",
                 },
                 {
                   "title": "Timestamp",
                   "value": "Wed, 15 Mar 2023 17:27:54 GMT",
+                },
+                {
+                  "title": "Version",
+                  "value": 0,
                 },
                 {
                   "title": "Hash Algorithm",
@@ -711,16 +711,16 @@ X509Certificate {
             {
               "children": [
                 {
-                  "title": "Version",
-                  "value": 0,
-                },
-                {
                   "title": "Log ID",
-                  "value": "3b5377753e2db9804e8b305b06fe403b67d84fc3f4c7bd000d2d726fe1fad417",
+                  "value": "Let's Encrypt 'Oak2024H1' log",
                 },
                 {
                   "title": "Timestamp",
                   "value": "Wed, 15 Mar 2023 17:27:54 GMT",
+                },
+                {
+                  "title": "Version",
+                  "value": 0,
                 },
                 {
                   "title": "Hash Algorithm",
@@ -1830,16 +1830,16 @@ X509Certificate {
             {
               "children": [
                 {
-                  "title": "Version",
-                  "value": 0,
-                },
-                {
                   "title": "Log ID",
-                  "value": "e83ed0da3ef5063532e75728bc896bc903d3cbd1116beceb69e1777d6d06bd6e",
+                  "value": "Google 'Argon2023' log",
                 },
                 {
                   "title": "Timestamp",
                   "value": "Thu, 18 Aug 2022 08:06:30 GMT",
+                },
+                {
+                  "title": "Version",
+                  "value": 0,
                 },
                 {
                   "title": "Hash Algorithm",
@@ -1859,16 +1859,16 @@ X509Certificate {
             {
               "children": [
                 {
-                  "title": "Version",
-                  "value": 0,
-                },
-                {
                   "title": "Log ID",
-                  "value": "6f5376ac31f03119d89900a45115ff77151c11d902c10029068db2089a37d913",
+                  "value": "Sectigo 'Mammoth' CT log",
                 },
                 {
                   "title": "Timestamp",
                   "value": "Thu, 18 Aug 2022 08:06:29 GMT",
+                },
+                {
+                  "title": "Version",
+                  "value": 0,
                 },
                 {
                   "title": "Hash Algorithm",
@@ -1888,16 +1888,16 @@ X509Certificate {
             {
               "children": [
                 {
-                  "title": "Version",
-                  "value": 0,
-                },
-                {
                   "title": "Log ID",
-                  "value": "b3737707e18450f86386d605a9dc11094a792db1670c0b87dcf0030e7936a59a",
+                  "value": "DigiCert Nessie2023 Log",
                 },
                 {
                   "title": "Timestamp",
                   "value": "Thu, 18 Aug 2022 08:06:29 GMT",
+                },
+                {
+                  "title": "Version",
+                  "value": 0,
                 },
                 {
                   "title": "Hash Algorithm",
