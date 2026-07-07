@@ -16,6 +16,7 @@ import {
   Build,
 } from '@stencil/core';
 import { SshCertificate } from '../../crypto';
+import { runViewerDecode } from '../_shared/decode';
 import { Typography } from '../typography';
 import { SshBasicInformation } from './-components/basic_information';
 import { SshPublicKey } from './-components/public_key';
@@ -32,7 +33,7 @@ export type TSshCertificateProp = string | SshCertificate;
 export class SshCertificateViewer {
   private certificateDecoded: SshCertificate;
 
-  private certificateDecodeError: Error;
+  private certificateDecodeError?: Error;
 
   private mobileMediaQuery: MediaQueryList;
 
@@ -78,27 +79,34 @@ export class SshCertificateViewer {
   }
 
   private async decodeCertificate(certificate: TSshCertificateProp) {
-    this.isDecodeInProcess = true;
+    await runViewerDecode<SshCertificate>({
+      setLoading: (isLoading) => {
+        this.isDecodeInProcess = isLoading;
+      },
+      onStart: () => {
+        this.certificateDecodeError = undefined;
+      },
+      run: () => {
+        if (certificate instanceof SshCertificate) {
+          return certificate;
+        }
 
-    try {
-      if (certificate instanceof SshCertificate) {
-        this.certificateDecoded = certificate;
-      } else if (typeof certificate === 'string') {
-        this.certificateDecoded = new SshCertificate(certificate);
-      } else {
-        return;
-      }
+        if (typeof certificate === 'string') {
+          return new SshCertificate(certificate);
+        }
 
-      // this.certificateDecoded.parseExtensions();
-      await this.certificateDecoded.parsePublicKey();
-      await this.certificateDecoded.parseSignatureKey();
-    } catch (error) {
-      this.certificateDecodeError = error;
-
-      console.error('Error certificate parse:', error);
-    }
-
-    this.isDecodeInProcess = false;
+        return undefined;
+      },
+      onSuccess: async (decoded) => {
+        await decoded.parsePublicKey();
+        await decoded.parseSignatureKey();
+        this.certificateDecoded = decoded;
+      },
+      onError: (error) => {
+        this.certificateDecodeError = error as Error;
+        console.error('Error certificate parse:', error);
+      },
+    });
   }
 
   /**
