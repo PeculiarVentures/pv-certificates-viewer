@@ -32,7 +32,7 @@ export type TSshCertificateProp = string | SshCertificate;
 export class SshCertificateViewer {
   private certificateDecoded: SshCertificate;
 
-  private certificateDecodeError: Error;
+  private certificateDecodeError?: Error;
 
   private mobileMediaQuery: MediaQueryList;
   private readonly mediaQueryChangeHandler = (event: MediaQueryListEvent) => {
@@ -80,6 +80,7 @@ export class SshCertificateViewer {
 
   private async decodeCertificate(certificate: TSshCertificateProp) {
     this.isDecodeInProcess = true;
+    this.certificateDecodeError = undefined;
 
     try {
       if (certificate instanceof SshCertificate) {
@@ -97,9 +98,9 @@ export class SshCertificateViewer {
       this.certificateDecodeError = error;
 
       console.error('Error certificate parse:', error);
+    } finally {
+      this.isDecodeInProcess = false;
     }
-
-    this.isDecodeInProcess = false;
   }
 
   /**

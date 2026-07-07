@@ -141,13 +141,17 @@ export class CertificatesViewer {
   }
 
   async certificatesDecodeAndSet() {
+    this.isDecodeInProcess = true;
     let hasRoots = false;
+    const data: ICertificateDecoded[] = [];
 
     if (!Array.isArray(this.certificates)) {
+      this.isDecodeInProcess = false;
+      this.certificatesDecoded = data;
+      this.isHasRoots = hasRoots;
+
       return;
     }
-
-    const data: ICertificateDecoded[] = [];
 
     for (const certificate of this.certificates) {
       try {
@@ -170,8 +174,8 @@ export class CertificatesViewer {
     }
 
     this.isHasRoots = hasRoots;
-    this.isDecodeInProcess = false;
     this.certificatesDecoded = data;
+    this.isDecodeInProcess = false;
   }
 
   private getCertificateName(certificate: ICertificateDecoded) {

@@ -39,7 +39,7 @@ export type TCertificateProp = string | X509Certificate;
 export class CertificateViewer {
   private certificateDecoded: X509Certificate;
 
-  private certificateDecodeError: Error;
+  private certificateDecodeError?: Error;
 
   private mobileMediaQuery: MediaQueryList;
   private readonly mediaQueryChangeHandler = (event: MediaQueryListEvent) => {
@@ -129,6 +129,7 @@ export class CertificateViewer {
 
   private async decodeCertificate(certificate: TCertificateProp) {
     this.isDecodeInProcess = true;
+    this.certificateDecodeError = undefined;
 
     try {
       if (certificate instanceof X509Certificate) {
@@ -146,9 +147,9 @@ export class CertificateViewer {
       this.certificateDecodeError = error;
 
       console.error('Error certificate parse:', error);
+    } finally {
+      this.isDecodeInProcess = false;
     }
-
-    this.isDecodeInProcess = false;
   }
 
   /**

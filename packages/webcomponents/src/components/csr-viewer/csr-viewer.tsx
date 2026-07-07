@@ -38,7 +38,7 @@ export type TCsrProp = string | Pkcs10CertificateRequest;
 export class CsrViewer {
   private certificateDecoded: Pkcs10CertificateRequest;
 
-  private certificateDecodeError: Error;
+  private certificateDecodeError?: Error;
 
   private mobileMediaQuery: MediaQueryList;
   private readonly mediaQueryChangeHandler = (event: MediaQueryListEvent) => {
@@ -104,6 +104,7 @@ export class CsrViewer {
 
   private async decodeCertificate(certificate: TCsrProp) {
     this.isDecodeInProcess = true;
+    this.certificateDecodeError = undefined;
 
     try {
       if (certificate instanceof Pkcs10CertificateRequest) {
@@ -121,9 +122,9 @@ export class CsrViewer {
       this.certificateDecodeError = error;
 
       console.error('Error certificate parse:', error);
+    } finally {
+      this.isDecodeInProcess = false;
     }
-
-    this.isDecodeInProcess = false;
   }
 
   /**
