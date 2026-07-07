@@ -14,6 +14,8 @@ import {
   Watch,
   Host,
   Build,
+  Event,
+  EventEmitter,
 } from '@stencil/core';
 import { SshCertificate } from '../../crypto';
 import { Typography } from '../typography';
@@ -54,6 +56,7 @@ export class SshCertificateViewer {
    *  (max-width: 900px)
    */
   @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
+  @Event() decodeError!: EventEmitter<Error>;
 
   @State() mobileScreenView = false;
 
@@ -93,9 +96,10 @@ export class SshCertificateViewer {
       await this.certificateDecoded.parsePublicKey();
       await this.certificateDecoded.parseSignatureKey();
     } catch (error) {
-      this.certificateDecodeError = error;
+      const normalizedError = error instanceof Error ? error : new Error(String(error));
 
-      console.error('Error certificate parse:', error);
+      this.certificateDecodeError = normalizedError;
+      this.decodeError.emit(normalizedError);
     }
 
     this.isDecodeInProcess = false;

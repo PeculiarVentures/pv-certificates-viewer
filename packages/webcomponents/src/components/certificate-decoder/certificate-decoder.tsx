@@ -55,12 +55,15 @@ export class CertificateDecoder {
 
   /** Mirrors textarea content so Clear/Decode enable after paste without a decode. */
   @State() private inputHasText = false;
+  @State() private decodeErrorMessage = '';
 
   /** Emitted when a certificate has been successfully parsed. */
   @Event() successParse!: EventEmitter<string>;
 
   /** Emitted when the input has been cleared. */
   @Event() clearCertificate!: EventEmitter<void>;
+  /** Emitted when decode operation fails. */
+  @Event() decodeError!: EventEmitter<Error>;
 
   // ─── Lifecycle ─────────────────────────────────────────────────────────────
 
@@ -122,11 +125,13 @@ export class CertificateDecoder {
   clearValue() {
     this.inputPaste.value = '';
     this.inputHasText = false;
+    this.decodeErrorMessage = '';
     this.certificateDecoded = null;
     this.clearCertificate.emit();
   }
 
   async setValue(value: typeof this.certificateDecoded) {
+    this.decodeErrorMessage = '';
     this.certificateDecoded = value;
     this.inputPaste.value = await value.toString('pem');
     this.inputHasText = true;
@@ -142,8 +147,10 @@ export class CertificateDecoder {
       .catch(() => new SshCertificate(value))
       .then((res: typeof this.certificateDecoded) => this.setValue(res))
       .catch((err) => {
-        console.error(err);
-        alert(`Error decoding certificate.\n\nSupported formats: X.509 Certificate, Attribute Certificate, PKCS#10 CSR, CRL, SSH Certificate.`);
+        const normalizedError = err instanceof Error ? err : new Error(String(err));
+
+        this.decodeErrorMessage = 'Error decoding certificate. Supported formats: X.509 Certificate, Attribute Certificate, PKCS#10 CSR, CRL, SSH Certificate.';
+        this.decodeError.emit(normalizedError);
       });
   }
 
@@ -256,6 +263,15 @@ export class CertificateDecoder {
               </button>
             </div>
           </div>
+
+          {this.decodeErrorMessage && (
+            <div
+              role="alert"
+              class="border-b border-red-200 bg-red-50 px-4 py-2 font-mono text-xs text-red-700"
+            >
+              {this.decodeErrorMessage}
+            </div>
+          )}
 
           <textarea
             class="min-h-0 w-full flex-1 resize-none border-0 bg-gray-100 px-4 py-4 font-mono text-xs leading-snug tracking-wide text-blue-800 caret-blue-600 outline-none transition-colors duration-150 placeholder:italic placeholder:text-gray-400 focus:bg-white"

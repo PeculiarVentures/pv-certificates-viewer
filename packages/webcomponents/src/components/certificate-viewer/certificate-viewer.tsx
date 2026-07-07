@@ -14,6 +14,8 @@ import {
   Watch,
   Host,
   Build,
+  Event,
+  EventEmitter,
 } from '@stencil/core';
 import { X509Certificate } from '../../crypto';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
@@ -103,6 +105,7 @@ export class CertificateViewer {
    *  (max-width: 900px)
    */
   @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
+  @Event() decodeError!: EventEmitter<Error>;
 
   @State() mobileScreenView = false;
 
@@ -142,9 +145,10 @@ export class CertificateViewer {
       await this.certificateDecoded.getThumbprint('SHA-1');
       await this.certificateDecoded.getThumbprint('SHA-256');
     } catch (error) {
-      this.certificateDecodeError = error;
+      const normalizedError = error instanceof Error ? error : new Error(String(error));
 
-      console.error('Error certificate parse:', error);
+      this.certificateDecodeError = normalizedError;
+      this.decodeError.emit(normalizedError);
     }
 
     this.isDecodeInProcess = false;

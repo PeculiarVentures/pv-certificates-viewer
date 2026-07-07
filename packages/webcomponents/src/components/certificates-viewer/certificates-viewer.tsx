@@ -98,6 +98,7 @@ export class CertificatesViewer {
    * Emitted when the user close certificate details modal.
    */
   @Event() detailsClose!: EventEmitter<void>;
+  @Event() decodeError!: EventEmitter<Error>;
 
   @State() mobileScreenView = false;
 
@@ -164,7 +165,9 @@ export class CertificatesViewer {
           hasRoots = true;
         }
       } catch (error) {
-        console.error('Error certificate parse:', error);
+        const normalizedError = error instanceof Error ? error : new Error(String(error));
+
+        this.decodeError.emit(normalizedError);
       }
     }
 

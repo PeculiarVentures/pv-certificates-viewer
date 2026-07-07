@@ -14,6 +14,8 @@ import {
   State,
   Watch,
   Build,
+  Event,
+  EventEmitter,
 } from '@stencil/core';
 import { Pkcs10CertificateRequest } from '../../crypto';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
@@ -78,6 +80,7 @@ export class CsrViewer {
    *  (max-width: 900px)
    */
   @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
+  @Event() decodeError!: EventEmitter<Error>;
 
   @State() mobileScreenView = false;
 
@@ -117,9 +120,10 @@ export class CsrViewer {
       await this.certificateDecoded.getThumbprint('SHA-1');
       await this.certificateDecoded.getThumbprint('SHA-256');
     } catch (error) {
-      this.certificateDecodeError = error;
+      const normalizedError = error instanceof Error ? error : new Error(String(error));
 
-      console.error('Error certificate parse:', error);
+      this.certificateDecodeError = normalizedError;
+      this.decodeError.emit(normalizedError);
     }
 
     this.isDecodeInProcess = false;
