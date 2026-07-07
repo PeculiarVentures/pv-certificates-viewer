@@ -40,6 +40,12 @@ export class ButtonMenu {
     this.open = !this.open;
   };
 
+  private handlePopoverKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      this.open = false;
+    }
+  };
+
   render() {
     return (
       <Host
@@ -51,10 +57,11 @@ export class ButtonMenu {
           onClick={this.handleClick}
         />
         <div
-          role="dialog"
+          role="menu"
           tabIndex={-1}
           class="popover"
-          aria-hidden={String(this.open)}
+          aria-hidden={String(!this.open)}
+          onKeyDown={this.handlePopoverKeyDown}
         >
           {this.groups.map((group) => (
             <div class="group">

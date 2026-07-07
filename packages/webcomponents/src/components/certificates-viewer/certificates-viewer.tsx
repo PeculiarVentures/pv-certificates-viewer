@@ -48,6 +48,8 @@ interface ICertificateDecoded {
   name?: ICertificate['name'];
 }
 
+let certificateDetailsTitleIdCounter = 0;
+
 @Component({
   tag: 'peculiar-certificates-viewer',
   styleUrl: 'certificates-viewer.scss',
@@ -55,6 +57,7 @@ interface ICertificateDecoded {
 })
 export class CertificatesViewer {
   private isHasRoots = false;
+  private readonly certificateDetailsTitleId = `certificate-details-title-${certificateDetailsTitleIdCounter++}`;
 
   private mobileMediaQuery: MediaQueryList;
 
@@ -127,6 +130,9 @@ export class CertificatesViewer {
 
   disconnectedCallback() {
     this.mobileMediaQuery.removeEventListener('change', this.handleMediaQueryChange.bind(this));
+    if (Build.isBrowser) {
+      document.removeEventListener('keydown', this.handleModalKeyDown);
+    }
   }
 
   @Watch('certificates')
@@ -199,6 +205,25 @@ export class CertificatesViewer {
 
     this.detailsClose.emit();
   };
+
+  private handleModalKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      this.handleModalClose();
+    }
+  };
+
+  @Watch('certificateSelectedForDetails')
+  watchCertificateSelectedForDetails(newValue?: X509Certificate) {
+    if (!Build.isBrowser) {
+      return;
+    }
+
+    document.removeEventListener('keydown', this.handleModalKeyDown);
+
+    if (newValue) {
+      document.addEventListener('keydown', this.handleModalKeyDown);
+    }
+  }
 
   private handleClickRow(index: number) {
     const isExpandedRowClicked = this.expandedRow === index;
@@ -497,10 +522,14 @@ export class CertificatesViewer {
         <div
           class="modal_container"
           role="dialog"
+          aria-modal="true"
+          aria-labelledby={this.certificateDetailsTitleId}
+          tabIndex={-1}
           part="presentation_container"
         >
           <header class="modal_header">
             <Typography
+              id={this.certificateDetailsTitleId}
               variant="h4"
             >
               {l10n.getString('certificateDetails')}
