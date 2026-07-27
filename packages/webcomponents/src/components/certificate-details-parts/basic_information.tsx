@@ -22,21 +22,11 @@ interface IBasicInformationProps {
 }
 
 export const BasicInformation: FunctionalComponent<IBasicInformationProps> = (props) => {
-  const {
-    serialNumber,
-    version,
-    validity,
-    notBefore,
-    notAfter,
-    lastUpdate,
-    nextUpdate,
-    type,
-  } = props;
+  const { serialNumber, version, validity, notBefore, notAfter, lastUpdate, nextUpdate, type } =
+    props;
 
   return [
-    <RowTitle
-      value={l10n.getString('basicInformation')}
-    />,
+    <RowTitle value={l10n.getString('basicInformation')} />,
     <RowValue
       name={l10n.getString('type')}
       value={type}

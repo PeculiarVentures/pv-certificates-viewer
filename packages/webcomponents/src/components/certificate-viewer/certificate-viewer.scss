@@ -12,7 +12,8 @@
   --pv-certificate-viewer-td-horizontal-padding: calc(var(--pv-size-base) * 4);
 }
 
-th, td {
+th,
+td {
   border: none;
 }
 
@@ -36,7 +37,7 @@ table {
     }
 
     &:last-child {
-      width: calc(100% - 220px)
+      width: calc(100% - 220px);
     }
 
     &.monospace {
@@ -71,8 +72,10 @@ table {
   align-items: center;
 }
 
-:host([data-mobile-screen-view="true"]) {
-  table, tr, td {
+:host([data-mobile-screen-view='true']) {
+  table,
+  tr,
+  td {
     display: block;
   }
 

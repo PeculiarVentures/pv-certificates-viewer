@@ -6,26 +6,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Convert } from 'pvtsutils';
 import { type Holder, DigestedObjectType } from '@peculiar/asn1-x509-attr';
+import { Convert } from 'pvtsutils';
 import type { IExtensionNode } from './types';
 import { node, section } from './builders';
 import { parseGeneralName } from './parse_general_name';
 
 export function parseHolder(holder: Holder): IExtensionNode[] {
   const nodes: IExtensionNode[] = [];
-  const {
-    baseCertificateID,
-    entityName,
-    objectDigestInfo,
-  } = holder;
+  const { baseCertificateID, entityName, objectDigestInfo } = holder;
 
   if (baseCertificateID) {
-    const {
-      issuer,
-      serial,
-      issuerUID,
-    } = baseCertificateID;
+    const { issuer, serial, issuerUID } = baseCertificateID;
 
     const children: IExtensionNode[] = [
       section('Issuer', [...issuer].map(parseGeneralName)),
@@ -44,12 +36,8 @@ export function parseHolder(holder: Holder): IExtensionNode[] {
   }
 
   if (objectDigestInfo) {
-    const {
-      digestedObjectType,
-      digestAlgorithm,
-      objectDigest,
-      otherObjectTypeID,
-    } = objectDigestInfo;
+    const { digestedObjectType, digestAlgorithm, objectDigest, otherObjectTypeID } =
+      objectDigestInfo;
 
     const children: IExtensionNode[] = [
       node('Type', DigestedObjectType[digestedObjectType]),

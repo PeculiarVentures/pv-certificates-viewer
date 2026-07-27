@@ -10,9 +10,7 @@ import { h, FunctionalComponent } from '@stencil/core';
 import { Convert } from 'pvtsutils';
 import { IPublicKey } from '../../crypto';
 import { l10n, getStringByOID } from '../../utils';
-import {
-  RowTitle, RowValue, TableRowTable,
-} from './row';
+import { RowTitle, RowValue, TableRowTable } from './row';
 
 function getPublicKeyModulus(publicKey: IPublicKey) {
   if (publicKey.params && 'modulus' in publicKey.params) {
@@ -30,9 +28,7 @@ function getPublicKeyModulus(publicKey: IPublicKey) {
 
 function getPublicKeyExponent(publicKey: IPublicKey) {
   if (publicKey.params && 'publicExponent' in publicKey.params) {
-    return publicKey.params.publicExponent.byteLength === 3
-      ? 65537
-      : 3;
+    return publicKey.params.publicExponent.byteLength === 3 ? 65537 : 3;
   }
 
   return null;
@@ -57,7 +53,9 @@ export const PublicKey: FunctionalComponent<IPublicKeyProps> = (props) => {
       />,
       <RowValue
         name={l10n.getString('namedCurve')}
-        value={getStringByOID((key.params && 'namedCurve' in key.params) ? key.params.namedCurve : undefined)}
+        value={getStringByOID(
+          key.params && 'namedCurve' in key.params ? key.params.namedCurve : undefined,
+        )}
       />,
       <RowValue
         name={l10n.getString('exponent')}
@@ -77,14 +75,10 @@ export const PublicKey: FunctionalComponent<IPublicKeyProps> = (props) => {
   }
 
   return [
-    <RowTitle
-      value={l10n.getString('publicKeyInfo')}
-    />,
+    <RowTitle value={l10n.getString('publicKeyInfo')} />,
     renderKeyDetails(publicKey),
-    (Array.isArray(publicKey.params) && publicKey.params.length && publicKey.params.map((param) => (
-      <TableRowTable>
-        {renderKeyDetails(param)}
-      </TableRowTable>
-    ))),
+    Array.isArray(publicKey.params) &&
+      publicKey.params.length &&
+      publicKey.params.map((param) => <TableRowTable>{renderKeyDetails(param)}</TableRowTable>),
   ];
 };

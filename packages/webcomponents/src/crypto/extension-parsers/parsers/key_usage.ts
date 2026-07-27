@@ -7,11 +7,7 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  Extension,
-  KeyUsage,
-  id_ce_keyUsage,
-} from '@peculiar/asn1-x509';
+import { Extension, KeyUsage, id_ce_keyUsage } from '@peculiar/asn1-x509';
 import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
@@ -24,9 +20,7 @@ export class KeyUsageParser implements IExtensionParser {
     return {
       oid: extension.extnID,
       critical: extension.critical ?? false,
-      children: [
-        node('Usage', ku.toJSON().join(', ')),
-      ],
+      children: [node('Usage', ku.toJSON().join(', '))],
     };
   }
 }

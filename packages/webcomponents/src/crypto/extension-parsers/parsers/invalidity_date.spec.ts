@@ -12,15 +12,17 @@ describe('InvalidityDateParser', () => {
   it('parses a GeneralizedTime date', () => {
     // InvalidityDate GeneralizedTime = "20230115120000Z"
     // 18 0f 32303233303131353132303030305a
-    expect(parser.parse(makeExtRaw(
-      id_ce_invalidityDate,
-      '180f32303233303131353132303030305a',
-    ))).toEqual({
+    expect(
+      parser.parse(makeExtRaw(id_ce_invalidityDate, '180f32303233303131353132303030305a')),
+    ).toEqual({
       oid: '2.5.29.24',
       critical: false,
-      children: [{
-        title: 'Invalidity Date', value: 'Sun, 15 Jan 2023 12:00:00 GMT',
-      }],
+      children: [
+        {
+          title: 'Invalidity Date',
+          value: 'Sun, 15 Jan 2023 12:00:00 GMT',
+        },
+      ],
     });
   });
 });

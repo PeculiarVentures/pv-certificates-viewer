@@ -19,15 +19,18 @@ describe('LeiParser', () => {
 
   it('parses LEI PrintableString code', () => {
     // PrintableString '529900T8BM49AURSDO55' = 13 14 ...
-    expect(parser.parse(makeExtRaw(
-      id_lei,
-      '13143532393930305438424d343941555253444f3535',
-    ))).toEqual({
+    expect(
+      parser.parse(makeExtRaw(id_lei, '13143532393930305438424d343941555253444f3535')),
+    ).toEqual({
       oid: id_lei,
       critical: false,
-      children: [{
-        title: 'LEI Code', value: '529900T8BM49AURSDO55', _type: 'lei',
-      }],
+      children: [
+        {
+          title: 'LEI Code',
+          value: '529900T8BM49AURSDO55',
+          _type: 'lei',
+        },
+      ],
     });
   });
 });
@@ -44,9 +47,12 @@ describe('LeiRoleParser', () => {
     expect(parser.parse(makeExtRaw(id_role, '1304494e5445'))).toEqual({
       oid: id_role,
       critical: false,
-      children: [{
-        title: 'Role', value: 'INTE',
-      }],
+      children: [
+        {
+          title: 'Role',
+          value: 'INTE',
+        },
+      ],
     });
   });
 });

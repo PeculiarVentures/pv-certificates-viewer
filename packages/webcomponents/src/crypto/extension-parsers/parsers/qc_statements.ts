@@ -23,12 +23,8 @@ import {
   PdsLocations,
 } from '@peculiar/asn1-x509-qualified-etsi';
 import { Convert } from 'pvtsutils';
+import type { IExtensionNode, IExtensionParser, IParsedExtension } from '../types';
 import { OIDs } from '../../../constants/oids';
-import type {
-  IExtensionNode,
-  IExtensionParser,
-  IParsedExtension,
-} from '../types';
 import { node, section } from '../builders';
 import { parseGeneralName } from '../parse_general_name';
 
@@ -56,7 +52,14 @@ function parseStatementInfo(statementId: string, statementInfo?: ArrayBuffer): I
     if (statementId === id_etsi_qcs_qcType) {
       const types = AsnParser.parse(statementInfo, QcType);
 
-      return [node('QC Types', Array.from(types).map((oid) => OIDs[oid] ?? oid).join(', '))];
+      return [
+        node(
+          'QC Types',
+          Array.from(types)
+            .map((oid) => OIDs[oid] ?? oid)
+            .join(', '),
+        ),
+      ];
     }
 
     if (statementId === id_etsi_qcs_qcRetentionPeriod) {
@@ -69,10 +72,12 @@ function parseStatementInfo(statementId: string, statementInfo?: ArrayBuffer): I
       const locations = AsnParser.parse(statementInfo, PdsLocations);
 
       return [
-        section('PDS Locations', locations.map((loc) => section('', [
-          node('URL', loc.url),
-          node('Language', loc.language),
-        ]))),
+        section(
+          'PDS Locations',
+          locations.map((loc) =>
+            section('', [node('URL', loc.url), node('Language', loc.language)]),
+          ),
+        ),
       ];
     }
   } catch {
@@ -92,10 +97,15 @@ export class QCStatementsParser implements IExtensionParser {
       oid: extension.extnID,
       critical: extension.critical ?? false,
       children: [
-        section('Statements', stmts.map((stmt) => section('', [
-          node('Statement', stmt.statementId),
-          ...parseStatementInfo(stmt.statementId, stmt.statementInfo),
-        ]))),
+        section(
+          'Statements',
+          stmts.map((stmt) =>
+            section('', [
+              node('Statement', stmt.statementId),
+              ...parseStatementInfo(stmt.statementId, stmt.statementInfo),
+            ]),
+          ),
+        ),
       ],
     };
   }

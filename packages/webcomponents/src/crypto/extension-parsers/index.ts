@@ -7,45 +7,51 @@
  */
 
 import type { Extension } from '@peculiar/asn1-x509';
+import type { IParsedExtension } from './types';
 import { parseExtension as _parseExtension } from './parse';
-import { ExtensionParserRegistry } from './registry';
-import { BasicConstraintsParser } from './parsers/basic_constraints';
-import { KeyUsageParser } from './parsers/key_usage';
-import { AuthorityKeyIdentifierParser } from './parsers/authority_key_identifier';
-import { CertificatePoliciesParser } from './parsers/certificate_policies';
-import { SubjectKeyIdentifierParser } from './parsers/subject_key_identifier';
-import { CRLDistributionPointsParser } from './parsers/crl_distribution_points';
+import { AdobeTimestampParser, AdobeArchiveRevInfoParser } from './parsers/adobe_acrobat';
 import { AuthorityInformationAccessParser } from './parsers/authority_information_access';
-import { PolicyMappingsParser } from './parsers/policy_mappings';
-import { NameConstraintsParser } from './parsers/name_constraints';
-import { PolicyConstraintsParser } from './parsers/policy_constraints';
-import { SubjectAlternativeNameParser } from './parsers/subject_alternative_name';
-import { IssuerAlternativeNameParser } from './parsers/issuer_alternative_name';
+import { AuthorityKeyIdentifierParser } from './parsers/authority_key_identifier';
+import { BasicConstraintsParser } from './parsers/basic_constraints';
+import { BiometricInfoParser } from './parsers/biometric_info';
+import {
+  CabfOrganizationIdentifierParser,
+  AppleDeveloperIdDateParser,
+} from './parsers/cabf_and_apple';
 import { CertificateIssuerParser } from './parsers/certificate_issuer';
-import { ExtendedKeyUsageParser } from './parsers/extended_key_usage';
-import { SubjectInfoAccessParser } from './parsers/subject_info_access';
-import { InhibitAnyPolicyParser } from './parsers/inhibit_any_policy';
-import { InvalidityDateParser } from './parsers/invalidity_date';
-import { PrivateKeyUsagePeriodParser } from './parsers/private_key_usage_period';
+import { CertificatePoliciesParser } from './parsers/certificate_policies';
+import { CertificateTransparencyParser } from './parsers/certificate_transparency';
+import { CRLDistributionPointsParser } from './parsers/crl_distribution_points';
 import { CRLNumberParser, CRLDeltaIndicatorParser } from './parsers/crl_number';
 import { CRLReasonParser } from './parsers/crl_reason';
 import { EntrustVersionInfoParser } from './parsers/entrust_version_info';
-import { SubjectDirectoryAttributesParser } from './parsers/subject_directory_attributes';
+import { ExtendedKeyUsageParser } from './parsers/extended_key_usage';
+import { InhibitAnyPolicyParser } from './parsers/inhibit_any_policy';
+import { InvalidityDateParser } from './parsers/invalidity_date';
+import { IssuerAlternativeNameParser } from './parsers/issuer_alternative_name';
 import { IssuingDistributionPointParser } from './parsers/issuing_distribution_point';
-import { NetscapeCommentParser, NetscapeCertTypeParser } from './parsers/netscape';
-import { CertificateTransparencyParser } from './parsers/certificate_transparency';
-import { BiometricInfoParser } from './parsers/biometric_info';
-import { QCStatementsParser } from './parsers/qc_statements';
 import { KeyDescriptionParser } from './parsers/key_description';
-import {
-  CertificateTemplateParser, EnrollCertTypeParser, CaVersionParser, CRLNextPublishParser,
-} from './parsers/microsoft';
+import { KeyUsageParser } from './parsers/key_usage';
 import { LeiParser, LeiRoleParser } from './parsers/lei';
-import { AdobeTimestampParser, AdobeArchiveRevInfoParser } from './parsers/adobe_acrobat';
 import { LogotypeParser } from './parsers/logotype';
+import {
+  CertificateTemplateParser,
+  EnrollCertTypeParser,
+  CaVersionParser,
+  CRLNextPublishParser,
+} from './parsers/microsoft';
+import { NameConstraintsParser } from './parsers/name_constraints';
+import { NetscapeCommentParser, NetscapeCertTypeParser } from './parsers/netscape';
+import { PolicyConstraintsParser } from './parsers/policy_constraints';
+import { PolicyMappingsParser } from './parsers/policy_mappings';
+import { PrivateKeyUsagePeriodParser } from './parsers/private_key_usage_period';
+import { QCStatementsParser } from './parsers/qc_statements';
+import { SubjectAlternativeNameParser } from './parsers/subject_alternative_name';
+import { SubjectDirectoryAttributesParser } from './parsers/subject_directory_attributes';
+import { SubjectInfoAccessParser } from './parsers/subject_info_access';
+import { SubjectKeyIdentifierParser } from './parsers/subject_key_identifier';
 import { TNAuthorizationListParser } from './parsers/tn_auth_list';
-import { CabfOrganizationIdentifierParser, AppleDeveloperIdDateParser } from './parsers/cabf_and_apple';
-import type { IParsedExtension } from './types';
+import { ExtensionParserRegistry } from './registry';
 
 export const registry = new ExtensionParserRegistry();
 
@@ -146,10 +152,16 @@ export { BiometricInfoParser } from './parsers/biometric_info';
 export { QCStatementsParser } from './parsers/qc_statements';
 export { KeyDescriptionParser } from './parsers/key_description';
 export {
-  CertificateTemplateParser, EnrollCertTypeParser, CaVersionParser, CRLNextPublishParser,
+  CertificateTemplateParser,
+  EnrollCertTypeParser,
+  CaVersionParser,
+  CRLNextPublishParser,
 } from './parsers/microsoft';
 export { LeiParser, LeiRoleParser } from './parsers/lei';
 export { AdobeTimestampParser, AdobeArchiveRevInfoParser } from './parsers/adobe_acrobat';
 export { LogotypeParser } from './parsers/logotype';
 export { TNAuthorizationListParser } from './parsers/tn_auth_list';
-export { CabfOrganizationIdentifierParser, AppleDeveloperIdDateParser } from './parsers/cabf_and_apple';
+export {
+  CabfOrganizationIdentifierParser,
+  AppleDeveloperIdDateParser,
+} from './parsers/cabf_and_apple';

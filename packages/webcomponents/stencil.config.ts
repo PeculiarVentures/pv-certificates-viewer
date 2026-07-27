@@ -9,9 +9,7 @@ export const config: Config = {
     openBrowser: true,
     port: 3000,
   },
-  plugins: [
-    sass(),
-  ],
+  plugins: [sass()],
   outputTargets: [
     {
       type: 'dist',
@@ -53,9 +51,7 @@ export const config: Config = {
     },
   ],
   testing: {
-    setupFilesAfterEnv: [
-      '<rootDir>/src/tests/setupTests.ts',
-    ],
+    setupFilesAfterEnv: ['<rootDir>/src/tests/setupTests.ts'],
   },
   buildEs5: 'prod',
   preamble: '© Peculiar Ventures https://peculiarventures.com/ - MIT License',

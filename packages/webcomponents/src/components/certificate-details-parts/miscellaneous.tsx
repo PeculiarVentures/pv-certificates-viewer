@@ -19,7 +19,8 @@ import { Button } from '../button';
 import { DownloadIcon } from '../icons';
 import { RowTitle } from './row';
 
-type TCertificateType = X509Certificates
+type TCertificateType =
+  | X509Certificates
   | X509Certificate
   | X509AttributeCertificate
   | Pkcs10CertificateRequest
@@ -33,9 +34,7 @@ export const Miscellaneous: FunctionalComponent<IMiscellaneousProps> = (props) =
   const { certificate } = props;
 
   return [
-    <RowTitle
-      value={l10n.getString('miscellaneous')}
-    />,
+    <RowTitle value={l10n.getString('miscellaneous')} />,
     <tr>
       <td>
         <Button

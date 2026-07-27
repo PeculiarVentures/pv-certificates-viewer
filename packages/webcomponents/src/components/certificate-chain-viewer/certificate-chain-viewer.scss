@@ -25,7 +25,10 @@
   height: 100%;
   padding: 0 calc(var(--pv-size-base) * 3);
   background-color: transparent;
-  transition: background-color 200ms, color 200ms, border-color 200ms;
+  transition:
+    background-color 200ms,
+    color 200ms,
+    border-color 200ms;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -40,7 +43,7 @@
     background-color: var(--pv-color-secondary-tint-5);
   }
 
-  &[aria-selected="true"] {
+  &[aria-selected='true'] {
     color: var(--pv-color-black);
     border-color: var(--pv-color-secondary);
   }

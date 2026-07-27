@@ -14,9 +14,7 @@ import {
   PredefinedBiometricType,
 } from '@peculiar/asn1-x509-qualified';
 import { Convert } from 'pvtsutils';
-import type {
-  IExtensionNode, IExtensionParser, IParsedExtension,
-} from '../types';
+import type { IExtensionNode, IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 
 const BIOMETRIC_TYPE_LABELS: Record<number, string> = {
@@ -34,26 +32,34 @@ export class BiometricInfoParser implements IExtensionParser {
       oid: extension.extnID,
       critical: extension.critical ?? false,
       children: [
-        section('Biometrics', bio.map((data) => {
-          const children: IExtensionNode[] = [];
+        section(
+          'Biometrics',
+          bio.map((data) => {
+            const children: IExtensionNode[] = [];
 
-          const { predefinedBiometricType, biometricDataOid } = data.typeOfBiometricData;
+            const { predefinedBiometricType, biometricDataOid } = data.typeOfBiometricData;
 
-          if (predefinedBiometricType != null) {
-            children.push(node('Type', BIOMETRIC_TYPE_LABELS[predefinedBiometricType] ?? String(predefinedBiometricType)));
-          } else if (biometricDataOid) {
-            children.push(node('OID', biometricDataOid));
-          }
+            if (predefinedBiometricType != null) {
+              children.push(
+                node(
+                  'Type',
+                  BIOMETRIC_TYPE_LABELS[predefinedBiometricType] ?? String(predefinedBiometricType),
+                ),
+              );
+            } else if (biometricDataOid) {
+              children.push(node('OID', biometricDataOid));
+            }
 
-          children.push(node('Hash Algorithm', data.hashAlgorithm.algorithm));
-          children.push(node('Hash', Convert.ToHex(data.biometricDataHash)));
+            children.push(node('Hash Algorithm', data.hashAlgorithm.algorithm));
+            children.push(node('Hash', Convert.ToHex(data.biometricDataHash)));
 
-          if (data.sourceDataUri != null) {
-            children.push(node('Source URI', data.sourceDataUri));
-          }
+            if (data.sourceDataUri != null) {
+              children.push(node('Source URI', data.sourceDataUri));
+            }
 
-          return section('', children);
-        })),
+            return section('', children);
+          }),
+        ),
       ],
     };
   }

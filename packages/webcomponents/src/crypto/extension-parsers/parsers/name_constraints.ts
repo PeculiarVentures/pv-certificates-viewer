@@ -13,28 +13,26 @@ import {
   id_ce_nameConstraints,
   NameConstraints,
 } from '@peculiar/asn1-x509';
-import type {
-  IExtensionNode,
-  IExtensionParser,
-  IParsedExtension,
-} from '../types';
+import type { IExtensionNode, IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 import { parseGeneralName } from '../parse_general_name';
 
 function parseSubtrees(subtrees: GeneralSubtrees): IExtensionNode[] {
-  return subtrees.map((subtree) => {
-    const children: IExtensionNode[] = [parseGeneralName(subtree.base)];
+  return subtrees
+    .map((subtree) => {
+      const children: IExtensionNode[] = [parseGeneralName(subtree.base)];
 
-    if (subtree.minimum !== 0) {
-      children.push(node('Minimum', subtree.minimum));
-    }
+      if (subtree.minimum !== 0) {
+        children.push(node('Minimum', subtree.minimum));
+      }
 
-    if (subtree.maximum != null) {
-      children.push(node('Maximum', subtree.maximum));
-    }
+      if (subtree.maximum != null) {
+        children.push(node('Maximum', subtree.maximum));
+      }
 
-    return children;
-  }).flat();
+      return children;
+    })
+    .flat();
 }
 
 export class NameConstraintsParser implements IExtensionParser {

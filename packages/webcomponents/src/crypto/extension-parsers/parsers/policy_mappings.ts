@@ -7,11 +7,7 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  Extension,
-  id_ce_policyMappings,
-  PolicyMappings,
-} from '@peculiar/asn1-x509';
+import { Extension, id_ce_policyMappings, PolicyMappings } from '@peculiar/asn1-x509';
 import type { IExtensionParser, IParsedExtension } from '../types';
 import { section, node } from '../builders';
 
@@ -25,10 +21,15 @@ export class PolicyMappingsParser implements IExtensionParser {
       oid: extension.extnID,
       critical: extension.critical ?? false,
       children: [
-        section('Mappings', mappings.map((mapping) => section('', [
-          node('Issuer Domain Policy', mapping.issuerDomainPolicy),
-          node('Subject Domain Policy', mapping.subjectDomainPolicy),
-        ]))),
+        section(
+          'Mappings',
+          mappings.map((mapping) =>
+            section('', [
+              node('Issuer Domain Policy', mapping.issuerDomainPolicy),
+              node('Subject Domain Policy', mapping.subjectDomainPolicy),
+            ]),
+          ),
+        ),
       ],
     };
   }

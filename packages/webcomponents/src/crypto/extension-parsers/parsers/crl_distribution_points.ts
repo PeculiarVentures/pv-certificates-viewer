@@ -7,15 +7,8 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  CRLDistributionPoints,
-  Extension,
-  id_ce_cRLDistributionPoints,
-} from '@peculiar/asn1-x509';
-import type {
-  IExtensionParser,
-  IParsedExtension,
-} from '../types';
+import { CRLDistributionPoints, Extension, id_ce_cRLDistributionPoints } from '@peculiar/asn1-x509';
+import type { IExtensionParser, IParsedExtension } from '../types';
 import { section } from '../builders';
 import { parseGeneralName } from '../parse_general_name';
 
@@ -30,10 +23,15 @@ export class CRLDistributionPointsParser implements IExtensionParser {
       oid: extension.extnID,
       critical: extension.critical ?? false,
       children: [
-        section('Distribution Points', points.map((point) => section('', [
-          ...(point.distributionPoint?.fullName ?? []).map((gn) => parseGeneralName(gn)),
-          ...(point.cRLIssuer ?? []).map((gn) => parseGeneralName(gn)),
-        ]))),
+        section(
+          'Distribution Points',
+          points.map((point) =>
+            section('', [
+              ...(point.distributionPoint?.fullName ?? []).map((gn) => parseGeneralName(gn)),
+              ...(point.cRLIssuer ?? []).map((gn) => parseGeneralName(gn)),
+            ]),
+          ),
+        ),
       ],
     };
   }

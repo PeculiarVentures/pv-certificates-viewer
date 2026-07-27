@@ -6,17 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  Component,
-  Host,
-  h,
-  Prop,
-  State,
-  Watch,
-  Build,
-} from '@stencil/core';
+import { Component, Host, h, Prop, State, Watch, Build } from '@stencil/core';
 import { Pkcs10CertificateRequest } from '../../crypto';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
+import { runViewerDecode } from '../_shared/decode';
 import {
   BasicInformation,
   SubjectName,
@@ -25,9 +18,8 @@ import {
   Miscellaneous,
   PublicKey,
 } from '../certificate-details-parts';
-import { Typography } from '../typography';
 import { ParsedAttributes } from '../parsed-attributes-viewer/parsed-attributes-viewer';
-import { runViewerDecode } from '../_shared/decode';
+import { Typography } from '../typography';
 
 export type TCsrProp = string | Pkcs10CertificateRequest;
 
@@ -88,7 +80,7 @@ export class CsrViewer {
   @State() isDecodeInProcess = true;
 
   componentWillLoad() {
-    this.decodeCertificate(this.certificate);
+    void this.decodeCertificate(this.certificate);
 
     if (Build.isBrowser) {
       this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
@@ -139,24 +131,21 @@ export class CsrViewer {
    * Rerun decodeCertificate if previuos value not equal current value
    */
   @Watch('certificate')
-  watchCertificateAndDecode(
-    newValue: TCsrProp,
-    oldValue: TCsrProp,
-  ) {
+  watchCertificateAndDecode(newValue: TCsrProp, oldValue: TCsrProp) {
     if (typeof newValue === 'string' && typeof oldValue === 'string') {
       if (newValue !== oldValue) {
-        this.decodeCertificate(newValue);
+        void this.decodeCertificate(newValue);
       }
 
       return;
     }
 
     if (
-      newValue instanceof Pkcs10CertificateRequest
-      && oldValue instanceof Pkcs10CertificateRequest
+      newValue instanceof Pkcs10CertificateRequest &&
+      oldValue instanceof Pkcs10CertificateRequest
     ) {
       if (newValue.commonName !== oldValue.commonName) {
-        this.decodeCertificate(newValue);
+        void this.decodeCertificate(newValue);
       }
     }
   }
@@ -164,9 +153,7 @@ export class CsrViewer {
   private renderErrorState() {
     return (
       <div class="status_wrapper">
-        <Typography>
-          There was an error decoding this certificate request.
-        </Typography>
+        <Typography>There was an error decoding this certificate request.</Typography>
       </div>
     );
   }
@@ -174,9 +161,7 @@ export class CsrViewer {
   private renderEmptyState() {
     return (
       <div class="status_wrapper">
-        <Typography>
-          There is no certificate request available.
-        </Typography>
+        <Typography>There is no certificate request available.</Typography>
       </div>
     );
   }
@@ -193,40 +178,24 @@ export class CsrViewer {
     const linkTemplateResolvers = buildLinkTemplateResolvers(this);
 
     return (
-      <Host
-        data-mobile-screen-view={String(this.mobileScreenView)}
-      >
+      <Host data-mobile-screen-view={String(this.mobileScreenView)}>
         <table>
-          <BasicInformation
-            {...this.certificateDecoded}
-          />
+          <BasicInformation {...this.certificateDecoded} />
 
-          <SubjectName
-            name={this.certificateDecoded.subject}
-          />
+          <SubjectName name={this.certificateDecoded.subject} />
 
-          <PublicKey
-            publicKey={this.certificateDecoded.publicKey}
-          />
+          <PublicKey publicKey={this.certificateDecoded.publicKey} />
 
-          <Signature
-            signature={this.certificateDecoded.signature}
-          />
+          <Signature signature={this.certificateDecoded.signature} />
 
-          <Thumbprints
-            thumbprints={this.certificateDecoded.thumbprints}
-          />
+          <Thumbprints thumbprints={this.certificateDecoded.thumbprints} />
 
           <ParsedAttributes
             attributes={this.certificateDecoded.attributes}
             {...linkTemplateResolvers}
           />
 
-          {this.download && (
-            <Miscellaneous
-              certificate={this.certificateDecoded}
-            />
-          )}
+          {this.download && <Miscellaneous certificate={this.certificateDecoded} />}
         </table>
       </Host>
     );

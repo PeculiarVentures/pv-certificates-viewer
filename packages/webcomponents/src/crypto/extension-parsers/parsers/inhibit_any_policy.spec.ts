@@ -14,9 +14,12 @@ describe('InhibitAnyPolicyParser', () => {
     expect(parser.parse(makeExtRaw(id_ce_inhibitAnyPolicy, '020102', true))).toEqual({
       oid: '2.5.29.54',
       critical: true,
-      children: [{
-        title: 'Skip Certs', value: 2,
-      }],
+      children: [
+        {
+          title: 'Skip Certs',
+          value: 2,
+        },
+      ],
     });
   });
 
@@ -24,9 +27,12 @@ describe('InhibitAnyPolicyParser', () => {
     expect(parser.parse(makeExtRaw(id_ce_inhibitAnyPolicy, '020100', true))).toEqual({
       oid: '2.5.29.54',
       critical: true,
-      children: [{
-        title: 'Skip Certs', value: 0,
-      }],
+      children: [
+        {
+          title: 'Skip Certs',
+          value: 0,
+        },
+      ],
     });
   });
 });

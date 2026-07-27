@@ -6,16 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  LogotypeExtn,
-  LogotypeInfo,
-  id_pe_logotype,
-} from '@peculiar/asn1-x509-logotype';
 import type { Extension } from '@peculiar/asn1-x509';
-import type {
-  IExtensionParser, IParsedExtension, IExtensionNode,
-} from '../types';
+import { AsnParser } from '@peculiar/asn1-schema';
+import { LogotypeExtn, LogotypeInfo, id_pe_logotype } from '@peculiar/asn1-x509-logotype';
+import type { IExtensionParser, IParsedExtension, IExtensionNode } from '../types';
 import { node, section } from '../builders';
 
 function parseLogotypeInfo(info: LogotypeInfo): IExtensionNode[] {
@@ -23,17 +17,21 @@ function parseLogotypeInfo(info: LogotypeInfo): IExtensionNode[] {
     const children: IExtensionNode[] = [];
 
     for (const img of info.direct.image ?? []) {
-      children.push(section('Image', [
-        node('Media Type', img.imageDetails.mediaType),
-        ...img.imageDetails.logotypeURI.map((uri) => node('URI', uri)),
-      ]));
+      children.push(
+        section('Image', [
+          node('Media Type', img.imageDetails.mediaType),
+          ...img.imageDetails.logotypeURI.map((uri) => node('URI', uri)),
+        ]),
+      );
     }
 
     for (const audio of info.direct.audio ?? []) {
-      children.push(section('Audio', [
-        node('Media Type', audio.audioDetails.mediaType),
-        ...audio.audioDetails.logotypeURI.map((uri) => node('URI', uri)),
-      ]));
+      children.push(
+        section('Audio', [
+          node('Media Type', audio.audioDetails.mediaType),
+          ...audio.audioDetails.logotypeURI.map((uri) => node('URI', uri)),
+        ]),
+      );
     }
 
     return children;

@@ -35,12 +35,13 @@ export function readAsBinaryString(file: IFileData): Promise<IReadFileResult> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
-    reader.onload = () => resolve({
-      value: reader.result,
-      fileName: file.name,
-      fileSize: file.size,
-      sourceMime: file.type,
-    });
+    reader.onload = () =>
+      resolve({
+        value: reader.result,
+        fileName: file.name,
+        fileSize: file.size,
+        sourceMime: file.type,
+      });
 
     reader.onerror = () => reject(reader.error);
 
@@ -64,12 +65,13 @@ export function readAsArrayBuffer(file: IFileData): Promise<IReadFileResult> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
-    reader.onload = () => resolve({
-      value: reader.result,
-      fileName: file.name,
-      fileSize: file.size,
-      sourceMime: file.type,
-    });
+    reader.onload = () =>
+      resolve({
+        value: reader.result,
+        fileName: file.name,
+        fileSize: file.size,
+        sourceMime: file.type,
+      });
 
     reader.onerror = () => reject(reader.error);
 
@@ -93,12 +95,13 @@ export function readAsDataUrl(file: IFileData): Promise<IReadFileResult> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
-    reader.onload = () => resolve({
-      value: reader.result,
-      fileName: file.name,
-      fileSize: file.size,
-      sourceMime: file.type,
-    });
+    reader.onload = () =>
+      resolve({
+        value: reader.result,
+        fileName: file.name,
+        fileSize: file.size,
+        sourceMime: file.type,
+      });
 
     reader.onerror = () => reject(reader.error);
 
@@ -122,12 +125,13 @@ export function readAsText(file: IFileData, options?: string): Promise<IReadFile
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
-    reader.onload = () => resolve({
-      value: reader.result,
-      fileName: file.name,
-      fileSize: file.size,
-      sourceMime: file.type,
-    });
+    reader.onload = () =>
+      resolve({
+        value: reader.result,
+        fileName: file.name,
+        fileSize: file.size,
+        sourceMime: file.type,
+      });
 
     reader.onerror = () => reject(reader.error);
 

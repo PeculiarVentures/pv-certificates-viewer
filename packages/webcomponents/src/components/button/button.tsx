@@ -6,9 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  FunctionalComponent, h, VNode,
-} from '@stencil/core';
+import { FunctionalComponent, h, VNode } from '@stencil/core';
 import { Typography } from '../typography';
 
 export interface IButtonProps {
@@ -19,12 +17,7 @@ export interface IButtonProps {
 }
 
 export const Button: FunctionalComponent<IButtonProps> = (props, children) => {
-  const {
-    href,
-    class: classProp,
-    startIcon,
-    onClick,
-  } = props;
+  const { href, class: classProp, startIcon, onClick } = props;
 
   const isLink = !!href;
   const TagType = isLink ? 'a' : 'button';

@@ -6,8 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { AsnParser } from '@peculiar/asn1-schema';
-import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
 import {
   id_pkcs9_at_challengePassword,
   ChallengePassword,
@@ -16,9 +14,11 @@ import {
   id_pkcs9_at_extensionRequest,
   ExtensionRequest,
 } from '@peculiar/asn1-pkcs9';
+import { AsnParser } from '@peculiar/asn1-schema';
+import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
 import type { IAttributeParser, IParsedAttribute } from '../types';
-import { node, section } from '../../extension-parsers/builders';
 import { parseExtension } from '../../extension-parsers';
+import { node, section } from '../../extension-parsers/builders';
 
 export class ChallengePasswordParser implements IAttributeParser {
   readonly oids = [id_pkcs9_at_challengePassword];

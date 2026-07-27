@@ -6,16 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  Component,
-  h,
-  State,
-  Prop,
-  Host,
-} from '@stencil/core';
+import { Component, h, State, Prop, Host } from '@stencil/core';
 import { Button, IButtonProps } from '../button';
-import { Typography } from '../typography';
 import { ActionsIcon } from '../icons';
+import { Typography } from '../typography';
 
 export interface IButtonMenuGroupOptions extends IButtonProps {
   text: string | string[];
@@ -42,9 +36,7 @@ export class ButtonMenu {
 
   render() {
     return (
-      <Host
-        class={{ is_shown: this.open }}
-      >
+      <Host class={{ is_shown: this.open }}>
         <Button
           class="button_popover"
           startIcon={<ActionsIcon />}

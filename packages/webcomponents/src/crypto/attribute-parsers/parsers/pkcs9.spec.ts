@@ -4,11 +4,7 @@ import {
   id_pkcs9_at_extensionRequest,
 } from '@peculiar/asn1-pkcs9';
 import { makeAttrRaw } from '../../../tests/test_utils';
-import {
-  ChallengePasswordParser,
-  UnstructuredNameParser,
-  ExtensionRequestParser,
-} from './pkcs9';
+import { ChallengePasswordParser, UnstructuredNameParser, ExtensionRequestParser } from './pkcs9';
 
 describe('ChallengePasswordParser', () => {
   const parser = new ChallengePasswordParser();
@@ -18,14 +14,14 @@ describe('ChallengePasswordParser', () => {
   });
 
   it('parses a UTF8String challenge password', () => {
-    expect(parser.parse(makeAttrRaw(
-      id_pkcs9_at_challengePassword,
-      '0c06736563726574',
-    ))).toEqual({
+    expect(parser.parse(makeAttrRaw(id_pkcs9_at_challengePassword, '0c06736563726574'))).toEqual({
       oid: '1.2.840.113549.1.9.7',
-      children: [{
-        title: 'Value', value: 'secret',
-      }],
+      children: [
+        {
+          title: 'Value',
+          value: 'secret',
+        },
+      ],
     });
   });
 });
@@ -38,14 +34,16 @@ describe('UnstructuredNameParser', () => {
   });
 
   it('parses an IA5String unstructured name', () => {
-    expect(parser.parse(makeAttrRaw(
-      id_pkcs9_at_unstructuredName,
-      '160b6578616d706c652e636f6d',
-    ))).toEqual({
+    expect(
+      parser.parse(makeAttrRaw(id_pkcs9_at_unstructuredName, '160b6578616d706c652e636f6d')),
+    ).toEqual({
       oid: '1.2.840.113549.1.9.2',
-      children: [{
-        title: 'Value', value: 'example.com',
-      }],
+      children: [
+        {
+          title: 'Value',
+          value: 'example.com',
+        },
+      ],
     });
   });
 });
@@ -59,31 +57,41 @@ describe('ExtensionRequestParser', () => {
 
   it('parses nested certificate extensions', () => {
     // ExtensionRequest from domain.test.csr: subjectAltName with otherName + rfc822Name
-    expect(parser.parse(makeAttrRaw(
-      id_pkcs9_at_extensionRequest,
-      '3030302e0603551d1104273025a023060a2b060104018237140203a0150c136164647265737340646f6d61696e2e74657374',
-    ))).toEqual({
+    expect(
+      parser.parse(
+        makeAttrRaw(
+          id_pkcs9_at_extensionRequest,
+          '3030302e0603551d1104273025a023060a2b060104018237140203a0150c136164647265737340646f6d61696e2e74657374',
+        ),
+      ),
+    ).toEqual({
       oid: '1.2.840.113549.1.9.14',
-      children: [{
-        title: 'Extensions',
-        children: [{
-          oid: '2.5.29.17',
-          critical: false,
+      children: [
+        {
+          title: 'Extensions',
           children: [
             {
-              title: 'Other Name',
+              oid: '2.5.29.17',
+              critical: false,
               children: [
                 {
-                  title: 'Type', value: '1.3.6.1.4.1.311.20.2.3',
-                },
-                {
-                  title: 'Value', value: 'address@domain.test',
+                  title: 'Other Name',
+                  children: [
+                    {
+                      title: 'Type',
+                      value: '1.3.6.1.4.1.311.20.2.3',
+                    },
+                    {
+                      title: 'Value',
+                      value: 'address@domain.test',
+                    },
+                  ],
                 },
               ],
             },
           ],
-        }],
-      }],
+        },
+      ],
     });
   });
 });

@@ -6,17 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  Component,
-  Host,
-  h,
-  Prop,
-  State,
-  Watch,
-  Build,
-} from '@stencil/core';
+import { Component, Host, h, Prop, State, Watch, Build } from '@stencil/core';
 import { X509AttributeCertificate } from '../../crypto';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
+import { runViewerDecode } from '../_shared/decode';
 import {
   BasicInformation,
   Signature,
@@ -25,10 +18,9 @@ import {
   Holder,
   Issuer,
 } from '../certificate-details-parts';
-import { Typography } from '../typography';
-import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
 import { ParsedAttributes } from '../parsed-attributes-viewer/parsed-attributes-viewer';
-import { runViewerDecode } from '../_shared/decode';
+import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
+import { Typography } from '../typography';
 
 export type TAttributeCertificateProp = string | X509AttributeCertificate;
 
@@ -107,7 +99,7 @@ export class AttributeCertificateViewer {
   @State() isDecodeInProcess = true;
 
   componentWillLoad() {
-    this.decodeCertificate(this.certificate);
+    void this.decodeCertificate(this.certificate);
 
     if (Build.isBrowser) {
       this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
@@ -165,18 +157,18 @@ export class AttributeCertificateViewer {
   ) {
     if (typeof newValue === 'string' && typeof oldValue === 'string') {
       if (newValue !== oldValue) {
-        this.decodeCertificate(newValue);
+        void this.decodeCertificate(newValue);
       }
 
       return;
     }
 
     if (
-      newValue instanceof X509AttributeCertificate
-      && oldValue instanceof X509AttributeCertificate
+      newValue instanceof X509AttributeCertificate &&
+      oldValue instanceof X509AttributeCertificate
     ) {
       if (newValue.serialNumber !== oldValue.serialNumber) {
-        this.decodeCertificate(newValue);
+        void this.decodeCertificate(newValue);
       }
     }
   }
@@ -184,9 +176,7 @@ export class AttributeCertificateViewer {
   private renderErrorState() {
     return (
       <div class="status_wrapper">
-        <Typography>
-          There was an error decoding this attribute certificate.
-        </Typography>
+        <Typography>There was an error decoding this attribute certificate.</Typography>
       </div>
     );
   }
@@ -194,9 +184,7 @@ export class AttributeCertificateViewer {
   private renderEmptyState() {
     return (
       <div class="status_wrapper">
-        <Typography>
-          There is no attribute certificate available.
-        </Typography>
+        <Typography>There is no attribute certificate available.</Typography>
       </div>
     );
   }
@@ -213,29 +201,17 @@ export class AttributeCertificateViewer {
     const linkTemplateResolvers = buildLinkTemplateResolvers(this);
 
     return (
-      <Host
-        data-mobile-screen-view={String(this.mobileScreenView)}
-      >
+      <Host data-mobile-screen-view={String(this.mobileScreenView)}>
         <table>
-          <BasicInformation
-            {...this.certificateDecoded}
-          />
+          <BasicInformation {...this.certificateDecoded} />
 
-          <Issuer
-            issuer={this.certificateDecoded.issuer}
-          />
+          <Issuer issuer={this.certificateDecoded.issuer} />
 
-          <Holder
-            holder={this.certificateDecoded.holder}
-          />
+          <Holder holder={this.certificateDecoded.holder} />
 
-          <Signature
-            signature={this.certificateDecoded.signature}
-          />
+          <Signature signature={this.certificateDecoded.signature} />
 
-          <Thumbprints
-            thumbprints={this.certificateDecoded.thumbprints}
-          />
+          <Thumbprints thumbprints={this.certificateDecoded.thumbprints} />
 
           <ParsedAttributes
             attributes={this.certificateDecoded.attributes}
@@ -247,11 +223,7 @@ export class AttributeCertificateViewer {
             {...linkTemplateResolvers}
           />
 
-          {this.download && (
-            <Miscellaneous
-              certificate={this.certificateDecoded}
-            />
-          )}
+          {this.download && <Miscellaneous certificate={this.certificateDecoded} />}
         </table>
       </Host>
     );

@@ -11,18 +11,19 @@ describe('EntrustVersionInfoParser', () => {
 
   it('parses version and flags from a real extension value', () => {
     // Real extension from Adobe Systems Incorporated.cer (test_assets)
-    expect(parser.parse(makeExtRaw(
-      id_entrust_entrustVersInfo,
-      '300e1b0856362e303a342e3003020490',
-    ))).toEqual({
+    expect(
+      parser.parse(makeExtRaw(id_entrust_entrustVersInfo, '300e1b0856362e303a342e3003020490')),
+    ).toEqual({
       oid: '1.2.840.113533.7.65.0',
       critical: false,
       children: [
         {
-          title: 'Version', value: 'V6.0:4.0',
+          title: 'Version',
+          value: 'V6.0:4.0',
         },
         {
-          title: 'Flags', value: 'keyUpdateAllowed',
+          title: 'Flags',
+          value: 'keyUpdateAllowed',
         },
       ],
     });

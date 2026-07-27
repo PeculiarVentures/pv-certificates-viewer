@@ -7,11 +7,7 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  CRLReason,
-  Extension,
-  id_ce_cRLReasons,
-} from '@peculiar/asn1-x509';
+import { CRLReason, Extension, id_ce_cRLReasons } from '@peculiar/asn1-x509';
 import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 

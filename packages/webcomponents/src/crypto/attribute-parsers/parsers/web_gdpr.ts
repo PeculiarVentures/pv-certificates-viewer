@@ -6,12 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { id_WebGDPR, WebGDPR } from '@peculiar/asn1-ntqwac';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
-import { id_WebGDPR, WebGDPR } from '@peculiar/asn1-ntqwac';
-import type {
-  IAttributeParser, IExtensionNode, IParsedAttribute,
-} from '../types';
+import type { IAttributeParser, IExtensionNode, IParsedAttribute } from '../types';
 import { node, section } from '../../extension-parsers/builders';
 import { parseGeneralName } from '../../extension-parsers/parse_general_name';
 
@@ -35,7 +33,8 @@ export class WebGDPRParser implements IAttributeParser {
     }
 
     return {
-      oid: attribute.type, children,
+      oid: attribute.type,
+      children,
     };
   }
 }

@@ -6,8 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Attribute, Extension } from '@peculiar/asn1-x509';
 import { OctetString } from '@peculiar/asn1-schema';
+import { Attribute, Extension } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 
 /**

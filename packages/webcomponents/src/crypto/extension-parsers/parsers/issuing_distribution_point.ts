@@ -12,9 +12,7 @@ import {
   id_ce_issuingDistributionPoint,
   IssuingDistributionPoint,
 } from '@peculiar/asn1-x509';
-import type {
-  IExtensionNode, IExtensionParser, IParsedExtension,
-} from '../types';
+import type { IExtensionNode, IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 import { parseGeneralName } from '../parse_general_name';
 

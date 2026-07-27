@@ -51,8 +51,8 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           branch: release/version-bump
-          commit-message: "chore: release version bump (${{ github.event.inputs.bump }})"
-          title: "chore: release version bump (${{ github.event.inputs.bump }})"
+          commit-message: 'chore: release version bump (${{ github.event.inputs.bump }})'
+          title: 'chore: release version bump (${{ github.event.inputs.bump }})'
           body: |
             ## Version Bump: `${{ github.event.inputs.bump }}`
 

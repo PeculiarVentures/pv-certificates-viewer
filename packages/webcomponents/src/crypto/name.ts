@@ -6,8 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Name as AsnName } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
+import { Name as AsnName } from '@peculiar/asn1-x509';
 import { BufferSourceConverter } from 'pvtsutils';
 
 const oidToShortName = {
@@ -44,21 +44,19 @@ export interface INameJSON {
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Name {
   public static parse(data: BufferSource | AsnName): INameJSON[] {
-    const asn = BufferSourceConverter.isBufferSource(data)
-      ? AsnParser.parse(data, AsnName)
-      : data;
+    const asn = BufferSourceConverter.isBufferSource(data) ? AsnParser.parse(data, AsnName) : data;
 
     const res: INameJSON[] = [];
 
-    asn.forEach((o) => (
+    asn.forEach((o) =>
       o.forEach((a) => {
         res.push({
           type: a.type,
           value: a.value.toString(),
           short: oidToShortName[a.type] || a.type,
         });
-      })
-    ));
+      }),
+    );
 
     return res;
   }

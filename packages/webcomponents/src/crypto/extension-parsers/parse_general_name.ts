@@ -6,15 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  GeneralName,
-  DisplayText,
-  UserNotice,
-} from '@peculiar/asn1-x509';
-import { Convert } from 'pvtsutils';
 import { AsnParser } from '@peculiar/asn1-schema';
-import { Name } from '../name';
+import { GeneralName, DisplayText, UserNotice } from '@peculiar/asn1-x509';
+import { Convert } from 'pvtsutils';
 import type { IExtensionNode } from './types';
+import { Name } from '../name';
 import { node, section } from './builders';
 
 export function parseGeneralName(gn: GeneralName): IExtensionNode {
@@ -69,10 +65,7 @@ export function parseGeneralName(gn: GeneralName): IExtensionNode {
       }
     }
 
-    return section('Other Name', [
-      node('Type', gn.otherName.typeId),
-      node('Value', value),
-    ]);
+    return section('Other Name', [node('Type', gn.otherName.typeId), node('Value', value)]);
   }
 
   if (gn.ediPartyName != null) {
@@ -90,9 +83,10 @@ export function parseGeneralName(gn: GeneralName): IExtensionNode {
   if (gn.directoryName != null) {
     const attrs = Name.parse(gn.directoryName);
 
-    return section('Directory Name', attrs.map((attr) => (
-      node(attr.type, attr.value)
-    )));
+    return section(
+      'Directory Name',
+      attrs.map((attr) => node(attr.type, attr.value)),
+    );
   }
 
   // x400Address: opaque ORAddress bytes → hex

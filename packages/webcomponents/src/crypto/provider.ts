@@ -50,7 +50,7 @@ export class CryptoProvider {
   public set(key: string | Crypto, value?: Crypto) {
     if (typeof key === 'string') {
       if (!value) {
-        throw new TypeError('Argument \'value\' is required');
+        throw new TypeError("Argument 'value' is required");
       }
 
       this.providers.set(key.toLowerCase(), value);

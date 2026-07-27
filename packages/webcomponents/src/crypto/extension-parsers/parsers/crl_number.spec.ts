@@ -14,9 +14,12 @@ describe('CRLNumberParser', () => {
     expect(parser.parse(makeExtRaw(id_ce_cRLNumber, '02012a'))).toEqual({
       oid: '2.5.29.20',
       critical: false,
-      children: [{
-        title: 'CRL Number', value: 42,
-      }],
+      children: [
+        {
+          title: 'CRL Number',
+          value: 42,
+        },
+      ],
     });
   });
 });
@@ -33,9 +36,12 @@ describe('CRLDeltaIndicatorParser', () => {
     expect(parser.parse(makeExtRaw(id_ce_deltaCRLIndicator, '02010a'))).toEqual({
       oid: '2.5.29.27',
       critical: false,
-      children: [{
-        title: 'Base CRL Number', value: 10,
-      }],
+      children: [
+        {
+          title: 'Base CRL Number',
+          value: 10,
+        },
+      ],
     });
   });
 });

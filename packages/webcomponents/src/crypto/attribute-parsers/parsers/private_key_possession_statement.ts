@@ -6,16 +6,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { AsnConvert, AsnParser } from '@peculiar/asn1-schema';
-import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
 import {
   id_at_statementOfPossession,
   PrivateKeyPossessionStatement,
 } from '@peculiar/asn1-private-key-stmt';
+import { AsnConvert, AsnParser } from '@peculiar/asn1-schema';
+import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
-import type {
-  IAttributeParser, IExtensionNode, IParsedAttribute,
-} from '../types';
+import type { IAttributeParser, IExtensionNode, IParsedAttribute } from '../types';
 import { node, section } from '../../extension-parsers/builders';
 import { Name } from '../../name';
 
@@ -30,14 +28,20 @@ export class PrivateKeyPossessionStatementParser implements IAttributeParser {
 
     const issuerAttrs = Name.parse(pks.signer.issuer);
 
-    children.push(section('Issuer', issuerAttrs.map((a) => node(a.type, a.value))));
+    children.push(
+      section(
+        'Issuer',
+        issuerAttrs.map((a) => node(a.type, a.value)),
+      ),
+    );
 
     if (pks.cert) {
       children.push(node('Certificate', Convert.ToBase64(AsnConvert.serialize(pks.cert))));
     }
 
     return {
-      oid: attribute.type, children,
+      oid: attribute.type,
+      children,
     };
   }
 }

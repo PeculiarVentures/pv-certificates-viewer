@@ -16,10 +16,7 @@ interface ILinkProps {
 }
 
 export const Link: FunctionalComponent<ILinkProps> = (props, children) => {
-  const {
-    href,
-    variant,
-  } = props;
+  const { href, variant } = props;
 
   return (
     <Typography

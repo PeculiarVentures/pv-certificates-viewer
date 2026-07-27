@@ -6,19 +6,20 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Convert } from 'pvtsutils';
 import type { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
+import { Convert } from 'pvtsutils';
 import type { IParsedAttribute } from './types';
 
 export function parseUnknownAttribute(attribute: AsnAttribute): IParsedAttribute {
-  const raw = attribute.values[0]
-    ? Convert.ToHex(attribute.values[0])
-    : '';
+  const raw = attribute.values[0] ? Convert.ToHex(attribute.values[0]) : '';
 
   return {
     oid: attribute.type,
-    children: [{
-      title: 'Raw Value', value: raw,
-    }],
+    children: [
+      {
+        title: 'Raw Value',
+        value: raw,
+      },
+    ],
   };
 }

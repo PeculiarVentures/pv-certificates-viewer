@@ -6,8 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { AsnParser } from '@peculiar/asn1-schema';
 import { DateOfBirth, id_pkcs9_at_dateOfBirth } from '@peculiar/asn1-pkcs9';
+import { AsnParser } from '@peculiar/asn1-schema';
 import {
   AttributeValue,
   Extension,
@@ -16,8 +16,8 @@ import {
 } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 import type { IExtensionParser, IParsedExtension } from '../types';
-import { node } from '../builders';
 import { dateShort } from '../../../utils';
+import { node } from '../builders';
 
 function decodeDateOfBirth(buf: ArrayBuffer): string | null {
   try {

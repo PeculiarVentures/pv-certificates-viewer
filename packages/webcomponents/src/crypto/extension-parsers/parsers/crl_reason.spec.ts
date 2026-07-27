@@ -14,9 +14,12 @@ describe('CRLReasonParser', () => {
     expect(parser.parse(makeExtRaw(id_ce_cRLReasons, '0a0101'))).toEqual({
       oid: '2.5.29.21',
       critical: false,
-      children: [{
-        title: 'Reason', value: 'keyCompromise',
-      }],
+      children: [
+        {
+          title: 'Reason',
+          value: 'keyCompromise',
+        },
+      ],
     });
   });
 
@@ -25,9 +28,12 @@ describe('CRLReasonParser', () => {
     expect(parser.parse(makeExtRaw(id_ce_cRLReasons, '0a0100'))).toEqual({
       oid: '2.5.29.21',
       critical: false,
-      children: [{
-        title: 'Reason', value: 'unspecified',
-      }],
+      children: [
+        {
+          title: 'Reason',
+          value: 'unspecified',
+        },
+      ],
     });
   });
 
@@ -36,9 +42,12 @@ describe('CRLReasonParser', () => {
     expect(parser.parse(makeExtRaw(id_ce_cRLReasons, '0a0105'))).toEqual({
       oid: '2.5.29.21',
       critical: false,
-      children: [{
-        title: 'Reason', value: 'cessationOfOperation',
-      }],
+      children: [
+        {
+          title: 'Reason',
+          value: 'cessationOfOperation',
+        },
+      ],
     });
   });
 });

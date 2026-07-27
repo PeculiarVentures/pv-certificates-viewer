@@ -6,22 +6,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  Component,
-  h,
-  Prop,
-  State,
-  Watch,
-  Host,
-  Build,
-} from '@stencil/core';
+import { Component, h, Prop, State, Watch, Host, Build } from '@stencil/core';
 import { SshCertificate } from '../../crypto';
 import { runViewerDecode } from '../_shared/decode';
 import { Typography } from '../typography';
 import { SshBasicInformation } from './-components/basic_information';
+import { SshMiscellaneous } from './-components/miscellaneous';
 import { SshPublicKey } from './-components/public_key';
 import { SshSignatureKey } from './-components/signature_key';
-import { SshMiscellaneous } from './-components/miscellaneous';
 
 export type TSshCertificateProp = string | SshCertificate;
 
@@ -64,7 +56,7 @@ export class SshCertificateViewer {
   @State() isDecodeInProcess = true;
 
   componentWillLoad() {
-    this.decodeCertificate(this.certificate);
+    void this.decodeCertificate(this.certificate);
 
     if (Build.isBrowser) {
       this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
@@ -117,7 +109,7 @@ export class SshCertificateViewer {
   watchCertificateAndDecode(newValue: TSshCertificateProp, oldValue: TSshCertificateProp) {
     if (typeof newValue === 'string' && typeof oldValue === 'string') {
       if (newValue !== oldValue) {
-        this.decodeCertificate(newValue);
+        void this.decodeCertificate(newValue);
       }
 
       return;
@@ -125,7 +117,7 @@ export class SshCertificateViewer {
 
     if (newValue instanceof SshCertificate && oldValue instanceof SshCertificate) {
       if (newValue.serialNumber !== oldValue.serialNumber) {
-        this.decodeCertificate(newValue);
+        void this.decodeCertificate(newValue);
       }
     }
   }
@@ -133,9 +125,7 @@ export class SshCertificateViewer {
   private renderErrorState() {
     return (
       <div class="status_wrapper">
-        <Typography>
-          There was an error decoding this certificate.
-        </Typography>
+        <Typography>There was an error decoding this certificate.</Typography>
       </div>
     );
   }
@@ -143,9 +133,7 @@ export class SshCertificateViewer {
   private renderEmptyState() {
     return (
       <div class="status_wrapper">
-        <Typography>
-          There is no certificate available.
-        </Typography>
+        <Typography>There is no certificate available.</Typography>
       </div>
     );
   }
@@ -160,27 +148,15 @@ export class SshCertificateViewer {
     }
 
     return (
-      <Host
-        data-mobile-screen-view={String(this.mobileScreenView)}
-      >
+      <Host data-mobile-screen-view={String(this.mobileScreenView)}>
         <table>
-          <SshBasicInformation
-            {...this.certificateDecoded}
-          />
+          <SshBasicInformation {...this.certificateDecoded} />
 
-          <SshPublicKey
-            key={this.certificateDecoded.publicKey}
-          />
+          <SshPublicKey key={this.certificateDecoded.publicKey} />
 
-          <SshSignatureKey
-            key={this.certificateDecoded.signatureKey}
-          />
+          <SshSignatureKey key={this.certificateDecoded.signatureKey} />
 
-          {this.download && (
-            <SshMiscellaneous
-              certificate={this.certificateDecoded}
-            />
-          )}
+          {this.download && <SshMiscellaneous certificate={this.certificateDecoded} />}
         </table>
       </Host>
     );

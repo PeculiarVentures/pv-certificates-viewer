@@ -93,10 +93,12 @@ describe('parseGeneralName', () => {
       title: 'Other Name',
       children: [
         {
-          title: 'Type', value: '1.3.6.1.4.1.311.20.2.3',
+          title: 'Type',
+          value: '1.3.6.1.4.1.311.20.2.3',
         },
         {
-          title: 'Value', value: 'admin',
+          title: 'Value',
+          value: 'admin',
         },
       ],
     });
@@ -115,10 +117,12 @@ describe('parseGeneralName', () => {
       title: 'Other Name',
       children: [
         {
-          title: 'Type', value: '2.16.840.1.101.3.6.6',
+          title: 'Type',
+          value: '2.16.840.1.101.3.6.6',
         },
         {
-          title: 'Value', value: '0419d13810d8210f2c115501ada1685a010e662cc110813810d7e8',
+          title: 'Value',
+          value: '0419d13810d8210f2c115501ada1685a010e662cc110813810d7e8',
         },
       ],
     });
@@ -134,10 +138,12 @@ describe('parseGeneralName', () => {
       title: 'EDI Party Name',
       children: [
         {
-          title: 'Name Assigner', value: 'ExampleAssigner',
+          title: 'Name Assigner',
+          value: 'ExampleAssigner',
         },
         {
-          title: 'Party Name', value: 'ExampleParty',
+          title: 'Party Name',
+          value: 'ExampleParty',
         },
       ],
     });
@@ -152,7 +158,8 @@ describe('parseGeneralName', () => {
       title: 'EDI Party Name',
       children: [
         {
-          title: 'Party Name', value: 'JustParty',
+          title: 'Party Name',
+          value: 'JustParty',
         },
       ],
     });
@@ -163,9 +170,12 @@ describe('parseGeneralName', () => {
 
     expect(result).toEqual({
       title: 'Directory Name',
-      children: [{
-        title: '2.5.4.3', value: 'Test CA',
-      }],
+      children: [
+        {
+          title: '2.5.4.3',
+          value: 'Test CA',
+        },
+      ],
     });
   });
 
@@ -174,9 +184,12 @@ describe('parseGeneralName', () => {
 
     expect(result).toEqual({
       title: 'Directory Name',
-      children: [{
-        title: '1.2.3.4.99', value: 'Unknown',
-      }],
+      children: [
+        {
+          title: '1.2.3.4.99',
+          value: 'Unknown',
+        },
+      ],
     });
   });
 
@@ -199,10 +212,12 @@ describe('parseGeneralName', () => {
       title: 'Directory Name',
       children: [
         {
-          title: '2.5.4.3', value: 'Test CA',
+          title: '2.5.4.3',
+          value: 'Test CA',
         },
         {
-          title: '2.5.4.10', value: 'Test Org',
+          title: '2.5.4.10',
+          value: 'Test Org',
         },
       ],
     });
@@ -221,7 +236,8 @@ describe('parseGeneralName', () => {
 
   it('returns Unknown for an empty GeneralName', () => {
     expect(parseGeneralName(new GeneralName())).toEqual({
-      title: 'Unknown', value: '',
+      title: 'Unknown',
+      value: '',
     });
   });
 });

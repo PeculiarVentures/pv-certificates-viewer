@@ -11,7 +11,7 @@
   --pv-color-primary-shade-3: #3e603a;
   --pv-color-primary-shade-4: #2d422b;
   --pv-color-primary-shade-5: #1b261a;
-  --pv-color-primary-contrast: #FFFFFF;
+  --pv-color-primary-contrast: #ffffff;
   --pv-color-secondary-tint-5: #e5efff;
   --pv-color-secondary-tint-4: #c2d8fc;
   --pv-color-secondary-tint-3: #9fc2f9;
@@ -23,7 +23,7 @@
   --pv-color-secondary-shade-3: #3e5477;
   --pv-color-secondary-shade-4: #303c4f;
   --pv-color-secondary-shade-5: #1a1f26;
-  --pv-color-secondary-contrast: #FFFFFF;
+  --pv-color-secondary-contrast: #ffffff;
   --pv-color-wrong-tint-5: #ffe6e5;
   --pv-color-wrong-tint-4: #f7c2c0;
   --pv-color-wrong-tint-3: #efa09e;
@@ -35,7 +35,7 @@
   --pv-color-wrong-shade-3: #6d3c3b;
   --pv-color-wrong-shade-4: #492e2d;
   --pv-color-wrong-shade-5: #261b1a;
-  --pv-color-wrong-contrast: #FFFFFF;
+  --pv-color-wrong-contrast: #ffffff;
   --pv-color-attention-tint-5: #fff4e5;
   --pv-color-attention-tint-4: #fce4bf;
   --pv-color-attention-tint-3: #f9d39a;
@@ -58,25 +58,35 @@
   --pv-color-success-shade-3: #366857;
   --pv-color-success-shade-4: #2b473e;
   --pv-color-success-shade-5: #1a2622;
-  --pv-color-white: #FFFFFF;
-  --pv-color-gray-1: #FBFCFD;
-  --pv-color-gray-2: #F4F7FC;
-  --pv-color-gray-3: #EFF1F6;
-  --pv-color-gray-4: #EAEDF2;
-  --pv-color-gray-5: #E3E5E8;
-  --pv-color-gray-6: #D8DBDE;
-  --pv-color-gray-7: #CDD1D5;
-  --pv-color-gray-8: #C4C8CC;
-  --pv-color-gray-9: #8F999E;
-  --pv-color-gray-10: #5C666A;
+  --pv-color-white: #ffffff;
+  --pv-color-gray-1: #fbfcfd;
+  --pv-color-gray-2: #f4f7fc;
+  --pv-color-gray-3: #eff1f6;
+  --pv-color-gray-4: #eaedf2;
+  --pv-color-gray-5: #e3e5e8;
+  --pv-color-gray-6: #d8dbde;
+  --pv-color-gray-7: #cdd1d5;
+  --pv-color-gray-8: #c4c8cc;
+  --pv-color-gray-9: #8f999e;
+  --pv-color-gray-10: #5c666a;
   --pv-color-black: #293033;
-  --pv-color-extra-1: #826FF6;
-  --pv-color-extra-2: #DC6CDF;
-  --pv-shadow-light-low: 0px 1px 3px rgba(85, 94, 98, 0.12),0px 3px 3px rgba(85, 94, 98, 0.08),0px 1px 7px rgba(85, 94, 98, 0.06);
-  --pv-shadow-light-medium: 0px 1px 4px rgba(85, 94, 98, 0.18),0px 3px 5px rgba(85, 94, 98, 0.14),0px 1px 10px rgba(85, 94, 98, 0.12);
-  --pv-shadow-light-hight: 0px 1px 8px -2px rgba(85, 94, 98, 0.2),0px 5px 10px 0.2px rgba(85, 94, 98, 0.25),0px 15px 20px 0.2px rgba(85, 94, 98, 0.21);
-  --pv-shadow-dark-medium: 0px 1px 4px rgba(41, 48, 51, 0.18),0px 3px 5px rgba(41, 48, 51, 0.16),0px 1px 10px rgba(41, 48, 51, 0.14);
-  --pv-shadow-dark-hight: 0px 1px 8px -2px rgba(85, 94, 98, 0.2),0px 5px 10px 0.2px rgba(85, 94, 98, 0.3),0px 15px 20px 0.2px rgba(85, 94, 98, 0.25);
+  --pv-color-extra-1: #826ff6;
+  --pv-color-extra-2: #dc6cdf;
+  --pv-shadow-light-low:
+    0px 1px 3px rgba(85, 94, 98, 0.12), 0px 3px 3px rgba(85, 94, 98, 0.08),
+    0px 1px 7px rgba(85, 94, 98, 0.06);
+  --pv-shadow-light-medium:
+    0px 1px 4px rgba(85, 94, 98, 0.18), 0px 3px 5px rgba(85, 94, 98, 0.14),
+    0px 1px 10px rgba(85, 94, 98, 0.12);
+  --pv-shadow-light-hight:
+    0px 1px 8px -2px rgba(85, 94, 98, 0.2), 0px 5px 10px 0.2px rgba(85, 94, 98, 0.25),
+    0px 15px 20px 0.2px rgba(85, 94, 98, 0.21);
+  --pv-shadow-dark-medium:
+    0px 1px 4px rgba(41, 48, 51, 0.18), 0px 3px 5px rgba(41, 48, 51, 0.16),
+    0px 1px 10px rgba(41, 48, 51, 0.14);
+  --pv-shadow-dark-hight:
+    0px 1px 8px -2px rgba(85, 94, 98, 0.2), 0px 5px 10px 0.2px rgba(85, 94, 98, 0.3),
+    0px 15px 20px 0.2px rgba(85, 94, 98, 0.25);
   --pv-text-h1-weight: 800;
   --pv-text-h1-size: 30px;
   --pv-text-h1-height: 40px;

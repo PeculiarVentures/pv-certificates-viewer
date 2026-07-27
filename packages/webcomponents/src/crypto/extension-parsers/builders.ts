@@ -6,9 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import type {
-  IExtensionNode, TExtensionNodeType, TPrimitive,
-} from './types';
+import type { IExtensionNode, TExtensionNodeType, TPrimitive } from './types';
 
 export const node = (
   title: string,

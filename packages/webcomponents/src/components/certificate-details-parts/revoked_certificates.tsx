@@ -8,12 +8,10 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { Convert } from 'pvtsutils';
-import { dateShort, l10n } from '../../utils';
 import { IRevokedCertificate } from '../../crypto';
+import { dateShort, l10n } from '../../utils';
 import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
-import {
-  RowTitle, RowValue, TableRowTable,
-} from './row';
+import { RowTitle, RowValue, TableRowTable } from './row';
 
 interface IRevokedCertificatesProps {
   revokedCertificates: IRevokedCertificate[];
@@ -27,10 +25,8 @@ export const RevokedCertificates: FunctionalComponent<IRevokedCertificatesProps>
   }
 
   return [
-    <RowTitle
-      value={l10n.getString('revokedCertificates')}
-    />,
-    revokedCertificates.map((certificate) => ([
+    <RowTitle value={l10n.getString('revokedCertificates')} />,
+    revokedCertificates.map((certificate) => [
       <RowValue
         name={l10n.getString('serialNumber')}
         value={Convert.ToHex(certificate.userCertificate)}
@@ -40,23 +36,27 @@ export const RevokedCertificates: FunctionalComponent<IRevokedCertificatesProps>
         name={l10n.getString('revocationDate')}
         value={dateShort(certificate.revocationDate.getTime())}
       />,
-      (certificate.crlEntryExtensions && certificate.crlEntryExtensions.length && ([
-        <RowValue
-          name={l10n.getString('crlEntryExtensions')}
-          value=""
-        />,
-        <TableRowTable>
-          <ParsedExtensions
-            title=""
-            extensions={certificate.crlEntryExtensions}
-          />
-        </TableRowTable>,
-      ])),
+      certificate.crlEntryExtensions &&
+        certificate.crlEntryExtensions.length && [
+          <RowValue
+            name={l10n.getString('crlEntryExtensions')}
+            value=""
+          />,
+          <TableRowTable>
+            <ParsedExtensions
+              title=""
+              extensions={certificate.crlEntryExtensions}
+            />
+          </TableRowTable>,
+        ],
       <tr>
-        <td colSpan={2} class="divider">
+        <td
+          colSpan={2}
+          class="divider"
+        >
           <span />
         </td>
       </tr>,
-    ])),
+    ]),
   ];
 };

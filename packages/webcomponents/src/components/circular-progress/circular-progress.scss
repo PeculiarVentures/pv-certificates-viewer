@@ -11,17 +11,17 @@
 
 @keyframes circular-dash {
   0% {
-    stroke-dasharray: 1,200;
+    stroke-dasharray: 1, 200;
     stroke-dashoffset: 0;
   }
 
   50% {
-    stroke-dasharray: 100,200;
+    stroke-dasharray: 100, 200;
     stroke-dashoffset: -15;
   }
 
   to {
-    stroke-dasharray: 100,200;
+    stroke-dasharray: 100, 200;
     stroke-dashoffset: -120;
   }
 }
@@ -37,7 +37,7 @@
 .circle_progress_circle {
   stroke-linecap: round;
   animation: circular-dash 1.4s ease-in-out infinite;
-  stroke-dasharray: 80,200;
+  stroke-dasharray: 80, 200;
   stroke-dashoffset: 0;
   stroke: var(--pv-color-secondary);
 }

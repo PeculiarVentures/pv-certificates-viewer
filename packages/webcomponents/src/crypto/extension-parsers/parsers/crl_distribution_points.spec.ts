@@ -12,10 +12,14 @@ describe('CRLDistributionPointsParser', () => {
   it('parses a single distribution point with a URI fullName', () => {
     // Real extension from "COMMISSION DE L'UNION EUROPEENNE" test cert:
     //   URI = "http://crl.harica.gr/HaricaQWACSubCAR1.crl"
-    expect(parser.parse(makeExtRaw(
-      id_ce_cRLDistributionPoints,
-      '30323030a02ea02c862a687474703a2f2f63726c2e6861726963612e67722f48617269636151574143537562434152312e63726c',
-    ))).toEqual({
+    expect(
+      parser.parse(
+        makeExtRaw(
+          id_ce_cRLDistributionPoints,
+          '30323030a02ea02c862a687474703a2f2f63726c2e6861726963612e67722f48617269636151574143537562434152312e63726c',
+        ),
+      ),
+    ).toEqual({
       oid: '2.5.29.31',
       critical: false,
       children: [
@@ -26,7 +30,8 @@ describe('CRLDistributionPointsParser', () => {
               title: '',
               children: [
                 {
-                  title: 'URI', value: 'http://crl.harica.gr/HaricaQWACSubCAR1.crl',
+                  title: 'URI',
+                  value: 'http://crl.harica.gr/HaricaQWACSubCAR1.crl',
                 },
               ],
             },
@@ -57,14 +62,22 @@ describe('CRLDistributionPointsParser', () => {
           title: 'Distribution Points',
           children: [
             {
-              title: '', children: [{
-                title: 'URI', value: 'http://a.com',
-              }],
+              title: '',
+              children: [
+                {
+                  title: 'URI',
+                  value: 'http://a.com',
+                },
+              ],
             },
             {
-              title: '', children: [{
-                title: 'URI', value: 'http://b.com',
-              }],
+              title: '',
+              children: [
+                {
+                  title: 'URI',
+                  value: 'http://b.com',
+                },
+              ],
             },
           ],
         },

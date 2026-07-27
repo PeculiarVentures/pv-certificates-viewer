@@ -4,12 +4,7 @@
     "allowUnreachableCode": false,
     "declaration": false,
     "experimentalDecorators": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "es2017",
-      "es2020"
-    ],
+    "lib": ["dom", "dom.iterable", "es2017", "es2020"],
     "moduleResolution": "node",
     "module": "esnext",
     "target": "es2017",
@@ -19,7 +14,5 @@
     "jsxFactory": "h",
     "resolveJsonModule": true
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

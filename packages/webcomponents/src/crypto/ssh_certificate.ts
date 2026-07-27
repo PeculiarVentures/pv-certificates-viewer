@@ -99,9 +99,6 @@ export class SshCertificate {
   }
 
   public async downloadAsPub(name?: string) {
-    Download.certSSH.asPub(
-      await this.toString(),
-      name || [this.commonName, 'cert'].join('-'),
-    );
+    Download.certSSH.asPub(await this.toString(), name || [this.commonName, 'cert'].join('-'));
   }
 }

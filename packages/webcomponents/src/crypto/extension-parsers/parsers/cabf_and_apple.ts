@@ -6,18 +6,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { AsnParser } from '@peculiar/asn1-schema';
 import type { Extension } from '@peculiar/asn1-x509';
+import { AsnParser } from '@peculiar/asn1-schema';
 import type { IExtensionParser, IParsedExtension } from '../types';
-import { node, section } from '../builders';
-import {
-  CabforganizationIdentifier,
-  id_cabforganizationIdentifier,
-} from '../../extensions/cabforganization_identifier';
 import {
   AppleDeveloperIdDate,
   id_appleDeveloperIdDate,
 } from '../../extensions/apple_developer_id_date';
+import {
+  CabforganizationIdentifier,
+  id_cabforganizationIdentifier,
+} from '../../extensions/cabforganization_identifier';
+import { node, section } from '../builders';
 
 export class CabfOrganizationIdentifierParser implements IExtensionParser {
   readonly oids = [id_cabforganizationIdentifier];
@@ -52,9 +52,7 @@ export class AppleDeveloperIdDateParser implements IExtensionParser {
     return {
       oid: extension.extnID,
       critical: extension.critical ?? false,
-      children: [
-        node('Date', dateExt.date),
-      ],
+      children: [node('Date', dateExt.date)],
     };
   }
 }

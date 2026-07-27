@@ -10,12 +10,12 @@ import type { Attribute as AsnAttribute, Extension } from '@peculiar/asn1-x509';
 
 export type TPrimitive = string | number | boolean;
 
-export type TExtensionNodeType
-  = | 'dNSName'
-    | 'iPAddress'
-    | 'authorityKeyId'
-    | 'subjectKeyId'
-    | 'lei';
+export type TExtensionNodeType =
+  | 'dNSName'
+  | 'iPAddress'
+  | 'authorityKeyId'
+  | 'subjectKeyId'
+  | 'lei';
 
 export interface IExtensionNode {
   title?: string;

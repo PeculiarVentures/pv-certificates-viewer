@@ -26,8 +26,10 @@ export function buildLinkTemplateResolvers(props: ILinkTemplateProps): ILinkTemp
   return {
     getAuthKeyIdParentLink: (v) => props.authKeyIdParentLink?.replace('{{authKeyId}}', v),
     getAuthKeyIdSiblingsLink: (v) => props.authKeyIdSiblingsLink?.replace('{{authKeyId}}', v),
-    getSubjectKeyIdChildrenLink: (v) => props.subjectKeyIdChildrenLink?.replace('{{subjectKeyId}}', v),
-    getSubjectKeyIdSiblingsLink: (v) => props.subjectKeyIdSiblingsLink?.replace('{{subjectKeyId}}', v),
+    getSubjectKeyIdChildrenLink: (v) =>
+      props.subjectKeyIdChildrenLink?.replace('{{subjectKeyId}}', v),
+    getSubjectKeyIdSiblingsLink: (v) =>
+      props.subjectKeyIdSiblingsLink?.replace('{{subjectKeyId}}', v),
     getIssuerDnLink: () => props.issuerDnLink,
   };
 }

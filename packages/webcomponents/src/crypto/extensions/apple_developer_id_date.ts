@@ -22,9 +22,7 @@ export class AppleDeveloperIdDate {
   public fromASN(asn: Utf8String): this {
     this.#buffer = asn.valueBlock.valueHex;
 
-    this.date = new GeneralizedTime({ value: asn.valueBlock.value })
-      .toDate()
-      .toISOString();
+    this.date = new GeneralizedTime({ value: asn.valueBlock.value }).toDate().toISOString();
 
     return this;
   }

@@ -10,8 +10,8 @@ import { h, FunctionalComponent } from '@stencil/core';
 import { SshCertificate } from '../../../crypto';
 import { l10n } from '../../../utils';
 import { Button } from '../../button';
-import { DownloadIcon } from '../../icons';
 import { RowTitle } from '../../certificate-details-parts/row';
+import { DownloadIcon } from '../../icons';
 
 interface ISshMiscellaneousProps {
   certificate: SshCertificate;
@@ -21,9 +21,7 @@ export const SshMiscellaneous: FunctionalComponent<ISshMiscellaneousProps> = (pr
   const { certificate } = props;
 
   return [
-    <RowTitle
-      value={l10n.getString('miscellaneous')}
-    />,
+    <RowTitle value={l10n.getString('miscellaneous')} />,
     <tr>
       <td>
         <Button

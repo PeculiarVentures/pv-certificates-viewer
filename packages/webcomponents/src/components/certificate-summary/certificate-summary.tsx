@@ -17,10 +17,7 @@ interface ICertificateSummaryProps {
 }
 
 export const CertificateSummary: FunctionalComponent<ICertificateSummaryProps> = (props) => {
-  const {
-    certificate,
-    showIssuer,
-  } = props;
+  const { certificate, showIssuer } = props;
 
   const renderRow = (name: string | string[], value: string | number) => (
     <tr>
@@ -46,35 +43,14 @@ export const CertificateSummary: FunctionalComponent<ICertificateSummaryProps> =
   return (
     <table>
       <tbody>
-        {renderRow(
-          l10n.getString('subjectName'),
-          certificate.subjectToString(),
-        )}
-        {showIssuer && renderRow(
-          l10n.getString('issuerName'),
-          certificate.issuerToString(),
-        )}
+        {renderRow(l10n.getString('subjectName'), certificate.subjectToString())}
+        {showIssuer && renderRow(l10n.getString('issuerName'), certificate.issuerToString())}
 
-        {renderRow(
-          l10n.getString('serialNumber'),
-          certificate.serialNumber,
-        )}
-        {renderRow(
-          l10n.getString('version'),
-          certificate.version,
-        )}
-        {renderRow(
-          l10n.getString('validity'),
-          certificate.validity,
-        )}
-        {renderRow(
-          l10n.getString('issued'),
-          dateShort(certificate.notBefore),
-        )}
-        {renderRow(
-          l10n.getString('expired'),
-          dateShort(certificate.notAfter),
-        )}
+        {renderRow(l10n.getString('serialNumber'), certificate.serialNumber)}
+        {renderRow(l10n.getString('version'), certificate.version)}
+        {renderRow(l10n.getString('validity'), certificate.validity)}
+        {renderRow(l10n.getString('issued'), dateShort(certificate.notBefore))}
+        {renderRow(l10n.getString('expired'), dateShort(certificate.notAfter))}
       </tbody>
     </table>
   );

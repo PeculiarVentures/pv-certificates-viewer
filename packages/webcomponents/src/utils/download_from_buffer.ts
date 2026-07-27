@@ -54,12 +54,9 @@ export function downloadFromBuffer(
   document.body.removeChild(link);
 
   return new Promise<void>((resolve) => {
-    setTimeout(
-      () => {
-        document.body.removeChild(frame);
-        resolve();
-      },
-      100,
-    );
+    setTimeout(() => {
+      document.body.removeChild(frame);
+      resolve();
+    }, 100);
   });
 }

@@ -11,9 +11,9 @@ import {
   id_enrollCertType,
   id_caVersion,
 } from '@peculiar/asn1-x509-microsoft';
-import { id_msCRLNextPublish } from '../../extensions/microsoft_crl_next_publish';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { dateShort } from '../../../utils';
+import { id_msCRLNextPublish } from '../../extensions/microsoft_crl_next_publish';
 import {
   CertificateTemplateParser,
   EnrollCertTypeParser,
@@ -30,21 +30,25 @@ describe('CertificateTemplateParser', () => {
 
   it('parses CertificateTemplate with versions', () => {
     // templateID=1.3.6.1.4.1.311.21.8.1.2, majorVersion=2, minorVersion=0
-    expect(parser.parse(makeExtRaw(
-      id_certificateTemplate,
-      '3013060b2b06010401823715080102020102020100',
-    ))).toEqual({
+    expect(
+      parser.parse(
+        makeExtRaw(id_certificateTemplate, '3013060b2b06010401823715080102020102020100'),
+      ),
+    ).toEqual({
       oid: id_certificateTemplate,
       critical: false,
       children: [
         {
-          title: 'Template ID', value: '1.3.6.1.4.1.311.21.8.1.2',
+          title: 'Template ID',
+          value: '1.3.6.1.4.1.311.21.8.1.2',
         },
         {
-          title: 'Major Version', value: 2,
+          title: 'Major Version',
+          value: 2,
         },
         {
-          title: 'Minor Version', value: 0,
+          title: 'Minor Version',
+          value: 0,
         },
       ],
     });
@@ -60,15 +64,17 @@ describe('EnrollCertTypeParser', () => {
 
   it('parses EnrollCertType BMPString', () => {
     // BMPString 'WebServer' = 1e12 005700650062005300650072007600650072
-    expect(parser.parse(makeExtRaw(
-      id_enrollCertType,
-      '1e12005700650062005300650072007600650072',
-    ))).toEqual({
+    expect(
+      parser.parse(makeExtRaw(id_enrollCertType, '1e12005700650062005300650072007600650072')),
+    ).toEqual({
       oid: id_enrollCertType,
       critical: false,
-      children: [{
-        title: 'Template Name', value: 'WebServer',
-      }],
+      children: [
+        {
+          title: 'Template Name',
+          value: 'WebServer',
+        },
+      ],
     });
   });
 });
@@ -87,7 +93,8 @@ describe('CaVersionParser', () => {
       critical: false,
       children: [
         {
-          title: 'Version', value: 'V0.1',
+          title: 'Version',
+          value: 'V0.1',
         },
       ],
     });
@@ -103,15 +110,17 @@ describe('CRLNextPublishParser', () => {
 
   it('parses CRL Next Publish date', () => {
     // GeneralizedTime 20260707100000Z
-    expect(parser.parse(makeExtRaw(
-      id_msCRLNextPublish,
-      '180F32303236303730373130303030305A',
-    ))).toEqual({
+    expect(
+      parser.parse(makeExtRaw(id_msCRLNextPublish, '180F32303236303730373130303030305A')),
+    ).toEqual({
       oid: id_msCRLNextPublish,
       critical: false,
-      children: [{
-        title: 'Next Publish', value: dateShort('2026-07-07T10:00:00.000Z'),
-      }],
+      children: [
+        {
+          title: 'Next Publish',
+          value: dateShort('2026-07-07T10:00:00.000Z'),
+        },
+      ],
     });
   });
 });

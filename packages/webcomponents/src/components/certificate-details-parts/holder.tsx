@@ -23,10 +23,5 @@ export const Holder: FunctionalComponent<IHolderProps> = (props) => {
     return null;
   }
 
-  return [
-    <RowTitle
-      value={l10n.getString('holder')}
-    />,
-    ...holder.map((n) => renderNode(n, {})),
-  ];
+  return [<RowTitle value={l10n.getString('holder')} />, ...holder.map((n) => renderNode(n, {}))];
 };

@@ -7,11 +7,7 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  BasicConstraints,
-  Extension,
-  id_ce_basicConstraints,
-} from '@peculiar/asn1-x509';
+import { BasicConstraints, Extension, id_ce_basicConstraints } from '@peculiar/asn1-x509';
 import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 

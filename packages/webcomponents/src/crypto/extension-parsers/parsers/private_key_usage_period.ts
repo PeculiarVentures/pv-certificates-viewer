@@ -7,18 +7,10 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  Extension,
-  id_ce_privateKeyUsagePeriod,
-  PrivateKeyUsagePeriod,
-} from '@peculiar/asn1-x509';
-import type {
-  IExtensionNode,
-  IExtensionParser,
-  IParsedExtension,
-} from '../types';
-import { node } from '../builders';
+import { Extension, id_ce_privateKeyUsagePeriod, PrivateKeyUsagePeriod } from '@peculiar/asn1-x509';
+import type { IExtensionNode, IExtensionParser, IParsedExtension } from '../types';
 import { dateShort } from '../../../utils';
+import { node } from '../builders';
 
 export class PrivateKeyUsagePeriodParser implements IExtensionParser {
   readonly oids = [id_ce_privateKeyUsagePeriod];
