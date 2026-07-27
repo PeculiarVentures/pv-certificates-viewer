@@ -3,7 +3,7 @@
   "printWidth": 100,
   "singleQuote": true,
   "semi": true,
-  "ignorePatterns": ["CHANGELOG.md", "**/components/**/readme.md"],
+  "ignorePatterns": ["CHANGELOG.md", "**/components/**/readme.md", "**/components.d.ts"],
   "insertFinalNewline": true,
   "jsxSingleQuote": false,
   "objectWrap": "preserve",
