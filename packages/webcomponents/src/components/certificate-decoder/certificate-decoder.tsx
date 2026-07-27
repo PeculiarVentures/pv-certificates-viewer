@@ -106,7 +106,7 @@ export class CertificateDecoder {
     }
   };
 
-  private syncInputHasText = () => {
+  private handleSyncInputHasText = () => {
     this.inputHasText = Boolean(this.inputPaste?.value);
   };
 
@@ -295,7 +295,7 @@ export class CertificateDecoder {
             ref={(el) => {
               this.inputPaste = el as HTMLTextAreaElement;
             }}
-            onInput={this.syncInputHasText}
+            onInput={this.handleSyncInputHasText}
             onDrop={this.handleDrop}
           />
         </div>

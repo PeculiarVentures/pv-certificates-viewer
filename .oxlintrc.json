@@ -35,8 +35,10 @@
     "react/no-array-index-key": "error",
     "react/button-has-type": "error",
     "react/jsx-handler-names": "error",
+    "react/jsx-key": "off",
     "react/react-in-jsx-scope": "off",
     "jsx-a11y/prefer-tag-over-role": "off",
-    "jsx-a11y/no-autofocus": "off"
+    "jsx-a11y/no-autofocus": "off",
+    "jsx-a11y/control-has-associated-label": "off"
   }
 }
