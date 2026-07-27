@@ -69,7 +69,7 @@ export class CertificateDecoder {
   private handleClickDecode = () => {
     const { value } = this.inputPaste;
 
-    if (value) this.decode(value);
+    if (value) void this.decode(value);
   };
 
   private handleClickClear = () => {
@@ -82,7 +82,7 @@ export class CertificateDecoder {
     if (el.files?.length) {
       const file = await readAsBinaryString(el.files[0]);
 
-      if (typeof file.value === 'string') this.decode(file.value);
+      if (typeof file.value === 'string') void this.decode(file.value);
       el.value = '';
     }
   };
@@ -90,7 +90,7 @@ export class CertificateDecoder {
   private handleChangeExample = (event: Event) => {
     const val = (event.target as HTMLSelectElement).value;
 
-    if (val) this.decode(val);
+    if (val) void this.decode(val);
     else this.clearValue();
   };
 
@@ -102,7 +102,7 @@ export class CertificateDecoder {
     if (files?.length) {
       const file = await readAsBinaryString(files[0]);
 
-      if (typeof file.value === 'string') this.decode(file.value);
+      if (typeof file.value === 'string') void this.decode(file.value);
     }
   };
 

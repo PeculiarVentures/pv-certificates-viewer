@@ -86,7 +86,7 @@ export class CrlViewer {
   @State() isDecodeInProcess = true;
 
   componentWillLoad() {
-    this.decodeCertificate(this.certificate);
+    void this.decodeCertificate(this.certificate);
 
     if (Build.isBrowser) {
       this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
@@ -140,7 +140,7 @@ export class CrlViewer {
   watchCertificateAndDecode(newValue: TCrlProp, oldValue: TCrlProp) {
     if (typeof newValue === 'string' && typeof oldValue === 'string') {
       if (newValue !== oldValue) {
-        this.decodeCertificate(newValue);
+        void this.decodeCertificate(newValue);
       }
 
       return;
@@ -148,7 +148,7 @@ export class CrlViewer {
 
     if (newValue instanceof X509Crl && oldValue instanceof X509Crl) {
       if (newValue.commonName !== oldValue.commonName) {
-        this.decodeCertificate(newValue);
+        void this.decodeCertificate(newValue);
       }
     }
   }

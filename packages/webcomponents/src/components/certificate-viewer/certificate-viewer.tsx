@@ -105,7 +105,7 @@ export class CertificateViewer {
   @State() isDecodeInProcess = true;
 
   componentWillLoad() {
-    this.decodeCertificate(this.certificate);
+    void this.decodeCertificate(this.certificate);
 
     if (Build.isBrowser) {
       this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
@@ -159,7 +159,7 @@ export class CertificateViewer {
   watchCertificateAndDecode(newValue: TCertificateProp, oldValue: TCertificateProp) {
     if (typeof newValue === 'string' && typeof oldValue === 'string') {
       if (newValue !== oldValue) {
-        this.decodeCertificate(newValue);
+        void this.decodeCertificate(newValue);
       }
 
       return;
@@ -167,7 +167,7 @@ export class CertificateViewer {
 
     if (newValue instanceof X509Certificate && oldValue instanceof X509Certificate) {
       if (newValue.serialNumber !== oldValue.serialNumber) {
-        this.decodeCertificate(newValue);
+        void this.decodeCertificate(newValue);
       }
     }
   }

@@ -31,13 +31,12 @@
       "error",
       { "considerDefaultExhaustiveForUnions": true }
     ],
-    "vitest/valid-title": ["error", { "allowArguments": true }],
+    "typescript/no-misused-spread": "off",
     "react/no-array-index-key": "error",
     "react/button-has-type": "error",
     "react/jsx-handler-names": "error",
     "react/react-in-jsx-scope": "off",
     "jsx-a11y/prefer-tag-over-role": "off",
-    "jsx-a11y/no-autofocus": "off",
-    "vitest/require-mock-type-parameters": "off"
+    "jsx-a11y/no-autofocus": "off"
   }
 }

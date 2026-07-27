@@ -80,7 +80,7 @@ export class CsrViewer {
   @State() isDecodeInProcess = true;
 
   componentWillLoad() {
-    this.decodeCertificate(this.certificate);
+    void this.decodeCertificate(this.certificate);
 
     if (Build.isBrowser) {
       this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
@@ -134,7 +134,7 @@ export class CsrViewer {
   watchCertificateAndDecode(newValue: TCsrProp, oldValue: TCsrProp) {
     if (typeof newValue === 'string' && typeof oldValue === 'string') {
       if (newValue !== oldValue) {
-        this.decodeCertificate(newValue);
+        void this.decodeCertificate(newValue);
       }
 
       return;
@@ -145,7 +145,7 @@ export class CsrViewer {
       oldValue instanceof Pkcs10CertificateRequest
     ) {
       if (newValue.commonName !== oldValue.commonName) {
-        this.decodeCertificate(newValue);
+        void this.decodeCertificate(newValue);
       }
     }
   }

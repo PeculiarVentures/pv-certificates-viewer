@@ -105,7 +105,7 @@ export class CertificatesViewer {
   @State() isDecodeInProcess = true;
 
   componentWillLoad() {
-    this.certificatesDecodeAndSet();
+    void this.certificatesDecodeAndSet();
 
     if (Build.isBrowser) {
       this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
@@ -126,7 +126,7 @@ export class CertificatesViewer {
      * Prevent rerender after set the same `certificates` prop.
      */
     if (JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
-      this.certificatesDecodeAndSet();
+      void this.certificatesDecodeAndSet();
     }
   }
 
