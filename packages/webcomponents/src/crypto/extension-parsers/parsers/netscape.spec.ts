@@ -15,9 +15,12 @@ describe('NetscapeCommentParser', () => {
     expect(parser.parse(makeExtRaw(id_netscapeComment, '160c5465737420636f6d6d656e74'))).toEqual({
       oid: '2.16.840.1.113730.1.13',
       critical: false,
-      children: [{
-        title: 'Comment', value: 'Test comment',
-      }],
+      children: [
+        {
+          title: 'Comment',
+          value: 'Test comment',
+        },
+      ],
     });
   });
 });
@@ -34,9 +37,12 @@ describe('NetscapeCertTypeParser', () => {
     expect(parser.parse(makeExtRaw(id_netscapeCertType, '03020780'))).toEqual({
       oid: '2.16.840.1.113730.1.1',
       critical: false,
-      children: [{
-        title: 'Type', value: 'sslClient',
-      }],
+      children: [
+        {
+          title: 'Type',
+          value: 'sslClient',
+        },
+      ],
     });
   });
 
@@ -45,9 +51,12 @@ describe('NetscapeCertTypeParser', () => {
     expect(parser.parse(makeExtRaw(id_netscapeCertType, '030206c0'))).toEqual({
       oid: '2.16.840.1.113730.1.1',
       critical: false,
-      children: [{
-        title: 'Type', value: 'sslClient, sslServer',
-      }],
+      children: [
+        {
+          title: 'Type',
+          value: 'sslClient, sslServer',
+        },
+      ],
     });
   });
 });

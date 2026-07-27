@@ -26,10 +26,12 @@ export class AuthorityInformationAccessParser implements IExtensionParser {
       oid: extension.extnID,
       critical: extension.critical ?? false,
       children: [
-        section('Descriptions', aia.map((desc) => section('', [
-          node('Method', desc.accessMethod),
-          parseGeneralName(desc.accessLocation),
-        ]))),
+        section(
+          'Descriptions',
+          aia.map((desc) =>
+            section('', [node('Method', desc.accessMethod), parseGeneralName(desc.accessLocation)]),
+          ),
+        ),
       ],
     };
   }

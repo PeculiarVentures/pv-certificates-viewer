@@ -7,26 +7,26 @@
  */
 
 import type { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
+import type { IParsedAttribute } from './types';
 import { parseAttribute as _parseAttribute } from './parse';
-import { AttributeParserRegistry } from './registry';
+import { ActivityDescriptionParser } from './parsers/activity_description';
 import {
   DomainNameBeneficiaryParser,
   DomainNameLegalRepresentativeParser,
   DomainNameOwnerParser,
   DomainNameTechnicalOperatorParser,
 } from './parsers/domain_name';
-import { TypeRelationshipParser } from './parsers/type_relationship';
-import { ActivityDescriptionParser } from './parsers/activity_description';
-import { WebGDPRParser } from './parsers/web_gdpr';
 import { InsuranceValueParser } from './parsers/insurance_value';
-import { ValuationRankingParser } from './parsers/valuation_ranking';
 import {
   ChallengePasswordParser,
   UnstructuredNameParser,
   ExtensionRequestParser,
 } from './parsers/pkcs9';
 import { PrivateKeyPossessionStatementParser } from './parsers/private_key_possession_statement';
-import type { IParsedAttribute } from './types';
+import { TypeRelationshipParser } from './parsers/type_relationship';
+import { ValuationRankingParser } from './parsers/valuation_ranking';
+import { WebGDPRParser } from './parsers/web_gdpr';
+import { AttributeParserRegistry } from './registry';
 
 export const registry = new AttributeParserRegistry();
 

@@ -7,15 +7,12 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { getStringByOID } from '../../utils/get_string_by_oid';
-import { Typography } from '../typography';
-import {
-  RowTitle,
-  RowValue,
-} from '../certificate-details-parts/row';
-import type { ILinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import type { IParsedExtension } from '../../crypto/extension-parsers/types';
+import type { ILinkTemplateResolvers } from '../../utils/link_template_resolvers';
+import { getStringByOID } from '../../utils/get_string_by_oid';
+import { RowTitle, RowValue } from '../certificate-details-parts/row';
 import { renderNode } from '../parsed-node-renderer/render_node';
+import { Typography } from '../typography';
 
 export interface IParsedExtensionsProps extends Partial<ILinkTemplateResolvers> {
   title?: string;
@@ -23,11 +20,7 @@ export interface IParsedExtensionsProps extends Partial<ILinkTemplateResolvers> 
 }
 
 export const ParsedExtensions: FunctionalComponent<IParsedExtensionsProps> = (props) => {
-  const {
-    extensions,
-    title = 'Extensions',
-    ...ctx
-  } = props;
+  const { extensions, title = 'Extensions', ...ctx } = props;
 
   if (!extensions?.length) {
     return null;
@@ -39,7 +32,10 @@ export const ParsedExtensions: FunctionalComponent<IParsedExtensionsProps> = (pr
       return [
         <tr>
           <td colSpan={2}>
-            <Typography variant="s2" color="gray-9">
+            <Typography
+              variant="s2"
+              color="gray-9"
+            >
               {getStringByOID(extension.oid)}
             </Typography>
           </td>
@@ -50,7 +46,10 @@ export const ParsedExtensions: FunctionalComponent<IParsedExtensionsProps> = (pr
         />,
         extension.children.map((child) => renderNode(child, ctx)),
         <tr>
-          <td colSpan={2} class="divider">
+          <td
+            colSpan={2}
+            class="divider"
+          >
             <span />
           </td>
         </tr>,

@@ -6,8 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Convert } from 'pvtsutils';
 import type { Extension } from '@peculiar/asn1-x509';
+import { Convert } from 'pvtsutils';
 import type { IParsedExtension } from './types';
 
 export interface IUnknownExtension extends IParsedExtension {
@@ -20,8 +20,11 @@ export function parseUnknown(extension: Extension): IUnknownExtension {
   return {
     oid: extension.extnID,
     critical: extension.critical ?? false,
-    children: [{
-      title: 'Raw Value', value: raw,
-    }],
+    children: [
+      {
+        title: 'Raw Value',
+        value: raw,
+      },
+    ],
   };
 }

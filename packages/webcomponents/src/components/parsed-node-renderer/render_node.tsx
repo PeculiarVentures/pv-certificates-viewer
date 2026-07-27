@@ -7,20 +7,13 @@
  */
 
 import { h } from '@stencil/core';
-import { getStringByOID } from '../../utils/get_string_by_oid';
-import { Typography } from '../typography';
-import {
-  RowValue,
-  TableRowTable,
-} from '../certificate-details-parts/row';
-import { Link } from '../link';
-import {
-  getDNSNameLink,
-  getIPAddressLink,
-  getLEILink,
-} from '../../utils/third_party_links';
-import type { ILinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import type { IExtensionNode } from '../../crypto/extension-parsers/types';
+import type { ILinkTemplateResolvers } from '../../utils/link_template_resolvers';
+import { getStringByOID } from '../../utils/get_string_by_oid';
+import { getDNSNameLink, getIPAddressLink, getLEILink } from '../../utils/third_party_links';
+import { RowValue, TableRowTable } from '../certificate-details-parts/row';
+import { Link } from '../link';
+import { Typography } from '../typography';
 
 export type { ILinkTemplateResolvers };
 
@@ -31,10 +24,14 @@ function resolveHref(nodeData: IExtensionNode): string | undefined {
   const v = String(nodeData.value);
 
   switch (nodeData._type) {
-    case 'dNSName': return getDNSNameLink(v);
-    case 'iPAddress': return getIPAddressLink(v);
-    case 'lei': return getLEILink(v);
-    default: return undefined;
+    case 'dNSName':
+      return getDNSNameLink(v);
+    case 'iPAddress':
+      return getIPAddressLink(v);
+    case 'lei':
+      return getLEILink(v);
+    default:
+      return undefined;
   }
 }
 
@@ -56,19 +53,13 @@ export function renderLeafNode(nodeData: IExtensionNode, ctx: TNodeLinkContext) 
           parentHref && (
             <span>
               &nbsp;[
-              <Link href={parentHref}>
-                parents
-              </Link>
-              ]
+              <Link href={parentHref}>parents</Link>]
             </span>
           ),
           siblingsHref && (
             <span>
               &nbsp;[
-              <Link href={siblingsHref}>
-                siblings
-              </Link>
-              ]
+              <Link href={siblingsHref}>siblings</Link>]
             </span>
           ),
         ]}
@@ -89,19 +80,13 @@ export function renderLeafNode(nodeData: IExtensionNode, ctx: TNodeLinkContext) 
           childrenHref && (
             <span>
               &nbsp;[
-              <Link href={childrenHref}>
-                children
-              </Link>
-              ]
+              <Link href={childrenHref}>children</Link>]
             </span>
           ),
           siblingsHref && (
             <span>
               &nbsp;[
-              <Link href={siblingsHref}>
-                siblings
-              </Link>
-              ]
+              <Link href={siblingsHref}>siblings</Link>]
             </span>
           ),
         ]}
@@ -126,9 +111,7 @@ export function renderNode(nodeData: IExtensionNode, ctx: TNodeLinkContext) {
         name={getStringByOID(nodeData.title)}
         value=""
       />,
-      <TableRowTable>
-        {nodeData.children?.map((child) => renderNode(child, ctx))}
-      </TableRowTable>,
+      <TableRowTable>{nodeData.children?.map((child) => renderNode(child, ctx))}</TableRowTable>,
     ];
   }
 
@@ -138,7 +121,10 @@ export function renderNode(nodeData: IExtensionNode, ctx: TNodeLinkContext) {
         {nodeData.title && (
           <tr>
             <td colSpan={2}>
-              <Typography variant="b2" color="gray-9">
+              <Typography
+                variant="b2"
+                color="gray-9"
+              >
                 {getStringByOID(nodeData.title)}
               </Typography>
             </td>

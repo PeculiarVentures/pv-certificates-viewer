@@ -23,10 +23,14 @@ describe('LogotypeParser', () => {
     //   logotypeHash: [{ hashAlg: SHA-256, hashValue: 32 x 0xab }],
     //   logotypeURI: ['https://example.com/logo.png']
     // }}]}}}
-    expect(parser.parse(makeExtRaw(
-      id_pe_logotype,
-      '3068a266a06430623060305e1609696d6167652f706e673031302f300b06096086480165030402010420abababababababababababababababababababababababababababababababab301e161c68747470733a2f2f6578616d706c652e636f6d2f6c6f676f2e706e67',
-    ))).toEqual({
+    expect(
+      parser.parse(
+        makeExtRaw(
+          id_pe_logotype,
+          '3068a266a06430623060305e1609696d6167652f706e673031302f300b06096086480165030402010420abababababababababababababababababababababababababababababababab301e161c68747470733a2f2f6578616d706c652e636f6d2f6c6f676f2e706e67',
+        ),
+      ),
+    ).toEqual({
       oid: id_pe_logotype,
       critical: false,
       children: [
@@ -37,10 +41,12 @@ describe('LogotypeParser', () => {
               title: 'Image',
               children: [
                 {
-                  title: 'Media Type', value: 'image/png',
+                  title: 'Media Type',
+                  value: 'image/png',
                 },
                 {
-                  title: 'URI', value: 'https://example.com/logo.png',
+                  title: 'URI',
+                  value: 'https://example.com/logo.png',
                 },
               ],
             },

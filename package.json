@@ -1,49 +1,53 @@
 {
   "name": "peculiar-certificates-viewer-monorepo",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "keywords": [
-    "certificates-viewer",
-    "certificate-viewer",
+    "asn1",
     "certificate",
-    "x509",
+    "certificate-viewer",
+    "certificates-viewer",
     "decoding",
+    "pki",
     "web-component",
     "webpki",
-    "pki",
-    "asn1"
+    "x509"
+  ],
+  "homepage": "https://x509.io/",
+  "license": "MIT",
+  "author": "PeculiarVentures Team",
+  "workspaces": [
+    "packages/*"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
     "test": "npm run test --workspaces",
     "clean": "lerna run --parallel clean",
-    "lint": "eslint",
+    "lint": "OXLINT_TSGOLINT_DANGEROUSLY_SUPPRESS_PROGRAM_DIAGNOSTICS=true oxlint",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
     "dev": "npm run --workspace @peculiar/certificates-viewer dev",
     "prepare": "npm run build"
   },
-  "devDependencies": {
-    "@peculiar/eslint-config-base": "^0.2.9",
-    "@peculiar/eslint-config-react": "^0.2.9",
-    "lerna": "^9.0.7"
+  "dependencies": {
+    "ci": "^2.3.0"
   },
-  "license": "MIT",
-  "author": "PeculiarVentures Team",
-  "homepage": "https://x509.io/",
+  "devDependencies": {
+    "lerna": "^9.0.7",
+    "oxfmt": "^0.60.0",
+    "oxlint": "^1.75.0",
+    "oxlint-tsgolint": "^7.0.2001"
+  },
   "devEngines": {
-    "runtime": {
-      "name": "node",
-      "version": ">=24",
-      "onFail": "warn"
-    },
     "packageManager": {
       "name": "npm",
       "version": "11.7.0",
       "onFail": "warn"
+    },
+    "runtime": {
+      "name": "node",
+      "version": ">=24",
+      "onFail": "warn"
     }
-  },
-  "dependencies": {
-    "ci": "^2.3.0"
   }
 }

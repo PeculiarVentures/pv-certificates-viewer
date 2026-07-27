@@ -6,14 +6,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { AsnParser } from '@peculiar/asn1-schema';
+import type { Extension } from '@peculiar/asn1-x509';
 import {
   ArchiveRevInfo,
   Timestamp,
   id_adbe_archiveRevInfo,
   id_adbe_timestamp,
 } from '@peculiar/asn1-adobe-acrobat';
-import type { Extension } from '@peculiar/asn1-x509';
+import { AsnParser } from '@peculiar/asn1-schema';
 import type { IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 import { parseGeneralName } from '../parse_general_name';
@@ -47,9 +47,7 @@ export class AdobeArchiveRevInfoParser implements IExtensionParser {
     return {
       oid: extension.extnID,
       critical: extension.critical ?? false,
-      children: [
-        node('Version', ari.version),
-      ],
+      children: [node('Version', ari.version)],
     };
   }
 }

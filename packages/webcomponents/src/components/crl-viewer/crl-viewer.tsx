@@ -6,17 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  Component,
-  Host,
-  h,
-  Prop,
-  State,
-  Watch,
-  Build,
-} from '@stencil/core';
+import { Component, Host, h, Prop, State, Watch, Build } from '@stencil/core';
 import { X509Crl } from '../../crypto';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
+import { runViewerDecode } from '../_shared/decode';
 import {
   BasicInformation,
   IssuerName,
@@ -25,9 +18,8 @@ import {
   Miscellaneous,
   RevokedCertificates,
 } from '../certificate-details-parts';
-import { Typography } from '../typography';
 import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
-import { runViewerDecode } from '../_shared/decode';
+import { Typography } from '../typography';
 
 export type TCrlProp = string | X509Crl;
 
@@ -145,10 +137,7 @@ export class CrlViewer {
    * Rerun decodeCertificate if previuos value not equal current value
    */
   @Watch('certificate')
-  watchCertificateAndDecode(
-    newValue: TCrlProp,
-    oldValue: TCrlProp,
-  ) {
+  watchCertificateAndDecode(newValue: TCrlProp, oldValue: TCrlProp) {
     if (typeof newValue === 'string' && typeof oldValue === 'string') {
       if (newValue !== oldValue) {
         this.decodeCertificate(newValue);
@@ -157,10 +146,7 @@ export class CrlViewer {
       return;
     }
 
-    if (
-      newValue instanceof X509Crl
-      && oldValue instanceof X509Crl
-    ) {
+    if (newValue instanceof X509Crl && oldValue instanceof X509Crl) {
       if (newValue.commonName !== oldValue.commonName) {
         this.decodeCertificate(newValue);
       }
@@ -170,9 +156,7 @@ export class CrlViewer {
   private renderErrorState() {
     return (
       <div class="status_wrapper">
-        <Typography>
-          There was an error decoding this certificate revocation list.
-        </Typography>
+        <Typography>There was an error decoding this certificate revocation list.</Typography>
       </div>
     );
   }
@@ -180,9 +164,7 @@ export class CrlViewer {
   private renderEmptyState() {
     return (
       <div class="status_wrapper">
-        <Typography>
-          There is no certificate revocation list available.
-        </Typography>
+        <Typography>There is no certificate revocation list available.</Typography>
       </div>
     );
   }
@@ -199,41 +181,27 @@ export class CrlViewer {
     const linkTemplateResolvers = buildLinkTemplateResolvers(this);
 
     return (
-      <Host
-        data-mobile-screen-view={String(this.mobileScreenView)}
-      >
+      <Host data-mobile-screen-view={String(this.mobileScreenView)}>
         <table>
-          <BasicInformation
-            {...this.certificateDecoded}
-          />
+          <BasicInformation {...this.certificateDecoded} />
 
           <IssuerName
             name={this.certificateDecoded.issuer}
             issuerDnLink={linkTemplateResolvers.getIssuerDnLink()}
           />
 
-          <Signature
-            signature={this.certificateDecoded.signature}
-          />
+          <Signature signature={this.certificateDecoded.signature} />
 
-          <Thumbprints
-            thumbprints={this.certificateDecoded.thumbprints}
-          />
+          <Thumbprints thumbprints={this.certificateDecoded.thumbprints} />
 
           <ParsedExtensions
             extensions={this.certificateDecoded.extensions}
             {...linkTemplateResolvers}
           />
 
-          <RevokedCertificates
-            revokedCertificates={this.certificateDecoded.revokedCertificates}
-          />
+          <RevokedCertificates revokedCertificates={this.certificateDecoded.revokedCertificates} />
 
-          {this.download && (
-            <Miscellaneous
-              certificate={this.certificateDecoded}
-            />
-          )}
+          {this.download && <Miscellaneous certificate={this.certificateDecoded} />}
         </table>
       </Host>
     );

@@ -22,7 +22,10 @@
   padding: 0 calc(var(--pv-size-base) * 2);
   border: 1px solid var(--pv-color-gray-7);
   border-radius: 4px;
-  transition: background-color 200ms ease 0s, color 200ms ease 0s, border-color 200ms ease 0s;
+  transition:
+    background-color 200ms ease 0s,
+    color 200ms ease 0s,
+    border-color 200ms ease 0s;
   &::placeholder {
     color: var(--pv-color-gray-9);
   }
@@ -34,7 +37,8 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 
-  td, th {
+  td,
+  th {
     border-bottom: 1px solid var(--pv-color-gray-4);
     vertical-align: top;
     text-align: left;
@@ -159,8 +163,11 @@ table {
   overflow: auto;
 }
 
-:host([data-mobile-screen-view="true"]) {
-  table, tbody, tr, td {
+:host([data-mobile-screen-view='true']) {
+  table,
+  tbody,
+  tr,
+  td {
     display: block;
     width: 100% !important;
     padding: 0;

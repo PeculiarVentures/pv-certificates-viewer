@@ -1,5 +1,5 @@
-export type TTypography = (
-  'h1'
+export type TTypography =
+  | 'h1'
   | 'h2'
   | 'h3'
   | 'h4'
@@ -12,12 +12,11 @@ export type TTypography = (
   | 'btn1'
   | 'btn2'
   | 'c1'
-  | 'c2'
-);
+  | 'c2';
 
-export type TColor = (
+export type TColor =
   // primary
-  'primary-tint-5'
+  | 'primary-tint-5'
   | 'primary-tint-4'
   | 'primary-tint-3'
   | 'primary-tint-2'
@@ -94,8 +93,7 @@ export type TColor = (
   | 'white'
   // additional
   | 'extra-1'
-  | 'extra-2'
-);
+  | 'extra-2';
 
 // eslint-disable-next-line import/no-unresolved
 export * from './components';

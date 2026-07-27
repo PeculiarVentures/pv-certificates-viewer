@@ -23,10 +23,5 @@ export const Issuer: FunctionalComponent<IIssuerProps> = (props) => {
     return null;
   }
 
-  return [
-    <RowTitle
-      value={l10n.getString('issuer')}
-    />,
-    ...issuer.map((n) => renderNode(n, {})),
-  ];
+  return [<RowTitle value={l10n.getString('issuer')} />, ...issuer.map((n) => renderNode(n, {}))];
 };

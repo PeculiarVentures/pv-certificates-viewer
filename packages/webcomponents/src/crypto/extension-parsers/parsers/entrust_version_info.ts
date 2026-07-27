@@ -7,14 +7,8 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  EntrustVersionInfo,
-  Extension,
-  id_entrust_entrustVersInfo,
-} from '@peculiar/asn1-x509';
-import type {
-  IExtensionNode, IExtensionParser, IParsedExtension,
-} from '../types';
+import { EntrustVersionInfo, Extension, id_entrust_entrustVersInfo } from '@peculiar/asn1-x509';
+import type { IExtensionNode, IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
 export class EntrustVersionInfoParser implements IExtensionParser {

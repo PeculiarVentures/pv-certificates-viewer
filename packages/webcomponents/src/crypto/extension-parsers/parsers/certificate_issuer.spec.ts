@@ -11,19 +11,26 @@ describe('CertificateIssuerParser', () => {
 
   it('parses issuer general names', () => {
     // CertificateIssuer: dNSName=example.com, URI=http://example.com
-    expect(parser.parse(makeExtRaw(
-      id_ce_certificateIssuer,
-      '3021820b6578616d706c652e636f6d8612687474703a2f2f6578616d706c652e636f6d',
-      true,
-    ))).toEqual({
+    expect(
+      parser.parse(
+        makeExtRaw(
+          id_ce_certificateIssuer,
+          '3021820b6578616d706c652e636f6d8612687474703a2f2f6578616d706c652e636f6d',
+          true,
+        ),
+      ),
+    ).toEqual({
       oid: '2.5.29.29',
       critical: true,
       children: [
         {
-          title: 'DNS Name', value: 'example.com', _type: 'dNSName',
+          title: 'DNS Name',
+          value: 'example.com',
+          _type: 'dNSName',
         },
         {
-          title: 'URI', value: 'http://example.com',
+          title: 'URI',
+          value: 'http://example.com',
         },
       ],
     });

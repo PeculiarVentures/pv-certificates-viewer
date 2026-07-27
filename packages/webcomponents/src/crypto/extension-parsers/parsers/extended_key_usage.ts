@@ -7,11 +7,7 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  Extension,
-  ExtendedKeyUsage,
-  id_ce_extKeyUsage,
-} from '@peculiar/asn1-x509';
+import { Extension, ExtendedKeyUsage, id_ce_extKeyUsage } from '@peculiar/asn1-x509';
 import type { IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 
@@ -25,7 +21,10 @@ export class ExtendedKeyUsageParser implements IExtensionParser {
       oid: extension.extnID,
       critical: extension.critical ?? false,
       children: [
-        section('Purposes', eku.map((purposeOid) => node('Purpose', purposeOid))),
+        section(
+          'Purposes',
+          eku.map((purposeOid) => node('Purpose', purposeOid)),
+        ),
       ],
     };
   }

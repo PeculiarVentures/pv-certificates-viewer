@@ -20,9 +20,7 @@ export const SubjectName: FunctionalComponent<ISubjectNameProps> = (props) => {
   const { name } = props;
 
   return [
-    <RowTitle
-      value={l10n.getString('subjectName')}
-    />,
+    <RowTitle value={l10n.getString('subjectName')} />,
     name.map((n) => (
       <RowValue
         name={getStringByOID(n.type, true)}

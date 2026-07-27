@@ -4,30 +4,38 @@
   "private": false,
   "description": "Peculiar Certificate Viewer web-components makes it easy for you to display certificate related details in your web application.",
   "keywords": [
-    "certificates-viewer",
-    "certificate-viewer",
+    "asn1",
     "certificate",
-    "x509",
+    "certificate-viewer",
+    "certificates-viewer",
     "decoding",
+    "pki",
     "web-component",
     "webpki",
-    "pki",
-    "asn1"
+    "x509"
   ],
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.js",
-  "es2015": "dist/esm/index.js",
-  "es2017": "dist/esm/index.js",
-  "jsnext:main": "dist/esm/index.js",
-  "collection:main": "dist/collection/index.js",
-  "collection": "dist/collection/collection-manifest.json",
-  "types": "dist/types/interface.d.ts",
+  "homepage": "https://x509.io/",
+  "license": "MIT",
+  "author": "PeculiarVentures Team",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PeculiarVentures/pv-certificates-viewer",
+    "directory": "packages/webcomponents"
+  },
   "files": [
     "components/",
     "dist/",
     "hydrate/",
     "loader/"
   ],
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/interface.d.ts",
+  "jsnext:main": "dist/esm/index.js",
+  "es2015": "dist/esm/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "npm run clean && stencil build --docs",
     "dev": "npm run clean && stencil build --dev --watch --serve",
@@ -77,15 +85,7 @@
     "rimraf": "^3.0.2",
     "typescript": "^4.9.5"
   },
-  "license": "MIT",
-  "author": "PeculiarVentures Team",
-  "homepage": "https://x509.io/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/PeculiarVentures/pv-certificates-viewer",
-    "directory": "packages/webcomponents"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "es2017": "dist/esm/index.js"
 }

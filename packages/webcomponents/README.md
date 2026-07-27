@@ -9,9 +9,18 @@ It's recommended to use [jsdelivr](https://www.jsdelivr.com/) to access the web-
 ```html
 <html>
   <head>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@peculiar/certificates-viewer/dist/peculiar/peculiar.esm.js"></script>
-    <script nomodule src="https://cdn.jsdelivr.net/npm/@peculiar/certificates-viewer/dist/peculiar/peculiar.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@peculiar/certificates-viewer/dist/peculiar/peculiar.css" />
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@peculiar/certificates-viewer/dist/peculiar/peculiar.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://cdn.jsdelivr.net/npm/@peculiar/certificates-viewer/dist/peculiar/peculiar.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@peculiar/certificates-viewer/dist/peculiar/peculiar.css"
+    />
   </head>
   <body>
     <peculiar-certificate-viewer

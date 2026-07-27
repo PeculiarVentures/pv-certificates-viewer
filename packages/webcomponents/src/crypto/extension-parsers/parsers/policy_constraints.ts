@@ -7,15 +7,9 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  Extension,
-  id_ce_policyConstraints,
-  PolicyConstraints,
-} from '@peculiar/asn1-x509';
+import { Extension, id_ce_policyConstraints, PolicyConstraints } from '@peculiar/asn1-x509';
 import { BufferSourceConverter } from 'pvtsutils';
-import type {
-  IExtensionNode, IExtensionParser, IParsedExtension,
-} from '../types';
+import type { IExtensionNode, IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
 /**

@@ -6,14 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  LeiChoice,
-  LeiRole,
-  id_lei,
-  id_role,
-} from '@peculiar/asn1-lei';
 import type { Extension } from '@peculiar/asn1-x509';
+import { LeiChoice, LeiRole, id_lei, id_role } from '@peculiar/asn1-lei';
+import { AsnParser } from '@peculiar/asn1-schema';
 import type { IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 

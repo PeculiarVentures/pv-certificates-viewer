@@ -9,10 +9,7 @@
 import { h, FunctionalComponent } from '@stencil/core';
 import { SshCertificate } from '../../../crypto';
 import { l10n, getStringByOID } from '../../../utils';
-import {
-  RowTitle,
-  RowValue,
-} from '../../certificate-details-parts/row';
+import { RowTitle, RowValue } from '../../certificate-details-parts/row';
 
 interface ISshSignatureKeyProps {
   key: SshCertificate['signatureKey'];
@@ -26,9 +23,7 @@ export const SshSignatureKey: FunctionalComponent<ISshSignatureKeyProps> = (prop
   }
 
   return [
-    <RowTitle
-      value={l10n.getString('signingCA')}
-    />,
+    <RowTitle value={l10n.getString('signingCA')} />,
     <RowValue
       name={l10n.getString('algorithm')}
       value={getStringByOID(key.algorithm)}

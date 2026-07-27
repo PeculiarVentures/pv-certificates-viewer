@@ -10,9 +10,7 @@ import { h, FunctionalComponent } from '@stencil/core';
 import { Convert } from 'pvtsutils';
 import { ISignature } from '../../crypto';
 import { l10n, getStringByOID } from '../../utils';
-import {
-  RowTitle, RowValue, TableRowTable,
-} from './row';
+import { RowTitle, RowValue, TableRowTable } from './row';
 
 interface ISignatureProps {
   signature: ISignature;
@@ -41,14 +39,12 @@ export const Signature: FunctionalComponent<ISignatureProps> = (props) => {
   }
 
   return [
-    <RowTitle
-      value={l10n.getString('signature')}
-    />,
+    <RowTitle value={l10n.getString('signature')} />,
     renderSignatureDetails(signature),
-    (signature.params && signature.params.length && signature.params.map((param) => (
-      <TableRowTable>
-        {renderSignatureDetails(param)}
-      </TableRowTable>
-    ))),
+    signature.params &&
+      signature.params.length &&
+      signature.params.map((param) => (
+        <TableRowTable>{renderSignatureDetails(param)}</TableRowTable>
+      )),
   ];
 };

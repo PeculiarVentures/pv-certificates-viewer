@@ -3,19 +3,22 @@ import { node, section } from './builders';
 describe('node', () => {
   it('creates a node with a boolean value', () => {
     expect(node('CA', true)).toEqual({
-      title: 'CA', value: true,
+      title: 'CA',
+      value: true,
     });
   });
 
   it('creates a node with a string value', () => {
     expect(node('Raw Value', 'deadbeef')).toEqual({
-      title: 'Raw Value', value: 'deadbeef',
+      title: 'Raw Value',
+      value: 'deadbeef',
     });
   });
 
   it('creates a node with a number value', () => {
     expect(node('Path Length Constraint', 0)).toEqual({
-      title: 'Path Length Constraint', value: 0,
+      title: 'Path Length Constraint',
+      value: 0,
     });
   });
 });
@@ -32,7 +35,8 @@ describe('section', () => {
 
   it('creates a section with empty children', () => {
     expect(section('Empty', [])).toEqual({
-      title: 'Empty', children: [],
+      title: 'Empty',
+      children: [],
     });
   });
 });

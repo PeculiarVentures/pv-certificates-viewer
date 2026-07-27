@@ -28,9 +28,7 @@ export const Thumbprints: FunctionalComponent<IThumbprintsProps> = (props) => {
   }
 
   return [
-    <RowTitle
-      value={l10n.getString('fingerprints')}
-    />,
+    <RowTitle value={l10n.getString('fingerprints')} />,
     keys.map((name) => (
       <RowValue
         name={name}

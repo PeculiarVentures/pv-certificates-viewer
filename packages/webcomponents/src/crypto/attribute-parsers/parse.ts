@@ -7,8 +7,8 @@
  */
 
 import type { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
-import type { IParsedAttribute } from './types';
 import type { AttributeParserRegistry } from './registry';
+import type { IParsedAttribute } from './types';
 import { parseUnknownAttribute } from './unknown';
 
 export function parseAttribute(

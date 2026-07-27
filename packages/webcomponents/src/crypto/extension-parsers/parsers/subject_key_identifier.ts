@@ -7,12 +7,8 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
+import { Extension, SubjectKeyIdentifier, id_ce_subjectKeyIdentifier } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
-import {
-  Extension,
-  SubjectKeyIdentifier,
-  id_ce_subjectKeyIdentifier,
-} from '@peculiar/asn1-x509';
 import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
@@ -25,9 +21,7 @@ export class SubjectKeyIdentifierParser implements IExtensionParser {
     return {
       oid: extension.extnID,
       critical: extension.critical ?? false,
-      children: [
-        node('Key Identifier', Convert.ToHex(ski.buffer), 'subjectKeyId'),
-      ],
+      children: [node('Key Identifier', Convert.ToHex(ski.buffer), 'subjectKeyId')],
     };
   }
 }

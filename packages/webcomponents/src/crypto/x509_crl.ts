@@ -10,13 +10,10 @@ import { CertificateList, Time } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 import { Download } from '../utils';
 import { AsnData } from './asn_data';
+import { type IParsedExtension, parseExtension } from './extension-parsers';
 import { Name, INameJSON } from './name';
 import { PemConverter } from './pem_converter';
-import {
-  certificateRawToBuffer,
-  getCertificateThumbprint,
-} from './utils';
-import { type IParsedExtension, parseExtension } from './extension-parsers';
+import { certificateRawToBuffer, getCertificateThumbprint } from './utils';
 
 interface ISignature {
   algorithm: string;
@@ -58,18 +55,16 @@ export class X509Crl extends AsnData<CertificateList> {
     this.lastUpdate = tbsCertList.thisUpdate.getTime();
     this.nextUpdate = tbsCertList.nextUpdate.getTime();
 
-    this.revokedCertificates = (tbsCertList.revokedCertificates || [])
-      .map((revokedCertificate) => ({
+    this.revokedCertificates = (tbsCertList.revokedCertificates || []).map(
+      (revokedCertificate) => ({
         revocationDate: revokedCertificate.revocationDate,
         userCertificate: revokedCertificate.userCertificate,
-        crlEntryExtensions: revokedCertificate.crlEntryExtensions
-          ?.map(parseExtension),
-      }));
+        crlEntryExtensions: revokedCertificate.crlEntryExtensions?.map(parseExtension),
+      }),
+    );
   }
 
-  public async getThumbprint(
-    algorithm = 'SHA-1',
-  ): Promise<void> {
+  public async getThumbprint(algorithm = 'SHA-1'): Promise<void> {
     try {
       const thumbprint = await getCertificateThumbprint(algorithm, this.raw);
 
@@ -126,16 +121,10 @@ export class X509Crl extends AsnData<CertificateList> {
   }
 
   public downloadAsPEM(name?: string) {
-    Download.crl.asPEM(
-      this.toString('pem'),
-      name || this.commonName,
-    );
+    Download.crl.asPEM(this.toString('pem'), name || this.commonName);
   }
 
   public downloadAsDER(name?: string) {
-    Download.crl.asDER(
-      this.raw,
-      name || this.commonName,
-    );
+    Download.crl.asDER(this.raw, name || this.commonName);
   }
 }

@@ -3,7 +3,8 @@ import path from 'path';
 import { X509Certificate } from './x509_certificate';
 
 const testAssetsFolderPath = path.join(__dirname, '../components/certificate-viewer/test_assets');
-const testFiles = fs.readdirSync(testAssetsFolderPath)
+const testFiles = fs
+  .readdirSync(testAssetsFolderPath)
   .filter((fileName) => fileName !== '.DS_Store');
 const certificates = testFiles.map((fileName) => ({
   name: fileName,

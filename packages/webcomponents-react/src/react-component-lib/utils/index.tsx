@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import type { StyleReactProps } from '../interfaces';
 
 export type StencilReactExternalProps<PropType, ElementType> = PropType &
@@ -7,9 +6,15 @@ export type StencilReactExternalProps<PropType, ElementType> = PropType &
   StyleReactProps;
 
 // This will be replaced with React.ForwardedRef when react-output-target is upgraded to React v17
-export type StencilReactForwardedRef<T> = ((instance: T | null) => void) | React.MutableRefObject<T | null> | null;
+export type StencilReactForwardedRef<T> =
+  | ((instance: T | null) => void)
+  | React.MutableRefObject<T | null>
+  | null;
 
-export const setRef = (ref: StencilReactForwardedRef<any> | React.Ref<any> | undefined, value: any) => {
+export const setRef = (
+  ref: StencilReactForwardedRef<any> | React.Ref<any> | undefined,
+  value: any,
+) => {
   if (typeof ref === 'function') {
     ref(value);
   } else if (ref != null) {
@@ -28,12 +33,20 @@ export const mergeRefs = (
   };
 };
 
-export const createForwardRef = <PropType, ElementType>(ReactComponent: any, displayName: string) => {
+export const createForwardRef = <PropType, ElementType>(
+  ReactComponent: any,
+  displayName: string,
+) => {
   const forwardRef = (
     props: StencilReactExternalProps<PropType, ElementType>,
-    ref: StencilReactForwardedRef<ElementType>
+    ref: StencilReactForwardedRef<ElementType>,
   ) => {
-    return <ReactComponent {...props} forwardedRef={ref} />;
+    return (
+      <ReactComponent
+        {...props}
+        forwardedRef={ref}
+      />
+    );
   };
   forwardRef.displayName = displayName;
 
@@ -41,7 +54,11 @@ export const createForwardRef = <PropType, ElementType>(ReactComponent: any, dis
 };
 
 export const defineCustomElement = (tagName: string, customElement: any) => {
-  if (customElement !== undefined && typeof customElements !== 'undefined' && !customElements.get(tagName)) {
+  if (
+    customElement !== undefined &&
+    typeof customElements !== 'undefined' &&
+    !customElements.get(tagName)
+  ) {
     customElements.define(tagName, customElement);
   }
 };

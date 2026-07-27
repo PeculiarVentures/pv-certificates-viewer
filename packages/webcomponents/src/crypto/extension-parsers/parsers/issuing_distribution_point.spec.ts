@@ -15,39 +15,56 @@ describe('IssuingDistributionPointParser', () => {
     expect(parser.parse(makeExtRaw(id_ce_issuingDistributionPoint, '30038201ff', true))).toEqual({
       oid: '2.5.29.28',
       critical: true,
-      children: [{
-        title: 'Only Contains CA Certs', value: true,
-      }],
+      children: [
+        {
+          title: 'Only Contains CA Certs',
+          value: true,
+        },
+      ],
     });
   });
 
   it('parses onlyContainsUserCerts flag', () => {
     // [1] BOOLEAN TRUE: 81 01 ff  →  SEQUENCE: 30 03 81 01 ff
-    expect(parser.parse(makeExtRaw(id_ce_issuingDistributionPoint, '300381 01ff'.replace(/\s/g, ''), true))).toEqual({
+    expect(
+      parser.parse(
+        makeExtRaw(id_ce_issuingDistributionPoint, '300381 01ff'.replace(/\s/g, ''), true),
+      ),
+    ).toEqual({
       oid: '2.5.29.28',
       critical: true,
-      children: [{
-        title: 'Only Contains User Certs', value: true,
-      }],
+      children: [
+        {
+          title: 'Only Contains User Certs',
+          value: true,
+        },
+      ],
     });
   });
 
   it('parses distributionPoint with URI', () => {
     // IssuingDistributionPoint { distributionPoint: fullName=[URI=http://crl.example.com/crl.crl] }
     // Computed: 3024a022a020861e687474703a2f2f63726c2e6578616d706c652e636f6d2f63726c2e63726c
-    expect(parser.parse(makeExtRaw(
-      id_ce_issuingDistributionPoint,
-      '3024a022a020861e687474703a2f2f63726c2e6578616d706c652e636f6d2f63726c2e63726c',
-      true,
-    ))).toEqual({
+    expect(
+      parser.parse(
+        makeExtRaw(
+          id_ce_issuingDistributionPoint,
+          '3024a022a020861e687474703a2f2f63726c2e6578616d706c652e636f6d2f63726c2e63726c',
+          true,
+        ),
+      ),
+    ).toEqual({
       oid: '2.5.29.28',
       critical: true,
       children: [
         {
           title: 'Distribution Point',
-          children: [{
-            title: 'URI', value: 'http://crl.example.com/crl.crl',
-          }],
+          children: [
+            {
+              title: 'URI',
+              value: 'http://crl.example.com/crl.crl',
+            },
+          ],
         },
       ],
     });

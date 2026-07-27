@@ -6,20 +6,17 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { AsnConvert } from '@peculiar/asn1-schema';
+import { CertificationRequest } from '@peculiar/asn1-csr';
 import { ECParameters, id_ecPublicKey } from '@peculiar/asn1-ecc';
 import { id_rsaEncryption, RSAPublicKey } from '@peculiar/asn1-rsa';
-import { CertificationRequest } from '@peculiar/asn1-csr';
+import { AsnConvert } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
 import { Download } from '../utils';
 import { AsnData } from './asn_data';
+import { type IParsedAttribute, parseAttribute } from './attribute-parsers';
 import { Name, INameJSON } from './name';
 import { PemConverter } from './pem_converter';
-import { type IParsedAttribute, parseAttribute } from './attribute-parsers';
-import {
-  certificateRawToBuffer,
-  getCertificateThumbprint,
-} from './utils';
+import { certificateRawToBuffer, getCertificateThumbprint } from './utils';
 
 interface ISignature {
   algorithm: string;
@@ -100,9 +97,7 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
     return '';
   }
 
-  public async getThumbprint(
-    algorithm = 'SHA-1',
-  ): Promise<void> {
+  public async getThumbprint(algorithm = 'SHA-1'): Promise<void> {
     try {
       const thumbprint = await getCertificateThumbprint(algorithm, this.raw);
 
@@ -134,16 +129,10 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
   }
 
   public downloadAsPEM(name?: string) {
-    Download.csr.asPEM(
-      this.toString('pem'),
-      name || this.commonName,
-    );
+    Download.csr.asPEM(this.toString('pem'), name || this.commonName);
   }
 
   public downloadAsDER(name?: string) {
-    Download.csr.asDER(
-      this.raw,
-      name || this.commonName,
-    );
+    Download.csr.asDER(this.raw, name || this.commonName);
   }
 }

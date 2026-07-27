@@ -13,8 +13,6 @@ export default {
       sourcemap: true,
     },
   ],
-  plugins: [
-    typescript(),
-  ],
+  plugins: [typescript()],
   external: (id) => external.includes(id) || id.startsWith('@peculiar/certificates-viewer'),
 };

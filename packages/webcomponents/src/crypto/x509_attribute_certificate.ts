@@ -10,19 +10,12 @@ import { AttributeCertificate } from '@peculiar/asn1-x509-attr';
 import { Convert } from 'pvtsutils';
 import { dateDiff, Download } from '../utils';
 import { AsnData } from './asn_data';
-import { PemConverter } from './pem_converter';
-import {
-  certificateRawToBuffer,
-  getCertificateThumbprint,
-} from './utils';
-import {
-  type IParsedExtension,
-  parseExtension,
-  type IExtensionNode,
-} from './extension-parsers';
 import { type IParsedAttribute, parseAttribute } from './attribute-parsers';
+import { type IParsedExtension, parseExtension, type IExtensionNode } from './extension-parsers';
 import { parseHolder } from './extension-parsers/parse_holder';
 import { parseIssuer } from './extension-parsers/parse_issuer';
+import { PemConverter } from './pem_converter';
+import { certificateRawToBuffer, getCertificateThumbprint } from './utils';
 
 interface ISignature {
   algorithm: string;
@@ -65,7 +58,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     const notBefore = acinfo.attrCertValidityPeriod.notBeforeTime;
 
     if (!notBefore) {
-      throw new Error('Cannot get \'notBefore\' value');
+      throw new Error("Cannot get 'notBefore' value");
     }
 
     this.notBefore = notBefore;
@@ -73,7 +66,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     const notAfter = acinfo.attrCertValidityPeriod.notAfterTime;
 
     if (!notAfter) {
-      throw new Error('Cannot get \'notAfter\' value');
+      throw new Error("Cannot get 'notAfter' value");
     }
 
     this.notAfter = notAfter;
@@ -107,9 +100,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     }
   }
 
-  public async getThumbprint(
-    algorithm = 'SHA-1',
-  ): Promise<void> {
+  public async getThumbprint(algorithm = 'SHA-1'): Promise<void> {
     try {
       const thumbprint = await getCertificateThumbprint(algorithm, this.raw);
 
@@ -137,16 +128,10 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
   }
 
   public downloadAsPEM(name?: string) {
-    Download.attrCert.asPEM(
-      this.toString('pem'),
-      name || this.commonName,
-    );
+    Download.attrCert.asPEM(this.toString('pem'), name || this.commonName);
   }
 
   public downloadAsDER(name?: string) {
-    Download.attrCert.asDER(
-      this.raw,
-      name || this.commonName,
-    );
+    Download.attrCert.asDER(this.raw, name || this.commonName);
   }
 }

@@ -7,8 +7,8 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { RowTitle, RowValue } from '../../certificate-details-parts/row';
 import { dateShort, l10n } from '../../../utils';
+import { RowTitle, RowValue } from '../../certificate-details-parts/row';
 
 interface ISshBasicInformationProps {
   serialNumber: string;
@@ -36,9 +36,7 @@ export const SshBasicInformation: FunctionalComponent<ISshBasicInformationProps>
   } = props;
 
   return [
-    <RowTitle
-      value={l10n.getString('basicInformation')}
-    />,
+    <RowTitle value={l10n.getString('basicInformation')} />,
     <RowValue
       name={l10n.getString('type')}
       value={type}

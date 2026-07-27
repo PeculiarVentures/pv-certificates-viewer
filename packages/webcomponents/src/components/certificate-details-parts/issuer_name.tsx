@@ -8,8 +8,8 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import type { INameJSON } from '../../crypto/name';
-import { getStringByOID } from '../../utils/get_string_by_oid';
 import { l10n } from '../../utils';
+import { getStringByOID } from '../../utils/get_string_by_oid';
 import { Link } from '../link';
 import { RowTitle, RowValue } from './row';
 
@@ -23,17 +23,7 @@ export const IssuerName: FunctionalComponent<ISubjectNameProps> = (props) => {
   const title = l10n.getString('issuerName');
 
   return [
-    <RowTitle
-      value={issuerDnLink
-        ? (
-            <Link
-              href={issuerDnLink}
-            >
-              {title}
-            </Link>
-          )
-        : title}
-    />,
+    <RowTitle value={issuerDnLink ? <Link href={issuerDnLink}>{title}</Link> : title} />,
     name.map((n) => (
       <RowValue
         name={getStringByOID(n.type, true)}

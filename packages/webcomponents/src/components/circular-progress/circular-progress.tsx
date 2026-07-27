@@ -6,12 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  Component,
-  Host,
-  h,
-  Prop,
-} from '@stencil/core';
+import { Component, Host, h, Prop } from '@stencil/core';
 
 @Component({
   tag: 'peculiar-circular-progress',
@@ -49,7 +44,7 @@ export class CircularProgress {
               class="circle_progress_backdrop"
               cx={this.box / 2}
               cy={this.box / 2}
-              r={(this.box / 2) - 5}
+              r={this.box / 2 - 5}
               fill="none"
               style={{ strokeWidth: `${this.width}px` }}
             />
@@ -57,7 +52,7 @@ export class CircularProgress {
               class="circle_progress_circle"
               cx={this.box / 2}
               cy={this.box / 2}
-              r={(this.box / 2) - 5}
+              r={this.box / 2 - 5}
               fill="none"
               style={{ strokeWidth: `${this.width}px` }}
             />

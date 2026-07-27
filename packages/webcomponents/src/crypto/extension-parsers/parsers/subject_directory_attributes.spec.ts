@@ -11,10 +11,11 @@ describe('SubjectDirectoryAttributesParser', () => {
   });
 
   it('uses raw OID for unknown attribute types and hex for unparseable values', () => {
-    expect(parser.parse(makeExtRaw(
-      id_ce_subjectDirectoryAttributes,
-      '3010300e06042a03040531060404deadbeef',
-    ))).toEqual({
+    expect(
+      parser.parse(
+        makeExtRaw(id_ce_subjectDirectoryAttributes, '3010300e06042a03040531060404deadbeef'),
+      ),
+    ).toEqual({
       oid: '2.5.29.9',
       critical: false,
       children: [
@@ -27,10 +28,14 @@ describe('SubjectDirectoryAttributesParser', () => {
   });
 
   it('parses personal data attributes from certificate', () => {
-    expect(parser.parse(makeExtRaw(
-      id_ce_subjectDirectoryAttributes,
-      '305b301006082b06010505070904310413024445300f06082b060105050709033103130146301d06082b060105050709013111180f31393731313031343132303030305a301706082b06010505070902310b0c094461726d7374616474',
-    ))).toEqual({
+    expect(
+      parser.parse(
+        makeExtRaw(
+          id_ce_subjectDirectoryAttributes,
+          '305b301006082b06010505070904310413024445300f06082b060105050709033103130146301d06082b060105050709013111180f31393731313031343132303030305a301706082b06010505070902310b0c094461726d7374616474',
+        ),
+      ),
+    ).toEqual({
       oid: '2.5.29.9',
       critical: false,
       children: [

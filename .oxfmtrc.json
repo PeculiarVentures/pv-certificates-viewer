@@ -1,0 +1,32 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 100,
+  "singleQuote": true,
+  "semi": true,
+  "ignorePatterns": ["CHANGELOG.md", "**/components/**/readme.md"],
+  "insertFinalNewline": true,
+  "jsxSingleQuote": false,
+  "objectWrap": "preserve",
+  "singleAttributePerLine": true,
+  "bracketSameLine": false,
+  "sortImports": {
+    "newlinesBetween": false,
+    "customGroups": [
+      {
+        "groupName": "jsx",
+        "elementNamePattern": ["react", "react-dom", "@stencil/core"]
+      }
+    ],
+    "groups": [
+      "jsx",
+      "type-import",
+      ["value-builtin", "value-external"],
+      "type-internal",
+      "value-internal",
+      ["type-parent", "type-sibling", "type-index"],
+      ["value-parent", "value-sibling", "value-index"],
+      "unknown",
+      "style"
+    ]
+  }
+}

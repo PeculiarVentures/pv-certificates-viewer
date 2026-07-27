@@ -1,4 +1,3 @@
-import { Convert } from 'pvtsutils';
 import {
   SignedData,
   id_data,
@@ -8,8 +7,9 @@ import {
   ContentInfo,
   id_signedData,
 } from '@peculiar/asn1-cms';
-import { Certificate } from '@peculiar/asn1-x509';
 import { AsnConvert, OctetString } from '@peculiar/asn1-schema';
+import { Certificate } from '@peculiar/asn1-x509';
+import { Convert } from 'pvtsutils';
 import { Download } from '../utils';
 import { PemConverter } from './pem_converter';
 import { X509Certificate } from './x509_certificate';
@@ -44,8 +44,9 @@ export class X509Certificates extends Array<X509Certificate> {
     signedData.encapContentInfo.eContentType = id_data;
     signedData.encapContentInfo.eContent = new EncapsulatedContent({ single: new OctetString() });
     signedData.certificates = new CertificateSet(
-      Array.from(this)
-        .map((o) => new CertificateChoices({ certificate: AsnConvert.parse(o.raw, Certificate) })),
+      Array.from(this).map(
+        (o) => new CertificateChoices({ certificate: AsnConvert.parse(o.raw, Certificate) }),
+      ),
     );
 
     const cms = new ContentInfo({
@@ -74,16 +75,10 @@ export class X509Certificates extends Array<X509Certificate> {
   }
 
   public downloadAsPEM(name?: string) {
-    Download.cert.asPEM(
-      this.toString('pem'),
-      name || this.commonName,
-    );
+    Download.cert.asPEM(this.toString('pem'), name || this.commonName);
   }
 
   public downloadAsDER(name?: string) {
-    Download.cert.asDER(
-      this.raw,
-      name || this.commonName,
-    );
+    Download.cert.asDER(this.raw, name || this.commonName);
   }
 }

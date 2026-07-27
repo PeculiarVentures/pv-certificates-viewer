@@ -16,11 +16,7 @@ import {
   id_qt_csp,
   id_qt_unotice,
 } from '@peculiar/asn1-x509';
-import type {
-  IExtensionNode,
-  IExtensionParser,
-  IParsedExtension,
-} from '../types';
+import type { IExtensionNode, IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 
 function parseQualifierValue(qualifier: ArrayBuffer, qualifierId: string): IExtensionNode | null {
@@ -57,17 +53,27 @@ export class CertificatePoliciesParser implements IExtensionParser {
       oid: extension.extnID,
       critical: extension.critical ?? false,
       children: [
-        section('Policies', policies.map((policy) => section('', [
-          node('Policy', policy.policyIdentifier),
-          ...policy.policyQualifiers?.length
-            ? [
-                section('Qualifiers', policy.policyQualifiers.map((qualifier) => section('', [
-                  node('Qualifier', qualifier.policyQualifierId),
-                  parseQualifierValue(qualifier.qualifier, qualifier.policyQualifierId),
-                ]))),
-              ]
-            : [],
-        ]))),
+        section(
+          'Policies',
+          policies.map((policy) =>
+            section('', [
+              node('Policy', policy.policyIdentifier),
+              ...(policy.policyQualifiers?.length
+                ? [
+                    section(
+                      'Qualifiers',
+                      policy.policyQualifiers.map((qualifier) =>
+                        section('', [
+                          node('Qualifier', qualifier.policyQualifierId),
+                          parseQualifierValue(qualifier.qualifier, qualifier.policyQualifierId),
+                        ]),
+                      ),
+                    ),
+                  ]
+                : []),
+            ]),
+          ),
+        ),
       ],
     };
   }

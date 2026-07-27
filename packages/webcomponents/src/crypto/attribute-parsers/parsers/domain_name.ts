@@ -6,8 +6,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { AsnParser } from '@peculiar/asn1-schema';
-import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
 import {
   id_DomainNameBeneficiary,
   DomainNameBeneficiary,
@@ -18,9 +16,11 @@ import {
   id_DomainNameTechnicalOperator,
   DomainNameTechnicalOperator,
 } from '@peculiar/asn1-ntqwac';
-import { Name } from '../../name';
+import { AsnParser } from '@peculiar/asn1-schema';
+import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
 import type { IAttributeParser, IParsedAttribute } from '../types';
 import { node } from '../../extension-parsers/builders';
+import { Name } from '../../name';
 
 function parseDomainName(
   attribute: AsnAttribute,

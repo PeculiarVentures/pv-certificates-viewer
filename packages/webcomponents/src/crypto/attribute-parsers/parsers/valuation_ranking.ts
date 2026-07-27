@@ -6,9 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { id_ValuationRanking, ValuationRanking } from '@peculiar/asn1-ntqwac';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
-import { id_ValuationRanking, ValuationRanking } from '@peculiar/asn1-ntqwac';
 import type { IAttributeParser, IParsedAttribute } from '../types';
 import { node } from '../../extension-parsers/builders';
 
@@ -32,7 +32,8 @@ export class ValuationRankingParser implements IAttributeParser {
       .map((k) => node(String(k), formatRank(Number(vr[k]))));
 
     return {
-      oid: attribute.type, children,
+      oid: attribute.type,
+      children,
     };
   }
 }

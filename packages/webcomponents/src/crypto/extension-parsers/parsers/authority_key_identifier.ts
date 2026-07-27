@@ -7,15 +7,13 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
-import { Convert } from 'pvtsutils';
 import {
   AuthorityKeyIdentifier,
   Extension,
   id_ce_authorityKeyIdentifier,
 } from '@peculiar/asn1-x509';
-import type {
-  IExtensionNode, IExtensionParser, IParsedExtension,
-} from '../types';
+import { Convert } from 'pvtsutils';
+import type { IExtensionNode, IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
 export class AuthorityKeyIdentifierParser implements IExtensionParser {
@@ -27,7 +25,9 @@ export class AuthorityKeyIdentifierParser implements IExtensionParser {
     const children: IExtensionNode[] = [];
 
     if (aki.keyIdentifier != null) {
-      children.push(node('Key Identifier', Convert.ToHex(aki.keyIdentifier.buffer), 'authorityKeyId'));
+      children.push(
+        node('Key Identifier', Convert.ToHex(aki.keyIdentifier.buffer), 'authorityKeyId'),
+      );
     }
 
     if (aki.authorityCertSerialNumber != null) {

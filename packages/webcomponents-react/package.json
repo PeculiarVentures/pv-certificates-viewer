@@ -4,37 +4,41 @@
   "private": false,
   "description": "React specific wrapper for @peculiar/certificates-viewer",
   "keywords": [
-    "certificates-viewer",
-    "certificate-viewer",
+    "asn1",
     "certificate",
-    "x509",
+    "certificate-viewer",
+    "certificates-viewer",
     "decoding",
+    "pki",
     "web-component",
     "webpki",
-    "pki",
-    "asn1"
+    "x509"
   ],
-  "main": "dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "homepage": "https://x509.io/",
+  "license": "MIT",
+  "author": "PeculiarVentures Team",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PeculiarVentures/pv-certificates-viewer",
+    "directory": "packages/webcomponents-react"
+  },
   "files": [
     "dist/"
   ],
+  "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "npm run clean && npm run compile",
     "clean": "rimraf dist",
     "compile": "rollup -c",
     "test": "echo 'No tests yet'"
   },
-  "license": "MIT",
-  "author": "PeculiarVentures Team",
-  "homepage": "https://x509.io/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/PeculiarVentures/pv-certificates-viewer",
-    "directory": "packages/webcomponents-react"
-  },
-  "publishConfig": {
-    "access": "public"
+  "dependencies": {
+    "@peculiar/certificates-viewer": "^4.9.2",
+    "tslib": "^2.8.1"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.6",
@@ -44,10 +48,6 @@
     "rimraf": "^3.0.2",
     "rollup": "^4.45.1",
     "typescript": "^4.9.5"
-  },
-  "dependencies": {
-    "@peculiar/certificates-viewer": "^4.9.2",
-    "tslib": "^2.8.1"
   },
   "peerDependencies": {
     "react": ">=16.13.1"

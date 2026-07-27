@@ -7,11 +7,7 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  Extension,
-  id_pe_subjectInfoAccess,
-  SubjectInfoAccessSyntax,
-} from '@peculiar/asn1-x509';
+import { Extension, id_pe_subjectInfoAccess, SubjectInfoAccessSyntax } from '@peculiar/asn1-x509';
 import type { IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 import { parseGeneralName } from '../parse_general_name';
@@ -26,10 +22,12 @@ export class SubjectInfoAccessParser implements IExtensionParser {
       oid: extension.extnID,
       critical: extension.critical ?? false,
       children: [
-        section('Descriptions', sia.map((desc) => section('', [
-          node('Method', desc.accessMethod),
-          parseGeneralName(desc.accessLocation),
-        ]))),
+        section(
+          'Descriptions',
+          sia.map((desc) =>
+            section('', [node('Method', desc.accessMethod), parseGeneralName(desc.accessLocation)]),
+          ),
+        ),
       ],
     };
   }

@@ -6,16 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  Component,
-  h,
-  Prop,
-  State,
-  Host,
-} from '@stencil/core';
+import { Component, h, Prop, State, Host } from '@stencil/core';
 import { X509Certificates } from '../../crypto';
-import { Typography } from '../typography';
 import { Miscellaneous } from '../certificate-details-parts';
+import { Typography } from '../typography';
 
 @Component({
   tag: 'peculiar-certificate-chain-viewer',
@@ -38,9 +32,7 @@ export class CertificateChainViewer {
   private renderEmptyState() {
     return (
       <div class="status_wrapper">
-        <Typography>
-          There is no certificates available.
-        </Typography>
+        <Typography>There is no certificates available.</Typography>
       </div>
     );
   }
@@ -83,13 +75,7 @@ export class CertificateChainViewer {
           return null;
         })}
 
-        <table>
-          {this.download && (
-            <Miscellaneous
-              certificate={this.certificates}
-            />
-          )}
-        </table>
+        <table>{this.download && <Miscellaneous certificate={this.certificates} />}</table>
       </Host>
     );
   }

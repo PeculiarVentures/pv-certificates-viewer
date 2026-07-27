@@ -6,6 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import type { Extension } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import {
   CaVersion,
@@ -15,23 +16,17 @@ import {
   id_certificateTemplate,
   id_enrollCertType,
 } from '@peculiar/asn1-x509-microsoft';
-import type { Extension } from '@peculiar/asn1-x509';
 import type { IExtensionParser, IParsedExtension } from '../types';
-import { node } from '../builders';
 import { dateShort } from '../../../utils';
-import {
-  id_msCRLNextPublish,
-  MsCRLNextPublish,
-} from '../../extensions/microsoft_crl_next_publish';
+import { id_msCRLNextPublish, MsCRLNextPublish } from '../../extensions/microsoft_crl_next_publish';
+import { node } from '../builders';
 
 export class CertificateTemplateParser implements IExtensionParser {
   readonly oids = [id_certificateTemplate];
 
   parse(extension: Extension): IParsedExtension {
     const tpl = AsnParser.parse(extension.extnValue.buffer, CertificateTemplate);
-    const children = [
-      node('Template ID', tpl.templateID),
-    ];
+    const children = [node('Template ID', tpl.templateID)];
 
     if (tpl.templateMajorVersion != null) {
       children.push(node('Major Version', tpl.templateMajorVersion));
@@ -58,9 +53,7 @@ export class EnrollCertTypeParser implements IExtensionParser {
     return {
       oid: extension.extnID,
       critical: extension.critical ?? false,
-      children: [
-        node('Template Name', ect.toString()),
-      ],
+      children: [node('Template Name', ect.toString())],
     };
   }
 }
@@ -74,9 +67,7 @@ export class CaVersionParser implements IExtensionParser {
     return {
       oid: extension.extnID,
       critical: extension.critical ?? false,
-      children: [
-        node('Version', cv.toString()),
-      ],
+      children: [node('Version', cv.toString())],
     };
   }
 }
@@ -90,9 +81,7 @@ export class CRLNextPublishParser implements IExtensionParser {
     return {
       oid: extension.extnID,
       critical: extension.critical ?? false,
-      children: [
-        node('Next Publish', dateShort(np.nextPublish)),
-      ],
+      children: [node('Next Publish', dateShort(np.nextPublish))],
     };
   }
 }

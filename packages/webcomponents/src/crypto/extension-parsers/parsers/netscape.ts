@@ -6,6 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import type { Extension } from '@peculiar/asn1-x509';
 import { AsnParser } from '@peculiar/asn1-schema';
 import {
   id_netscapeComment,
@@ -13,7 +14,6 @@ import {
   NetscapeComment,
   NetscapeCertType,
 } from '@peculiar/asn1-x509-netscape';
-import type { Extension } from '@peculiar/asn1-x509';
 import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
@@ -41,9 +41,7 @@ export class NetscapeCertTypeParser implements IExtensionParser {
     return {
       oid: extension.extnID,
       critical: extension.critical ?? false,
-      children: [
-        node('Type', flags.join(', ')),
-      ],
+      children: [node('Type', flags.join(', '))],
     };
   }
 }

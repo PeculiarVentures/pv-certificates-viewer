@@ -6,9 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  Component, Host, h, Element, Prop,
-} from '@stencil/core';
+import { Component, Host, h, Element, Prop } from '@stencil/core';
 
 @Component({
   tag: 'peculiar-highlight-words',

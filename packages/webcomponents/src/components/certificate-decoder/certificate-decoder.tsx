@@ -6,16 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  Component,
-  Host,
-  h,
-  State,
-  Prop,
-  Event,
-  EventEmitter,
-} from '@stencil/core';
-import { readAsBinaryString } from '../../utils';
+import { Component, Host, h, State, Prop, Event, EventEmitter } from '@stencil/core';
 import {
   X509Certificate,
   X509AttributeCertificate,
@@ -24,6 +15,7 @@ import {
   X509Certificates,
   SshCertificate,
 } from '../../crypto';
+import { readAsBinaryString } from '../../utils';
 
 @Component({
   tag: 'peculiar-certificate-decoder',
@@ -46,7 +38,8 @@ export class CertificateDecoder {
   @Prop() certificateToDecode?: string;
 
   /** The decoded certificate object; null while empty. */
-  @State() certificateDecoded: X509Certificates
+  @State() certificateDecoded:
+    | X509Certificates
     | X509Certificate
     | X509AttributeCertificate
     | Pkcs10CertificateRequest
@@ -143,7 +136,9 @@ export class CertificateDecoder {
       .then((res: typeof this.certificateDecoded) => this.setValue(res))
       .catch((err) => {
         console.error(err);
-        alert(`Error decoding certificate.\n\nSupported formats: X.509 Certificate, Attribute Certificate, PKCS#10 CSR, CRL, SSH Certificate.`);
+        alert(
+          `Error decoding certificate.\n\nSupported formats: X.509 Certificate, Attribute Certificate, PKCS#10 CSR, CRL, SSH Certificate.`,
+        );
       });
   }
 
@@ -153,27 +148,57 @@ export class CertificateDecoder {
     const cert = this.certificateDecoded;
 
     if (cert instanceof X509Certificates) {
-      return <peculiar-certificate-chain-viewer certificates={cert} download />;
+      return (
+        <peculiar-certificate-chain-viewer
+          certificates={cert}
+          download
+        />
+      );
     }
 
     if (cert instanceof X509Certificate) {
-      return <peculiar-certificate-viewer certificate={cert} download />;
+      return (
+        <peculiar-certificate-viewer
+          certificate={cert}
+          download
+        />
+      );
     }
 
     if (cert instanceof X509AttributeCertificate) {
-      return <peculiar-attribute-certificate-viewer certificate={cert} download />;
+      return (
+        <peculiar-attribute-certificate-viewer
+          certificate={cert}
+          download
+        />
+      );
     }
 
     if (cert instanceof Pkcs10CertificateRequest) {
-      return <peculiar-csr-viewer certificate={cert} download />;
+      return (
+        <peculiar-csr-viewer
+          certificate={cert}
+          download
+        />
+      );
     }
 
     if (cert instanceof X509Crl) {
-      return <peculiar-crl-viewer certificate={cert} download />;
+      return (
+        <peculiar-crl-viewer
+          certificate={cert}
+          download
+        />
+      );
     }
 
     if (cert instanceof SshCertificate) {
-      return <peculiar-ssh-certificate-viewer certificate={cert} download />;
+      return (
+        <peculiar-ssh-certificate-viewer
+          certificate={cert}
+          download
+        />
+      );
     }
 
     return null;
@@ -194,14 +219,16 @@ export class CertificateDecoder {
 
         {/* ══════════════════════ LEFT PANE — INPUT ══════════════════════ */}
         <div class="flex min-h-0 flex-col overflow-hidden bg-white max-[820px]:min-h-64 max-[820px]:border-b max-[820px]:border-gray-200">
-
           <div class="flex shrink-0 items-center justify-between gap-2 border-b border-gray-200 bg-gray-100 px-4 py-2">
             <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-gray-500">
               <svg
-                width="12" height="12"
+                width="12"
+                height="12"
                 class="shrink-0 text-blue-600 opacity-80"
-                fill="none" stroke="currentColor"
-                stroke-width="2" viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
               >
                 <path
                   stroke-linecap="round"
@@ -218,9 +245,12 @@ export class CertificateDecoder {
                 title="Load from file"
               >
                 <svg
-                  width="11" height="11"
-                  fill="none" stroke="currentColor"
-                  stroke-width="2" viewBox="0 0 24 24"
+                  width="11"
+                  height="11"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
                 >
                   <path
                     stroke-linecap="round"
@@ -259,8 +289,12 @@ export class CertificateDecoder {
 
           <textarea
             class="min-h-0 w-full flex-1 resize-none border-0 bg-gray-100 px-4 py-4 font-mono text-xs leading-snug tracking-wide text-blue-800 caret-blue-600 outline-none transition-colors duration-150 placeholder:italic placeholder:text-gray-400 focus:bg-white"
-            placeholder={'Paste a PEM or Base64 DER certificate here,\nor drag & drop a .pem / .crt file…\n\n-----BEGIN CERTIFICATE-----\nMIIFaz…\n-----END CERTIFICATE-----'}
-            ref={(el) => { this.inputPaste = el as HTMLTextAreaElement; }}
+            placeholder={
+              'Paste a PEM or Base64 DER certificate here,\nor drag & drop a .pem / .crt file…\n\n-----BEGIN CERTIFICATE-----\nMIIFaz…\n-----END CERTIFICATE-----'
+            }
+            ref={(el) => {
+              this.inputPaste = el as HTMLTextAreaElement;
+            }}
             onInput={this.syncInputHasText}
             onDrop={this.handleDrop}
           />
@@ -271,10 +305,13 @@ export class CertificateDecoder {
           <div class="flex shrink-0 items-center justify-between gap-2 border-b border-gray-200 bg-gray-100 px-4 py-2">
             <span class="flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-gray-500">
               <svg
-                width="12" height="12"
+                width="12"
+                height="12"
                 class="shrink-0 text-blue-600 opacity-80"
-                fill="none" stroke="currentColor"
-                stroke-width="2" viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
               >
                 <path
                   stroke-linecap="round"
@@ -298,7 +335,8 @@ export class CertificateDecoder {
                 </select>
                 <svg
                   class="pointer-events-none absolute right-2 top-1/2 size-2.5 -translate-y-1/2 text-gray-500"
-                  fill="none" stroke="currentColor"
+                  fill="none"
+                  stroke="currentColor"
                   stroke-width="1.5"
                   viewBox="0 0 10 6"
                   aria-hidden="true"
@@ -314,12 +352,9 @@ export class CertificateDecoder {
           </div>
 
           <div class="min-h-0 flex-1 overflow-y-auto bg-white [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-gray-300 hover:[&::-webkit-scrollbar-thumb]:bg-gray-400">
-            {!hasDecoded
-              ? this.renderPlaceholder()
-              : this.renderDecodedComponent()}
+            {!hasDecoded ? this.renderPlaceholder() : this.renderDecodedComponent()}
           </div>
         </div>
-
       </Host>
     );
   }
@@ -329,9 +364,12 @@ export class CertificateDecoder {
       <div class="flex h-full flex-col items-center justify-center gap-3 p-10">
         <div class="flex size-12 items-center justify-center rounded-full border border-gray-200 bg-gray-100 text-gray-400">
           <svg
-            width="24" height="24"
-            fill="none" stroke="currentColor"
-            stroke-width="1.5" viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
           >
             <path
               stroke-linecap="round"
@@ -343,11 +381,8 @@ export class CertificateDecoder {
         <p class="text-center font-mono text-xs leading-relaxed text-gray-400">
           Paste a certificate on the left
           <br />
-          and click
-          {' '}
-          <strong class="font-semibold text-blue-600">Decode</strong>
-          {' '}
-          — or load an example.
+          and click <strong class="font-semibold text-blue-600">Decode</strong> — or load an
+          example.
         </p>
       </div>
     );

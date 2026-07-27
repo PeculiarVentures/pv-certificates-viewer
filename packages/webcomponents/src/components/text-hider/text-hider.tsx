@@ -6,12 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  Component,
-  Host,
-  h,
-  State,
-} from '@stencil/core';
+import { Component, Host, h, State } from '@stencil/core';
 import { Button } from '../button';
 import { ArrowBottomIcon, ArrowTopIcon } from '../icons';
 
@@ -25,16 +20,18 @@ export class TextHider {
 
   render() {
     return (
-      <Host
-        aria-expanded={String(this.opened)}
-      >
+      <Host aria-expanded={String(this.opened)}>
         <div class="content">
           <slot />
         </div>
         <Button
           class="action"
-          startIcon={this.opened ? <ArrowTopIcon color="secondary" /> : <ArrowBottomIcon color="secondary" />}
-          onClick={() => { this.opened = !this.opened; }}
+          startIcon={
+            this.opened ? <ArrowTopIcon color="secondary" /> : <ArrowBottomIcon color="secondary" />
+          }
+          onClick={() => {
+            this.opened = !this.opened;
+          }}
         />
       </Host>
     );

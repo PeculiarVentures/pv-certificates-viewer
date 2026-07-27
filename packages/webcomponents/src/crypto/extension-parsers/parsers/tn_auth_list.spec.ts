@@ -19,12 +19,15 @@ describe('TNAuthorizationListParser', () => {
 
   it('parses telephone number entry', () => {
     // TNAuthorizationList [ TNEntry { one: '+12025551234' } ]
-    expect(parser.parse(makeExtRaw(id_pe_TNAuthList, '3010a20e160c2b3132303235353531323334'))).toEqual({
+    expect(
+      parser.parse(makeExtRaw(id_pe_TNAuthList, '3010a20e160c2b3132303235353531323334')),
+    ).toEqual({
       oid: id_pe_TNAuthList,
       critical: false,
       children: [
         {
-          title: 'Telephone Number', value: '+12025551234',
+          title: 'Telephone Number',
+          value: '+12025551234',
         },
       ],
     });
@@ -32,12 +35,15 @@ describe('TNAuthorizationListParser', () => {
 
   it('parses service provider code entry', () => {
     // TNAuthorizationList [ TNEntry { spc: 'provider123' } ]
-    expect(parser.parse(makeExtRaw(id_pe_TNAuthList, '300fa00d160b70726f7669646572313233'))).toEqual({
+    expect(
+      parser.parse(makeExtRaw(id_pe_TNAuthList, '300fa00d160b70726f7669646572313233')),
+    ).toEqual({
       oid: id_pe_TNAuthList,
       critical: false,
       children: [
         {
-          title: 'Service Provider Code', value: 'provider123',
+          title: 'Service Provider Code',
+          value: 'provider123',
         },
       ],
     });
@@ -45,7 +51,9 @@ describe('TNAuthorizationListParser', () => {
 
   it('parses telephone number range entry', () => {
     // TNAuthorizationList [ TNEntry { range: { start: '+12025551000', count: 100 } } ]
-    expect(parser.parse(makeExtRaw(id_pe_TNAuthList, '3015a1133011160c2b3132303235353531303030020164'))).toEqual({
+    expect(
+      parser.parse(makeExtRaw(id_pe_TNAuthList, '3015a1133011160c2b3132303235353531303030020164')),
+    ).toEqual({
       oid: id_pe_TNAuthList,
       critical: false,
       children: [
@@ -53,10 +61,12 @@ describe('TNAuthorizationListParser', () => {
           title: 'Range',
           children: [
             {
-              title: 'Start', value: '+12025551000',
+              title: 'Start',
+              value: '+12025551000',
             },
             {
-              title: 'Count', value: 100,
+              title: 'Count',
+              value: 100,
             },
           ],
         },

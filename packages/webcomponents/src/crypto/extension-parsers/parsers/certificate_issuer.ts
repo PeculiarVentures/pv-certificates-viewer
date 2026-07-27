@@ -7,11 +7,7 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  CertificateIssuer,
-  Extension,
-  id_ce_certificateIssuer,
-} from '@peculiar/asn1-x509';
+import { CertificateIssuer, Extension, id_ce_certificateIssuer } from '@peculiar/asn1-x509';
 import type { IExtensionParser, IParsedExtension } from '../types';
 import { parseGeneralName } from '../parse_general_name';
 

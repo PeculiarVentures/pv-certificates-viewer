@@ -6,17 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  Component,
-  h,
-  Prop,
-  State,
-  Watch,
-  Host,
-  Build,
-} from '@stencil/core';
+import { Component, h, Prop, State, Watch, Host, Build } from '@stencil/core';
 import { X509Certificate } from '../../crypto';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
+import { runViewerDecode } from '../_shared/decode';
 import {
   BasicInformation,
   SubjectName,
@@ -28,7 +21,6 @@ import {
 } from '../certificate-details-parts';
 import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
 import { Typography } from '../typography';
-import { runViewerDecode } from '../_shared/decode';
 
 export type TCertificateProp = string | X509Certificate;
 
@@ -183,9 +175,7 @@ export class CertificateViewer {
   private renderErrorState() {
     return (
       <div class="status_wrapper">
-        <Typography>
-          There was an error decoding this certificate.
-        </Typography>
+        <Typography>There was an error decoding this certificate.</Typography>
       </div>
     );
   }
@@ -193,9 +183,7 @@ export class CertificateViewer {
   private renderEmptyState() {
     return (
       <div class="status_wrapper">
-        <Typography>
-          There is no certificate available.
-        </Typography>
+        <Typography>There is no certificate available.</Typography>
       </div>
     );
   }
@@ -212,45 +200,29 @@ export class CertificateViewer {
     const linkTemplateResolvers = buildLinkTemplateResolvers(this);
 
     return (
-      <Host
-        data-mobile-screen-view={String(this.mobileScreenView)}
-      >
+      <Host data-mobile-screen-view={String(this.mobileScreenView)}>
         <table>
-          <BasicInformation
-            {...this.certificateDecoded}
-          />
+          <BasicInformation {...this.certificateDecoded} />
 
-          <SubjectName
-            name={this.certificateDecoded.subject}
-          />
+          <SubjectName name={this.certificateDecoded.subject} />
 
           <IssuerName
             name={this.certificateDecoded.issuer}
             issuerDnLink={linkTemplateResolvers.getIssuerDnLink()}
           />
 
-          <PublicKey
-            publicKey={this.certificateDecoded.publicKey}
-          />
+          <PublicKey publicKey={this.certificateDecoded.publicKey} />
 
-          <Signature
-            signature={this.certificateDecoded.signature}
-          />
+          <Signature signature={this.certificateDecoded.signature} />
 
-          <Thumbprints
-            thumbprints={this.certificateDecoded.thumbprints}
-          />
+          <Thumbprints thumbprints={this.certificateDecoded.thumbprints} />
 
           <ParsedExtensions
             extensions={this.certificateDecoded.extensions}
             {...linkTemplateResolvers}
           />
 
-          {this.download && (
-            <Miscellaneous
-              certificate={this.certificateDecoded}
-            />
-          )}
+          {this.download && <Miscellaneous certificate={this.certificateDecoded} />}
         </table>
       </Host>
     );

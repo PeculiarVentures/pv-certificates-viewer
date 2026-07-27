@@ -47,10 +47,12 @@ ZYYG
       const rawData = new ArrayBuffer(3);
       const pemStructs = [
         {
-          type: 'CERTIFICATE', rawData,
+          type: 'CERTIFICATE',
+          rawData,
         },
         {
-          type: 'CERTIFICATE REQUEST', rawData,
+          type: 'CERTIFICATE REQUEST',
+          rawData,
         },
       ];
       const pem = PemConverter.encode(pemStructs);

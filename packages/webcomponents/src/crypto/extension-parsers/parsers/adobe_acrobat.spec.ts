@@ -20,10 +20,14 @@ describe('AdobeTimestampParser', () => {
   it('parses Timestamp with URI location', () => {
     // SEQUENCE { INTEGER 1, [6] 'http://timestamp.example.com/', BOOLEAN FALSE }
     // 3022 020101 861d 687474703a2f2f74696d657374616d702e6578616d706c652e636f6d2f
-    expect(parser.parse(makeExtRaw(
-      id_adbe_timestamp,
-      '3022020101861d687474703a2f2f74696d657374616d702e6578616d706c652e636f6d2f',
-    ))).toEqual({
+    expect(
+      parser.parse(
+        makeExtRaw(
+          id_adbe_timestamp,
+          '3022020101861d687474703a2f2f74696d657374616d702e6578616d706c652e636f6d2f',
+        ),
+      ),
+    ).toEqual({
       oid: id_adbe_timestamp,
       critical: false,
       children: [
@@ -31,16 +35,21 @@ describe('AdobeTimestampParser', () => {
           title: 'Timestamp',
           children: [
             {
-              title: 'Version', value: 1,
+              title: 'Version',
+              value: 1,
             },
             {
               title: 'Location',
-              children: [{
-                title: 'URI', value: 'http://timestamp.example.com/',
-              }],
+              children: [
+                {
+                  title: 'URI',
+                  value: 'http://timestamp.example.com/',
+                },
+              ],
             },
             {
-              title: 'Requires Auth', value: false,
+              title: 'Requires Auth',
+              value: false,
             },
           ],
         },
@@ -61,9 +70,12 @@ describe('AdobeArchiveRevInfoParser', () => {
     expect(parser.parse(makeExtRaw(id_adbe_archiveRevInfo, '3003020101'))).toEqual({
       oid: id_adbe_archiveRevInfo,
       critical: false,
-      children: [{
-        title: 'Version', value: 1,
-      }],
+      children: [
+        {
+          title: 'Version',
+          value: 1,
+        },
+      ],
     });
   });
 });

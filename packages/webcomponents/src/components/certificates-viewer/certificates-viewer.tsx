@@ -6,23 +6,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {
-  Component,
-  h,
-  Prop,
-  State,
-  Watch,
-  Host,
-  Event,
-  EventEmitter,
-  Build,
-} from '@stencil/core';
-import { X509Certificate } from '../../crypto';
+import { Component, h, Prop, State, Watch, Host, Event, EventEmitter, Build } from '@stencil/core';
 import { OIDs } from '../../constants/oids';
+import { X509Certificate } from '../../crypto';
 import { l10n } from '../../utils';
-import { Typography } from '../typography';
-import { CertificateSummary } from '../certificate-summary';
 import { Button } from '../button';
+import { CertificateSummary } from '../certificate-summary';
 import {
   DownloadIcon,
   LinkIcon,
@@ -31,6 +20,7 @@ import {
   ArrowTopIcon,
   CrossIcon,
 } from '../icons';
+import { Typography } from '../typography';
 
 export interface ICertificate {
   value: string;
@@ -208,9 +198,7 @@ export class CertificatesViewer {
   private handleClickRow(index: number) {
     const isExpandedRowClicked = this.expandedRow === index;
 
-    this.expandedRow = isExpandedRowClicked
-      ? undefined
-      : index;
+    this.expandedRow = isExpandedRowClicked ? undefined : index;
   }
 
   private handleSearch = (event: Event) => {
@@ -230,8 +218,9 @@ export class CertificatesViewer {
   }
 
   private renderCertificateButtonActions(certificate: ICertificateDecoded) {
-    const isHasTestURLs = certificate.tests
-      && (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid);
+    const isHasTestURLs =
+      certificate.tests &&
+      (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid);
 
     return (
       <peculiar-button-menu
@@ -263,32 +252,40 @@ export class CertificatesViewer {
             ],
           },
           ...(isHasTestURLs
-            ? [{
-                title: l10n.getString('testURLs'),
-                options: [
-                  ...(certificate.tests?.valid
-                    ? [{
-                        text: l10n.getString('valid'),
-                        href: certificate.tests.valid,
-                        startIcon: <LinkIcon />,
-                      }]
-                    : []),
-                  ...(certificate.tests?.revoked
-                    ? [{
-                        text: l10n.getString('revoked'),
-                        href: certificate.tests.revoked,
-                        startIcon: <LinkIcon />,
-                      }]
-                    : []),
-                  ...(certificate.tests?.expired
-                    ? [{
-                        text: l10n.getString('expired'),
-                        href: certificate.tests.expired,
-                        startIcon: <LinkIcon />,
-                      }]
-                    : []),
-                ],
-              }]
+            ? [
+                {
+                  title: l10n.getString('testURLs'),
+                  options: [
+                    ...(certificate.tests?.valid
+                      ? [
+                          {
+                            text: l10n.getString('valid'),
+                            href: certificate.tests.valid,
+                            startIcon: <LinkIcon />,
+                          },
+                        ]
+                      : []),
+                    ...(certificate.tests?.revoked
+                      ? [
+                          {
+                            text: l10n.getString('revoked'),
+                            href: certificate.tests.revoked,
+                            startIcon: <LinkIcon />,
+                          },
+                        ]
+                      : []),
+                    ...(certificate.tests?.expired
+                      ? [
+                          {
+                            text: l10n.getString('expired'),
+                            href: certificate.tests.expired,
+                            startIcon: <LinkIcon />,
+                          },
+                        ]
+                      : []),
+                  ],
+                },
+              ]
             : []),
         ]}
       />
@@ -313,15 +310,13 @@ export class CertificatesViewer {
   }
 
   private renderCertificatesRows() {
-    const searchHighlight = this.highlightWithSearch
-      ? this.search
-      : '';
+    const searchHighlight = this.highlightWithSearch ? this.search : '';
     const content = [];
 
     this.certificatesDecoded.forEach((certificate, index) => {
       const isExpandedRow = index === this.expandedRow;
-      const publicKeyValue = OIDs[certificate.body.signature.algorithm]
-        || certificate.body.signature.algorithm;
+      const publicKeyValue =
+        OIDs[certificate.body.signature.algorithm] || certificate.body.signature.algorithm;
 
       if (this.filterWithSearch && this.search) {
         const certificateStringForSearch = [
@@ -353,12 +348,18 @@ export class CertificatesViewer {
                   {!this.isHasRoots && (
                     <tr>
                       <td>
-                        <Typography variant="b2" color="gray-9">
+                        <Typography
+                          variant="b2"
+                          color="gray-9"
+                        >
                           {l10n.getString('issuer')}
                         </Typography>
                       </td>
                       <td>
-                        <Typography variant="b2" color="black">
+                        <Typography
+                          variant="b2"
+                          color="black"
+                        >
                           <peculiar-highlight-words search={searchHighlight}>
                             {certificate.body.issuerCommonName}
                           </peculiar-highlight-words>
@@ -368,12 +369,18 @@ export class CertificatesViewer {
                   )}
                   <tr>
                     <td>
-                      <Typography variant="b2" color="gray-9">
+                      <Typography
+                        variant="b2"
+                        color="gray-9"
+                      >
                         {l10n.getString('name')}
                       </Typography>
                     </td>
                     <td>
-                      <Typography variant="b2" color="black">
+                      <Typography
+                        variant="b2"
+                        color="black"
+                      >
                         <peculiar-highlight-words search={searchHighlight}>
                           {this.getCertificateName(certificate)}
                         </peculiar-highlight-words>
@@ -382,12 +389,18 @@ export class CertificatesViewer {
                   </tr>
                   <tr>
                     <td>
-                      <Typography variant="b2" color="gray-9">
+                      <Typography
+                        variant="b2"
+                        color="gray-9"
+                      >
                         {l10n.getString('publicKey')}
                       </Typography>
                     </td>
                     <td>
-                      <Typography variant="b2" color="black">
+                      <Typography
+                        variant="b2"
+                        color="black"
+                      >
                         <peculiar-highlight-words search={searchHighlight}>
                           {publicKeyValue}
                         </peculiar-highlight-words>
@@ -396,13 +409,19 @@ export class CertificatesViewer {
                   </tr>
                   <tr>
                     <td>
-                      <Typography variant="b2" color="gray-9">
+                      <Typography
+                        variant="b2"
+                        color="gray-9"
+                      >
                         {l10n.getString('fingerprint')}
                         &nbsp; (SHA-1)
                       </Typography>
                     </td>
                     <td>
-                      <Typography variant="b2" color="black">
+                      <Typography
+                        variant="b2"
+                        color="black"
+                      >
                         <peculiar-highlight-words search={searchHighlight}>
                           {certificate.body.thumbprints['SHA-1']}
                         </peculiar-highlight-words>
@@ -471,9 +490,7 @@ export class CertificatesViewer {
               </peculiar-highlight-words>
             </Typography>
           </td>
-          <td>
-            {this.renderCertificateButtonActions(certificate)}
-          </td>
+          <td>{this.renderCertificateButtonActions(certificate)}</td>
         </tr>,
         isExpandedRow && this.renderExpandedRow(certificate.body),
       ]);
@@ -505,11 +522,7 @@ export class CertificatesViewer {
           part="presentation_container"
         >
           <header class="modal_header">
-            <Typography
-              variant="h4"
-            >
-              {l10n.getString('certificateDetails')}
-            </Typography>
+            <Typography variant="h4">{l10n.getString('certificateDetails')}</Typography>
             <Button
               startIcon={<CrossIcon />}
               onClick={this.handleModalClose}
@@ -554,11 +567,7 @@ export class CertificatesViewer {
           class="status_wrapper"
           colSpan={colSpan}
         >
-          <Typography
-            variant="b1"
-          >
-            There are no certificates available.
-          </Typography>
+          <Typography variant="b1">There are no certificates available.</Typography>
         </td>
       </tr>
     );
@@ -573,9 +582,7 @@ export class CertificatesViewer {
           class="status_wrapper"
           colSpan={colSpan}
         >
-          <Typography
-            variant="b1"
-          >
+          <Typography variant="b1">
             No results found for &ldquo;
             {this.search}
             &ldquo;
@@ -613,9 +620,7 @@ export class CertificatesViewer {
 
   render() {
     return (
-      <Host
-        data-mobile-screen-view={String(this.mobileScreenView)}
-      >
+      <Host data-mobile-screen-view={String(this.mobileScreenView)}>
         {this.renderSearch()}
         <table>
           {!this.mobileScreenView && (
@@ -624,20 +629,14 @@ export class CertificatesViewer {
                 <th />
                 {!this.isHasRoots && (
                   <th class="col_issuer">
-                    <Typography variant="s2">
-                      {l10n.getString('issuer')}
-                    </Typography>
+                    <Typography variant="s2">{l10n.getString('issuer')}</Typography>
                   </th>
                 )}
                 <th class="col_name">
-                  <Typography variant="s2">
-                    {l10n.getString('name')}
-                  </Typography>
+                  <Typography variant="s2">{l10n.getString('name')}</Typography>
                 </th>
                 <th class="col_public_key">
-                  <Typography variant="s2">
-                    {l10n.getString('publicKey')}
-                  </Typography>
+                  <Typography variant="s2">{l10n.getString('publicKey')}</Typography>
                 </th>
                 <th class="col_fingerprint">
                   <Typography variant="s2">
@@ -649,9 +648,7 @@ export class CertificatesViewer {
               </tr>
             </thead>
           )}
-          <tbody>
-            {this.renderTableBody()}
-          </tbody>
+          <tbody>{this.renderTableBody()}</tbody>
         </table>
 
         {this.renderCertificateDetailsModal()}

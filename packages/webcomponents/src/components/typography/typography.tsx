@@ -17,22 +17,23 @@ interface ITypographyProps {
   class?: string;
 }
 
-const variantMapping: Record<TTypography, 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'> = {
-  h1: 'h1',
-  h2: 'h2',
-  h3: 'h3',
-  h4: 'h4',
-  h5: 'h5',
-  s1: 'h6',
-  s2: 'h6',
-  b1: 'p',
-  b2: 'p',
-  b3: 'p',
-  btn1: 'span',
-  btn2: 'span',
-  c1: 'p',
-  c2: 'p',
-};
+const variantMapping: Record<TTypography, 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'> =
+  {
+    h1: 'h1',
+    h2: 'h2',
+    h3: 'h3',
+    h4: 'h4',
+    h5: 'h5',
+    s1: 'h6',
+    s2: 'h6',
+    b1: 'p',
+    b2: 'p',
+    b3: 'p',
+    btn1: 'span',
+    btn2: 'span',
+    c1: 'p',
+    c2: 'p',
+  };
 
 export const Typography: FunctionalComponent<ITypographyProps> = (props, children) => {
   const {

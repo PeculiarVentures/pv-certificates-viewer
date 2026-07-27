@@ -7,8 +7,8 @@
  */
 
 import type { Extension } from '@peculiar/asn1-x509';
-import type { IParsedExtension } from './types';
 import type { ExtensionParserRegistry } from './registry';
+import type { IParsedExtension } from './types';
 import { parseUnknown } from './unknown';
 
 export function parseExtension(

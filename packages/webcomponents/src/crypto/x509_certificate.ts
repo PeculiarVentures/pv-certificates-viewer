@@ -6,9 +6,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { AsnConvert } from '@peculiar/asn1-schema';
 import { ECParameters, id_ecPublicKey } from '@peculiar/asn1-ecc';
 import { id_rsaEncryption, RSAPublicKey } from '@peculiar/asn1-rsa';
+import { AsnConvert } from '@peculiar/asn1-schema';
+import { Certificate, SubjectPublicKeyInfo } from '@peculiar/asn1-x509';
 import {
   id_composite_key,
   id_alg_composite,
@@ -16,17 +17,13 @@ import {
   CompositeSignatureValue,
   CompositeParams,
 } from '@peculiar/asn1-x509-post-quantum';
-import { Certificate, SubjectPublicKeyInfo } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
 import { dateDiff, Download } from '../utils';
-import { Name, INameJSON } from './name';
 import { AsnData } from './asn_data';
-import { PemConverter } from './pem_converter';
-import {
-  certificateRawToBuffer,
-  getCertificateThumbprint,
-} from './utils';
 import { type IParsedExtension, parseExtension } from './extension-parsers';
+import { Name, INameJSON } from './name';
+import { PemConverter } from './pem_converter';
+import { certificateRawToBuffer, getCertificateThumbprint } from './utils';
 
 export interface ISignature {
   algorithm: string;
@@ -76,20 +73,20 @@ export class X509Certificate extends AsnData<Certificate> {
     this.issuer = Name.parse(tbsCertificate.issuer);
     this.version = tbsCertificate.version + 1;
 
-    const notBefore = tbsCertificate.validity.notBefore.utcTime
-      || tbsCertificate.validity.notBefore.generalTime;
+    const notBefore =
+      tbsCertificate.validity.notBefore.utcTime || tbsCertificate.validity.notBefore.generalTime;
 
     if (!notBefore) {
-      throw new Error('Cannot get \'notBefore\' value');
+      throw new Error("Cannot get 'notBefore' value");
     }
 
     this.notBefore = notBefore;
 
-    const notAfter = tbsCertificate.validity.notAfter.utcTime
-      || tbsCertificate.validity.notAfter.generalTime;
+    const notAfter =
+      tbsCertificate.validity.notAfter.utcTime || tbsCertificate.validity.notAfter.generalTime;
 
     if (!notAfter) {
-      throw new Error('Cannot get \'notAfter\' value');
+      throw new Error("Cannot get 'notAfter' value");
     }
 
     this.notAfter = notAfter;
@@ -156,9 +153,7 @@ export class X509Certificate extends AsnData<Certificate> {
     };
   }
 
-  public async getThumbprint(
-    algorithm = 'SHA-1',
-  ): Promise<void> {
+  public async getThumbprint(algorithm = 'SHA-1'): Promise<void> {
     try {
       const thumbprint = await getCertificateThumbprint(algorithm, this.raw);
 
@@ -211,11 +206,7 @@ export class X509Certificate extends AsnData<Certificate> {
       return '';
     }
 
-    return this.subject
-      .map((name) => (
-        `${name.short}=${name.value}`
-      ))
-      .join(', ');
+    return this.subject.map((name) => `${name.short}=${name.value}`).join(', ');
   }
 
   public issuerToString() {
@@ -223,11 +214,7 @@ export class X509Certificate extends AsnData<Certificate> {
       return '';
     }
 
-    return this.issuer
-      .map((name) => (
-        `${name.short}=${name.value}`
-      ))
-      .join(', ');
+    return this.issuer.map((name) => `${name.short}=${name.value}`).join(', ');
   }
 
   public toString(format: 'pem' | 'base64' | 'base64url' = 'pem'): string {
@@ -242,16 +229,10 @@ export class X509Certificate extends AsnData<Certificate> {
   }
 
   public downloadAsPEM(name?: string) {
-    Download.cert.asPEM(
-      this.toString('pem'),
-      name || this.commonName,
-    );
+    Download.cert.asPEM(this.toString('pem'), name || this.commonName);
   }
 
   public downloadAsDER(name?: string) {
-    Download.cert.asDER(
-      this.raw,
-      name || this.commonName,
-    );
+    Download.cert.asDER(this.raw, name || this.commonName);
   }
 }

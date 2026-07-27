@@ -7,14 +7,10 @@
  */
 
 import { AsnParser } from '@peculiar/asn1-schema';
-import {
-  Extension,
-  id_ce_invalidityDate,
-  InvalidityDate,
-} from '@peculiar/asn1-x509';
+import { Extension, id_ce_invalidityDate, InvalidityDate } from '@peculiar/asn1-x509';
 import type { IExtensionParser, IParsedExtension } from '../types';
-import { node } from '../builders';
 import { dateShort } from '../../../utils';
+import { node } from '../builders';
 
 export class InvalidityDateParser implements IExtensionParser {
   readonly oids = [id_ce_invalidityDate];

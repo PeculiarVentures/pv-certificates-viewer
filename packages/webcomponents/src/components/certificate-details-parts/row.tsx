@@ -8,15 +8,13 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import isLink from '../../utils/is_link';
-import { Typography } from '../typography';
 import { Link } from '../link';
+import { Typography } from '../typography';
 
 export const TableRowTable: FunctionalComponent = (_, children) => (
   <tr>
     <td colSpan={2}>
-      <table>
-        {children}
-      </table>
+      <table>{children}</table>
     </td>
   </tr>
 );
@@ -44,7 +42,10 @@ export const RowTitle: FunctionalComponent<IRowTitleProps> = (props) => {
       </td>
     </tr>,
     <tr>
-      <td colSpan={2} class="divider">
+      <td
+        colSpan={2}
+        class="divider"
+      >
         <span />
       </td>
     </tr>,
@@ -61,14 +62,7 @@ interface IRowValueProps {
 }
 
 export const RowValue: FunctionalComponent<IRowValueProps> = (props) => {
-  const {
-    name,
-    value,
-    monospace,
-    collapse,
-    href,
-    extraValue,
-  } = props;
+  const { name, value, monospace, collapse, href, extraValue } = props;
 
   if (!name) {
     return null;
@@ -81,11 +75,7 @@ export const RowValue: FunctionalComponent<IRowValueProps> = (props) => {
   let elementValue;
 
   if (collapse) {
-    elementValue = (
-      <peculiar-text-hider>
-        {value}
-      </peculiar-text-hider>
-    );
+    elementValue = <peculiar-text-hider>{value}</peculiar-text-hider>;
   } else {
     elementValue = value;
   }
@@ -94,9 +84,7 @@ export const RowValue: FunctionalComponent<IRowValueProps> = (props) => {
 
   return (
     <tr>
-      <td
-        colSpan={hasValue ? 1 : 2}
-      >
+      <td colSpan={hasValue ? 1 : 2}>
         <Typography
           variant="b2"
           color="gray-9"
@@ -105,27 +93,23 @@ export const RowValue: FunctionalComponent<IRowValueProps> = (props) => {
         </Typography>
       </td>
       {hasValue && (
-        <td
-          class={{ monospace }}
-        >
-          {(isLink(value.toString()) || href)
-            ? (
-                <Link
-                  variant="b2"
-                  href={href || value.toString()}
-                >
-                  {value}
-                </Link>
-              )
-            : (
-                <Typography
-                  variant="b2"
-                  color="black"
-                >
-                  {elementValue}
-                  {extraValue}
-                </Typography>
-              )}
+        <td class={{ monospace }}>
+          {isLink(value.toString()) || href ? (
+            <Link
+              variant="b2"
+              href={href || value.toString()}
+            >
+              {value}
+            </Link>
+          ) : (
+            <Typography
+              variant="b2"
+              color="black"
+            >
+              {elementValue}
+              {extraValue}
+            </Typography>
+          )}
         </td>
       )}
     </tr>

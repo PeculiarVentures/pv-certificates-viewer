@@ -1,11 +1,5 @@
 {
   "extends": "../../tsconfig",
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/**.e2e.ts",
-    "**/tests/**.ts"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "**/**.e2e.ts", "**/tests/**.ts"]
 }

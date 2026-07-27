@@ -1,14 +1,16 @@
+import { newE2EPage } from '@stencil/core/testing';
 import fs from 'fs';
 import path from 'path';
-import { newE2EPage } from '@stencil/core/testing';
 import { devices } from '../../tests';
 
 const testAssetsFolderPath = path.join(__dirname, 'test_assets');
-const testFiles = fs.readdirSync(testAssetsFolderPath)
+const testFiles = fs
+  .readdirSync(testAssetsFolderPath)
   .filter((fileName) => fileName !== '.DS_Store');
 const certificates = testFiles.map((fileName) => ({
   name: fileName,
-  value: fs.readFileSync(path.join(testAssetsFolderPath, fileName), { encoding: 'utf-8' })
+  value: fs
+    .readFileSync(path.join(testAssetsFolderPath, fileName), { encoding: 'utf-8' })
     .replace(/-{5}(BEGIN|END) .*-{5}/gm, '')
     .replace(/\s/gm, ''),
 }));

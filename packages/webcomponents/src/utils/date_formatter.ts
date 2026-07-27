@@ -11,14 +11,9 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 
 dayjs.extend(relativeTime);
 
-export const dateShort = (date: string | number | Date) => (
-  new Date(date).toUTCString()
-);
+export const dateShort = (date: string | number | Date) => new Date(date).toUTCString();
 
-export const dateDiff = (
-  dateStart: string | number | Date,
-  dateEnd: string | number | Date,
-) => {
+export const dateDiff = (dateStart: string | number | Date, dateEnd: string | number | Date) => {
   if (!dateStart || !dateEnd) {
     return '';
   }

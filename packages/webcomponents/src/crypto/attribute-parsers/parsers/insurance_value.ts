@@ -6,9 +6,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { id_InsuranceValue, InsuranceValue } from '@peculiar/asn1-ntqwac';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
-import { id_InsuranceValue, InsuranceValue } from '@peculiar/asn1-ntqwac';
 import type { IAttributeParser, IParsedAttribute } from '../types';
 import { node } from '../../extension-parsers/builders';
 
@@ -20,9 +20,7 @@ export class InsuranceValueParser implements IAttributeParser {
 
     return {
       oid: attribute.type,
-      children: [
-        node('Value', `${iv.base} * 10^${iv.degree} ${iv.location}`),
-      ],
+      children: [node('Value', `${iv.base} * 10^${iv.degree} ${iv.location}`)],
     };
   }
 }

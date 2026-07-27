@@ -14,7 +14,7 @@ export class AsnData<T> {
 
   #raw: ArrayBuffer;
 
-  public constructor(raw: BufferSource, type: new() => T);
+  public constructor(raw: BufferSource, type: new () => T);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public constructor(...args: any[]) {
