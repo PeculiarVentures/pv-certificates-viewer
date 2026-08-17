@@ -47,6 +47,8 @@ You may also be interested in our web component for viewing and verifying signed
 - Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile ([rfc5280](https://tools.ietf.org/html/rfc5280)).
 - PKCS #10: Certification Request Syntax Specification ([rfc2986](https://tools.ietf.org/html/rfc2986)).
 - An Internet Attribute Certificate Profile for Authorization ([rfc5755](https://tools.ietf.org/html/rfc5755)).
+- Unsigned Certificate Conventions ([rfc9925](https://tools.ietf.org/html/rfc9925)) — used by Merkle Tree Certificate CA cosigner certificates (`id-alg-unsigned`).
+- Merkle Tree Certificates ([draft-ietf-plants-merkle-tree-certs](https://datatracker.ietf.org/doc/draft-ietf-plants-merkle-tree-certs/)) — partial support for the experimental OID arc `1.3.6.1.4.1.44363.47.*`: `id-alg-mtcProof` signatures (`MTCProof` in `signatureValue`), Trust Anchor ID RDN, and the extensions listed below.
 
 ### Supported Extensions
 
@@ -80,6 +82,7 @@ You may also be interested in our web component for viewing and verifying signed
 - Microsoft CRL Next Publish (1.3.6.1.4.1.311.21.4).
 - Microsoft Certificate Template (1.3.6.1.4.1.311.21.7).
 - Microsoft Certificate Type (1.3.6.1.4.1.311.20.2).
+- MTC Certification Authority (1.3.6.1.4.1.44363.47.2).
 - Name Constraints (2.5.29.30).
 - Netscape Certificate Type (2.16.840.1.113730.1.1).
 - Netscape Comment (2.16.840.1.113730.1.13).

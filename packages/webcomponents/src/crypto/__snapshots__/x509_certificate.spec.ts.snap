@@ -2737,3 +2737,75 @@ X509Certificate {
   "version": 3,
 }
 `;
+
+exports[`X509Certificate should parse the test certificate mtc-subscriber-standalone.pem 1`] = `
+X509Certificate {
+  "extensions": Extensions [
+    {
+      "children": [
+        {
+          "title": "Usage",
+          "value": "encipherOnly",
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.15",
+    },
+    {
+      "children": SubjectAlternativeName [
+        {
+          "_type": "dNSName",
+          "title": "DNS Name",
+          "value": "mtc-subscriber.example.test",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.17",
+    },
+    {
+      "children": [
+        {
+          "title": "Log Hash Algorithm",
+          "value": "SHA-256",
+        },
+        {
+          "title": "Signature Algorithm",
+          "value": "ML-DSA-44",
+        },
+        {
+          "title": "Min Serial",
+          "value": "0",
+        },
+        {
+          "title": "Max Serial",
+          "value": "18446744073709551615",
+        },
+      ],
+      "critical": true,
+      "oid": "1.3.6.1.4.1.44363.47.2",
+    },
+  ],
+  "issuer": [
+    {
+      "short": "Trust Anchor ID",
+      "type": "1.3.6.1.4.1.44363.47.1",
+      "value": "32473.1",
+    },
+  ],
+  "notAfter": 2027-01-01T00:00:00.000Z,
+  "notBefore": 2026-01-01T00:00:00.000Z,
+  "serialNumber": "0001000000000005",
+  "subject": [
+    {
+      "short": "CN",
+      "type": "2.5.4.3",
+      "value": "mtc-subscriber.example.test",
+    },
+  ],
+  "tag": "CERTIFICATE",
+  "thumbprints": {},
+  "type": "X.509 Certificate",
+  "validity": "a year",
+  "version": 3,
+}
+`;

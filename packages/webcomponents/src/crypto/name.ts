@@ -32,6 +32,7 @@ const oidToShortName = {
   '0.9.2342.19200300.100.1.1': 'UID',
   '0.9.2342.19200300.100.1.25': 'DC',
   '1.2.840.113549.1.9.1': 'E',
+  '1.3.6.1.4.1.44363.47.1': 'Trust Anchor ID',
 };
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

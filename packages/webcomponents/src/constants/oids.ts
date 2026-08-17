@@ -2389,4 +2389,10 @@ export const OIDs = {
   '2.16.840.1.101.3.4.3.29': 'SLH-DSA-SHAKE-256s',
   '2.16.840.1.101.3.4.3.30': 'SLH-DSA-SHAKE-256f',
   '2.16.840.1.101.3.4.3.31': 'SLH-DSA-SHAKE-256f',
+
+  // Merkle Tree Certificates (draft-ietf-plants-merkle-tree-certs)
+  '1.3.6.1.4.1.44363.47.0': 'MTC Proof',
+  '1.3.6.1.4.1.44363.47.1': 'Trust Anchor ID',
+  '1.3.6.1.4.1.44363.47.2': 'MTC Certification Authority',
+  '1.3.6.1.5.5.7.6.36': 'Unsigned',
 };

@@ -67,6 +67,8 @@ To add the `@peculiar/certificates-viewer` to an already existing React project 
 - [Subordinate CAs](https://codepen.io/donskov/pen/poJQWea)
 - [Certificate details](https://codepen.io/donskov/pen/RwPqLLa)
 
+See the [Supported Schemas and Extensions](https://github.com/PeculiarVentures/pv-certificates-viewer#supported-schemas) section in the repository README for the full list, including Merkle Tree Certificate (MTC) support.
+
 ### Customize the theme​
 
 To customize the look and feel of the components, components have CSS variables you can override to provide a theme for your components. See the supported CSS variables in [peculiar.scss](./src/css/peculiar.scss) file.

@@ -40,6 +40,7 @@ import {
   CaVersionParser,
   CRLNextPublishParser,
 } from './parsers/microsoft';
+import { MTCCertificationAuthorityParser } from './parsers/mtc';
 import { NameConstraintsParser } from './parsers/name_constraints';
 import { NetscapeCommentParser, NetscapeCertTypeParser } from './parsers/netscape';
 import { PolicyConstraintsParser } from './parsers/policy_constraints';
@@ -115,6 +116,9 @@ registry.register(new TNAuthorizationListParser());
 registry.register(new CabfOrganizationIdentifierParser());
 registry.register(new AppleDeveloperIdDateParser());
 
+// Merkle Tree Certificates (RFC 9925)
+registry.register(new MTCCertificationAuthorityParser());
+
 export function parseExtension(extension: Extension): IParsedExtension {
   return _parseExtension(extension, registry);
 }
@@ -165,3 +169,4 @@ export {
   CabfOrganizationIdentifierParser,
   AppleDeveloperIdDateParser,
 } from './parsers/cabf_and_apple';
+export { MTCCertificationAuthorityParser } from './parsers/mtc';
