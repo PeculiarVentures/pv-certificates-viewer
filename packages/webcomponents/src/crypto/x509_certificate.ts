@@ -7,6 +7,7 @@
  */
 
 import { ECParameters, id_ecPublicKey } from '@peculiar/asn1-ecc';
+import { id_alg_mtcProof_experimental, MTCProof } from '@peculiar/asn1-mtc';
 import { id_rsaEncryption, RSAPublicKey } from '@peculiar/asn1-rsa';
 import { AsnConvert } from '@peculiar/asn1-schema';
 import { Certificate, SubjectPublicKeyInfo } from '@peculiar/asn1-x509';
@@ -17,13 +18,25 @@ import {
   CompositeSignatureValue,
   CompositeParams,
 } from '@peculiar/asn1-x509-post-quantum';
-import { Convert } from 'pvtsutils';
+import { Convert, BufferSourceConverter } from 'pvtsutils';
 import { dateDiff, Download } from '../utils';
 import { AsnData } from './asn_data';
 import { type IParsedExtension, parseExtension } from './extension-parsers';
 import { Name, INameJSON } from './name';
 import { PemConverter } from './pem_converter';
 import { certificateRawToBuffer, getCertificateThumbprint } from './utils';
+
+export interface IMTCProofDetails {
+  start: number;
+  end: number;
+  subtreeSize: number;
+  isLandmarkRelative: boolean;
+  inclusionProof: string[];
+  signatures: {
+    cosignerId: string;
+    signature: string;
+  }[];
+}
 
 export interface ISignature {
   algorithm: string;
@@ -32,6 +45,7 @@ export interface ISignature {
     algorithm: string;
     value: BufferSource;
   }[];
+  mtcProof?: IMTCProofDetails;
 }
 
 export interface IPublicKey {
@@ -144,6 +158,24 @@ export class X509Certificate extends AsnData<Certificate> {
         ...param,
         value: compositeSignatureValues[index],
       }));
+    }
+
+    if (signatureAlgorithm.algorithm === id_alg_mtcProof_experimental) {
+      const proof = MTCProof.parse(BufferSourceConverter.toUint8Array(signatureValue));
+      const json = proof.toJSON();
+
+      return {
+        algorithm: signatureAlgorithm.algorithm,
+        value: signatureValue,
+        mtcProof: {
+          start: json.start,
+          end: json.end,
+          subtreeSize: proof.subtreeSize,
+          isLandmarkRelative: proof.isLandmarkRelative,
+          inclusionProof: json.inclusionProof,
+          signatures: json.signatures,
+        },
+      };
     }
 
     return {
