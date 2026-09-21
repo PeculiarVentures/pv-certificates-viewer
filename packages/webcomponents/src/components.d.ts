@@ -594,18 +594,77 @@ declare namespace LocalJSX {
     }
     interface PeculiarTextHider {
     }
+
+    interface PeculiarAttributeCertificateViewerAttributes {
+        "certificate": TAttributeCertificateProp;
+        "download": boolean;
+        "authKeyIdParentLink": string;
+        "authKeyIdSiblingsLink": string;
+        "subjectKeyIdChildrenLink": string;
+        "subjectKeyIdSiblingsLink": string;
+        "mobileMediaQueryString": string;
+    }
+    interface PeculiarCertificateChainViewerAttributes {
+        "download": boolean;
+    }
+    interface PeculiarCertificateDecoderAttributes {
+        "certificateToDecode": string;
+    }
+    interface PeculiarCertificateViewerAttributes {
+        "certificate": TCertificateProp;
+        "download": boolean;
+        "authKeyIdParentLink": string;
+        "authKeyIdSiblingsLink": string;
+        "subjectKeyIdChildrenLink": string;
+        "subjectKeyIdSiblingsLink": string;
+        "issuerDnLink": string;
+        "mobileMediaQueryString": string;
+    }
+    interface PeculiarCertificatesViewerAttributes {
+        "filterWithSearch": boolean;
+        "highlightWithSearch": boolean;
+        "mobileMediaQueryString": string;
+    }
+    interface PeculiarCircularProgressAttributes {
+        "size": number;
+        "width": number;
+    }
+    interface PeculiarCrlViewerAttributes {
+        "certificate": TCrlProp;
+        "download": boolean;
+        "authKeyIdParentLink": string;
+        "authKeyIdSiblingsLink": string;
+        "issuerDnLink": string;
+        "mobileMediaQueryString": string;
+    }
+    interface PeculiarCsrViewerAttributes {
+        "certificate": TCsrProp;
+        "download": boolean;
+        "subjectKeyIdChildrenLink": string;
+        "subjectKeyIdSiblingsLink": string;
+        "mobileMediaQueryString": string;
+    }
+    interface PeculiarHighlightWordsAttributes {
+        "search": string;
+    }
+    interface PeculiarSshCertificateViewerAttributes {
+        "certificate": TSshCertificateProp;
+        "download": boolean;
+        "mobileMediaQueryString": string;
+    }
+
     interface IntrinsicElements {
-        "peculiar-attribute-certificate-viewer": PeculiarAttributeCertificateViewer;
+        "peculiar-attribute-certificate-viewer": Omit<PeculiarAttributeCertificateViewer, keyof PeculiarAttributeCertificateViewerAttributes> & { [K in keyof PeculiarAttributeCertificateViewer & keyof PeculiarAttributeCertificateViewerAttributes]?: PeculiarAttributeCertificateViewer[K] } & { [K in keyof PeculiarAttributeCertificateViewer & keyof PeculiarAttributeCertificateViewerAttributes as `attr:${K}`]?: PeculiarAttributeCertificateViewerAttributes[K] } & { [K in keyof PeculiarAttributeCertificateViewer & keyof PeculiarAttributeCertificateViewerAttributes as `prop:${K}`]?: PeculiarAttributeCertificateViewer[K] };
         "peculiar-button-menu": PeculiarButtonMenu;
-        "peculiar-certificate-chain-viewer": PeculiarCertificateChainViewer;
-        "peculiar-certificate-decoder": PeculiarCertificateDecoder;
-        "peculiar-certificate-viewer": PeculiarCertificateViewer;
-        "peculiar-certificates-viewer": PeculiarCertificatesViewer;
-        "peculiar-circular-progress": PeculiarCircularProgress;
-        "peculiar-crl-viewer": PeculiarCrlViewer;
-        "peculiar-csr-viewer": PeculiarCsrViewer;
-        "peculiar-highlight-words": PeculiarHighlightWords;
-        "peculiar-ssh-certificate-viewer": PeculiarSshCertificateViewer;
+        "peculiar-certificate-chain-viewer": Omit<PeculiarCertificateChainViewer, keyof PeculiarCertificateChainViewerAttributes> & { [K in keyof PeculiarCertificateChainViewer & keyof PeculiarCertificateChainViewerAttributes]?: PeculiarCertificateChainViewer[K] } & { [K in keyof PeculiarCertificateChainViewer & keyof PeculiarCertificateChainViewerAttributes as `attr:${K}`]?: PeculiarCertificateChainViewerAttributes[K] } & { [K in keyof PeculiarCertificateChainViewer & keyof PeculiarCertificateChainViewerAttributes as `prop:${K}`]?: PeculiarCertificateChainViewer[K] };
+        "peculiar-certificate-decoder": Omit<PeculiarCertificateDecoder, keyof PeculiarCertificateDecoderAttributes> & { [K in keyof PeculiarCertificateDecoder & keyof PeculiarCertificateDecoderAttributes]?: PeculiarCertificateDecoder[K] } & { [K in keyof PeculiarCertificateDecoder & keyof PeculiarCertificateDecoderAttributes as `attr:${K}`]?: PeculiarCertificateDecoderAttributes[K] } & { [K in keyof PeculiarCertificateDecoder & keyof PeculiarCertificateDecoderAttributes as `prop:${K}`]?: PeculiarCertificateDecoder[K] };
+        "peculiar-certificate-viewer": Omit<PeculiarCertificateViewer, keyof PeculiarCertificateViewerAttributes> & { [K in keyof PeculiarCertificateViewer & keyof PeculiarCertificateViewerAttributes]?: PeculiarCertificateViewer[K] } & { [K in keyof PeculiarCertificateViewer & keyof PeculiarCertificateViewerAttributes as `attr:${K}`]?: PeculiarCertificateViewerAttributes[K] } & { [K in keyof PeculiarCertificateViewer & keyof PeculiarCertificateViewerAttributes as `prop:${K}`]?: PeculiarCertificateViewer[K] };
+        "peculiar-certificates-viewer": Omit<PeculiarCertificatesViewer, keyof PeculiarCertificatesViewerAttributes> & { [K in keyof PeculiarCertificatesViewer & keyof PeculiarCertificatesViewerAttributes]?: PeculiarCertificatesViewer[K] } & { [K in keyof PeculiarCertificatesViewer & keyof PeculiarCertificatesViewerAttributes as `attr:${K}`]?: PeculiarCertificatesViewerAttributes[K] } & { [K in keyof PeculiarCertificatesViewer & keyof PeculiarCertificatesViewerAttributes as `prop:${K}`]?: PeculiarCertificatesViewer[K] };
+        "peculiar-circular-progress": Omit<PeculiarCircularProgress, keyof PeculiarCircularProgressAttributes> & { [K in keyof PeculiarCircularProgress & keyof PeculiarCircularProgressAttributes]?: PeculiarCircularProgress[K] } & { [K in keyof PeculiarCircularProgress & keyof PeculiarCircularProgressAttributes as `attr:${K}`]?: PeculiarCircularProgressAttributes[K] } & { [K in keyof PeculiarCircularProgress & keyof PeculiarCircularProgressAttributes as `prop:${K}`]?: PeculiarCircularProgress[K] };
+        "peculiar-crl-viewer": Omit<PeculiarCrlViewer, keyof PeculiarCrlViewerAttributes> & { [K in keyof PeculiarCrlViewer & keyof PeculiarCrlViewerAttributes]?: PeculiarCrlViewer[K] } & { [K in keyof PeculiarCrlViewer & keyof PeculiarCrlViewerAttributes as `attr:${K}`]?: PeculiarCrlViewerAttributes[K] } & { [K in keyof PeculiarCrlViewer & keyof PeculiarCrlViewerAttributes as `prop:${K}`]?: PeculiarCrlViewer[K] };
+        "peculiar-csr-viewer": Omit<PeculiarCsrViewer, keyof PeculiarCsrViewerAttributes> & { [K in keyof PeculiarCsrViewer & keyof PeculiarCsrViewerAttributes]?: PeculiarCsrViewer[K] } & { [K in keyof PeculiarCsrViewer & keyof PeculiarCsrViewerAttributes as `attr:${K}`]?: PeculiarCsrViewerAttributes[K] } & { [K in keyof PeculiarCsrViewer & keyof PeculiarCsrViewerAttributes as `prop:${K}`]?: PeculiarCsrViewer[K] };
+        "peculiar-highlight-words": Omit<PeculiarHighlightWords, keyof PeculiarHighlightWordsAttributes> & { [K in keyof PeculiarHighlightWords & keyof PeculiarHighlightWordsAttributes]?: PeculiarHighlightWords[K] } & { [K in keyof PeculiarHighlightWords & keyof PeculiarHighlightWordsAttributes as `attr:${K}`]?: PeculiarHighlightWordsAttributes[K] } & { [K in keyof PeculiarHighlightWords & keyof PeculiarHighlightWordsAttributes as `prop:${K}`]?: PeculiarHighlightWords[K] };
+        "peculiar-ssh-certificate-viewer": Omit<PeculiarSshCertificateViewer, keyof PeculiarSshCertificateViewerAttributes> & { [K in keyof PeculiarSshCertificateViewer & keyof PeculiarSshCertificateViewerAttributes]?: PeculiarSshCertificateViewer[K] } & { [K in keyof PeculiarSshCertificateViewer & keyof PeculiarSshCertificateViewerAttributes as `attr:${K}`]?: PeculiarSshCertificateViewerAttributes[K] } & { [K in keyof PeculiarSshCertificateViewer & keyof PeculiarSshCertificateViewerAttributes as `prop:${K}`]?: PeculiarSshCertificateViewer[K] };
         "peculiar-text-hider": PeculiarTextHider;
     }
 }
@@ -613,18 +672,18 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "peculiar-attribute-certificate-viewer": LocalJSX.PeculiarAttributeCertificateViewer & JSXBase.HTMLAttributes<HTMLPeculiarAttributeCertificateViewerElement>;
-            "peculiar-button-menu": LocalJSX.PeculiarButtonMenu & JSXBase.HTMLAttributes<HTMLPeculiarButtonMenuElement>;
-            "peculiar-certificate-chain-viewer": LocalJSX.PeculiarCertificateChainViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificateChainViewerElement>;
-            "peculiar-certificate-decoder": LocalJSX.PeculiarCertificateDecoder & JSXBase.HTMLAttributes<HTMLPeculiarCertificateDecoderElement>;
-            "peculiar-certificate-viewer": LocalJSX.PeculiarCertificateViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificateViewerElement>;
-            "peculiar-certificates-viewer": LocalJSX.PeculiarCertificatesViewer & JSXBase.HTMLAttributes<HTMLPeculiarCertificatesViewerElement>;
-            "peculiar-circular-progress": LocalJSX.PeculiarCircularProgress & JSXBase.HTMLAttributes<HTMLPeculiarCircularProgressElement>;
-            "peculiar-crl-viewer": LocalJSX.PeculiarCrlViewer & JSXBase.HTMLAttributes<HTMLPeculiarCrlViewerElement>;
-            "peculiar-csr-viewer": LocalJSX.PeculiarCsrViewer & JSXBase.HTMLAttributes<HTMLPeculiarCsrViewerElement>;
-            "peculiar-highlight-words": LocalJSX.PeculiarHighlightWords & JSXBase.HTMLAttributes<HTMLPeculiarHighlightWordsElement>;
-            "peculiar-ssh-certificate-viewer": LocalJSX.PeculiarSshCertificateViewer & JSXBase.HTMLAttributes<HTMLPeculiarSshCertificateViewerElement>;
-            "peculiar-text-hider": LocalJSX.PeculiarTextHider & JSXBase.HTMLAttributes<HTMLPeculiarTextHiderElement>;
+            "peculiar-attribute-certificate-viewer": LocalJSX.IntrinsicElements["peculiar-attribute-certificate-viewer"] & JSXBase.HTMLAttributes<HTMLPeculiarAttributeCertificateViewerElement>;
+            "peculiar-button-menu": LocalJSX.IntrinsicElements["peculiar-button-menu"] & JSXBase.HTMLAttributes<HTMLPeculiarButtonMenuElement>;
+            "peculiar-certificate-chain-viewer": LocalJSX.IntrinsicElements["peculiar-certificate-chain-viewer"] & JSXBase.HTMLAttributes<HTMLPeculiarCertificateChainViewerElement>;
+            "peculiar-certificate-decoder": LocalJSX.IntrinsicElements["peculiar-certificate-decoder"] & JSXBase.HTMLAttributes<HTMLPeculiarCertificateDecoderElement>;
+            "peculiar-certificate-viewer": LocalJSX.IntrinsicElements["peculiar-certificate-viewer"] & JSXBase.HTMLAttributes<HTMLPeculiarCertificateViewerElement>;
+            "peculiar-certificates-viewer": LocalJSX.IntrinsicElements["peculiar-certificates-viewer"] & JSXBase.HTMLAttributes<HTMLPeculiarCertificatesViewerElement>;
+            "peculiar-circular-progress": LocalJSX.IntrinsicElements["peculiar-circular-progress"] & JSXBase.HTMLAttributes<HTMLPeculiarCircularProgressElement>;
+            "peculiar-crl-viewer": LocalJSX.IntrinsicElements["peculiar-crl-viewer"] & JSXBase.HTMLAttributes<HTMLPeculiarCrlViewerElement>;
+            "peculiar-csr-viewer": LocalJSX.IntrinsicElements["peculiar-csr-viewer"] & JSXBase.HTMLAttributes<HTMLPeculiarCsrViewerElement>;
+            "peculiar-highlight-words": LocalJSX.IntrinsicElements["peculiar-highlight-words"] & JSXBase.HTMLAttributes<HTMLPeculiarHighlightWordsElement>;
+            "peculiar-ssh-certificate-viewer": LocalJSX.IntrinsicElements["peculiar-ssh-certificate-viewer"] & JSXBase.HTMLAttributes<HTMLPeculiarSshCertificateViewerElement>;
+            "peculiar-text-hider": LocalJSX.IntrinsicElements["peculiar-text-hider"] & JSXBase.HTMLAttributes<HTMLPeculiarTextHiderElement>;
         }
     }
 }

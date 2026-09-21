@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`X509Certificate should parse the test certificate Adobe Systems Incorporated.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Adobe Systems Incorporated.cer 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -180,7 +180,7 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate should parse the test certificate Android Keystore Key.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Android Keystore Key.cer 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -377,7 +377,7 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate should parse the test certificate COMMISSION DE L'UNION EUROPEENNE-COMMISSIE VAN DE EUROPESE UNIE.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate COMMISSION DE L'UNION EUROPEENNE-COMMISSIE VAN DE EUROPESE UNIE.cer 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -815,7 +815,7 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate should parse the test certificate Configuration.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Configuration.cer 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -1162,7 +1162,7 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate should parse the test certificate Entity Name From Registration.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Entity Name From Registration.cer 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -1298,7 +1298,7 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate should parse the test certificate European Commission.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate European Commission.cer 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -1641,7 +1641,7 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate should parse the test certificate Le Banque.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Le Banque.cer 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -1987,7 +1987,7 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate should parse the test certificate Martini Security, LLC.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Martini Security, LLC.cer 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -2167,7 +2167,7 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate should parse the test certificate Ministerie van Justitie en Veiligheid.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Ministerie van Justitie en Veiligheid.cer 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -2536,7 +2536,7 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate should parse the test certificate Test Certificates 2011.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Test Certificates 2011.cer 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -2657,7 +2657,7 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate should parse the test certificate Test ed25519.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Test ed25519.cer 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -2738,7 +2738,7 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate should parse the test certificate mtc-subscriber-standalone.pem 1`] = `
+exports[`X509Certificate > should parse the test certificate mtc-subscriber-standalone.pem 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {

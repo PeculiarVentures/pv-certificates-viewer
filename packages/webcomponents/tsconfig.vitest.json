@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["@stencil/vitest/globals"]
+  },
+  "include": ["src", "vitest.config.mts", "vitest-setup.ts"],
+  "exclude": ["node_modules"]
+}
