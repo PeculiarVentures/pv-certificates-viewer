@@ -3,6 +3,7 @@
   "include": ["src"],
   "exclude": [
     "node_modules",
+    "**/*.spec.ts",
     "src/e2e/**",
     "src/tests/setupUnit.ts",
     "src/tests/screenshot-component.ts",
