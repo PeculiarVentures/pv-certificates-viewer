@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.6",
-    "@types/node": "^16.18.126",
+    "@types/node": "^24.13.3",
     "@types/react": "^16.14.65",
     "react": "^16.14.0",
     "rimraf": "^3.0.2",

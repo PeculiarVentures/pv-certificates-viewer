@@ -70,12 +70,12 @@
     "@peculiar/asn1-x509-qualified": "^2.9.4",
     "@peculiar/asn1-x509-qualified-etsi": "^2.9.4",
     "@peculiar/ssh": "^1.1.1",
-    "@stencil/core": "^4.36.1",
+    "@stencil/core": "^4.45.0",
     "dayjs": "^1.11.20",
     "pvtsutils": "^1.3.6"
   },
   "devDependencies": {
-    "@stencil/sass": "^3.2.2",
+    "@stencil/sass": "^3.3.3",
     "@types/jest": "29.5.14",
     "@types/jest-image-snapshot": "^6.4.0",
     "gh-pages": "^5.0.0",
