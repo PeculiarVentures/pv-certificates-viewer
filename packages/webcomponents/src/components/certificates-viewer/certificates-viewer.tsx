@@ -311,7 +311,7 @@ export class CertificatesViewer {
 
   private renderCertificatesRows() {
     const searchHighlight = this.highlightWithSearch ? this.search : '';
-    const content = [];
+    const content: JSX.Element[][] = [];
 
     this.certificatesDecoded.forEach((certificate, index) => {
       const isExpandedRow = index === this.expandedRow;

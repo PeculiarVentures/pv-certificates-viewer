@@ -51,9 +51,9 @@ export class X509Crl extends AsnData<CertificateList> {
     const { tbsCertList } = this.asn;
 
     this.issuer = Name.parse(tbsCertList.issuer);
-    this.version = tbsCertList.version + 1;
+    this.version = (tbsCertList.version ?? 1) + 1;
     this.lastUpdate = tbsCertList.thisUpdate.getTime();
-    this.nextUpdate = tbsCertList.nextUpdate.getTime();
+    this.nextUpdate = tbsCertList.nextUpdate?.getTime() ?? this.lastUpdate;
 
     this.revokedCertificates = (tbsCertList.revokedCertificates || []).map(
       (revokedCertificate) => ({

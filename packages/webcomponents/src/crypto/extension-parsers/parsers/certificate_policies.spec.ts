@@ -147,7 +147,6 @@ describe('CertificatePoliciesParser', () => {
                           title: 'Qualifier',
                           value: '1.3.6.1.5.5.7.2.1',
                         },
-                        null,
                       ],
                     },
                   ],

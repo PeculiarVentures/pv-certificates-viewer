@@ -53,7 +53,7 @@ export const Typography: FunctionalComponent<ITypographyProps> = (props, childre
         typography: true,
         [`t-${variant}`]: true,
         [`c-${color}`]: true,
-        [classProp]: Boolean(classProp),
+        ...(classProp ? { [classProp]: true } : {}),
       }}
     >
       <span></span>

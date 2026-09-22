@@ -36,7 +36,7 @@ function resolveHref(nodeData: IExtensionNode): string | undefined {
 }
 
 export function renderLeafNode(nodeData: IExtensionNode, ctx: TNodeLinkContext) {
-  const title = getStringByOID(nodeData.title, true);
+  const title = getStringByOID(nodeData.title ?? '', true);
   const href = resolveHref(nodeData);
   const value = nodeData.value != null ? getStringByOID(String(nodeData.value)) : '';
 

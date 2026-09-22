@@ -62,12 +62,17 @@ export class CertificatePoliciesParser implements IExtensionParser {
                 ? [
                     section(
                       'Qualifiers',
-                      policy.policyQualifiers.map((qualifier) =>
-                        section('', [
+                      policy.policyQualifiers.map((qualifier) => {
+                        const valueNode = parseQualifierValue(
+                          qualifier.qualifier,
+                          qualifier.policyQualifierId,
+                        );
+
+                        return section('', [
                           node('Qualifier', qualifier.policyQualifierId),
-                          parseQualifierValue(qualifier.qualifier, qualifier.policyQualifierId),
-                        ]),
-                      ),
+                          ...(valueNode ? [valueNode] : []),
+                        ]);
+                      }),
                     ),
                   ]
                 : []),

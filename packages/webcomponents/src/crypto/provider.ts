@@ -12,7 +12,7 @@ export class CryptoProvider {
   public static DEFAULT = 'default';
 
   public static isCryptoKeyPair(data: unknown): data is CryptoKeyPair {
-    return data && typeof data === 'object' && 'privateKey' in data && 'publicKey' in data;
+    return typeof data === 'object' && data !== null && 'privateKey' in data && 'publicKey' in data;
   }
 
   constructor() {

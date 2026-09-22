@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "strict": false,
     "noImplicitAny": false,
     "assumeChangesOnlyAffectDirectDependencies": true,
     // dom.iterable required for for...of iteration over DOM collections (NodeList, HTMLCollection)
