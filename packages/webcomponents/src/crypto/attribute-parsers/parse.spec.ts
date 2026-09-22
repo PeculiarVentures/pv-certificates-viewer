@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { makeAttrRaw } from '../../tests/test_utils';
 import { parseAttribute } from './parse';
 import { ChallengePasswordParser } from './parsers/pkcs9';

@@ -1,4 +1,5 @@
 import { id_ce_issuingDistributionPoint } from '@peculiar/asn1-x509';
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { IssuingDistributionPointParser } from './issuing_distribution_point';
 

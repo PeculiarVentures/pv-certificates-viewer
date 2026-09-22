@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { describe, it, expect } from 'vitest';
 import { X509AttributeCertificate } from './x509_attribute_certificate';
 
 const testAssetsFolderPath = path.join(

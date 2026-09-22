@@ -1,5 +1,6 @@
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
+import { describe, it, expect } from 'vitest';
 import { AppleDeveloperIdDate } from './apple_developer_id_date';
 
 describe('AppleDeveloperIdDate', () => {

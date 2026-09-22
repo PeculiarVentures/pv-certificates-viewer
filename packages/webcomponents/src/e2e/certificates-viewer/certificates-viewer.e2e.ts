@@ -1,5 +1,5 @@
-import { newE2EPage } from '@stencil/core/testing';
-import { devices } from '../../tests';
+import { render, h, describe, it, expect, waitForStable } from '@stencil/vitest';
+import { prepareViewportForComponentScreenshot } from '../../tests/prepare-component-screenshot';
 
 const certificates = [
   {
@@ -64,36 +64,18 @@ const certificates = [
   },
 ];
 
+const VIEWPORT_WIDTH = 1024;
+
 describe('peculiar-certificates-viewer', () => {
-  devices.forEach((device) => {
-    it(`${device.viewport.width}x${device.viewport.height}`, async () => {
-      const page = await newE2EPage({
-        html: `
-          <peculiar-certificates-viewer >
-        `,
-      });
+  it('Google PKI demo root certificates', async () => {
+    const { root, setProps, waitForChanges } = await render(h('peculiar-certificates-viewer', {}));
 
-      const certificatesViewer = await page.find('peculiar-certificates-viewer');
+    await setProps({ certificates });
+    await waitForChanges();
+    await waitForStable(root);
 
-      certificatesViewer.setProperty('certificates', certificates);
+    await prepareViewportForComponentScreenshot(root, VIEWPORT_WIDTH);
 
-      await page.waitForChanges();
-
-      await page.setViewport({
-        width: device.viewport.width,
-        height: device.viewport.height,
-      });
-
-      const body = await page.$('peculiar-certificates-viewer');
-
-      const image = await page.screenshot({
-        encoding: 'base64',
-        clip: await body.boundingBox(),
-      });
-
-      expect(image).toMatchImageSnapshot();
-
-      await page.close();
-    });
+    await expect.element(root).toMatchScreenshot();
   });
 });

@@ -1,4 +1,5 @@
 import { id_pe_mtcCertificationAuthority_experimental } from '@peculiar/asn1-mtc';
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { MTCCertificationAuthorityParser } from './mtc';
 

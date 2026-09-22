@@ -101,7 +101,7 @@ export class AttributeCertificateViewer {
   componentWillLoad() {
     void this.decodeCertificate(this.certificate);
 
-    if (Build.isBrowser) {
+    if (Build.isBrowser && this.mobileMediaQueryString) {
       this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
       this.mobileMediaQuery.addEventListener('change', this.mediaQueryChangeHandler);
       this.mobileScreenView = this.mobileMediaQuery.matches;

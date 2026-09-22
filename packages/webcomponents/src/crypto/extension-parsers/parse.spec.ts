@@ -1,4 +1,5 @@
 import { id_ce_basicConstraints } from '@peculiar/asn1-x509';
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../tests/test_utils';
 import { parseExtension } from './parse';
 import { BasicConstraintsParser } from './parsers/basic_constraints';

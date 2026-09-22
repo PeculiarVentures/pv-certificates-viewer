@@ -50,9 +50,6 @@ export const config: Config = {
       ],
     },
   ],
-  testing: {
-    setupFilesAfterEnv: ['<rootDir>/src/tests/setupTests.ts'],
-  },
   buildEs5: 'prod',
   preamble: '© Peculiar Ventures https://peculiarventures.com/ - MIT License',
 };

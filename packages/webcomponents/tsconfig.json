@@ -1,5 +1,28 @@
 {
-  "extends": "../../tsconfig",
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "strict": false,
+    "noImplicitAny": false,
+    "assumeChangesOnlyAffectDirectDependencies": true,
+    // dom.iterable required for for...of iteration over DOM collections (NodeList, HTMLCollection)
+    // See: slot-mutation-controller.ts, popover.tsx, router/utils/dom.ts
+    "lib": ["dom", "dom.iterable", "es2022"],
+    // Must stay false. At target es2022 TypeScript defaults it to true, emitting @Prop
+    // defaults as class fields. Consumers that downlevel those hoist the initializers
+    // above Stencil's registerInstance(), so its prop setter drops every default.
+    "useDefineForClassFields": false,
+    "jsx": "react",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "outDir": ".tmp",
+    "rootDir": "./"
+  },
   "include": ["src"],
-  "exclude": ["node_modules", "**/**.e2e.ts", "**/tests/**.ts"]
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "**/*.e2e.ts",
+    "src/tests/load-test-assets.ts",
+    "src/tests/prepare-component-screenshot.ts"
+  ]
 }

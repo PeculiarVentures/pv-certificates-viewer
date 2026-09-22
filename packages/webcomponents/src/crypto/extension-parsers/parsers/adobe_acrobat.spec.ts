@@ -7,6 +7,7 @@
  */
 
 import { id_adbe_timestamp, id_adbe_archiveRevInfo } from '@peculiar/asn1-adobe-acrobat';
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { AdobeTimestampParser, AdobeArchiveRevInfoParser } from './adobe_acrobat';
 

@@ -7,6 +7,7 @@
  */
 
 import { id_pe_TNAuthList } from '@peculiar/asn1-rfc8226';
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { TNAuthorizationListParser } from './tn_auth_list';
 

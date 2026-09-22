@@ -42,9 +42,9 @@
     "generate": "stencil generate",
     "deploy:gh-pages": "gh-pages -d www",
     "clean": "rimraf dist loader www components",
-    "test": "stencil test --spec",
-    "test.e2e": "stencil test --e2e --maxWorkers=1",
-    "test.e2e.update": "stencil test --e2e --updateSnapshot --maxWorkers=1"
+    "test": "stencil-test --prod --project spec",
+    "test:e2e": "stencil-test --prod --project browser",
+    "test:e2e.update": "stencil-test --prod --project browser --update"
   },
   "dependencies": {
     "@peculiar/asn1-adobe-acrobat": "^2.9.4",
@@ -76,15 +76,14 @@
   },
   "devDependencies": {
     "@stencil/sass": "^3.3.3",
-    "@types/jest": "29.5.14",
-    "@types/jest-image-snapshot": "^6.4.0",
+    "@stencil/vitest": "^1.15.1",
+    "@types/node": "^24.13.3",
+    "@vitest/browser-playwright": "^4.0.0",
     "gh-pages": "^5.0.0",
-    "jest": "29.7.0",
-    "jest-cli": "29.7.0",
-    "jest-image-snapshot": "^6.5.2",
-    "puppeteer": "^24.40.0",
+    "playwright": "^1.63.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.9.5"
+    "typescript": "^6.0.0",
+    "vitest": "^4.1.11"
   },
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",

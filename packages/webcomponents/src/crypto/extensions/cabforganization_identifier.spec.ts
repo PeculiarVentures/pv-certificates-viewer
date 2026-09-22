@@ -1,5 +1,6 @@
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
+import { describe, it, expect } from 'vitest';
 import { CabforganizationIdentifier } from './cabforganization_identifier';
 
 describe('CabforganizationIdentifier', () => {

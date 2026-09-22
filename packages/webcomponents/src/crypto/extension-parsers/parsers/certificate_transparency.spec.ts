@@ -1,4 +1,5 @@
 import { id_certificateTransparency } from '@peculiar/asn1-cert-transparency';
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { CertificateTransparencyParser } from './certificate_transparency';
 

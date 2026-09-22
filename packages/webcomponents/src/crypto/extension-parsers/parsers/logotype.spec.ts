@@ -7,6 +7,7 @@
  */
 
 import { id_pe_logotype } from '@peculiar/asn1-x509-logotype';
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { LogotypeParser } from './logotype';
 

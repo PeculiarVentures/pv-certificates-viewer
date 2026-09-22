@@ -1,4 +1,5 @@
 import { Convert } from 'pvtsutils';
+import { describe, it, expect } from 'vitest';
 import { certificateRawToBuffer } from './utils';
 
 describe('certificateRawToBuffer', () => {

@@ -1,5 +1,6 @@
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Convert } from 'pvtsutils';
+import { describe, it, expect } from 'vitest';
 import { MsCRLNextPublish } from './microsoft_crl_next_publish';
 
 describe('MsCRLNextPublish', () => {

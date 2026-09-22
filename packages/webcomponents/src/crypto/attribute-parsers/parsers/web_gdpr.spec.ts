@@ -1,4 +1,5 @@
 import { id_WebGDPR } from '@peculiar/asn1-ntqwac';
+import { describe, it, expect } from 'vitest';
 import { makeAttrRaw } from '../../../tests/test_utils';
 import { WebGDPRParser } from './web_gdpr';
 

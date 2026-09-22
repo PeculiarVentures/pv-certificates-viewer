@@ -1,4 +1,5 @@
 import { id_at_statementOfPossession } from '@peculiar/asn1-private-key-stmt';
+import { describe, it, expect } from 'vitest';
 import { makeAttrRaw } from '../../../tests/test_utils';
 import { PrivateKeyPossessionStatementParser } from './private_key_possession_statement';
 
