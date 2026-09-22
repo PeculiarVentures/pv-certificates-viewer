@@ -3,6 +3,7 @@ import {
   id_pkcs9_at_unstructuredName,
   id_pkcs9_at_extensionRequest,
 } from '@peculiar/asn1-pkcs9';
+import { describe, it, expect } from 'vitest';
 import { makeAttrRaw } from '../../../tests/test_utils';
 import { ChallengePasswordParser, UnstructuredNameParser, ExtensionRequestParser } from './pkcs9';
 

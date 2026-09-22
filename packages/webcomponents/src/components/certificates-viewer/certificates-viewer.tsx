@@ -107,7 +107,7 @@ export class CertificatesViewer {
   componentWillLoad() {
     void this.certificatesDecodeAndSet();
 
-    if (Build.isBrowser) {
+    if (Build.isBrowser && this.mobileMediaQueryString) {
       this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
       this.mobileMediaQuery.addEventListener('change', this.mediaQueryChangeHandler);
       this.mobileScreenView = this.mobileMediaQuery.matches;
@@ -311,7 +311,7 @@ export class CertificatesViewer {
 
   private renderCertificatesRows() {
     const searchHighlight = this.highlightWithSearch ? this.search : '';
-    const content = [];
+    const content: JSX.Element[][] = [];
 
     this.certificatesDecoded.forEach((certificate, index) => {
       const isExpandedRow = index === this.expandedRow;

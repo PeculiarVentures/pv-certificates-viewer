@@ -54,7 +54,7 @@ export const RowTitle: FunctionalComponent<IRowTitleProps> = (props) => {
 
 interface IRowValueProps {
   name: string | string[];
-  value: string | number | string[];
+  value?: string | number | string[] | null;
   monospace?: boolean;
   collapse?: boolean;
   href?: string;
@@ -93,7 +93,7 @@ export const RowValue: FunctionalComponent<IRowValueProps> = (props) => {
         </Typography>
       </td>
       {hasValue && (
-        <td class={{ monospace }}>
+        <td class={{ monospace: Boolean(monospace) }}>
           {isLink(value.toString()) || href ? (
             <Link
               variant="b2"

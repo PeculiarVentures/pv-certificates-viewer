@@ -6,6 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { id_appleDeveloperIdDate } from '../../extensions/apple_developer_id_date';
 import { id_cabforganizationIdentifier } from '../../extensions/cabforganization_identifier';

@@ -7,6 +7,7 @@
  */
 
 import { id_lei, id_role } from '@peculiar/asn1-lei';
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { LeiParser, LeiRoleParser } from './lei';
 

@@ -4,6 +4,7 @@ import {
   id_DomainNameOwner,
   id_DomainNameTechnicalOperator,
 } from '@peculiar/asn1-ntqwac';
+import { describe, it, expect } from 'vitest';
 import { makeAttrRaw } from '../../../tests/test_utils';
 import {
   DomainNameBeneficiaryParser,

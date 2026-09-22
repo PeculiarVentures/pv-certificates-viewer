@@ -45,7 +45,7 @@ export const ParsedAttributes: FunctionalComponent<IParsedAttributesProps> = (pr
       attribute.oid === id_pkcs9_at_extensionRequest
         ? attribute.children.map((child) => [
             <RowValue
-              name={'title' in child ? child.title : ''}
+              name={'title' in child && child.title != null ? child.title : ''}
               value=""
             />,
             <TableRowTable>

@@ -1,4 +1,5 @@
 import { id_ce_certificatePolicies } from '@peculiar/asn1-x509';
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { CertificatePoliciesParser } from './certificate_policies';
 
@@ -146,7 +147,6 @@ describe('CertificatePoliciesParser', () => {
                           title: 'Qualifier',
                           value: '1.3.6.1.5.5.7.2.1',
                         },
-                        null,
                       ],
                     },
                   ],

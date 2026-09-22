@@ -1,4 +1,5 @@
 import { id_pe_qcStatements } from '@peculiar/asn1-x509-qualified';
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { QCStatementsParser } from './qc_statements';
 

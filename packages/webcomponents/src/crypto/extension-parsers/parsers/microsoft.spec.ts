@@ -11,6 +11,7 @@ import {
   id_enrollCertType,
   id_caVersion,
 } from '@peculiar/asn1-x509-microsoft';
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { dateShort } from '../../../utils';
 import { id_msCRLNextPublish } from '../../extensions/microsoft_crl_next_publish';

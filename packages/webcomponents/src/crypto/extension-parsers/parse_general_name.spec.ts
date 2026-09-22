@@ -9,6 +9,7 @@ import {
   AttributeValue,
 } from '@peculiar/asn1-x509';
 import { Convert } from 'pvtsutils';
+import { describe, it, expect } from 'vitest';
 import { parseGeneralName } from './parse_general_name';
 
 // --- helpers ---

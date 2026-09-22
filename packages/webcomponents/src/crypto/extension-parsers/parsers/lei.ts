@@ -9,7 +9,7 @@
 import type { Extension } from '@peculiar/asn1-x509';
 import { LeiChoice, LeiRole, id_lei, id_role } from '@peculiar/asn1-lei';
 import { AsnParser } from '@peculiar/asn1-schema';
-import type { IExtensionParser, IParsedExtension } from '../types';
+import type { IExtensionNode, IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 
 export class LeiParser implements IExtensionParser {
@@ -17,7 +17,7 @@ export class LeiParser implements IExtensionParser {
 
   parse(extension: Extension): IParsedExtension {
     const lei = AsnParser.parse(extension.extnValue.buffer, LeiChoice);
-    const children = [];
+    const children: IExtensionNode[] = [];
 
     if (lei.struct != null) {
       children.push(node('LEI Code', lei.struct.leiCode, 'lei'));

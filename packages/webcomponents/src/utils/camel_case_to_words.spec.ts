@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { camelCaseToWords } from './camel_case_to_words';
 
 describe('camelCaseToWords', () => {

@@ -54,7 +54,7 @@ export const PublicKey: FunctionalComponent<IPublicKeyProps> = (props) => {
       <RowValue
         name={l10n.getString('namedCurve')}
         value={getStringByOID(
-          key.params && 'namedCurve' in key.params ? key.params.namedCurve : undefined,
+          key.params && 'namedCurve' in key.params ? (key.params.namedCurve ?? '') : '',
         )}
       />,
       <RowValue

@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { PemConverter } from './pem_converter';
 
 describe('PemConverter', () => {

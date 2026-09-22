@@ -44,7 +44,8 @@ export class CertificateDecoder {
     | X509AttributeCertificate
     | Pkcs10CertificateRequest
     | X509Crl
-    | SshCertificate;
+    | SshCertificate
+    | null = null;
 
   /** Mirrors textarea content so Clear/Decode enable after paste without a decode. */
   @State() private inputHasText = false;
@@ -60,16 +61,24 @@ export class CertificateDecoder {
   componentDidLoad() {
     if (this.certificateToDecode) {
       // Defer one tick to avoid Stencil re-render warning
-      setTimeout(() => this.decode(this.certificateToDecode), 100);
+      const certificate = this.certificateToDecode;
+
+      setTimeout(() => {
+        void this.decode(certificate);
+      }, 100);
     }
   }
 
   // ─── Handlers ──────────────────────────────────────────────────────────────
 
   private handleClickDecode = () => {
-    const { value } = this.inputPaste;
+    const input = this.inputPaste;
 
-    if (value) void this.decode(value);
+    if (!input?.value) {
+      return;
+    }
+
+    void this.decode(input.value);
   };
 
   private handleClickClear = () => {
@@ -113,15 +122,21 @@ export class CertificateDecoder {
   // ─── Core operations ───────────────────────────────────────────────────────
 
   clearValue() {
-    this.inputPaste.value = '';
+    if (this.inputPaste) {
+      this.inputPaste.value = '';
+    }
+
     this.inputHasText = false;
     this.certificateDecoded = null;
     this.clearCertificate.emit();
   }
 
-  async setValue(value: typeof this.certificateDecoded) {
+  async setValue(value: NonNullable<typeof this.certificateDecoded>) {
     this.certificateDecoded = value;
-    this.inputPaste.value = await value.toString('pem');
+
+    if (this.inputPaste) {
+      this.inputPaste.value = await value.toString('pem');
+    }
     this.inputHasText = true;
     this.successParse.emit(await value.toString('base64url'));
   }
@@ -133,7 +148,7 @@ export class CertificateDecoder {
       .catch(() => new Pkcs10CertificateRequest(value))
       .catch(() => new X509Crl(value))
       .catch(() => new SshCertificate(value))
-      .then((res: typeof this.certificateDecoded) => this.setValue(res))
+      .then((res) => this.setValue(res))
       .catch((err) => {
         console.error(err);
         alert(
@@ -322,14 +337,14 @@ export class CertificateDecoder {
               Decoded Output
             </span>
 
-            {this.certificateExamples?.length > 0 && (
+            {(this.certificateExamples?.length ?? 0) > 0 && (
               <div class="relative max-w-xs shrink">
                 <select
                   class="w-full max-w-xs cursor-pointer appearance-none rounded-md border border-gray-300 bg-white py-1 pl-2 pr-8 font-mono text-xs text-gray-700 transition-colors hover:border-blue-600 focus:border-blue-600 focus:outline-none"
                   onChange={this.handleChangeExample}
                 >
                   <option value="">Load example…</option>
-                  {this.certificateExamples.map((ex) => (
+                  {this.certificateExamples!.map((ex) => (
                     <option value={ex.value}>{ex.title}</option>
                   ))}
                 </select>

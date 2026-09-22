@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property              | Attribute               | Description                                                               | Type                                  | Default     |
-| --------------------- | ----------------------- | ------------------------------------------------------------------------- | ------------------------------------- | ----------- |
-| `certificateExamples` | --                      | Pre-loaded example certificates available in the "Load example" dropdown. | `{ title: string; value: string; }[]` | `undefined` |
-| `certificateToDecode` | `certificate-to-decode` | A certificate to decode on first load (PEM or Base64 DER).                | `string`                              | `undefined` |
+| Property              | Attribute               | Description                                                               | Type                                               | Default     |
+| --------------------- | ----------------------- | ------------------------------------------------------------------------- | -------------------------------------------------- | ----------- |
+| `certificateExamples` | --                      | Pre-loaded example certificates available in the "Load example" dropdown. | `undefined \| { title: string; value: string; }[]` | `undefined` |
+| `certificateToDecode` | `certificate-to-decode` | A certificate to decode on first load (PEM or Base64 DER).                | `string \| undefined`                              | `undefined` |
 
 
 ## Events

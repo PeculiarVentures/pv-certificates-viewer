@@ -1,4 +1,5 @@
 import { id_ce_extKeyUsage } from '@peculiar/asn1-x509';
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { ExtendedKeyUsageParser } from './extended_key_usage';
 

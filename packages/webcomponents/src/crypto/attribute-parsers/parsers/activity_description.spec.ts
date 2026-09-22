@@ -1,4 +1,5 @@
 import { id_ActivityDescription } from '@peculiar/asn1-ntqwac';
+import { describe, it, expect } from 'vitest';
 import { makeAttrRaw } from '../../../tests/test_utils';
 import { ActivityDescriptionParser } from './activity_description';
 

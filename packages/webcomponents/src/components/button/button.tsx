@@ -24,15 +24,15 @@ export const Button: FunctionalComponent<IButtonProps> = (props, children) => {
 
   return (
     <TagType
-      type={!isLink && 'button'}
-      href={isLink && href}
-      target={isLink && '_blank'}
-      rel={isLink && 'noreferrer noopener'}
+      type={isLink ? undefined : 'button'}
+      href={isLink ? href : undefined}
+      target={isLink ? '_blank' : undefined}
+      rel={isLink ? 'noreferrer noopener' : undefined}
       class={{
         button: true,
         // eslint-disable-next-line react/destructuring-assignment
         m_no_padding: children.length === 0,
-        [classProp]: Boolean(classProp),
+        ...(classProp ? { [classProp]: true } : {}),
       }}
       onClick={onClick}
     >

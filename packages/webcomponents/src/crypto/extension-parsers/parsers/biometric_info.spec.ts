@@ -1,4 +1,5 @@
 import { id_pe_biometricInfo } from '@peculiar/asn1-x509-qualified';
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { BiometricInfoParser } from './biometric_info';
 

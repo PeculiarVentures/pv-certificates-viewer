@@ -1,4 +1,5 @@
 import { id_pe_authorityInfoAccess } from '@peculiar/asn1-x509';
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { AuthorityInformationAccessParser } from './authority_information_access';
 

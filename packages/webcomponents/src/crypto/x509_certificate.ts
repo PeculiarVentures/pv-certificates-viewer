@@ -150,7 +150,10 @@ export class X509Certificate extends AsnData<Certificate> {
     const { signatureValue, signatureAlgorithm } = this.asn;
     let params;
 
-    if (signatureAlgorithm.algorithm === id_alg_composite) {
+    if (
+      signatureAlgorithm.algorithm === id_alg_composite &&
+      signatureAlgorithm.parameters != null
+    ) {
       const compositeSignatureValues = AsnConvert.parse(signatureValue, CompositeSignatureValue);
       const compositeParams = AsnConvert.parse(signatureAlgorithm.parameters, CompositeParams);
 

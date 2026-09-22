@@ -1,4 +1,5 @@
 import { id_ce_keyDescription } from '@peculiar/asn1-android';
+import { describe, it, expect } from 'vitest';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { KeyDescriptionParser } from './key_description';
 

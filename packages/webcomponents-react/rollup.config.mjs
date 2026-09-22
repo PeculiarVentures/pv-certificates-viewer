@@ -14,5 +14,8 @@ export default {
     },
   ],
   plugins: [typescript()],
-  external: (id) => external.includes(id) || id.startsWith('@peculiar/certificates-viewer'),
+  external: (id) =>
+    external.includes(id) ||
+    id.startsWith('react/') ||
+    id.startsWith('@peculiar/certificates-viewer'),
 };

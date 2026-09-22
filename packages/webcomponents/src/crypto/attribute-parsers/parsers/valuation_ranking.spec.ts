@@ -1,4 +1,5 @@
 import { id_ValuationRanking } from '@peculiar/asn1-ntqwac';
+import { describe, it, expect } from 'vitest';
 import { makeAttrRaw } from '../../../tests/test_utils';
 import { ValuationRankingParser } from './valuation_ranking';
 
