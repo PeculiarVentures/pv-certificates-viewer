@@ -1,0 +1,219 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`X509Crl > should parse the test CRL Sample Signer Cert.crl 1`] = `
+X509Crl {
+  "extensions": [
+    {
+      "children": [
+        {
+          "_type": "authorityKeyId",
+          "title": "Key Identifier",
+          "value": "be1201ccaaea1180da2eadb2eac7b5fb9ff9ad34",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.35",
+    },
+    {
+      "children": [
+        {
+          "title": "CRL Number",
+          "value": 3,
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.20",
+    },
+  ],
+  "issuer": [
+    {
+      "short": "O",
+      "type": "2.5.4.10",
+      "value": "Sample Signer Organization",
+    },
+    {
+      "short": "OU",
+      "type": "2.5.4.11",
+      "value": "Sample Signer Unit",
+    },
+    {
+      "short": "CN",
+      "type": "2.5.4.3",
+      "value": "Sample Signer Cert",
+    },
+  ],
+  "lastUpdate": 2013-02-18T10:32:00.000Z,
+  "nextUpdate": 2013-02-18T10:42:00.000Z,
+  "revokedCertificates": [
+    {
+      "crlEntryExtensions": [
+        {
+          "children": [
+            {
+              "title": "Reason",
+              "value": "affiliationChanged",
+            },
+          ],
+          "critical": false,
+          "oid": "2.5.29.21",
+        },
+        {
+          "children": [
+            {
+              "title": "Invalidity Date",
+              "value": "Mon, 18 Feb 2013 10:22:00 GMT",
+            },
+          ],
+          "critical": false,
+          "oid": "2.5.29.24",
+        },
+      ],
+      "revocationDate": Time {
+        "generalTime": undefined,
+        "utcTime": 2013-02-18T10:22:12.000Z,
+      },
+      "userCertificate": ArrayBuffer [
+        20,
+        121,
+        71,
+      ],
+    },
+    {
+      "crlEntryExtensions": [
+        {
+          "children": [
+            {
+              "title": "Reason",
+              "value": "certificateHold",
+            },
+          ],
+          "critical": false,
+          "oid": "2.5.29.21",
+        },
+        {
+          "children": [
+            {
+              "title": "Invalidity Date",
+              "value": "Mon, 18 Feb 2013 10:22:00 GMT",
+            },
+          ],
+          "critical": false,
+          "oid": "2.5.29.24",
+        },
+      ],
+      "revocationDate": Time {
+        "generalTime": undefined,
+        "utcTime": 2013-02-18T10:22:22.000Z,
+      },
+      "userCertificate": ArrayBuffer [
+        20,
+        121,
+        72,
+      ],
+    },
+    {
+      "crlEntryExtensions": [
+        {
+          "children": [
+            {
+              "title": "Reason",
+              "value": "superseded",
+            },
+          ],
+          "critical": false,
+          "oid": "2.5.29.21",
+        },
+        {
+          "children": [
+            {
+              "title": "Invalidity Date",
+              "value": "Mon, 18 Feb 2013 10:22:00 GMT",
+            },
+          ],
+          "critical": false,
+          "oid": "2.5.29.24",
+        },
+      ],
+      "revocationDate": Time {
+        "generalTime": undefined,
+        "utcTime": 2013-02-18T10:22:32.000Z,
+      },
+      "userCertificate": ArrayBuffer [
+        20,
+        121,
+        73,
+      ],
+    },
+    {
+      "crlEntryExtensions": [
+        {
+          "children": [
+            {
+              "title": "Reason",
+              "value": "keyCompromise",
+            },
+          ],
+          "critical": false,
+          "oid": "2.5.29.21",
+        },
+        {
+          "children": [
+            {
+              "title": "Invalidity Date",
+              "value": "Mon, 18 Feb 2013 10:22:00 GMT",
+            },
+          ],
+          "critical": false,
+          "oid": "2.5.29.24",
+        },
+      ],
+      "revocationDate": Time {
+        "generalTime": undefined,
+        "utcTime": 2013-02-18T10:22:42.000Z,
+      },
+      "userCertificate": ArrayBuffer [
+        20,
+        121,
+        74,
+      ],
+    },
+    {
+      "crlEntryExtensions": [
+        {
+          "children": [
+            {
+              "title": "Reason",
+              "value": "cessationOfOperation",
+            },
+          ],
+          "critical": false,
+          "oid": "2.5.29.21",
+        },
+        {
+          "children": [
+            {
+              "title": "Invalidity Date",
+              "value": "Mon, 18 Feb 2013 10:22:00 GMT",
+            },
+          ],
+          "critical": false,
+          "oid": "2.5.29.24",
+        },
+      ],
+      "revocationDate": Time {
+        "generalTime": undefined,
+        "utcTime": 2013-02-18T10:22:51.000Z,
+      },
+      "userCertificate": ArrayBuffer [
+        20,
+        121,
+        75,
+      ],
+    },
+  ],
+  "tag": "CRL",
+  "thumbprints": {},
+  "type": "X.509 Certificate Revocation List",
+  "version": 2,
+}
+`;
