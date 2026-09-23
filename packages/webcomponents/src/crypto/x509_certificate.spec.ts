@@ -1,16 +1,8 @@
-import fs from 'fs';
-import path from 'path';
 import { describe, it, expect } from 'vitest';
+import { loadPemTestAssets } from '../tests/load-test-assets';
 import { X509Certificate } from './x509_certificate';
 
-const testAssetsFolderPath = path.join(__dirname, '../components/certificate-viewer/test_assets');
-const testFiles = fs
-  .readdirSync(testAssetsFolderPath)
-  .filter((fileName) => fileName !== '.DS_Store');
-const certificates = testFiles.map((fileName) => ({
-  name: fileName,
-  value: fs.readFileSync(path.join(testAssetsFolderPath, fileName), { encoding: 'utf-8' }),
-}));
+const certificates = loadPemTestAssets('certificate-viewer');
 
 describe('X509Certificate', () => {
   certificates.forEach((certificate) => {
