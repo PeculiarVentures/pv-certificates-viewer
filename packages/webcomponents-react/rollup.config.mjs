@@ -17,5 +17,7 @@ export default {
   external: (id) =>
     external.includes(id) ||
     id.startsWith('react/') ||
-    id.startsWith('@peculiar/certificates-viewer'),
+    id.startsWith('react-dom/') ||
+    id.startsWith('@peculiar/certificates-viewer') ||
+    id.startsWith('@stencil/react-output-target'),
 };
