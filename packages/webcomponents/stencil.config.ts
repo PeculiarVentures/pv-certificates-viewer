@@ -1,4 +1,5 @@
 import { Config } from '@stencil/core';
+import { reactOutputTarget } from '@stencil/react-output-target';
 import { sass } from '@stencil/sass';
 
 export const config: Config = {
@@ -11,6 +12,16 @@ export const config: Config = {
   },
   plugins: [sass()],
   outputTargets: [
+    reactOutputTarget({
+      outDir: '../webcomponents-react/src',
+      excludeComponents: [
+        'peculiar-certificate-decoder',
+        'peculiar-button-menu',
+        'peculiar-circular-progress',
+        'peculiar-highlight-words',
+        'peculiar-text-hider',
+      ],
+    }),
     {
       type: 'dist',
       esmLoaderPath: '../loader',
@@ -33,6 +44,7 @@ export const config: Config = {
         },
       ],
       includeGlobalScripts: false,
+      externalRuntime: false,
     },
     { type: 'dist-hydrate-script' },
     {
