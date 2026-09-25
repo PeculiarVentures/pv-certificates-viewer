@@ -7,7 +7,8 @@
     "CHANGELOG.md",
     "**/components/**/readme.md",
     "**/components.d.ts",
-    "**/components.ts"
+    "**/components.ts",
+    "lerna.json"
   ],
   "insertFinalNewline": true,
   "jsxSingleQuote": false,

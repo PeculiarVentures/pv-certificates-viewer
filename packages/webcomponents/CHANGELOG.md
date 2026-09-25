@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.9.2...v5.0.0) (2026-09-25)
+
+### Bug Fixes
+
+* **certificate-decoder:** enable Decode/Clear after paste ([#181](https://github.com/PeculiarVentures/pv-certificates-viewer/issues/181)) ([de62d08](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/de62d08265d6acdcf68fa56d5b96905214fdd3ab)), closes [PeculiarVentures/pv-certificates-viewer#180](https://github.com/PeculiarVentures/pv-certificates-viewer/issues/180)
+* **webcomponents:** stabilize media query listener cleanup ([#188](https://github.com/PeculiarVentures/pv-certificates-viewer/issues/188)) ([43e94fc](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/43e94fcafd8ed04e9c934e64868d7892627ef18e))
+
+### Features
+
+* **webcomponents:** add Merkle Tree Certificate (MTC) support ([#200](https://github.com/PeculiarVentures/pv-certificates-viewer/issues/200)) ([f99736a](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/f99736af49281c93b6cec9f5b5aa9d4bd2275410))
+* **webcomponents:** add Microsoft CRL Next Publish extension support ([8f49de8](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/8f49de83d2f7fda3cf97ad7a199e1f36913dee30))
+* **webcomponents:** enhance parseGeneralName to handle otherName values with fallback to hex representation ([30a3de1](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/30a3de1449ff82da4b62e8a59539d37b9ae5c33e))
+* **webcomponents:** enhance SubjectDirectoryAttributesParser to decode date of birth and improve attribute parsing logic ([e2b2570](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/e2b2570e6c7aaece881b270a49cd71ca9388da43))
+* **webcomponents:** update logs and snapshots for certificate transparency ([4e35db5](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/4e35db55f882ab00ee85e6fc226ac425a017d3d0))
+
+
 ## [4.9.2](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.9.1...v4.9.2) (2026-05-13)
 
 
