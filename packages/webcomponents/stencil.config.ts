@@ -1,6 +1,6 @@
 import { Config } from '@stencil/core';
-import { sass } from '@stencil/sass';
 import { reactOutputTarget } from '@stencil/react-output-target';
+import { sass } from '@stencil/sass';
 
 export const config: Config = {
   autoprefixCss: true,
@@ -20,7 +20,7 @@ export const config: Config = {
         'peculiar-circular-progress',
         'peculiar-highlight-words',
         'peculiar-text-hider',
-      ]
+      ],
     }),
     {
       type: 'dist',
