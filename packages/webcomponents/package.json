@@ -74,6 +74,7 @@
     "pvtsutils": "^1.3.6"
   },
   "devDependencies": {
+    "@stencil/react-output-target": "^1.6.2",
     "@stencil/sass": "^3.3.3",
     "@stencil/vitest": "^1.15.1",
     "@types/node": "^24.13.3",
