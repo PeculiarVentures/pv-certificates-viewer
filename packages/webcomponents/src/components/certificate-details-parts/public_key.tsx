@@ -46,6 +46,9 @@ export const PublicKey: FunctionalComponent<IPublicKeyProps> = (props) => {
   }
 
   function renderKeyDetails(key: IPublicKey) {
+    const namedCurve =
+      key.params && 'namedCurve' in key.params ? (key.params.namedCurve ?? '') : '';
+
     return [
       <RowValue
         name={l10n.getString('algorithm')}
@@ -53,9 +56,7 @@ export const PublicKey: FunctionalComponent<IPublicKeyProps> = (props) => {
       />,
       <RowValue
         name={l10n.getString('namedCurve')}
-        value={getStringByOID(
-          key.params && 'namedCurve' in key.params ? (key.params.namedCurve ?? '') : '',
-        )}
+        value={namedCurve ? getStringByOID(namedCurve) : undefined}
       />,
       <RowValue
         name={l10n.getString('exponent')}
