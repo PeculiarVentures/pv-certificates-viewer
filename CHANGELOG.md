@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v5.0.0...v5.1.0) (2026-09-28)
+
+### Bug Fixes
+
+* **test:** stabilize browser e2e screenshot capture ([#211](https://github.com/PeculiarVentures/pv-certificates-viewer/issues/211)) ([7123bce](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/7123bce70738d1cd9c1bcaaf951d17160e08c38d))
+
+
 # [5.0.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v4.9.2...v5.0.0) (2026-09-25)
 
 ### Bug Fixes
