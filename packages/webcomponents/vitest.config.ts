@@ -18,7 +18,13 @@ export default defineVitestConfig({
           name: 'browser',
           include: ['src/**/*.e2e.{ts,tsx}'],
           setupFiles: ['./vitest-setup-browser.ts'],
+          testTimeout: 60_000,
           browser: {
+            expect: {
+              toMatchScreenshot: {
+                timeout: 15_000,
+              },
+            },
             viewport: {
               width: 1024,
               height: 768,

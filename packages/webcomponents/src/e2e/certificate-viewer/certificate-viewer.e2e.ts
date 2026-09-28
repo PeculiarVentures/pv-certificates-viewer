@@ -1,6 +1,7 @@
-import { render, h, describe, it, expect, waitForStable } from '@stencil/vitest';
+import { render, h, describe, it, expect } from '@stencil/vitest';
 import { loadPemTestAssets } from '../../tests/load-test-assets';
 import { prepareViewportForComponentScreenshot } from '../../tests/prepare-component-screenshot';
+import { waitForDecodedViewerTable } from '../../tests/wait-for-decoded-viewer';
 
 const certificates = loadPemTestAssets('certificate-viewer');
 
@@ -13,8 +14,7 @@ describe('peculiar-certificate-viewer', () => {
         h('peculiar-certificate-viewer', { certificate: certificate.value }),
       );
 
-      await waitForChanges();
-      await waitForStable(root);
+      await waitForDecodedViewerTable(root, waitForChanges);
 
       await prepareViewportForComponentScreenshot(root, VIEWPORT_WIDTH);
 
