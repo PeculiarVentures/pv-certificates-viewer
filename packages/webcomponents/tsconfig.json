@@ -22,6 +22,7 @@
     "**/*.spec.ts",
     "**/*.e2e.ts",
     "src/tests/load-test-assets.ts",
-    "src/tests/prepare-component-screenshot.ts"
+    "src/tests/prepare-component-screenshot.ts",
+    "src/tests/wait-for-decoded-viewer.ts"
   ]
 }

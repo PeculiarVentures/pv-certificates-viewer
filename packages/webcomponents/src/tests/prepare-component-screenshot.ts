@@ -1,4 +1,3 @@
-import { waitForStable } from '@stencil/vitest';
 import { page } from 'vitest/browser';
 
 const VIEWPORT_PADDING = 16;
@@ -36,16 +35,22 @@ export async function prepareViewportForComponentScreenshot(
   const viewportHeight = contentHeight + VIEWPORT_PADDING;
 
   await page.viewport(width, viewportHeight);
-  await waitForStable(root);
+  await settleLayout();
 
   contentHeight = measureComponentContentHeight(root);
   const adjustedHeight = contentHeight + VIEWPORT_PADDING;
 
   if (adjustedHeight !== viewportHeight) {
     await page.viewport(width, adjustedHeight);
-    await waitForStable(root);
+    await settleLayout();
     contentHeight = measureComponentContentHeight(root);
   }
 
   return contentHeight;
+}
+
+async function settleLayout(): Promise<void> {
+  await new Promise<void>((resolve) => {
+    requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+  });
 }
