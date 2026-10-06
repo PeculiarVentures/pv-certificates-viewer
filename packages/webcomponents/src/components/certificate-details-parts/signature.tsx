@@ -29,6 +29,12 @@ export const Signature: FunctionalComponent<ISignatureProps> = (props) => {
         name={l10n.getString('algorithm')}
         value={getStringByOID(data.algorithm)}
       />,
+      data.mtcProofError && (
+        <RowValue
+          name="MTC Proof Error"
+          value={data.mtcProofError}
+        />
+      ),
       !data.mtcProof && (
         <RowValue
           name={l10n.getString('value')}

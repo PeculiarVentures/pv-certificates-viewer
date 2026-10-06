@@ -6,11 +6,17 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { id_alg_mtcProof, id_rdna_trustAnchorID } from '@peculiar/asn1-mtc';
 import { OIDs } from '../constants/oids';
 
-/** Get display name for OID. Format: "OIDs[oid] (oid)" when found, else the raw OID. */
+const mtcOIDs: Record<string, string> = {
+  [id_alg_mtcProof]: 'MTC Proof',
+  [id_rdna_trustAnchorID]: 'Trust Anchor ID',
+};
+
+/** Get display name for OID. Format: "label (oid)" when found, else the raw OID. */
 export function getStringByOID(value: string, onlyLabel = false): string {
-  const label = OIDs[value];
+  const label = mtcOIDs[value] || OIDs[value];
 
   if (onlyLabel) {
     return label || value;

@@ -6,6 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import {
+  id_rdna_trustAnchorID,
+  id_rdna_trustAnchorID_experimental,
+  TrustAnchorID,
+} from '@peculiar/asn1-mtc';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Name as AsnName } from '@peculiar/asn1-x509';
 import { BufferSourceConverter } from 'pvtsutils';
@@ -32,7 +37,8 @@ const oidToShortName = {
   '0.9.2342.19200300.100.1.1': 'UID',
   '0.9.2342.19200300.100.1.25': 'DC',
   '1.2.840.113549.1.9.1': 'E',
-  '1.3.6.1.4.1.44363.47.1': 'Trust Anchor ID',
+  [id_rdna_trustAnchorID]: 'Trust Anchor ID',
+  [id_rdna_trustAnchorID_experimental]: 'Trust Anchor ID',
 };
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -51,9 +57,22 @@ export class Name {
 
     asn.forEach((o) =>
       o.forEach((a) => {
+        let value = a.value.toString();
+
+        if (
+          (a.type === id_rdna_trustAnchorID || a.type === id_rdna_trustAnchorID_experimental) &&
+          a.value.anyValue
+        ) {
+          try {
+            value = AsnParser.parse(a.value.anyValue, TrustAnchorID).value;
+          } catch {
+            // Preserve undecodable DER for inspection rather than hiding the name.
+          }
+        }
+
         res.push({
           type: a.type,
-          value: a.value.toString(),
+          value,
           short: oidToShortName[a.type] || a.type,
         });
       }),
