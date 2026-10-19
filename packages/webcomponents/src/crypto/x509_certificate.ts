@@ -189,7 +189,7 @@ export class X509Certificate extends AsnData<Certificate> {
         return {
           algorithm: signatureAlgorithm.algorithm,
           value: signatureValue,
-          mtcProofError: error instanceof Error ? error.message : 'Unable to decode MTC proof',
+          mtcProofError: (error instanceof Error && error.message) || 'Unable to decode MTC proof',
         };
       }
     }

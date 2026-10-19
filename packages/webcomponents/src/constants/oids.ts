@@ -2394,5 +2394,7 @@ export const OIDs = {
   '1.3.6.1.4.1.44363.47.0': 'MTC Proof',
   '1.3.6.1.4.1.44363.47.1': 'Trust Anchor ID',
   '1.3.6.1.4.1.44363.47.2': 'MTC Certification Authority',
+  '1.3.6.1.5.5.7.6.67': 'MTC Proof',
+  '1.3.6.1.5.5.7.25.3': 'Trust Anchor ID',
   '1.3.6.1.5.5.7.6.36': 'Unsigned',
 };

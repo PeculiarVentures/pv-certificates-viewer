@@ -1,4 +1,5 @@
 import {
+  MTCProof,
   id_alg_mtcProof,
   id_alg_mtcProof_experimental,
   id_rdna_trustAnchorID,
@@ -13,7 +14,7 @@ import {
   RelativeDistinguishedName,
 } from '@peculiar/asn1-x509';
 import { BufferSourceConverter, Convert } from 'pvtsutils';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { loadPemTestAssets } from '../tests/load-test-assets';
 import { getStringByOID } from '../utils/get_string_by_oid';
 import { Name } from './name';
@@ -89,6 +90,21 @@ describe('MTC assigned identifiers', () => {
     expect(result.mtcProof).toBeUndefined();
     expect(result.mtcProofError).toBeTruthy();
     expect(Convert.ToHex(result.value)).toBe(raw);
+  });
+
+  it('falls back to a generic diagnostic when the parser error has no message', () => {
+    const parse = vi.spyOn(MTCProof, 'parse').mockImplementation(() => {
+      throw new Error('');
+    });
+
+    try {
+      const result = certificate(id_alg_mtcProof, proofHex).signature;
+
+      expect(result.mtcProof).toBeUndefined();
+      expect(result.mtcProofError).toBe('Unable to decode MTC proof');
+    } finally {
+      parse.mockRestore();
+    }
   });
 
   it('preserves the raw fallback for an unknown algorithm', () => {
