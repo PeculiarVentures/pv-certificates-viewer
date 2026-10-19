@@ -13,7 +13,7 @@ describe('X509AttributeCertificate', () => {
       x509AttributeCertificate.parseExtensions();
       x509AttributeCertificate.parseAttributes();
 
-      expect(x509AttributeCertificate).toMatchSnapshot();
+      expect(x509AttributeCertificate).toMatchSnapshot('instance');
       expect(snapshotGetters(x509AttributeCertificate)).toMatchSnapshot('getters');
     });
   });

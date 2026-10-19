@@ -10,7 +10,7 @@ exports[`X509AttributeCertificate > should parse the test certificate ntqwac-x50
 }
 `;
 
-exports[`X509AttributeCertificate > should parse the test certificate ntqwac-x509-attribute.crt 1`] = `
+exports[`X509AttributeCertificate > should parse the test certificate ntqwac-x509-attribute.crt > instance 1`] = `
 X509AttributeCertificate {
   "attributes": [
     {

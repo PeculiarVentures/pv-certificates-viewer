@@ -12,7 +12,7 @@ describe('Pkcs10CertificateRequest', () => {
 
       request.parseAttributes();
 
-      expect(request).toMatchSnapshot();
+      expect(request).toMatchSnapshot('instance');
       expect(snapshotGetters(request)).toMatchSnapshot('getters');
     });
   });

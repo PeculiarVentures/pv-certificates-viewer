@@ -15,7 +15,7 @@ exports[`Pkcs10CertificateRequest > should parse the test certificate request do
 }
 `;
 
-exports[`Pkcs10CertificateRequest > should parse the test certificate request domain.test.csr 1`] = `
+exports[`Pkcs10CertificateRequest > should parse the test certificate request domain.test.csr > instance 1`] = `
 Pkcs10CertificateRequest {
   "attributes": Attributes [
     {

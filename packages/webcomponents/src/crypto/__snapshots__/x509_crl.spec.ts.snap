@@ -10,7 +10,7 @@ exports[`X509Crl > should parse the test CRL Sample Signer Cert.crl > getters 1`
 }
 `;
 
-exports[`X509Crl > should parse the test CRL Sample Signer Cert.crl 1`] = `
+exports[`X509Crl > should parse the test CRL Sample Signer Cert.crl > instance 1`] = `
 X509Crl {
   "extensions": [
     {

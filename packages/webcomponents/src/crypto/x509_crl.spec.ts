@@ -12,7 +12,7 @@ describe('X509Crl', () => {
 
       crl.parseExtensions();
 
-      expect(crl).toMatchSnapshot();
+      expect(crl).toMatchSnapshot('instance');
       expect(snapshotGetters(crl)).toMatchSnapshot('getters');
     });
   });
