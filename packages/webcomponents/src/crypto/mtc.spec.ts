@@ -38,9 +38,7 @@ function certificate(algorithm: string, proof: string): X509Certificate {
 }
 
 function name(type: string, value: AttributeValue): AsnName {
-  return new AsnName([
-    new RelativeDistinguishedName([new AttributeTypeAndValue({ type, value })]),
-  ]);
+  return new AsnName([new RelativeDistinguishedName([new AttributeTypeAndValue({ type, value })])]);
 }
 
 describe('MTC assigned identifiers', () => {
