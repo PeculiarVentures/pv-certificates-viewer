@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { loadPemTestAssets } from '../tests/load-test-assets';
+import { snapshotGetters } from '../tests/snapshot-getters';
 import { X509Crl } from './x509_crl';
 
 const certificates = loadPemTestAssets('crl-viewer');
@@ -12,6 +13,7 @@ describe('X509Crl', () => {
       crl.parseExtensions();
 
       expect(crl).toMatchSnapshot();
+      expect(snapshotGetters(crl)).toMatchSnapshot('getters');
     });
   });
 });

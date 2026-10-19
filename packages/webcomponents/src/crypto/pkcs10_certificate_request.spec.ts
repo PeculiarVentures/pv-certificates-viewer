@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { loadPemTestAssets } from '../tests/load-test-assets';
+import { snapshotGetters } from '../tests/snapshot-getters';
 import { Pkcs10CertificateRequest } from './pkcs10_certificate_request';
 
 const certificates = loadPemTestAssets('csr-viewer');
@@ -12,6 +13,7 @@ describe('Pkcs10CertificateRequest', () => {
       request.parseAttributes();
 
       expect(request).toMatchSnapshot();
+      expect(snapshotGetters(request)).toMatchSnapshot('getters');
     });
   });
 });
