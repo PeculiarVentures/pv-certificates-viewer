@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { loadPemTestAssets } from '../tests/load-test-assets';
+import { snapshotGetters } from '../tests/snapshot-getters';
 import { X509AttributeCertificate } from './x509_attribute_certificate';
 
 const certificates = loadPemTestAssets('attribute-certificate-viewer');
@@ -12,7 +13,8 @@ describe('X509AttributeCertificate', () => {
       x509AttributeCertificate.parseExtensions();
       x509AttributeCertificate.parseAttributes();
 
-      expect(x509AttributeCertificate).toMatchSnapshot();
+      expect(x509AttributeCertificate).toMatchSnapshot('instance');
+      expect(snapshotGetters(x509AttributeCertificate)).toMatchSnapshot('getters');
     });
   });
 });

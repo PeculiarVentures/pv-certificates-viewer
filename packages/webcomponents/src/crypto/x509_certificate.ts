@@ -7,7 +7,7 @@
  */
 
 import { ECParameters, id_ecPublicKey } from '@peculiar/asn1-ecc';
-import { id_alg_mtcProof_experimental, MTCProof } from '@peculiar/asn1-mtc';
+import { id_alg_mtcProof, id_alg_mtcProof_experimental, MTCProof } from '@peculiar/asn1-mtc';
 import { id_rsaEncryption, RSAPublicKey } from '@peculiar/asn1-rsa';
 import { AsnConvert } from '@peculiar/asn1-schema';
 import { Certificate, SubjectPublicKeyInfo } from '@peculiar/asn1-x509';
@@ -46,6 +46,7 @@ export interface ISignature {
     value: BufferSource;
   }[];
   mtcProof?: IMTCProofDetails;
+  mtcProofError?: string;
 }
 
 export interface IPublicKey {
@@ -163,22 +164,34 @@ export class X509Certificate extends AsnData<Certificate> {
       }));
     }
 
-    if (signatureAlgorithm.algorithm === id_alg_mtcProof_experimental) {
-      const proof = MTCProof.parse(BufferSourceConverter.toUint8Array(signatureValue));
-      const json = proof.toJSON();
+    if (
+      signatureAlgorithm.algorithm === id_alg_mtcProof ||
+      signatureAlgorithm.algorithm === id_alg_mtcProof_experimental
+    ) {
+      try {
+        const proof = MTCProof.parse(BufferSourceConverter.toUint8Array(signatureValue));
+        const json = proof.toJSON();
 
-      return {
-        algorithm: signatureAlgorithm.algorithm,
-        value: signatureValue,
-        mtcProof: {
-          start: json.start,
-          end: json.end,
-          subtreeSize: proof.subtreeSize,
-          isLandmarkRelative: proof.isLandmarkRelative,
-          inclusionProof: json.inclusionProof,
-          signatures: json.signatures,
-        },
-      };
+        return {
+          algorithm: signatureAlgorithm.algorithm,
+          value: signatureValue,
+          mtcProof: {
+            start: json.start,
+            end: json.end,
+            subtreeSize: proof.subtreeSize,
+            isLandmarkRelative: proof.isLandmarkRelative,
+            inclusionProof: json.inclusionProof,
+            signatures: json.signatures,
+          },
+        };
+      } catch (error) {
+        // A malformed or unsupported proof must not prevent viewing the certificate.
+        return {
+          algorithm: signatureAlgorithm.algorithm,
+          value: signatureValue,
+          mtcProofError: (error instanceof Error && error.message) || 'Unable to decode MTC proof',
+        };
+      }
     }
 
     return {

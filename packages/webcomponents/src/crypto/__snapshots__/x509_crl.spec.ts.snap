@@ -1,6 +1,16 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`X509Crl > should parse the test CRL Sample Signer Cert.crl 1`] = `
+exports[`X509Crl > should parse the test CRL Sample Signer Cert.crl > getters 1`] = `
+{
+  "commonName": "Sample Signer Organization",
+  "signature": {
+    "algorithm": "1.2.840.113549.1.1.5",
+    "value": "4221be81f1c37976665bce21138a68a8b43cbe16c3af4bddcb78359290d8d74c6ffe6c6827ae6dda429801ee1793f0bda8eecd90b635f60da4ce4982f79d9fc86e7fd1f12d20f846cd431764e7f95ae82111c62469f84d93506f0b0dbd786153214462af0a0b92232506d0cc065bac1aa95b5de8aef5bbbbe1214fd389d7fa65276c4cc8693cf16e3d489de23dbd537ab5d1218517a702b750f38ef51c0b01c6847034d8c7a7ef41206450033cb5a62e0d0782529487589959c046b5ebfff15b148a3ca3b0cd3bd82e94b794f0372aebb616fde76f9e2a59b12cd813d28e61558c635e1b702d0b0bed0661af2a403350cb62a4239220c8ee196fb7b42e0c64c9",
+  },
+}
+`;
+
+exports[`X509Crl > should parse the test CRL Sample Signer Cert.crl > instance 1`] = `
 X509Crl {
   "extensions": [
     {

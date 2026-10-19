@@ -1,6 +1,27 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`X509Certificate > should parse the test certificate Adobe Systems Incorporated.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Adobe Systems Incorporated.cer > getters 1`] = `
+{
+  "commonName": "Adobe Systems Incorporated",
+  "isRoot": true,
+  "issuerCommonName": "Adobe Systems Incorporated",
+  "publicKey": {
+    "algorithm": "1.2.840.113549.1.1.1",
+    "params": {
+      "modulus": "00cc4f5484f7a7a2e733537f3f9c12886b2c9947677e0f1eb9ad1488f9c310d81df0f0d59f690a2f5935b0cc6ca94c9c15a09fce20bfa0cf54e2e02066453f3986387e9cc48e0722c624f60112b035df55ea6990b0db85371ee24e07b242a16a1369a066ea809111592a9b08795a20442dc9bd73388b3c2fe0431b5db30bf0af351a29feefa692dd814c9d3d598ead313c407e9b913606fce25c8dd18d26d55c45cfaf653fb1aad26296f4a838eaba6042f4f41c4a3515cef84e22560f9518c5f8969f9ffbb0b77825e9806bbdd60af0c674949df30f50db9a77ce4b7083238da0ca7820445c3c5464f1eaa230199fea4c064d06784b5e92df22d2c967b37ad201",
+      "publicExponent": "010001",
+    },
+    "value": "30820122300d06092a864886f70d01010105000382010f003082010a0282010100cc4f5484f7a7a2e733537f3f9c12886b2c9947677e0f1eb9ad1488f9c310d81df0f0d59f690a2f5935b0cc6ca94c9c15a09fce20bfa0cf54e2e02066453f3986387e9cc48e0722c624f60112b035df55ea6990b0db85371ee24e07b242a16a1369a066ea809111592a9b08795a20442dc9bd73388b3c2fe0431b5db30bf0af351a29feefa692dd814c9d3d598ead313c407e9b913606fce25c8dd18d26d55c45cfaf653fb1aad26296f4a838eaba6042f4f41c4a3515cef84e22560f9518c5f8969f9ffbb0b77825e9806bbdd60af0c674949df30f50db9a77ce4b7083238da0ca7820445c3c5464f1eaa230199fea4c064d06784b5e92df22d2c967b37ad2010203010001",
+  },
+  "signature": {
+    "algorithm": "1.2.840.113549.1.1.5",
+    "params": undefined,
+    "value": "32da9f4375c1fa6fc96fdbab1d36373ebc611936b7023c1d2359986c9eee4d85e754c8201fa7d4bbe2bf00777d246b702f5cc13a7649b5d3e023842a716a22f3c127299815f63590e4044cc38dbc9f611ce7fd248cd144438c16ba9b4da5d4352fbc11cebdf751378d9f90e414f1183fbee9591235f93392f39ee0d56b9a719b994bc871c3e1b16109c4e5fa91f0423a377d34f972e8cdaa621c21e9d5f48210e37b05b62d68560b7e7e922c6f4d72820ced5674b29db9ab2d2b1d105fdb2775708ffd1dd7e202a079e51ce5ffaf6440512d9e9b47db42a57c1fc2a648b0d7be92694da4f62957c5781118dc8751ca13b2629d4f2b32bd31a5c1fa52ab0588c8",
+  },
+}
+`;
+
+exports[`X509Certificate > should parse the test certificate Adobe Systems Incorporated.cer > instance 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -180,7 +201,29 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate > should parse the test certificate Android Keystore Key.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Android Keystore Key.cer > getters 1`] = `
+{
+  "commonName": "Android Keystore Key",
+  "isRoot": false,
+  "issuerCommonName": "",
+  "publicKey": {
+    "algorithm": "1.2.840.10045.2.1",
+    "params": {
+      "implicitCurve": undefined,
+      "namedCurve": "1.2.840.10045.3.1.7",
+      "specifiedCurve": undefined,
+    },
+    "value": "3059301306072a8648ce3d020106082a8648ce3d03010703420004bc22d3079ec9e2eaa1ef927876c589999a5b9b4a6a75ef28fd13e920bd7854832fc9276b79b54bfae287c2ef949536cf9c5b1344810d40b93fd9827903bc9033",
+  },
+  "signature": {
+    "algorithm": "1.2.840.10045.4.3.2",
+    "params": undefined,
+    "value": "304502200308871616788c48676365d75c2c46d791dfb5d9a659fbdef6e09cc13a968f2f022100e09854f88eed14a4b3f3ae4f84a1f3a498032cc4a9c84033c825d0ad332647ab",
+  },
+}
+`;
+
+exports[`X509Certificate > should parse the test certificate Android Keystore Key.cer > instance 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -377,7 +420,28 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate > should parse the test certificate COMMISSION DE L'UNION EUROPEENNE-COMMISSIE VAN DE EUROPESE UNIE.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate COMMISSION DE L'UNION EUROPEENNE-COMMISSIE VAN DE EUROPESE UNIE.cer > getters 1`] = `
+{
+  "commonName": "COMMISSION DE L'UNION EUROPEENNE-COMMISSIE VAN DE EUROPESE UNIE",
+  "isRoot": false,
+  "issuerCommonName": "Greek Universities Network (GUnet)",
+  "publicKey": {
+    "algorithm": "1.2.840.113549.1.1.1",
+    "params": {
+      "modulus": "008acecc6432ac4474127be3bb88a9b2c3f752d116ce452525006077af616b247baef26e054ff67bc32499a255773976c2401203ac7315a5ccd8814830764cc46f80e3f0fdfd50703729713bdd94b19577ad95fc819c9620931f5d124ee6688355d6e28cf4a11b3c9d188524bc95dc2282917bccd858e5ab2fbbae7eef6141ad56a913b89474fef4b09d67e90e1ab4c9e2c086608ac454da7036b98b6d81839ce45f50a10ac3f0362e5cf8fd3ac87265066be3820e9f3ff1f25526626e878ef8d7311312c1e8ee920a5395ee947bce16bae7cc426075e361f9a3066e04e81a458f79a791bb1b94e5e3d6c56080fc1a378f4312fd2f2ed3e3394bf301c161f0dd9f",
+      "publicExponent": "010001",
+    },
+    "value": "30820122300d06092a864886f70d01010105000382010f003082010a02820101008acecc6432ac4474127be3bb88a9b2c3f752d116ce452525006077af616b247baef26e054ff67bc32499a255773976c2401203ac7315a5ccd8814830764cc46f80e3f0fdfd50703729713bdd94b19577ad95fc819c9620931f5d124ee6688355d6e28cf4a11b3c9d188524bc95dc2282917bccd858e5ab2fbbae7eef6141ad56a913b89474fef4b09d67e90e1ab4c9e2c086608ac454da7036b98b6d81839ce45f50a10ac3f0362e5cf8fd3ac87265066be3820e9f3ff1f25526626e878ef8d7311312c1e8ee920a5395ee947bce16bae7cc426075e361f9a3066e04e81a458f79a791bb1b94e5e3d6c56080fc1a378f4312fd2f2ed3e3394bf301c161f0dd9f0203010001",
+  },
+  "signature": {
+    "algorithm": "1.2.840.113549.1.1.11",
+    "params": undefined,
+    "value": "282b4ced9fe3cce87ac2351e27d885514b893b82bf6f879e5f35d52d3486575120981e3deb62066cb9982432111b42c525065deede6111e57fac20e9118301c8bdd46b835eb4ca10c6f9a93c21db16bd17acaa524553edf0d129658204de988486c0dcce0478a0926393f4f5cfc4e954ed5de7f15c0bbda83e0491db7d00ce73f7f062954b1b2e509589fc1bfde39012fe8a855314adcb03630db8056bb32b522bbb32fc591633a40a0e9e583a6517c7f8dfb8e8b5c801bf74f3718c7ed49273e0ec779822ce7a9f3fea75e281d7ce775eda5299803463e22c2c731016a56d67ba6b26713f2ec8552daefdebc4f3dbfaa461e946186fb287f3968080a2667e1730bda3acdd8a8d1eb5a377705002433a58814b1fbeab7a33b3980b3e20b57b3a14ad209a42e07530d6665216360dd6bacaabb2d1530d0efb4d15abbdc090a8a990bd5540c43c53a7c6f3f1cd3c4d3138b29e1d0db4c0058d147a9a65f06550d87cf8f58b8f93cdd245c6c8bdfeab45bf2e163d4ad6087666a032e564d9817a55903cd97e8cf3becfdb5c06562f7de5f98acd293af532cfc2c9d0f3d53755f5e8774955f7bb428d9f1521ee8d0fb2cef5458f2cfd26ec798f45ac63cee0abb7f3c17ba58187ce899c186bbeb01cbdc741cf21303b9d218bf63f48278c9e9fd962d928156a32fa0c8335a112707be9e0d823219a921a1bfc008fb77036daa2a5f2",
+  },
+}
+`;
+
+exports[`X509Certificate > should parse the test certificate COMMISSION DE L'UNION EUROPEENNE-COMMISSIE VAN DE EUROPESE UNIE.cer > instance 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -815,7 +879,28 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate > should parse the test certificate Configuration.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Configuration.cer > getters 1`] = `
+{
+  "commonName": "Configuration",
+  "isRoot": false,
+  "issuerCommonName": "U.S. Government",
+  "publicKey": {
+    "algorithm": "1.2.840.113549.1.1.1",
+    "params": {
+      "modulus": "00b5700a95c57055aa4bd2b75c9013c48226ad708b909b47b6431997c36ef9de6a70f9ea059232cfc4918fce9df3773dbcf381ca6c1b08e55d116181721f106ee33862416c51a5f7304e93c290f6ea4c0f453e333a31102defb50808961ba22070430efc6e8e3330cf8e7b4dae9f63e0e81b37071b045925034503ca1f2a7e4e9b6e3c298f3a7f1907fcf435bd6f1c8c4d9dfe3e8e2c6d40a7b4e6302e5e6a19303a47d52599ab12a6ac80b39e54f106b81a6e3ff728c24e886b2eaed1101ae84b9763f23df2aa3b7861f6fa222e24b35beee30ad4646ce74d2c07c9b1bc15793487fe8e437ca0846ea400e2372d0f711e5f66eb295860a00da126d24b01ee9f15",
+      "publicExponent": "010001",
+    },
+    "value": "30820122300d06092a864886f70d01010105000382010f003082010a0282010100b5700a95c57055aa4bd2b75c9013c48226ad708b909b47b6431997c36ef9de6a70f9ea059232cfc4918fce9df3773dbcf381ca6c1b08e55d116181721f106ee33862416c51a5f7304e93c290f6ea4c0f453e333a31102defb50808961ba22070430efc6e8e3330cf8e7b4dae9f63e0e81b37071b045925034503ca1f2a7e4e9b6e3c298f3a7f1907fcf435bd6f1c8c4d9dfe3e8e2c6d40a7b4e6302e5e6a19303a47d52599ab12a6ac80b39e54f106b81a6e3ff728c24e886b2eaed1101ae84b9763f23df2aa3b7861f6fa222e24b35beee30ad4646ce74d2c07c9b1bc15793487fe8e437ca0846ea400e2372d0f711e5f66eb295860a00da126d24b01ee9f150203010001",
+  },
+  "signature": {
+    "algorithm": "1.2.840.113549.1.1.11",
+    "params": undefined,
+    "value": "1af448abd48a7660734a4cdcdf89b2b01f93975f836bd4c8a4f1294409cd38d37c314eca34c28af5570c49351f06605fa47ba39bb0d5898361e11eed61b9a5061994db54264a24be51090c53594398564228a8268f0db22dd4f19359df463020b0c24365b37fc8d48494194ae2fb171207fecfb9096f42bef88391bd3caf6136a32eab930983650c4cf03f29611252d0147ac132bb24b2bbde7ac8118717369117aa249cd05974dd0bb251d794b4bb3ed4a90ff67fc15b4f7b87aed77778a62b9356360507168ee02cf3f16a5da19a5cfb094680df7bf583d4f3e63e9524f2d3153699bacc70a6ab07a0f1a29553124c8f0ff6023c62b4b9099f6cf020006168",
+  },
+}
+`;
+
+exports[`X509Certificate > should parse the test certificate Configuration.cer > instance 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -1162,7 +1247,29 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate > should parse the test certificate Entity Name From Registration.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Entity Name From Registration.cer > getters 1`] = `
+{
+  "commonName": "Entity Name From Registration",
+  "isRoot": false,
+  "issuerCommonName": "Martini Security, LLC.",
+  "publicKey": {
+    "algorithm": "1.2.840.10045.2.1",
+    "params": {
+      "implicitCurve": undefined,
+      "namedCurve": "1.2.840.10045.3.1.7",
+      "specifiedCurve": undefined,
+    },
+    "value": "3059301306072a8648ce3d020106082a8648ce3d03010703420004b8175c54f5a1f94df8989cd67210894eb0330e6442ce94a4d8291b5d136658d52dcf5b8840f72e20a8da62db1c37e33736cd993fc27c863481b3f7017c8d38c0",
+  },
+  "signature": {
+    "algorithm": "1.2.840.10045.4.3.2",
+    "params": undefined,
+    "value": "3045022100ac753b1753765a3ed47873ec482ab1e373e75a2041b96a5fd940b09c01dd4ef702204dc4dae23fe1be62ce8d44469d66a0c356bbdcdef92501de762c0276e7275710",
+  },
+}
+`;
+
+exports[`X509Certificate > should parse the test certificate Entity Name From Registration.cer > instance 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -1298,7 +1405,28 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate > should parse the test certificate European Commission.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate European Commission.cer > getters 1`] = `
+{
+  "commonName": "European Commission",
+  "isRoot": false,
+  "issuerCommonName": "QuoVadis Trustlink BVBA",
+  "publicKey": {
+    "algorithm": "1.2.840.113549.1.1.1",
+    "params": {
+      "modulus": "00e8e6b190fe1a123fc92be030d77a393ab321e3964330b30c35b52d2e73c7bd2147e2ce2daa88c503e9bfc72189938980c107a669b38ecbec0dce3606fb17e82a33e061b8c3cd11b5d3095ef694a98ea9befa3ccd7024aac1c1fd0810496dee75350880b4f2e7ca51c0ef1a158efbbaf1ac737c692193d05f460c79b8aec8a7a9957966c704cec0729b3b7bf46cd8ac229ee85389b1831416771baae0eb7ab58629e706fa9ae73eb15c8b1ffe5719ac9775e2f3b825ac1f287ad0a8722d5b597ed113145c2965561292588c1dcd8394c6ff63912e21c42d1ebcd2dc3e319f24fe2c1d31bc668b69a4dac82c4bf756e32ff7781f91bd51c0a1b2aa2975f66ee27b",
+      "publicExponent": "010001",
+    },
+    "value": "30820122300d06092a864886f70d01010105000382010f003082010a0282010100e8e6b190fe1a123fc92be030d77a393ab321e3964330b30c35b52d2e73c7bd2147e2ce2daa88c503e9bfc72189938980c107a669b38ecbec0dce3606fb17e82a33e061b8c3cd11b5d3095ef694a98ea9befa3ccd7024aac1c1fd0810496dee75350880b4f2e7ca51c0ef1a158efbbaf1ac737c692193d05f460c79b8aec8a7a9957966c704cec0729b3b7bf46cd8ac229ee85389b1831416771baae0eb7ab58629e706fa9ae73eb15c8b1ffe5719ac9775e2f3b825ac1f287ad0a8722d5b597ed113145c2965561292588c1dcd8394c6ff63912e21c42d1ebcd2dc3e319f24fe2c1d31bc668b69a4dac82c4bf756e32ff7781f91bd51c0a1b2aa2975f66ee27b0203010001",
+  },
+  "signature": {
+    "algorithm": "1.2.840.113549.1.1.11",
+    "params": undefined,
+    "value": "07c155b47b48374571cacb0975132299798aee5b7fb1dc099c35fb1a9a4347141df633679d4d779d6de341bce7a4aec6334782dec6fbc3665f042faf4d598a5e0c252c536eb354f116888f3d82bdbbeea6e35770b877c7ab022a6564fe9e04b58d690cc198744543a948680a06394a73d03c334820eb294735aabff39cf5d35c0bb8bd028929e8874d15cecf632e42508ffff9a3ed9471b4cdce7a56ea2f1a7c6d9154a280f28abd1ba0ca18d66940542d9555696fbb79b2514652118fdb2c2b40fe5862069d900829c7975355bb504af1cf47c5365027d0aaac679f41242af3c0016ec5ef4eb701ab46ccba40655bb104055ff30dd4fbd77a3cc92369eeed6950f9d814cae11758d7139927befd2ea248d3e97dee8ad98a9c992927b0ccd2faec88f05734c7e8348246ef28a06937baa4198d2b946521b9949ddf8c3f4198e181bdbcf341134685a998e947454064251de80be6ab08d4eb8485ba1bfb8f2b5e6009953c56629973583456786316adf7af252ee46bd02517985d640822c4e1e24f3cbd68f54feaaec5c5c5baab89bdf55cc7f89d5ed9054c64b146357fd250f46a4a0cc388907dbcf4d4d4afdb1a0244e986c8be115b9ebacee065814f6857bdf816bd1561fc0c69f986b81506fc1d0457646c73bfc5daf51092e6a43683e39ba129b77608bbb598db6946c2700c37f1aad31c90beb1eba80d67f97b8a07f86a",
+  },
+}
+`;
+
+exports[`X509Certificate > should parse the test certificate European Commission.cer > instance 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -1641,7 +1769,28 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate > should parse the test certificate Le Banque.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Le Banque.cer > getters 1`] = `
+{
+  "commonName": "Le Banque",
+  "isRoot": false,
+  "issuerCommonName": "Certs R Us",
+  "publicKey": {
+    "algorithm": "1.2.840.113549.1.1.1",
+    "params": {
+      "modulus": "00ef67543c38baea6bcd87fcaff2592e7987d10dc51906c25e00fd380a75de294b270b744793446633e7aa93cb8276f1f20967e25416c7b337c0e44176bf8a8eb40d8416ac0ba90b0e6aa2cf879d51d94b815baff5a0b0ddb66fd59fee5b1e51c848106d40bfa41c38cb7aa332f676763e7c24d12a9ad123b0691b945178321d51a2f8f49325fbe5e789723ff1d15400378c7c287598a6fd42c0478185cb8fbbbe5051bfbc1ce104bc37d096dcf3c746b5fc7d28c3fe08d092e094239430bc17f10016530a02bd900293a4675b5a3e42549c57c019d77aad9872658effeb85084e4c5fd7199e0d68d1da0842ff58fc0e961e452ab588a07f4ca277840952ac098b",
+      "publicExponent": "010001",
+    },
+    "value": "30820122300d06092a864886f70d01010105000382010f003082010a0282010100ef67543c38baea6bcd87fcaff2592e7987d10dc51906c25e00fd380a75de294b270b744793446633e7aa93cb8276f1f20967e25416c7b337c0e44176bf8a8eb40d8416ac0ba90b0e6aa2cf879d51d94b815baff5a0b0ddb66fd59fee5b1e51c848106d40bfa41c38cb7aa332f676763e7c24d12a9ad123b0691b945178321d51a2f8f49325fbe5e789723ff1d15400378c7c287598a6fd42c0478185cb8fbbbe5051bfbc1ce104bc37d096dcf3c746b5fc7d28c3fe08d092e094239430bc17f10016530a02bd900293a4675b5a3e42549c57c019d77aad9872658effeb85084e4c5fd7199e0d68d1da0842ff58fc0e961e452ab588a07f4ca277840952ac098b0203010001",
+  },
+  "signature": {
+    "algorithm": "1.2.840.113549.1.1.11",
+    "params": undefined,
+    "value": "3c39d5a4871f988b419deee508a9d2dacbe9f60d6f1ff301622c238c96dcc148c9dab305985282b18b5ca0801f9545d384d2233ee6dc69f5c9d961bd389cb371b392f2f4c801d371f28e4f30b5e40026cce339801cebd4b573e5892c2d54bbc423b22d71611ff8f76be6ad8413427007a2eb72f01c270262d8aa7c6439e75b2693388f0b097a3e7d9ce1d05dc0c1e1526290e38c81ff2ac3a42e2362839854b5a235651a1820ba01fc5ac4c4c394457c09b2464770458c6e3dd4269c45a1cd86020db1b62f3118b7453b54b13f336380aa176ceb3186e9949133a47156090e4aa40ec7e12657b45b1b8e7d8e4e0fc9c3806ddd4d16e912229873c73ac21d4106c3f667f6373e880c8a6f50217996a17fdfefb7a2d32be5c62f79f7c293ae7cb3ee35682d613aa4fdd9ecc354e5eb0cb3ea41bc0558dd83f6dd043a6318cf320465389096a937805a59b3c11e66c2e93b29cee90da460d35963d8ad9466fa4a9aca4c9c6ae4516c4dcd34360f89b7f94adc07936bad49b781c22cba95f10b321df4ff67012cece58825fb1a71382751448588949066e6417b4891eb9e710827c4ff4d76adb910b2ad66b861ac6971d9fa7056dc77ddda92720777d4def19daff2c6913de2d00ad1620937b9f489dd30b27cc30aeed0e1dca3ca8be107fd55cb83329356519183a7aa3d11a00983394e1c646c9393594c26645e939a52390d4ace",
+  },
+}
+`;
+
+exports[`X509Certificate > should parse the test certificate Le Banque.cer > instance 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -1987,7 +2136,29 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate > should parse the test certificate Martini Security, LLC.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Martini Security, LLC.cer > getters 1`] = `
+{
+  "commonName": "Martini Security, LLC",
+  "isRoot": false,
+  "issuerCommonName": "Martini Security, LLC",
+  "publicKey": {
+    "algorithm": "1.2.840.10045.2.1",
+    "params": {
+      "implicitCurve": undefined,
+      "namedCurve": "1.2.840.10045.3.1.7",
+      "specifiedCurve": undefined,
+    },
+    "value": "3059301306072a8648ce3d020106082a8648ce3d0301070342000460beca46066d1a1759a271c33f87b43a97f533eba380f06b0fdea23992acbeb8a677f296879491dad209afbcedd8257e8fd459bb5622f17d58a53f9e26d394e9",
+  },
+  "signature": {
+    "algorithm": "1.2.840.10045.4.3.2",
+    "params": undefined,
+    "value": "3045022100f68a26cc227b90435271db6428c16efe622413de7a08fedbd0f332a28fa15e4b0220232be7018a42ad43f99c5747ff3878eca90e92c7264715da507d3cc1529d83fd",
+  },
+}
+`;
+
+exports[`X509Certificate > should parse the test certificate Martini Security, LLC.cer > instance 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -2167,7 +2338,28 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate > should parse the test certificate Ministerie van Justitie en Veiligheid.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Ministerie van Justitie en Veiligheid.cer > getters 1`] = `
+{
+  "commonName": "Ministerie van Justitie en Veiligheid",
+  "isRoot": false,
+  "issuerCommonName": "QuoVadis Trustlink B.V.",
+  "publicKey": {
+    "algorithm": "1.2.840.113549.1.1.1",
+    "params": {
+      "modulus": "0098276e50e77f5b0588241e544de25013da7eb5585bddab7dbc18d5fd242f800b33e36f55ad70433874667d125fdeb43cdfb1ca6e868a3cfb88151b2430901ea675a1322f9f3f94f673590bbd15c87f3b9710d050bd6715a3b9b9a77c71668b14379e563c22359ab68e1d188adb7f1920c0273f908ffdabf04d8fe716e17b5782358492b8b1192fad665a26ba5be2023118c61365b8ab573fd1df87554ba0d7982ea9d158a18833863fbc17196455df97e181b1e4ba296ec6cb3b61a147362ef0df057d0565331d8cf4f683564556bc3b84c4fb3f4826ccbeb28fc84b475b5ea216e7e0f95db068be1daa6f34f75308eee52af0f1a114171153e2050813dfeb2f0306024624460df3e15eb857f63727749626571d7417cb907397b77c2ebc2a34b3cc3ddccedc6667c97bde6d6841a60056a549bad06e7b75507749a074d65ad39c448101ebae5d33cc4ca02ff13b3fa8d4eacf2afb3b0722e838016aabdab3b1582b8194679c16982337c33c9dd695df661cca2676856328d388861735682a99929b9935490c138fbcd2ba6e01d6ab21abec5215fe95597b4e9555fd95927f5f72f361a440a200d61fec35aef5b4f22416b742c8771a9bc3377d74a6927f8f8d28a5c4f73257eda6bda6203f02c498f6689a8047329c32a2117a1655d0f80d149693db739a59f1d6fbcfe1fd3466a13678597e9a4a8d41ea692c1e942490bf69",
+      "publicExponent": "010001",
+    },
+    "value": "30820222300d06092a864886f70d01010105000382020f003082020a028202010098276e50e77f5b0588241e544de25013da7eb5585bddab7dbc18d5fd242f800b33e36f55ad70433874667d125fdeb43cdfb1ca6e868a3cfb88151b2430901ea675a1322f9f3f94f673590bbd15c87f3b9710d050bd6715a3b9b9a77c71668b14379e563c22359ab68e1d188adb7f1920c0273f908ffdabf04d8fe716e17b5782358492b8b1192fad665a26ba5be2023118c61365b8ab573fd1df87554ba0d7982ea9d158a18833863fbc17196455df97e181b1e4ba296ec6cb3b61a147362ef0df057d0565331d8cf4f683564556bc3b84c4fb3f4826ccbeb28fc84b475b5ea216e7e0f95db068be1daa6f34f75308eee52af0f1a114171153e2050813dfeb2f0306024624460df3e15eb857f63727749626571d7417cb907397b77c2ebc2a34b3cc3ddccedc6667c97bde6d6841a60056a549bad06e7b75507749a074d65ad39c448101ebae5d33cc4ca02ff13b3fa8d4eacf2afb3b0722e838016aabdab3b1582b8194679c16982337c33c9dd695df661cca2676856328d388861735682a99929b9935490c138fbcd2ba6e01d6ab21abec5215fe95597b4e9555fd95927f5f72f361a440a200d61fec35aef5b4f22416b742c8771a9bc3377d74a6927f8f8d28a5c4f73257eda6bda6203f02c498f6689a8047329c32a2117a1655d0f80d149693db739a59f1d6fbcfe1fd3466a13678597e9a4a8d41ea692c1e942490bf690203010001",
+  },
+  "signature": {
+    "algorithm": "1.2.840.113549.1.1.11",
+    "params": undefined,
+    "value": "7dbe5486199017e8d00f4ba238f4c82504a565959a5279740a0b09d3525aafbcd60e477d3c8d3702079b80db4cc6a765ab41bd4e1a49183a6fdeb8307e812941c09c6051ebd8c3cf792eeef53e4f67debc9950e60b9bd57c0e938bc6d617a31d0eead8a981b2203b1edf1d20d15c70d9fe2ea86c36784f07b948a968ecb5a934967d12146e36247eddb5a90af4ae8ab4afe86a89fd7846d5ede4bb48be43984e47069ba8b2bef3fb408256365860d623ca8f7145213be3114d3ec15b8a1445ae6c385180ef4c7bc08b1d837ba2e085a7d5af34fc47c28c3d8000a033d7019ab712ebc741d24a0d9519502a95227faa5bdfc948f8cc40c68f34b37634a715275ab912a401f13afc14e1adf24a43bdf7b5c8391396651e02c4b73baa544351f0fa41d26c4c38284e3f302b999e80af19d65e3fa7e99e97858a765aafe461d186c007368030bb7e6606ced5c4b8add0a16f676c36354a2cbe4810e083ce1894cf11824335a50102f591317e18b12e3d8997f3f5f6af4c31514b09774afe270b31ec7cab5abfad95f805b6bae9b581178ae2c5613c4eb84e8066612a1efb2b453cd8b74e0f9acb7c4b758e1478569cc9ef629d7a43c451123ac0f7462ab3e5bfbd62aa017f4f48686009b8f7113e3bd76e180db25636ff3e481757db16950001fa9be56f5364fa60410d31d70e2ceb2ff33f04c1028ac8892505854aaba4b4bcfef3",
+  },
+}
+`;
+
+exports[`X509Certificate > should parse the test certificate Ministerie van Justitie en Veiligheid.cer > instance 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -2536,7 +2728,28 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate > should parse the test certificate Test Certificates 2011.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Test Certificates 2011.cer > getters 1`] = `
+{
+  "commonName": "Test Certificates 2011",
+  "isRoot": false,
+  "issuerCommonName": "Test Certificates 2011",
+  "publicKey": {
+    "algorithm": "1.2.840.113549.1.1.1",
+    "params": {
+      "modulus": "00b20e9896c81423e2717942d0f9e201fb9ef1fdddfdaf3e7395ca9f8f3c64f79fa297e042d68dd5bb0b4823160c48d9a2ff91af06e18bb63034fd72c2bccf469ce37366198150653abe8a2603b5bf585640aa2edc0cd104cd3f44ee8240a224013573d79e09895fc38b1bdc8b30e4e894594ba14be60280c6af2967e368187185dd24ca160aaf899006b1b38b550a5f8e9007cb44cef287f219ae18df790a4c732d357be3a4bb602a7494d04838c306bbc8db5fab0772e78c9bd66e99bb35b24bdf92e639cfe477660fc85c38bc9d2e15d9fde65284b8ce8763f3ed90936bdfafeac09d22c67b573c2c982f20d216a6926bef4b19b709ae9eb2468083e217193b",
+      "publicExponent": "010001",
+    },
+    "value": "30820122300d06092a864886f70d01010105000382010f003082010a0282010100b20e9896c81423e2717942d0f9e201fb9ef1fdddfdaf3e7395ca9f8f3c64f79fa297e042d68dd5bb0b4823160c48d9a2ff91af06e18bb63034fd72c2bccf469ce37366198150653abe8a2603b5bf585640aa2edc0cd104cd3f44ee8240a224013573d79e09895fc38b1bdc8b30e4e894594ba14be60280c6af2967e368187185dd24ca160aaf899006b1b38b550a5f8e9007cb44cef287f219ae18df790a4c732d357be3a4bb602a7494d04838c306bbc8db5fab0772e78c9bd66e99bb35b24bdf92e639cfe477660fc85c38bc9d2e15d9fde65284b8ce8763f3ed90936bdfafeac09d22c67b573c2c982f20d216a6926bef4b19b709ae9eb2468083e217193b0203010001",
+  },
+  "signature": {
+    "algorithm": "1.2.840.113549.1.1.11",
+    "params": undefined,
+    "value": "717daf46c1f53b51d0b01ffb2657fea2fe297c8c1f4f93c0beffa9e1ba3ec1672e98f202d438d493cc67390533dd1921432a936c4fb5386b80d5f8ced15259ed87af2a53ba30790c613e0de6681ed99bb1316fb7e68859db70c71071a4d7be1063a57c9782026aedacd7f4916a316a7d1998decf20645a345015f42887265d2bb46077da1d65e7abb6ecf2408e0d6d2a3109e5a6c52d6f07653e7e63b7591b327464acace3aee7a15c69bb8170b64251e01ff31f260a5ac277bf9f40f03c154cb3f295b91fc745a76e9d2b867f9572feb9ba919f0b9eef3eb24de97d65ddc042b6b5602b71552fdf087a8d138e6ac1100b5021dc7d225effc44c2bf706704715",
+  },
+}
+`;
+
+exports[`X509Certificate > should parse the test certificate Test Certificates 2011.cer > instance 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -2657,7 +2870,25 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate > should parse the test certificate Test ed25519.cer 1`] = `
+exports[`X509Certificate > should parse the test certificate Test ed25519.cer > getters 1`] = `
+{
+  "commonName": "Test ed25519",
+  "isRoot": true,
+  "issuerCommonName": "Test ed25519",
+  "publicKey": {
+    "algorithm": "1.3.101.112",
+    "params": undefined,
+    "value": "302a300506032b65700321003ba92ffdcb1766de40a292f793de30f80a23a831215dd007d863242eff682185",
+  },
+  "signature": {
+    "algorithm": "1.3.101.112",
+    "params": undefined,
+    "value": "6f7377be28965a3336d7e534fd90f3fd407f1f02f90057f2160f166b04bf6584b698d2d0d2bf4cd66f0eb6e2e89d04a3e09950f9c26dde73ad1d355785658606",
+  },
+}
+`;
+
+exports[`X509Certificate > should parse the test certificate Test ed25519.cer > instance 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {
@@ -2738,7 +2969,130 @@ X509Certificate {
 }
 `;
 
-exports[`X509Certificate > should parse the test certificate mtc-subscriber-standalone.pem 1`] = `
+exports[`X509Certificate > should parse the test certificate mtc-subscriber-standalone.pem > getters 1`] = `
+{
+  "commonName": "mtc-subscriber.example.test",
+  "isRoot": false,
+  "issuerCommonName": "",
+  "publicKey": {
+    "algorithm": "1.2.840.10045.3.1.7",
+    "params": undefined,
+    "value": "3051300a06082a8648ce3d03010703430000470ede19687b422effbdca9cd9c5cef1e9eab1b6dd711747b76c83ca15f94374599d880e35c244f2846b5bf8460d8fcebe825ac44e3390c7b336510c926dbf8827",
+  },
+  "signature": {
+    "algorithm": "1.3.6.1.4.1.44363.47.0",
+    "mtcProof": {
+      "end": 8,
+      "inclusionProof": [
+        "0101010101010101010101010101010101010101010101010101010101010101",
+        "0202020202020202020202020202020202020202020202020202020202020202",
+      ],
+      "isLandmarkRelative": false,
+      "signatures": [
+        {
+          "cosignerId": "32473.1",
+          "signature": "aabbccdd",
+        },
+      ],
+      "start": 4,
+      "subtreeSize": 4,
+    },
+    "value": "000000000000000400000000000800400101010101010101010101010101010101010101010101010101010101010101020202020202020202020202020202020202020202020202020202020202020200000b0481fd59010004aabbccdd",
+  },
+}
+`;
+
+exports[`X509Certificate > should parse the test certificate mtc-subscriber-standalone.pem > instance 1`] = `
+X509Certificate {
+  "extensions": Extensions [
+    {
+      "children": [
+        {
+          "title": "Usage",
+          "value": "encipherOnly",
+        },
+      ],
+      "critical": true,
+      "oid": "2.5.29.15",
+    },
+    {
+      "children": SubjectAlternativeName [
+        {
+          "_type": "dNSName",
+          "title": "DNS Name",
+          "value": "mtc-subscriber.example.test",
+        },
+      ],
+      "critical": false,
+      "oid": "2.5.29.17",
+    },
+    {
+      "children": [
+        {
+          "title": "Log Hash Algorithm",
+          "value": "SHA-256",
+        },
+        {
+          "title": "Signature Algorithm",
+          "value": "ML-DSA-44",
+        },
+        {
+          "title": "Min Serial",
+          "value": "0",
+        },
+        {
+          "title": "Max Serial",
+          "value": "18446744073709551615",
+        },
+      ],
+      "critical": true,
+      "oid": "1.3.6.1.4.1.44363.47.2",
+    },
+  ],
+  "issuer": [
+    {
+      "short": "Trust Anchor ID",
+      "type": "1.3.6.1.4.1.44363.47.1",
+      "value": "32473.1",
+    },
+  ],
+  "notAfter": 2027-01-01T00:00:00.000Z,
+  "notBefore": 2026-01-01T00:00:00.000Z,
+  "serialNumber": "0001000000000005",
+  "subject": [
+    {
+      "short": "CN",
+      "type": "2.5.4.3",
+      "value": "mtc-subscriber.example.test",
+    },
+  ],
+  "tag": "CERTIFICATE",
+  "thumbprints": {},
+  "type": "X.509 Certificate",
+  "validity": "a year",
+  "version": 3,
+}
+`;
+
+exports[`X509Certificate > should parse the test certificate mtc-subscriber-standalone-legacy-framing.pem > getters 1`] = `
+{
+  "commonName": "mtc-subscriber.example.test",
+  "isRoot": false,
+  "issuerCommonName": "",
+  "publicKey": {
+    "algorithm": "1.2.840.10045.3.1.7",
+    "params": undefined,
+    "value": "3051300a06082a8648ce3d03010703430000470ede19687b422effbdca9cd9c5cef1e9eab1b6dd711747b76c83ca15f94374599d880e35c244f2846b5bf8460d8fcebe825ac44e3390c7b336510c926dbf8827",
+  },
+  "signature": {
+    "algorithm": "1.3.6.1.4.1.44363.47.0",
+    "mtcProofError": "End of stream: needed 2820 byte(s), 10 remaining",
+    "value": "0000000000000004000000000008004001010101010101010101010101010101010101010101010101010101010101010202020202020202020202020202020202020202020202020202020202020202000b0481fd59010004aabbccdd",
+  },
+}
+`;
+
+exports[`X509Certificate > should parse the test certificate mtc-subscriber-standalone-legacy-framing.pem > instance 1`] = `
 X509Certificate {
   "extensions": Extensions [
     {

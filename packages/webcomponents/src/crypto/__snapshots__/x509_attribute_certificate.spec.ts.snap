@@ -1,6 +1,16 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`X509AttributeCertificate > should parse the test certificate ntqwac-x509-attribute.crt 1`] = `
+exports[`X509AttributeCertificate > should parse the test certificate ntqwac-x509-attribute.crt > getters 1`] = `
+{
+  "commonName": "attribute-certificate-undefined",
+  "signature": {
+    "algorithm": "1.2.840.113549.1.1.11",
+    "value": "6e9d8b68ace5653c3b6953db8bb2e9743a76657e13bb9c3198ccd22a21d5e67cdfc8c45402111157033573a4c8a1481903c0b3d46b533ec03a3107ef4143b0ad7ed525a0bc0c60acd4b0018a37fc1cdec0e14ebc12343808151fe8334eb7907bd473f27b1ce62b7e1be63e3f9012bc3a02e8e9978ca8a789d4e4b3aeee8f183d3d44bf4c5cd15d671bd411c4b84ab8e3e9d13b59b405b43be40727f05c1a8b94298066350e8eb01499bc71a838d08c23cb4efb1d821ac04ce99841f1c49edc07d0410452818eed47b554250a1a60a8f288133ff652163f987d874208270a97cb46f09ef279db26952bcda0ffab7966890f93e3ba282172b0fc9651f75e8d784d",
+  },
+}
+`;
+
+exports[`X509AttributeCertificate > should parse the test certificate ntqwac-x509-attribute.crt > instance 1`] = `
 X509AttributeCertificate {
   "attributes": [
     {
