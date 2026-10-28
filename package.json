@@ -33,7 +33,7 @@
     "ci": "^2.3.0"
   },
   "devDependencies": {
-    "lerna": "^10.0.1",
+    "lerna": "^10.1.1",
     "oxfmt": "^0.70.0",
     "oxlint": "^1.85.0",
     "oxlint-tsgolint": "^7.0.2002"
