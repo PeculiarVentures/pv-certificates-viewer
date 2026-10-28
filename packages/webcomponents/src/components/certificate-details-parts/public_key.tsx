@@ -7,7 +7,7 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { Convert } from 'pvtsutils';
+import { hex } from '@peculiar/utils/encoding';
 import { IPublicKey } from '../../crypto';
 import { l10n, getStringByOID } from '../../utils';
 import { RowTitle, RowValue, TableRowTable } from './row';
@@ -68,7 +68,7 @@ export const PublicKey: FunctionalComponent<IPublicKeyProps> = (props) => {
       />,
       <RowValue
         name={l10n.getString('value')}
-        value={Convert.ToHex(key.value)}
+        value={hex.encode(key.value)}
         monospace
         collapse
       />,

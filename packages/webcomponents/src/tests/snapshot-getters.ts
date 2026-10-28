@@ -1,10 +1,11 @@
-import { BufferSourceConverter, Convert } from 'pvtsutils';
+import { isBufferSource } from '@peculiar/utils/bytes';
+import { hex } from '@peculiar/utils/encoding';
 
 const EXCLUDED_GETTERS = new Set(['asn', 'raw']);
 
 function toSnapshotValue(value: unknown): unknown {
-  if (BufferSourceConverter.isBufferSource(value)) {
-    return Convert.ToHex(value);
+  if (isBufferSource(value)) {
+    return hex.encode(value);
   }
 
   if (Array.isArray(value)) {

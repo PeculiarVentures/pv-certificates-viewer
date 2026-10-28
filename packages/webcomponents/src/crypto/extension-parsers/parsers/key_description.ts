@@ -18,9 +18,11 @@ import {
 } from '@peculiar/asn1-android';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Extension } from '@peculiar/asn1-x509';
-import { Convert, BufferSourceConverter } from 'pvtsutils';
+import { isBufferSource } from '@peculiar/utils/bytes';
+import { hex } from '@peculiar/utils/encoding';
 import type { IExtensionNode, IExtensionParser, IParsedExtension } from '../types';
 import { camelCaseToWords } from '../../../utils/camel_case_to_words';
+import { decodeUtf8 } from '../../../utils/decode_utf8';
 import { node, section } from '../builders';
 
 function formatAuthValue(key: string, value: unknown): IExtensionNode | null {
@@ -40,19 +42,19 @@ function formatAuthValue(key: string, value: unknown): IExtensionNode | null {
 
   if (value instanceof RootOfTrust) {
     return section(camelCaseToWords(key), [
-      node('Verified Boot Key', Convert.ToHex(value.verifiedBootKey)),
+      node('Verified Boot Key', hex.encode(value.verifiedBootKey)),
       node('Device Locked', value.deviceLocked),
       node(
         'Boot State',
         VerifiedBootState[value.verifiedBootState] ?? String(value.verifiedBootState),
       ),
       ...(value.verifiedBootHash != null
-        ? [node('Boot Hash', Convert.ToHex(value.verifiedBootHash))]
+        ? [node('Boot Hash', hex.encode(value.verifiedBootHash))]
         : []),
     ]);
   }
 
-  if (key === 'attestationApplicationId' && BufferSourceConverter.isBufferSource(value)) {
+  if (key === 'attestationApplicationId' && isBufferSource(value)) {
     try {
       const appId = AsnParser.parse(value as BufferSource, AttestationApplicationId);
       const items: IExtensionNode[] = [];
@@ -63,7 +65,7 @@ function formatAuthValue(key: string, value: unknown): IExtensionNode | null {
             'Package Infos',
             appId.packageInfos.map((pkg) =>
               section('', [
-                node('Package Name', Convert.ToString(pkg.packageName)),
+                node('Package Name', decodeUtf8(pkg.packageName)),
                 node('Version', pkg.version),
               ]),
             ),
@@ -75,7 +77,7 @@ function formatAuthValue(key: string, value: unknown): IExtensionNode | null {
         items.push(
           section(
             'Signature Digests',
-            appId.signatureDigests.map((digest) => node('Digest', Convert.ToHex(digest))),
+            appId.signatureDigests.map((digest) => node('Digest', hex.encode(digest))),
           ),
         );
       }
@@ -86,11 +88,11 @@ function formatAuthValue(key: string, value: unknown): IExtensionNode | null {
     }
   }
 
-  if (BufferSourceConverter.isBufferSource(value)) {
+  if (isBufferSource(value)) {
     try {
-      return node(camelCaseToWords(key), Convert.ToString(value));
+      return node(camelCaseToWords(key), decodeUtf8(value));
     } catch {
-      return node(camelCaseToWords(key), Convert.ToHex(value));
+      return node(camelCaseToWords(key), hex.encode(value));
     }
   }
 
@@ -143,9 +145,9 @@ export class KeyDescriptionParser implements IExtensionParser {
         SecurityLevel[kd.keymasterSecurityLevel] ?? String(kd.keymasterSecurityLevel),
       ),
     );
-    children.push(node('Attestation Challenge', Convert.ToString(kd.attestationChallenge)));
+    children.push(node('Attestation Challenge', decodeUtf8(kd.attestationChallenge)));
 
-    const uniqueIdHex = Convert.ToHex(kd.uniqueId);
+    const uniqueIdHex = hex.encode(kd.uniqueId);
 
     if (uniqueIdHex) {
       children.push(node('Unique ID', uniqueIdHex));

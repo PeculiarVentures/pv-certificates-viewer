@@ -7,7 +7,7 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { Convert } from 'pvtsutils';
+import { hex } from '@peculiar/utils/encoding';
 import { IRevokedCertificate } from '../../crypto';
 import { dateShort, l10n } from '../../utils';
 import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
@@ -29,7 +29,7 @@ export const RevokedCertificates: FunctionalComponent<IRevokedCertificatesProps>
     revokedCertificates.map((certificate) => [
       <RowValue
         name={l10n.getString('serialNumber')}
-        value={Convert.ToHex(certificate.userCertificate)}
+        value={hex.encode(certificate.userCertificate)}
         monospace
       />,
       <RowValue

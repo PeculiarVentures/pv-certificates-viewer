@@ -7,7 +7,8 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { Convert, BufferSourceConverter } from 'pvtsutils';
+import { toUint8Array } from '@peculiar/utils/bytes';
+import { hex } from '@peculiar/utils/encoding';
 import { ISignature } from '../../crypto';
 import { l10n, getStringByOID } from '../../utils';
 import { RowTitle, RowValue, TableRowTable } from './row';
@@ -38,11 +39,7 @@ export const Signature: FunctionalComponent<ISignatureProps> = (props) => {
       !data.mtcProof && (
         <RowValue
           name={l10n.getString('value')}
-          value={
-            data.value && BufferSourceConverter.toUint8Array(data.value).length
-              ? Convert.ToHex(data.value)
-              : '(none)'
-          }
+          value={data.value && toUint8Array(data.value).length ? hex.encode(data.value) : '(none)'}
           monospace
           collapse
         />

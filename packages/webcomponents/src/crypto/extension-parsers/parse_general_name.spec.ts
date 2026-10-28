@@ -8,7 +8,8 @@ import {
   AttributeTypeAndValue,
   AttributeValue,
 } from '@peculiar/asn1-x509';
-import { Convert } from 'pvtsutils';
+import { toArrayBuffer } from '@peculiar/utils/bytes';
+import { hex } from '@peculiar/utils/encoding';
 import { describe, it, expect } from 'vitest';
 import { parseGeneralName } from './parse_general_name';
 
@@ -108,7 +109,9 @@ describe('parseGeneralName', () => {
   // OID 2.16.840.1.101.3.6.6 value is an OCTET STRING — neither DisplayText nor
   // UserNotice can parse it, so the fallback renders the raw DER bytes as hex.
   it('otherName falls back to hex when value is neither DisplayText nor UserNotice', () => {
-    const rawValue = Convert.FromHex('0419d13810d8210f2c115501ada1685a010e662cc110813810d7e8');
+    const rawValue = toArrayBuffer(
+      hex.decode('0419d13810d8210f2c115501ada1685a010e662cc110813810d7e8'),
+    );
     const on = new OtherName({
       typeId: '2.16.840.1.101.3.6.6',
       value: rawValue,

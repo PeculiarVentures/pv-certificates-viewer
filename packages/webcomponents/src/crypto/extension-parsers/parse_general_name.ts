@@ -8,7 +8,7 @@
 
 import { AsnParser } from '@peculiar/asn1-schema';
 import { GeneralName, DisplayText, UserNotice } from '@peculiar/asn1-x509';
-import { Convert } from 'pvtsutils';
+import { hex } from '@peculiar/utils/encoding';
 import type { IExtensionNode } from './types';
 import { Name } from '../name';
 import { node, section } from './builders';
@@ -61,7 +61,7 @@ export function parseGeneralName(gn: GeneralName): IExtensionNode {
 
         value = parts.join('; ');
       } catch {
-        value = Convert.ToHex(gn.otherName.value);
+        value = hex.encode(gn.otherName.value);
       }
     }
 
@@ -91,7 +91,7 @@ export function parseGeneralName(gn: GeneralName): IExtensionNode {
 
   // x400Address: opaque ORAddress bytes → hex
   if (gn.x400Address != null) {
-    return node('X400 Address', Convert.ToHex(gn.x400Address));
+    return node('X400 Address', hex.encode(gn.x400Address));
   }
 
   return node('Unknown', '');

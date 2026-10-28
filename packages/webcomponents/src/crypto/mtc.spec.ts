@@ -13,7 +13,8 @@ import {
   Name as AsnName,
   RelativeDistinguishedName,
 } from '@peculiar/asn1-x509';
-import { BufferSourceConverter, Convert } from 'pvtsutils';
+import { toArrayBuffer, toUint8Array } from '@peculiar/utils/bytes';
+import { base64, hex } from '@peculiar/utils/encoding';
 import { describe, it, expect, vi } from 'vitest';
 import { loadPemTestAssets } from '../tests/load-test-assets';
 import { getStringByOID } from '../utils/get_string_by_oid';
@@ -32,9 +33,9 @@ function certificate(algorithm: string, proof: string): X509Certificate {
 
   result.asn.signatureAlgorithm = new AlgorithmIdentifier({ algorithm });
   result.asn.tbsCertificate.signature = new AlgorithmIdentifier({ algorithm });
-  result.asn.signatureValue = Convert.FromHex(proof);
+  result.asn.signatureValue = toArrayBuffer(hex.decode(proof));
 
-  return new X509Certificate(Convert.ToBase64(AsnConvert.serialize(result.asn)));
+  return new X509Certificate(base64.encode(AsnConvert.serialize(result.asn)));
 }
 
 function name(type: string, value: AttributeValue): AsnName {
@@ -57,7 +58,7 @@ describe('MTC assigned identifiers', () => {
         inclusionProof: [],
         signatures: [{ cosignerId: '32473.77', signature: signatureHex }],
       });
-      expect(Convert.ToHex(result.value)).toBe(proofHex);
+      expect(hex.encode(result.value)).toBe(proofHex);
     },
   );
 
@@ -77,7 +78,7 @@ describe('MTC assigned identifiers', () => {
 
       expect(result.mtcProof).toBeUndefined();
       expect(result.mtcProofError).toBeTruthy();
-      expect(Convert.ToHex(result.value)).toBe(raw);
+      expect(hex.encode(result.value)).toBe(raw);
     },
   );
 
@@ -87,7 +88,7 @@ describe('MTC assigned identifiers', () => {
 
     expect(result.mtcProof).toBeUndefined();
     expect(result.mtcProofError).toBeTruthy();
-    expect(Convert.ToHex(result.value)).toBe(raw);
+    expect(hex.encode(result.value)).toBe(raw);
   });
 
   it('falls back to a generic diagnostic when the parser error has no message', () => {
@@ -112,7 +113,7 @@ describe('MTC assigned identifiers', () => {
     expect(result.algorithm).toBe(algorithm);
     expect(result.mtcProof).toBeUndefined();
     expect(result.mtcProofError).toBeUndefined();
-    expect(Convert.ToHex(result.value)).toBe(proofHex);
+    expect(hex.encode(result.value)).toBe(proofHex);
   });
 
   it('labels assigned and experimental identifiers without losing the OID', () => {
@@ -125,7 +126,7 @@ describe('MTC assigned identifiers', () => {
   it.each([id_rdna_trustAnchorID, id_rdna_trustAnchorID_experimental])(
     'decodes a RELATIVE-OID name under %s',
     (type) => {
-      const value = new AttributeValue({ anyValue: Convert.FromHex('0d0481fd594d') });
+      const value = new AttributeValue({ anyValue: toArrayBuffer(hex.decode('0d0481fd594d')) });
       const der = AsnConvert.serialize(name(type, value));
 
       expect(Name.parse(der)).toEqual([{ type, short: 'Trust Anchor ID', value: '32473.77' }]);
@@ -143,7 +144,7 @@ describe('MTC assigned identifiers', () => {
 
   it('preserves undecodable name values for inspection', () => {
     const type = id_rdna_trustAnchorID;
-    const value = new AttributeValue({ anyValue: Convert.FromHex('040181') });
+    const value = new AttributeValue({ anyValue: toArrayBuffer(hex.decode('040181')) });
 
     expect(Name.parse(name(type, value))[0]).toEqual({
       type,
@@ -154,7 +155,7 @@ describe('MTC assigned identifiers', () => {
 
   it('does not reinterpret unrelated ANY-valued name attributes', () => {
     const type = '1.2.3.999';
-    const value = new AttributeValue({ anyValue: Convert.FromHex('0d0481fd594d') });
+    const value = new AttributeValue({ anyValue: toArrayBuffer(hex.decode('0d0481fd594d')) });
 
     expect(Name.parse(name(type, value))[0].value).toBe(value.toString());
   });
@@ -164,12 +165,12 @@ describe('MTC assigned identifiers', () => {
 
     result.asn.tbsCertificate.issuer = name(
       id_rdna_trustAnchorID,
-      new AttributeValue({ anyValue: Convert.FromHex('0d0481fd594d') }),
+      new AttributeValue({ anyValue: toArrayBuffer(hex.decode('0d0481fd594d')) }),
     );
 
-    const decoded = new X509Certificate(Convert.ToBase64(AsnConvert.serialize(result.asn)));
+    const decoded = new X509Certificate(base64.encode(AsnConvert.serialize(result.asn)));
 
     expect(decoded.issuerToString()).toBe('Trust Anchor ID=32473.77');
-    expect(BufferSourceConverter.toUint8Array(decoded.signature.value).length).toBe(2446);
+    expect(toUint8Array(decoded.signature.value).length).toBe(2446);
   });
 });

@@ -7,7 +7,7 @@
  */
 
 import { type Holder, DigestedObjectType } from '@peculiar/asn1-x509-attr';
-import { Convert } from 'pvtsutils';
+import { hex } from '@peculiar/utils/encoding';
 import type { IExtensionNode } from './types';
 import { node, section } from './builders';
 import { parseGeneralName } from './parse_general_name';
@@ -21,11 +21,11 @@ export function parseHolder(holder: Holder): IExtensionNode[] {
 
     const children: IExtensionNode[] = [
       section('Issuer', [...issuer].map(parseGeneralName)),
-      node('Serial Number', Convert.ToHex(serial)),
+      node('Serial Number', hex.encode(serial)),
     ];
 
     if (issuerUID && (issuerUID as ArrayBuffer).byteLength > 0) {
-      children.push(node('Issuer UID', Convert.ToHex(issuerUID)));
+      children.push(node('Issuer UID', hex.encode(issuerUID)));
     }
 
     nodes.push(section('Base Certificate ID', children));
@@ -42,7 +42,7 @@ export function parseHolder(holder: Holder): IExtensionNode[] {
     const children: IExtensionNode[] = [
       node('Type', DigestedObjectType[digestedObjectType]),
       node('Algorithm', digestAlgorithm.algorithm),
-      node('Digest', Convert.ToHex(objectDigest)),
+      node('Digest', hex.encode(objectDigest)),
     ];
 
     if (otherObjectTypeID) {

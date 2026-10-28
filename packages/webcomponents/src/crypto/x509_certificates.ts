@@ -9,7 +9,7 @@ import {
 } from '@peculiar/asn1-cms';
 import { AsnConvert, OctetString } from '@peculiar/asn1-schema';
 import { Certificate } from '@peculiar/asn1-x509';
-import { Convert } from 'pvtsutils';
+import { base64url } from '@peculiar/utils/encoding';
 import { Download } from '../utils';
 import { PemConverter } from './pem_converter';
 import { X509Certificate } from './x509_certificate';
@@ -19,7 +19,7 @@ export class X509Certificates extends Array<X509Certificate> {
     super();
 
     const rawItems = PemConverter.isPem(raw)
-      ? PemConverter.decode(raw).map((value) => Convert.ToBase64Url(value))
+      ? PemConverter.decode(raw).map((value) => base64url.encode(value))
       : raw.split(',');
 
     if (rawItems.length < 2) {

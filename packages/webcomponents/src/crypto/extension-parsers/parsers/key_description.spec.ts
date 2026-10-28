@@ -1,11 +1,34 @@
 import { id_ce_keyDescription } from '@peculiar/asn1-android';
 import { describe, it, expect } from 'vitest';
+import type { IExtensionNode, IParsedExtension } from '../types';
 import { makeExtRaw } from '../../../tests/test_utils';
 import { KeyDescriptionParser } from './key_description';
 
 // Extension value from Android Keystore Key.cer (test_assets)
 const ANDROID_KEY_DESCRIPTION_HEX =
   '308201820201640a01010201640a01010420316231616461333561633432366562316638343563383765653239663065633304003057bf8545530451304f312930270421636f6d2e7469636b7069636b6c6c632e63656f627269656e2e7469636b7069636b0202012931220420ce016851b704da76fdedde34ab314a155ca5a5db31266d2685fcbf281ab510283081f6a1083106020103020102a203020103a30402020100a5053103020104aa03020101bf8377020500bf853e03020100bf85404c304a04209fb52f0954613f221af4f4070c31415ed44c1a81d51889db0946632599b3e9460101ff0a01000420ffaeec3477824dd82e09b6400602dcb274eb4e89dcb6093ad1f6ede964ed73c3bf854105020301d4c0bf8542050203031644bf854d1604146d6f746f726f6c61206564676520283230323229bf854c0a04086d6f746f726f6c61bf85480d040b7465736c615f675f737973bf85470704057465736c61bf85460a04086d6f746f726f6c61bf854e0602040134b291bf854f0602040134b291';
+
+// Same DER with one attestation ID value swapped for bytes of the same length.
+const MODEL = '6d6f746f726f6c61206564676520283230323229'; // 'motorola edge (2022)'
+const MANUFACTURER = 'bf854c0a04086d6f746f726f6c61'; // 'motorola'
+
+function findValue(nodes: (IExtensionNode | IParsedExtension)[], title: string): unknown {
+  for (const n of nodes) {
+    if ('title' in n && n.title === title && 'value' in n) return n.value;
+    const found = n.children ? findValue(n.children, title) : undefined;
+    if (found !== undefined) return found;
+  }
+
+  return undefined;
+}
+
+function parseWith(from: string, to: string) {
+  expect(ANDROID_KEY_DESCRIPTION_HEX).toContain(from);
+
+  return new KeyDescriptionParser().parse(
+    makeExtRaw(id_ce_keyDescription, ANDROID_KEY_DESCRIPTION_HEX.replace(from, to)),
+  ).children;
+}
 
 describe('KeyDescriptionParser', () => {
   const parser = new KeyDescriptionParser();
@@ -167,6 +190,20 @@ describe('KeyDescriptionParser', () => {
           ],
         },
       ],
+    });
+  });
+
+  describe('text values', () => {
+    it('shows HEX for values that are not valid UTF-8', () => {
+      const invalid = 'ff'.repeat(20);
+
+      expect(findValue(parseWith(MODEL, invalid), 'Attestation Id Model')).toBe(invalid);
+    });
+
+    it('keeps a leading UTF-8 BOM', () => {
+      const children = parseWith(MANUFACTURER, 'bf854c0a0408efbbbf6d6f746f72');
+
+      expect(findValue(children, 'Attestation Id Manufacturer')).toBe('\ufeffmotor');
     });
   });
 });

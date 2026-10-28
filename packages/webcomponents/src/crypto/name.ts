@@ -13,7 +13,7 @@ import {
 } from '@peculiar/asn1-mtc';
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Name as AsnName } from '@peculiar/asn1-x509';
-import { BufferSourceConverter } from 'pvtsutils';
+import { isBufferSource } from '@peculiar/utils/bytes';
 
 const oidToShortName = {
   '2.5.4.3': 'CN',
@@ -51,7 +51,7 @@ export interface INameJSON {
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class Name {
   public static parse(data: BufferSource | AsnName): INameJSON[] {
-    const asn = BufferSourceConverter.isBufferSource(data) ? AsnParser.parse(data, AsnName) : data;
+    const asn = isBufferSource(data) ? AsnParser.parse(data, AsnName) : data;
 
     const res: INameJSON[] = [];
 

@@ -13,7 +13,7 @@ import {
   id_pe_biometricInfo,
   PredefinedBiometricType,
 } from '@peculiar/asn1-x509-qualified';
-import { Convert } from 'pvtsutils';
+import { hex } from '@peculiar/utils/encoding';
 import type { IExtensionNode, IExtensionParser, IParsedExtension } from '../types';
 import { node, section } from '../builders';
 
@@ -51,7 +51,7 @@ export class BiometricInfoParser implements IExtensionParser {
             }
 
             children.push(node('Hash Algorithm', data.hashAlgorithm.algorithm));
-            children.push(node('Hash', Convert.ToHex(data.biometricDataHash)));
+            children.push(node('Hash', hex.encode(data.biometricDataHash)));
 
             if (data.sourceDataUri != null) {
               children.push(node('Source URI', data.sourceDataUri));

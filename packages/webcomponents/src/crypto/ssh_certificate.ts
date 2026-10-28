@@ -1,6 +1,7 @@
 import { SshCertificate as SshCertificateType, parseCertificate } from '@peculiar/ssh';
-import { Convert } from 'pvtsutils';
-import { dateDiff, Download } from '../utils';
+import { base64, base64url, utf8 } from '@peculiar/utils/encoding';
+import { dateDiff, decodeUtf8, Download } from '../utils';
+import { isBase64UrlText } from './utils';
 
 export class SshCertificate {
   public readonly serialNumber: string;
@@ -38,10 +39,9 @@ export class SshCertificate {
   #cert: SshCertificateType;
 
   constructor(raw: string) {
+    const text = raw.trim();
     const blob = parseCertificate(
-      Convert.isBase64Url(raw.trim())
-        ? Convert.ToString(Convert.FromBase64Url(raw.trim()))
-        : raw.trim(),
+      isBase64UrlText(text) ? decodeUtf8(base64url.decode(text)) : text,
     );
 
     // @ts-expect-error - SshCertificateType is not a constructor
@@ -67,7 +67,7 @@ export class SshCertificate {
       algorithm: key.algorithm.name,
       type: blob.type,
       value: await this.#cert.signatureKey.toSSH(),
-      thumbprint: Convert.ToBase64(thumbprint),
+      thumbprint: base64.encode(thumbprint),
     };
   }
 
@@ -80,7 +80,7 @@ export class SshCertificate {
       algorithm: key.algorithm.name,
       type: blob.type,
       value: await this.#cert.publicKey.toSSH(),
-      thumbprint: Convert.ToBase64(thumbprint),
+      thumbprint: base64.encode(thumbprint),
     };
   }
 
@@ -88,7 +88,7 @@ export class SshCertificate {
     if (format === 'base64url') {
       const blob = await this.#cert.toSSH();
 
-      return Convert.ToBase64Url(Convert.FromString(blob));
+      return base64url.encode(utf8.encode(blob));
     }
 
     return this.#cert.toSSH();

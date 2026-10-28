@@ -7,7 +7,7 @@
  */
 
 import { AsnConvert } from '@peculiar/asn1-schema';
-import { BufferSourceConverter } from 'pvtsutils';
+import { toArrayBuffer } from '@peculiar/utils/bytes';
 
 export class AsnData<T> {
   #asn: T;
@@ -26,7 +26,7 @@ export class AsnData<T> {
     } else {
       // raw, type
       this.#asn = AsnConvert.parse(args[0], args[1]);
-      this.#raw = BufferSourceConverter.toArrayBuffer(args[0]);
+      this.#raw = toArrayBuffer(args[0]);
     }
   }
 

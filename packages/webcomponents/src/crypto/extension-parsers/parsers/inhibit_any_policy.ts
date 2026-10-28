@@ -8,12 +8,12 @@
 
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Extension, id_ce_inhibitAnyPolicy, InhibitAnyPolicy } from '@peculiar/asn1-x509';
-import { BufferSourceConverter } from 'pvtsutils';
+import { toUint8Array } from '@peculiar/utils/bytes';
 import type { IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
 function decodeInteger(value: ArrayBuffer): number {
-  const bytes = new Uint8Array(BufferSourceConverter.toArrayBuffer(value));
+  const bytes = toUint8Array(value);
   let result = 0;
 
   for (const byte of bytes) {
