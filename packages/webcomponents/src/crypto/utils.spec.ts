@@ -76,10 +76,17 @@ ZYYG
       expect(bytes(certificateRawToBuffer('+/+/'))).toEqual([0xfb, 0xff, 0xbf]);
     });
 
-    it('should not treat line-wrapped Base64 as Base64', () => {
-      const wrapped = 'SGVs\nbG8g\nV29y\nbGQ=';
+    it('should decode line-wrapped Base64', () => {
+      expect(bytes(certificateRawToBuffer('SGVs\nbG8g\r\nV29y\nbGQ=\n'))).toEqual(helloWorld);
+    });
 
-      expect(bytes(certificateRawToBuffer(wrapped))).toEqual(ascii(wrapped));
+    it('should not treat Base64 with spaces or tabs as Base64', () => {
+      expect(bytes(certificateRawToBuffer('SGVsbG8g V29ybGQ='))).toEqual(
+        ascii('SGVsbG8g V29ybGQ='),
+      );
+      expect(bytes(certificateRawToBuffer('SGVsbG8g\tV29ybGQ='))).toEqual(
+        ascii('SGVsbG8g\tV29ybGQ='),
+      );
     });
   });
 
@@ -90,6 +97,12 @@ ZYYG
 
     it('should decode Base64Url with - and _', () => {
       expect(bytes(certificateRawToBuffer('-_-_'))).toEqual([0xfb, 0xff, 0xbf]);
+    });
+
+    it('should not treat Base64Url with whitespace as Base64Url', () => {
+      expect(bytes(certificateRawToBuffer('SGVsbG8g\nV29ybGQ'))).toEqual(
+        ascii('SGVsbG8g\nV29ybGQ'),
+      );
     });
   });
 

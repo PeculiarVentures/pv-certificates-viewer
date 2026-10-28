@@ -15,11 +15,14 @@ export const certificateRawToBuffer = (raw: string): ArrayBuffer => {
     return PemConverter.decode(raw)[0];
   }
 
+  // Ignore line breaks so line-wrapped Base64 (a PEM body without the armor) is detected
+  const unwrapped = raw.replace(/[\r\n]/g, '');
+
   if (Convert.isHex(raw)) {
     return Convert.FromHex(raw);
   }
 
-  if (Convert.isBase64(raw)) {
+  if (Convert.isBase64(unwrapped)) {
     return Convert.FromBase64(raw);
   }
 
