@@ -7,7 +7,7 @@
  */
 
 import { AttributeCertificate } from '@peculiar/asn1-x509-attr';
-import { Convert } from 'pvtsutils';
+import { base64, base64url, hex } from '@peculiar/utils/encoding';
 import { dateDiff, Download } from '../utils';
 import { AsnData } from './asn_data';
 import { type IParsedAttribute, parseAttribute } from './attribute-parsers';
@@ -52,7 +52,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
 
     const { acinfo } = this.asn;
 
-    this.serialNumber = Convert.ToHex(acinfo.serialNumber);
+    this.serialNumber = hex.encode(acinfo.serialNumber);
     this.version = acinfo.version;
 
     const notBefore = acinfo.attrCertValidityPeriod.notBeforeTime;
@@ -105,7 +105,7 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
       const thumbprint = await getCertificateThumbprint(algorithm, this.raw);
 
       if (thumbprint) {
-        this.thumbprints[algorithm] = Convert.ToHex(thumbprint);
+        this.thumbprints[algorithm] = hex.encode(thumbprint);
       }
     } catch (error) {
       console.error('Error thumbprint get:', error);
@@ -121,9 +121,9 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
       case 'pem':
         return PemConverter.encode(this.raw, this.tag);
       case 'base64url':
-        return Convert.ToBase64Url(this.raw);
+        return base64url.encode(this.raw);
       default:
-        return Convert.ToBase64(this.raw);
+        return base64.encode(this.raw);
     }
   }
 

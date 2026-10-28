@@ -14,7 +14,7 @@ import {
   id_ce_subjectDirectoryAttributes,
   SubjectDirectoryAttributes,
 } from '@peculiar/asn1-x509';
-import { Convert } from 'pvtsutils';
+import { hex } from '@peculiar/utils/encoding';
 import type { IExtensionParser, IParsedExtension } from '../types';
 import { dateShort } from '../../../utils';
 import { node } from '../builders';
@@ -39,7 +39,7 @@ function decodeAttributeValue(attributeType: string, buf: ArrayBuffer): string {
   try {
     return AsnParser.parse(buf, AttributeValue).toString();
   } catch {
-    return Convert.ToHex(buf);
+    return hex.encode(buf);
   }
 }
 

@@ -8,7 +8,7 @@
 
 import { AsnParser } from '@peculiar/asn1-schema';
 import { Extension, id_ce_policyConstraints, PolicyConstraints } from '@peculiar/asn1-x509';
-import { BufferSourceConverter } from 'pvtsutils';
+import { toUint8Array } from '@peculiar/utils/bytes';
 import type { IExtensionNode, IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
@@ -18,7 +18,7 @@ import { node } from '../builders';
  * actually a Uint8Array at runtime).
  */
 function decodeSkipCerts(value: ArrayBuffer): number {
-  const bytes = new Uint8Array(BufferSourceConverter.toArrayBuffer(value));
+  const bytes = toUint8Array(value);
   let result = 0;
 
   for (const byte of bytes) {

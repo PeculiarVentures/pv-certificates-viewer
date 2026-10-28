@@ -6,7 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { BufferSourceConverter, Convert } from 'pvtsutils';
+import { isBufferSource, toArrayBuffer } from '@peculiar/utils/bytes';
+import { base64 } from '@peculiar/utils/encoding';
 
 const rPaddingTag = '-{5}';
 const rEolChars = '\\n';
@@ -76,11 +77,11 @@ export class PemConverter {
     // eslint-disable-next-line no-cond-assign
     while ((matches = pattern.exec(pem))) {
       // prepare pem encoded message
-      const base64 = matches[3].replace(new RegExp(`[${rEolChars}]+`, 'g'), '');
+      const base64Text = matches[3].replace(new RegExp(`[${rEolChars}]+`, 'g'), '');
       const pemStruct: IPemStruct = {
         type: matches[1],
         headers: [],
-        rawData: Convert.FromBase64(base64),
+        rawData: toArrayBuffer(base64.decode(base64Text)),
       };
 
       // read headers
@@ -150,7 +151,7 @@ export class PemConverter {
       if (tag) {
         // encode BufferSource[]
         rawData.forEach((element) => {
-          if (!BufferSourceConverter.isBufferSource(element)) {
+          if (!isBufferSource(element)) {
             throw new TypeError(
               'Cannot encode array of BufferSource in PEM format. Not all items of the array are BufferSource',
             );
@@ -159,7 +160,7 @@ export class PemConverter {
           raws.push(
             this.encodeStruct({
               type: tag,
-              rawData: BufferSourceConverter.toArrayBuffer(element),
+              rawData: toArrayBuffer(element),
             }),
           );
         });
@@ -185,7 +186,7 @@ export class PemConverter {
 
     return this.encodeStruct({
       type: tag,
-      rawData: BufferSourceConverter.toArrayBuffer(rawData),
+      rawData: toArrayBuffer(rawData),
     });
   }
 
@@ -209,16 +210,16 @@ export class PemConverter {
       res.push(''); // blank line
     }
 
-    const base64 = Convert.ToBase64(pem.rawData);
+    const base64Text = base64.encode(pem.rawData);
     let sliced: string;
     let offset = 0;
     const rows = Array<string>();
 
-    while (offset < base64.length) {
-      if (base64.length - offset < 64) {
-        sliced = base64.substring(offset);
+    while (offset < base64Text.length) {
+      if (base64Text.length - offset < 64) {
+        sliced = base64Text.substring(offset);
       } else {
-        sliced = base64.substring(offset, offset + 64);
+        sliced = base64Text.substring(offset, offset + 64);
         offset += 64;
       }
 

@@ -7,7 +7,7 @@
  */
 
 import { CertificateList, Time } from '@peculiar/asn1-x509';
-import { Convert } from 'pvtsutils';
+import { base64, base64url, hex } from '@peculiar/utils/encoding';
 import { Download } from '../utils';
 import { AsnData } from './asn_data';
 import { type IParsedExtension, parseExtension } from './extension-parsers';
@@ -69,7 +69,7 @@ export class X509Crl extends AsnData<CertificateList> {
       const thumbprint = await getCertificateThumbprint(algorithm, this.raw);
 
       if (thumbprint) {
-        this.thumbprints[algorithm] = Convert.ToHex(thumbprint);
+        this.thumbprints[algorithm] = hex.encode(thumbprint);
       }
     } catch (error) {
       console.error('Error thumbprint get:', error);
@@ -114,9 +114,9 @@ export class X509Crl extends AsnData<CertificateList> {
       case 'pem':
         return PemConverter.encode(this.raw, this.tag);
       case 'base64url':
-        return Convert.ToBase64Url(this.raw);
+        return base64url.encode(this.raw);
       default:
-        return Convert.ToBase64(this.raw);
+        return base64.encode(this.raw);
     }
   }
 

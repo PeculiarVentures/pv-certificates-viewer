@@ -22,7 +22,7 @@ import {
   QcEuRetentionPeriod,
   PdsLocations,
 } from '@peculiar/asn1-x509-qualified-etsi';
-import { Convert } from 'pvtsutils';
+import { hex } from '@peculiar/utils/encoding';
 import type { IExtensionNode, IExtensionParser, IParsedExtension } from '../types';
 import { OIDs } from '../../../constants/oids';
 import { node, section } from '../builders';
@@ -84,7 +84,7 @@ function parseStatementInfo(statementId: string, statementInfo?: ArrayBuffer): I
     // fall through
   }
 
-  return [node('Info', Convert.ToHex(statementInfo))];
+  return [node('Info', hex.encode(statementInfo))];
 }
 
 export class QCStatementsParser implements IExtensionParser {

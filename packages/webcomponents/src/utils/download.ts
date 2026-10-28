@@ -6,13 +6,19 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Convert } from 'pvtsutils';
+import { toArrayBuffer } from '@peculiar/utils/bytes';
+import { utf8 } from '@peculiar/utils/encoding';
 import { downloadFromBuffer } from './download_from_buffer';
 
 export class Download {
   public static cert = {
     asPEM: (pem: string, name: string) => {
-      void downloadFromBuffer(Convert.FromString(pem), name, 'cer', 'application/pkix-cert');
+      void downloadFromBuffer(
+        toArrayBuffer(utf8.encode(pem)),
+        name,
+        'cer',
+        'application/pkix-cert',
+      );
     },
 
     asDER: (raw: ArrayBuffer, name: string) => {
@@ -22,7 +28,12 @@ export class Download {
 
   public static attrCert = {
     asPEM: (pem: string, name: string) => {
-      void downloadFromBuffer(Convert.FromString(pem), name, 'cer', 'application/pkix-attr-cert');
+      void downloadFromBuffer(
+        toArrayBuffer(utf8.encode(pem)),
+        name,
+        'cer',
+        'application/pkix-attr-cert',
+      );
     },
 
     asDER: (raw: ArrayBuffer, name: string) => {
@@ -32,7 +43,7 @@ export class Download {
 
   public static csr = {
     asPEM: (pem: string, name: string) => {
-      void downloadFromBuffer(Convert.FromString(pem), name, 'csr', 'application/pkcs10');
+      void downloadFromBuffer(toArrayBuffer(utf8.encode(pem)), name, 'csr', 'application/pkcs10');
     },
 
     asDER: (raw: ArrayBuffer, name: string) => {
@@ -42,7 +53,7 @@ export class Download {
 
   public static crl = {
     asPEM: (pem: string, name: string) => {
-      void downloadFromBuffer(Convert.FromString(pem), name, 'crl', 'application/pkix-crl');
+      void downloadFromBuffer(toArrayBuffer(utf8.encode(pem)), name, 'crl', 'application/pkix-crl');
     },
 
     asDER: (raw: ArrayBuffer, name: string) => {
@@ -52,7 +63,7 @@ export class Download {
 
   public static certSSH = {
     asPub: (value: string, name: string) => {
-      void downloadFromBuffer(Convert.FromString(value), name, 'pub', 'text/plain');
+      void downloadFromBuffer(toArrayBuffer(utf8.encode(value)), name, 'pub', 'text/plain');
     },
   };
 }

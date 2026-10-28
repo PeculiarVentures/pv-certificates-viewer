@@ -8,7 +8,8 @@
 
 import { OctetString } from '@peculiar/asn1-schema';
 import { Attribute, Extension } from '@peculiar/asn1-x509';
-import { Convert } from 'pvtsutils';
+import { toArrayBuffer } from '@peculiar/utils/bytes';
+import { hex } from '@peculiar/utils/encoding';
 
 /**
  * Build a minimal Extension object from a raw DER-encoded value hex string.
@@ -19,7 +20,7 @@ export function makeExtRaw(oid: string, valueHex: string, critical = false): Ext
   const ext = new Extension({
     extnID: oid,
     critical,
-    extnValue: new OctetString(Convert.FromHex(valueHex)),
+    extnValue: new OctetString(hex.decode(valueHex)),
   });
 
   return ext;
@@ -33,7 +34,7 @@ export function makeExtRaw(oid: string, valueHex: string, critical = false): Ext
 export function makeAttrRaw(oid: string, valueHex: string): Attribute {
   const attr = new Attribute({
     type: oid,
-    values: [Convert.FromHex(valueHex)],
+    values: [toArrayBuffer(hex.decode(valueHex))],
   });
 
   return attr;

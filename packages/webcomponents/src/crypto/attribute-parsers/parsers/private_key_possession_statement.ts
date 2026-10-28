@@ -12,7 +12,7 @@ import {
 } from '@peculiar/asn1-private-key-stmt';
 import { AsnConvert, AsnParser } from '@peculiar/asn1-schema';
 import { Attribute as AsnAttribute } from '@peculiar/asn1-x509';
-import { Convert } from 'pvtsutils';
+import { base64, hex } from '@peculiar/utils/encoding';
 import type { IAttributeParser, IExtensionNode, IParsedAttribute } from '../types';
 import { node, section } from '../../extension-parsers/builders';
 import { Name } from '../../name';
@@ -24,7 +24,7 @@ export class PrivateKeyPossessionStatementParser implements IAttributeParser {
     const pks = AsnParser.parse(attribute.values[0], PrivateKeyPossessionStatement);
     const children: IExtensionNode[] = [];
 
-    children.push(node('Serial Number', Convert.ToHex(pks.signer.serialNumber)));
+    children.push(node('Serial Number', hex.encode(pks.signer.serialNumber)));
 
     const issuerAttrs = Name.parse(pks.signer.issuer);
 
@@ -36,7 +36,7 @@ export class PrivateKeyPossessionStatementParser implements IAttributeParser {
     );
 
     if (pks.cert) {
-      children.push(node('Certificate', Convert.ToBase64(AsnConvert.serialize(pks.cert))));
+      children.push(node('Certificate', base64.encode(AsnConvert.serialize(pks.cert))));
     }
 
     return {

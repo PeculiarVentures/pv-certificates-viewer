@@ -12,7 +12,7 @@ import {
   Extension,
   id_ce_authorityKeyIdentifier,
 } from '@peculiar/asn1-x509';
-import { Convert } from 'pvtsutils';
+import { hex } from '@peculiar/utils/encoding';
 import type { IExtensionNode, IExtensionParser, IParsedExtension } from '../types';
 import { node } from '../builders';
 
@@ -25,13 +25,11 @@ export class AuthorityKeyIdentifierParser implements IExtensionParser {
     const children: IExtensionNode[] = [];
 
     if (aki.keyIdentifier != null) {
-      children.push(
-        node('Key Identifier', Convert.ToHex(aki.keyIdentifier.buffer), 'authorityKeyId'),
-      );
+      children.push(node('Key Identifier', hex.encode(aki.keyIdentifier.buffer), 'authorityKeyId'));
     }
 
     if (aki.authorityCertSerialNumber != null) {
-      children.push(node('Serial Number', Convert.ToHex(aki.authorityCertSerialNumber)));
+      children.push(node('Serial Number', hex.encode(aki.authorityCertSerialNumber)));
     }
 
     return {

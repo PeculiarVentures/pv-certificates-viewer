@@ -7,7 +7,7 @@
  */
 
 import type { Extension } from '@peculiar/asn1-x509';
-import { Convert } from 'pvtsutils';
+import { hex } from '@peculiar/utils/encoding';
 import type { IParsedExtension } from './types';
 
 export interface IUnknownExtension extends IParsedExtension {
@@ -15,7 +15,7 @@ export interface IUnknownExtension extends IParsedExtension {
 }
 
 export function parseUnknown(extension: Extension): IUnknownExtension {
-  const raw = Convert.ToHex(extension.extnValue.buffer);
+  const raw = hex.encode(extension.extnValue.buffer);
 
   return {
     oid: extension.extnID,

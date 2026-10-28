@@ -18,7 +18,8 @@ import {
   CompositeSignatureValue,
   CompositeParams,
 } from '@peculiar/asn1-x509-post-quantum';
-import { Convert, BufferSourceConverter } from 'pvtsutils';
+import { toUint8Array } from '@peculiar/utils/bytes';
+import { base64, base64url, hex } from '@peculiar/utils/encoding';
 import { dateDiff, Download } from '../utils';
 import { AsnData } from './asn_data';
 import { type IParsedExtension, parseExtension } from './extension-parsers';
@@ -83,7 +84,7 @@ export class X509Certificate extends AsnData<Certificate> {
 
     const { tbsCertificate } = this.asn;
 
-    this.serialNumber = Convert.ToHex(tbsCertificate.serialNumber);
+    this.serialNumber = hex.encode(tbsCertificate.serialNumber);
     this.subject = Name.parse(tbsCertificate.subject);
     this.issuer = Name.parse(tbsCertificate.issuer);
     this.version = tbsCertificate.version + 1;
@@ -169,7 +170,7 @@ export class X509Certificate extends AsnData<Certificate> {
       signatureAlgorithm.algorithm === id_alg_mtcProof_experimental
     ) {
       try {
-        const proof = MTCProof.parse(BufferSourceConverter.toUint8Array(signatureValue));
+        const proof = MTCProof.parse(toUint8Array(signatureValue));
         const json = proof.toJSON();
 
         return {
@@ -206,7 +207,7 @@ export class X509Certificate extends AsnData<Certificate> {
       const thumbprint = await getCertificateThumbprint(algorithm, this.raw);
 
       if (thumbprint) {
-        this.thumbprints[algorithm] = Convert.ToHex(thumbprint);
+        this.thumbprints[algorithm] = hex.encode(thumbprint);
       }
     } catch (error) {
       console.error('Error thumbprint get:', error);
@@ -270,9 +271,9 @@ export class X509Certificate extends AsnData<Certificate> {
       case 'pem':
         return PemConverter.encode(this.raw, this.tag);
       case 'base64url':
-        return Convert.ToBase64Url(this.raw);
+        return base64url.encode(this.raw);
       default:
-        return Convert.ToBase64(this.raw);
+        return base64.encode(this.raw);
     }
   }
 
