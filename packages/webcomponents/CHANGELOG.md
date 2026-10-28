@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v5.1.0...v5.2.0) (2026-10-28)
+
+### Bug Fixes
+
+* **mtc:** recognize assigned OIDs and render proof diagnostics ([#215](https://github.com/PeculiarVentures/pv-certificates-viewer/issues/215)) ([3a2a186](https://github.com/PeculiarVentures/pv-certificates-viewer/commit/3a2a1867313d9cb05f5e2ee3b9bf17b026960ed6))
+
+
 # [5.1.0](https://github.com/PeculiarVentures/pv-certificates-viewer/compare/v5.0.0...v5.1.0) (2026-09-28)
 
 ### Bug Fixes
