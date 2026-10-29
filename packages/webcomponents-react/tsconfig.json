@@ -1,24 +1,19 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "esModuleInterop": true,
-    "outDir": "dist",
-    "declarationDir": "dist/types",
-    /*
-     * rootDir is set to satisfy @rollup/plugin-typescript (TS5011) so the
-     * output file layout is predictable. Setting rootDir restricts the program
-     * to files under it, which stops @types from being auto-included, so the
-     * ambient type packages must be listed explicitly. jest and jest-dom are
-     * needed because the test files are type-checked as part of the build.
-     */
-    "rootDir": "src",
-    "types": ["node"],
-    "inlineSources": true,
-    "sourceMap": true,
-    "jsx": "react-jsx",
-    "target": "es2022"
+    "target": "es2023",
+    "lib": ["es2023", "DOM"],
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "types": [],
+    // No verbatimModuleSyntax: Stencil generates src/components.ts with
+    // `import { type A, type B } from "@peculiar/certificates-viewer"`, which it would
+    // keep as a side-effect import of the whole lazy-loader build.
+    "isolatedModules": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "noImplicitOverride": true,
+    "noErrorTruncation": true,
+    "noEmit": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "compileOnSave": false,
-  "buildOnSave": false
+  "include": ["src"]
 }
