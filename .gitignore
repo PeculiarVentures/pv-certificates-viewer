@@ -28,4 +28,4 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 .env
-.vitest-attachments
+.vitest/
