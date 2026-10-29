@@ -32,14 +32,11 @@ A typical contributor workflow looks like this:
 
 ## Release Publishing
 
-Package releases are handled through GitHub Actions and Lerna. Do not push version bumps or release tags directly to `main`.
+Releases are managed by [release-please](https://github.com/googleapis/release-please) (`release-please-config.json`, `.release-please-manifest.json`). Both packages share one version and are released together. Do not push version bumps or release tags to `main` by hand.
 
-1. A maintainer manually triggers the **Version Bump** workflow and selects a `patch`, `minor`, or `major` bump.
-2. The workflow runs checks, then uses Lerna to update package versions and changelogs locally with no push and no git tags.
-3. The workflow opens a release pull request from `release/version-bump` with the `release` label.
-4. The team reviews the package version changes and changelogs, then approves and merges the PR.
-5. The **Publish to npm** workflow runs when the release PR changes are pushed to `main`.
-6. The publish workflow creates or reuses the fixed Lerna release tag from `lerna.json` (for example, `v4.9.2`) and creates the matching GitHub Release.
-7. Lerna publishes the packages from the git tag to npm with public access.
+1. On every push to `main`, the **Release** workflow (`.github/workflows/publish.yaml`) first runs lint, format, tests and build (the **Test** workflow), then deploys the demo site to `gh-pages`. Only when the checks pass does release-please open or update a `chore(release): vX.Y.Z` pull request. It bumps the root and both `packages/*/package.json` versions, the `@peculiar/certificates-viewer` range in the React package, and `package-lock.json`. The version comes from the commits: a breaking change bumps major, `feat` bumps minor, and `fix`, `perf`, `build`, and `revert` bump patch. Other types do not trigger a release.
+2. Merge the release pull request. release-please creates the `vX.Y.Z` tag and the GitHub Release with the notes from the pull request; the workflow then publishes every package whose version is not on npm yet via Trusted Publisher, with provenance, `@peculiar/certificates-viewer` before `@peculiar/certificates-viewer-react`.
 
-The publish job runs in the GitHub Actions `npm` environment and requires npm Trusted Publishing to be configured for the packages in this repository. Provenance is not enabled while the repository is private because npm only supports provenance from public GitHub repositories.
+To retry a failed or partial npm publish, run **Release** manually from the `vX.Y.Z` tag, or from `main` as long as nothing under `packages/` has changed since that tag; packages already on npm are skipped. Set the optional `RELEASE_TOKEN` secret (PAT or GitHub App token) so the Test workflow runs on the release pull request. Both packages need an npm Trusted Publisher for this repository, workflow `publish.yaml` and environment `npm`.
+
+Release notes live only in [GitHub Releases](https://github.com/PeculiarVentures/pv-certificates-viewer/releases); there is no `CHANGELOG.md`. Pull requests are squash-merged, so the pull request title must be a [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/). Force a version with a `Release-As: x.y.z` line in a commit body. To fix the notes for a merged change, add a `BEGIN_COMMIT_OVERRIDE` … `END_COMMIT_OVERRIDE` block with the corrected commit message to that pull request's description; edits to the release pull request description are overwritten when new commits land.

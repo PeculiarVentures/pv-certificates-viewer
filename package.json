@@ -1,5 +1,6 @@
 {
   "name": "peculiar-certificates-viewer-monorepo",
+  "version": "5.2.0",
   "private": true,
   "keywords": [
     "asn1",
@@ -21,7 +22,7 @@
   "scripts": {
     "build": "npm run build --workspaces",
     "test": "npm run test --workspaces",
-    "clean": "lerna run --parallel clean",
+    "clean": "npm run clean --workspaces --if-present",
     "lint": "OXLINT_TSGOLINT_DANGEROUSLY_SUPPRESS_PROGRAM_DIAGNOSTICS=true oxlint",
     "lint:fix": "npm run lint -- --fix",
     "format": "oxfmt",
@@ -30,7 +31,6 @@
     "prepare": "npm run build"
   },
   "devDependencies": {
-    "lerna": "^10.1.1",
     "oxfmt": "^0.70.0",
     "oxlint": "^1.85.0",
     "oxlint-tsgolint": "^7.0.2002"

@@ -3,13 +3,7 @@
   "printWidth": 100,
   "singleQuote": true,
   "semi": true,
-  "ignorePatterns": [
-    "CHANGELOG.md",
-    "**/components/**/readme.md",
-    "**/components.d.ts",
-    "**/components.ts",
-    "lerna.json"
-  ],
+  "ignorePatterns": ["**/components/**/readme.md", "**/components.d.ts", "**/components.ts"],
   "insertFinalNewline": true,
   "jsxSingleQuote": false,
   "objectWrap": "preserve",
