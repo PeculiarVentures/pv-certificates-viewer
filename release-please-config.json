@@ -1,0 +1,42 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "packages": {
+    ".": {
+      "release-type": "node",
+      "include-component-in-tag": false,
+      "skip-changelog": true,
+      "pull-request-title-pattern": "chore(release): v${version}",
+      "changelog-sections": [
+        { "type": "feat", "section": "Features" },
+        { "type": "fix", "section": "Bug Fixes" },
+        { "type": "perf", "section": "Performance Improvements" },
+        { "type": "build", "section": "Build System" },
+        { "type": "revert", "section": "Reverts" }
+      ],
+      "extra-files": [
+        {
+          "type": "json",
+          "path": "packages/*/package.json",
+          "glob": true,
+          "jsonpath": "$.version"
+        },
+        {
+          "type": "json",
+          "path": "packages/*/package.json",
+          "glob": true,
+          "jsonpath": "$[dependencies,peerDependencies,devDependencies][?(@property.startsWith('@peculiar/certificates-viewer'))]"
+        },
+        {
+          "type": "json",
+          "path": "package-lock.json",
+          "jsonpath": "$.packages[?(@property.startsWith('packages/') && !@property.includes('/node_modules/'))].version"
+        },
+        {
+          "type": "json",
+          "path": "package-lock.json",
+          "jsonpath": "$.packages[?(@property.startsWith('packages/') && !@property.includes('/node_modules/'))][dependencies,peerDependencies,devDependencies][?(@property.startsWith('@peculiar/certificates-viewer'))]"
+        }
+      ]
+    }
+  }
+}

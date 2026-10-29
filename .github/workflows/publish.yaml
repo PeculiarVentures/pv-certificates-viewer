@@ -1,87 +1,230 @@
-name: Publish to npm
+name: Release
 
 on:
   push:
     branches:
       - main
-    paths:
-      - 'lerna.json'
-      - 'packages/*/package.json'
-      - 'packages/*/CHANGELOG.md'
+  # Retries publishing a released version, e.g. after a failed npm publish. Run it from the
+  # v<version> tag, or from main while main's packages/ still match the tag of its version.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
 
 jobs:
+  # Gates release-please, so a commit that fails checks never gets a tag or a GitHub Release.
+  check:
+    if: github.event_name == 'push'
+    uses: ./.github/workflows/test.yml
+
+  release-please:
+    runs-on: ubuntu-24.04
+    needs: check
+
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      sha: ${{ steps.release.outputs.sha }}
+
+    steps:
+      # Without RELEASE_TOKEN the release PR is opened with GITHUB_TOKEN, and no workflow (Test included) runs on it.
+      - name: Check RELEASE_TOKEN
+        env:
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: |
+          if [ -z "$RELEASE_TOKEN" ]; then
+            echo "::warning::RELEASE_TOKEN is not set: Test will not run on the release pull request"
+          fi
+
+      # Opens or updates the release PR from Conventional Commits; once that PR is merged,
+      # creates the v<version> tag and the GitHub Release with the notes from the PR.
+      - name: Release Please
+        id: release
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          # PRs opened with GITHUB_TOKEN do not trigger other workflows; set RELEASE_TOKEN so Test runs on the release PR.
+          token: ${{ secrets.RELEASE_TOKEN || github.token }}
+
   publish:
-    if: |
-      startsWith(github.event.head_commit.message, 'chore: release version bump') ||
-      contains(github.event.head_commit.message, 'release/version-bump')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    needs: release-please
+    # Manual runs skip check and release-please, so they must not depend on their results.
+    if: >-
+      !cancelled() && (
+        github.event_name == 'workflow_dispatch' ||
+        needs.release-please.outputs.release_created == 'true'
+      )
     environment: npm
+
     permissions:
       contents: write
       id-token: write
 
     steps:
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
+      # npm provenance records GITHUB_SHA, so the published commit must be exactly that commit.
+      - name: Verify the release commit
+        env:
+          RELEASE_SHA: ${{ needs.release-please.outputs.sha }}
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then
+            if [ "$GITHUB_REF" != refs/heads/main ] && { [ "$GITHUB_REF_TYPE" != tag ] || [[ ! "$GITHUB_REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+ ]]; }; then
+              echo "::error::Run Release from main or a v<version> release tag, not from $GITHUB_REF_NAME"
+              exit 1
+            fi
+          elif [ "$RELEASE_SHA" != "$GITHUB_SHA" ]; then
+            echo "::error::Release commit $RELEASE_SHA differs from $GITHUB_SHA; run Release manually from the release tag"
+            exit 1
+          fi
 
-      - uses: actions/setup-node@v6
+      # Build and dependency code run in this job, so the write token is not left in .git/config.
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Read the version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+
+          if [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then
+            if [ "$GITHUB_REF_TYPE" = tag ] && [ "v$VERSION" != "$GITHUB_REF_NAME" ]; then
+              echo "::error::package.json version $VERSION does not match tag $GITHUB_REF_NAME"
+              exit 1
+            fi
+
+            # A run from main publishes main's build under the released version, so the packages
+            # must not have changed since that release (CHANGELOG.md files are no longer kept).
+            if [ "$GITHUB_REF_TYPE" = branch ]; then
+              git fetch --no-tags --depth=1 origin "refs/tags/v$VERSION:refs/tags/v$VERSION"
+              if ! git diff --quiet "v$VERSION" HEAD -- packages ':(exclude)packages/*/CHANGELOG.md'; then
+                git diff --stat "v$VERSION" HEAD -- packages ':(exclude)packages/*/CHANGELOG.md'
+                echo "::error::packages/ changed since v$VERSION; run Release from the v$VERSION tag instead"
+                exit 1
+              fi
+            fi
+          fi
+
+          # All packages are released in lockstep with the root version.
+          node -e '
+            const fs = require("node:fs");
+            const version = process.argv[1];
+            const mismatched = fs
+              .readdirSync("packages")
+              .map((dir) => require(`./packages/${dir}/package.json`))
+              .filter((pkg) => pkg.version !== version);
+            for (const pkg of mismatched) console.log(`::error::${pkg.name} is ${pkg.version}, expected ${version}`);
+            process.exitCode = mismatched.length ? 1 : 0;
+          ' "$VERSION"
+
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
           cache: npm
 
+      # This job holds id-token and contents: write, so dependency lifecycle scripts never run here.
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
-      - name: Lint
-        run: npm run lint
-
-      - name: Format
-        run: npm run format:check
-
-      - name: Build
+      - name: Build packages
         run: npm run build
 
-      - name: Test
-        run: npm run test
+      - name: Check generated files are committed
+        run: git diff --exit-code
 
-      - name: Configure git
+      # Publishes dependencies before their dependents and skips versions already on npm,
+      # so a retry after a partial publish only publishes the missing packages.
+      - name: Publish to npm via Trusted Publisher
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          DIRS=$(node -e '
+            const fs = require("node:fs");
+            const packages = new Map();
+            for (const dir of fs.readdirSync("packages")) {
+              const pkg = require(`./packages/${dir}/package.json`);
+              packages.set(pkg.name, { dir: `packages/${dir}`, deps: Object.keys({ ...pkg.dependencies, ...pkg.peerDependencies }) });
+            }
+            const visited = new Set();
+            const visit = (name) => {
+              if (visited.has(name) || !packages.has(name)) return;
+              visited.add(name);
+              packages.get(name).deps.forEach(visit);
+              console.log(packages.get(name).dir);
+            };
+            [...packages.keys()].forEach(visit);
+          ')
 
-      - name: Create git tag and GitHub Release
+          for DIR in $DIRS; do
+            NAME=$(node -p "require('./$DIR/package.json').name")
+
+            if npm view "$NAME@$VERSION" version > /dev/null 2>&1; then
+              echo "$NAME@$VERSION is already published"
+            else
+              # Skips prepack: the build above is the one the generated-files check verified.
+              npm publish --ignore-scripts --workspace "$DIR"
+            fi
+          done
+
+      # Never moves the major tag backwards, e.g. when retrying an older version.
+      - name: Move major tag
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          version=$(jq -r '.version' lerna.json)
-          tag="v${version}"
+          MAJOR="v${VERSION%%.*}"
 
-          if git ls-remote --exit-code --tags origin "refs/tags/${tag}" >/dev/null 2>&1; then
-            echo "Tag ${tag} already exists"
-            git fetch origin "refs/tags/${tag}:refs/tags/${tag}"
-          else
-            echo "Creating tag: ${tag}"
-            git tag "$tag" -m "chore: release $tag"
-            git push origin "$tag"
+          # A run from main checks out a later commit than the release tag.
+          if [ "$GITHUB_REF_TYPE" = branch ] && [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then
+            echo "::notice::Leaving $MAJOR unchanged: run from $GITHUB_REF_NAME, not from the release commit"
+            exit 0
           fi
 
-          if gh release view "$tag" >/dev/null 2>&1; then
-            echo "GitHub Release ${tag} already exists"
-          else
-            echo "Creating GitHub Release for ${tag}"
-            gh release create "$tag" \
-              --title "$tag" \
-              --generate-notes
+          # A maintenance branch named like the major tag would make the refname ambiguous.
+          if [ -n "$(git ls-remote --heads origin "refs/heads/$MAJOR")" ]; then
+            echo "::notice::Leaving $MAJOR unchanged: a branch with that name exists"
+            exit 0
           fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Publish packages that match the tags we just pushed
-      - name: Publish to npm with Lerna
-        run: |
-          npx lerna publish from-git \
-            --yes \
-            --no-private
-        env:
-          NPM_CONFIG_ACCESS: public
-          NPM_CONFIG_PROVENANCE: true
+          LATEST=$(git ls-remote --tags --refs origin "refs/tags/$MAJOR.*" \
+            | sed 's|.*refs/tags/||' \
+            | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' \
+            | sort -V \
+            | tail -n 1)
+
+          if [ "$LATEST" != "v$VERSION" ]; then
+            echo "Leaving $MAJOR unchanged: v$VERSION is not the latest release ($LATEST)"
+            exit 0
+          fi
+
+          git tag -f "$MAJOR" HEAD
+          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "refs/tags/$MAJOR"
+
+  # Deploys the demo site (x509.io) from every push to main, released or not.
+  deploy:
+    runs-on: ubuntu-24.04
+    needs: check
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download demo site
+        uses: actions/download-artifact@v8
+        with:
+          name: www
+          path: www
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ github.token }}
+          publish_dir: ./www
