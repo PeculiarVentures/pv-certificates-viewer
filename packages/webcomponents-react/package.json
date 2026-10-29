@@ -38,6 +38,8 @@
     "access": "public"
   },
   "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc",
     "test": "echo 'No tests yet'"
   },
   "dependencies": {
@@ -45,10 +47,12 @@
     "@stencil/react-output-target": "^1.6.2"
   },
   "devDependencies": {
+    "@arethetypeswrong/core": "^0.18.5",
     "@types/react": "^18.3.28",
     "@types/react-dom": "^18.3.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "tsdown": "^0.23.3",
     "typescript": "^6.0.0"
   },
   "peerDependencies": {

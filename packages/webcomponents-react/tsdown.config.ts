@@ -1,10 +1,6 @@
 import { defineConfig } from 'tsdown';
 
 export default defineConfig({
-  // Builds the React wrapper only; Stencil builds packages/webcomponents. Paths resolve from the package directory.
-  workspace: {
-    include: ['packages/webcomponents-react'],
-  },
   entry: {
     index: 'src/index.ts',
   },

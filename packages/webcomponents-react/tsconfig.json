@@ -15,5 +15,5 @@
     "noErrorTruncation": true,
     "noEmit": true
   },
-  "include": ["src"]
+  "include": ["src", "*.config.ts"]
 }

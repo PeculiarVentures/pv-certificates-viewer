@@ -19,11 +19,10 @@
   "workspaces": [
     "packages/*"
   ],
-  "type": "module",
   "scripts": {
-    "build": "npm run build --workspace @peculiar/certificates-viewer && tsdown",
+    "build": "npm run build --workspaces",
     "test": "npm run test --workspaces",
-    "typecheck": "tsc -p packages/webcomponents-react",
+    "typecheck": "npm run typecheck --workspaces --if-present",
     "clean": "npm run clean --workspaces --if-present",
     "lint": "OXLINT_TSGOLINT_DANGEROUSLY_SUPPRESS_PROGRAM_DIAGNOSTICS=true oxlint",
     "lint:fix": "npm run lint -- --fix",
@@ -33,11 +32,9 @@
     "prepare": "npm run build"
   },
   "devDependencies": {
-    "@arethetypeswrong/core": "^0.18.5",
     "oxfmt": "^0.70.0",
     "oxlint": "^1.85.0",
-    "oxlint-tsgolint": "^7.0.2002",
-    "tsdown": "^0.23.3"
+    "oxlint-tsgolint": "^7.0.2002"
   },
   "devEngines": {
     "packageManager": {
