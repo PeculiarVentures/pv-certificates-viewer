@@ -1,6 +1,6 @@
 {
   "name": "@peculiar/certificates-viewer-react",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "private": false,
   "description": "React specific wrapper for @peculiar/certificates-viewer",
   "keywords": [
@@ -43,7 +43,7 @@
     "test": "echo 'No tests yet'"
   },
   "dependencies": {
-    "@peculiar/certificates-viewer": "^5.2.0",
+    "@peculiar/certificates-viewer": "^5.2.1",
     "@stencil/react-output-target": "^1.6.2"
   },
   "devDependencies": {
