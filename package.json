@@ -29,9 +29,6 @@
     "dev": "npm run --workspace @peculiar/certificates-viewer dev",
     "prepare": "npm run build"
   },
-  "dependencies": {
-    "ci": "^2.3.0"
-  },
   "devDependencies": {
     "lerna": "^10.1.1",
     "oxfmt": "^0.70.0",
@@ -41,12 +38,12 @@
   "devEngines": {
     "packageManager": {
       "name": "npm",
-      "version": "11.7.0",
+      "version": ">=11.7.0",
       "onFail": "warn"
     },
     "runtime": {
       "name": "node",
-      "version": ">=24",
+      "version": ">=24.5.0",
       "onFail": "warn"
     }
   }
