@@ -75,7 +75,7 @@
     "dayjs": "^1.11.23"
   },
   "devDependencies": {
-    "@stencil/react-output-target": "^1.6.2",
+    "@stencil/react-output-target": "^1.7.0",
     "@stencil/sass": "^3.3.3",
     "@stencil/vitest": "^1.16.1",
     "@types/node": "^24.13.3",
