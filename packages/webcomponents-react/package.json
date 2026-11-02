@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@peculiar/certificates-viewer": "^5.2.1",
-    "@stencil/react-output-target": "^1.6.2"
+    "@stencil/react-output-target": "^1.7.0"
   },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.5",

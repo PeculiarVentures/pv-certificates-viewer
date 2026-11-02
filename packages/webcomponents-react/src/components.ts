@@ -7,19 +7,18 @@
 
 /* eslint-disable */
 
-import type { EventName, StencilReactComponent } from '@stencil/react-output-target/runtime';
-import { createComponent } from '@stencil/react-output-target/runtime';
 import React from 'react';
-
-import { type PeculiarCertificatesViewerCustomEvent, type X509Certificate } from "@peculiar/certificates-viewer";
-import type { Components } from "@peculiar/certificates-viewer/components";
-import { PeculiarAttributeCertificateViewer as PeculiarAttributeCertificateViewerElement, defineCustomElement as definePeculiarAttributeCertificateViewer } from "@peculiar/certificates-viewer/components/peculiar-attribute-certificate-viewer.js";
-import { PeculiarCertificateChainViewer as PeculiarCertificateChainViewerElement, defineCustomElement as definePeculiarCertificateChainViewer } from "@peculiar/certificates-viewer/components/peculiar-certificate-chain-viewer.js";
-import { PeculiarCertificateViewer as PeculiarCertificateViewerElement, defineCustomElement as definePeculiarCertificateViewer } from "@peculiar/certificates-viewer/components/peculiar-certificate-viewer.js";
-import { PeculiarCertificatesViewer as PeculiarCertificatesViewerElement, defineCustomElement as definePeculiarCertificatesViewer } from "@peculiar/certificates-viewer/components/peculiar-certificates-viewer.js";
-import { PeculiarCrlViewer as PeculiarCrlViewerElement, defineCustomElement as definePeculiarCrlViewer } from "@peculiar/certificates-viewer/components/peculiar-crl-viewer.js";
-import { PeculiarCsrViewer as PeculiarCsrViewerElement, defineCustomElement as definePeculiarCsrViewer } from "@peculiar/certificates-viewer/components/peculiar-csr-viewer.js";
-import { PeculiarSshCertificateViewer as PeculiarSshCertificateViewerElement, defineCustomElement as definePeculiarSshCertificateViewer } from "@peculiar/certificates-viewer/components/peculiar-ssh-certificate-viewer.js";
+import { createComponent } from '@stencil/react-output-target/runtime';
+import type { Components } from '@peculiar/certificates-viewer/components';
+import { PeculiarAttributeCertificateViewer as PeculiarAttributeCertificateViewerElement, defineCustomElement as definePeculiarAttributeCertificateViewer } from '@peculiar/certificates-viewer/components/peculiar-attribute-certificate-viewer.js';
+import { PeculiarCertificateChainViewer as PeculiarCertificateChainViewerElement, defineCustomElement as definePeculiarCertificateChainViewer } from '@peculiar/certificates-viewer/components/peculiar-certificate-chain-viewer.js';
+import { PeculiarCertificateViewer as PeculiarCertificateViewerElement, defineCustomElement as definePeculiarCertificateViewer } from '@peculiar/certificates-viewer/components/peculiar-certificate-viewer.js';
+import { PeculiarCertificatesViewer as PeculiarCertificatesViewerElement, defineCustomElement as definePeculiarCertificatesViewer } from '@peculiar/certificates-viewer/components/peculiar-certificates-viewer.js';
+import { PeculiarCrlViewer as PeculiarCrlViewerElement, defineCustomElement as definePeculiarCrlViewer } from '@peculiar/certificates-viewer/components/peculiar-crl-viewer.js';
+import { PeculiarCsrViewer as PeculiarCsrViewerElement, defineCustomElement as definePeculiarCsrViewer } from '@peculiar/certificates-viewer/components/peculiar-csr-viewer.js';
+import { PeculiarSshCertificateViewer as PeculiarSshCertificateViewerElement, defineCustomElement as definePeculiarSshCertificateViewer } from '@peculiar/certificates-viewer/components/peculiar-ssh-certificate-viewer.js';
+import type { X509Certificate, PeculiarCertificatesViewerCustomEvent } from '@peculiar/certificates-viewer';
+import type { StencilReactComponent, EventName } from '@stencil/react-output-target/runtime';
 
 export type PeculiarAttributeCertificateViewerEvents = NonNullable<unknown>;
 
@@ -29,7 +28,7 @@ export const PeculiarAttributeCertificateViewer: StencilReactComponent<PeculiarA
     // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: {} as PeculiarAttributeCertificateViewerEvents,
-    defineCustomElement: definePeculiarAttributeCertificateViewer
+    defineCustomElement: definePeculiarAttributeCertificateViewer,
 });
 
 export type PeculiarCertificateChainViewerEvents = NonNullable<unknown>;
@@ -40,7 +39,7 @@ export const PeculiarCertificateChainViewer: StencilReactComponent<PeculiarCerti
     // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: {} as PeculiarCertificateChainViewerEvents,
-    defineCustomElement: definePeculiarCertificateChainViewer
+    defineCustomElement: definePeculiarCertificateChainViewer,
 });
 
 export type PeculiarCertificateViewerEvents = NonNullable<unknown>;
@@ -51,12 +50,12 @@ export const PeculiarCertificateViewer: StencilReactComponent<PeculiarCertificat
     // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: {} as PeculiarCertificateViewerEvents,
-    defineCustomElement: definePeculiarCertificateViewer
+    defineCustomElement: definePeculiarCertificateViewer,
 });
 
 export type PeculiarCertificatesViewerEvents = {
-    onDetailsOpen: EventName<PeculiarCertificatesViewerCustomEvent<X509Certificate>>,
-    onDetailsClose: EventName<PeculiarCertificatesViewerCustomEvent<void>>
+  onDetailsOpen: EventName<PeculiarCertificatesViewerCustomEvent<X509Certificate>>,
+  onDetailsClose: EventName<PeculiarCertificatesViewerCustomEvent<void>>
 };
 
 export const PeculiarCertificatesViewer: StencilReactComponent<PeculiarCertificatesViewerElement, PeculiarCertificatesViewerEvents, Components.PeculiarCertificatesViewer> = /*@__PURE__*/ createComponent<PeculiarCertificatesViewerElement, PeculiarCertificatesViewerEvents, Components.PeculiarCertificatesViewer>({
@@ -65,10 +64,10 @@ export const PeculiarCertificatesViewer: StencilReactComponent<PeculiarCertifica
     // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: {
-        onDetailsOpen: 'detailsOpen',
-        onDetailsClose: 'detailsClose'
+      onDetailsOpen: 'detailsOpen',
+      onDetailsClose: 'detailsClose'
     } as PeculiarCertificatesViewerEvents,
-    defineCustomElement: definePeculiarCertificatesViewer
+    defineCustomElement: definePeculiarCertificatesViewer,
 });
 
 export type PeculiarCrlViewerEvents = NonNullable<unknown>;
@@ -79,7 +78,7 @@ export const PeculiarCrlViewer: StencilReactComponent<PeculiarCrlViewerElement, 
     // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: {} as PeculiarCrlViewerEvents,
-    defineCustomElement: definePeculiarCrlViewer
+    defineCustomElement: definePeculiarCrlViewer,
 });
 
 export type PeculiarCsrViewerEvents = NonNullable<unknown>;
@@ -90,7 +89,7 @@ export const PeculiarCsrViewer: StencilReactComponent<PeculiarCsrViewerElement, 
     // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: {} as PeculiarCsrViewerEvents,
-    defineCustomElement: definePeculiarCsrViewer
+    defineCustomElement: definePeculiarCsrViewer,
 });
 
 export type PeculiarSshCertificateViewerEvents = NonNullable<unknown>;
@@ -101,5 +100,5 @@ export const PeculiarSshCertificateViewer: StencilReactComponent<PeculiarSshCert
     // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
     events: {} as PeculiarSshCertificateViewerEvents,
-    defineCustomElement: definePeculiarSshCertificateViewer
+    defineCustomElement: definePeculiarSshCertificateViewer,
 });
