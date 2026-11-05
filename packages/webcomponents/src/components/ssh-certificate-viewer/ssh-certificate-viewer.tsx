@@ -8,8 +8,8 @@
 
 import { Component, h, Prop, State, Watch, Host, Build } from '@stencil/core';
 import { SshCertificate } from '../../crypto';
-import { runViewerDecode } from '../_shared/decode';
-import { Typography } from '../typography';
+import { Typography } from '../_shared/typography';
+import { runViewerDecode } from '../_shared/viewer/decode';
 import { SshBasicInformation } from './-components/basic_information';
 import { SshMiscellaneous } from './-components/miscellaneous';
 import { SshPublicKey } from './-components/public_key';

@@ -8,7 +8,7 @@ export {
 } from './utils/read_file';
 export { Pkcs10CertificateRequest } from './crypto';
 
-export { Typography } from './components/typography';
-export { Button } from './components/button';
-export { Link } from './components/link';
-export * from './components/icons';
+export { Typography } from './components/_shared/typography';
+export { Button } from './components/_shared/button';
+export { Link } from './components/_shared/link';
+export * from './components/_shared/icons';

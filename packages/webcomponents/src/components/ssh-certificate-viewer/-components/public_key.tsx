@@ -9,7 +9,7 @@
 import { h, FunctionalComponent } from '@stencil/core';
 import { SshCertificate } from '../../../crypto';
 import { l10n, getStringByOID } from '../../../utils';
-import { RowTitle, RowValue } from '../../certificate-details-parts/row';
+import { RowTitle, RowValue } from '../../_shared/details/row';
 
 interface ISshPublicKeyProps {
   key: SshCertificate['publicKey'];

@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { TAttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
-import { IButtonMenuGroup } from "./components/button-menu/button-menu";
+import { IButtonMenuGroup } from "./components/_shared/button-menu/button-menu";
 import { X509Certificate, X509Certificates } from "./crypto";
 import { TCertificateProp } from "./components/certificate-viewer/certificate-viewer";
 import { ICertificate } from "./components/certificates-viewer/certificates-viewer";
@@ -14,7 +14,7 @@ import { TCrlProp } from "./components/crl-viewer/crl-viewer";
 import { TCsrProp } from "./components/csr-viewer/csr-viewer";
 import { TSshCertificateProp } from "./components/ssh-certificate-viewer/ssh-certificate-viewer";
 export { TAttributeCertificateProp } from "./components/attribute-certificate-viewer/attribute-certificate-viewer";
-export { IButtonMenuGroup } from "./components/button-menu/button-menu";
+export { IButtonMenuGroup } from "./components/_shared/button-menu/button-menu";
 export { X509Certificate, X509Certificates } from "./crypto";
 export { TCertificateProp } from "./components/certificate-viewer/certificate-viewer";
 export { ICertificate } from "./components/certificates-viewer/certificates-viewer";
