@@ -1,6 +1,20 @@
 import { defineVitestConfig } from '@stencil/vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 
+// The preset excludes Stencil output dirs as `**/<dir>/**`. For the `components` output that also hides
+// every spec under `src/components`, so anchor the output-dir excludes to the package root.
+const anchorOutputExcludes = <T extends { test?: { projects?: unknown[] } }>(config: T): T => {
+  for (const project of (config.test?.projects ?? []) as { test?: { exclude?: string[] } }[]) {
+    project.test?.exclude?.forEach((pattern, index, list) => {
+      if (pattern !== '**/node_modules/**') {
+        list[index] = pattern.replace(/^\*\*\//, '');
+      }
+    });
+  }
+
+  return config;
+};
+
 export default defineVitestConfig({
   stencilConfig: './stencil.config.ts',
   test: {
@@ -43,4 +57,4 @@ export default defineVitestConfig({
       },
     ],
   },
-});
+}).then(anchorOutputExcludes);
