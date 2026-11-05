@@ -1,7 +1,7 @@
 var __extends=this&&this.__extends||function(){var e=function(t,i){e=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(e,t){e.__proto__=t}||function(e,t){for(var i in t)if(Object.prototype.hasOwnProperty.call(t,i))e[i]=t[i]};return e(t,i)};return function(t,i){if(typeof i!=="function"&&i!==null)throw new TypeError("Class extends value "+String(i)+" is not a constructor or null");e(t,i);function r(){this.constructor=t}t.prototype=i===null?Object.create(i):(r.prototype=i.prototype,new r)}}();var __assign=this&&this.__assign||function(){__assign=Object.assign||function(e){for(var t,i=1,r=arguments.length;i<r;i++){t=arguments[i];for(var n in t)if(Object.prototype.hasOwnProperty.call(t,n))e[n]=t[n]}return e};return __assign.apply(this,arguments)};var __awaiter=this&&this.__awaiter||function(e,t,i,r){function n(e){return e instanceof i?e:new i((function(t){t(e)}))}return new(i||(i=Promise))((function(i,a){function o(e){try{u(r.next(e))}catch(e){a(e)}}function c(e){try{u(r["throw"](e))}catch(e){a(e)}}function u(e){e.done?i(e.value):n(e.value).then(o,c)}u((r=r.apply(e,t||[])).next())}))};var __generator=this&&this.__generator||function(e,t){var i={label:0,sent:function(){if(a[0]&1)throw a[1];return a[1]},trys:[],ops:[]},r,n,a,o=Object.create((typeof Iterator==="function"?Iterator:Object).prototype);return o.next=c(0),o["throw"]=c(1),o["return"]=c(2),typeof Symbol==="function"&&(o[Symbol.iterator]=function(){return this}),o;function c(e){return function(t){return u([e,t])}}function u(c){if(r)throw new TypeError("Generator is already executing.");while(o&&(o=0,c[0]&&(i=0)),i)try{if(r=1,n&&(a=c[0]&2?n["return"]:c[0]?n["throw"]||((a=n["return"])&&a.call(n),0):n.next)&&!(a=a.call(n,c[1])).done)return a;if(n=0,a)c=[c[0]&2,a.value];switch(c[0]){case 0:case 1:a=c;break;case 4:i.label++;return{value:c[1],done:false};case 5:i.label++;n=c[1];c=[0];continue;case 7:c=i.ops.pop();i.trys.pop();continue;default:if(!(a=i.trys,a=a.length>0&&a[a.length-1])&&(c[0]===6||c[0]===2)){i=0;continue}if(c[0]===3&&(!a||c[1]>a[0]&&c[1]<a[3])){i.label=c[1];break}if(c[0]===6&&i.label<a[1]){i.label=a[1];a=c;break}if(a&&i.label<a[2]){i.label=a[2];i.ops.push(c);break}if(a[2])i.ops.pop();i.trys.pop();continue}c=t.call(e,i)}catch(e){c=[6,e];n=0}finally{r=a=0}if(c[0]&5)throw c[1];return{value:c[0]?c[1]:void 0,done:true}}};var __setFunctionName=this&&this.__setFunctionName||function(e,t,i){if(typeof t==="symbol")t=t.description?"[".concat(t.description,"]"):"";return Object.defineProperty(e,"name",{configurable:true,value:i?"".concat(i," ",t):t})};var __classPrivateFieldSet=this&&this.__classPrivateFieldSet||function(e,t,i,r,n){if(r==="m")throw new TypeError("Private method is not writable");if(r==="a"&&!n)throw new TypeError("Private accessor was defined without a setter");if(typeof t==="function"?e!==t||!n:!t.has(e))throw new TypeError("Cannot write private member to an object whose class did not declare it");return r==="a"?n.call(e,i):n?n.value=i:t.set(e,i),i};var __classPrivateFieldGet=this&&this.__classPrivateFieldGet||function(e,t,i,r){if(i==="a"&&!r)throw new TypeError("Private accessor was defined without a getter");if(typeof t==="function"?e!==t||!r:!t.has(e))throw new TypeError("Cannot read private member from an object whose class did not declare it");return i==="m"?r:i==="a"?r.call(e):r?r.value:t.get(e)};var __rest=this&&this.__rest||function(e,t){var i={};for(var r in e)if(Object.prototype.hasOwnProperty.call(e,r)&&t.indexOf(r)<0)i[r]=e[r];if(e!=null&&typeof Object.getOwnPropertySymbols==="function")for(var n=0,r=Object.getOwnPropertySymbols(e);n<r.length;n++){if(t.indexOf(r[n])<0&&Object.prototype.propertyIsEnumerable.call(e,r[n]))i[r[n]]=e[r[n]]}return i};var __spreadArray=this&&this.__spreadArray||function(e,t,i){if(i||arguments.length===2)for(var r=0,n=t.length,a;r<n;r++){if(a||!(r in t)){if(!a)a=Array.prototype.slice.call(t,0,r);a[r]=t[r]}}return e.concat(a||Array.prototype.slice.call(t))};
 /*!
  * © Peculiar Ventures https://peculiarventures.com/ - MIT License
- */System.register([],(function(e){"use strict";return{execute:function(){var t,i;var r=this;var n,a,o,c;var u,s,f,d,l,v,h,p,b,y,g,S,m,C,A,E,w,P,D,_,I,B,T,N,R,x,O,M,k,L,j,H,F,K,U,V,G,W,Q,z,q,Y,X,Z,$,J,ee,te,ie,re,ne,ae,oe,ce,ue,se,fe,de,le,ve,he,pe,be,ye;e({F:ih,I:Oe,J:Os,Q:oi,_:Hl,a0:Ys,a2:ks,d:ge,r:dp,y:bu});
+ */System.register([],(function(e){"use strict";return{execute:function(){var t,i;var r=this;var n,a,o,c;var u,s,f,d,l,v,h,p,b,y,g,S,m,C,A,E,w,P,D,_,I,B,T,N,R,x,O,M,k,L,j,H,F,K,U,V,G,W,Q,z,q,Y,X,Z,$,J,ee,te,ie,re,ne,ae,oe,ce,ue,se,fe,de,le,ve,he,pe,be,ye;e({F:mh,I:Oe,J:Os,Q:oi,_:rv,a0:hf,a2:ks,d:ge,r:dp,y:bu});
 /**
              * @license
              * Copyright (c) Peculiar Ventures, LLC.
@@ -498,533 +498,19 @@ var yu=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.a
              *
              * This source code is licensed under the MIT license found in the
              * LICENSE file in the root directory of this source tree.
-             */var Ls=/** @class */function(){
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function e(){var e=[];for(var t=0;t<arguments.length;t++){e[t]=arguments[t]}le.set(this,void 0);ve.set(this,void 0);if(e.length===1){
-// asn
-__classPrivateFieldSet(this,le,e[0],"f");__classPrivateFieldSet(this,ve,qa.serialize(__classPrivateFieldGet(this,le,"f")),"f")}else{
-// raw, type
-__classPrivateFieldSet(this,le,qa.parse(e[0],e[1]),"f");__classPrivateFieldSet(this,ve,ke(e[0]),"f")}}Object.defineProperty(e.prototype,"asn",{get:function(){return __classPrivateFieldGet(this,le,"f")},enumerable:false,configurable:true});Object.defineProperty(e.prototype,"raw",{get:function(){return __classPrivateFieldGet(this,ve,"f")},enumerable:false,configurable:true});return e}();le=new WeakMap,ve=new WeakMap;e("i",Ls);
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */function js(e){var t;var i=lt.encode(e.extnValue.buffer);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[{title:"Raw Value",value:i}]}}
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */function Hs(e,t){var i=t.get(e.extnID);if(!i){return js(e)}try{return i.parse(e)}catch(t){console.warn("Error parsing extension:",e.extnID,t);return js(e)}}
-// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
-function Fs(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
-// src/archive_rev_info.ts
-var Ks="1.2.840.113583.1.1.9.2";var Us=/** @class */function(){function e(e){if(e===void 0){e={}}this.version=1;Object.assign(this,e)}return e}();Fs([Va({type:ui.Integer})],Us.prototype,"version",void 0);
-// src/timestamp.ts
-var Vs="1.2.840.113583.1.1.9.1";var Gs=/** @class */function(){function e(e){if(e===void 0){e={}}this.version=1;this.location=new uo;this.requiresAuth=false;Object.assign(this,e)}return e}();Fs([Va({type:ui.Integer})],Gs.prototype,"version",void 0);Fs([Va({type:uo})],Gs.prototype,"location",void 0);Fs([Va({type:ui.Boolean,defaultValue:false,optional:true})],Gs.prototype,"requiresAuth",void 0);
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var Ws=e("$",(function(e,t,i){return __assign({title:e,value:t},i&&{_type:i})}));var Qs=e("Z",(function(e,t){return{title:e,children:t}}));
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var zs=(t={"2.5.4.3":"CN","2.5.4.4":"SN","2.5.4.5":"SERIALNUMBER","2.5.4.6":"C","2.5.4.7":"L","2.5.4.8":"ST","2.5.4.9":"STREET","2.5.4.10":"O","2.5.4.11":"OU","2.5.4.12":"T","2.5.4.17":"PostalCode","2.5.4.20":"TelephoneNumber","2.5.4.42":"GN","2.5.4.43":"I","2.5.4.44":"GenerationQualifier","2.5.4.46":"DNQ","2.5.4.65":"Pseudonym","2.5.4.97":"OI","0.9.2342.19200300.100.1.1":"UID","0.9.2342.19200300.100.1.25":"DC","1.2.840.113549.1.9.1":"E"},t[nu]="Trust Anchor ID",t[ou]="Trust Anchor ID",t);
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
-var qs=/** @class */function(){function e(){}e.parse=function(e){var t=Re(e)?Wa.parse(e,ro):e;var i=[];t.forEach((function(e){return e.forEach((function(e){var t=e.value.toString();if((e.type===nu||e.type===ou)&&e.value.anyValue){try{t=Wa.parse(e.value.anyValue,su).value}catch(e){
-// Preserve undecodable DER for inspection rather than hiding the name.
-}}i.push({type:e.type,value:t,short:zs[e.type]||e.type})}))}));return i};return e}();e("k",qs);
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */function Ys(e){
-// --- Simple string types (library decodes these directly) ---
-if(e.uniformResourceIdentifier!=null){return Ws("URI",e.uniformResourceIdentifier)}if(e.dNSName!=null){return Ws("DNS Name",e.dNSName,"dNSName")}if(e.rfc822Name!=null){return Ws("RFC 822 Name",e.rfc822Name)}if(e.registeredID!=null){return Ws("Registered ID",e.registeredID)}
-// iPAddress: AsnIpConverter already converts the raw bytes to a dotted/colon string
-if(e.iPAddress!=null){return Ws("IP Address",e.iPAddress,"iPAddress")}
-// --- Structured types ---
-if(e.otherName!=null){var t;try{t=Wa.parse(e.otherName.value,Ro).toString()}catch(a){try{var i=Wa.parse(e.otherName.value,Oo);var r=[];if(i.noticeRef!=null){var n=i.noticeRef.noticeNumbers.join(", ");r.push("".concat(i.noticeRef.organization.toString()," (").concat(n,")"))}if(i.explicitText!=null){r.push(i.explicitText.toString())}t=r.join("; ")}catch(i){t=lt.encode(e.otherName.value)}}return Qs("Other Name",[Ws("Type",e.otherName.typeId),Ws("Value",t)])}if(e.ediPartyName!=null){var a=[];if(e.ediPartyName.nameAssigner!=null){a.push(Ws("Name Assigner",e.ediPartyName.nameAssigner.toString()))}a.push(Ws("Party Name",e.ediPartyName.partyName.toString()));return Qs("EDI Party Name",a)}if(e.directoryName!=null){var o=qs.parse(e.directoryName);return Qs("Directory Name",o.map((function(e){return Ws(e.type,e.value)})))}
-// x400Address: opaque ORAddress bytes → hex
-if(e.x400Address!=null){return Ws("X400 Address",lt.encode(e.x400Address))}return Ws("Unknown","")}
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var Xs=/** @class */function(){function e(){this.oids=[Vs]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Gs);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Qs("Timestamp",[Ws("Version",i.version),Qs("Location",[Ys(i.location)]),Ws("Requires Auth",i.requiresAuth)])]}};return e}();var Zs=/** @class */function(){function e(){this.oids=[Ks]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Us);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("Version",i.version)]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var $s=/** @class */function(){function e(){this.oids=[yo]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,So);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Qs("Descriptions",i.map((function(e){return Qs("",[Ws("Method",e.accessMethod),Ys(e.accessLocation)])})))]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var Js=/** @class */function(){function e(){this.oids=[mo]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Ao);var r=[];if(i.keyIdentifier!=null){r.push(Ws("Key Identifier",lt.encode(i.keyIdentifier.buffer),"authorityKeyId"))}if(i.authorityCertSerialNumber!=null){r.push(Ws("Serial Number",lt.encode(i.authorityCertSerialNumber)))}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:r}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var ef=/** @class */function(){function e(){this.oids=[Eo]}e.prototype.parse=function(e){var t,i;var r=Wa.parse(e.extnValue.buffer,wo);var n=[Ws("CA",(t=r.cA)!==null&&t!==void 0?t:false)];if(r.pathLenConstraint!==undefined){n.push(Ws("Path Length Constraint",r.pathLenConstraint))}return{oid:e.extnID,critical:(i=e.critical)!==null&&i!==void 0?i:false,children:n}};return e}();
-// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
-function tf(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
-// src/extensions/biometric_info.ts
-var rf;var nf="".concat(fo,".2");var af=function(e){e[e["picture"]=0]="picture";e[e["handwrittenSignature"]=1]="handwrittenSignature";return e}({});var of=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();tf([Va({type:ui.Integer})],of.prototype,"predefinedBiometricType",void 0);tf([Va({type:ui.ObjectIdentifier})],of.prototype,"biometricDataOid",void 0);of=tf([Ua({type:ci.Choice})],of);var cf=/** @class */function(){function e(e){if(e===void 0){e={}}this.typeOfBiometricData=new of;this.hashAlgorithm=new Fc;this.biometricDataHash=new sa;Object.assign(this,e)}return e}();tf([Va({type:of})],cf.prototype,"typeOfBiometricData",void 0);tf([Va({type:Fc})],cf.prototype,"hashAlgorithm",void 0);tf([Va({type:sa})],cf.prototype,"biometricDataHash",void 0);tf([Va({type:ui.IA5String,optional:true})],cf.prototype,"sourceDataUri",void 0);var uf=rf=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,rf.prototype);return i}return t}(za);uf=rf=tf([Ua({type:ci.Sequence,itemType:cf})],uf);var sf="".concat(so,".11");
-// src/extensions/qc_statements.ts
-var ff;var df;var lf="".concat(fo,".3");var vf=/** @class */function(){function e(){this.statementId=""}return e}();tf([Va({type:ui.ObjectIdentifier})],vf.prototype,"statementId",void 0);tf([Va({type:ui.Any,optional:true})],vf.prototype,"statementInfo",void 0);var hf="".concat(sf,".2");var pf=ff=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,ff.prototype);return i}return t}(za);pf=ff=tf([Ua({type:ci.Sequence,itemType:uo})],pf);var bf=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();tf([Va({type:ui.ObjectIdentifier,optional:true})],bf.prototype,"semanticsIdentifier",void 0);tf([Va({type:pf,optional:true})],bf.prototype,"nameRegistrationAuthorities",void 0);var yf=df=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,df.prototype);return i}return t}(za);yf=df=tf([Ua({type:ci.Sequence,itemType:vf})],yf);
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var gf=(i={},i[af.picture]="Picture",i[af.handwrittenSignature]="Handwritten Signature",i);var Sf=/** @class */function(){function e(){this.oids=[nf,"2.16.724.1.2.2.4.1"]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,uf);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Qs("Biometrics",i.map((function(e){var t;var i=[];var r=e.typeOfBiometricData,n=r.predefinedBiometricType,a=r.biometricDataOid;if(n!=null){i.push(Ws("Type",(t=gf[n])!==null&&t!==void 0?t:String(n)))}else if(a){i.push(Ws("OID",a))}i.push(Ws("Hash Algorithm",e.hashAlgorithm.algorithm));i.push(Ws("Hash",lt.encode(e.biometricDataHash)));if(e.sourceDataUri!=null){i.push(Ws("Source URI",e.sourceDataUri))}return Qs("",i)})))]}};return e}();
-/**
-             * Extension OID for Apple Developer ID date extension.
-             */
-// eslint-disable-next-line @typescript-eslint/naming-convention
-var mf="1.2.840.113635.100.6.1.33";
-/**
-             * Implements ASN.1 schema for Apple Developer ID date extension.
-             *
-             * ```asn
-             * AppleDeveloperIdDate ::= UTF8String
-             * ```
-             */var Cf=/** @class */function(){function e(){he.set(this,void 0)}e.prototype.fromASN=function(e){__classPrivateFieldSet(this,he,e.valueBlock.valueHex,"f");this.date=new Yn({value:e.valueBlock.value}).toDate().toISOString();return this};e.prototype.toASN=function(){return new Rn({valueHex:__classPrivateFieldGet(this,he,"f")})};e.prototype.toSchema=function(e){return new Rn({name:e})};return e}();he=new WeakMap;
-/******************************************************************************
-            Copyright (c) Microsoft Corporation.
-
-            Permission to use, copy, modify, and/or distribute this software for any
-            purpose with or without fee is hereby granted.
-
-            THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-            REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-            AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-            INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-            LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-            OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-            PERFORMANCE OF THIS SOFTWARE.
-            ***************************************************************************** */
-/* global Reflect, Promise, SuppressedError, Symbol, Iterator */function Af(e,t,i,r){var n=arguments.length,a=n<3?t:r===null?r=Object.getOwnPropertyDescriptor(t,i):r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}typeof SuppressedError==="function"?SuppressedError:function(e,t,i){var r=new Error(i);return r.name="SuppressedError",r.error=e,r.suppressed=t,r};
-/**
-             * Extension OID for CABF organization identifier.
-             */
-// eslint-disable-next-line @typescript-eslint/naming-convention
-var Ef="2.23.140.3.1";
-/**
-             * Implements ASN.1 enumeration for CABF organization identifier.
-             *
-             * ```asn
-             * CABFOrganizationIdentifier ::= SEQUENCE {
-             *  registrationSchemeIdentifier  PrintableString (SIZE(3)),
-             *  registrationCountry           PrintableString (SIZE(2)),
-             *  registrationStateOrProvince   [0] IMPLICIT PrintableString OPTIONAL (SIZE(0..128)),
-             *  registrationReference         UTF8String
-             * }
-             * ```
-             */var wf=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Af([Va({type:ui.PrintableString})],wf.prototype,"registrationSchemeIdentifier",void 0);Af([Va({type:ui.PrintableString})],wf.prototype,"registrationCountry",void 0);Af([Va({type:ui.PrintableString,optional:true,context:0,implicit:true})],wf.prototype,"registrationStateOrProvince",void 0);Af([Va({type:ui.Utf8String})],wf.prototype,"registrationReference",void 0);
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var Pf=/** @class */function(){function e(){this.oids=[Ef]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,wf);var r=[Ws("Scheme",i.registrationSchemeIdentifier),Ws("Country",i.registrationCountry)];if(i.registrationStateOrProvince!=null){r.push(Ws("State Or Province",i.registrationStateOrProvince))}r.push(Ws("Reference",i.registrationReference));return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Qs("Organization Identifier",r)]}};return e}();var Df=/** @class */function(){function e(){this.oids=[mf]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Cf);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("Date",i.date)]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var _f=/** @class */function(){function e(){this.oids=[Io]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Bo);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:i.map(Ys)}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */function If(e,t){if(t===vo){try{return Ws("Value",Wa.parse(e,Ro).toString())}catch(e){return null}}if(t===ho){try{var i=Wa.parse(e,Oo);if(i.explicitText!=null){return Ws("Value",i.explicitText.toString())}}catch(e){return null}}return null}var Bf=/** @class */function(){function e(){this.oids=[No]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,jo);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Qs("Policies",i.map((function(e){var t;return Qs("",__spreadArray([Ws("Policy",e.policyIdentifier)],((t=e.policyQualifiers)===null||t===void 0?void 0:t.length)?[Qs("Qualifiers",e.policyQualifiers.map((function(e){var t=If(e.qualifier,e.policyQualifierId);return Qs("",__spreadArray([Ws("Qualifier",e.policyQualifierId)],t?[t]:[],true))})))]:[],true))})))]}};return e}();
-// src/structure.ts
-var Tf=/** @class */function(){function e(){}e.createStream=function(e){var t=Oe(e);return new fu(t)};return e}();var Nf=function(e){e[e["none"]=0]="none";e[e["md5"]=1]="md5";e[e["sha1"]=2]="sha1";e[e["sha224"]=3]="sha224";e[e["sha256"]=4]="sha256";e[e["sha384"]=5]="sha384";e[e["sha512"]=6]="sha512";return e}({});var Rf=function(e){e[e["anonymous"]=0]="anonymous";e[e["rsa"]=1]="rsa";e[e["dsa"]=2]="dsa";e[e["ecdsa"]=3]="ecdsa";return e}({});var xf=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this)||this;i.version=0;i.logId=new ArrayBuffer(32);i.timestamp=new Date;i.extensions=new ArrayBuffer(0);i.hashAlgorithm=0;i.signatureAlgorithm=0;i.signature=new ArrayBuffer(0);if(t)i.parse(t);return i}t.prototype.parse=function(e){this.version=e.readByte();e.read(2);this.logId=ke(e.read(32));this.timestamp=new Date(e.readNumber(8));var t=e.readNumber(2);this.extensions=ke(e.read(t));this.hashAlgorithm=e.readByte();this.signatureAlgorithm=e.readByte();this.signature=ke(e.read(e.readNumber(2)))};t.prototype.toJSON=function(){return{version:this.version,logId:lt.encode(this.logId),timestamp:this.timestamp,extensions:Kt.encode(this.extensions),hashAlgorithm:Nf[this.hashAlgorithm]||"undefined",signatureAlgorithm:Rf[this.signatureAlgorithm]||"undefined",signature:Kt.encode(this.signature)}};return t}(Tf);
-// src/cert_transparency.ts
-var Of="1.3.6.1.4.1.11129.2.4.2";var Mf=/** @class */function(e){__extends(t,e);function t(){var t=e!==null&&e.apply(this,arguments)||this;t.items=[];return t}t.prototype.fromASN=function(t){e.prototype.fromASN.call(this,t);var i=new fu(this.buffer);var r=i.readNumber(2);this.items=[];while(i.position<r)this.items.push(new xf(i));return this};t.prototype.toJSON=function(){return this.items.map((function(e){return e.toJSON()}))};return t}(sa);
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */
-// https://www.gstatic.com/ct/log_list/v3/all_logs_list.json
-var kf={"001a5d1a1c2d9375b6485578f82f71a1ae6eef397d297c8ae3157bcadee1a01e":"DigiCert 'Wyvern2027h1'","03802ac262f6e05e03f8bc6f7b9851324fd76a3df5b7595175e222fb8e9bd5f6":"Sectigo 'Tiger2027h2'","03edf1da9776b6f38c341e39ed9d707a7570369cf9844f327fe9e14138361b60":"Let's Encrypt 'Testflume2021' log","059c01d320e00784139580498d117c903266afaf7250b5af3b46a43e11840d4a":"DigiCert Yeti2022-2 Log","07b75c1be57d68fff1b0c61d2315c7bae6577c5794b76aeebc613a1a69d3a21c":"Google 'Xenon2020' log","084114980071532c16190460bcfc47fdc2653afa292c72b37ff863ae29ccc9f0":"Google 'Xenon2019' log","09157f632d46c7f76d95265493bc0f00b395ac5db3a2b26bfb043dba4ac63893":"IPng Networks 'Halloumi2027h2'","0b760e9a8b9a682f88985b15e947501a56446bba8830785c3842994386450c00":"Google 'Solera2019' log","0c2aef2c4a5b9883d4dda382fe50fb5188b3e97333a1ec53a09dc9a79d0d0820":"DigiCert 'Wyvern2024h2' Log","0d1dbc8944e9f5005542d72d3e144ccc43082ab6ea1e94dfd706657d2e86f301":"Sectigo 'Elephant2025h2'","0de1f2302bd30dc140621209ea552efc47747cb1d7e930ef0e421eb47e4eaa34":"Let's Encrypt 'Oak2025h2'","0e5794bcf3aea93e331b2c9907b3f790df9bc23d713225dd21a925ac61c54e21":"Google 'Argon2026h1' log","12f14e34bd53724c840619c38f3f7a13f8e7b56287889c6d300584ebe586263a":"Google 'Argon2025h2' log","134adf1ab5984209780c6fef4c7a91a416b72349ce58576adfaedaa7c2abe022":"Sectigo 'Mammoth2025h1'","15970488d7b997a05beb52512adee8d2e8b4a3165264121a9fabfbd5f85ad93f":"Symantec 'Sirius' log","16832dabf0a9250f0ff03aa545ffc8bfc823d0874bf6042927f8e71f3313f5fa":"Sectigo 'Tiger2026h1'","1986d4c728aa6ffeba036f782a4d0191aace2d72310faece5d70412d254cc7d4":"Let's Encrypt 'Oak2026h1'","1998107109f0d6522e3080d29e3f64bb836e28ccf90f528eeedfce4a3f16b4ca":"Sectigo 'Sabre2024h2'","1a04ff49d0541d40aff6a0c3bff1d8c4672f4eecee234068986b17402edc897d":"Sectigo 'Sabre2025h2'","1a8b9d694a5798c899a0ca88bdf48fc0b45660ccc3600d1f71f469ffc7d1aca3":"IPng Networks 'Gouda2026h1'","1a8b9d695362d86492a7b9e223606e34ece9e310ba34fb9305785d29ce5757eb":"IPng Networks 'Gouda2027h2'","1a8b9d6a743ccded601f73bd3097081dbcaec4a6139c92b0b540c3137b20ec05":"IPng Networks 'Gouda2025h2'","1a8b9d6b0ffebf81b47939c6d2310a86d6d102d4f046e2182c9de35f5e2625ef":"IPng Networks 'Gouda2026h2'","1a8b9d6b8dd791d1cd0549edb60355d606b64fad30db71fe788f0fc7c8fbc4b1":"IPng Networks 'Gouda2027h1'","1c897407e6010a01293bb678dfd7a368ceb18cca521dcca4d386e4a32e5b5d04":"Google 'ParcelYard2027h1' log","1c9f682ce9faf0456950f81b968a87dddb3210d84ce6c8b2e382524ac4cf599f":"Sectigo 'Tiger2027h1'","1d024b8eb1498b344dfd87ea3efc0996f7506f235d1d497061a4773c439c25fb":"Google 'Daedalus' log","1f56d1ab94704a41dd3feafdf4699355302c1431bfe61346089fffae795dcc2f":"Sectigo 'Sabre2026h2'","1fb0f8a92d8adda121776c05e2aa2e15bacbc62b65393695576aaab52e11d11d":"DigiCert 'sphinx2027h2'","1fbc36e002ede97f40199e86b3573b8a4217d80187746ad0da03a06054d20df4":"Cloudflare 'Nimbus2017' Log","1fc72ce5a1b799f400c359bff96ca3913548e8644220610952e9ba1774f7bac7":"Google 'Solera2020' log","20f05faaa3a492fc6ac148cc33a20236186b49faa97e6bb3924fb25ec36b1c35":"Google 'PlumbersArms2026h2' log","20f9e038d784f8f7c85a257873c5b9c4bf24bd0265abd17794f5d3df6c855bab":"IPng Networks 'Rennet2027h2'","20f9e089ecebd0d95fad89eb788fb640afc4d89fbb40dc821134319c35bf08da":"IPng Networks 'Rennet2026h2'","20f9e09ab6c3d59ccac4cbfdb031678e682cbe1848578cff2fc774e4ad2f50b1":"IPng Networks 'Rennet2027h1'","20f9e0ecdfa47c91203962ef83c90258f7906d9d37498be1ffd8495417320b20":"IPng Networks 'Rennet2026h1'","217ec88a3a503ce0ceb4c431ef8c4d54c1d58c1f52ba23f429e92b1368c08161":"Let's Encrypt Willow2025h1b","21ad481af5cb54f34b3abfaea0ff069a7b3c766fc3b690870bb46b152fb60bf9":"Cloudflare 'Raio2027h2a'","21d6bca46586de8479048bf378d3f696a5f4cc516cef7cf2d87ff5e713741edd":"Google 'CoachAndHorses2026h1' log","2245450759552456963fa12ff1f76d86e0232663adc04b7f5dc6835c6ee20f02":"DigiCert Yeti2022 Log","2327efda352510dbc019ef491ae3ff1cc5a479bce37878360ee318cffb64f8c8":"Let's Encrypt 'Testflume2022' log","232d41a4cdac87ced9f943f468c282095ae09d30d62e2fa65ddc3b919c2e468f":"Let's Encrypt 'Sapling 2022h2' log","24a69a87c2dd582dd502b2517f0c3827f30b4ea84a2413b553e6fbf18cf15fef":"Geomys Navigli2026h2","252f94c22b29e96e9f411a72072b695c5b52ff97a90d2540bbfcdc51ec4dee0b":"Sectigo 'Mammoth2026h1'","25b7efdea1130193ed93079770aa322a26620de35ac8aa7c75197de0b1a9e065":"TrustAsia 'log2026b'","26023948874cf7fcd0fb6471a43e847ebb200ae6e2fa24236df6d1a606630fb1":"Google 'Solera2025h2' log","26e3646e58692123bc343f4724359b3792cd245a88d815d39333fd9918ab4723":"IPng Networks 'Halloumi2026h2a'","27eb2a3497df687a640b64384e4856fcdca3e87f8dcd66f34ed6f1be4281edfc":"Google 'Arche2026h1' log","282c8bdd810ff909120ace16d6e0ec201bea82a3a4af19d9effb59e83fdc4268":"TrustAsia Log2025b","28e28138fd832145e9a9d6aa75376d8377a88512b3c07f72414821dcbde98c66":"TrustAsia Log2025a","293c519654c83965baaa50fc5807d4b76fbf587a2972dca4c30cf4e54547f478":"Google 'Icarus' log","296afa2d568bca0d2ea844956ae9721fc35fa355ecda99693aafd458a71aefdd":"Let's Encrypt 'Clicky' log","2979bef09e393921f056739f63a577e5be577d9c600af8f94d5d265c255dc784":"Google 'Argon2022' log","29d03a1bb674aa711cd3035b6557c14f8aa78b4fe8389449eca453f944bd2468":"Sectigo 'Mammoth2024h1'","2ed6a44deb8f0c864667769c4edd041f84236755fa3aaca634d0935dfcd59a70":"Bogus placeholder log to unbreak misbehaving CT libraries","3024ce7eeb168862724bea702efff992cfe456434191aa595b25f80226c80017":"Google 'Solera2024' log","306d29576ad21a9d4ae12acad8aa8a783aa65a321160acff5b0eee4ca3201d05":"Trust Asia Log2024","308427e9d6c9b06439febb12e1014d6ea2763654e0435f59e3c45663665bb8ea":"Let's Encrypt 'Twig2027h1'","337a9ec7cae6a9048b752f2d93ae7e4b2a902d21b497129d83e279c753c92f8c":"Google 'PlumbersArms2027h2' log","3404fe6e38a0a7ef8b374b2675f92fc376b4750846254d41472b6d26a1fc4eb2":"Google 'ParcelYard2025h2' log","35cf191bbfb16c57bf0fad4c6d42cbbbb627202651ea3fe12aefa803c33bd64c":"DigiCert Yeti2023 Log","37aa07cc216f2e6d919c709d24d8f731b00f2b147c621cc091a5fa1a84d816dd":"DigiCert 'Wyvern2027h2'","3b5377753e2db9804e8b305b06fe403b67d84fc3f4c7bd000d2d726fe1fad417":"Let's Encrypt 'Oak2024H1' log","3de492a89893ad705e7846ed21d48dcafbad139ea64ed1e349f900b0a2cda5e2":"Google 'Solera2027h1' log","3f174b4fd7224758941d651c84be0d12ed90377f1f856aebc1bf2885ecf8646e":"Let's Encrypt 'Oak2024H2' log","3fe1cb46ed473579af0141f9724d9dc443472d756e85e7719c5582485dd4e1e4":"Google 'Solera2025h1' log","41c8cab1df22464a10c6a13a0942875e4e318b1b03ebeb4bc768f090629606f6":"Cloudflare 'Nimbus2022' Log","4494652eb0eeceafc44007d8a8fe28c0dae682bed8cb31b53fd33396b5b681a8":"Cloudflare 'Nimbus2021' Log","44c2bd0ce9140e64a5c94a01930a5aa1bb35970e00ee111689682a1c44d7b566":"Google 'Xenon2027h1'","44e822fc2bab0e92eed0e9fad69664602776d01760e0890509c923a1b03fc37f":"IPng Networks 'Halloumi2027h1'","45359498d93a89e0280308d37d626dc423754758dce0370036fbab0edf8a6bcf":"Trust Asia Log1","46a23967c60db64687c66f3df999947693a6a611208457d555e7e3d0a1d9b646":"DigiCert 'sphinx2027h1'","46a555eb75fa912030b5a28969f4f37d112c4174befd49b885abf2fc70fe6d47":"Google 'Xenon2022' log","46af863d3b3ee59fa577dea8245d36b0d9ed22a223f4617741229452ee95505f":"Geomys 'Tuscolo2026h2'","476fb1848c051fa4c79bd3877bede3c070edc536c7d7b2192dc6626390607533":"Google 'PlumbersArms2025h2' log","48b0e36bdaa647340fe56a02fa9d30eb1c5201cb56dd2c81d9bbbfab39d88473":"DigiCert Yeti2024 Log","499c9b69de1d7cecfc36decd8764a6b85baf0a878019d15552fbe9eb29ddf8c3":"DigiCert 'Sphinx2026h1'","4c63dc98e59c1dab88f61e8a3ddeae8fab44a3377b5f9b94c3fba19cfcc1be26":"Cloudflare 'Nimbus2027'","4e0277a0cb6f6ab7f67de71e6a085b2d180c2977824bfb4c2bbd9d2cd411f3be":"Let's Encrypt Sycamore2025h1b","4e75a3275c9a10c3385b6cd4df3f52eb1df0e08e1b8d69c0b1fa64b1629a39df":"Google 'Argon2025h1' log","4f0d39bbc355dbcc1627966e5405157ccaf72e3f748f47fe7b049e5a59155cbd":"Cloudflare 'Raio2025h2b'","50850158dcb60595c00e92a81102eccdfe3f6b7858429f57983538c9da525063":"Sectigo 'Mammoth2024h1b'","51a3b0f5fd01799c566db837788f0ca47acc1b27cbf79e88429a0dfed48b05e5":"DigiCert Nessie2022 Log","52eb4b225ec896974850675f23e43bc1d021e3214ce52ecd5fa87c203cdfca03":"Google 'Solera2018' log","5534b7ab5a6ac3a7cbeba65487b2a2d71b48f650fa17c5197c97a0cb2076f3c6":"Let's Encrypt 'Testflume2023' log","5581d4c2169036014aea0b9b573c53f0c0e43878702508172fa3aa1d0713d30c":"Sectigo 'Sabre' CT log","5614069a2fd7c2ecd3f5e1bd44b23ec74676b9bc99115cc0ef949855d689d0dd":"DigiCert Log Server","566cd5a376be83dfe342b675c49c232498a769bac382cbab49a3877d9ab32d01":"Sectigo 'Sabre2026h1'","573448cc6e1d2c0dc94b69f287d1efe483c7a25c50c5320bbb3adea76f6eb041":"TrustAsia Luoshu2027","5944824d45e14367ca507bc5b5a4a67f2a31ee37b84be427c7af8b28a564d12b":"Let's Encrypt 'Twig2026h1'","596e6c338694b25972a256c8a0e8dd904a76e8083dda873b01083828143cee59":"Geomys 'Tuscolo2027h1'","5bf6de53f1fbfac49a1859746945a1a6a7289d5e70a60f48450e586bb9ae72b8":"Let's Encrypt 'Sycamore2025h2d'","5ca577d29b7f8baf419ed8ecabfb6dcbaec3853702d5746f174dad3c934aa96a":"Sectigo 'Tiger2025h2'","5cdc4392fee6ab4544b15e9ad456e61037fbd5fa47dca17394b25ee6f6c70eca":"DigiCert Yeti2021 Log","5e4fa1463a83dbb479a6b752d396e1c90c630db0d9f6c0de953cc2edd64f50a3":"Google 'CoachAndHorses2026h2' log","5ea773f9df56c0e7b536487dd049e0327a919a0c84a112128418759681714558":"Cloudflare 'Nimbus2020' Log","5ff9c0fba42dac78ce6442eb19ace081a29bd4e2fb53af0c633079e5058204c9":"Google 'PlumbersArms2027h1' log","604c9aaf7a7f775f01d406fc920dc899eb0b1c7df8c9521bfafa17773b978bc9":"Sectigo 'Elephant2027h1'","60a59ed857ecd35949055eef8ad0ebab609864800bcf5fb8d60bf5bfff3b14c5":"IPng Networks 'Halloumi2026h2'","62e9006004a307955a7544b4d584a96268ca1d6e4585adf0916dfe5fdc1f04db":"Google 'Solera2026h2' log","63f2dbcde83bcc2ccf0b728427576b33a48d61778fbd75a638b1c768544bd88d":"Google 'Argon2019' log","6411c46ca412eca7891ca2022e00bcab4f2807d41e3527abeafed503c97dcdf0":"DigiCert 'Wyvern2026h1'","659b3350f43b12cc5ea5ab4ec765d3fde6c88243777778e72003f9eb2b8c3129":"Let's Encrypt 'Oak2019' log","671a441b34f62c4c1599e9a6a6819b113a4d45b1fe4a6d374eb2e52b01ace33e":"Let's Encrypt 'Twig2025h2d'","678db65b3e7443b6f3a370d5e13ab1b43be0a0d351f7ca742250c7c6fa51a88a":"Trust Asia Log2021","68f698f81f6482be3a8ceeb9281d4cfc71515d6793d444d10a67acbb4f4ffbc4":"Google 'Aviator' log","697aafca1a6b536fae21205046debad7e0eaea13d2432e6e9d8fb379f2b9aaf3":"Google 'Solera2022' log","6984b7233cb274b2d1467da5e040d71feba90a21e78865374ab9f9bcf8687237":"Google 'ParcelYard2027h2' log","6ad2683e47e8d2806491423fd644021a226ecdb8619bed5a70df69b3684faa2d":"Google 'CoachAndHorses2027h1' log","6cfe501943a85ea916bc52d133e4dcc91ef1411c7d258420d173809e1818eb3a":"Let's Encrypt 'Sycamore2026h2'","6f5376ac31f03119d89900a45115ff77151c11d902c10029068db2089a37d913":"Sectigo 'Mammoth' CT log","6fcc21c8ab099179efbac44cc299d0ec410d7fbec8e37d3a095576cd9f63c608":"IPng Networks 'Lipase2026h1'","6ff141b5647e4222f7ef052cefae7c21fd608e27d2af5a6e9f4b8a37d6633ee5":"DigiCert Nessie2018 Log","717e95f3c2388a6db1e384493d31e15aa96208762d4200e0050cd067b5a661e2":"Geomys 'Tuscolo2026h1'","7320220f08168af9f3c4a68b0ab26a9a4a00eef577858a084d0500d4a5424459":"DigiCert 'Wyvern2025h1' Log","73d99e891b4c9678a0207d479de6b2c61cd0515e71192a8c6b80107ac17772b5":"DigiCert Nessie2024 Log","747eda8331ad331091219cce254f4270c2bffd5e422008c6373579e6107bcc56":"Cloudflare 'Nimbus2019' Log","74db9d58f7d47e9dfd787a162a991c18cf698da7c729918c9a18b0450dba44bc":"TrustAsia 'log2026a'","76ff883f0ab6fb9551c261ccf587ba34b4a4cdbb29dc68420a9fe6674c5a3a74":"Google 'Xenon2024' log","7a328c54d8b72db620ea38e0521ee98416703213854d3bd22bc13a57a352eb52":"Cloudflare 'Nimbus2023' Log","7d3ef2f88fff88556824c2c0ca9e5289792bc50e78097f2e6a9768997e22f0d7":"Google 'Xenon2021' log","7d591e12e1782a7b1c61677c5efdf8d0875c14a04e959eb9032fd90e8c2e79b8":"DigiCert Yeti2025 Log","7f3d37e7f8923d8e7165beb0d3eabee72a22be46c0cb84c416d4e4b98264cbc2":"IPng Networks 'Halloumi2026h1'","82cdcd479e77e45d14ad6903882c4113fc81c21213bec2b3d94e9dc7cd80cdfe":"Geomys Navigli2026h1","849f5f7f58d2bf7b54ecbd74611cea45c49c98f1d6481bc6f69e8c174f24f3cf":"Let's Encrypt 'Testflume2019' log","874fb50dc029d9931de573e9f2899e8e4533b392d38b0a462574bf0feeb2fc1e":"Trust Asia Log2024-2","8775bfe7597cf88c43995fbdf36eff568d475636ff4ab560c1b4eaff5ea0830f":"DigiCert Log Server 2","8a3810bf408f5acf7b74de20c071903b7179cab0dbd768effa10f6298ea0680c":"Cloudflare 'Raio2027h1a'","8eca470bacde6af3a206b0a47a84b746fe1fc6bf953e25e69b4ee40248f3c6e8":"Let's Encrypt 'Sycamore2027h1'","92a102c57c22dab18ccc2ae71fd4cc59c05d251da16c73e2281bd3f0b0489887":"Let's Encrypt Willow2025h2c","9420bc1e8ed58d6c88731f828b222c0dd1da4d5e6c4f943d61db4e2f584da2c2":"Let's Encrypt 'Oak2021' log","944e4387faecc1ef81f3192426a8186501c7d35f3802013f72677d55372e19d8":"DigiCert 'Sphinx2026h2'","94b1c18ab0d057c47be0ac040e1f2cbc8dc375727bc951f20a526126863ba73c":"Sectigo 'Mammoth2026h2'","9590bd85f2cfc5064998abab5bb26c2e7a176702911c13b68b4805e1eb9427ef":"Let's Encrypt Twig2025h1b","9686c3c072aab073076e394673b7e990177a05618ea2764d4ba650a90e9e08cc":"IPng Networks 'Lipase2027h1'","969764bf555897adf743876837084277e9f03ad5f6a4f3366e46a43f0fcaa9c6":"Google 'Xenon2026h1' log",a2490cdcdb8e33a400321760d6d4d51a2036191ea77d968be26a8a00f6fffff7:"Sectigo 'Elephant2027h2'",a2810018734e176e1d47e09540f381ba546697cd63a84350716eb8094edaf10d:"Let's Encrypt 'Willow2027h1'",a2e2bfd61ede2f2f07a0d64e6d37a7dc6543b0c6b52ea2dab78af89a6df517d8:"Sectigo 'Sabre2024h1'",a2e30ae445efbdad9b7e38ed47677753d7825b8494d72b5e1b2cc4b950a447e7:"Let's Encrypt 'Oak2025h1'",a3c99845e80ab7ce00157b3742df0207dd272b2b602ecf98ee2c12db9c5ae7e7:"Google 'Solera2021' log",a442c506496061548f0fd4ea9cfb7a2d26454d87a97f2fdf4559f6274f3a8454:"DigiCert 'Sphinx2025h2' Log",a4501269055a15545e6211ab37bc103f62ae5576a45e4b1714453e1b22106a25:"Google 'Argon2018' log",a4b90990b418581487bb13a2cc67700a3c359804f91bdfb8e377cd0ec80ddc10:"Google 'Pilot' log",a595943b5370bee906e0050d1fb5bbc6a40e65f265ae852c76363fadb23336ed:"Trust Asia Log2020",a5c978925d57461782870dd889660b5c55648b7d0040f2ec076851d1886919f7:"Let's Encrypt 'Sycamore2026h1'",a695a2ad926d6f996e8efc49014257d8bbf046a7d62589b88dc2d7876c78e52f:"Let's Encrypt 'Willow2027h2'",a7ce4a4e6207e0addee5fdaa4b1f86768767b5d002a55d47310e7e670a95eab2:"Symantec Deneb",a826cbe30ac6351246533fe065f14f19d96e190813c41dd96d7900b3123c5527:"Let's Encrypt 'Willow2026h2'",a899d8780c9290aaf462f31880ccfbd52451e970d0fbf591ef75b0d99b645681:"Google 'Submariner' log",a8dc52f63d6b2425e531e37cf4e44a714f142a20803b0d04d2e2ee0664794a23:"Trust Asia CT2021",acab30706cebec8431f413d2f4915f111e422443b1f2a68c4f3c2b3ba71e02c3:"Let's Encrypt 'Oak2026h2'",adf7befa7cff10c88b9d3d9c1e3e186ab467295dcfb10c24ca858634ebdc828a:"Google 'Xenon2023' log",af181a28d68ca3e0a98a4c9c67ab09f8bbbc22baaebcb138a3a19dd3f9b6030d:"Sectigo 'Mammoth2025h2'",af67883b57b04edd8fa6d97ef62ea8eb810ac77160f0245e55d60c2fe785873a:"Sectigo 'Elephant2026h2'",b0cc83e5a5f97d6baf7c09cc284904872ac7e88b132c6350b7c6fd26e16c6c77:"Google 'Testtube' log",b10cd559a6d67846811f7df9a51532739ac48d703bea0323da5d38755bc0ad4e:"Google 'Xenon2018' log",b21e05cc8ba2cd8a204e8766f92bb98a2520676bdafa70e7b249532def8b905e:"Google 'Argon2020' log",b3737707e18450f86386d605a9dc11094a792db1670c0b87dcf0030e7936a59a:"DigiCert Nessie2023 Log",b69ddcbc3c1abdef6f9fd60c88b1067b77f082688b2d7865d04b39abe927a575:"DigiCert 'Wyvern2024h1' Log",b73efb24df9c4dba75f239c5ba58f46c5dfc42cf7a9f35c49e1d098125edb499:"Let's Encrypt 'Oak2023' log",badb88a46f9cafa4090e82e59356db6e78b4a53f582db0819795242f29b68c98:"Google 'ParcelYard2026h2' log",bae2a92932c5c05d1fa54d348130f09bfc8833164a15a1fbbef526283256c80b:"Cloudflare 'Raio2026h2a'",bbd9dfbc1f8a71b593942397aa927b473857950aab52e81a909664368e1ed185:"Google 'Skydiver' log",bc3bd42edd848d59e545ffd790970c1acdcaa479a66e6995308e3d66c491fe40:"IPng Networks 'Lipase2027h2'",bc78e1dfc5f63c684649334da10fa15f0979692009c081b4f3f6917f3ed9b8a5:"Symantec 'Vega' log",c05d2054385cb2cfb217920d2f0dc783526147b1aa4fef97ca78e1f0bb84fced:"Let's Encrypt Twig2025h2b",c1164ae0a772d2d4392dc80ac10770d4f0c49bde991a4840c1fa075164f63360:"DigiCert Yeti2018 Log",c183240bf1a450c76fbb007269dcac3be22a4805d4dbe04966c3c8abc447b00c:"Let's Encrypt 'Sapling 2023h1' log",c2317e574519a345ee7f38deb29041ebc7c2215a22bf7fd5b5ad769ad90e52cd:"DigiCert 'Wyvern2026h2'",c2b2131d797e50d7af542aba94d7bf82f91b962b7c552a71d5de93037a1a647a:"IPng Networks 'Lipase2026h2'",c365f9b3654f3283c79da98e93d7418f5bab7be3252c98e1d2f04bb9eb427d23:"Trust Asia Log2022",c3bf03a7e1ca8841c607bae3ff4270fca5ec45b186ebbe4e2cf3fc778630f5f6:"Google 'Crucible' log",c63f2218c37d56a6aa06b596da8e53d4d7156d1e9bac8e44d2202de64d69d9dc:"Let's Encrypt 'Testflume2020' log",c652a0ec48ceb3fcab170992c43a87413309e80065a26252401ba3362a17c565:"DigiCert Nessie2020 Log",c67d819e93c12cfaeb5f65a04d08dae30a8e5c27fb7d151cef7c47e2d5cb1ded:"Let's Encrypt 'Twig2026h2'",c84b907a07beaa29a614c24584b7a3f6624394687b25fe62838b71ec422ad2f9:"Google 'Solera2026h1' log",c8a3c47fc7b3adb9356b013f6a7a126de33a4e43a5c646f997ad3975991dcf9a:"Sectigo 'Tiger2026h2'",cb38f715897c84a1445f5bc1ddfbc96ef29a59cd470a690585b0cb14c31458e7:"Cloudflare 'Nimbus2026'",ccfb0f6a85710965fe959b53cee9b27c22e9855c0d978db6a97e54c0fe4c0db0:"Cloudflare 'Nimbus2025'",cf1156eed52e7caff3875bd9692e9be91a71674ab017ecac01d25b77cecc3b08:"Google 'Xenon2025h1' log",cf5e0c45a3b87c41cbb61808f8e090ba5beb4dd326c1404dffb6adf98e166916:"Geomys Navigli2027h2",d1436f025d1d9f239dbcc18bb9ffa4b119b9954d610c83ebeca035a15696bd81:"Let's Encrypt 'Twig2027h2'",d16ea9a568077e6635a03f37a5ddbc03a53c411214d48818f5e931b323cb9504:"Sectigo 'Elephant2026h1'",d2fc652fa5f9b738b83755fa5eb15f0b45253f4e8fa3b9b64fd4de5662d18708:"Bogus RFC6962 log to avoid breaking misbehaving CT libraries",d5de55eeba08b60c9ffc18c513be6a60ba004606bc595b96bb44f62cc57d39fa:"Geomys 'Tuscolo2027h2'",d6d58da9d01753f36a4aa0c7574902afebc7dc2cd38cd9f764c80c89191e9f02:"Google 'Argon2027h1'",d76d7d10d1a7f577c2c7e95fd700bff982c9335a65e1d0b3017317c0c8c56977:"Google 'Argon2026h2' log",d809553b944f7affc816196f944f85abb0f8fc5e8755260f15d12e72bb454b14:"Google 'Xenon2026h2' log",dab6bf6b3fb5b6229f9bc2bb5c6be87091716cbb51848534bda43d3048d7fbab:"Cloudflare 'Nimbus2024' Log",dad6475152961949fa4f731c670e85e5e4b74e0688196053f1185ad724941ad3:"Geomys Navigli2027h1",db076cde6a8b78ec58d6056496eb6a26a8c59e721293e8ac0327ddde89db5a2a:"DigiCert 'Sphinx2024h1' Log",db74afeecb29ecb1feca3e716d2ce5b9aabb36f7847183c75d9d4f37b61fbf64:"Cloudflare 'Nimbus2018' Log",db76fdadac65e7d09508886e2159bd8b90352f5fead3e3dc5e22eb350acc7b98:"Sectigo 'Dodo' CT log",dcc95e6fa299b9b0fdbd6ca6a36e1d72c4212fdd1e0f47553a36d6cf1ad11d8d:"DigiCert 'Sphinx2024h2' Log",dddcca3495d7e11605e79532fac79ff83d1c50dfdb003a1412760a2cacbbc82a:"Google 'Xenon2025h2' log",ddeb1d2b7a0d4fa6208b81ad8168707e2e8e9d01d55c888d3d11c4cdb6ecbecc:"Symantec log",de8581d750247c6bcdcbaf5637c5e781c64ce46ed617639f8f34a726c9e2bd37:"DigiCert 'Sphinx2025h1' Log",dfa55eab68824f1f6cadeeb85f4e3e5aeacda212a46a5e8e3b12c020445c2a73:"Let's Encrypt 'Oak2022' log",dfe156ebaa05afb59c0f86718da8c0324eae56d96ea7f5a56a01d1c13bbe525c:"Sectigo 'Mammoth2024h2'",e092b3fc0c1dc8e768361fde61b9964d0a5278198a72d672c4b04da56d6f5404:"Sectigo 'Sabre2025h1'",e2694bae26e8e94009e8861bb63b83d43ee7fe7488fba48f2893019dddf1dbfe:"DigiCert Yeti2019 Log",e3238df28da288e0aae0acf0fa90c985f0b6bff5d2a527b001fc1c4458c4b6e8:"Let's Encrypt 'Willow2026h1'",e4d017761c913911bef47396acd8d24658c24fb593b51beac5592762e8853c15:"Let's Encrypt 'Willow2025h2d'",e4fb774a2124c58640b1832f50abfadc84a38aed7191eeb669223792cbf62891:"Geomys Navigli2025h2",e5bbcdc0c72d692bd9598a3602043ce854ec6f60f80066785963882b7c382438:"Cloudflare 'Raio2026h1a'",e5e36247d92ef4ada38583b53591db729fc2f00ae4b6745174d3ddfc6aa25388:"Let's Encrypt 'Sycamore2027h2'",e6d2316340778cc1104106d771b9cec1d240f6968486fbba87321dfd1e378e50:"DigiCert Nessie2025 Log",e712f2b0377e1a62fb8ec90c6184f1ea7b37cb561d11265bf3e0f34bf241546e:"Let's Encrypt 'Oak2020' log",e83ed0da3ef5063532e75728bc896bc903d3cbd1116beceb69e1777d6d06bd6e:"Google 'Argon2023' log",e87ea7660bc26cf6002ef5725d3fe0e331b9393bb92fbf58eb3b9049daf5435a:"Trust Asia Log2023",ecf05435a493296d0abf3ec9d096f21b27012c471a1e83e7813667a60952bea6:"Google 'CoachAndHorses2027h2' log",ed3c4bd6e806c2a4a20057dbcb24e23801df512fedc486c5700f20ddb73e3fe0:"DigiCert 'Wyvern2025h2' Log",eddaeb815c63213449b47be5077905abd0d93147c27ac5146b3bc58e43e9b6c7:"TrustAsia 'HETU2027'",ee4bbdb775ce60bae142691fabe19e66a30f7e5fb072d88300c47b897aa8fdcb:"Google 'Rocketeer' log",eec095ee8d72640f92e3c3b91bc712a3696a097b4b6a1a1438e647b2cbedc5f9:"DigiCert Nessie2021 Log",eecdd064d5db1acec55cb79db4cd13a23287467cbcecdec351485946711fb59b:"Google 'Argon2024' log",ef9d04422e20b432102754df52d25146027f844c07fd865ec922ee6fce9f7bbc:"Geomys 'Tuscolo2025h2'",f095a459f200d18240102d2f93888ead4bfe1d47e399e1d034a6b0a8aa8eb273:"DigiCert Yeti2020 Log",f65c942fd1773022145418083094568ee34d131933bfdf0c2f200bcc4ef164e3:"Google 'Argon2021' log",f78ff20869ad976a4373b4aca8b3b203148e14ede68be141535ba1368b7ba806:"Let's Encrypt Sycamore2025h2b",f97e97b8d33ef7a15902a53a19e17990e5dc406a031825baad93e98f9b9c69cb:"Google 'Solera2023' log",fad4c97cc49ee2f8ac85c5ea5cea09d0220dbbf4e49c6b50662ff868f86b8c28:"Google 'Argon2017' log",fb7c63a68d1e06add083889bb8d4321cb24544ebf6fe697229192e383e5e6e23:"IPng Networks 'Halloumi2025h2'",fe446108b1d01ab78a62ccfeab6ab2b2babff3abdad80a4d8b30df2d0008830c:"DigiCert Nessie2019 Log"};
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var Lf=/** @class */function(){function e(){this.oids=[Of]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Mf);var r=i.toJSON();return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Qs("Timestamps",r.map((function(e){var t;return Qs("",__spreadArray([Ws("Log ID",(t=kf[e.logId])!==null&&t!==void 0?t:e.logId),Ws("Timestamp",Ru(e.timestamp)),Ws("Version",e.version),Ws("Hash Algorithm",e.hashAlgorithm),Ws("Signature Algorithm",e.signatureAlgorithm),Ws("Signature",e.signature)],e.extensions?[Ws("Extensions",e.extensions)]:[],true))})))]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var jf=/** @class */function(){function e(){
-// '2.16.724.1.2.2.4.1' is an alias used by some Spanish certs; same encoding
-this.oids=[Go,"2.5.29.46"]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,qo);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Qs("Distribution Points",i.map((function(e){var t,i,r;return Qs("",__spreadArray(__spreadArray([],((i=(t=e.distributionPoint)===null||t===void 0?void 0:t.fullName)!==null&&i!==void 0?i:[]).map((function(e){return Ys(e)})),true),((r=e.cRLIssuer)!==null&&r!==void 0?r:[]).map((function(e){return Ys(e)})),true))})))]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var Hf=/** @class */function(){function e(){this.oids=[Ho]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Fo);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("CRL Number",i.value)]}};return e}();var Ff=/** @class */function(){function e(){this.oids=[Ko]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Uo);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("Base CRL Number",i.value)]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var Kf=/** @class */function(){function e(){this.oids=[Zo]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Jo);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("Reason",i.toJSON())]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var Uf=/** @class */function(){function e(){this.oids=[Oc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,kc);var r=[Ws("Version",i.entrustVers)];var n=i.entrustInfoFlags.toJSON();if(n.length>0){r.push(Ws("Flags",n.join(", ")))}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:r}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var Vf=/** @class */function(){function e(){this.oids=[tc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,ic);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Qs("Purposes",i.map((function(e){return Ws("Purpose",e)})))]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */function Gf(e){var t=Oe(e);var i=0;for(var r=0,n=t;r<n.length;r++){var a=n[r];i=i<<8|a}return i>>>0}var Wf=/** @class */function(){function e(){this.oids=[rc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,nc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("Skip Certs",Gf(i.value))]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var Qf=/** @class */function(){function e(){this.oids=[ac]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,oc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("Invalidity Date",Ru(i.value))]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var zf=/** @class */function(){function e(){this.oids=[uc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,sc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:i.map(Ys)}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var qf=/** @class */function(){function e(){this.oids=[Yo]}e.prototype.parse=function(e){var t,i;var r=Wa.parse(e.extnValue.buffer,Xo);var n=[];if(r.distributionPoint!=null){var a=[];for(var o=0,c=(t=r.distributionPoint.fullName)!==null&&t!==void 0?t:[];o<c.length;o++){var u=c[o];a.push(Ys(u))}if(r.distributionPoint.nameRelativeToCRLIssuer!=null){for(var s=0,f=r.distributionPoint.nameRelativeToCRLIssuer;s<f.length;s++){var d=f[s];a.push(Ws(d.type,d.value.toString()))}}n.push(Qs("Distribution Point",a))}if(r.onlyContainsUserCerts){n.push(Ws("Only Contains User Certs",true))}if(r.onlyContainsCACerts){n.push(Ws("Only Contains CA Certs",true))}if(r.onlySomeReasons!=null){var l=r.onlySomeReasons.toJSON();if(l.length>0){n.push(Ws("Only Some Reasons",l.join(", ")))}}if(r.indirectCRL){n.push(Ws("Indirect CRL",true))}if(r.onlyContainsAttributeCerts){n.push(Ws("Only Contains Attribute Certs",true))}return{oid:e.extnID,critical:(i=e.critical)!==null&&i!==void 0?i:false,children:n}};return e}();
-// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
-function Yf(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
-// src/key_description.ts
-var Xf;var Zf="1.3.6.1.4.1.11129.2.1.17";var $f=function(e){e[e["verified"]=0]="verified";e[e["selfSigned"]=1]="selfSigned";e[e["unverified"]=2]="unverified";e[e["failed"]=3]="failed";return e}({});var Jf=/** @class */function(){function e(e){if(e===void 0){e={}}this.verifiedBootKey=new sa;this.deviceLocked=false;this.verifiedBootState=0;Object.assign(this,e)}return e}();Yf([Va({type:sa})],Jf.prototype,"verifiedBootKey",void 0);Yf([Va({type:ui.Boolean})],Jf.prototype,"deviceLocked",void 0);Yf([Va({type:ui.Enumerated})],Jf.prototype,"verifiedBootState",void 0);Yf([Va({type:sa,optional:true})],Jf.prototype,"verifiedBootHash",void 0);var ed=Xf=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,Xf.prototype);return i}return t}(za);ed=Xf=Yf([Ua({type:ci.Set,itemType:ui.Integer})],ed);var td=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Yf([Va({context:1,type:ed,optional:true})],td.prototype,"purpose",void 0);Yf([Va({context:2,type:ui.Integer,optional:true})],td.prototype,"algorithm",void 0);Yf([Va({context:3,type:ui.Integer,optional:true})],td.prototype,"keySize",void 0);Yf([Va({context:5,type:ed,optional:true})],td.prototype,"digest",void 0);Yf([Va({context:6,type:ed,optional:true})],td.prototype,"padding",void 0);Yf([Va({context:10,type:ui.Integer,optional:true})],td.prototype,"ecCurve",void 0);Yf([Va({context:200,type:ui.Integer,optional:true})],td.prototype,"rsaPublicExponent",void 0);Yf([Va({context:203,type:ed,optional:true})],td.prototype,"mgfDigest",void 0);Yf([Va({context:303,type:ui.Null,optional:true})],td.prototype,"rollbackResistance",void 0);Yf([Va({context:305,type:ui.Null,optional:true})],td.prototype,"earlyBootOnly",void 0);Yf([Va({context:400,type:ui.Integer,optional:true})],td.prototype,"activeDateTime",void 0);Yf([Va({context:401,type:ui.Integer,optional:true})],td.prototype,"originationExpireDateTime",void 0);Yf([Va({context:402,type:ui.Integer,optional:true})],td.prototype,"usageExpireDateTime",void 0);Yf([Va({context:405,type:ui.Integer,optional:true})],td.prototype,"usageCountLimit",void 0);Yf([Va({context:503,type:ui.Null,optional:true})],td.prototype,"noAuthRequired",void 0);Yf([Va({context:504,type:ui.Integer,optional:true})],td.prototype,"userAuthType",void 0);Yf([Va({context:505,type:ui.Integer,optional:true})],td.prototype,"authTimeout",void 0);Yf([Va({context:506,type:ui.Null,optional:true})],td.prototype,"allowWhileOnBody",void 0);Yf([Va({context:507,type:ui.Null,optional:true})],td.prototype,"trustedUserPresenceRequired",void 0);Yf([Va({context:508,type:ui.Null,optional:true})],td.prototype,"trustedConfirmationRequired",void 0);Yf([Va({context:509,type:ui.Null,optional:true})],td.prototype,"unlockedDeviceRequired",void 0);Yf([Va({context:600,type:ui.Null,optional:true})],td.prototype,"allApplications",void 0);Yf([Va({context:601,type:sa,optional:true})],td.prototype,"applicationId",void 0);Yf([Va({context:701,type:ui.Integer,optional:true})],td.prototype,"creationDateTime",void 0);Yf([Va({context:702,type:ui.Integer,optional:true})],td.prototype,"origin",void 0);Yf([Va({context:703,type:ui.Null,optional:true})],td.prototype,"rollbackResistant",void 0);Yf([Va({context:704,type:Jf,optional:true})],td.prototype,"rootOfTrust",void 0);Yf([Va({context:705,type:ui.Integer,optional:true})],td.prototype,"osVersion",void 0);Yf([Va({context:706,type:ui.Integer,optional:true})],td.prototype,"osPatchLevel",void 0);Yf([Va({context:709,type:sa,optional:true})],td.prototype,"attestationApplicationId",void 0);Yf([Va({context:710,type:sa,optional:true})],td.prototype,"attestationIdBrand",void 0);Yf([Va({context:711,type:sa,optional:true})],td.prototype,"attestationIdDevice",void 0);Yf([Va({context:712,type:sa,optional:true})],td.prototype,"attestationIdProduct",void 0);Yf([Va({context:713,type:sa,optional:true})],td.prototype,"attestationIdSerial",void 0);Yf([Va({context:714,type:sa,optional:true})],td.prototype,"attestationIdImei",void 0);Yf([Va({context:715,type:sa,optional:true})],td.prototype,"attestationIdMeid",void 0);Yf([Va({context:716,type:sa,optional:true})],td.prototype,"attestationIdManufacturer",void 0);Yf([Va({context:717,type:sa,optional:true})],td.prototype,"attestationIdModel",void 0);Yf([Va({context:718,type:ui.Integer,optional:true})],td.prototype,"vendorPatchLevel",void 0);Yf([Va({context:719,type:ui.Integer,optional:true})],td.prototype,"bootPatchLevel",void 0);Yf([Va({context:720,type:ui.Null,optional:true})],td.prototype,"deviceUniqueAttestation",void 0);Yf([Va({context:723,type:sa,optional:true})],td.prototype,"attestationIdSecondImei",void 0);Yf([Va({context:724,type:sa,optional:true})],td.prototype,"moduleHash",void 0);var id=function(e){e[e["software"]=0]="software";e[e["trustedEnvironment"]=1]="trustedEnvironment";e[e["strongBox"]=2]="strongBox";return e}({});var rd=/** @class */function(){function e(e){if(e===void 0){e={}}this.attestationVersion=3;this.attestationSecurityLevel=0;this.keymasterVersion=0;this.keymasterSecurityLevel=0;this.attestationChallenge=new sa;this.uniqueId=new sa;this.softwareEnforced=new td;this.teeEnforced=new td;Object.assign(this,e)}return e}();Yf([Va({type:ui.Integer})],rd.prototype,"attestationVersion",void 0);Yf([Va({type:ui.Enumerated})],rd.prototype,"attestationSecurityLevel",void 0);Yf([Va({type:ui.Integer})],rd.prototype,"keymasterVersion",void 0);Yf([Va({type:ui.Enumerated})],rd.prototype,"keymasterSecurityLevel",void 0);Yf([Va({type:sa})],rd.prototype,"attestationChallenge",void 0);Yf([Va({type:sa})],rd.prototype,"uniqueId",void 0);Yf([Va({type:td})],rd.prototype,"softwareEnforced",void 0);Yf([Va({type:td})],rd.prototype,"teeEnforced",void 0);var nd=/** @class */function(){function e(e){if(e===void 0){e={}}this.attestationVersion=400;this.attestationSecurityLevel=0;this.keyMintVersion=0;this.keyMintSecurityLevel=0;this.attestationChallenge=new sa;this.uniqueId=new sa;this.softwareEnforced=new td;this.hardwareEnforced=new td;Object.assign(this,e)}e.prototype.toLegacyKeyDescription=function(){return new rd({attestationVersion:this.attestationVersion,attestationSecurityLevel:this.attestationSecurityLevel,keymasterVersion:this.keyMintVersion,keymasterSecurityLevel:this.keyMintSecurityLevel,attestationChallenge:this.attestationChallenge,uniqueId:this.uniqueId,softwareEnforced:this.softwareEnforced,teeEnforced:this.hardwareEnforced})};e.fromLegacyKeyDescription=function(t){return new e({attestationVersion:t.attestationVersion,attestationSecurityLevel:t.attestationSecurityLevel,keyMintVersion:t.keymasterVersion,keyMintSecurityLevel:t.keymasterSecurityLevel,attestationChallenge:t.attestationChallenge,uniqueId:t.uniqueId,softwareEnforced:t.softwareEnforced,hardwareEnforced:t.teeEnforced})};return e}();Yf([Va({type:ui.Integer})],nd.prototype,"attestationVersion",void 0);Yf([Va({type:ui.Enumerated})],nd.prototype,"attestationSecurityLevel",void 0);Yf([Va({type:ui.Integer})],nd.prototype,"keyMintVersion",void 0);Yf([Va({type:ui.Enumerated})],nd.prototype,"keyMintSecurityLevel",void 0);Yf([Va({type:sa})],nd.prototype,"attestationChallenge",void 0);Yf([Va({type:sa})],nd.prototype,"uniqueId",void 0);Yf([Va({type:td})],nd.prototype,"softwareEnforced",void 0);Yf([Va({type:td})],nd.prototype,"hardwareEnforced",void 0);
-// src/nonstandard.ts
-var ad;var od=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(td);od=Yf([Ua({type:ci.Choice})],od);var cd=ad=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,ad.prototype);return i}t.prototype.findProperty=function(e){var t=this.find((function(t){return t[e]!==void 0}));if(t)return t[e]};return t}(za);cd=ad=Yf([Ua({type:ci.Sequence,itemType:od})],cd);var ud=/** @class */function(){function e(e){if(e===void 0){e={}}this.attestationVersion=3;this.attestationSecurityLevel=0;this.keymasterVersion=0;this.keymasterSecurityLevel=0;this.attestationChallenge=new sa;this.uniqueId=new sa;this.softwareEnforced=new cd;this.teeEnforced=new cd;Object.assign(this,e)}Object.defineProperty(e.prototype,"keyMintVersion",{get:function(){return this.keymasterVersion},set:function(e){this.keymasterVersion=e},enumerable:false,configurable:true});Object.defineProperty(e.prototype,"keyMintSecurityLevel",{get:function(){return this.keymasterSecurityLevel},set:function(e){this.keymasterSecurityLevel=e},enumerable:false,configurable:true});Object.defineProperty(e.prototype,"hardwareEnforced",{get:function(){return this.teeEnforced},set:function(e){this.teeEnforced=e},enumerable:false,configurable:true});return e}();Yf([Va({type:ui.Integer})],ud.prototype,"attestationVersion",void 0);Yf([Va({type:ui.Enumerated})],ud.prototype,"attestationSecurityLevel",void 0);Yf([Va({type:ui.Integer})],ud.prototype,"keymasterVersion",void 0);Yf([Va({type:ui.Enumerated})],ud.prototype,"keymasterSecurityLevel",void 0);Yf([Va({type:sa})],ud.prototype,"attestationChallenge",void 0);Yf([Va({type:sa})],ud.prototype,"uniqueId",void 0);Yf([Va({type:cd})],ud.prototype,"softwareEnforced",void 0);Yf([Va({type:cd})],ud.prototype,"teeEnforced",void 0);var sd=/** @class */function(e){__extends(t,e);function t(t){if(t===void 0){t={}}if("keymasterVersion"in t&&!("keyMintVersion"in t))t.keyMintVersion=t.keymasterVersion;if("keymasterSecurityLevel"in t&&!("keyMintSecurityLevel"in t))t.keyMintSecurityLevel=t.keymasterSecurityLevel;if("teeEnforced"in t&&!("hardwareEnforced"in t))t.hardwareEnforced=t.teeEnforced;return e.call(this,t)||this}return t}(ud);sd=Yf([Ua({type:ci.Sequence})],sd);
-// src/attestation.ts
-var fd=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Yf([Va({type:ui.OctetString})],fd.prototype,"packageName",void 0);Yf([Va({type:ui.Integer})],fd.prototype,"version",void 0);var dd=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Yf([Va({type:fd,repeated:"set"})],dd.prototype,"packageInfos",void 0);Yf([Va({type:ui.OctetString,repeated:"set"})],dd.prototype,"signatureDigests",void 0);
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */function ld(e,t){var i;if(t===undefined)return null;if(t===null){return Ws(Ms(e),true)}if(typeof t==="number"){return Ws(Ms(e),t)}if(t instanceof ed){return Ws(Ms(e),Array.from(t).join(", "))}if(t instanceof Jf){return Qs(Ms(e),__spreadArray([Ws("Verified Boot Key",lt.encode(t.verifiedBootKey)),Ws("Device Locked",t.deviceLocked),Ws("Boot State",(i=$f[t.verifiedBootState])!==null&&i!==void 0?i:String(t.verifiedBootState))],t.verifiedBootHash!=null?[Ws("Boot Hash",lt.encode(t.verifiedBootHash))]:[],true))}if(e==="attestationApplicationId"&&Re(t)){try{var r=Wa.parse(t,dd);var n=[];if(r.packageInfos.length>0){n.push(Qs("Package Infos",r.packageInfos.map((function(e){return Qs("",[Ws("Package Name",ks(e.packageName)),Ws("Version",e.version)])}))))}if(r.signatureDigests.length>0){n.push(Qs("Signature Digests",r.signatureDigests.map((function(e){return Ws("Digest",lt.encode(e))}))))}return Qs(Ms(e),n)}catch(e){
-// fall through to generic buffer handling
-}}if(Re(t)){try{return Ws(Ms(e),ks(t))}catch(i){return Ws(Ms(e),lt.encode(t))}}if(typeof t==="string"){return Ws(Ms(e),t)}return null}function vd(e){var t={};for(var i=0,r=e;i<r.length;i++){var n=r[i];for(var a=0,o=Object.keys(n);a<o.length;a++){var c=o[a];var u=n[c];if(u!==undefined&&!(c in t)){t[c]=u}}}return Object.entries(t).map((function(e){var t=e[0],i=e[1];return ld(t,i)})).filter((function(e){return e!=null}))}var hd=/** @class */function(){function e(){this.oids=[Zf]}e.prototype.parse=function(e){var t,i,r;var n=Wa.parse(e.extnValue.buffer,ud);var a=[];var o=n.attestationVersion;a.push(Ws("Attestation Version",typeof o==="number"?o:Number(o)));a.push(Ws("Attestation Security Level",(t=id[n.attestationSecurityLevel])!==null&&t!==void 0?t:String(n.attestationSecurityLevel)));a.push(Ws("Keymaster Version",n.keymasterVersion));a.push(Ws("Keymaster Security Level",(i=id[n.keymasterSecurityLevel])!==null&&i!==void 0?i:String(n.keymasterSecurityLevel)));a.push(Ws("Attestation Challenge",ks(n.attestationChallenge)));var c=lt.encode(n.uniqueId);if(c){a.push(Ws("Unique ID",c))}var u=vd(n.softwareEnforced);if(u.length>0){a.push(Qs("Software Enforced",u))}var s=vd(n.teeEnforced);if(s.length>0){a.push(Qs("TEE Enforced",s))}return{oid:e.extnID,critical:(r=e.critical)!==null&&r!==void 0?r:false,children:a}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var pd=/** @class */function(){function e(){this.oids=[fc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,dc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("Usage",i.toJSON().join(", "))]}};return e}();
-// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
-function bd(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
-// src/index.ts
-var yd="1.3.6.1.4.1.52266.1";var gd=/** @class */function(){function e(e){if(e===void 0){e={}}this.leiCode="";Object.assign(this,e)}return e}();bd([Va({type:Fn})],gd.prototype,"leiCode",void 0);bd([Va({type:Fn,context:0,optional:true})],gd.prototype,"leiRole",void 0);gd=bd([Ua({type:ci.Sequence})],gd);var Sd=/** @class */function(){function e(e){if(e)this.text=e}Object.defineProperty(e.prototype,"text",{get:function(){if(this.bmpString!==void 0)return this.bmpString;if(this.ia5String!==void 0)return this.ia5String;if(this.printableString!==void 0)return this.printableString;if(this.utf8String!==void 0)return this.utf8String;if(this.visibleString!==void 0)return this.visibleString},set:function(e){this.printableString=e},enumerable:false,configurable:true});return e}();bd([Va({type:ui.IA5String})],Sd.prototype,"ia5String",void 0);bd([Va({type:ui.VisibleString})],Sd.prototype,"visibleString",void 0);bd([Va({type:ui.BmpString})],Sd.prototype,"bmpString",void 0);bd([Va({type:ui.Utf8String})],Sd.prototype,"utf8String",void 0);bd([Va({type:ui.PrintableString})],Sd.prototype,"printableString",void 0);Sd=bd([Ua({type:ci.Choice})],Sd);var md=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this)||this;if(typeof t==="string")i.text=t;else if(t instanceof gd)i.struct=t;return i}return t}(Sd);bd([Va({type:gd})],md.prototype,"struct",void 0);md=bd([Ua({type:ci.Choice})],md);var Cd="1.3.6.1.4.1.52266.2";var Ad=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Sd);Ad=bd([Ua({type:ci.Choice})],Ad);
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var Ed=/** @class */function(){function e(){this.oids=[yd]}e.prototype.parse=function(e){var t,i,r;var n=Wa.parse(e.extnValue.buffer,md);var a=[];if(n.struct!=null){a.push(Ws("LEI Code",n.struct.leiCode,"lei"));if(n.struct.leiRole!=null){a.push(Ws("LEI Role",n.struct.leiRole))}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Qs("LEI",a)]}}return{oid:e.extnID,critical:(i=e.critical)!==null&&i!==void 0?i:false,children:[Ws("LEI Code",(r=n.text)!==null&&r!==void 0?r:"","lei")]}};return e}();var wd=/** @class */function(){function e(){this.oids=[Cd]}e.prototype.parse=function(e){var t,i;var r=Wa.parse(e.extnValue.buffer,Ad);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("Role",(i=r.text)!==null&&i!==void 0?i:"")]}};return e}();
-// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
-function Pd(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
-// src/hash_alg_and_value.ts
-var Dd=/** @class */function(){function e(e){if(e===void 0){e={}}this.hashAlg=new Fc;this.hashValue=new sa;Object.assign(this,e)}return e}();Pd([Va({type:Fc})],Dd.prototype,"hashAlg",void 0);Pd([Va({type:sa})],Dd.prototype,"hashValue",void 0);
-// src/logotype_details.ts
-var _d=/** @class */function(){function e(e){if(e===void 0){e={}}this.mediaType="";this.logotypeHash=[];this.logotypeURI=[];Object.assign(this,e)}return e}();Pd([Va({type:ui.IA5String})],_d.prototype,"mediaType",void 0);Pd([Va({type:Dd,repeated:"sequence"})],_d.prototype,"logotypeHash",void 0);Pd([Va({type:ui.IA5String,repeated:"sequence"})],_d.prototype,"logotypeURI",void 0);var Id=/** @class */function(){function e(e){if(e===void 0){e={}}this.fileSize=0;this.playTime=0;this.channels=1;Object.assign(this,e)}return e}();Pd([Va({type:ui.Integer})],Id.prototype,"fileSize",void 0);Pd([Va({type:ui.Integer})],Id.prototype,"playTime",void 0);Pd([Va({type:ui.Integer})],Id.prototype,"channels",void 0);Pd([Va({type:ui.Integer,implicit:true,context:3,optional:true})],Id.prototype,"sampleRate",void 0);Pd([Va({type:ui.IA5String,implicit:true,context:4,optional:true})],Id.prototype,"language",void 0);
-// src/logotype_audio.ts
-var Bd=/** @class */function(){function e(e){if(e===void 0){e={}}this.audioDetails=new _d;Object.assign(this,e)}return e}();Pd([Va({type:_d})],Bd.prototype,"audioDetails",void 0);Pd([Va({type:Id,optional:true})],Bd.prototype,"audioInfo",void 0);
-// src/logotype_image_resolution.ts
-var Td=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Pd([Va({type:ui.Integer,context:1,implicit:true})],Td.prototype,"numBits",void 0);Pd([Va({type:ui.Integer,context:2,implicit:true})],Td.prototype,"tableSize",void 0);Td=Pd([Ua({type:ci.Choice})],Td);var Nd=/** @class */function(){function e(e){if(e===void 0){e={}}this.type=1;this.fileSize=0;this.xSize=0;this.ySize=0;Object.assign(this,e)}return e}();Pd([Va({type:ui.Integer,context:0,implicit:true,defaultValue:1})],Nd.prototype,"type",void 0);Pd([Va({type:ui.Integer})],Nd.prototype,"fileSize",void 0);Pd([Va({type:ui.Integer})],Nd.prototype,"xSize",void 0);Pd([Va({type:ui.Integer})],Nd.prototype,"ySize",void 0);Pd([Va({type:Td})],Nd.prototype,"resolution",void 0);Pd([Va({type:ui.IA5String,context:4,implicit:true,optional:true})],Nd.prototype,"language",void 0);
-// src/logotype_image.ts
-var Rd=/** @class */function(){function e(e){if(e===void 0){e={}}this.imageDetails=new _d;Object.assign(this,e)}return e}();Pd([Va({type:_d})],Rd.prototype,"imageDetails",void 0);Pd([Va({type:Nd,optional:true})],Rd.prototype,"imageInfo",void 0);
-// src/logotype_data.ts
-var xd=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Pd([Va({type:Rd,repeated:"sequence",optional:true})],xd.prototype,"image",void 0);Pd([Va({type:Bd,repeated:"sequence",context:1,optional:true})],xd.prototype,"audio",void 0);
-// src/logotype_reference.ts
-var Od=/** @class */function(){function e(e){if(e===void 0){e={}}this.refStructHash=[];this.refStructURI=[];Object.assign(this,e)}return e}();Pd([Va({type:Dd,repeated:"sequence"})],Od.prototype,"refStructHash",void 0);Pd([Va({type:ui.IA5String,repeated:"sequence"})],Od.prototype,"refStructURI",void 0);
-// src/logotype_info.ts
-var Md=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Pd([Va({type:xd,implicit:true,context:0})],Md.prototype,"direct",void 0);Pd([Va({type:Od,implicit:true,context:1})],Md.prototype,"indirect",void 0);Md=Pd([Ua({type:ci.Choice})],Md);
-// src/other_logotype_info.ts
-var kd=/** @class */function(){function e(e){if(e===void 0){e={}}this.logotypeType="";this.info=new Md;Object.assign(this,e)}return e}();Pd([Va({type:ui.ObjectIdentifier})],kd.prototype,"logotypeType",void 0);Pd([Va({type:Md})],kd.prototype,"info",void 0);
-// src/logotype_extn.ts
-var Ld=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Pd([Va({type:Md,context:0,repeated:"sequence",optional:true})],Ld.prototype,"communityLogos",void 0);Pd([Va({type:Md,context:1,optional:true})],Ld.prototype,"issuerLogo",void 0);Pd([Va({type:Md,context:2,optional:true})],Ld.prototype,"subjectLogo",void 0);Pd([Va({type:kd,context:3,repeated:"sequence",optional:true})],Ld.prototype,"otherLogos",void 0);
-// src/object_identifiers.ts
-var jd="1.3.6.1.5.5.7.1.12";
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */function Hd(e){var t,i;if(e.direct){var r=[];for(var n=0,a=(t=e.direct.image)!==null&&t!==void 0?t:[];n<a.length;n++){var o=a[n];r.push(Qs("Image",__spreadArray([Ws("Media Type",o.imageDetails.mediaType)],o.imageDetails.logotypeURI.map((function(e){return Ws("URI",e)})),true)))}for(var c=0,u=(i=e.direct.audio)!==null&&i!==void 0?i:[];c<u.length;c++){var s=u[c];r.push(Qs("Audio",__spreadArray([Ws("Media Type",s.audioDetails.mediaType)],s.audioDetails.logotypeURI.map((function(e){return Ws("URI",e)})),true)))}return r}if(e.indirect){return e.indirect.refStructURI.map((function(e){return Ws("Reference URI",e)}))}return[]}var Fd=/** @class */function(){function e(){this.oids=[jd]}e.prototype.parse=function(e){var t,i,r;var n=Wa.parse(e.extnValue.buffer,Ld);var a=[];if((t=n.communityLogos)===null||t===void 0?void 0:t.length){a.push(Qs("Community Logos",n.communityLogos.flatMap(Hd)))}if(n.issuerLogo!=null){a.push(Qs("Issuer Logo",Hd(n.issuerLogo)))}if(n.subjectLogo!=null){a.push(Qs("Subject Logo",Hd(n.subjectLogo)))}if((i=n.otherLogos)===null||i===void 0?void 0:i.length){for(var o=0,c=n.otherLogos;o<c.length;o++){var u=c[o];a.push(Qs("Other Logo (".concat(u.logotypeType,")"),Hd(u.info)))}}return{oid:e.extnID,critical:(r=e.critical)!==null&&r!==void 0?r:false,children:a}};return e}();
-// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
-function Kd(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
-// src/attributes/extensions/certificate_template.ts
-var Ud="1.3.6.1.4.1.311.21.7";var Vd=/** @class */function(){function e(e){if(e===void 0){e={}}this.templateID="";this.templateMajorVersion=0;this.templateMinorVersion=0;Object.assign(this,e)}return e}();Kd([Va({type:ui.ObjectIdentifier})],Vd.prototype,"templateID",void 0);Kd([Va({type:ui.Integer})],Vd.prototype,"templateMajorVersion",void 0);Kd([Va({type:ui.Integer})],Vd.prototype,"templateMinorVersion",void 0);
-// src/attributes/extensions/enroll_certtype.ts
-var Gd="1.3.6.1.4.1.311.20.2";var Wd=/** @class */function(){function e(e){if(e===void 0){e={}}this.name="";Object.assign(this,e)}return e}();Kd([Va({type:ui.Utf8String})],Wd.prototype,"name",void 0);var Qd=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}e.prototype.toString=function(){var e,t;return((e=this.name)===null||e===void 0?void 0:e.toString())||((t=this.spec)===null||t===void 0?void 0:t.name)||""};return e}();Kd([Va({type:$a})],Qd.prototype,"name",void 0);Kd([Va({type:Wd})],Qd.prototype,"spec",void 0);Qd=Kd([Ua({type:ci.Choice})],Qd);
-// src/attributes/extensions/ca_version.ts
-var zd="1.3.6.1.4.1.311.21.1";var qd=/** @class */function(){function e(){this.value=new ArrayBuffer(0)}e.prototype.toString=function(){var e=this.getVersion();return"V".concat(e.certificateIndex,".").concat(e.keyIndex)};e.prototype.getVersion=function(){var e=new Uint8Array(this.value);if(this.value.byteLength<4){e=new Uint8Array(4);e.set(new Uint8Array(this.value),4-this.value.byteLength)}return{keyIndex:parseInt(lt.encode(e.slice(0,2)),16),certificateIndex:parseInt(lt.encode(e.slice(2)),16)}};return e}();Kd([Va({type:ui.Integer,converter:va})],qd.prototype,"value",void 0);qd=Kd([Ua({type:ci.Choice})],qd);
-/**
-             * Extension OID for Microsoft CRL Next Publish extension.
-             */
-// eslint-disable-next-line @typescript-eslint/naming-convention
-var Yd="1.3.6.1.4.1.311.21.4";
-/**
-             * Implements ASN.1 schema for Microsoft CRL Next Publish extension.
-             *
-             * ```asn
-             * MsCRLNextPublish ::= GeneralizedTime
-             * ```
-             */var Xd=/** @class */function(){function e(){pe.set(this,void 0)}e.prototype.fromASN=function(e){__classPrivateFieldSet(this,pe,e.valueBlock.valueHex,"f");this.nextPublish=e.toDate().toISOString();return this};e.prototype.toASN=function(){return new Yn({valueHex:__classPrivateFieldGet(this,pe,"f")})};e.prototype.toSchema=function(e){return new Yn({name:e})};return e}();pe=new WeakMap;
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var Zd=/** @class */function(){function e(){this.oids=[Ud]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Vd);var r=[Ws("Template ID",i.templateID)];if(i.templateMajorVersion!=null){r.push(Ws("Major Version",i.templateMajorVersion))}if(i.templateMinorVersion!=null){r.push(Ws("Minor Version",i.templateMinorVersion))}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:r}};return e}();var $d=/** @class */function(){function e(){this.oids=[Gd]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Qd);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("Template Name",i.toString())]}};return e}();var Jd=/** @class */function(){function e(){this.oids=[zd]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,qd);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("Version",i.toString())]}};return e}();var el=/** @class */function(){function e(){this.oids=[Yd]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Xd);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("Next Publish",Ru(i.nextPublish))]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var tl=/** @class */function(){function e(){this.oids=[cu]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,iu);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("Log Hash Algorithm",Os(i.logHash.algorithm,true)),Ws("Signature Algorithm",Os(i.sigAlg.algorithm,true)),Ws("Min Serial",i.minSerial.toString()),Ws("Max Serial",i.maxSerial.toString())]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */function il(e){return e.map((function(e){var t=[Ys(e.base)];if(e.minimum!==0){t.push(Ws("Minimum",e.minimum))}if(e.maximum!=null){t.push(Ws("Maximum",e.maximum))}return t})).flat()}var rl=/** @class */function(){function e(){this.oids=[vc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,bc);var r=[];if(i.permittedSubtrees!=null){r.push(Qs("Permitted Subtrees",il(i.permittedSubtrees)))}if(i.excludedSubtrees!=null){r.push(Qs("Excluded Subtrees",il(i.excludedSubtrees)))}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:r}};return e}();
-// src/object_identifiers.ts
-var nl="2.16.840.1.113730";var al="".concat(nl,".1");
-// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
-function ol(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
-// src/cert_type.ts
-var cl="".concat(al,".1");var ul=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}t.prototype.toJSON=function(){var e=this.toNumber();var t=[];if(e&8)t.push("objectSigning");if(e&128)t.push("objectSigningCa");if(e&4)t.push("sMime");if(e&64)t.push("sMimeCa");if(e&32)t.push("sslCa");if(e&1)t.push("sslClient");if(e&2)t.push("sslServer");return t};t.prototype.toString=function(){return"[".concat(this.toJSON().join(", "),"]")};return t}(ua);
-// src/comment.ts
-var sl="".concat(al,".13");var fl=/** @class */function(){function e(e){this.value="";if(e)this.value=e}return e}();ol([Va({type:ui.IA5String})],fl.prototype,"value",void 0);fl=ol([Ua({type:ci.Choice})],fl);
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var dl=/** @class */function(){function e(){this.oids=[sl]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,fl);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("Comment",i.value)]}};return e}();var ll=/** @class */function(){function e(){this.oids=[cl]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,ul);var r=i.toJSON();return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("Type",r.join(", "))]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */
-/**
-             * Decode a big-endian unsigned integer from the raw bytes that
-             * `@peculiar/asn1-x509` exposes for SkipCerts (typed as ArrayBuffer but
-             * actually a Uint8Array at runtime).
-             */function vl(e){var t=Oe(e);var i=0;for(var r=0,n=t;r<n.length;r++){var a=n[r];i=i<<8|a}return i>>>0;// treat as unsigned 32-bit
-}var hl=/** @class */function(){function e(){this.oids=[yc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,gc);var r=[];if(i.requireExplicitPolicy!=null){r.push(Ws("Require Explicit Policy",vl(i.requireExplicitPolicy)))}if(i.inhibitPolicyMapping!=null){r.push(Ws("Inhibit Policy Mapping",vl(i.inhibitPolicyMapping)))}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:r}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var pl=/** @class */function(){function e(){this.oids=[mc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Ac);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Qs("Mappings",i.map((function(e){return Qs("",[Ws("Issuer Domain Policy",e.issuerDomainPolicy),Ws("Subject Domain Policy",e.subjectDomainPolicy)])})))]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var bl=/** @class */function(){function e(){this.oids=[Rc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,xc);var r=[];if(i.notBefore!=null){r.push(Ws("Not Before",Ru(i.notBefore)))}if(i.notAfter!=null){r.push(Ws("Not After",Ru(i.notAfter)))}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:r}};return e}();
-// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
-function yl(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
-// src/index.ts
-var gl;var Sl;var ml;var Cl;var Al=/** @class */function(){function e(e){if(typeof e==="string")this.alphabetic=e;else if(typeof e==="number")this.numeric=e}return e}();yl([Va({type:ui.PrintableString})],Al.prototype,"alphabetic",void 0);yl([Va({type:ui.PrintableString})],Al.prototype,"numeric",void 0);Al=yl([Ua({type:ci.Choice})],Al);var El=/** @class */function(){function e(e){if(e===void 0){e={}}this.currency=new Al;this.amount=0;this.exponent=0;Object.assign(this,e)}return e}();yl([Va({type:Al})],El.prototype,"currency",void 0);yl([Va({type:ui.Integer})],El.prototype,"amount",void 0);yl([Va({type:ui.Integer})],El.prototype,"exponent",void 0);var wl=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(El);wl=yl([Ua({type:ci.Sequence})],wl);var Pl=/** @class */function(){function e(e){if(e===void 0){e=0}this.value=e}return e}();yl([Va({type:ui.Integer})],Pl.prototype,"value",void 0);Pl=yl([Ua({type:ci.Choice})],Pl);var Dl=/** @class */function(){function e(e){if(e===void 0){e={}}this.url="";this.language="";Object.assign(this,e)}return e}();yl([Va({type:ui.IA5String})],Dl.prototype,"url",void 0);yl([Va({type:ui.PrintableString})],Dl.prototype,"language",void 0);Dl=yl([Ua({type:ci.Sequence})],Dl);var _l=gl=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,gl.prototype);return i}return t}(za);_l=gl=yl([Ua({type:ci.Sequence,itemType:Dl})],_l);var Il=Sl=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,Sl.prototype);return i}return t}(_l);Il=Sl=yl([Ua({type:ci.Sequence,itemType:Dl})],Il);var Bl=ml=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,ml.prototype);return i}return t}(za);Bl=ml=yl([Ua({type:ci.Sequence,itemType:ui.ObjectIdentifier})],Bl);var Tl=Cl=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,Cl.prototype);return i}return t}(za);Tl=Cl=yl([Ua({type:ci.Sequence,itemType:ui.PrintableString})],Tl);var Nl="0.4.0.1862.1";var Rl="".concat(Nl,".3");var xl="".concat(Nl,".5");var Ol="".concat(Nl,".6");
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */function Ml(e,t){var i;if(!t||!t.byteLength){return[]}try{if(e===hf){var r=Wa.parse(t,bf);var n=[];if(r.semanticsIdentifier){n.push(Ws("Semantics Identifier",r.semanticsIdentifier))}for(var a=0,o=(i=r.nameRegistrationAuthorities)!==null&&i!==void 0?i:[];a<o.length;a++){var c=o[a];n.push(Ys(c))}return n}if(e===Ol){var u=Wa.parse(t,Bl);return[Ws("QC Types",Array.from(u).map((function(e){var t;return(t=xs[e])!==null&&t!==void 0?t:e})).join(", "))]}if(e===Rl){var s=Wa.parse(t,Pl);return[Ws("Retention Period","".concat(s.value," years"))]}if(e===xl){var f=Wa.parse(t,_l);return[Qs("PDS Locations",f.map((function(e){return Qs("",[Ws("URL",e.url),Ws("Language",e.language)])})))]}}catch(e){
-// fall through
-}return[Ws("Info",lt.encode(t))]}var kl=/** @class */function(){function e(){this.oids=[lf]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,yf);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Qs("Statements",i.map((function(e){return Qs("",__spreadArray([Ws("Statement",e.statementId)],Ml(e.statementId,e.statementInfo),true))})))]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var Ll=/** @class */function(){function e(){this.oids=[wc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Pc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:i.map(Ys)}};return e}();
-// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
-function jl(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
-// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
-function Hl(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
-// src/issuer_and_serial_number.ts
-var Fl=/** @class */function(){function e(e){if(e===void 0){e={}}this.issuer=new ro;this.serialNumber=new ArrayBuffer(0);Object.assign(this,e)}return e}();Hl([Va({type:ro})],Fl.prototype,"issuer",void 0);Hl([Va({type:ui.Integer,converter:va})],Fl.prototype,"serialNumber",void 0);
-// src/signer_identifier.ts
-var Kl=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Hl([Va({type:Nc,context:0,implicit:true})],Kl.prototype,"subjectKeyIdentifier",void 0);Hl([Va({type:Fl})],Kl.prototype,"issuerAndSerialNumber",void 0);Kl=Hl([Ua({type:ci.Choice})],Kl);var Ul=e("w",/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Fc));e("w",Ul=Hl([Ua({type:ci.Sequence})],Ul));var Vl=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Fc);Vl=Hl([Ua({type:ci.Sequence})],Vl);var Gl=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Fc);Gl=Hl([Ua({type:ci.Sequence})],Gl);var Wl=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Fc);Wl=Hl([Ua({type:ci.Sequence})],Wl);var Ql=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Fc);Ql=Hl([Ua({type:ci.Sequence})],Ql);var zl=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Fc);zl=Hl([Ua({type:ci.Sequence})],zl);
-// src/attribute.ts
-var ql=/** @class */function(){function e(e){if(e===void 0){e={}}this.attrType="";this.attrValues=[];Object.assign(this,e)}return e}();Hl([Va({type:ui.ObjectIdentifier})],ql.prototype,"attrType",void 0);Hl([Va({type:ui.Any,repeated:"set"})],ql.prototype,"attrValues",void 0);
-// src/signer_info.ts
-var Yl;var Xl=/** @class */function(){function e(e){if(e===void 0){e={}}this.version=0;this.sid=new Kl;this.digestAlgorithm=new Ul;this.signatureAlgorithm=new Vl;this.signature=new sa;Object.assign(this,e)}return e}();Hl([Va({type:ui.Integer})],Xl.prototype,"version",void 0);Hl([Va({type:Kl})],Xl.prototype,"sid",void 0);Hl([Va({type:Ul})],Xl.prototype,"digestAlgorithm",void 0);Hl([Va({type:ql,repeated:"set",context:0,implicit:true,optional:true,raw:true})],Xl.prototype,"signedAttrs",void 0);Hl([Va({type:Vl})],Xl.prototype,"signatureAlgorithm",void 0);Hl([Va({type:sa})],Xl.prototype,"signature",void 0);Hl([Va({type:ql,repeated:"set",context:1,implicit:true,optional:true})],Xl.prototype,"unsignedAttrs",void 0);var Zl=e("v",Yl=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,Yl.prototype);return i}return t}(za));e("v",Zl=Yl=Hl([Ua({type:ci.Set,itemType:Xl})],Zl));
-// src/content_info.ts
-var $l=e("x",/** @class */function(){function e(e){if(e===void 0){e={}}this.contentType="";this.content=new ArrayBuffer(0);Object.assign(this,e)}return e}());Hl([Va({type:ui.ObjectIdentifier})],$l.prototype,"contentType",void 0);Hl([Va({type:ui.Any,context:0})],$l.prototype,"content",void 0);
-// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
-function Jl(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
-// src/mac_data.ts
-var ev=/** @class */function(){function e(e){if(e===void 0){e={}}this.mac=new hu;this.macSalt=new sa;this.iterations=1;Object.assign(this,e)}return e}();Jl([Va({type:hu})],ev.prototype,"mac",void 0);Jl([Va({type:sa})],ev.prototype,"macSalt",void 0);Jl([Va({type:ui.Integer,defaultValue:1})],ev.prototype,"iterations",void 0);
-// src/pfx.ts
-var tv=/** @class */function(){function e(e){if(e===void 0){e={}}this.version=3;this.authSafe=new $l;this.macData=new ev;Object.assign(this,e)}return e}();Jl([Va({type:ui.Integer})],tv.prototype,"version",void 0);Jl([Va({type:$l})],tv.prototype,"authSafe",void 0);Jl([Va({type:ev,optional:true})],tv.prototype,"macData",void 0);
-// src/index.ts
-var iv;var rv;var nv;var av="1.2.840.113549.1.9";var ov="".concat(av,".2");var cv="".concat(av,".7");var uv=e("K","".concat(av,".14"));var sv="1.3.6.1.5.5.7.9";var fv="".concat(sv,".1");var dv=/** @class */function(e){__extends(t,e);function t(t){if(t===void 0){t={}}return e.call(this,t)||this}t.prototype.toString=function(){return this.ia5String||e.prototype.toString.call(this)};return t}($a);jl([Va({type:ui.IA5String})],dv.prototype,"ia5String",void 0);dv=jl([Ua({type:ci.Choice})],dv);var lv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}($l);lv=jl([Ua({type:ci.Sequence})],lv);var vv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(tv);vv=jl([Ua({type:ci.Sequence})],vv);var hv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(gu);hv=jl([Ua({type:ci.Sequence})],hv);var pv=/** @class */function(){function e(e){if(e===void 0){e=""}this.value=e}e.prototype.toString=function(){return this.value};return e}();jl([Va({type:ui.IA5String})],pv.prototype,"value",void 0);pv=jl([Ua({type:ci.Choice})],pv);var bv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(dv);bv=jl([Ua({type:ci.Choice})],bv);var yv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}($a);yv=jl([Ua({type:ci.Choice})],yv);var gv=/** @class */function(){function e(e){if(e===void 0){e=new Date}this.value=e}return e}();jl([Va({type:ui.GeneralizedTime})],gv.prototype,"value",void 0);gv=jl([Ua({type:ci.Choice})],gv);var Sv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}($a);Sv=jl([Ua({type:ci.Choice})],Sv);var mv=/** @class */function(){function e(e){if(e===void 0){e="M"}this.value=e}e.prototype.toString=function(){return this.value};return e}();jl([Va({type:ui.PrintableString})],mv.prototype,"value",void 0);mv=jl([Ua({type:ci.Choice})],mv);var Cv=/** @class */function(){function e(e){if(e===void 0){e=""}this.value=e}e.prototype.toString=function(){return this.value};return e}();jl([Va({type:ui.PrintableString})],Cv.prototype,"value",void 0);Cv=jl([Ua({type:ci.Choice})],Cv);var Av=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Cv);Av=jl([Ua({type:ci.Choice})],Av);var Ev=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}($a);Ev=jl([Ua({type:ci.Choice})],Ev);var wv=/** @class */function(){function e(e){if(e===void 0){e=""}this.value=e}e.prototype.toString=function(){return this.value};return e}();jl([Va({type:ui.ObjectIdentifier})],wv.prototype,"value",void 0);wv=jl([Ua({type:ci.Choice})],wv);var Pv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Uc);Pv=jl([Ua({type:ci.Choice})],Pv);var Dv=/** @class */function(){function e(e){if(e===void 0){e=0}this.value=e}e.prototype.toString=function(){return this.value.toString()};return e}();jl([Va({type:ui.Integer})],Dv.prototype,"value",void 0);Dv=jl([Ua({type:ci.Choice})],Dv);var _v=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Xl);_v=jl([Ua({type:ci.Sequence})],_v);var Iv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}($a);Iv=jl([Ua({type:ci.Choice})],Iv);var Bv=iv=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,iv.prototype);return i}return t}(Qc);Bv=iv=jl([Ua({type:ci.Sequence})],Bv);var Tv=rv=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,rv.prototype);return i}return t}(za);Tv=rv=jl([Ua({type:ci.Set,itemType:ql})],Tv);var Nv=/** @class */function(){function e(e){if(e===void 0){e=""}this.value=e}e.prototype.toString=function(){return this.value};return e}();jl([Va({type:ui.BmpString})],Nv.prototype,"value",void 0);Nv=jl([Ua({type:ci.Choice})],Nv);var Rv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Fc);Rv=jl([Ua({type:ci.Sequence})],Rv);var xv=nv=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,nv.prototype);return i}return t}(za);xv=nv=jl([Ua({type:ci.Sequence,itemType:Rv})],xv);
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */function Ov(e){try{return Ru(Wa.parse(e,gv).value)}catch(e){return null}}function Mv(e,t){if(e===fv){var i=Ov(t);if(i){return i}}try{return Wa.parse(t,Ja).toString()}catch(e){return lt.encode(t)}}var kv=/** @class */function(){function e(){this.oids=[Ic]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Bc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:i.map((function(e){var t=e.values.map((function(t){return Mv(e.type,t)}));return Ws(e.type,t.join(", "))}))}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var Lv=/** @class */function(){function e(){this.oids=[jc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Hc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Qs("Descriptions",i.map((function(e){return Qs("",[Ws("Method",e.accessMethod),Ys(e.accessLocation)])})))]}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var jv=/** @class */function(){function e(){this.oids=[Tc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Nc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[Ws("Key Identifier",lt.encode(i.buffer),"subjectKeyId")]}};return e}();
-// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
-function Hv(e,t,i,r){var n=arguments.length,a=n<3?t:r===null?r=Object.getOwnPropertyDescriptor(t,i):r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
-// src/index.ts
-var Fv;var Kv;var Uv;var Vv="1.3.6.1.5.5.7";var Gv="".concat(Vv,".1");var Wv=Fv=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,Fv.prototype);return i}return t}(za);Wv=Fv=Hv([Ua({type:ci.Sequence,itemType:ui.IA5String})],Wv);var Qv=/** @class */function(){function e(e){if(e===void 0){e={}}this.claim="";this.permitted=[];Object.assign(this,e)}return e}();Hv([Va({type:ui.IA5String})],Qv.prototype,"claim",void 0);Hv([Va({type:ui.Utf8String,repeated:"sequence"})],Qv.prototype,"permitted",void 0);var zv=Kv=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,Kv.prototype);return i}return t}(za);zv=Kv=Hv([Ua({type:ci.Sequence,itemType:Qv})],zv);var qv=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Hv([Va({type:Wv,optional:true,context:0})],qv.prototype,"mustInclude",void 0);Hv([Va({type:zv,optional:true,context:1})],qv.prototype,"permittedValues",void 0);var Yv="".concat(Gv,".26");var Xv=/** @class */function(){function e(){this.start="";this.count=2}return e}();Hv([Va({type:ui.IA5String})],Xv.prototype,"start",void 0);Hv([Va({type:ui.Integer})],Xv.prototype,"count",void 0);var Zv=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Hv([Va({type:ui.IA5String,context:0})],Zv.prototype,"spc",void 0);Hv([Va({type:Xv,context:1})],Zv.prototype,"range",void 0);Hv([Va({type:ui.IA5String,context:2})],Zv.prototype,"one",void 0);Zv=Hv([Ua({type:ci.Choice})],Zv);var $v=Uv=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,Uv.prototype);return i}return t}(za);$v=Uv=Hv([Ua({type:ci.Sequence,itemType:Zv})],$v);
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var Jv=/** @class */function(){function e(){this.oids=[Yv]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,$v);var r=[];for(var n=0,a=Array.from(i);n<a.length;n++){var o=a[n];if(o.spc!=null){r.push(Ws("Service Provider Code",o.spc))}else if(o.range!=null){r.push(Qs("Range",[Ws("Start",o.range.start),Ws("Count",o.range.count)]))}else if(o.one!=null){r.push(Ws("Telephone Number",o.one))}}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:r}};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var eh=/** @class */function(){function e(){this.parsers=new Map}e.prototype.register=function(e){for(var t=0,i=e.oids;t<i.length;t++){var r=i[t];this.parsers.set(r,e)}};e.prototype.get=function(e){return this.parsers.get(e)};return e}();
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var th=new eh;
-// Certificate extensions (RFC 5280)
-th.register(new ef);th.register(new pd);th.register(new Vf);th.register(new Ll);th.register(new zf);th.register(new jv);th.register(new Js);th.register(new $s);th.register(new Lv);th.register(new Bf);th.register(new pl);th.register(new hl);th.register(new rl);th.register(new Wf);th.register(new bl);th.register(new kv);th.register(new _f);
-// CRL extensions
-th.register(new jf);th.register(new Hf);th.register(new Ff);th.register(new Kf);th.register(new qf);th.register(new Qf);
-// Proprietary / additional
-th.register(new Uf);th.register(new dl);th.register(new ll);th.register(new Lf);th.register(new Sf);th.register(new kl);th.register(new hd);
-// Microsoft extensions
-th.register(new Zd);th.register(new $d);th.register(new Jd);th.register(new el);
-// LEI extensions (RFC 7773)
-th.register(new Ed);th.register(new wd);
-// Adobe Acrobat extensions
-th.register(new Xs);th.register(new Zs);
-// Logotype extension (RFC 3709)
-th.register(new Fd);
-// TN Authorization List (RFC 8226)
-th.register(new Jv);
-// CA/Browser Forum + Apple
-th.register(new Pf);th.register(new Df);
-// Merkle Tree Certificates (RFC 9925)
-th.register(new tl);function ih(e){return Hs(e,th)}
-/**
-             * @license
-             * Copyright (c) Peculiar Ventures, LLC.
-             *
-             * This source code is licensed under the MIT license found in the
-             * LICENSE file in the root directory of this source tree.
-             */var rh="-{5}";var nh="\\n";var ah="[^".concat(nh,"]+");var oh="".concat(rh,"BEGIN (").concat(ah,"(?=").concat(rh,"))").concat(rh);var ch="".concat(rh,"END \\1").concat(rh);var uh="\\n";var sh="[^:".concat(nh,"]+");var fh="(?:[^".concat(nh,"]+").concat(uh,"(?: +[^").concat(nh,"]+").concat(uh,")*)");var dh="[a-zA-Z0-9=+/]+";var lh="(?:".concat(dh).concat(uh,")+");var vh="".concat(oh).concat(uh,"(?:((?:").concat(sh,": ").concat(fh,")+))?").concat(uh,"?(").concat(lh,")").concat(ch);
+             */var Ls="-{5}";var js="\\n";var Hs="[^".concat(js,"]+");var Fs="".concat(Ls,"BEGIN (").concat(Hs,"(?=").concat(Ls,"))").concat(Ls);var Ks="".concat(Ls,"END \\1").concat(Ls);var Us="\\n";var Vs="[^:".concat(js,"]+");var Gs="(?:[^".concat(js,"]+").concat(Us,"(?: +[^").concat(js,"]+").concat(Us,")*)");var Ws="[a-zA-Z0-9=+/]+";var Qs="(?:".concat(Ws).concat(Us,")+");var zs="".concat(Fs).concat(Us,"(?:((?:").concat(Vs,": ").concat(Gs,")+))?").concat(Us,"?(").concat(Qs,")").concat(Ks);
 /**
              * Represents PEM Converter.
              */
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
-var hh=/** @class */function(){function e(){}e.isPem=function(e){return typeof e==="string"&&new RegExp(vh,"g").test(e.replace(/\r/g,""))};e.decodeWithHeaders=function(e){e=e.replace(/\r/g,"");// CRLF -> LF
-var t=new RegExp(vh,"g");var i=[];var r=null;
+var qs=/** @class */function(){function e(){}e.isPem=function(e){return typeof e==="string"&&new RegExp(zs,"g").test(e.replace(/\r/g,""))};e.decodeWithHeaders=function(e){e=e.replace(/\r/g,"");// CRLF -> LF
+var t=new RegExp(zs,"g");var i=[];var r=null;
 // eslint-disable-next-line no-cond-assign
 while(r=t.exec(e)){
 // prepare pem encoded message
-var n=r[3].replace(new RegExp("[".concat(nh,"]+"),"g"),"");var a={type:r[1],headers:[],rawData:ke(Kt.decode(n))};
+var n=r[3].replace(new RegExp("[".concat(js,"]+"),"g"),"");var a={type:r[1],headers:[],rawData:ke(Kt.decode(n))};
 // read headers
-var o=r[2];if(o){var c=o.split(new RegExp(uh,"g"));var u=null;for(var s=0,f=c;s<f.length;s++){var d=f[s];var l=d.split(/:(.*)/),v=l[0],h=l[1];if(h===undefined){
+var o=r[2];if(o){var c=o.split(new RegExp(Us,"g"));var u=null;for(var s=0,f=c;s<f.length;s++){var d=f[s];var l=d.split(/:(.*)/),v=l[0],h=l[1];if(h===undefined){
 // value
 if(!u){throw new Error("Cannot parse PEM string. Incorrect header value")}u.value+=v.trim()}else{
 // key and value
@@ -1049,20 +535,20 @@ e.forEach((function(e){if(!("type"in e)){throw new TypeError("Cannot encode arra
                  * @param pem PEM structure for encoding
                  * @returns Returns PEM encoded block
                  */e.encodeStruct=function(e){var t;var i=e.type.toLocaleUpperCase();var r=[];r.push("-----BEGIN ".concat(i,"-----"));if((t=e.headers)===null||t===void 0?void 0:t.length){for(var n=0,a=e.headers;n<a.length;n++){var o=a[n];r.push("".concat(o.key,": ").concat(o.value))}r.push("");// blank line
-}var c=Kt.encode(e.rawData);var u;var s=0;var f=Array();while(s<c.length){if(c.length-s<64){u=c.substring(s)}else{u=c.substring(s,s+64);s+=64}if(u.length!==0){f.push(u);if(u.length<64){break}}else{break}}r.push.apply(r,f);r.push("-----END ".concat(i,"-----"));return r.join("\n")};return e}();be=hh;(function(){be.CertificateTag="CERTIFICATE"})();(function(){be.CrlTag="CRL"})();(function(){be.CertificateRequestTag="CERTIFICATE REQUEST"})();(function(){be.AttributeCertificateTag="ATTRIBUTE CERTIFICATE"})();e("P",hh);
+}var c=Kt.encode(e.rawData);var u;var s=0;var f=Array();while(s<c.length){if(c.length-s<64){u=c.substring(s)}else{u=c.substring(s,s+64);s+=64}if(u.length!==0){f.push(u);if(u.length<64){break}}else{break}}r.push.apply(r,f);r.push("-----END ".concat(i,"-----"));return r.join("\n")};return e}();le=qs;(function(){le.CertificateTag="CERTIFICATE"})();(function(){le.CrlTag="CRL"})();(function(){le.CertificateRequestTag="CERTIFICATE REQUEST"})();(function(){le.AttributeCertificateTag="ATTRIBUTE CERTIFICATE"})();e("P",qs);
 /**
              * @license
              * Copyright (c) Peculiar Ventures, LLC.
              *
              * This source code is licensed under the MIT license found in the
              * LICENSE file in the root directory of this source tree.
-             */var ph=/** @class */function(){function e(){this.providers=new Map;
+             */var Ys=/** @class */function(){function e(){this.providers=new Map;
 // @ts-expect-error - window.crypto is not typed
-var e=window.crypto||window.msCrypto;if(typeof e!=="undefined"){this.set(ye.DEFAULT,e)}}e.isCryptoKeyPair=function(e){return typeof e==="object"&&e!==null&&"privateKey"in e&&"publicKey"in e};
+var e=window.crypto||window.msCrypto;if(typeof e!=="undefined"){this.set(ve.DEFAULT,e)}}e.isCryptoKeyPair=function(e){return typeof e==="object"&&e!==null&&"privateKey"in e&&"publicKey"in e};
 /**
                  * Returns crypto by name
                  * @param key Crypto name
-                 */e.prototype.get=function(e){if(e===void 0){e=ye.DEFAULT}var t=this.providers.get(e.toLowerCase());if(!t){throw new Error("Cannot get Crypto by name '".concat(e,"'"))}return t};e.prototype.set=function(e,t){if(typeof e==="string"){if(!t){throw new TypeError("Argument 'value' is required")}this.providers.set(e.toLowerCase(),t)}else{this.providers.set(ye.DEFAULT,e)}return this};return e}();ye=ph;(function(){ye.DEFAULT="default"})();var bh=new ph;
+                 */e.prototype.get=function(e){if(e===void 0){e=ve.DEFAULT}var t=this.providers.get(e.toLowerCase());if(!t){throw new Error("Cannot get Crypto by name '".concat(e,"'"))}return t};e.prototype.set=function(e,t){if(typeof e==="string"){if(!t){throw new TypeError("Argument 'value' is required")}this.providers.set(e.toLowerCase(),t)}else{this.providers.set(ve.DEFAULT,e)}return this};return e}();ve=Ys;(function(){ve.DEFAULT="default"})();var Xs=new Ys;
 /**
              * @license
              * Copyright (c) Peculiar Ventures, LLC.
@@ -1072,13 +558,527 @@ var e=window.crypto||window.msCrypto;if(typeof e!=="undefined"){this.set(ye.DEFA
              */
 // HEX digits with whitespace between them, odd length allowed. No `0x` prefix and no
 // `:`, `-` or `.` separators, which `hex.decode` accepts by default.
-var yh={separators:[" ","\t","\n","\r"],allowOddLength:true,allowPrefix:false};
+var Zs={separators:[" ","\t","\n","\r"],allowOddLength:true,allowPrefix:false};
 // `base64.is` and `base64url.is` ignore all whitespace. Spaces and tabs must still prevent
 // detection, or text such as "Hello World" would be decoded as Base64Url.
-var gh=function(e){return/[\t\n\r ]/.test(e)};
-/** Checks for unpadded Base64Url text without whitespace. */var Sh=e("a1",(function(e){return e!==""&&!gh(e)&&Xt.is(e)}));var mh=e("j",(function(e){if(hh.isPem(e)){return hh.decode(e)[0]}
+var $s=function(e){return/[\t\n\r ]/.test(e)};
+/** Checks for unpadded Base64Url text without whitespace. */var Js=e("a1",(function(e){return e!==""&&!$s(e)&&Xt.is(e)}));var ef=e("j",(function(e){if(qs.isPem(e)){return qs.decode(e)[0]}
 // Ignore line breaks so line-wrapped Base64 (a PEM body without the armor) is detected
-var t=e.replace(/[\r\n]/g,"");if(lt.is(e,yh)){return ke(lt.decode(e,yh))}if(!gh(t)&&Kt.is(t)){return ke(Kt.decode(t))}if(Sh(e)){return ke(Xt.decode(e))}return ke(ct.decode(e))}));var Ch=e("p",(function(e,t){return __awaiter(r,void 0,void 0,(function(){var i;return __generator(this,(function(r){i=bh.get();if(i.subtle){return[2/*return*/,i.subtle.digest(e,t)]}return[2/*return*/,undefined]}))}))}));
+var t=e.replace(/[\r\n]/g,"");if(lt.is(e,Zs)){return ke(lt.decode(e,Zs))}if(!$s(t)&&Kt.is(t)){return ke(Kt.decode(t))}if(Js(e)){return ke(Xt.decode(e))}return ke(ct.decode(e))}));var tf=e("p",(function(e,t){return __awaiter(r,void 0,void 0,(function(){var i;return __generator(this,(function(r){i=Xs.get();if(i.subtle){return[2/*return*/,i.subtle.digest(e,t)]}return[2/*return*/,undefined]}))}))}));
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */function rf(e){var t;var i=lt.encode(e.extnValue.buffer);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[{title:"Raw Value",value:i}]}}
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */function nf(e,t){var i=t.get(e.extnID);if(!i){return rf(e)}try{return i.parse(e)}catch(t){console.warn("Error parsing extension:",e.extnID,t);return rf(e)}}
+// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
+function af(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
+// src/archive_rev_info.ts
+var of="1.2.840.113583.1.1.9.2";var cf=/** @class */function(){function e(e){if(e===void 0){e={}}this.version=1;Object.assign(this,e)}return e}();af([Va({type:ui.Integer})],cf.prototype,"version",void 0);
+// src/timestamp.ts
+var uf="1.2.840.113583.1.1.9.1";var sf=/** @class */function(){function e(e){if(e===void 0){e={}}this.version=1;this.location=new uo;this.requiresAuth=false;Object.assign(this,e)}return e}();af([Va({type:ui.Integer})],sf.prototype,"version",void 0);af([Va({type:uo})],sf.prototype,"location",void 0);af([Va({type:ui.Boolean,defaultValue:false,optional:true})],sf.prototype,"requiresAuth",void 0);
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var ff=e("$",(function(e,t,i){return __assign({title:e,value:t},i&&{_type:i})}));var df=e("Z",(function(e,t){return{title:e,children:t}}));
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var lf=(t={"2.5.4.3":"CN","2.5.4.4":"SN","2.5.4.5":"SERIALNUMBER","2.5.4.6":"C","2.5.4.7":"L","2.5.4.8":"ST","2.5.4.9":"STREET","2.5.4.10":"O","2.5.4.11":"OU","2.5.4.12":"T","2.5.4.17":"PostalCode","2.5.4.20":"TelephoneNumber","2.5.4.42":"GN","2.5.4.43":"I","2.5.4.44":"GenerationQualifier","2.5.4.46":"DNQ","2.5.4.65":"Pseudonym","2.5.4.97":"OI","0.9.2342.19200300.100.1.1":"UID","0.9.2342.19200300.100.1.25":"DC","1.2.840.113549.1.9.1":"E"},t[nu]="Trust Anchor ID",t[ou]="Trust Anchor ID",t);
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
+var vf=/** @class */function(){function e(){}e.parse=function(e){var t=Re(e)?Wa.parse(e,ro):e;var i=[];t.forEach((function(e){return e.forEach((function(e){var t=e.value.toString();if((e.type===nu||e.type===ou)&&e.value.anyValue){try{t=Wa.parse(e.value.anyValue,su).value}catch(e){
+// Preserve undecodable DER for inspection rather than hiding the name.
+}}i.push({type:e.type,value:t,short:lf[e.type]||e.type})}))}));return i};return e}();e("k",vf);
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */function hf(e){
+// --- Simple string types (library decodes these directly) ---
+if(e.uniformResourceIdentifier!=null){return ff("URI",e.uniformResourceIdentifier)}if(e.dNSName!=null){return ff("DNS Name",e.dNSName,"dNSName")}if(e.rfc822Name!=null){return ff("RFC 822 Name",e.rfc822Name)}if(e.registeredID!=null){return ff("Registered ID",e.registeredID)}
+// iPAddress: AsnIpConverter already converts the raw bytes to a dotted/colon string
+if(e.iPAddress!=null){return ff("IP Address",e.iPAddress,"iPAddress")}
+// --- Structured types ---
+if(e.otherName!=null){var t;try{t=Wa.parse(e.otherName.value,Ro).toString()}catch(a){try{var i=Wa.parse(e.otherName.value,Oo);var r=[];if(i.noticeRef!=null){var n=i.noticeRef.noticeNumbers.join(", ");r.push("".concat(i.noticeRef.organization.toString()," (").concat(n,")"))}if(i.explicitText!=null){r.push(i.explicitText.toString())}t=r.join("; ")}catch(i){t=lt.encode(e.otherName.value)}}return df("Other Name",[ff("Type",e.otherName.typeId),ff("Value",t)])}if(e.ediPartyName!=null){var a=[];if(e.ediPartyName.nameAssigner!=null){a.push(ff("Name Assigner",e.ediPartyName.nameAssigner.toString()))}a.push(ff("Party Name",e.ediPartyName.partyName.toString()));return df("EDI Party Name",a)}if(e.directoryName!=null){var o=vf.parse(e.directoryName);return df("Directory Name",o.map((function(e){return ff(e.type,e.value)})))}
+// x400Address: opaque ORAddress bytes → hex
+if(e.x400Address!=null){return ff("X400 Address",lt.encode(e.x400Address))}return ff("Unknown","")}
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var pf=/** @class */function(){function e(){this.oids=[uf]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,sf);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[df("Timestamp",[ff("Version",i.version),df("Location",[hf(i.location)]),ff("Requires Auth",i.requiresAuth)])]}};return e}();var bf=/** @class */function(){function e(){this.oids=[of]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,cf);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("Version",i.version)]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var yf=/** @class */function(){function e(){this.oids=[yo]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,So);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[df("Descriptions",i.map((function(e){return df("",[ff("Method",e.accessMethod),hf(e.accessLocation)])})))]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var gf=/** @class */function(){function e(){this.oids=[mo]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Ao);var r=[];if(i.keyIdentifier!=null){r.push(ff("Key Identifier",lt.encode(i.keyIdentifier.buffer),"authorityKeyId"))}if(i.authorityCertSerialNumber!=null){r.push(ff("Serial Number",lt.encode(i.authorityCertSerialNumber)))}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:r}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var Sf=/** @class */function(){function e(){this.oids=[Eo]}e.prototype.parse=function(e){var t,i;var r=Wa.parse(e.extnValue.buffer,wo);var n=[ff("CA",(t=r.cA)!==null&&t!==void 0?t:false)];if(r.pathLenConstraint!==undefined){n.push(ff("Path Length Constraint",r.pathLenConstraint))}return{oid:e.extnID,critical:(i=e.critical)!==null&&i!==void 0?i:false,children:n}};return e}();
+// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
+function mf(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
+// src/extensions/biometric_info.ts
+var Cf;var Af="".concat(fo,".2");var Ef=function(e){e[e["picture"]=0]="picture";e[e["handwrittenSignature"]=1]="handwrittenSignature";return e}({});var wf=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();mf([Va({type:ui.Integer})],wf.prototype,"predefinedBiometricType",void 0);mf([Va({type:ui.ObjectIdentifier})],wf.prototype,"biometricDataOid",void 0);wf=mf([Ua({type:ci.Choice})],wf);var Pf=/** @class */function(){function e(e){if(e===void 0){e={}}this.typeOfBiometricData=new wf;this.hashAlgorithm=new Fc;this.biometricDataHash=new sa;Object.assign(this,e)}return e}();mf([Va({type:wf})],Pf.prototype,"typeOfBiometricData",void 0);mf([Va({type:Fc})],Pf.prototype,"hashAlgorithm",void 0);mf([Va({type:sa})],Pf.prototype,"biometricDataHash",void 0);mf([Va({type:ui.IA5String,optional:true})],Pf.prototype,"sourceDataUri",void 0);var Df=Cf=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,Cf.prototype);return i}return t}(za);Df=Cf=mf([Ua({type:ci.Sequence,itemType:Pf})],Df);var _f="".concat(so,".11");
+// src/extensions/qc_statements.ts
+var If;var Bf;var Tf="".concat(fo,".3");var Nf=/** @class */function(){function e(){this.statementId=""}return e}();mf([Va({type:ui.ObjectIdentifier})],Nf.prototype,"statementId",void 0);mf([Va({type:ui.Any,optional:true})],Nf.prototype,"statementInfo",void 0);var Rf="".concat(_f,".2");var xf=If=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,If.prototype);return i}return t}(za);xf=If=mf([Ua({type:ci.Sequence,itemType:uo})],xf);var Of=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();mf([Va({type:ui.ObjectIdentifier,optional:true})],Of.prototype,"semanticsIdentifier",void 0);mf([Va({type:xf,optional:true})],Of.prototype,"nameRegistrationAuthorities",void 0);var Mf=Bf=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,Bf.prototype);return i}return t}(za);Mf=Bf=mf([Ua({type:ci.Sequence,itemType:Nf})],Mf);
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var kf=(i={},i[Ef.picture]="Picture",i[Ef.handwrittenSignature]="Handwritten Signature",i);var Lf=/** @class */function(){function e(){this.oids=[Af,"2.16.724.1.2.2.4.1"]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Df);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[df("Biometrics",i.map((function(e){var t;var i=[];var r=e.typeOfBiometricData,n=r.predefinedBiometricType,a=r.biometricDataOid;if(n!=null){i.push(ff("Type",(t=kf[n])!==null&&t!==void 0?t:String(n)))}else if(a){i.push(ff("OID",a))}i.push(ff("Hash Algorithm",e.hashAlgorithm.algorithm));i.push(ff("Hash",lt.encode(e.biometricDataHash)));if(e.sourceDataUri!=null){i.push(ff("Source URI",e.sourceDataUri))}return df("",i)})))]}};return e}();
+/**
+             * Extension OID for Apple Developer ID date extension.
+             */
+// eslint-disable-next-line @typescript-eslint/naming-convention
+var jf="1.2.840.113635.100.6.1.33";
+/**
+             * Implements ASN.1 schema for Apple Developer ID date extension.
+             *
+             * ```asn
+             * AppleDeveloperIdDate ::= UTF8String
+             * ```
+             */var Hf=/** @class */function(){function e(){he.set(this,void 0)}e.prototype.fromASN=function(e){__classPrivateFieldSet(this,he,e.valueBlock.valueHex,"f");this.date=new Yn({value:e.valueBlock.value}).toDate().toISOString();return this};e.prototype.toASN=function(){return new Rn({valueHex:__classPrivateFieldGet(this,he,"f")})};e.prototype.toSchema=function(e){return new Rn({name:e})};return e}();he=new WeakMap;
+/******************************************************************************
+            Copyright (c) Microsoft Corporation.
+
+            Permission to use, copy, modify, and/or distribute this software for any
+            purpose with or without fee is hereby granted.
+
+            THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+            REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+            AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+            INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+            LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+            OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+            PERFORMANCE OF THIS SOFTWARE.
+            ***************************************************************************** */
+/* global Reflect, Promise, SuppressedError, Symbol, Iterator */function Ff(e,t,i,r){var n=arguments.length,a=n<3?t:r===null?r=Object.getOwnPropertyDescriptor(t,i):r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}typeof SuppressedError==="function"?SuppressedError:function(e,t,i){var r=new Error(i);return r.name="SuppressedError",r.error=e,r.suppressed=t,r};
+/**
+             * Extension OID for CABF organization identifier.
+             */
+// eslint-disable-next-line @typescript-eslint/naming-convention
+var Kf="2.23.140.3.1";
+/**
+             * Implements ASN.1 enumeration for CABF organization identifier.
+             *
+             * ```asn
+             * CABFOrganizationIdentifier ::= SEQUENCE {
+             *  registrationSchemeIdentifier  PrintableString (SIZE(3)),
+             *  registrationCountry           PrintableString (SIZE(2)),
+             *  registrationStateOrProvince   [0] IMPLICIT PrintableString OPTIONAL (SIZE(0..128)),
+             *  registrationReference         UTF8String
+             * }
+             * ```
+             */var Uf=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Ff([Va({type:ui.PrintableString})],Uf.prototype,"registrationSchemeIdentifier",void 0);Ff([Va({type:ui.PrintableString})],Uf.prototype,"registrationCountry",void 0);Ff([Va({type:ui.PrintableString,optional:true,context:0,implicit:true})],Uf.prototype,"registrationStateOrProvince",void 0);Ff([Va({type:ui.Utf8String})],Uf.prototype,"registrationReference",void 0);
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var Vf=/** @class */function(){function e(){this.oids=[Kf]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Uf);var r=[ff("Scheme",i.registrationSchemeIdentifier),ff("Country",i.registrationCountry)];if(i.registrationStateOrProvince!=null){r.push(ff("State Or Province",i.registrationStateOrProvince))}r.push(ff("Reference",i.registrationReference));return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[df("Organization Identifier",r)]}};return e}();var Gf=/** @class */function(){function e(){this.oids=[jf]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Hf);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("Date",i.date)]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var Wf=/** @class */function(){function e(){this.oids=[Io]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Bo);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:i.map(hf)}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */function Qf(e,t){if(t===vo){try{return ff("Value",Wa.parse(e,Ro).toString())}catch(e){return null}}if(t===ho){try{var i=Wa.parse(e,Oo);if(i.explicitText!=null){return ff("Value",i.explicitText.toString())}}catch(e){return null}}return null}var zf=/** @class */function(){function e(){this.oids=[No]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,jo);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[df("Policies",i.map((function(e){var t;return df("",__spreadArray([ff("Policy",e.policyIdentifier)],((t=e.policyQualifiers)===null||t===void 0?void 0:t.length)?[df("Qualifiers",e.policyQualifiers.map((function(e){var t=Qf(e.qualifier,e.policyQualifierId);return df("",__spreadArray([ff("Qualifier",e.policyQualifierId)],t?[t]:[],true))})))]:[],true))})))]}};return e}();
+// src/structure.ts
+var qf=/** @class */function(){function e(){}e.createStream=function(e){var t=Oe(e);return new fu(t)};return e}();var Yf=function(e){e[e["none"]=0]="none";e[e["md5"]=1]="md5";e[e["sha1"]=2]="sha1";e[e["sha224"]=3]="sha224";e[e["sha256"]=4]="sha256";e[e["sha384"]=5]="sha384";e[e["sha512"]=6]="sha512";return e}({});var Xf=function(e){e[e["anonymous"]=0]="anonymous";e[e["rsa"]=1]="rsa";e[e["dsa"]=2]="dsa";e[e["ecdsa"]=3]="ecdsa";return e}({});var Zf=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this)||this;i.version=0;i.logId=new ArrayBuffer(32);i.timestamp=new Date;i.extensions=new ArrayBuffer(0);i.hashAlgorithm=0;i.signatureAlgorithm=0;i.signature=new ArrayBuffer(0);if(t)i.parse(t);return i}t.prototype.parse=function(e){this.version=e.readByte();e.read(2);this.logId=ke(e.read(32));this.timestamp=new Date(e.readNumber(8));var t=e.readNumber(2);this.extensions=ke(e.read(t));this.hashAlgorithm=e.readByte();this.signatureAlgorithm=e.readByte();this.signature=ke(e.read(e.readNumber(2)))};t.prototype.toJSON=function(){return{version:this.version,logId:lt.encode(this.logId),timestamp:this.timestamp,extensions:Kt.encode(this.extensions),hashAlgorithm:Yf[this.hashAlgorithm]||"undefined",signatureAlgorithm:Xf[this.signatureAlgorithm]||"undefined",signature:Kt.encode(this.signature)}};return t}(qf);
+// src/cert_transparency.ts
+var $f="1.3.6.1.4.1.11129.2.4.2";var Jf=/** @class */function(e){__extends(t,e);function t(){var t=e!==null&&e.apply(this,arguments)||this;t.items=[];return t}t.prototype.fromASN=function(t){e.prototype.fromASN.call(this,t);var i=new fu(this.buffer);var r=i.readNumber(2);this.items=[];while(i.position<r)this.items.push(new Zf(i));return this};t.prototype.toJSON=function(){return this.items.map((function(e){return e.toJSON()}))};return t}(sa);
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */
+// https://www.gstatic.com/ct/log_list/v3/all_logs_list.json
+var ed={"001a5d1a1c2d9375b6485578f82f71a1ae6eef397d297c8ae3157bcadee1a01e":"DigiCert 'Wyvern2027h1'","03802ac262f6e05e03f8bc6f7b9851324fd76a3df5b7595175e222fb8e9bd5f6":"Sectigo 'Tiger2027h2'","03edf1da9776b6f38c341e39ed9d707a7570369cf9844f327fe9e14138361b60":"Let's Encrypt 'Testflume2021' log","059c01d320e00784139580498d117c903266afaf7250b5af3b46a43e11840d4a":"DigiCert Yeti2022-2 Log","07b75c1be57d68fff1b0c61d2315c7bae6577c5794b76aeebc613a1a69d3a21c":"Google 'Xenon2020' log","084114980071532c16190460bcfc47fdc2653afa292c72b37ff863ae29ccc9f0":"Google 'Xenon2019' log","09157f632d46c7f76d95265493bc0f00b395ac5db3a2b26bfb043dba4ac63893":"IPng Networks 'Halloumi2027h2'","0b760e9a8b9a682f88985b15e947501a56446bba8830785c3842994386450c00":"Google 'Solera2019' log","0c2aef2c4a5b9883d4dda382fe50fb5188b3e97333a1ec53a09dc9a79d0d0820":"DigiCert 'Wyvern2024h2' Log","0d1dbc8944e9f5005542d72d3e144ccc43082ab6ea1e94dfd706657d2e86f301":"Sectigo 'Elephant2025h2'","0de1f2302bd30dc140621209ea552efc47747cb1d7e930ef0e421eb47e4eaa34":"Let's Encrypt 'Oak2025h2'","0e5794bcf3aea93e331b2c9907b3f790df9bc23d713225dd21a925ac61c54e21":"Google 'Argon2026h1' log","12f14e34bd53724c840619c38f3f7a13f8e7b56287889c6d300584ebe586263a":"Google 'Argon2025h2' log","134adf1ab5984209780c6fef4c7a91a416b72349ce58576adfaedaa7c2abe022":"Sectigo 'Mammoth2025h1'","15970488d7b997a05beb52512adee8d2e8b4a3165264121a9fabfbd5f85ad93f":"Symantec 'Sirius' log","16832dabf0a9250f0ff03aa545ffc8bfc823d0874bf6042927f8e71f3313f5fa":"Sectigo 'Tiger2026h1'","1986d4c728aa6ffeba036f782a4d0191aace2d72310faece5d70412d254cc7d4":"Let's Encrypt 'Oak2026h1'","1998107109f0d6522e3080d29e3f64bb836e28ccf90f528eeedfce4a3f16b4ca":"Sectigo 'Sabre2024h2'","1a04ff49d0541d40aff6a0c3bff1d8c4672f4eecee234068986b17402edc897d":"Sectigo 'Sabre2025h2'","1a8b9d694a5798c899a0ca88bdf48fc0b45660ccc3600d1f71f469ffc7d1aca3":"IPng Networks 'Gouda2026h1'","1a8b9d695362d86492a7b9e223606e34ece9e310ba34fb9305785d29ce5757eb":"IPng Networks 'Gouda2027h2'","1a8b9d6a743ccded601f73bd3097081dbcaec4a6139c92b0b540c3137b20ec05":"IPng Networks 'Gouda2025h2'","1a8b9d6b0ffebf81b47939c6d2310a86d6d102d4f046e2182c9de35f5e2625ef":"IPng Networks 'Gouda2026h2'","1a8b9d6b8dd791d1cd0549edb60355d606b64fad30db71fe788f0fc7c8fbc4b1":"IPng Networks 'Gouda2027h1'","1c897407e6010a01293bb678dfd7a368ceb18cca521dcca4d386e4a32e5b5d04":"Google 'ParcelYard2027h1' log","1c9f682ce9faf0456950f81b968a87dddb3210d84ce6c8b2e382524ac4cf599f":"Sectigo 'Tiger2027h1'","1d024b8eb1498b344dfd87ea3efc0996f7506f235d1d497061a4773c439c25fb":"Google 'Daedalus' log","1f56d1ab94704a41dd3feafdf4699355302c1431bfe61346089fffae795dcc2f":"Sectigo 'Sabre2026h2'","1fb0f8a92d8adda121776c05e2aa2e15bacbc62b65393695576aaab52e11d11d":"DigiCert 'sphinx2027h2'","1fbc36e002ede97f40199e86b3573b8a4217d80187746ad0da03a06054d20df4":"Cloudflare 'Nimbus2017' Log","1fc72ce5a1b799f400c359bff96ca3913548e8644220610952e9ba1774f7bac7":"Google 'Solera2020' log","20f05faaa3a492fc6ac148cc33a20236186b49faa97e6bb3924fb25ec36b1c35":"Google 'PlumbersArms2026h2' log","20f9e038d784f8f7c85a257873c5b9c4bf24bd0265abd17794f5d3df6c855bab":"IPng Networks 'Rennet2027h2'","20f9e089ecebd0d95fad89eb788fb640afc4d89fbb40dc821134319c35bf08da":"IPng Networks 'Rennet2026h2'","20f9e09ab6c3d59ccac4cbfdb031678e682cbe1848578cff2fc774e4ad2f50b1":"IPng Networks 'Rennet2027h1'","20f9e0ecdfa47c91203962ef83c90258f7906d9d37498be1ffd8495417320b20":"IPng Networks 'Rennet2026h1'","217ec88a3a503ce0ceb4c431ef8c4d54c1d58c1f52ba23f429e92b1368c08161":"Let's Encrypt Willow2025h1b","21ad481af5cb54f34b3abfaea0ff069a7b3c766fc3b690870bb46b152fb60bf9":"Cloudflare 'Raio2027h2a'","21d6bca46586de8479048bf378d3f696a5f4cc516cef7cf2d87ff5e713741edd":"Google 'CoachAndHorses2026h1' log","2245450759552456963fa12ff1f76d86e0232663adc04b7f5dc6835c6ee20f02":"DigiCert Yeti2022 Log","2327efda352510dbc019ef491ae3ff1cc5a479bce37878360ee318cffb64f8c8":"Let's Encrypt 'Testflume2022' log","232d41a4cdac87ced9f943f468c282095ae09d30d62e2fa65ddc3b919c2e468f":"Let's Encrypt 'Sapling 2022h2' log","24a69a87c2dd582dd502b2517f0c3827f30b4ea84a2413b553e6fbf18cf15fef":"Geomys Navigli2026h2","252f94c22b29e96e9f411a72072b695c5b52ff97a90d2540bbfcdc51ec4dee0b":"Sectigo 'Mammoth2026h1'","25b7efdea1130193ed93079770aa322a26620de35ac8aa7c75197de0b1a9e065":"TrustAsia 'log2026b'","26023948874cf7fcd0fb6471a43e847ebb200ae6e2fa24236df6d1a606630fb1":"Google 'Solera2025h2' log","26e3646e58692123bc343f4724359b3792cd245a88d815d39333fd9918ab4723":"IPng Networks 'Halloumi2026h2a'","27eb2a3497df687a640b64384e4856fcdca3e87f8dcd66f34ed6f1be4281edfc":"Google 'Arche2026h1' log","282c8bdd810ff909120ace16d6e0ec201bea82a3a4af19d9effb59e83fdc4268":"TrustAsia Log2025b","28e28138fd832145e9a9d6aa75376d8377a88512b3c07f72414821dcbde98c66":"TrustAsia Log2025a","293c519654c83965baaa50fc5807d4b76fbf587a2972dca4c30cf4e54547f478":"Google 'Icarus' log","296afa2d568bca0d2ea844956ae9721fc35fa355ecda99693aafd458a71aefdd":"Let's Encrypt 'Clicky' log","2979bef09e393921f056739f63a577e5be577d9c600af8f94d5d265c255dc784":"Google 'Argon2022' log","29d03a1bb674aa711cd3035b6557c14f8aa78b4fe8389449eca453f944bd2468":"Sectigo 'Mammoth2024h1'","2ed6a44deb8f0c864667769c4edd041f84236755fa3aaca634d0935dfcd59a70":"Bogus placeholder log to unbreak misbehaving CT libraries","3024ce7eeb168862724bea702efff992cfe456434191aa595b25f80226c80017":"Google 'Solera2024' log","306d29576ad21a9d4ae12acad8aa8a783aa65a321160acff5b0eee4ca3201d05":"Trust Asia Log2024","308427e9d6c9b06439febb12e1014d6ea2763654e0435f59e3c45663665bb8ea":"Let's Encrypt 'Twig2027h1'","337a9ec7cae6a9048b752f2d93ae7e4b2a902d21b497129d83e279c753c92f8c":"Google 'PlumbersArms2027h2' log","3404fe6e38a0a7ef8b374b2675f92fc376b4750846254d41472b6d26a1fc4eb2":"Google 'ParcelYard2025h2' log","35cf191bbfb16c57bf0fad4c6d42cbbbb627202651ea3fe12aefa803c33bd64c":"DigiCert Yeti2023 Log","37aa07cc216f2e6d919c709d24d8f731b00f2b147c621cc091a5fa1a84d816dd":"DigiCert 'Wyvern2027h2'","3b5377753e2db9804e8b305b06fe403b67d84fc3f4c7bd000d2d726fe1fad417":"Let's Encrypt 'Oak2024H1' log","3de492a89893ad705e7846ed21d48dcafbad139ea64ed1e349f900b0a2cda5e2":"Google 'Solera2027h1' log","3f174b4fd7224758941d651c84be0d12ed90377f1f856aebc1bf2885ecf8646e":"Let's Encrypt 'Oak2024H2' log","3fe1cb46ed473579af0141f9724d9dc443472d756e85e7719c5582485dd4e1e4":"Google 'Solera2025h1' log","41c8cab1df22464a10c6a13a0942875e4e318b1b03ebeb4bc768f090629606f6":"Cloudflare 'Nimbus2022' Log","4494652eb0eeceafc44007d8a8fe28c0dae682bed8cb31b53fd33396b5b681a8":"Cloudflare 'Nimbus2021' Log","44c2bd0ce9140e64a5c94a01930a5aa1bb35970e00ee111689682a1c44d7b566":"Google 'Xenon2027h1'","44e822fc2bab0e92eed0e9fad69664602776d01760e0890509c923a1b03fc37f":"IPng Networks 'Halloumi2027h1'","45359498d93a89e0280308d37d626dc423754758dce0370036fbab0edf8a6bcf":"Trust Asia Log1","46a23967c60db64687c66f3df999947693a6a611208457d555e7e3d0a1d9b646":"DigiCert 'sphinx2027h1'","46a555eb75fa912030b5a28969f4f37d112c4174befd49b885abf2fc70fe6d47":"Google 'Xenon2022' log","46af863d3b3ee59fa577dea8245d36b0d9ed22a223f4617741229452ee95505f":"Geomys 'Tuscolo2026h2'","476fb1848c051fa4c79bd3877bede3c070edc536c7d7b2192dc6626390607533":"Google 'PlumbersArms2025h2' log","48b0e36bdaa647340fe56a02fa9d30eb1c5201cb56dd2c81d9bbbfab39d88473":"DigiCert Yeti2024 Log","499c9b69de1d7cecfc36decd8764a6b85baf0a878019d15552fbe9eb29ddf8c3":"DigiCert 'Sphinx2026h1'","4c63dc98e59c1dab88f61e8a3ddeae8fab44a3377b5f9b94c3fba19cfcc1be26":"Cloudflare 'Nimbus2027'","4e0277a0cb6f6ab7f67de71e6a085b2d180c2977824bfb4c2bbd9d2cd411f3be":"Let's Encrypt Sycamore2025h1b","4e75a3275c9a10c3385b6cd4df3f52eb1df0e08e1b8d69c0b1fa64b1629a39df":"Google 'Argon2025h1' log","4f0d39bbc355dbcc1627966e5405157ccaf72e3f748f47fe7b049e5a59155cbd":"Cloudflare 'Raio2025h2b'","50850158dcb60595c00e92a81102eccdfe3f6b7858429f57983538c9da525063":"Sectigo 'Mammoth2024h1b'","51a3b0f5fd01799c566db837788f0ca47acc1b27cbf79e88429a0dfed48b05e5":"DigiCert Nessie2022 Log","52eb4b225ec896974850675f23e43bc1d021e3214ce52ecd5fa87c203cdfca03":"Google 'Solera2018' log","5534b7ab5a6ac3a7cbeba65487b2a2d71b48f650fa17c5197c97a0cb2076f3c6":"Let's Encrypt 'Testflume2023' log","5581d4c2169036014aea0b9b573c53f0c0e43878702508172fa3aa1d0713d30c":"Sectigo 'Sabre' CT log","5614069a2fd7c2ecd3f5e1bd44b23ec74676b9bc99115cc0ef949855d689d0dd":"DigiCert Log Server","566cd5a376be83dfe342b675c49c232498a769bac382cbab49a3877d9ab32d01":"Sectigo 'Sabre2026h1'","573448cc6e1d2c0dc94b69f287d1efe483c7a25c50c5320bbb3adea76f6eb041":"TrustAsia Luoshu2027","5944824d45e14367ca507bc5b5a4a67f2a31ee37b84be427c7af8b28a564d12b":"Let's Encrypt 'Twig2026h1'","596e6c338694b25972a256c8a0e8dd904a76e8083dda873b01083828143cee59":"Geomys 'Tuscolo2027h1'","5bf6de53f1fbfac49a1859746945a1a6a7289d5e70a60f48450e586bb9ae72b8":"Let's Encrypt 'Sycamore2025h2d'","5ca577d29b7f8baf419ed8ecabfb6dcbaec3853702d5746f174dad3c934aa96a":"Sectigo 'Tiger2025h2'","5cdc4392fee6ab4544b15e9ad456e61037fbd5fa47dca17394b25ee6f6c70eca":"DigiCert Yeti2021 Log","5e4fa1463a83dbb479a6b752d396e1c90c630db0d9f6c0de953cc2edd64f50a3":"Google 'CoachAndHorses2026h2' log","5ea773f9df56c0e7b536487dd049e0327a919a0c84a112128418759681714558":"Cloudflare 'Nimbus2020' Log","5ff9c0fba42dac78ce6442eb19ace081a29bd4e2fb53af0c633079e5058204c9":"Google 'PlumbersArms2027h1' log","604c9aaf7a7f775f01d406fc920dc899eb0b1c7df8c9521bfafa17773b978bc9":"Sectigo 'Elephant2027h1'","60a59ed857ecd35949055eef8ad0ebab609864800bcf5fb8d60bf5bfff3b14c5":"IPng Networks 'Halloumi2026h2'","62e9006004a307955a7544b4d584a96268ca1d6e4585adf0916dfe5fdc1f04db":"Google 'Solera2026h2' log","63f2dbcde83bcc2ccf0b728427576b33a48d61778fbd75a638b1c768544bd88d":"Google 'Argon2019' log","6411c46ca412eca7891ca2022e00bcab4f2807d41e3527abeafed503c97dcdf0":"DigiCert 'Wyvern2026h1'","659b3350f43b12cc5ea5ab4ec765d3fde6c88243777778e72003f9eb2b8c3129":"Let's Encrypt 'Oak2019' log","671a441b34f62c4c1599e9a6a6819b113a4d45b1fe4a6d374eb2e52b01ace33e":"Let's Encrypt 'Twig2025h2d'","678db65b3e7443b6f3a370d5e13ab1b43be0a0d351f7ca742250c7c6fa51a88a":"Trust Asia Log2021","68f698f81f6482be3a8ceeb9281d4cfc71515d6793d444d10a67acbb4f4ffbc4":"Google 'Aviator' log","697aafca1a6b536fae21205046debad7e0eaea13d2432e6e9d8fb379f2b9aaf3":"Google 'Solera2022' log","6984b7233cb274b2d1467da5e040d71feba90a21e78865374ab9f9bcf8687237":"Google 'ParcelYard2027h2' log","6ad2683e47e8d2806491423fd644021a226ecdb8619bed5a70df69b3684faa2d":"Google 'CoachAndHorses2027h1' log","6cfe501943a85ea916bc52d133e4dcc91ef1411c7d258420d173809e1818eb3a":"Let's Encrypt 'Sycamore2026h2'","6f5376ac31f03119d89900a45115ff77151c11d902c10029068db2089a37d913":"Sectigo 'Mammoth' CT log","6fcc21c8ab099179efbac44cc299d0ec410d7fbec8e37d3a095576cd9f63c608":"IPng Networks 'Lipase2026h1'","6ff141b5647e4222f7ef052cefae7c21fd608e27d2af5a6e9f4b8a37d6633ee5":"DigiCert Nessie2018 Log","717e95f3c2388a6db1e384493d31e15aa96208762d4200e0050cd067b5a661e2":"Geomys 'Tuscolo2026h1'","7320220f08168af9f3c4a68b0ab26a9a4a00eef577858a084d0500d4a5424459":"DigiCert 'Wyvern2025h1' Log","73d99e891b4c9678a0207d479de6b2c61cd0515e71192a8c6b80107ac17772b5":"DigiCert Nessie2024 Log","747eda8331ad331091219cce254f4270c2bffd5e422008c6373579e6107bcc56":"Cloudflare 'Nimbus2019' Log","74db9d58f7d47e9dfd787a162a991c18cf698da7c729918c9a18b0450dba44bc":"TrustAsia 'log2026a'","76ff883f0ab6fb9551c261ccf587ba34b4a4cdbb29dc68420a9fe6674c5a3a74":"Google 'Xenon2024' log","7a328c54d8b72db620ea38e0521ee98416703213854d3bd22bc13a57a352eb52":"Cloudflare 'Nimbus2023' Log","7d3ef2f88fff88556824c2c0ca9e5289792bc50e78097f2e6a9768997e22f0d7":"Google 'Xenon2021' log","7d591e12e1782a7b1c61677c5efdf8d0875c14a04e959eb9032fd90e8c2e79b8":"DigiCert Yeti2025 Log","7f3d37e7f8923d8e7165beb0d3eabee72a22be46c0cb84c416d4e4b98264cbc2":"IPng Networks 'Halloumi2026h1'","82cdcd479e77e45d14ad6903882c4113fc81c21213bec2b3d94e9dc7cd80cdfe":"Geomys Navigli2026h1","849f5f7f58d2bf7b54ecbd74611cea45c49c98f1d6481bc6f69e8c174f24f3cf":"Let's Encrypt 'Testflume2019' log","874fb50dc029d9931de573e9f2899e8e4533b392d38b0a462574bf0feeb2fc1e":"Trust Asia Log2024-2","8775bfe7597cf88c43995fbdf36eff568d475636ff4ab560c1b4eaff5ea0830f":"DigiCert Log Server 2","8a3810bf408f5acf7b74de20c071903b7179cab0dbd768effa10f6298ea0680c":"Cloudflare 'Raio2027h1a'","8eca470bacde6af3a206b0a47a84b746fe1fc6bf953e25e69b4ee40248f3c6e8":"Let's Encrypt 'Sycamore2027h1'","92a102c57c22dab18ccc2ae71fd4cc59c05d251da16c73e2281bd3f0b0489887":"Let's Encrypt Willow2025h2c","9420bc1e8ed58d6c88731f828b222c0dd1da4d5e6c4f943d61db4e2f584da2c2":"Let's Encrypt 'Oak2021' log","944e4387faecc1ef81f3192426a8186501c7d35f3802013f72677d55372e19d8":"DigiCert 'Sphinx2026h2'","94b1c18ab0d057c47be0ac040e1f2cbc8dc375727bc951f20a526126863ba73c":"Sectigo 'Mammoth2026h2'","9590bd85f2cfc5064998abab5bb26c2e7a176702911c13b68b4805e1eb9427ef":"Let's Encrypt Twig2025h1b","9686c3c072aab073076e394673b7e990177a05618ea2764d4ba650a90e9e08cc":"IPng Networks 'Lipase2027h1'","969764bf555897adf743876837084277e9f03ad5f6a4f3366e46a43f0fcaa9c6":"Google 'Xenon2026h1' log",a2490cdcdb8e33a400321760d6d4d51a2036191ea77d968be26a8a00f6fffff7:"Sectigo 'Elephant2027h2'",a2810018734e176e1d47e09540f381ba546697cd63a84350716eb8094edaf10d:"Let's Encrypt 'Willow2027h1'",a2e2bfd61ede2f2f07a0d64e6d37a7dc6543b0c6b52ea2dab78af89a6df517d8:"Sectigo 'Sabre2024h1'",a2e30ae445efbdad9b7e38ed47677753d7825b8494d72b5e1b2cc4b950a447e7:"Let's Encrypt 'Oak2025h1'",a3c99845e80ab7ce00157b3742df0207dd272b2b602ecf98ee2c12db9c5ae7e7:"Google 'Solera2021' log",a442c506496061548f0fd4ea9cfb7a2d26454d87a97f2fdf4559f6274f3a8454:"DigiCert 'Sphinx2025h2' Log",a4501269055a15545e6211ab37bc103f62ae5576a45e4b1714453e1b22106a25:"Google 'Argon2018' log",a4b90990b418581487bb13a2cc67700a3c359804f91bdfb8e377cd0ec80ddc10:"Google 'Pilot' log",a595943b5370bee906e0050d1fb5bbc6a40e65f265ae852c76363fadb23336ed:"Trust Asia Log2020",a5c978925d57461782870dd889660b5c55648b7d0040f2ec076851d1886919f7:"Let's Encrypt 'Sycamore2026h1'",a695a2ad926d6f996e8efc49014257d8bbf046a7d62589b88dc2d7876c78e52f:"Let's Encrypt 'Willow2027h2'",a7ce4a4e6207e0addee5fdaa4b1f86768767b5d002a55d47310e7e670a95eab2:"Symantec Deneb",a826cbe30ac6351246533fe065f14f19d96e190813c41dd96d7900b3123c5527:"Let's Encrypt 'Willow2026h2'",a899d8780c9290aaf462f31880ccfbd52451e970d0fbf591ef75b0d99b645681:"Google 'Submariner' log",a8dc52f63d6b2425e531e37cf4e44a714f142a20803b0d04d2e2ee0664794a23:"Trust Asia CT2021",acab30706cebec8431f413d2f4915f111e422443b1f2a68c4f3c2b3ba71e02c3:"Let's Encrypt 'Oak2026h2'",adf7befa7cff10c88b9d3d9c1e3e186ab467295dcfb10c24ca858634ebdc828a:"Google 'Xenon2023' log",af181a28d68ca3e0a98a4c9c67ab09f8bbbc22baaebcb138a3a19dd3f9b6030d:"Sectigo 'Mammoth2025h2'",af67883b57b04edd8fa6d97ef62ea8eb810ac77160f0245e55d60c2fe785873a:"Sectigo 'Elephant2026h2'",b0cc83e5a5f97d6baf7c09cc284904872ac7e88b132c6350b7c6fd26e16c6c77:"Google 'Testtube' log",b10cd559a6d67846811f7df9a51532739ac48d703bea0323da5d38755bc0ad4e:"Google 'Xenon2018' log",b21e05cc8ba2cd8a204e8766f92bb98a2520676bdafa70e7b249532def8b905e:"Google 'Argon2020' log",b3737707e18450f86386d605a9dc11094a792db1670c0b87dcf0030e7936a59a:"DigiCert Nessie2023 Log",b69ddcbc3c1abdef6f9fd60c88b1067b77f082688b2d7865d04b39abe927a575:"DigiCert 'Wyvern2024h1' Log",b73efb24df9c4dba75f239c5ba58f46c5dfc42cf7a9f35c49e1d098125edb499:"Let's Encrypt 'Oak2023' log",badb88a46f9cafa4090e82e59356db6e78b4a53f582db0819795242f29b68c98:"Google 'ParcelYard2026h2' log",bae2a92932c5c05d1fa54d348130f09bfc8833164a15a1fbbef526283256c80b:"Cloudflare 'Raio2026h2a'",bbd9dfbc1f8a71b593942397aa927b473857950aab52e81a909664368e1ed185:"Google 'Skydiver' log",bc3bd42edd848d59e545ffd790970c1acdcaa479a66e6995308e3d66c491fe40:"IPng Networks 'Lipase2027h2'",bc78e1dfc5f63c684649334da10fa15f0979692009c081b4f3f6917f3ed9b8a5:"Symantec 'Vega' log",c05d2054385cb2cfb217920d2f0dc783526147b1aa4fef97ca78e1f0bb84fced:"Let's Encrypt Twig2025h2b",c1164ae0a772d2d4392dc80ac10770d4f0c49bde991a4840c1fa075164f63360:"DigiCert Yeti2018 Log",c183240bf1a450c76fbb007269dcac3be22a4805d4dbe04966c3c8abc447b00c:"Let's Encrypt 'Sapling 2023h1' log",c2317e574519a345ee7f38deb29041ebc7c2215a22bf7fd5b5ad769ad90e52cd:"DigiCert 'Wyvern2026h2'",c2b2131d797e50d7af542aba94d7bf82f91b962b7c552a71d5de93037a1a647a:"IPng Networks 'Lipase2026h2'",c365f9b3654f3283c79da98e93d7418f5bab7be3252c98e1d2f04bb9eb427d23:"Trust Asia Log2022",c3bf03a7e1ca8841c607bae3ff4270fca5ec45b186ebbe4e2cf3fc778630f5f6:"Google 'Crucible' log",c63f2218c37d56a6aa06b596da8e53d4d7156d1e9bac8e44d2202de64d69d9dc:"Let's Encrypt 'Testflume2020' log",c652a0ec48ceb3fcab170992c43a87413309e80065a26252401ba3362a17c565:"DigiCert Nessie2020 Log",c67d819e93c12cfaeb5f65a04d08dae30a8e5c27fb7d151cef7c47e2d5cb1ded:"Let's Encrypt 'Twig2026h2'",c84b907a07beaa29a614c24584b7a3f6624394687b25fe62838b71ec422ad2f9:"Google 'Solera2026h1' log",c8a3c47fc7b3adb9356b013f6a7a126de33a4e43a5c646f997ad3975991dcf9a:"Sectigo 'Tiger2026h2'",cb38f715897c84a1445f5bc1ddfbc96ef29a59cd470a690585b0cb14c31458e7:"Cloudflare 'Nimbus2026'",ccfb0f6a85710965fe959b53cee9b27c22e9855c0d978db6a97e54c0fe4c0db0:"Cloudflare 'Nimbus2025'",cf1156eed52e7caff3875bd9692e9be91a71674ab017ecac01d25b77cecc3b08:"Google 'Xenon2025h1' log",cf5e0c45a3b87c41cbb61808f8e090ba5beb4dd326c1404dffb6adf98e166916:"Geomys Navigli2027h2",d1436f025d1d9f239dbcc18bb9ffa4b119b9954d610c83ebeca035a15696bd81:"Let's Encrypt 'Twig2027h2'",d16ea9a568077e6635a03f37a5ddbc03a53c411214d48818f5e931b323cb9504:"Sectigo 'Elephant2026h1'",d2fc652fa5f9b738b83755fa5eb15f0b45253f4e8fa3b9b64fd4de5662d18708:"Bogus RFC6962 log to avoid breaking misbehaving CT libraries",d5de55eeba08b60c9ffc18c513be6a60ba004606bc595b96bb44f62cc57d39fa:"Geomys 'Tuscolo2027h2'",d6d58da9d01753f36a4aa0c7574902afebc7dc2cd38cd9f764c80c89191e9f02:"Google 'Argon2027h1'",d76d7d10d1a7f577c2c7e95fd700bff982c9335a65e1d0b3017317c0c8c56977:"Google 'Argon2026h2' log",d809553b944f7affc816196f944f85abb0f8fc5e8755260f15d12e72bb454b14:"Google 'Xenon2026h2' log",dab6bf6b3fb5b6229f9bc2bb5c6be87091716cbb51848534bda43d3048d7fbab:"Cloudflare 'Nimbus2024' Log",dad6475152961949fa4f731c670e85e5e4b74e0688196053f1185ad724941ad3:"Geomys Navigli2027h1",db076cde6a8b78ec58d6056496eb6a26a8c59e721293e8ac0327ddde89db5a2a:"DigiCert 'Sphinx2024h1' Log",db74afeecb29ecb1feca3e716d2ce5b9aabb36f7847183c75d9d4f37b61fbf64:"Cloudflare 'Nimbus2018' Log",db76fdadac65e7d09508886e2159bd8b90352f5fead3e3dc5e22eb350acc7b98:"Sectigo 'Dodo' CT log",dcc95e6fa299b9b0fdbd6ca6a36e1d72c4212fdd1e0f47553a36d6cf1ad11d8d:"DigiCert 'Sphinx2024h2' Log",dddcca3495d7e11605e79532fac79ff83d1c50dfdb003a1412760a2cacbbc82a:"Google 'Xenon2025h2' log",ddeb1d2b7a0d4fa6208b81ad8168707e2e8e9d01d55c888d3d11c4cdb6ecbecc:"Symantec log",de8581d750247c6bcdcbaf5637c5e781c64ce46ed617639f8f34a726c9e2bd37:"DigiCert 'Sphinx2025h1' Log",dfa55eab68824f1f6cadeeb85f4e3e5aeacda212a46a5e8e3b12c020445c2a73:"Let's Encrypt 'Oak2022' log",dfe156ebaa05afb59c0f86718da8c0324eae56d96ea7f5a56a01d1c13bbe525c:"Sectigo 'Mammoth2024h2'",e092b3fc0c1dc8e768361fde61b9964d0a5278198a72d672c4b04da56d6f5404:"Sectigo 'Sabre2025h1'",e2694bae26e8e94009e8861bb63b83d43ee7fe7488fba48f2893019dddf1dbfe:"DigiCert Yeti2019 Log",e3238df28da288e0aae0acf0fa90c985f0b6bff5d2a527b001fc1c4458c4b6e8:"Let's Encrypt 'Willow2026h1'",e4d017761c913911bef47396acd8d24658c24fb593b51beac5592762e8853c15:"Let's Encrypt 'Willow2025h2d'",e4fb774a2124c58640b1832f50abfadc84a38aed7191eeb669223792cbf62891:"Geomys Navigli2025h2",e5bbcdc0c72d692bd9598a3602043ce854ec6f60f80066785963882b7c382438:"Cloudflare 'Raio2026h1a'",e5e36247d92ef4ada38583b53591db729fc2f00ae4b6745174d3ddfc6aa25388:"Let's Encrypt 'Sycamore2027h2'",e6d2316340778cc1104106d771b9cec1d240f6968486fbba87321dfd1e378e50:"DigiCert Nessie2025 Log",e712f2b0377e1a62fb8ec90c6184f1ea7b37cb561d11265bf3e0f34bf241546e:"Let's Encrypt 'Oak2020' log",e83ed0da3ef5063532e75728bc896bc903d3cbd1116beceb69e1777d6d06bd6e:"Google 'Argon2023' log",e87ea7660bc26cf6002ef5725d3fe0e331b9393bb92fbf58eb3b9049daf5435a:"Trust Asia Log2023",ecf05435a493296d0abf3ec9d096f21b27012c471a1e83e7813667a60952bea6:"Google 'CoachAndHorses2027h2' log",ed3c4bd6e806c2a4a20057dbcb24e23801df512fedc486c5700f20ddb73e3fe0:"DigiCert 'Wyvern2025h2' Log",eddaeb815c63213449b47be5077905abd0d93147c27ac5146b3bc58e43e9b6c7:"TrustAsia 'HETU2027'",ee4bbdb775ce60bae142691fabe19e66a30f7e5fb072d88300c47b897aa8fdcb:"Google 'Rocketeer' log",eec095ee8d72640f92e3c3b91bc712a3696a097b4b6a1a1438e647b2cbedc5f9:"DigiCert Nessie2021 Log",eecdd064d5db1acec55cb79db4cd13a23287467cbcecdec351485946711fb59b:"Google 'Argon2024' log",ef9d04422e20b432102754df52d25146027f844c07fd865ec922ee6fce9f7bbc:"Geomys 'Tuscolo2025h2'",f095a459f200d18240102d2f93888ead4bfe1d47e399e1d034a6b0a8aa8eb273:"DigiCert Yeti2020 Log",f65c942fd1773022145418083094568ee34d131933bfdf0c2f200bcc4ef164e3:"Google 'Argon2021' log",f78ff20869ad976a4373b4aca8b3b203148e14ede68be141535ba1368b7ba806:"Let's Encrypt Sycamore2025h2b",f97e97b8d33ef7a15902a53a19e17990e5dc406a031825baad93e98f9b9c69cb:"Google 'Solera2023' log",fad4c97cc49ee2f8ac85c5ea5cea09d0220dbbf4e49c6b50662ff868f86b8c28:"Google 'Argon2017' log",fb7c63a68d1e06add083889bb8d4321cb24544ebf6fe697229192e383e5e6e23:"IPng Networks 'Halloumi2025h2'",fe446108b1d01ab78a62ccfeab6ab2b2babff3abdad80a4d8b30df2d0008830c:"DigiCert Nessie2019 Log"};
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var td=/** @class */function(){function e(){this.oids=[$f]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Jf);var r=i.toJSON();return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[df("Timestamps",r.map((function(e){var t;return df("",__spreadArray([ff("Log ID",(t=ed[e.logId])!==null&&t!==void 0?t:e.logId),ff("Timestamp",Ru(e.timestamp)),ff("Version",e.version),ff("Hash Algorithm",e.hashAlgorithm),ff("Signature Algorithm",e.signatureAlgorithm),ff("Signature",e.signature)],e.extensions?[ff("Extensions",e.extensions)]:[],true))})))]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var id=/** @class */function(){function e(){
+// '2.16.724.1.2.2.4.1' is an alias used by some Spanish certs; same encoding
+this.oids=[Go,"2.5.29.46"]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,qo);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[df("Distribution Points",i.map((function(e){var t,i,r;return df("",__spreadArray(__spreadArray([],((i=(t=e.distributionPoint)===null||t===void 0?void 0:t.fullName)!==null&&i!==void 0?i:[]).map((function(e){return hf(e)})),true),((r=e.cRLIssuer)!==null&&r!==void 0?r:[]).map((function(e){return hf(e)})),true))})))]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var rd=/** @class */function(){function e(){this.oids=[Ho]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Fo);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("CRL Number",i.value)]}};return e}();var nd=/** @class */function(){function e(){this.oids=[Ko]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Uo);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("Base CRL Number",i.value)]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var ad=/** @class */function(){function e(){this.oids=[Zo]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Jo);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("Reason",i.toJSON())]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var od=/** @class */function(){function e(){this.oids=[Oc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,kc);var r=[ff("Version",i.entrustVers)];var n=i.entrustInfoFlags.toJSON();if(n.length>0){r.push(ff("Flags",n.join(", ")))}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:r}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var cd=/** @class */function(){function e(){this.oids=[tc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,ic);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[df("Purposes",i.map((function(e){return ff("Purpose",e)})))]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */function ud(e){var t=Oe(e);var i=0;for(var r=0,n=t;r<n.length;r++){var a=n[r];i=i<<8|a}return i>>>0}var sd=/** @class */function(){function e(){this.oids=[rc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,nc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("Skip Certs",ud(i.value))]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var fd=/** @class */function(){function e(){this.oids=[ac]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,oc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("Invalidity Date",Ru(i.value))]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var dd=/** @class */function(){function e(){this.oids=[uc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,sc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:i.map(hf)}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var ld=/** @class */function(){function e(){this.oids=[Yo]}e.prototype.parse=function(e){var t,i;var r=Wa.parse(e.extnValue.buffer,Xo);var n=[];if(r.distributionPoint!=null){var a=[];for(var o=0,c=(t=r.distributionPoint.fullName)!==null&&t!==void 0?t:[];o<c.length;o++){var u=c[o];a.push(hf(u))}if(r.distributionPoint.nameRelativeToCRLIssuer!=null){for(var s=0,f=r.distributionPoint.nameRelativeToCRLIssuer;s<f.length;s++){var d=f[s];a.push(ff(d.type,d.value.toString()))}}n.push(df("Distribution Point",a))}if(r.onlyContainsUserCerts){n.push(ff("Only Contains User Certs",true))}if(r.onlyContainsCACerts){n.push(ff("Only Contains CA Certs",true))}if(r.onlySomeReasons!=null){var l=r.onlySomeReasons.toJSON();if(l.length>0){n.push(ff("Only Some Reasons",l.join(", ")))}}if(r.indirectCRL){n.push(ff("Indirect CRL",true))}if(r.onlyContainsAttributeCerts){n.push(ff("Only Contains Attribute Certs",true))}return{oid:e.extnID,critical:(i=e.critical)!==null&&i!==void 0?i:false,children:n}};return e}();
+// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
+function vd(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
+// src/key_description.ts
+var hd;var pd="1.3.6.1.4.1.11129.2.1.17";var bd=function(e){e[e["verified"]=0]="verified";e[e["selfSigned"]=1]="selfSigned";e[e["unverified"]=2]="unverified";e[e["failed"]=3]="failed";return e}({});var yd=/** @class */function(){function e(e){if(e===void 0){e={}}this.verifiedBootKey=new sa;this.deviceLocked=false;this.verifiedBootState=0;Object.assign(this,e)}return e}();vd([Va({type:sa})],yd.prototype,"verifiedBootKey",void 0);vd([Va({type:ui.Boolean})],yd.prototype,"deviceLocked",void 0);vd([Va({type:ui.Enumerated})],yd.prototype,"verifiedBootState",void 0);vd([Va({type:sa,optional:true})],yd.prototype,"verifiedBootHash",void 0);var gd=hd=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,hd.prototype);return i}return t}(za);gd=hd=vd([Ua({type:ci.Set,itemType:ui.Integer})],gd);var Sd=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();vd([Va({context:1,type:gd,optional:true})],Sd.prototype,"purpose",void 0);vd([Va({context:2,type:ui.Integer,optional:true})],Sd.prototype,"algorithm",void 0);vd([Va({context:3,type:ui.Integer,optional:true})],Sd.prototype,"keySize",void 0);vd([Va({context:5,type:gd,optional:true})],Sd.prototype,"digest",void 0);vd([Va({context:6,type:gd,optional:true})],Sd.prototype,"padding",void 0);vd([Va({context:10,type:ui.Integer,optional:true})],Sd.prototype,"ecCurve",void 0);vd([Va({context:200,type:ui.Integer,optional:true})],Sd.prototype,"rsaPublicExponent",void 0);vd([Va({context:203,type:gd,optional:true})],Sd.prototype,"mgfDigest",void 0);vd([Va({context:303,type:ui.Null,optional:true})],Sd.prototype,"rollbackResistance",void 0);vd([Va({context:305,type:ui.Null,optional:true})],Sd.prototype,"earlyBootOnly",void 0);vd([Va({context:400,type:ui.Integer,optional:true})],Sd.prototype,"activeDateTime",void 0);vd([Va({context:401,type:ui.Integer,optional:true})],Sd.prototype,"originationExpireDateTime",void 0);vd([Va({context:402,type:ui.Integer,optional:true})],Sd.prototype,"usageExpireDateTime",void 0);vd([Va({context:405,type:ui.Integer,optional:true})],Sd.prototype,"usageCountLimit",void 0);vd([Va({context:503,type:ui.Null,optional:true})],Sd.prototype,"noAuthRequired",void 0);vd([Va({context:504,type:ui.Integer,optional:true})],Sd.prototype,"userAuthType",void 0);vd([Va({context:505,type:ui.Integer,optional:true})],Sd.prototype,"authTimeout",void 0);vd([Va({context:506,type:ui.Null,optional:true})],Sd.prototype,"allowWhileOnBody",void 0);vd([Va({context:507,type:ui.Null,optional:true})],Sd.prototype,"trustedUserPresenceRequired",void 0);vd([Va({context:508,type:ui.Null,optional:true})],Sd.prototype,"trustedConfirmationRequired",void 0);vd([Va({context:509,type:ui.Null,optional:true})],Sd.prototype,"unlockedDeviceRequired",void 0);vd([Va({context:600,type:ui.Null,optional:true})],Sd.prototype,"allApplications",void 0);vd([Va({context:601,type:sa,optional:true})],Sd.prototype,"applicationId",void 0);vd([Va({context:701,type:ui.Integer,optional:true})],Sd.prototype,"creationDateTime",void 0);vd([Va({context:702,type:ui.Integer,optional:true})],Sd.prototype,"origin",void 0);vd([Va({context:703,type:ui.Null,optional:true})],Sd.prototype,"rollbackResistant",void 0);vd([Va({context:704,type:yd,optional:true})],Sd.prototype,"rootOfTrust",void 0);vd([Va({context:705,type:ui.Integer,optional:true})],Sd.prototype,"osVersion",void 0);vd([Va({context:706,type:ui.Integer,optional:true})],Sd.prototype,"osPatchLevel",void 0);vd([Va({context:709,type:sa,optional:true})],Sd.prototype,"attestationApplicationId",void 0);vd([Va({context:710,type:sa,optional:true})],Sd.prototype,"attestationIdBrand",void 0);vd([Va({context:711,type:sa,optional:true})],Sd.prototype,"attestationIdDevice",void 0);vd([Va({context:712,type:sa,optional:true})],Sd.prototype,"attestationIdProduct",void 0);vd([Va({context:713,type:sa,optional:true})],Sd.prototype,"attestationIdSerial",void 0);vd([Va({context:714,type:sa,optional:true})],Sd.prototype,"attestationIdImei",void 0);vd([Va({context:715,type:sa,optional:true})],Sd.prototype,"attestationIdMeid",void 0);vd([Va({context:716,type:sa,optional:true})],Sd.prototype,"attestationIdManufacturer",void 0);vd([Va({context:717,type:sa,optional:true})],Sd.prototype,"attestationIdModel",void 0);vd([Va({context:718,type:ui.Integer,optional:true})],Sd.prototype,"vendorPatchLevel",void 0);vd([Va({context:719,type:ui.Integer,optional:true})],Sd.prototype,"bootPatchLevel",void 0);vd([Va({context:720,type:ui.Null,optional:true})],Sd.prototype,"deviceUniqueAttestation",void 0);vd([Va({context:723,type:sa,optional:true})],Sd.prototype,"attestationIdSecondImei",void 0);vd([Va({context:724,type:sa,optional:true})],Sd.prototype,"moduleHash",void 0);var md=function(e){e[e["software"]=0]="software";e[e["trustedEnvironment"]=1]="trustedEnvironment";e[e["strongBox"]=2]="strongBox";return e}({});var Cd=/** @class */function(){function e(e){if(e===void 0){e={}}this.attestationVersion=3;this.attestationSecurityLevel=0;this.keymasterVersion=0;this.keymasterSecurityLevel=0;this.attestationChallenge=new sa;this.uniqueId=new sa;this.softwareEnforced=new Sd;this.teeEnforced=new Sd;Object.assign(this,e)}return e}();vd([Va({type:ui.Integer})],Cd.prototype,"attestationVersion",void 0);vd([Va({type:ui.Enumerated})],Cd.prototype,"attestationSecurityLevel",void 0);vd([Va({type:ui.Integer})],Cd.prototype,"keymasterVersion",void 0);vd([Va({type:ui.Enumerated})],Cd.prototype,"keymasterSecurityLevel",void 0);vd([Va({type:sa})],Cd.prototype,"attestationChallenge",void 0);vd([Va({type:sa})],Cd.prototype,"uniqueId",void 0);vd([Va({type:Sd})],Cd.prototype,"softwareEnforced",void 0);vd([Va({type:Sd})],Cd.prototype,"teeEnforced",void 0);var Ad=/** @class */function(){function e(e){if(e===void 0){e={}}this.attestationVersion=400;this.attestationSecurityLevel=0;this.keyMintVersion=0;this.keyMintSecurityLevel=0;this.attestationChallenge=new sa;this.uniqueId=new sa;this.softwareEnforced=new Sd;this.hardwareEnforced=new Sd;Object.assign(this,e)}e.prototype.toLegacyKeyDescription=function(){return new Cd({attestationVersion:this.attestationVersion,attestationSecurityLevel:this.attestationSecurityLevel,keymasterVersion:this.keyMintVersion,keymasterSecurityLevel:this.keyMintSecurityLevel,attestationChallenge:this.attestationChallenge,uniqueId:this.uniqueId,softwareEnforced:this.softwareEnforced,teeEnforced:this.hardwareEnforced})};e.fromLegacyKeyDescription=function(t){return new e({attestationVersion:t.attestationVersion,attestationSecurityLevel:t.attestationSecurityLevel,keyMintVersion:t.keymasterVersion,keyMintSecurityLevel:t.keymasterSecurityLevel,attestationChallenge:t.attestationChallenge,uniqueId:t.uniqueId,softwareEnforced:t.softwareEnforced,hardwareEnforced:t.teeEnforced})};return e}();vd([Va({type:ui.Integer})],Ad.prototype,"attestationVersion",void 0);vd([Va({type:ui.Enumerated})],Ad.prototype,"attestationSecurityLevel",void 0);vd([Va({type:ui.Integer})],Ad.prototype,"keyMintVersion",void 0);vd([Va({type:ui.Enumerated})],Ad.prototype,"keyMintSecurityLevel",void 0);vd([Va({type:sa})],Ad.prototype,"attestationChallenge",void 0);vd([Va({type:sa})],Ad.prototype,"uniqueId",void 0);vd([Va({type:Sd})],Ad.prototype,"softwareEnforced",void 0);vd([Va({type:Sd})],Ad.prototype,"hardwareEnforced",void 0);
+// src/nonstandard.ts
+var Ed;var wd=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Sd);wd=vd([Ua({type:ci.Choice})],wd);var Pd=Ed=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,Ed.prototype);return i}t.prototype.findProperty=function(e){var t=this.find((function(t){return t[e]!==void 0}));if(t)return t[e]};return t}(za);Pd=Ed=vd([Ua({type:ci.Sequence,itemType:wd})],Pd);var Dd=/** @class */function(){function e(e){if(e===void 0){e={}}this.attestationVersion=3;this.attestationSecurityLevel=0;this.keymasterVersion=0;this.keymasterSecurityLevel=0;this.attestationChallenge=new sa;this.uniqueId=new sa;this.softwareEnforced=new Pd;this.teeEnforced=new Pd;Object.assign(this,e)}Object.defineProperty(e.prototype,"keyMintVersion",{get:function(){return this.keymasterVersion},set:function(e){this.keymasterVersion=e},enumerable:false,configurable:true});Object.defineProperty(e.prototype,"keyMintSecurityLevel",{get:function(){return this.keymasterSecurityLevel},set:function(e){this.keymasterSecurityLevel=e},enumerable:false,configurable:true});Object.defineProperty(e.prototype,"hardwareEnforced",{get:function(){return this.teeEnforced},set:function(e){this.teeEnforced=e},enumerable:false,configurable:true});return e}();vd([Va({type:ui.Integer})],Dd.prototype,"attestationVersion",void 0);vd([Va({type:ui.Enumerated})],Dd.prototype,"attestationSecurityLevel",void 0);vd([Va({type:ui.Integer})],Dd.prototype,"keymasterVersion",void 0);vd([Va({type:ui.Enumerated})],Dd.prototype,"keymasterSecurityLevel",void 0);vd([Va({type:sa})],Dd.prototype,"attestationChallenge",void 0);vd([Va({type:sa})],Dd.prototype,"uniqueId",void 0);vd([Va({type:Pd})],Dd.prototype,"softwareEnforced",void 0);vd([Va({type:Pd})],Dd.prototype,"teeEnforced",void 0);var _d=/** @class */function(e){__extends(t,e);function t(t){if(t===void 0){t={}}if("keymasterVersion"in t&&!("keyMintVersion"in t))t.keyMintVersion=t.keymasterVersion;if("keymasterSecurityLevel"in t&&!("keyMintSecurityLevel"in t))t.keyMintSecurityLevel=t.keymasterSecurityLevel;if("teeEnforced"in t&&!("hardwareEnforced"in t))t.hardwareEnforced=t.teeEnforced;return e.call(this,t)||this}return t}(Dd);_d=vd([Ua({type:ci.Sequence})],_d);
+// src/attestation.ts
+var Id=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();vd([Va({type:ui.OctetString})],Id.prototype,"packageName",void 0);vd([Va({type:ui.Integer})],Id.prototype,"version",void 0);var Bd=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();vd([Va({type:Id,repeated:"set"})],Bd.prototype,"packageInfos",void 0);vd([Va({type:ui.OctetString,repeated:"set"})],Bd.prototype,"signatureDigests",void 0);
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */function Td(e,t){var i;if(t===undefined)return null;if(t===null){return ff(Ms(e),true)}if(typeof t==="number"){return ff(Ms(e),t)}if(t instanceof gd){return ff(Ms(e),Array.from(t).join(", "))}if(t instanceof yd){return df(Ms(e),__spreadArray([ff("Verified Boot Key",lt.encode(t.verifiedBootKey)),ff("Device Locked",t.deviceLocked),ff("Boot State",(i=bd[t.verifiedBootState])!==null&&i!==void 0?i:String(t.verifiedBootState))],t.verifiedBootHash!=null?[ff("Boot Hash",lt.encode(t.verifiedBootHash))]:[],true))}if(e==="attestationApplicationId"&&Re(t)){try{var r=Wa.parse(t,Bd);var n=[];if(r.packageInfos.length>0){n.push(df("Package Infos",r.packageInfos.map((function(e){return df("",[ff("Package Name",ks(e.packageName)),ff("Version",e.version)])}))))}if(r.signatureDigests.length>0){n.push(df("Signature Digests",r.signatureDigests.map((function(e){return ff("Digest",lt.encode(e))}))))}return df(Ms(e),n)}catch(e){
+// fall through to generic buffer handling
+}}if(Re(t)){try{return ff(Ms(e),ks(t))}catch(i){return ff(Ms(e),lt.encode(t))}}if(typeof t==="string"){return ff(Ms(e),t)}return null}function Nd(e){var t={};for(var i=0,r=e;i<r.length;i++){var n=r[i];for(var a=0,o=Object.keys(n);a<o.length;a++){var c=o[a];var u=n[c];if(u!==undefined&&!(c in t)){t[c]=u}}}return Object.entries(t).map((function(e){var t=e[0],i=e[1];return Td(t,i)})).filter((function(e){return e!=null}))}var Rd=/** @class */function(){function e(){this.oids=[pd]}e.prototype.parse=function(e){var t,i,r;var n=Wa.parse(e.extnValue.buffer,Dd);var a=[];var o=n.attestationVersion;a.push(ff("Attestation Version",typeof o==="number"?o:Number(o)));a.push(ff("Attestation Security Level",(t=md[n.attestationSecurityLevel])!==null&&t!==void 0?t:String(n.attestationSecurityLevel)));a.push(ff("Keymaster Version",n.keymasterVersion));a.push(ff("Keymaster Security Level",(i=md[n.keymasterSecurityLevel])!==null&&i!==void 0?i:String(n.keymasterSecurityLevel)));a.push(ff("Attestation Challenge",ks(n.attestationChallenge)));var c=lt.encode(n.uniqueId);if(c){a.push(ff("Unique ID",c))}var u=Nd(n.softwareEnforced);if(u.length>0){a.push(df("Software Enforced",u))}var s=Nd(n.teeEnforced);if(s.length>0){a.push(df("TEE Enforced",s))}return{oid:e.extnID,critical:(r=e.critical)!==null&&r!==void 0?r:false,children:a}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var xd=/** @class */function(){function e(){this.oids=[fc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,dc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("Usage",i.toJSON().join(", "))]}};return e}();
+// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
+function Od(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
+// src/index.ts
+var Md="1.3.6.1.4.1.52266.1";var kd=/** @class */function(){function e(e){if(e===void 0){e={}}this.leiCode="";Object.assign(this,e)}return e}();Od([Va({type:Fn})],kd.prototype,"leiCode",void 0);Od([Va({type:Fn,context:0,optional:true})],kd.prototype,"leiRole",void 0);kd=Od([Ua({type:ci.Sequence})],kd);var Ld=/** @class */function(){function e(e){if(e)this.text=e}Object.defineProperty(e.prototype,"text",{get:function(){if(this.bmpString!==void 0)return this.bmpString;if(this.ia5String!==void 0)return this.ia5String;if(this.printableString!==void 0)return this.printableString;if(this.utf8String!==void 0)return this.utf8String;if(this.visibleString!==void 0)return this.visibleString},set:function(e){this.printableString=e},enumerable:false,configurable:true});return e}();Od([Va({type:ui.IA5String})],Ld.prototype,"ia5String",void 0);Od([Va({type:ui.VisibleString})],Ld.prototype,"visibleString",void 0);Od([Va({type:ui.BmpString})],Ld.prototype,"bmpString",void 0);Od([Va({type:ui.Utf8String})],Ld.prototype,"utf8String",void 0);Od([Va({type:ui.PrintableString})],Ld.prototype,"printableString",void 0);Ld=Od([Ua({type:ci.Choice})],Ld);var jd=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this)||this;if(typeof t==="string")i.text=t;else if(t instanceof kd)i.struct=t;return i}return t}(Ld);Od([Va({type:kd})],jd.prototype,"struct",void 0);jd=Od([Ua({type:ci.Choice})],jd);var Hd="1.3.6.1.4.1.52266.2";var Fd=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Ld);Fd=Od([Ua({type:ci.Choice})],Fd);
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var Kd=/** @class */function(){function e(){this.oids=[Md]}e.prototype.parse=function(e){var t,i,r;var n=Wa.parse(e.extnValue.buffer,jd);var a=[];if(n.struct!=null){a.push(ff("LEI Code",n.struct.leiCode,"lei"));if(n.struct.leiRole!=null){a.push(ff("LEI Role",n.struct.leiRole))}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[df("LEI",a)]}}return{oid:e.extnID,critical:(i=e.critical)!==null&&i!==void 0?i:false,children:[ff("LEI Code",(r=n.text)!==null&&r!==void 0?r:"","lei")]}};return e}();var Ud=/** @class */function(){function e(){this.oids=[Hd]}e.prototype.parse=function(e){var t,i;var r=Wa.parse(e.extnValue.buffer,Fd);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("Role",(i=r.text)!==null&&i!==void 0?i:"")]}};return e}();
+// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
+function Vd(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
+// src/hash_alg_and_value.ts
+var Gd=/** @class */function(){function e(e){if(e===void 0){e={}}this.hashAlg=new Fc;this.hashValue=new sa;Object.assign(this,e)}return e}();Vd([Va({type:Fc})],Gd.prototype,"hashAlg",void 0);Vd([Va({type:sa})],Gd.prototype,"hashValue",void 0);
+// src/logotype_details.ts
+var Wd=/** @class */function(){function e(e){if(e===void 0){e={}}this.mediaType="";this.logotypeHash=[];this.logotypeURI=[];Object.assign(this,e)}return e}();Vd([Va({type:ui.IA5String})],Wd.prototype,"mediaType",void 0);Vd([Va({type:Gd,repeated:"sequence"})],Wd.prototype,"logotypeHash",void 0);Vd([Va({type:ui.IA5String,repeated:"sequence"})],Wd.prototype,"logotypeURI",void 0);var Qd=/** @class */function(){function e(e){if(e===void 0){e={}}this.fileSize=0;this.playTime=0;this.channels=1;Object.assign(this,e)}return e}();Vd([Va({type:ui.Integer})],Qd.prototype,"fileSize",void 0);Vd([Va({type:ui.Integer})],Qd.prototype,"playTime",void 0);Vd([Va({type:ui.Integer})],Qd.prototype,"channels",void 0);Vd([Va({type:ui.Integer,implicit:true,context:3,optional:true})],Qd.prototype,"sampleRate",void 0);Vd([Va({type:ui.IA5String,implicit:true,context:4,optional:true})],Qd.prototype,"language",void 0);
+// src/logotype_audio.ts
+var zd=/** @class */function(){function e(e){if(e===void 0){e={}}this.audioDetails=new Wd;Object.assign(this,e)}return e}();Vd([Va({type:Wd})],zd.prototype,"audioDetails",void 0);Vd([Va({type:Qd,optional:true})],zd.prototype,"audioInfo",void 0);
+// src/logotype_image_resolution.ts
+var qd=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Vd([Va({type:ui.Integer,context:1,implicit:true})],qd.prototype,"numBits",void 0);Vd([Va({type:ui.Integer,context:2,implicit:true})],qd.prototype,"tableSize",void 0);qd=Vd([Ua({type:ci.Choice})],qd);var Yd=/** @class */function(){function e(e){if(e===void 0){e={}}this.type=1;this.fileSize=0;this.xSize=0;this.ySize=0;Object.assign(this,e)}return e}();Vd([Va({type:ui.Integer,context:0,implicit:true,defaultValue:1})],Yd.prototype,"type",void 0);Vd([Va({type:ui.Integer})],Yd.prototype,"fileSize",void 0);Vd([Va({type:ui.Integer})],Yd.prototype,"xSize",void 0);Vd([Va({type:ui.Integer})],Yd.prototype,"ySize",void 0);Vd([Va({type:qd})],Yd.prototype,"resolution",void 0);Vd([Va({type:ui.IA5String,context:4,implicit:true,optional:true})],Yd.prototype,"language",void 0);
+// src/logotype_image.ts
+var Xd=/** @class */function(){function e(e){if(e===void 0){e={}}this.imageDetails=new Wd;Object.assign(this,e)}return e}();Vd([Va({type:Wd})],Xd.prototype,"imageDetails",void 0);Vd([Va({type:Yd,optional:true})],Xd.prototype,"imageInfo",void 0);
+// src/logotype_data.ts
+var Zd=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Vd([Va({type:Xd,repeated:"sequence",optional:true})],Zd.prototype,"image",void 0);Vd([Va({type:zd,repeated:"sequence",context:1,optional:true})],Zd.prototype,"audio",void 0);
+// src/logotype_reference.ts
+var $d=/** @class */function(){function e(e){if(e===void 0){e={}}this.refStructHash=[];this.refStructURI=[];Object.assign(this,e)}return e}();Vd([Va({type:Gd,repeated:"sequence"})],$d.prototype,"refStructHash",void 0);Vd([Va({type:ui.IA5String,repeated:"sequence"})],$d.prototype,"refStructURI",void 0);
+// src/logotype_info.ts
+var Jd=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Vd([Va({type:Zd,implicit:true,context:0})],Jd.prototype,"direct",void 0);Vd([Va({type:$d,implicit:true,context:1})],Jd.prototype,"indirect",void 0);Jd=Vd([Ua({type:ci.Choice})],Jd);
+// src/other_logotype_info.ts
+var el=/** @class */function(){function e(e){if(e===void 0){e={}}this.logotypeType="";this.info=new Jd;Object.assign(this,e)}return e}();Vd([Va({type:ui.ObjectIdentifier})],el.prototype,"logotypeType",void 0);Vd([Va({type:Jd})],el.prototype,"info",void 0);
+// src/logotype_extn.ts
+var tl=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();Vd([Va({type:Jd,context:0,repeated:"sequence",optional:true})],tl.prototype,"communityLogos",void 0);Vd([Va({type:Jd,context:1,optional:true})],tl.prototype,"issuerLogo",void 0);Vd([Va({type:Jd,context:2,optional:true})],tl.prototype,"subjectLogo",void 0);Vd([Va({type:el,context:3,repeated:"sequence",optional:true})],tl.prototype,"otherLogos",void 0);
+// src/object_identifiers.ts
+var il="1.3.6.1.5.5.7.1.12";
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */function rl(e){var t,i;if(e.direct){var r=[];for(var n=0,a=(t=e.direct.image)!==null&&t!==void 0?t:[];n<a.length;n++){var o=a[n];r.push(df("Image",__spreadArray([ff("Media Type",o.imageDetails.mediaType)],o.imageDetails.logotypeURI.map((function(e){return ff("URI",e)})),true)))}for(var c=0,u=(i=e.direct.audio)!==null&&i!==void 0?i:[];c<u.length;c++){var s=u[c];r.push(df("Audio",__spreadArray([ff("Media Type",s.audioDetails.mediaType)],s.audioDetails.logotypeURI.map((function(e){return ff("URI",e)})),true)))}return r}if(e.indirect){return e.indirect.refStructURI.map((function(e){return ff("Reference URI",e)}))}return[]}var nl=/** @class */function(){function e(){this.oids=[il]}e.prototype.parse=function(e){var t,i,r;var n=Wa.parse(e.extnValue.buffer,tl);var a=[];if((t=n.communityLogos)===null||t===void 0?void 0:t.length){a.push(df("Community Logos",n.communityLogos.flatMap(rl)))}if(n.issuerLogo!=null){a.push(df("Issuer Logo",rl(n.issuerLogo)))}if(n.subjectLogo!=null){a.push(df("Subject Logo",rl(n.subjectLogo)))}if((i=n.otherLogos)===null||i===void 0?void 0:i.length){for(var o=0,c=n.otherLogos;o<c.length;o++){var u=c[o];a.push(df("Other Logo (".concat(u.logotypeType,")"),rl(u.info)))}}return{oid:e.extnID,critical:(r=e.critical)!==null&&r!==void 0?r:false,children:a}};return e}();
+// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
+function al(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
+// src/attributes/extensions/certificate_template.ts
+var ol="1.3.6.1.4.1.311.21.7";var cl=/** @class */function(){function e(e){if(e===void 0){e={}}this.templateID="";this.templateMajorVersion=0;this.templateMinorVersion=0;Object.assign(this,e)}return e}();al([Va({type:ui.ObjectIdentifier})],cl.prototype,"templateID",void 0);al([Va({type:ui.Integer})],cl.prototype,"templateMajorVersion",void 0);al([Va({type:ui.Integer})],cl.prototype,"templateMinorVersion",void 0);
+// src/attributes/extensions/enroll_certtype.ts
+var ul="1.3.6.1.4.1.311.20.2";var sl=/** @class */function(){function e(e){if(e===void 0){e={}}this.name="";Object.assign(this,e)}return e}();al([Va({type:ui.Utf8String})],sl.prototype,"name",void 0);var fl=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}e.prototype.toString=function(){var e,t;return((e=this.name)===null||e===void 0?void 0:e.toString())||((t=this.spec)===null||t===void 0?void 0:t.name)||""};return e}();al([Va({type:$a})],fl.prototype,"name",void 0);al([Va({type:sl})],fl.prototype,"spec",void 0);fl=al([Ua({type:ci.Choice})],fl);
+// src/attributes/extensions/ca_version.ts
+var dl="1.3.6.1.4.1.311.21.1";var ll=/** @class */function(){function e(){this.value=new ArrayBuffer(0)}e.prototype.toString=function(){var e=this.getVersion();return"V".concat(e.certificateIndex,".").concat(e.keyIndex)};e.prototype.getVersion=function(){var e=new Uint8Array(this.value);if(this.value.byteLength<4){e=new Uint8Array(4);e.set(new Uint8Array(this.value),4-this.value.byteLength)}return{keyIndex:parseInt(lt.encode(e.slice(0,2)),16),certificateIndex:parseInt(lt.encode(e.slice(2)),16)}};return e}();al([Va({type:ui.Integer,converter:va})],ll.prototype,"value",void 0);ll=al([Ua({type:ci.Choice})],ll);
+/**
+             * Extension OID for Microsoft CRL Next Publish extension.
+             */
+// eslint-disable-next-line @typescript-eslint/naming-convention
+var vl="1.3.6.1.4.1.311.21.4";
+/**
+             * Implements ASN.1 schema for Microsoft CRL Next Publish extension.
+             *
+             * ```asn
+             * MsCRLNextPublish ::= GeneralizedTime
+             * ```
+             */var hl=/** @class */function(){function e(){pe.set(this,void 0)}e.prototype.fromASN=function(e){__classPrivateFieldSet(this,pe,e.valueBlock.valueHex,"f");this.nextPublish=e.toDate().toISOString();return this};e.prototype.toASN=function(){return new Yn({valueHex:__classPrivateFieldGet(this,pe,"f")})};e.prototype.toSchema=function(e){return new Yn({name:e})};return e}();pe=new WeakMap;
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var pl=/** @class */function(){function e(){this.oids=[ol]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,cl);var r=[ff("Template ID",i.templateID)];if(i.templateMajorVersion!=null){r.push(ff("Major Version",i.templateMajorVersion))}if(i.templateMinorVersion!=null){r.push(ff("Minor Version",i.templateMinorVersion))}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:r}};return e}();var bl=/** @class */function(){function e(){this.oids=[ul]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,fl);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("Template Name",i.toString())]}};return e}();var yl=/** @class */function(){function e(){this.oids=[dl]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,ll);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("Version",i.toString())]}};return e}();var gl=/** @class */function(){function e(){this.oids=[vl]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,hl);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("Next Publish",Ru(i.nextPublish))]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var Sl=/** @class */function(){function e(){this.oids=[cu]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,iu);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("Log Hash Algorithm",Os(i.logHash.algorithm,true)),ff("Signature Algorithm",Os(i.sigAlg.algorithm,true)),ff("Min Serial",i.minSerial.toString()),ff("Max Serial",i.maxSerial.toString())]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */function ml(e){return e.map((function(e){var t=[hf(e.base)];if(e.minimum!==0){t.push(ff("Minimum",e.minimum))}if(e.maximum!=null){t.push(ff("Maximum",e.maximum))}return t})).flat()}var Cl=/** @class */function(){function e(){this.oids=[vc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,bc);var r=[];if(i.permittedSubtrees!=null){r.push(df("Permitted Subtrees",ml(i.permittedSubtrees)))}if(i.excludedSubtrees!=null){r.push(df("Excluded Subtrees",ml(i.excludedSubtrees)))}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:r}};return e}();
+// src/object_identifiers.ts
+var Al="2.16.840.1.113730";var El="".concat(Al,".1");
+// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
+function wl(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
+// src/cert_type.ts
+var Pl="".concat(El,".1");var Dl=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}t.prototype.toJSON=function(){var e=this.toNumber();var t=[];if(e&8)t.push("objectSigning");if(e&128)t.push("objectSigningCa");if(e&4)t.push("sMime");if(e&64)t.push("sMimeCa");if(e&32)t.push("sslCa");if(e&1)t.push("sslClient");if(e&2)t.push("sslServer");return t};t.prototype.toString=function(){return"[".concat(this.toJSON().join(", "),"]")};return t}(ua);
+// src/comment.ts
+var _l="".concat(El,".13");var Il=/** @class */function(){function e(e){this.value="";if(e)this.value=e}return e}();wl([Va({type:ui.IA5String})],Il.prototype,"value",void 0);Il=wl([Ua({type:ci.Choice})],Il);
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var Bl=/** @class */function(){function e(){this.oids=[_l]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Il);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("Comment",i.value)]}};return e}();var Tl=/** @class */function(){function e(){this.oids=[Pl]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Dl);var r=i.toJSON();return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("Type",r.join(", "))]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */
+/**
+             * Decode a big-endian unsigned integer from the raw bytes that
+             * `@peculiar/asn1-x509` exposes for SkipCerts (typed as ArrayBuffer but
+             * actually a Uint8Array at runtime).
+             */function Nl(e){var t=Oe(e);var i=0;for(var r=0,n=t;r<n.length;r++){var a=n[r];i=i<<8|a}return i>>>0;// treat as unsigned 32-bit
+}var Rl=/** @class */function(){function e(){this.oids=[yc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,gc);var r=[];if(i.requireExplicitPolicy!=null){r.push(ff("Require Explicit Policy",Nl(i.requireExplicitPolicy)))}if(i.inhibitPolicyMapping!=null){r.push(ff("Inhibit Policy Mapping",Nl(i.inhibitPolicyMapping)))}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:r}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var xl=/** @class */function(){function e(){this.oids=[mc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Ac);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[df("Mappings",i.map((function(e){return df("",[ff("Issuer Domain Policy",e.issuerDomainPolicy),ff("Subject Domain Policy",e.subjectDomainPolicy)])})))]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var Ol=/** @class */function(){function e(){this.oids=[Rc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,xc);var r=[];if(i.notBefore!=null){r.push(ff("Not Before",Ru(i.notBefore)))}if(i.notAfter!=null){r.push(ff("Not After",Ru(i.notAfter)))}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:r}};return e}();
+// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
+function Ml(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
+// src/index.ts
+var kl;var Ll;var jl;var Hl;var Fl=/** @class */function(){function e(e){if(typeof e==="string")this.alphabetic=e;else if(typeof e==="number")this.numeric=e}return e}();Ml([Va({type:ui.PrintableString})],Fl.prototype,"alphabetic",void 0);Ml([Va({type:ui.PrintableString})],Fl.prototype,"numeric",void 0);Fl=Ml([Ua({type:ci.Choice})],Fl);var Kl=/** @class */function(){function e(e){if(e===void 0){e={}}this.currency=new Fl;this.amount=0;this.exponent=0;Object.assign(this,e)}return e}();Ml([Va({type:Fl})],Kl.prototype,"currency",void 0);Ml([Va({type:ui.Integer})],Kl.prototype,"amount",void 0);Ml([Va({type:ui.Integer})],Kl.prototype,"exponent",void 0);var Ul=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Kl);Ul=Ml([Ua({type:ci.Sequence})],Ul);var Vl=/** @class */function(){function e(e){if(e===void 0){e=0}this.value=e}return e}();Ml([Va({type:ui.Integer})],Vl.prototype,"value",void 0);Vl=Ml([Ua({type:ci.Choice})],Vl);var Gl=/** @class */function(){function e(e){if(e===void 0){e={}}this.url="";this.language="";Object.assign(this,e)}return e}();Ml([Va({type:ui.IA5String})],Gl.prototype,"url",void 0);Ml([Va({type:ui.PrintableString})],Gl.prototype,"language",void 0);Gl=Ml([Ua({type:ci.Sequence})],Gl);var Wl=kl=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,kl.prototype);return i}return t}(za);Wl=kl=Ml([Ua({type:ci.Sequence,itemType:Gl})],Wl);var Ql=Ll=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,Ll.prototype);return i}return t}(Wl);Ql=Ll=Ml([Ua({type:ci.Sequence,itemType:Gl})],Ql);var zl=jl=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,jl.prototype);return i}return t}(za);zl=jl=Ml([Ua({type:ci.Sequence,itemType:ui.ObjectIdentifier})],zl);var ql=Hl=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,Hl.prototype);return i}return t}(za);ql=Hl=Ml([Ua({type:ci.Sequence,itemType:ui.PrintableString})],ql);var Yl="0.4.0.1862.1";var Xl="".concat(Yl,".3");var Zl="".concat(Yl,".5");var $l="".concat(Yl,".6");
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */function Jl(e,t){var i;if(!t||!t.byteLength){return[]}try{if(e===Rf){var r=Wa.parse(t,Of);var n=[];if(r.semanticsIdentifier){n.push(ff("Semantics Identifier",r.semanticsIdentifier))}for(var a=0,o=(i=r.nameRegistrationAuthorities)!==null&&i!==void 0?i:[];a<o.length;a++){var c=o[a];n.push(hf(c))}return n}if(e===$l){var u=Wa.parse(t,zl);return[ff("QC Types",Array.from(u).map((function(e){var t;return(t=xs[e])!==null&&t!==void 0?t:e})).join(", "))]}if(e===Xl){var s=Wa.parse(t,Vl);return[ff("Retention Period","".concat(s.value," years"))]}if(e===Zl){var f=Wa.parse(t,Wl);return[df("PDS Locations",f.map((function(e){return df("",[ff("URL",e.url),ff("Language",e.language)])})))]}}catch(e){
+// fall through
+}return[ff("Info",lt.encode(t))]}var ev=/** @class */function(){function e(){this.oids=[Tf]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Mf);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[df("Statements",i.map((function(e){return df("",__spreadArray([ff("Statement",e.statementId)],Jl(e.statementId,e.statementInfo),true))})))]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var tv=/** @class */function(){function e(){this.oids=[wc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Pc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:i.map(hf)}};return e}();
+// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
+function iv(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
+// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
+function rv(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
+// src/issuer_and_serial_number.ts
+var nv=/** @class */function(){function e(e){if(e===void 0){e={}}this.issuer=new ro;this.serialNumber=new ArrayBuffer(0);Object.assign(this,e)}return e}();rv([Va({type:ro})],nv.prototype,"issuer",void 0);rv([Va({type:ui.Integer,converter:va})],nv.prototype,"serialNumber",void 0);
+// src/signer_identifier.ts
+var av=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();rv([Va({type:Nc,context:0,implicit:true})],av.prototype,"subjectKeyIdentifier",void 0);rv([Va({type:nv})],av.prototype,"issuerAndSerialNumber",void 0);av=rv([Ua({type:ci.Choice})],av);var ov=e("w",/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Fc));e("w",ov=rv([Ua({type:ci.Sequence})],ov));var cv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Fc);cv=rv([Ua({type:ci.Sequence})],cv);var uv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Fc);uv=rv([Ua({type:ci.Sequence})],uv);var sv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Fc);sv=rv([Ua({type:ci.Sequence})],sv);var fv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Fc);fv=rv([Ua({type:ci.Sequence})],fv);var dv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Fc);dv=rv([Ua({type:ci.Sequence})],dv);
+// src/attribute.ts
+var lv=/** @class */function(){function e(e){if(e===void 0){e={}}this.attrType="";this.attrValues=[];Object.assign(this,e)}return e}();rv([Va({type:ui.ObjectIdentifier})],lv.prototype,"attrType",void 0);rv([Va({type:ui.Any,repeated:"set"})],lv.prototype,"attrValues",void 0);
+// src/signer_info.ts
+var vv;var hv=/** @class */function(){function e(e){if(e===void 0){e={}}this.version=0;this.sid=new av;this.digestAlgorithm=new ov;this.signatureAlgorithm=new cv;this.signature=new sa;Object.assign(this,e)}return e}();rv([Va({type:ui.Integer})],hv.prototype,"version",void 0);rv([Va({type:av})],hv.prototype,"sid",void 0);rv([Va({type:ov})],hv.prototype,"digestAlgorithm",void 0);rv([Va({type:lv,repeated:"set",context:0,implicit:true,optional:true,raw:true})],hv.prototype,"signedAttrs",void 0);rv([Va({type:cv})],hv.prototype,"signatureAlgorithm",void 0);rv([Va({type:sa})],hv.prototype,"signature",void 0);rv([Va({type:lv,repeated:"set",context:1,implicit:true,optional:true})],hv.prototype,"unsignedAttrs",void 0);var pv=e("v",vv=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,vv.prototype);return i}return t}(za));e("v",pv=vv=rv([Ua({type:ci.Set,itemType:hv})],pv));
+// src/content_info.ts
+var bv=e("x",/** @class */function(){function e(e){if(e===void 0){e={}}this.contentType="";this.content=new ArrayBuffer(0);Object.assign(this,e)}return e}());rv([Va({type:ui.ObjectIdentifier})],bv.prototype,"contentType",void 0);rv([Va({type:ui.Any,context:0})],bv.prototype,"content",void 0);
+// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
+function yv(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
+// src/mac_data.ts
+var gv=/** @class */function(){function e(e){if(e===void 0){e={}}this.mac=new hu;this.macSalt=new sa;this.iterations=1;Object.assign(this,e)}return e}();yv([Va({type:hu})],gv.prototype,"mac",void 0);yv([Va({type:sa})],gv.prototype,"macSalt",void 0);yv([Va({type:ui.Integer,defaultValue:1})],gv.prototype,"iterations",void 0);
+// src/pfx.ts
+var Sv=/** @class */function(){function e(e){if(e===void 0){e={}}this.version=3;this.authSafe=new bv;this.macData=new gv;Object.assign(this,e)}return e}();yv([Va({type:ui.Integer})],Sv.prototype,"version",void 0);yv([Va({type:bv})],Sv.prototype,"authSafe",void 0);yv([Va({type:gv,optional:true})],Sv.prototype,"macData",void 0);
+// src/index.ts
+var mv;var Cv;var Av;var Ev="1.2.840.113549.1.9";var wv="".concat(Ev,".2");var Pv="".concat(Ev,".7");var Dv=e("K","".concat(Ev,".14"));var _v="1.3.6.1.5.5.7.9";var Iv="".concat(_v,".1");var Bv=/** @class */function(e){__extends(t,e);function t(t){if(t===void 0){t={}}return e.call(this,t)||this}t.prototype.toString=function(){return this.ia5String||e.prototype.toString.call(this)};return t}($a);iv([Va({type:ui.IA5String})],Bv.prototype,"ia5String",void 0);Bv=iv([Ua({type:ci.Choice})],Bv);var Tv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(bv);Tv=iv([Ua({type:ci.Sequence})],Tv);var Nv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Sv);Nv=iv([Ua({type:ci.Sequence})],Nv);var Rv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(gu);Rv=iv([Ua({type:ci.Sequence})],Rv);var xv=/** @class */function(){function e(e){if(e===void 0){e=""}this.value=e}e.prototype.toString=function(){return this.value};return e}();iv([Va({type:ui.IA5String})],xv.prototype,"value",void 0);xv=iv([Ua({type:ci.Choice})],xv);var Ov=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Bv);Ov=iv([Ua({type:ci.Choice})],Ov);var Mv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}($a);Mv=iv([Ua({type:ci.Choice})],Mv);var kv=/** @class */function(){function e(e){if(e===void 0){e=new Date}this.value=e}return e}();iv([Va({type:ui.GeneralizedTime})],kv.prototype,"value",void 0);kv=iv([Ua({type:ci.Choice})],kv);var Lv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}($a);Lv=iv([Ua({type:ci.Choice})],Lv);var jv=/** @class */function(){function e(e){if(e===void 0){e="M"}this.value=e}e.prototype.toString=function(){return this.value};return e}();iv([Va({type:ui.PrintableString})],jv.prototype,"value",void 0);jv=iv([Ua({type:ci.Choice})],jv);var Hv=/** @class */function(){function e(e){if(e===void 0){e=""}this.value=e}e.prototype.toString=function(){return this.value};return e}();iv([Va({type:ui.PrintableString})],Hv.prototype,"value",void 0);Hv=iv([Ua({type:ci.Choice})],Hv);var Fv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Hv);Fv=iv([Ua({type:ci.Choice})],Fv);var Kv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}($a);Kv=iv([Ua({type:ci.Choice})],Kv);var Uv=/** @class */function(){function e(e){if(e===void 0){e=""}this.value=e}e.prototype.toString=function(){return this.value};return e}();iv([Va({type:ui.ObjectIdentifier})],Uv.prototype,"value",void 0);Uv=iv([Ua({type:ci.Choice})],Uv);var Vv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Uc);Vv=iv([Ua({type:ci.Choice})],Vv);var Gv=/** @class */function(){function e(e){if(e===void 0){e=0}this.value=e}e.prototype.toString=function(){return this.value.toString()};return e}();iv([Va({type:ui.Integer})],Gv.prototype,"value",void 0);Gv=iv([Ua({type:ci.Choice})],Gv);var Wv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(hv);Wv=iv([Ua({type:ci.Sequence})],Wv);var Qv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}($a);Qv=iv([Ua({type:ci.Choice})],Qv);var zv=mv=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,mv.prototype);return i}return t}(Qc);zv=mv=iv([Ua({type:ci.Sequence})],zv);var qv=Cv=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,Cv.prototype);return i}return t}(za);qv=Cv=iv([Ua({type:ci.Set,itemType:lv})],qv);var Yv=/** @class */function(){function e(e){if(e===void 0){e=""}this.value=e}e.prototype.toString=function(){return this.value};return e}();iv([Va({type:ui.BmpString})],Yv.prototype,"value",void 0);Yv=iv([Ua({type:ci.Choice})],Yv);var Xv=/** @class */function(e){__extends(t,e);function t(){return e!==null&&e.apply(this,arguments)||this}return t}(Fc);Xv=iv([Ua({type:ci.Sequence})],Xv);var Zv=Av=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,Av.prototype);return i}return t}(za);Zv=Av=iv([Ua({type:ci.Sequence,itemType:Xv})],Zv);
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */function $v(e){try{return Ru(Wa.parse(e,kv).value)}catch(e){return null}}function Jv(e,t){if(e===Iv){var i=$v(t);if(i){return i}}try{return Wa.parse(t,Ja).toString()}catch(e){return lt.encode(t)}}var eh=/** @class */function(){function e(){this.oids=[Ic]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Bc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:i.map((function(e){var t=e.values.map((function(t){return Jv(e.type,t)}));return ff(e.type,t.join(", "))}))}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var th=/** @class */function(){function e(){this.oids=[jc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Hc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[df("Descriptions",i.map((function(e){return df("",[ff("Method",e.accessMethod),hf(e.accessLocation)])})))]}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var ih=/** @class */function(){function e(){this.oids=[Tc]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,Nc);return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:[ff("Key Identifier",lt.encode(i.buffer),"subjectKeyId")]}};return e}();
+// \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
+function rh(e,t,i,r){var n=arguments.length,a=n<3?t:r===null?r=Object.getOwnPropertyDescriptor(t,i):r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
+// src/index.ts
+var nh;var ah;var oh;var ch="1.3.6.1.5.5.7";var uh="".concat(ch,".1");var sh=nh=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,nh.prototype);return i}return t}(za);sh=nh=rh([Ua({type:ci.Sequence,itemType:ui.IA5String})],sh);var fh=/** @class */function(){function e(e){if(e===void 0){e={}}this.claim="";this.permitted=[];Object.assign(this,e)}return e}();rh([Va({type:ui.IA5String})],fh.prototype,"claim",void 0);rh([Va({type:ui.Utf8String,repeated:"sequence"})],fh.prototype,"permitted",void 0);var dh=ah=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,ah.prototype);return i}return t}(za);dh=ah=rh([Ua({type:ci.Sequence,itemType:fh})],dh);var lh=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();rh([Va({type:sh,optional:true,context:0})],lh.prototype,"mustInclude",void 0);rh([Va({type:dh,optional:true,context:1})],lh.prototype,"permittedValues",void 0);var vh="".concat(uh,".26");var hh=/** @class */function(){function e(){this.start="";this.count=2}return e}();rh([Va({type:ui.IA5String})],hh.prototype,"start",void 0);rh([Va({type:ui.Integer})],hh.prototype,"count",void 0);var ph=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();rh([Va({type:ui.IA5String,context:0})],ph.prototype,"spc",void 0);rh([Va({type:hh,context:1})],ph.prototype,"range",void 0);rh([Va({type:ui.IA5String,context:2})],ph.prototype,"one",void 0);ph=rh([Ua({type:ci.Choice})],ph);var bh=oh=/** @class */function(e){__extends(t,e);function t(t){var i=e.call(this,t)||this;Object.setPrototypeOf(i,oh.prototype);return i}return t}(za);bh=oh=rh([Ua({type:ci.Sequence,itemType:ph})],bh);
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var yh=/** @class */function(){function e(){this.oids=[vh]}e.prototype.parse=function(e){var t;var i=Wa.parse(e.extnValue.buffer,bh);var r=[];for(var n=0,a=Array.from(i);n<a.length;n++){var o=a[n];if(o.spc!=null){r.push(ff("Service Provider Code",o.spc))}else if(o.range!=null){r.push(df("Range",[ff("Start",o.range.start),ff("Count",o.range.count)]))}else if(o.one!=null){r.push(ff("Telephone Number",o.one))}}return{oid:e.extnID,critical:(t=e.critical)!==null&&t!==void 0?t:false,children:r}};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var gh=/** @class */function(){function e(){this.parsers=new Map}e.prototype.register=function(e){for(var t=0,i=e.oids;t<i.length;t++){var r=i[t];this.parsers.set(r,e)}};e.prototype.get=function(e){return this.parsers.get(e)};return e}();
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var Sh=new gh;
+// Certificate extensions (RFC 5280)
+Sh.register(new Sf);Sh.register(new xd);Sh.register(new cd);Sh.register(new tv);Sh.register(new dd);Sh.register(new ih);Sh.register(new gf);Sh.register(new yf);Sh.register(new th);Sh.register(new zf);Sh.register(new xl);Sh.register(new Rl);Sh.register(new Cl);Sh.register(new sd);Sh.register(new Ol);Sh.register(new eh);Sh.register(new Wf);
+// CRL extensions
+Sh.register(new id);Sh.register(new rd);Sh.register(new nd);Sh.register(new ad);Sh.register(new ld);Sh.register(new fd);
+// Proprietary / additional
+Sh.register(new od);Sh.register(new Bl);Sh.register(new Tl);Sh.register(new td);Sh.register(new Lf);Sh.register(new ev);Sh.register(new Rd);
+// Microsoft extensions
+Sh.register(new pl);Sh.register(new bl);Sh.register(new yl);Sh.register(new gl);
+// LEI extensions (RFC 7773)
+Sh.register(new Kd);Sh.register(new Ud);
+// Adobe Acrobat extensions
+Sh.register(new pf);Sh.register(new bf);
+// Logotype extension (RFC 3709)
+Sh.register(new nl);
+// TN Authorization List (RFC 8226)
+Sh.register(new yh);
+// CA/Browser Forum + Apple
+Sh.register(new Vf);Sh.register(new Gf);
+// Merkle Tree Certificates (RFC 9925)
+Sh.register(new Sl);function mh(e){return nf(e,Sh)}
+/**
+             * @license
+             * Copyright (c) Peculiar Ventures, LLC.
+             *
+             * This source code is licensed under the MIT license found in the
+             * LICENSE file in the root directory of this source tree.
+             */var Ch=/** @class */function(){
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function e(){var e=[];for(var t=0;t<arguments.length;t++){e[t]=arguments[t]}be.set(this,void 0);ye.set(this,void 0);if(e.length===1){
+// asn
+__classPrivateFieldSet(this,be,e[0],"f");__classPrivateFieldSet(this,ye,qa.serialize(__classPrivateFieldGet(this,be,"f")),"f")}else{
+// raw, type
+__classPrivateFieldSet(this,be,qa.parse(e[0],e[1]),"f");__classPrivateFieldSet(this,ye,ke(e[0]),"f")}}Object.defineProperty(e.prototype,"asn",{get:function(){return __classPrivateFieldGet(this,be,"f")},enumerable:false,configurable:true});Object.defineProperty(e.prototype,"raw",{get:function(){return __classPrivateFieldGet(this,ye,"f")},enumerable:false,configurable:true});return e}();be=new WeakMap,ye=new WeakMap;e("i",Ch);
 /**
              * @license
              * Copyright (c) Peculiar Ventures, LLC.
@@ -1123,60 +1123,60 @@ var Vh="".concat(wh,".7");var Gh=/** @class */function(){function e(e){if(e===vo
              *
              * This source code is licensed under the MIT license found in the
              * LICENSE file in the root directory of this source tree.
-             */var Wh=/** @class */function(){function e(){this.oids=[Dh]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],_h);var i=[Qs("Code Authority",[Ys(t.codeAuthority)]),Qs("Code ID",[Ys(t.codeId)]),Ws("Short Name",t.shortName),Ws("Short Description",t.shortDescription)];return{oid:e.type,children:i}};return e}();
+             */var Wh=/** @class */function(){function e(){this.oids=[Dh]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],_h);var i=[df("Code Authority",[hf(t.codeAuthority)]),df("Code ID",[hf(t.codeId)]),ff("Short Name",t.shortName),ff("Short Description",t.shortDescription)];return{oid:e.type,children:i}};return e}();
 /**
              * @license
              * Copyright (c) Peculiar Ventures, LLC.
              *
              * This source code is licensed under the MIT license found in the
              * LICENSE file in the root directory of this source tree.
-             */function Qh(e,t){var i=Wa.parse(e.values[0],t);var r=qs.parse(i);return{oid:e.type,children:r.map((function(e){return Ws(e.type,e.value)}))}}var zh=/** @class */function(){function e(){this.oids=[Bh]}e.prototype.parse=function(e){return Qh(e,Th)};return e}();var qh=/** @class */function(){function e(){this.oids=[Nh]}e.prototype.parse=function(e){return Qh(e,Rh)};return e}();var Yh=/** @class */function(){function e(){this.oids=[xh]}e.prototype.parse=function(e){return Qh(e,Oh)};return e}();var Xh=/** @class */function(){function e(){this.oids=[Mh]}e.prototype.parse=function(e){return Qh(e,kh)};return e}();
+             */function Qh(e,t){var i=Wa.parse(e.values[0],t);var r=vf.parse(i);return{oid:e.type,children:r.map((function(e){return ff(e.type,e.value)}))}}var zh=/** @class */function(){function e(){this.oids=[Bh]}e.prototype.parse=function(e){return Qh(e,Th)};return e}();var qh=/** @class */function(){function e(){this.oids=[Nh]}e.prototype.parse=function(e){return Qh(e,Rh)};return e}();var Yh=/** @class */function(){function e(){this.oids=[xh]}e.prototype.parse=function(e){return Qh(e,Oh)};return e}();var Xh=/** @class */function(){function e(){this.oids=[Mh]}e.prototype.parse=function(e){return Qh(e,kh)};return e}();
 /**
              * @license
              * Copyright (c) Peculiar Ventures, LLC.
              *
              * This source code is licensed under the MIT license found in the
              * LICENSE file in the root directory of this source tree.
-             */var Zh=/** @class */function(){function e(){this.oids=[Lh]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],jh);return{oid:e.type,children:[Ws("Value","".concat(t.base," * 10^").concat(t.degree," ").concat(t.location))]}};return e}();
+             */var Zh=/** @class */function(){function e(){this.oids=[Lh]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],jh);return{oid:e.type,children:[ff("Value","".concat(t.base," * 10^").concat(t.degree," ").concat(t.location))]}};return e}();
 /**
              * @license
              * Copyright (c) Peculiar Ventures, LLC.
              *
              * This source code is licensed under the MIT license found in the
              * LICENSE file in the root directory of this source tree.
-             */var $h=/** @class */function(){function e(){this.oids=[cv]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],Iv);return{oid:e.type,children:[Ws("Value",t.toString())]}};return e}();var Jh=/** @class */function(){function e(){this.oids=[ov]}e.prototype.parse=function(e){var t,i;var r=Wa.parse(e.values[0],bv);var n=(i=(t=r.utf8String)!==null&&t!==void 0?t:r.ia5String)!==null&&i!==void 0?i:r.toString();return{oid:e.type,children:[Ws("Value",n!==null&&n!==void 0?n:"")]}};return e}();var ep=/** @class */function(){function e(){this.oids=[uv]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],Bv);return{oid:e.type,children:[Qs("Extensions",t.map(ih))]}};return e}();
+             */var $h=/** @class */function(){function e(){this.oids=[Pv]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],Qv);return{oid:e.type,children:[ff("Value",t.toString())]}};return e}();var Jh=/** @class */function(){function e(){this.oids=[wv]}e.prototype.parse=function(e){var t,i;var r=Wa.parse(e.values[0],Ov);var n=(i=(t=r.utf8String)!==null&&t!==void 0?t:r.ia5String)!==null&&i!==void 0?i:r.toString();return{oid:e.type,children:[ff("Value",n!==null&&n!==void 0?n:"")]}};return e}();var ep=/** @class */function(){function e(){this.oids=[Dv]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],zv);return{oid:e.type,children:[df("Extensions",t.map(mh))]}};return e}();
 // \0@oxc-project+runtime@0.155.0/helpers/esm/decorate.js
 function tp(e,t,i,r){var n=arguments.length,a=n<3?t:r,o;if(typeof Reflect==="object"&&typeof Reflect.decorate==="function")a=Reflect.decorate(e,t,i,r);else for(var c=e.length-1;c>=0;c--)if(o=e[c])a=(n<3?o(a):n>3?o(t,i,a):o(t,i))||a;return n>3&&a&&Object.defineProperty(t,i,a),a}
 // src/statement_of_possession.ts
-var ip="1.3.6.1.4.1.22112.2.1";var rp=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();tp([Va({type:Fl})],rp.prototype,"signer",void 0);tp([Va({type:qc,optional:true})],rp.prototype,"cert",void 0);rp=tp([Ua({type:ci.Sequence})],rp);
+var ip="1.3.6.1.4.1.22112.2.1";var rp=/** @class */function(){function e(e){if(e===void 0){e={}}Object.assign(this,e)}return e}();tp([Va({type:nv})],rp.prototype,"signer",void 0);tp([Va({type:qc,optional:true})],rp.prototype,"cert",void 0);rp=tp([Ua({type:ci.Sequence})],rp);
 /**
              * @license
              * Copyright (c) Peculiar Ventures, LLC.
              *
              * This source code is licensed under the MIT license found in the
              * LICENSE file in the root directory of this source tree.
-             */var np=/** @class */function(){function e(){this.oids=[ip]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],rp);var i=[];i.push(Ws("Serial Number",lt.encode(t.signer.serialNumber)));var r=qs.parse(t.signer.issuer);i.push(Qs("Issuer",r.map((function(e){return Ws(e.type,e.value)}))));if(t.cert){i.push(Ws("Certificate",Kt.encode(qa.serialize(t.cert))))}return{oid:e.type,children:i}};return e}();
+             */var np=/** @class */function(){function e(){this.oids=[ip]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],rp);var i=[];i.push(ff("Serial Number",lt.encode(t.signer.serialNumber)));var r=vf.parse(t.signer.issuer);i.push(df("Issuer",r.map((function(e){return ff(e.type,e.value)}))));if(t.cert){i.push(ff("Certificate",Kt.encode(qa.serialize(t.cert))))}return{oid:e.type,children:i}};return e}();
 /**
              * @license
              * Copyright (c) Peculiar Ventures, LLC.
              *
              * This source code is licensed under the MIT license found in the
              * LICENSE file in the root directory of this source tree.
-             */var ap=/** @class */function(){function e(){this.oids=[Kh]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],Uh);var i=Object.keys(t).filter((function(e){return t[e]!=null})).map((function(e){return Ws(String(e),t[e].toNumber()?"Yes":"No")}));return{oid:e.type,children:i}};return e}();
+             */var ap=/** @class */function(){function e(){this.oids=[Kh]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],Uh);var i=Object.keys(t).filter((function(e){return t[e]!=null})).map((function(e){return ff(String(e),t[e].toNumber()?"Yes":"No")}));return{oid:e.type,children:i}};return e}();
 /**
              * @license
              * Copyright (c) Peculiar Ventures, LLC.
              *
              * This source code is licensed under the MIT license found in the
              * LICENSE file in the root directory of this source tree.
-             */function op(e){var t=1;if(e/100>1)t=100;else if(e/10>1)t=10;return"".concat(e,"/").concat(5*t)}var cp=/** @class */function(){function e(){this.oids=[Hh]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],Fh);var i=Object.keys(t).filter((function(e){return t[e]!=null})).map((function(e){return Ws(String(e),op(Number(t[e])))}));return{oid:e.type,children:i}};return e}();
+             */function op(e){var t=1;if(e/100>1)t=100;else if(e/10>1)t=10;return"".concat(e,"/").concat(5*t)}var cp=/** @class */function(){function e(){this.oids=[Hh]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],Fh);var i=Object.keys(t).filter((function(e){return t[e]!=null})).map((function(e){return ff(String(e),op(Number(t[e])))}));return{oid:e.type,children:i}};return e}();
 /**
              * @license
              * Copyright (c) Peculiar Ventures, LLC.
              *
              * This source code is licensed under the MIT license found in the
              * LICENSE file in the root directory of this source tree.
-             */var up=/** @class */function(){function e(){this.oids=[Vh]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],Gh);var i=[Qs("Assessment Authority",[Ys(t.assessmentAuthority)]),Qs("Assessment Reference",[Ys(t.assessmentRef)]),Qs("Assessment Location",[Ys(t.assessmentLocation)])];if(t.dataStorageTerritory!=null){i.push(Ws("Data Storage Territory",t.dataStorageTerritory))}if(t.description!=null){i.push(Ws("Description",t.description))}return{oid:e.type,children:i}};return e}();
+             */var up=/** @class */function(){function e(){this.oids=[Vh]}e.prototype.parse=function(e){var t=Wa.parse(e.values[0],Gh);var i=[df("Assessment Authority",[hf(t.assessmentAuthority)]),df("Assessment Reference",[hf(t.assessmentRef)]),df("Assessment Location",[hf(t.assessmentLocation)])];if(t.dataStorageTerritory!=null){i.push(ff("Data Storage Territory",t.dataStorageTerritory))}if(t.description!=null){i.push(ff("Description",t.description))}return{oid:e.type,children:i}};return e}();
 /**
              * @license
              * Copyright (c) Peculiar Ventures, LLC.
