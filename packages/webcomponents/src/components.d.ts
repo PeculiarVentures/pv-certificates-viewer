@@ -42,12 +42,6 @@ export namespace Components {
          */
         "download"?: boolean;
         /**
-          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-          * @example  (max-width: 900px)
-          * @default '(max-width: 900px)'
-         */
-        "mobileMediaQueryString"?: string;
-        /**
           * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
           * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
          */
@@ -111,12 +105,6 @@ export namespace Components {
          */
         "issuerDnLink"?: string;
         /**
-          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-          * @example  (max-width: 900px)
-          * @default '(max-width: 900px)'
-         */
-        "mobileMediaQueryString"?: string;
-        /**
           * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
           * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
          */
@@ -143,12 +131,6 @@ export namespace Components {
           * @default true
          */
         "highlightWithSearch": boolean;
-        /**
-          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-          * @example  (max-width: 900px)
-          * @default '(max-width: 900px)'
-         */
-        "mobileMediaQueryString"?: string;
     }
     interface PeculiarCircularProgress {
         /**
@@ -185,12 +167,6 @@ export namespace Components {
           * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
          */
         "issuerDnLink"?: string;
-        /**
-          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-          * @example  (max-width: 900px)
-          * @default '(max-width: 900px)'
-         */
-        "mobileMediaQueryString"?: string;
     }
     interface PeculiarCsrViewer {
         /**
@@ -201,12 +177,6 @@ export namespace Components {
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
         "download"?: boolean;
-        /**
-          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-          * @example  (max-width: 900px)
-          * @default '(max-width: 900px)'
-         */
-        "mobileMediaQueryString"?: string;
         /**
           * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
           * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
@@ -230,12 +200,6 @@ export namespace Components {
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
         "download"?: boolean;
-        /**
-          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-          * @example  (max-width: 900px)
-          * @default '(max-width: 900px)'
-         */
-        "mobileMediaQueryString"?: string;
     }
 }
 export interface PeculiarCertificateDecoderCustomEvent<T> extends CustomEvent<T> {
@@ -372,12 +336,6 @@ declare namespace LocalJSX {
          */
         "download"?: boolean;
         /**
-          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-          * @example  (max-width: 900px)
-          * @default '(max-width: 900px)'
-         */
-        "mobileMediaQueryString"?: string;
-        /**
           * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
           * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
          */
@@ -449,12 +407,6 @@ declare namespace LocalJSX {
          */
         "issuerDnLink"?: string;
         /**
-          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-          * @example  (max-width: 900px)
-          * @default '(max-width: 900px)'
-         */
-        "mobileMediaQueryString"?: string;
-        /**
           * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
           * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
          */
@@ -481,12 +433,6 @@ declare namespace LocalJSX {
           * @default true
          */
         "highlightWithSearch"?: boolean;
-        /**
-          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-          * @example  (max-width: 900px)
-          * @default '(max-width: 900px)'
-         */
-        "mobileMediaQueryString"?: string;
         /**
           * Emitted when the user close certificate details modal.
          */
@@ -531,12 +477,6 @@ declare namespace LocalJSX {
           * Issuer DN link. **NOTE**: HTML component attribute must be `issuer-dn-link`.
          */
         "issuerDnLink"?: string;
-        /**
-          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-          * @example  (max-width: 900px)
-          * @default '(max-width: 900px)'
-         */
-        "mobileMediaQueryString"?: string;
     }
     interface PeculiarCsrViewer {
         /**
@@ -547,12 +487,6 @@ declare namespace LocalJSX {
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
         "download"?: boolean;
-        /**
-          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-          * @example  (max-width: 900px)
-          * @default '(max-width: 900px)'
-         */
-        "mobileMediaQueryString"?: string;
         /**
           * Subject Key Identifier extension children link. <br /> **NOTE**: `{{subjectKeyId}}` will be replaced to value from the extension.
           * @example  https://censys.io/certificates?q=parsed.extensions.authority_key_id:%20{{subjectKeyId}}
@@ -576,12 +510,6 @@ declare namespace LocalJSX {
           * If `true` - component will show split-button to download certificate as PEM or DER.
          */
         "download"?: boolean;
-        /**
-          * Mobile media query string to control screen view change. <br /> **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-          * @example  (max-width: 900px)
-          * @default '(max-width: 900px)'
-         */
-        "mobileMediaQueryString"?: string;
     }
 
     interface PeculiarAttributeCertificateViewerAttributes {
@@ -591,7 +519,6 @@ declare namespace LocalJSX {
         "authKeyIdSiblingsLink": string;
         "subjectKeyIdChildrenLink": string;
         "subjectKeyIdSiblingsLink": string;
-        "mobileMediaQueryString": string;
     }
     interface PeculiarCertificateChainViewerAttributes {
         "download": boolean;
@@ -607,12 +534,10 @@ declare namespace LocalJSX {
         "subjectKeyIdChildrenLink": string;
         "subjectKeyIdSiblingsLink": string;
         "issuerDnLink": string;
-        "mobileMediaQueryString": string;
     }
     interface PeculiarCertificatesViewerAttributes {
         "filterWithSearch": boolean;
         "highlightWithSearch": boolean;
-        "mobileMediaQueryString": string;
     }
     interface PeculiarCircularProgressAttributes {
         "size": number;
@@ -624,14 +549,12 @@ declare namespace LocalJSX {
         "authKeyIdParentLink": string;
         "authKeyIdSiblingsLink": string;
         "issuerDnLink": string;
-        "mobileMediaQueryString": string;
     }
     interface PeculiarCsrViewerAttributes {
         "certificate": TCsrProp;
         "download": boolean;
         "subjectKeyIdChildrenLink": string;
         "subjectKeyIdSiblingsLink": string;
-        "mobileMediaQueryString": string;
     }
     interface PeculiarHighlightWordsAttributes {
         "search": string;
@@ -639,7 +562,6 @@ declare namespace LocalJSX {
     interface PeculiarSshCertificateViewerAttributes {
         "certificate": TSshCertificateProp;
         "download": boolean;
-        "mobileMediaQueryString": string;
     }
 
     interface IntrinsicElements {

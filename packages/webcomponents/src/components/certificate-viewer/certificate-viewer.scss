@@ -8,6 +8,8 @@
   min-height: 300px;
   word-wrap: break-word;
   word-break: break-word;
+  // The mobile layout follows the component's own width, not the viewport.
+  container: pv-certificate-viewer / inline-size;
 
   --pv-certificate-viewer-td-horizontal-padding: calc(var(--pv-size-base) * 4);
 }
@@ -108,7 +110,7 @@ table {
   align-items: center;
 }
 
-:host([data-mobile-screen-view='true']) {
+@container pv-certificate-viewer (max-width: 900px) {
   table,
   tr,
   td {

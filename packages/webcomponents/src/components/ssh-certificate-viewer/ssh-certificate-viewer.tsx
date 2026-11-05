@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Component, h, Prop, State, Watch, Host, Build } from '@stencil/core';
+import { Component, h, Prop, State, Watch, Host } from '@stencil/core';
 import { SshCertificate } from '../../crypto';
 import { Typography } from '../_shared/typography';
 import { runViewerDecode } from '../_shared/viewer/decode';
@@ -27,11 +27,6 @@ export class SshCertificateViewer {
 
   @State() private certificateDecodeError?: Error;
 
-  private mobileMediaQuery: MediaQueryList;
-  private readonly mediaQueryChangeHandler = (event: MediaQueryListEvent) => {
-    this.mobileScreenView = event.matches;
-  };
-
   /**
    * The certificate value for decode and show details. Use PEM or DER.
    */
@@ -42,31 +37,8 @@ export class SshCertificateViewer {
    */
   @Prop({ reflect: true }) download?: boolean;
 
-  /**
-   * Mobile media query string to control screen view change.
-   * <br />
-   * **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-   * @example
-   *  (max-width: 900px)
-   */
-  @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
-
-  @State() mobileScreenView = false;
-
   componentWillLoad() {
     void this.decodeCertificate(this.certificate);
-
-    if (Build.isBrowser && this.mobileMediaQueryString) {
-      this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
-      this.mobileMediaQuery.addEventListener('change', this.mediaQueryChangeHandler);
-      this.mobileScreenView = this.mobileMediaQuery.matches;
-    }
-  }
-
-  disconnectedCallback() {
-    if (this.mobileMediaQuery) {
-      this.mobileMediaQuery.removeEventListener('change', this.mediaQueryChangeHandler);
-    }
   }
 
   private async decodeCertificate(certificate: TSshCertificateProp) {
@@ -136,7 +108,7 @@ export class SshCertificateViewer {
     }
 
     return (
-      <Host data-mobile-screen-view={String(this.mobileScreenView)}>
+      <Host>
         <table>
           <SshBasicInformation {...this.certificateDecoded} />
 
