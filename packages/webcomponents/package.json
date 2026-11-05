@@ -24,6 +24,7 @@
   },
   "files": [
     "components/",
+    "docs/",
     "dist/",
     "hydrate/",
     "loader/"
@@ -37,10 +38,10 @@
     "access": "public"
   },
   "scripts": {
-    "build": "npm run clean && stencil build --docs",
+    "build": "npm run clean && stencil build",
     "dev": "npm run clean && stencil build --dev --watch --serve",
     "generate": "stencil generate",
-    "clean": "rimraf dist loader www components",
+    "clean": "rimraf dist loader www components docs",
     "test": "stencil-test --prod --project spec",
     "test:e2e": "stencil-test --prod --project browser",
     "test:e2e.update": "stencil-test --prod --project browser --update"
