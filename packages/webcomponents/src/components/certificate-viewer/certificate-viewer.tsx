@@ -9,7 +9,6 @@
 import { Component, h, Prop, State, Watch, Host, Build } from '@stencil/core';
 import { X509Certificate } from '../../crypto';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
-import { runViewerDecode } from '../_shared/decode';
 import {
   BasicInformation,
   SubjectName,
@@ -18,9 +17,10 @@ import {
   Signature,
   Thumbprints,
   Miscellaneous,
-} from '../certificate-details-parts';
-import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
-import { Typography } from '../typography';
+} from '../_shared/details';
+import { ParsedExtensions } from '../_shared/parsed/extensions';
+import { Typography } from '../_shared/typography';
+import { runViewerDecode } from '../_shared/viewer/decode';
 
 export type TCertificateProp = string | X509Certificate;
 

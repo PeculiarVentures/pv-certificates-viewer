@@ -9,7 +9,6 @@
 import { Component, Host, h, Prop, State, Watch, Build } from '@stencil/core';
 import { X509AttributeCertificate } from '../../crypto';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
-import { runViewerDecode } from '../_shared/decode';
 import {
   BasicInformation,
   toDisplayVersion,
@@ -18,10 +17,11 @@ import {
   Miscellaneous,
   Holder,
   Issuer,
-} from '../certificate-details-parts';
-import { ParsedAttributes } from '../parsed-attributes-viewer/parsed-attributes-viewer';
-import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
-import { Typography } from '../typography';
+} from '../_shared/details';
+import { ParsedAttributes } from '../_shared/parsed/attributes';
+import { ParsedExtensions } from '../_shared/parsed/extensions';
+import { Typography } from '../_shared/typography';
+import { runViewerDecode } from '../_shared/viewer/decode';
 
 export type TAttributeCertificateProp = string | X509AttributeCertificate;
 

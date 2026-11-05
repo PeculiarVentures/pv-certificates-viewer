@@ -9,7 +9,6 @@
 import { Component, Host, h, Prop, State, Watch, Build } from '@stencil/core';
 import { Pkcs10CertificateRequest } from '../../crypto';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
-import { runViewerDecode } from '../_shared/decode';
 import {
   BasicInformation,
   toDisplayVersion,
@@ -18,9 +17,10 @@ import {
   Thumbprints,
   Miscellaneous,
   PublicKey,
-} from '../certificate-details-parts';
-import { ParsedAttributes } from '../parsed-attributes-viewer/parsed-attributes-viewer';
-import { Typography } from '../typography';
+} from '../_shared/details';
+import { ParsedAttributes } from '../_shared/parsed/attributes';
+import { Typography } from '../_shared/typography';
+import { runViewerDecode } from '../_shared/viewer/decode';
 
 export type TCsrProp = string | Pkcs10CertificateRequest;
 

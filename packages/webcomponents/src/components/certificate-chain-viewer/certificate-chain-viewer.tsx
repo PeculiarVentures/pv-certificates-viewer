@@ -8,8 +8,8 @@
 
 import { Component, h, Prop, State, Host } from '@stencil/core';
 import { X509Certificates } from '../../crypto';
-import { Miscellaneous } from '../certificate-details-parts';
-import { Typography } from '../typography';
+import { Miscellaneous } from '../_shared/details';
+import { Typography } from '../_shared/typography';
 
 @Component({
   tag: 'peculiar-certificate-chain-viewer',

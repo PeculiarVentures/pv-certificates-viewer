@@ -9,9 +9,9 @@
 import { h, FunctionalComponent } from '@stencil/core';
 import { SshCertificate } from '../../../crypto';
 import { l10n } from '../../../utils';
-import { Button } from '../../button';
-import { RowTitle } from '../../certificate-details-parts/row';
-import { DownloadIcon } from '../../icons';
+import { Button } from '../../_shared/button';
+import { RowTitle } from '../../_shared/details/row';
+import { DownloadIcon } from '../../_shared/icons';
 
 interface ISshMiscellaneousProps {
   certificate: SshCertificate;

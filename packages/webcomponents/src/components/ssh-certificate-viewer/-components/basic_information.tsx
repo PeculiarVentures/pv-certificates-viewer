@@ -8,7 +8,7 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { dateShort, l10n } from '../../../utils';
-import { RowTitle, RowValue } from '../../certificate-details-parts/row';
+import { RowTitle, RowValue } from '../../_shared/details/row';
 
 interface ISshBasicInformationProps {
   serialNumber: string;

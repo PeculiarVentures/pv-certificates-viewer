@@ -10,8 +10,8 @@ import { Component, h, Prop, State, Watch, Host, Event, EventEmitter, Build } fr
 import { OIDs } from '../../constants/oids';
 import { X509Certificate } from '../../crypto';
 import { l10n } from '../../utils';
-import { Button } from '../button';
-import { CertificateSummary } from '../certificate-summary';
+import { Button } from '../_shared/button';
+import { CertificateSummary } from '../_shared/certificate-summary';
 import {
   DownloadIcon,
   LinkIcon,
@@ -19,8 +19,8 @@ import {
   ArrowBottomIcon,
   ArrowTopIcon,
   CrossIcon,
-} from '../icons';
-import { Typography } from '../typography';
+} from '../_shared/icons';
+import { Typography } from '../_shared/typography';
 
 export interface ICertificate {
   value: string;

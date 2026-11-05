@@ -26,7 +26,7 @@
 
 ### Depends on
 
-- [peculiar-text-hider](../text-hider)
+- [peculiar-text-hider](../_shared/text-hider)
 
 ### Graph
 ```mermaid

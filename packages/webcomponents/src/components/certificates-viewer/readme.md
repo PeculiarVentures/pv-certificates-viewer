@@ -35,10 +35,10 @@
 
 ### Depends on
 
-- [peculiar-button-menu](../button-menu)
-- [peculiar-highlight-words](../highlight-words)
+- [peculiar-button-menu](../_shared/button-menu)
+- [peculiar-highlight-words](../_shared/highlight-words)
 - [peculiar-certificate-viewer](../certificate-viewer)
-- [peculiar-circular-progress](../circular-progress)
+- [peculiar-circular-progress](../_shared/circular-progress)
 
 ### Graph
 ```mermaid

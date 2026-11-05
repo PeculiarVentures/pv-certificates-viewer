@@ -9,7 +9,6 @@
 import { Component, Host, h, Prop, State, Watch, Build } from '@stencil/core';
 import { X509Crl } from '../../crypto';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
-import { runViewerDecode } from '../_shared/decode';
 import {
   BasicInformation,
   toDisplayVersion,
@@ -18,9 +17,10 @@ import {
   Thumbprints,
   Miscellaneous,
   RevokedCertificates,
-} from '../certificate-details-parts';
-import { ParsedExtensions } from '../parsed-extensions-viewer/parsed-extensions-viewer';
-import { Typography } from '../typography';
+} from '../_shared/details';
+import { ParsedExtensions } from '../_shared/parsed/extensions';
+import { Typography } from '../_shared/typography';
+import { runViewerDecode } from '../_shared/viewer/decode';
 
 export type TCrlProp = string | X509Crl;
 
