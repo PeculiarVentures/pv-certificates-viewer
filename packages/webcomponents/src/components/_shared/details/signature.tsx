@@ -10,7 +10,7 @@ import { h, FunctionalComponent } from '@stencil/core';
 import { toUint8Array } from '@peculiar/utils/bytes';
 import { hex } from '@peculiar/utils/encoding';
 import { ISignature } from '../../../crypto';
-import { l10n, getStringByOID } from '../../../utils';
+import { getStringByOID } from '../../../utils';
 import { RowTitle, RowValue, TableRowTable } from './row';
 
 interface ISignatureProps {
@@ -27,7 +27,7 @@ export const Signature: FunctionalComponent<ISignatureProps> = (props) => {
   function renderSignatureDetails(data: ISignature) {
     return [
       <RowValue
-        name={l10n.getString('algorithm')}
+        name="Algorithm"
         value={getStringByOID(data.algorithm)}
       />,
       data.mtcProofError && (
@@ -38,7 +38,7 @@ export const Signature: FunctionalComponent<ISignatureProps> = (props) => {
       ),
       !data.mtcProof && (
         <RowValue
-          name={l10n.getString('value')}
+          name="Value"
           value={data.value && toUint8Array(data.value).length ? hex.encode(data.value) : '(none)'}
           monospace
           collapse
@@ -98,7 +98,7 @@ export const Signature: FunctionalComponent<ISignatureProps> = (props) => {
   }
 
   return [
-    <RowTitle value={l10n.getString('signature')} />,
+    <RowTitle value="Signature" />,
     renderSignatureDetails(signature),
     renderMtcProof(),
     signature.params &&

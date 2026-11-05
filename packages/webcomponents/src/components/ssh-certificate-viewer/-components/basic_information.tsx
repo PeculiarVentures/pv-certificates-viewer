@@ -7,7 +7,7 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { dateShort, l10n } from '../../../utils';
+import { dateShort } from '../../../utils';
 import { RowTitle, RowValue } from '../../_shared/details/row';
 
 interface ISshBasicInformationProps {
@@ -36,42 +36,42 @@ export const SshBasicInformation: FunctionalComponent<ISshBasicInformationProps>
   } = props;
 
   return [
-    <RowTitle value={l10n.getString('basicInformation')} />,
+    <RowTitle value="Basic Information" />,
     <RowValue
-      name={l10n.getString('type')}
+      name="Type"
       value={type}
     />,
     <RowValue
-      name={l10n.getString('serialNumber')}
+      name="Serial Number"
       value={serialNumber}
       monospace
     />,
     <RowValue
-      name={l10n.getString('validity')}
+      name="Validity"
       value={validity}
     />,
     <RowValue
-      name={l10n.getString('issued')}
+      name="Issued"
       value={notBefore ? dateShort(notBefore) : undefined}
     />,
     <RowValue
-      name={l10n.getString('expired')}
+      name="Expired"
       value={notAfter ? dateShort(notAfter) : undefined}
     />,
     <RowValue
-      name={l10n.getString('keyId')}
+      name="Key ID"
       value={keyId}
     />,
     <RowValue
-      name={l10n.getString('principals')}
+      name="Principals"
       value={principals.join(', ') || '(none)'}
     />,
     <RowValue
-      name={l10n.getString('criticalOptions')}
+      name="Critical Options"
       value={Object.keys(criticalOptions).join(', ') || '(none)'}
     />,
     <RowValue
-      name={l10n.getString('extensions')}
+      name="Extensions"
       value={Object.keys(extensions).join(', ') || '(none)'}
     />,
   ];

@@ -8,7 +8,6 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import type { INameJSON } from '../../../crypto/fields/name';
-import { l10n } from '../../../utils';
 import { getStringByOID } from '../../../utils/get_string_by_oid';
 import { RowTitle, RowValue } from './row';
 
@@ -20,7 +19,7 @@ export const SubjectName: FunctionalComponent<ISubjectNameProps> = (props) => {
   const { name } = props;
 
   return [
-    <RowTitle value={l10n.getString('subjectName')} />,
+    <RowTitle value="Subject Name" />,
     name.map((n) => (
       <RowValue
         name={getStringByOID(n.type, true)}

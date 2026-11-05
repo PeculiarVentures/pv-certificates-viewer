@@ -14,7 +14,6 @@ import {
   Pkcs10CertificateRequest,
   X509Crl,
 } from '../../../crypto';
-import { l10n } from '../../../utils';
 import { Button } from '../button';
 import { DownloadIcon } from '../icons';
 import { RowTitle } from './row';
@@ -34,14 +33,14 @@ export const Miscellaneous: FunctionalComponent<IMiscellaneousProps> = (props) =
   const { certificate } = props;
 
   return [
-    <RowTitle value={l10n.getString('miscellaneous')} />,
+    <RowTitle value="Miscellaneous" />,
     <tr>
       <td>
         <Button
           startIcon={<DownloadIcon />}
           onClick={() => certificate.downloadAsPEM()}
         >
-          {l10n.getString('download.pem')}
+          {'Download PEM'}
         </Button>
       </td>
     </tr>,
@@ -51,7 +50,7 @@ export const Miscellaneous: FunctionalComponent<IMiscellaneousProps> = (props) =
           startIcon={<DownloadIcon />}
           onClick={() => certificate.downloadAsDER()}
         >
-          {l10n.getString('download.der')}
+          {'Download DER'}
         </Button>
       </td>
     </tr>,
