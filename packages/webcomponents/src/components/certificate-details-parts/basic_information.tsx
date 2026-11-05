@@ -10,6 +10,10 @@ import { h, FunctionalComponent } from '@stencil/core';
 import { dateShort, l10n } from '../../utils';
 import { RowTitle, RowValue } from './row';
 
+/** ASN.1 versions are 0-based (`v1(0)`); show the human version, or nothing when the field is absent. */
+export const toDisplayVersion = (version?: number) =>
+  typeof version === 'number' ? version + 1 : undefined;
+
 interface IBasicInformationProps {
   serialNumber?: string;
   version?: number;

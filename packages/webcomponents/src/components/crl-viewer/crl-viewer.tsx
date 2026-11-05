@@ -12,6 +12,7 @@ import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers'
 import { runViewerDecode } from '../_shared/decode';
 import {
   BasicInformation,
+  toDisplayVersion,
   IssuerName,
   Signature,
   Thumbprints,
@@ -29,9 +30,9 @@ export type TCrlProp = string | X509Crl;
   shadow: true,
 })
 export class CrlViewer {
-  private certificateDecoded: X509Crl;
+  @State() private certificateDecoded?: X509Crl;
 
-  private certificateDecodeError?: Error;
+  @State() private certificateDecodeError?: Error;
 
   private mobileMediaQuery: MediaQueryList;
   private readonly mediaQueryChangeHandler = (event: MediaQueryListEvent) => {
@@ -83,8 +84,6 @@ export class CrlViewer {
 
   @State() mobileScreenView = false;
 
-  @State() isDecodeInProcess = true;
-
   componentWillLoad() {
     void this.decodeCertificate(this.certificate);
 
@@ -102,28 +101,28 @@ export class CrlViewer {
   }
 
   private async decodeCertificate(certificate: TCrlProp) {
-    await runViewerDecode<X509Crl>({
-      setLoading: (isLoading) => {
-        this.isDecodeInProcess = isLoading;
-      },
+    await runViewerDecode<X509Crl>(this, {
       onStart: () => {
         this.certificateDecodeError = undefined;
       },
-      run: () => {
+      run: async () => {
+        let decoded: X509Crl;
+
         if (certificate instanceof X509Crl) {
-          return certificate;
+          decoded = certificate;
+        } else if (typeof certificate === 'string') {
+          decoded = new X509Crl(certificate);
+        } else {
+          return undefined;
         }
 
-        if (typeof certificate === 'string') {
-          return new X509Crl(certificate);
-        }
-
-        return undefined;
-      },
-      onSuccess: async (decoded) => {
         decoded.parseExtensions();
         await decoded.getThumbprint('SHA-1');
         await decoded.getThumbprint('SHA-256');
+
+        return decoded;
+      },
+      onSuccess: (decoded) => {
         this.certificateDecoded = decoded;
       },
       onError: (error) => {
@@ -134,22 +133,12 @@ export class CrlViewer {
   }
 
   /**
-   * Rerun decodeCertificate if previuos value not equal current value
+   * Rerun decodeCertificate when the value changes
    */
   @Watch('certificate')
   watchCertificateAndDecode(newValue: TCrlProp, oldValue: TCrlProp) {
-    if (typeof newValue === 'string' && typeof oldValue === 'string') {
-      if (newValue !== oldValue) {
-        void this.decodeCertificate(newValue);
-      }
-
-      return;
-    }
-
-    if (newValue instanceof X509Crl && oldValue instanceof X509Crl) {
-      if (newValue.commonName !== oldValue.commonName) {
-        void this.decodeCertificate(newValue);
-      }
+    if (newValue !== oldValue) {
+      void this.decodeCertificate(newValue);
     }
   }
 
@@ -183,7 +172,10 @@ export class CrlViewer {
     return (
       <Host data-mobile-screen-view={String(this.mobileScreenView)}>
         <table>
-          <BasicInformation {...this.certificateDecoded} />
+          <BasicInformation
+            {...this.certificateDecoded}
+            version={toDisplayVersion(this.certificateDecoded.asn.tbsCertList.version)}
+          />
 
           <IssuerName
             name={this.certificateDecoded.issuer}

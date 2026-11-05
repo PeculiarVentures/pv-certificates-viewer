@@ -30,9 +30,9 @@ export type TCertificateProp = string | X509Certificate;
   shadow: true,
 })
 export class CertificateViewer {
-  private certificateDecoded: X509Certificate;
+  @State() private certificateDecoded?: X509Certificate;
 
-  private certificateDecodeError?: Error;
+  @State() private certificateDecodeError?: Error;
 
   private mobileMediaQuery: MediaQueryList;
   private readonly mediaQueryChangeHandler = (event: MediaQueryListEvent) => {
@@ -102,8 +102,6 @@ export class CertificateViewer {
 
   @State() mobileScreenView = false;
 
-  @State() isDecodeInProcess = true;
-
   componentWillLoad() {
     void this.decodeCertificate(this.certificate);
 
@@ -121,28 +119,28 @@ export class CertificateViewer {
   }
 
   private async decodeCertificate(certificate: TCertificateProp) {
-    await runViewerDecode<X509Certificate>({
-      setLoading: (isLoading) => {
-        this.isDecodeInProcess = isLoading;
-      },
+    await runViewerDecode<X509Certificate>(this, {
       onStart: () => {
         this.certificateDecodeError = undefined;
       },
-      run: () => {
+      run: async () => {
+        let decoded: X509Certificate;
+
         if (certificate instanceof X509Certificate) {
-          return certificate;
+          decoded = certificate;
+        } else if (typeof certificate === 'string') {
+          decoded = new X509Certificate(certificate);
+        } else {
+          return undefined;
         }
 
-        if (typeof certificate === 'string') {
-          return new X509Certificate(certificate);
-        }
-
-        return undefined;
-      },
-      onSuccess: async (decoded) => {
         decoded.parseExtensions();
         await decoded.getThumbprint('SHA-1');
         await decoded.getThumbprint('SHA-256');
+
+        return decoded;
+      },
+      onSuccess: (decoded) => {
         this.certificateDecoded = decoded;
       },
       onError: (error) => {
@@ -153,22 +151,12 @@ export class CertificateViewer {
   }
 
   /**
-   * Rerun decodeCertificate if previuos value not equal current value
+   * Rerun decodeCertificate when the value changes
    */
   @Watch('certificate')
   watchCertificateAndDecode(newValue: TCertificateProp, oldValue: TCertificateProp) {
-    if (typeof newValue === 'string' && typeof oldValue === 'string') {
-      if (newValue !== oldValue) {
-        void this.decodeCertificate(newValue);
-      }
-
-      return;
-    }
-
-    if (newValue instanceof X509Certificate && oldValue instanceof X509Certificate) {
-      if (newValue.serialNumber !== oldValue.serialNumber) {
-        void this.decodeCertificate(newValue);
-      }
+    if (newValue !== oldValue) {
+      void this.decodeCertificate(newValue);
     }
   }
 
