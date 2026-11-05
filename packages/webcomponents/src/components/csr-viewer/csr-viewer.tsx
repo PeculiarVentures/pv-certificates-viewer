@@ -6,23 +6,24 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Component, Host, h, Prop, State, Watch } from '@stencil/core';
-import { Pkcs10CertificateRequest } from '../../crypto';
+import { Component, h, Prop, State, Watch } from '@stencil/core';
+import { Pkcs10CertificateRequest, type ICsrJSON } from '../../crypto';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import {
   BasicInformation,
-  toDisplayVersion,
-  SubjectName,
+  NameSection,
+  PublicKey,
   Signature,
   Thumbprints,
   Miscellaneous,
-  PublicKey,
 } from '../_shared/details';
 import { ParsedAttributes } from '../_shared/parsed/attributes';
-import { Typography } from '../_shared/typography';
-import { runViewerDecode } from '../_shared/viewer/decode';
+import { decodeIntoViewer, toDocument } from '../_shared/viewer/decode';
+import { renderViewer } from '../_shared/viewer/render';
 
 export type TCsrProp = string | Pkcs10CertificateRequest;
+
+type TDecoded = ICsrJSON & { thumbprints: Record<string, string>; doc: Pkcs10CertificateRequest };
 
 @Component({
   tag: 'peculiar-csr-viewer',
@@ -30,9 +31,9 @@ export type TCsrProp = string | Pkcs10CertificateRequest;
   shadow: true,
 })
 export class CsrViewer {
-  @State() private certificateDecoded?: Pkcs10CertificateRequest;
+  @State() certificateDecoded?: TDecoded;
 
-  @State() private certificateDecodeError?: Error;
+  @State() certificateDecodeError?: Error;
 
   /**
    * The certificate value for decode and show details. Use PEM or DER.
@@ -66,35 +67,11 @@ export class CsrViewer {
     void this.decodeCertificate(this.certificate);
   }
 
-  private async decodeCertificate(certificate: TCsrProp) {
-    await runViewerDecode<Pkcs10CertificateRequest>(this, {
-      onStart: () => {
-        this.certificateDecodeError = undefined;
-      },
-      run: async () => {
-        let decoded: Pkcs10CertificateRequest;
+  private decodeCertificate(certificate: TCsrProp) {
+    return decodeIntoViewer<TDecoded>(this, async () => {
+      const doc = toDocument(certificate, Pkcs10CertificateRequest);
 
-        if (certificate instanceof Pkcs10CertificateRequest) {
-          decoded = certificate;
-        } else if (typeof certificate === 'string') {
-          decoded = new Pkcs10CertificateRequest(certificate);
-        } else {
-          return undefined;
-        }
-
-        decoded.parseAttributes();
-        await decoded.getThumbprint('SHA-1');
-        await decoded.getThumbprint('SHA-256');
-
-        return decoded;
-      },
-      onSuccess: (decoded) => {
-        this.certificateDecoded = decoded;
-      },
-      onError: (error) => {
-        this.certificateDecodeError = error as Error;
-        console.error('Error certificate parse:', error);
-      },
+      return doc && { ...doc.toJSON(), thumbprints: await doc.getThumbprints(), doc };
     });
   }
 
@@ -108,57 +85,27 @@ export class CsrViewer {
     }
   }
 
-  private renderErrorState() {
-    return (
-      <div class="status_wrapper">
-        <Typography>There was an error decoding this certificate request.</Typography>
-      </div>
-    );
-  }
-
-  private renderEmptyState() {
-    return (
-      <div class="status_wrapper">
-        <Typography>There is no certificate request available.</Typography>
-      </div>
-    );
-  }
-
   render() {
-    if (this.certificateDecodeError) {
-      return this.renderErrorState();
-    }
+    const links = buildLinkTemplateResolvers(this);
 
-    if (!this.certificateDecoded) {
-      return this.renderEmptyState();
-    }
-
-    const linkTemplateResolvers = buildLinkTemplateResolvers(this);
-
-    return (
-      <Host>
-        <table>
-          <BasicInformation
-            {...this.certificateDecoded}
-            version={toDisplayVersion(this.certificateDecoded.version)}
-          />
-
-          <SubjectName name={this.certificateDecoded.subject} />
-
-          <PublicKey publicKey={this.certificateDecoded.publicKey} />
-
-          <Signature signature={this.certificateDecoded.signature} />
-
-          <Thumbprints thumbprints={this.certificateDecoded.thumbprints} />
-
-          <ParsedAttributes
-            attributes={this.certificateDecoded.attributes}
-            {...linkTemplateResolvers}
-          />
-
-          {this.download && <Miscellaneous certificate={this.certificateDecoded} />}
-        </table>
-      </Host>
-    );
+    return renderViewer<TDecoded>({
+      viewer: this,
+      subject: 'certificate request',
+      body: (decoded) => [
+        <BasicInformation {...decoded} />,
+        <NameSection
+          title="Subject Name"
+          name={decoded.subject}
+        />,
+        <PublicKey publicKey={decoded.publicKey} />,
+        <Signature signature={decoded.signature} />,
+        <Thumbprints thumbprints={decoded.thumbprints} />,
+        <ParsedAttributes
+          attributes={decoded.attributes}
+          {...links}
+        />,
+        this.download && <Miscellaneous certificate={decoded.doc} />,
+      ],
+    });
   }
 }

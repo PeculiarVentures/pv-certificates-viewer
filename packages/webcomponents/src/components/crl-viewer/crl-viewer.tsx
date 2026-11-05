@@ -6,23 +6,24 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Component, Host, h, Prop, State, Watch } from '@stencil/core';
-import { X509Crl } from '../../crypto';
+import { Component, h, Prop, State, Watch } from '@stencil/core';
+import { X509Crl, type ICrlJSON } from '../../crypto';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import {
   BasicInformation,
-  toDisplayVersion,
-  IssuerName,
+  NameSection,
   Signature,
   Thumbprints,
   Miscellaneous,
   RevokedCertificates,
 } from '../_shared/details';
 import { ParsedExtensions } from '../_shared/parsed/extensions';
-import { Typography } from '../_shared/typography';
-import { runViewerDecode } from '../_shared/viewer/decode';
+import { decodeIntoViewer, toDocument } from '../_shared/viewer/decode';
+import { renderViewer } from '../_shared/viewer/render';
 
 export type TCrlProp = string | X509Crl;
+
+type TDecoded = ICrlJSON & { thumbprints: Record<string, string>; doc: X509Crl };
 
 @Component({
   tag: 'peculiar-crl-viewer',
@@ -30,9 +31,9 @@ export type TCrlProp = string | X509Crl;
   shadow: true,
 })
 export class CrlViewer {
-  @State() private certificateDecoded?: X509Crl;
+  @State() certificateDecoded?: TDecoded;
 
-  @State() private certificateDecodeError?: Error;
+  @State() certificateDecodeError?: Error;
 
   /**
    * The certificate value for decode and show details. Use PEM or DER.
@@ -72,35 +73,11 @@ export class CrlViewer {
     void this.decodeCertificate(this.certificate);
   }
 
-  private async decodeCertificate(certificate: TCrlProp) {
-    await runViewerDecode<X509Crl>(this, {
-      onStart: () => {
-        this.certificateDecodeError = undefined;
-      },
-      run: async () => {
-        let decoded: X509Crl;
+  private decodeCertificate(certificate: TCrlProp) {
+    return decodeIntoViewer<TDecoded>(this, async () => {
+      const doc = toDocument(certificate, X509Crl);
 
-        if (certificate instanceof X509Crl) {
-          decoded = certificate;
-        } else if (typeof certificate === 'string') {
-          decoded = new X509Crl(certificate);
-        } else {
-          return undefined;
-        }
-
-        decoded.parseExtensions();
-        await decoded.getThumbprint('SHA-1');
-        await decoded.getThumbprint('SHA-256');
-
-        return decoded;
-      },
-      onSuccess: (decoded) => {
-        this.certificateDecoded = decoded;
-      },
-      onError: (error) => {
-        this.certificateDecodeError = error as Error;
-        console.error('Error certificate parse:', error);
-      },
+      return doc && { ...doc.toJSON(), thumbprints: await doc.getThumbprints(), doc };
     });
   }
 
@@ -114,60 +91,28 @@ export class CrlViewer {
     }
   }
 
-  private renderErrorState() {
-    return (
-      <div class="status_wrapper">
-        <Typography>There was an error decoding this certificate revocation list.</Typography>
-      </div>
-    );
-  }
-
-  private renderEmptyState() {
-    return (
-      <div class="status_wrapper">
-        <Typography>There is no certificate revocation list available.</Typography>
-      </div>
-    );
-  }
-
   render() {
-    if (this.certificateDecodeError) {
-      return this.renderErrorState();
-    }
+    const links = buildLinkTemplateResolvers(this);
 
-    if (!this.certificateDecoded) {
-      return this.renderEmptyState();
-    }
-
-    const linkTemplateResolvers = buildLinkTemplateResolvers(this);
-
-    return (
-      <Host>
-        <table>
-          <BasicInformation
-            {...this.certificateDecoded}
-            version={toDisplayVersion(this.certificateDecoded.asn.tbsCertList.version)}
-          />
-
-          <IssuerName
-            name={this.certificateDecoded.issuer}
-            issuerDnLink={linkTemplateResolvers.getIssuerDnLink()}
-          />
-
-          <Signature signature={this.certificateDecoded.signature} />
-
-          <Thumbprints thumbprints={this.certificateDecoded.thumbprints} />
-
-          <ParsedExtensions
-            extensions={this.certificateDecoded.extensions}
-            {...linkTemplateResolvers}
-          />
-
-          <RevokedCertificates revokedCertificates={this.certificateDecoded.revokedCertificates} />
-
-          {this.download && <Miscellaneous certificate={this.certificateDecoded} />}
-        </table>
-      </Host>
-    );
+    return renderViewer<TDecoded>({
+      viewer: this,
+      subject: 'certificate revocation list',
+      body: (decoded) => [
+        <BasicInformation {...decoded} />,
+        <NameSection
+          title="Issuer Name"
+          name={decoded.issuer}
+          href={links.getIssuerDnLink()}
+        />,
+        <Signature signature={decoded.signature} />,
+        <Thumbprints thumbprints={decoded.thumbprints} />,
+        <ParsedExtensions
+          extensions={decoded.extensions}
+          {...links}
+        />,
+        <RevokedCertificates revokedCertificates={decoded.revokedCertificates} />,
+        this.download && <Miscellaneous certificate={decoded.doc} />,
+      ],
+    });
   }
 }

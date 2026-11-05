@@ -33,3 +33,42 @@ export async function runViewerDecode<TDecoded>(
     }
   }
 }
+
+/** The decode state every viewer keeps as `@State` fields. */
+export interface IViewerDecodeState<TDecoded> {
+  certificateDecoded?: TDecoded;
+  certificateDecodeError?: Error;
+}
+
+/** Decodes into `viewer.certificateDecoded`, or sets `viewer.certificateDecodeError`. */
+export function decodeIntoViewer<TDecoded>(
+  viewer: IViewerDecodeState<TDecoded>,
+  run: IViewerDecodeConfig<TDecoded>['run'],
+) {
+  return runViewerDecode<TDecoded>(viewer, {
+    onStart: () => {
+      viewer.certificateDecodeError = undefined;
+    },
+    run,
+    onSuccess: (decoded) => {
+      viewer.certificateDecoded = decoded;
+    },
+    onError: (error) => {
+      viewer.certificateDecodeError = error as Error;
+      console.error('Error certificate parse:', error);
+    },
+  });
+}
+
+/** An instance is used as is, a string is decoded, anything else means "nothing to show". */
+export function toDocument<T>(value: unknown, Type: new (raw: string) => T): T | undefined {
+  if (value instanceof Type) {
+    return value;
+  }
+
+  if (typeof value === 'string') {
+    return new Type(value);
+  }
+
+  return undefined;
+}

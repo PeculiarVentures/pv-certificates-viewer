@@ -6,12 +6,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Component, Host, h, Prop, State, Watch } from '@stencil/core';
-import { X509AttributeCertificate } from '../../crypto';
+import { Component, h, Prop, State, Watch } from '@stencil/core';
+import { X509AttributeCertificate, type IAttributeCertificateJSON } from '../../crypto';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import {
   BasicInformation,
-  toDisplayVersion,
   Signature,
   Thumbprints,
   Miscellaneous,
@@ -20,10 +19,15 @@ import {
 } from '../_shared/details';
 import { ParsedAttributes } from '../_shared/parsed/attributes';
 import { ParsedExtensions } from '../_shared/parsed/extensions';
-import { Typography } from '../_shared/typography';
-import { runViewerDecode } from '../_shared/viewer/decode';
+import { decodeIntoViewer, toDocument } from '../_shared/viewer/decode';
+import { renderViewer } from '../_shared/viewer/render';
 
 export type TAttributeCertificateProp = string | X509AttributeCertificate;
+
+type TDecoded = IAttributeCertificateJSON & {
+  thumbprints: Record<string, string>;
+  doc: X509AttributeCertificate;
+};
 
 @Component({
   tag: 'peculiar-attribute-certificate-viewer',
@@ -31,9 +35,9 @@ export type TAttributeCertificateProp = string | X509AttributeCertificate;
   shadow: true,
 })
 export class AttributeCertificateViewer {
-  @State() private certificateDecoded?: X509AttributeCertificate;
+  @State() certificateDecoded?: TDecoded;
 
-  @State() private certificateDecodeError?: Error;
+  @State() certificateDecodeError?: Error;
 
   /**
    * The certificate value for decode and show details. Use PEM or DER.
@@ -85,36 +89,11 @@ export class AttributeCertificateViewer {
     void this.decodeCertificate(this.certificate);
   }
 
-  private async decodeCertificate(certificate: TAttributeCertificateProp) {
-    await runViewerDecode<X509AttributeCertificate>(this, {
-      onStart: () => {
-        this.certificateDecodeError = undefined;
-      },
-      run: async () => {
-        let decoded: X509AttributeCertificate;
+  private decodeCertificate(certificate: TAttributeCertificateProp) {
+    return decodeIntoViewer<TDecoded>(this, async () => {
+      const doc = toDocument(certificate, X509AttributeCertificate);
 
-        if (certificate instanceof X509AttributeCertificate) {
-          decoded = certificate;
-        } else if (typeof certificate === 'string') {
-          decoded = new X509AttributeCertificate(certificate);
-        } else {
-          return undefined;
-        }
-
-        decoded.parseExtensions();
-        decoded.parseAttributes();
-        await decoded.getThumbprint('SHA-1');
-        await decoded.getThumbprint('SHA-256');
-
-        return decoded;
-      },
-      onSuccess: (decoded) => {
-        this.certificateDecoded = decoded;
-      },
-      onError: (error) => {
-        this.certificateDecodeError = error as Error;
-        console.error('Error certificate parse:', error);
-      },
+      return doc && { ...doc.toJSON(), thumbprints: await doc.getThumbprints(), doc };
     });
   }
 
@@ -131,62 +110,28 @@ export class AttributeCertificateViewer {
     }
   }
 
-  private renderErrorState() {
-    return (
-      <div class="status_wrapper">
-        <Typography>There was an error decoding this attribute certificate.</Typography>
-      </div>
-    );
-  }
-
-  private renderEmptyState() {
-    return (
-      <div class="status_wrapper">
-        <Typography>There is no attribute certificate available.</Typography>
-      </div>
-    );
-  }
-
   render() {
-    if (this.certificateDecodeError) {
-      return this.renderErrorState();
-    }
+    const links = buildLinkTemplateResolvers(this);
 
-    if (!this.certificateDecoded) {
-      return this.renderEmptyState();
-    }
-
-    const linkTemplateResolvers = buildLinkTemplateResolvers(this);
-
-    return (
-      <Host>
-        <table>
-          <BasicInformation
-            {...this.certificateDecoded}
-            version={toDisplayVersion(this.certificateDecoded.version)}
-          />
-
-          <Issuer issuer={this.certificateDecoded.issuer} />
-
-          <Holder holder={this.certificateDecoded.holder} />
-
-          <Signature signature={this.certificateDecoded.signature} />
-
-          <Thumbprints thumbprints={this.certificateDecoded.thumbprints} />
-
-          <ParsedAttributes
-            attributes={this.certificateDecoded.attributes}
-            {...linkTemplateResolvers}
-          />
-
-          <ParsedExtensions
-            extensions={this.certificateDecoded.extensions}
-            {...linkTemplateResolvers}
-          />
-
-          {this.download && <Miscellaneous certificate={this.certificateDecoded} />}
-        </table>
-      </Host>
-    );
+    return renderViewer<TDecoded>({
+      viewer: this,
+      subject: 'attribute certificate',
+      body: (decoded) => [
+        <BasicInformation {...decoded} />,
+        <Issuer issuer={decoded.issuer} />,
+        <Holder holder={decoded.holder} />,
+        <Signature signature={decoded.signature} />,
+        <Thumbprints thumbprints={decoded.thumbprints} />,
+        <ParsedAttributes
+          attributes={decoded.attributes}
+          {...links}
+        />,
+        <ParsedExtensions
+          extensions={decoded.extensions}
+          {...links}
+        />,
+        this.download && <Miscellaneous certificate={decoded.doc} />,
+      ],
+    });
   }
 }

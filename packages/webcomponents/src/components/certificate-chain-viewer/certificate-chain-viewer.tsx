@@ -62,18 +62,10 @@ export class CertificateChainViewer {
             </button>
           ))}
         </div>
-        {Array.from(this.certificates).map((certificate, index) => {
-          if (index === this.selectedCertificateIndex) {
-            return (
-              <peculiar-certificate-viewer
-                certificate={certificate}
-                download={false}
-              />
-            );
-          }
-
-          return null;
-        })}
+        <peculiar-certificate-viewer
+          certificate={this.certificates[this.selectedCertificateIndex]}
+          download={false}
+        />
 
         <table>{this.download && <Miscellaneous certificate={this.certificates} />}</table>
       </Host>

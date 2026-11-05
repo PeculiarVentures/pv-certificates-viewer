@@ -7,26 +7,12 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import {
-  X509Certificates,
-  X509Certificate,
-  X509AttributeCertificate,
-  Pkcs10CertificateRequest,
-  X509Crl,
-} from '../../../crypto';
 import { Button } from '../button';
 import { DownloadIcon } from '../icons';
 import { RowTitle } from './row';
 
-type TCertificateType =
-  | X509Certificates
-  | X509Certificate
-  | X509AttributeCertificate
-  | Pkcs10CertificateRequest
-  | X509Crl;
-
 interface IMiscellaneousProps {
-  certificate: TCertificateType;
+  certificate: { download: (format: 'pem' | 'der') => void };
 }
 
 export const Miscellaneous: FunctionalComponent<IMiscellaneousProps> = (props) => {
@@ -38,7 +24,7 @@ export const Miscellaneous: FunctionalComponent<IMiscellaneousProps> = (props) =
       <td>
         <Button
           startIcon={<DownloadIcon />}
-          onClick={() => certificate.downloadAsPEM()}
+          onClick={() => certificate.download('pem')}
         >
           {'Download PEM'}
         </Button>
@@ -48,7 +34,7 @@ export const Miscellaneous: FunctionalComponent<IMiscellaneousProps> = (props) =
       <td>
         <Button
           startIcon={<DownloadIcon />}
-          onClick={() => certificate.downloadAsDER()}
+          onClick={() => certificate.download('der')}
         >
           {'Download DER'}
         </Button>

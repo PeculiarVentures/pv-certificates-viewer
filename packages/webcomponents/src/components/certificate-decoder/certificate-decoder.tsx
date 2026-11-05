@@ -17,6 +17,32 @@ import {
 } from '../../crypto';
 import { readAsBinaryString } from '../../utils';
 
+// Tried in order: a chain must be tried before a single certificate.
+const DOCUMENT_TYPES = [
+  X509Certificates,
+  X509Certificate,
+  X509AttributeCertificate,
+  Pkcs10CertificateRequest,
+  X509Crl,
+  SshCertificate,
+] as const;
+
+type TDecodedDocument = InstanceType<(typeof DOCUMENT_TYPES)[number]>;
+
+function decodeAny(value: string): TDecodedDocument {
+  let lastError: unknown;
+
+  for (const Type of DOCUMENT_TYPES) {
+    try {
+      return new Type(value);
+    } catch (error) {
+      lastError = error;
+    }
+  }
+
+  throw lastError;
+}
+
 @Component({
   tag: 'peculiar-certificate-decoder',
   shadow: false,
@@ -38,14 +64,7 @@ export class CertificateDecoder {
   @Prop() certificateToDecode?: string;
 
   /** The decoded certificate object; null while empty. */
-  @State() certificateDecoded:
-    | X509Certificates
-    | X509Certificate
-    | X509AttributeCertificate
-    | Pkcs10CertificateRequest
-    | X509Crl
-    | SshCertificate
-    | null = null;
+  @State() certificateDecoded: TDecodedDocument | null = null;
 
   /** Mirrors textarea content so Clear/Decode enable after paste without a decode. */
   @State() private inputHasText = false;
@@ -142,23 +161,20 @@ export class CertificateDecoder {
   }
 
   async decode(value: string) {
-    new Promise<X509Certificates>((resolve) => resolve(new X509Certificates(value)))
-      .catch(() => new X509Certificate(value))
-      .catch(() => new X509AttributeCertificate(value))
-      .catch(() => new Pkcs10CertificateRequest(value))
-      .catch(() => new X509Crl(value))
-      .catch(() => new SshCertificate(value))
-      .then((res) => this.setValue(res))
-      .catch((err) => {
-        console.error(err);
-        alert(
-          `Error decoding certificate.\n\nSupported formats: X.509 Certificate, Attribute Certificate, PKCS#10 CSR, CRL, SSH Certificate.`,
-        );
-      });
+    try {
+      await this.setValue(decodeAny(value));
+    } catch (err) {
+      console.error(err);
+      alert(
+        `Error decoding certificate.\n\nSupported formats: X.509 Certificate, Attribute Certificate, PKCS#10 CSR, CRL, SSH Certificate.`,
+      );
+    }
   }
 
   // ─── Render helpers ────────────────────────────────────────────────────────
 
+  // Tags must stay literal JSX: Stencil finds component dependencies statically, and the
+  // custom-elements build only registers the viewers it sees here.
   private renderDecodedComponent() {
     const cert = this.certificateDecoded;
 

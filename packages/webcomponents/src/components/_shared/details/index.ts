@@ -1,7 +1,6 @@
-export { BasicInformation, toDisplayVersion } from './basic_information';
+export { BasicInformation } from './basic_information';
 export { PublicKey } from './public_key';
-export { SubjectName } from './subject_name';
-export { IssuerName } from './issuer_name';
+export { NameSection } from './name_section';
 export { Signature } from './signature';
 export { Thumbprints } from './thumbprints';
 export { Miscellaneous } from './miscellaneous';

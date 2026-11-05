@@ -7,54 +7,46 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { toUint8Array } from '@peculiar/utils/bytes';
-import { hex } from '@peculiar/utils/encoding';
-import { ISignature } from '../../../crypto';
+import type { ISignatureJSON } from '../../../crypto/fields/signature';
 import { getStringByOID } from '../../../utils';
 import { RowTitle, RowValue, TableRowTable } from './row';
 
 interface ISignatureProps {
-  signature: ISignature;
+  signature: ISignatureJSON;
 }
 
-export const Signature: FunctionalComponent<ISignatureProps> = (props) => {
-  const { signature } = props;
+const renderSignatureDetails = (data: Omit<ISignatureJSON, 'parts'>) => [
+  <RowValue
+    name="Algorithm"
+    value={getStringByOID(data.algorithm)}
+  />,
+  data.mtcProofError && (
+    <RowValue
+      name="MTC Proof Error"
+      value={data.mtcProofError}
+    />
+  ),
+  !data.mtcProof && (
+    <RowValue
+      name="Value"
+      value={data.value || '(none)'}
+      monospace
+      collapse
+    />
+  ),
+];
 
+export const Signature: FunctionalComponent<ISignatureProps> = ({ signature }) => {
   if (!signature) {
     return null;
   }
 
-  function renderSignatureDetails(data: ISignature) {
-    return [
-      <RowValue
-        name="Algorithm"
-        value={getStringByOID(data.algorithm)}
-      />,
-      data.mtcProofError && (
-        <RowValue
-          name="MTC Proof Error"
-          value={data.mtcProofError}
-        />
-      ),
-      !data.mtcProof && (
-        <RowValue
-          name="Value"
-          value={data.value && toUint8Array(data.value).length ? hex.encode(data.value) : '(none)'}
-          monospace
-          collapse
-        />
-      ),
-    ];
-  }
+  const proof = signature.mtcProof;
 
-  function renderMtcProof() {
-    const proof = signature.mtcProof;
-
-    if (!proof) {
-      return null;
-    }
-
-    return [
+  return [
+    <RowTitle value="Signature" />,
+    renderSignatureDetails(signature),
+    proof && [
       <RowValue
         name="Start"
         value={proof.start}
@@ -79,32 +71,21 @@ export const Signature: FunctionalComponent<ISignatureProps> = (props) => {
           collapse
         />
       ),
-      proof.signatures.length > 0 &&
-        proof.signatures.map((entry) => (
-          <TableRowTable>
-            <RowValue
-              name="Cosigner ID"
-              value={entry.cosignerId}
-            />
-            <RowValue
-              name="Signature"
-              value={entry.signature}
-              monospace
-              collapse
-            />
-          </TableRowTable>
-        )),
-    ];
-  }
-
-  return [
-    <RowTitle value="Signature" />,
-    renderSignatureDetails(signature),
-    renderMtcProof(),
-    signature.params &&
-      signature.params.length &&
-      signature.params.map((param) => (
-        <TableRowTable>{renderSignatureDetails(param)}</TableRowTable>
+      proof.signatures.map((entry) => (
+        <TableRowTable>
+          <RowValue
+            name="Cosigner ID"
+            value={entry.cosignerId}
+          />
+          <RowValue
+            name="Signature"
+            value={entry.signature}
+            monospace
+            collapse
+          />
+        </TableRowTable>
       )),
+    ],
+    signature.parts?.map((part) => <TableRowTable>{renderSignatureDetails(part)}</TableRowTable>),
   ];
 };

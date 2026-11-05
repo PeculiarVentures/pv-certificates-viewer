@@ -35,63 +35,43 @@ function resolveHref(nodeData: IExtensionNode): string | undefined {
   }
 }
 
+/** A key identifier row followed by optional "[parents]"-style links. */
+function renderKeyIdRow(title: string, value: string, links: [string, string | undefined][]) {
+  return (
+    <RowValue
+      name={title}
+      value={value}
+      monospace
+      extraValue={links.map(
+        ([label, href]) =>
+          href && (
+            <span>
+              &nbsp;[
+              <Link href={href}>{label}</Link>]
+            </span>
+          ),
+      )}
+    />
+  );
+}
+
 export function renderLeafNode(nodeData: IExtensionNode, ctx: TNodeLinkContext) {
   const title = getStringByOID(nodeData.title ?? '', true);
   const href = resolveHref(nodeData);
   const value = nodeData.value != null ? getStringByOID(String(nodeData.value)) : '';
 
-  if (nodeData._type === 'authorityKeyId' && nodeData.value != null) {
-    const parentHref = ctx.getAuthKeyIdParentLink?.(value);
-    const siblingsHref = ctx.getAuthKeyIdSiblingsLink?.(value);
-
-    return (
-      <RowValue
-        name={title}
-        value={value}
-        monospace
-        extraValue={[
-          parentHref && (
-            <span>
-              &nbsp;[
-              <Link href={parentHref}>parents</Link>]
-            </span>
-          ),
-          siblingsHref && (
-            <span>
-              &nbsp;[
-              <Link href={siblingsHref}>siblings</Link>]
-            </span>
-          ),
-        ]}
-      />
-    );
+  if (nodeData.value != null && nodeData._type === 'authorityKeyId') {
+    return renderKeyIdRow(title, value, [
+      ['parents', ctx.getAuthKeyIdParentLink?.(value)],
+      ['siblings', ctx.getAuthKeyIdSiblingsLink?.(value)],
+    ]);
   }
 
-  if (nodeData._type === 'subjectKeyId' && nodeData.value != null) {
-    const childrenHref = ctx.getSubjectKeyIdChildrenLink?.(value);
-    const siblingsHref = ctx.getSubjectKeyIdSiblingsLink?.(value);
-
-    return (
-      <RowValue
-        name={title}
-        value={value}
-        monospace
-        extraValue={[
-          childrenHref && (
-            <span>
-              &nbsp;[
-              <Link href={childrenHref}>children</Link>]
-            </span>
-          ),
-          siblingsHref && (
-            <span>
-              &nbsp;[
-              <Link href={siblingsHref}>siblings</Link>]
-            </span>
-          ),
-        ]}
-      />
-    );
+  if (nodeData.value != null && nodeData._type === 'subjectKeyId') {
+    return renderKeyIdRow(title, value, [
+      ['children', ctx.getSubjectKeyIdChildrenLink?.(value)],
+      ['siblings', ctx.getSubjectKeyIdSiblingsLink?.(value)],
+    ]);
   }
 
   return (
