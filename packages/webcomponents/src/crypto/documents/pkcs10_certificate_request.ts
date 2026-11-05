@@ -7,36 +7,42 @@
  */
 
 import { CertificationRequest } from '@peculiar/asn1-csr';
-import { ECParameters, id_ecPublicKey } from '@peculiar/asn1-ecc';
-import { id_rsaEncryption, RSAPublicKey } from '@peculiar/asn1-rsa';
-import { AsnConvert } from '@peculiar/asn1-schema';
-import { base64, base64url, hex } from '@peculiar/utils/encoding';
 import { Download } from '../../utils';
 import { type IParsedAttribute, parseAttribute } from '../attributes';
 import { PemConverter } from '../encoding/pem_converter';
-import { certificateRawToBuffer, getCertificateThumbprint } from '../encoding/raw';
-import { Name, INameJSON } from '../fields/name';
-import { AsnData } from './asn_data';
+import { certificateRawToBuffer } from '../encoding/raw';
+import { Name, INameJSON, firstCommonName } from '../fields/name';
+import {
+  type IPublicKey,
+  type IPublicKeyJSON,
+  parsePublicKeyInfo,
+  publicKeyToJSON,
+} from '../fields/public_key';
+import { type ISignatureJSON, parseSignature, signatureToJSON } from '../fields/signature';
+import { AsnDocument } from './asn_document';
 
 interface ISignature {
   algorithm: string;
   value: BufferSource;
 }
 
-interface IPublicKey {
-  algorithm: string;
-  value: BufferSource;
-  params?: ECParameters | RSAPublicKey;
+export interface ICsrJSON {
+  type: string;
+  /** Human version (`1` for v1). */
+  version: number;
+  subject: INameJSON[];
+  publicKey: IPublicKeyJSON;
+  signature: ISignatureJSON;
+  attributes: IParsedAttribute[];
 }
 
-export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
+export class Pkcs10CertificateRequest extends AsnDocument<CertificationRequest, ICsrJSON> {
   public readonly subject: INameJSON[];
 
   public readonly version: number;
 
+  /** @deprecated Use `toJSON().attributes`. Filled by `parseAttributes()`. */
   public attributes: IParsedAttribute[];
-
-  public thumbprints: Record<string, string> = {};
 
   public readonly type = 'PKCS#10 Certificate Request';
 
@@ -51,27 +57,29 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
     this.version = certificationRequestInfo.version;
   }
 
-  public get publicKey(): IPublicKey {
-    const { subjectPublicKey, algorithm } = this.asn.certificationRequestInfo.subjectPKInfo;
-    let params;
-
-    if (algorithm.algorithm === id_ecPublicKey && algorithm.parameters) {
-      params = AsnConvert.parse(algorithm.parameters, ECParameters);
-    }
-
-    if (algorithm.algorithm === id_rsaEncryption) {
-      params = AsnConvert.parse(subjectPublicKey, RSAPublicKey);
-    }
-
-    const spki = AsnConvert.serialize(this.asn.certificationRequestInfo.subjectPKInfo);
+  protected buildJSON(): ICsrJSON {
+    const { certificationRequestInfo } = this.asn;
 
     return {
-      params,
-      value: spki,
-      algorithm: algorithm.algorithm,
+      type: this.type,
+      version: this.version + 1,
+      subject: this.subject,
+      publicKey: publicKeyToJSON(this.publicKey),
+      signature: signatureToJSON(parseSignature(this.asn.signatureAlgorithm, this.asn.signature)),
+      attributes: (certificationRequestInfo.attributes ?? []).map(parseAttribute),
     };
   }
 
+  protected downloader() {
+    return Download.csr;
+  }
+
+  /** @deprecated Use `toJSON().publicKey`. */
+  public get publicKey(): IPublicKey {
+    return parsePublicKeyInfo(this.asn.certificationRequestInfo.subjectPKInfo);
+  }
+
+  /** @deprecated Use `toJSON().signature`. */
   public get signature(): ISignature {
     const { signature, signatureAlgorithm } = this.asn;
 
@@ -82,57 +90,13 @@ export class Pkcs10CertificateRequest extends AsnData<CertificationRequest> {
   }
 
   public get commonName(): string {
-    if (!this.subject) {
-      return '';
-    }
-
-    for (let i = 0; i < this.subject.length; i += 1) {
-      const name = this.subject[i];
-
-      if (name.short === 'CN' || name.short === 'E' || name.short === 'O') {
-        return name.value;
-      }
-    }
-
-    return '';
+    return firstCommonName(this.subject);
   }
 
-  public async getThumbprint(algorithm = 'SHA-1'): Promise<void> {
-    try {
-      const thumbprint = await getCertificateThumbprint(algorithm, this.raw);
-
-      if (thumbprint) {
-        this.thumbprints[algorithm] = hex.encode(thumbprint);
-      }
-    } catch (error) {
-      console.error('Error thumbprint get:', error);
-    }
-  }
-
+  /** @deprecated Use `toJSON().attributes`. */
   public parseAttributes() {
-    const { certificationRequestInfo } = this.asn;
-
-    if (certificationRequestInfo.attributes) {
-      this.attributes = certificationRequestInfo.attributes.map(parseAttribute);
+    if (this.asn.certificationRequestInfo.attributes) {
+      this.attributes = this.toJSON().attributes;
     }
-  }
-
-  public toString(format: 'pem' | 'base64' | 'base64url' = 'pem'): string {
-    switch (format) {
-      case 'pem':
-        return PemConverter.encode(this.raw, this.tag);
-      case 'base64url':
-        return base64url.encode(this.raw);
-      default:
-        return base64.encode(this.raw);
-    }
-  }
-
-  public downloadAsPEM(name?: string) {
-    Download.csr.asPEM(this.toString('pem'), name || this.commonName);
-  }
-
-  public downloadAsDER(name?: string) {
-    Download.csr.asDER(this.raw, name || this.commonName);
   }
 }

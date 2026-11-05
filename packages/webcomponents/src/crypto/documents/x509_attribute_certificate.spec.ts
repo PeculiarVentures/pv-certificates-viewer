@@ -13,7 +13,9 @@ describe('X509AttributeCertificate', () => {
       x509AttributeCertificate.parseExtensions();
       x509AttributeCertificate.parseAttributes();
 
-      expect(x509AttributeCertificate).toMatchSnapshot('instance');
+      // Own fields only: pretty-format would otherwise serialize `toJSON()`.
+      expect({ ...x509AttributeCertificate }).toMatchSnapshot('instance');
+      expect(x509AttributeCertificate.toJSON()).toMatchSnapshot('toJSON');
       expect(snapshotGetters(x509AttributeCertificate)).toMatchSnapshot('getters');
     });
   });

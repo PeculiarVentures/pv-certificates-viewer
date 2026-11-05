@@ -12,7 +12,9 @@ describe('Pkcs10CertificateRequest', () => {
 
       request.parseAttributes();
 
-      expect(request).toMatchSnapshot('instance');
+      // Own fields only: pretty-format would otherwise serialize `toJSON()`.
+      expect({ ...request }).toMatchSnapshot('instance');
+      expect(request.toJSON()).toMatchSnapshot('toJSON');
       expect(snapshotGetters(request)).toMatchSnapshot('getters');
     });
   });

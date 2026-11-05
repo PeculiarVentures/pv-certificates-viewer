@@ -12,7 +12,7 @@ import { Certificate } from '@peculiar/asn1-x509';
 import { base64url } from '@peculiar/utils/encoding';
 import { Download } from '../../utils';
 import { PemConverter } from '../encoding/pem_converter';
-import { X509Certificate } from './x509_certificate';
+import { type ICertificateJSON, X509Certificate } from './x509_certificate';
 
 export class X509Certificates extends Array<X509Certificate> {
   constructor(raw: string) {
@@ -74,11 +74,26 @@ export class X509Certificates extends Array<X509Certificate> {
     }
   }
 
-  public downloadAsPEM(name?: string) {
-    Download.cert.asPEM(this.toString('pem'), name || this.commonName);
+  public toJSON(): ICertificateJSON[] {
+    return Array.from(this, (certificate) => certificate.toJSON());
   }
 
+  /** PEM: the certificates one after another. DER: a degenerate PKCS#7 (CMS SignedData) bundle. */
+  public download(format: 'pem' | 'der', name = this.commonName) {
+    if (format === 'pem') {
+      Download.cert.asPEM(this.toString('pem'), name);
+    } else {
+      Download.cert.asDER(this.raw, name);
+    }
+  }
+
+  /** @deprecated Use `download('pem', name)`. */
+  public downloadAsPEM(name?: string) {
+    this.download('pem', name || this.commonName);
+  }
+
+  /** @deprecated Use `download('der', name)`. */
   public downloadAsDER(name?: string) {
-    Download.cert.asDER(this.raw, name || this.commonName);
+    this.download('der', name || this.commonName);
   }
 }

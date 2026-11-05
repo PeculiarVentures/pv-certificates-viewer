@@ -16,7 +16,7 @@ exports[`Pkcs10CertificateRequest > should parse the test certificate request do
 `;
 
 exports[`Pkcs10CertificateRequest > should parse the test certificate request domain.test.csr > instance 1`] = `
-Pkcs10CertificateRequest {
+{
   "attributes": Attributes [
     {
       "children": [
@@ -59,5 +59,58 @@ Pkcs10CertificateRequest {
   "thumbprints": {},
   "type": "PKCS#10 Certificate Request",
   "version": 0,
+}
+`;
+
+exports[`Pkcs10CertificateRequest > should parse the test certificate request domain.test.csr > toJSON 1`] = `
+{
+  "attributes": Attributes [
+    {
+      "children": [
+        {
+          "children": ExtensionRequest [
+            {
+              "children": SubjectAlternativeName [
+                {
+                  "children": [
+                    {
+                      "title": "Type",
+                      "value": "1.3.6.1.4.1.311.20.2.3",
+                    },
+                    {
+                      "title": "Value",
+                      "value": "address@domain.test",
+                    },
+                  ],
+                  "title": "Other Name",
+                },
+              ],
+              "critical": false,
+              "oid": "2.5.29.17",
+            },
+          ],
+          "title": "Extensions",
+        },
+      ],
+      "oid": "1.2.840.113549.1.9.14",
+    },
+  ],
+  "publicKey": {
+    "algorithm": "1.3.101.112",
+    "value": "302a300506032b6570032100fb16e6bd645fb03d755d0c207042bf80aa7cba385becdb9c19fcfe0bc95b1898",
+  },
+  "signature": {
+    "algorithm": "1.3.101.112",
+    "value": "529e457a71c5d6b67344653eef0885fbf0f56dfc83445d1dcd6cf6b25e389e5b6ef222e31cedda21f393616a6a66568383506adcbec571bec87f8c9902c1390b",
+  },
+  "subject": [
+    {
+      "short": "CN",
+      "type": "2.5.4.3",
+      "value": "test",
+    },
+  ],
+  "type": "PKCS#10 Certificate Request",
+  "version": 1,
 }
 `;

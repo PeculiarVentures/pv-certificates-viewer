@@ -12,7 +12,9 @@ describe('X509Crl', () => {
 
       crl.parseExtensions();
 
-      expect(crl).toMatchSnapshot('instance');
+      // Own fields only: pretty-format would otherwise serialize `toJSON()`.
+      expect({ ...crl }).toMatchSnapshot('instance');
+      expect(crl.toJSON()).toMatchSnapshot('toJSON');
       expect(snapshotGetters(crl)).toMatchSnapshot('getters');
     });
   });

@@ -81,3 +81,11 @@ export class Name {
     return res;
   }
 }
+
+/** First CN, E or O value, in name order; used as a display and file name. */
+export const firstCommonName = (names: INameJSON[] = []): string =>
+  names.find((name) => name.short === 'CN' || name.short === 'E' || name.short === 'O')?.value ??
+  '';
+
+export const nameToString = (names: INameJSON[] = []): string =>
+  names.map((name) => `${name.short}=${name.value}`).join(', ');

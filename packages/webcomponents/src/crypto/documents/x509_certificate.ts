@@ -6,57 +6,47 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { ECParameters, id_ecPublicKey } from '@peculiar/asn1-ecc';
-import { id_alg_mtcProof, id_alg_mtcProof_experimental, MTCProof } from '@peculiar/asn1-mtc';
-import { id_rsaEncryption, RSAPublicKey } from '@peculiar/asn1-rsa';
-import { AsnConvert } from '@peculiar/asn1-schema';
-import { Certificate, SubjectPublicKeyInfo } from '@peculiar/asn1-x509';
-import {
-  id_composite_key,
-  id_alg_composite,
-  CompositePublicKey,
-  CompositeSignatureValue,
-  CompositeParams,
-} from '@peculiar/asn1-x509-post-quantum';
-import { toUint8Array } from '@peculiar/utils/bytes';
-import { base64, base64url, hex } from '@peculiar/utils/encoding';
+import { Certificate } from '@peculiar/asn1-x509';
+import { hex } from '@peculiar/utils/encoding';
 import { dateDiff, Download } from '../../utils';
 import { PemConverter } from '../encoding/pem_converter';
-import { certificateRawToBuffer, getCertificateThumbprint } from '../encoding/raw';
+import { certificateRawToBuffer } from '../encoding/raw';
 import { type IParsedExtension, parseExtension } from '../extensions';
-import { Name, INameJSON } from '../fields/name';
-import { AsnData } from './asn_data';
+import { Name, INameJSON, firstCommonName, nameToString } from '../fields/name';
+import {
+  type IPublicKey,
+  type IPublicKeyJSON,
+  parsePublicKeyInfo,
+  publicKeyToJSON,
+} from '../fields/public_key';
+import {
+  type ISignature,
+  type ISignatureJSON,
+  parseSignature,
+  signatureToJSON,
+} from '../fields/signature';
+import { AsnDocument } from './asn_document';
 
-export interface IMTCProofDetails {
-  start: number;
-  end: number;
-  subtreeSize: number;
-  isLandmarkRelative: boolean;
-  inclusionProof: string[];
-  signatures: {
-    cosignerId: string;
-    signature: string;
-  }[];
+export type { IMTCProofDetails, ISignature, ISignatureJSON } from '../fields/signature';
+export type { IPublicKey, IPublicKeyJSON } from '../fields/public_key';
+
+export interface ICertificateJSON {
+  type: string;
+  /** Human version (`3` for v3). */
+  version: number;
+  serialNumber: string;
+  subject: INameJSON[];
+  issuer: INameJSON[];
+  notBefore: Date;
+  notAfter: Date;
+  validity: string;
+  publicKey: IPublicKeyJSON;
+  signature: ISignatureJSON;
+  extensions: IParsedExtension[];
+  isRoot: boolean;
 }
 
-export interface ISignature {
-  algorithm: string;
-  value: BufferSource;
-  params?: {
-    algorithm: string;
-    value: BufferSource;
-  }[];
-  mtcProof?: IMTCProofDetails;
-  mtcProofError?: string;
-}
-
-export interface IPublicKey {
-  algorithm: string;
-  value: BufferSource;
-  params?: ECParameters | RSAPublicKey | IPublicKey[];
-}
-
-export class X509Certificate extends AsnData<Certificate> {
+export class X509Certificate extends AsnDocument<Certificate, ICertificateJSON> {
   public readonly serialNumber: string;
 
   public readonly subject: INameJSON[];
@@ -69,11 +59,10 @@ export class X509Certificate extends AsnData<Certificate> {
 
   public readonly validity: string;
 
+  /** @deprecated Use `toJSON().extensions`. Filled by `parseExtensions()`. */
   public extensions: IParsedExtension[];
 
   public readonly version: number;
-
-  public thumbprints: Record<string, string> = {};
 
   public readonly type = 'X.509 Certificate';
 
@@ -109,179 +98,65 @@ export class X509Certificate extends AsnData<Certificate> {
     this.validity = dateDiff(this.notBefore, this.notAfter);
   }
 
+  protected buildJSON(): ICertificateJSON {
+    return {
+      type: this.type,
+      version: this.version,
+      serialNumber: this.serialNumber,
+      subject: this.subject,
+      issuer: this.issuer,
+      notBefore: this.notBefore,
+      notAfter: this.notAfter,
+      validity: this.validity,
+      publicKey: publicKeyToJSON(this.publicKey),
+      signature: signatureToJSON(this.signature),
+      extensions: (this.asn.tbsCertificate.extensions ?? []).map(parseExtension),
+      isRoot: this.isRoot,
+    };
+  }
+
+  protected downloader() {
+    return Download.cert;
+  }
+
+  /** @deprecated Use `toJSON().extensions`. */
   public parseExtensions() {
-    const { tbsCertificate } = this.asn;
-
-    if (tbsCertificate.extensions) {
-      this.extensions = tbsCertificate.extensions.map(parseExtension);
+    if (this.asn.tbsCertificate.extensions) {
+      this.extensions = this.toJSON().extensions;
     }
   }
 
-  private getPublicKeyInfo(publicKeyInfo: SubjectPublicKeyInfo) {
-    const { subjectPublicKey, algorithm } = publicKeyInfo;
-    let params;
-
-    if (algorithm.algorithm === id_ecPublicKey && algorithm.parameters) {
-      params = AsnConvert.parse(algorithm.parameters, ECParameters);
-    }
-
-    if (algorithm.algorithm === id_rsaEncryption) {
-      params = AsnConvert.parse(subjectPublicKey, RSAPublicKey);
-    }
-
-    if (algorithm.algorithm === id_composite_key) {
-      params = AsnConvert.parse(subjectPublicKey, CompositePublicKey);
-
-      params = params.map((param) => this.getPublicKeyInfo(param));
-    }
-
-    const spki = AsnConvert.serialize(publicKeyInfo);
-
-    return {
-      params,
-      value: spki,
-      algorithm: algorithm.algorithm,
-    };
-  }
-
+  /** @deprecated Use `toJSON().publicKey`. */
   public get publicKey(): IPublicKey {
-    return this.getPublicKeyInfo(this.asn.tbsCertificate.subjectPublicKeyInfo);
+    return parsePublicKeyInfo(this.asn.tbsCertificate.subjectPublicKeyInfo);
   }
 
+  /** @deprecated Use `toJSON().signature`. */
   public get signature(): ISignature {
-    const { signatureValue, signatureAlgorithm } = this.asn;
-    let params;
-
-    if (
-      signatureAlgorithm.algorithm === id_alg_composite &&
-      signatureAlgorithm.parameters != null
-    ) {
-      const compositeSignatureValues = AsnConvert.parse(signatureValue, CompositeSignatureValue);
-      const compositeParams = AsnConvert.parse(signatureAlgorithm.parameters, CompositeParams);
-
-      params = compositeParams.map((param, index) => ({
-        ...param,
-        value: compositeSignatureValues[index],
-      }));
-    }
-
-    if (
-      signatureAlgorithm.algorithm === id_alg_mtcProof ||
-      signatureAlgorithm.algorithm === id_alg_mtcProof_experimental
-    ) {
-      try {
-        const proof = MTCProof.parse(toUint8Array(signatureValue));
-        const json = proof.toJSON();
-
-        return {
-          algorithm: signatureAlgorithm.algorithm,
-          value: signatureValue,
-          mtcProof: {
-            start: json.start,
-            end: json.end,
-            subtreeSize: proof.subtreeSize,
-            isLandmarkRelative: proof.isLandmarkRelative,
-            inclusionProof: json.inclusionProof,
-            signatures: json.signatures,
-          },
-        };
-      } catch (error) {
-        // A malformed or unsupported proof must not prevent viewing the certificate.
-        return {
-          algorithm: signatureAlgorithm.algorithm,
-          value: signatureValue,
-          mtcProofError: (error instanceof Error && error.message) || 'Unable to decode MTC proof',
-        };
-      }
-    }
-
-    return {
-      params,
-      value: signatureValue,
-      algorithm: signatureAlgorithm.algorithm,
-    };
-  }
-
-  public async getThumbprint(algorithm = 'SHA-1'): Promise<void> {
-    try {
-      const thumbprint = await getCertificateThumbprint(algorithm, this.raw);
-
-      if (thumbprint) {
-        this.thumbprints[algorithm] = hex.encode(thumbprint);
-      }
-    } catch (error) {
-      console.error('Error thumbprint get:', error);
-    }
+    return parseSignature(this.asn.signatureAlgorithm, this.asn.signatureValue);
   }
 
   public get commonName(): string {
-    if (!this.subject) {
-      return '';
-    }
-
-    for (let i = 0; i < this.subject.length; i += 1) {
-      const name = this.subject[i];
-
-      if (name.short === 'CN' || name.short === 'E' || name.short === 'O') {
-        return name.value;
-      }
-    }
-
-    return '';
+    return firstCommonName(this.subject);
   }
 
+  /** @deprecated Use `firstCommonName(toJSON().issuer)`. */
   public get issuerCommonName(): string {
-    if (!this.issuer) {
-      return '';
-    }
-
-    for (let i = 0; i < this.issuer.length; i += 1) {
-      const name = this.issuer[i];
-
-      if (name.short === 'CN' || name.short === 'E' || name.short === 'O') {
-        return name.value;
-      }
-    }
-
-    return '';
+    return firstCommonName(this.issuer);
   }
 
+  /** @deprecated Use `toJSON().isRoot`. */
   public get isRoot(): boolean {
     return JSON.stringify(this.issuer) === JSON.stringify(this.subject);
   }
 
+  /** @deprecated Use `nameToString(toJSON().subject)`. */
   public subjectToString() {
-    if (!this.subject) {
-      return '';
-    }
-
-    return this.subject.map((name) => `${name.short}=${name.value}`).join(', ');
+    return nameToString(this.subject);
   }
 
+  /** @deprecated Use `nameToString(toJSON().issuer)`. */
   public issuerToString() {
-    if (!this.issuer) {
-      return '';
-    }
-
-    return this.issuer.map((name) => `${name.short}=${name.value}`).join(', ');
-  }
-
-  public toString(format: 'pem' | 'base64' | 'base64url' = 'pem'): string {
-    switch (format) {
-      case 'pem':
-        return PemConverter.encode(this.raw, this.tag);
-      case 'base64url':
-        return base64url.encode(this.raw);
-      default:
-        return base64.encode(this.raw);
-    }
-  }
-
-  public downloadAsPEM(name?: string) {
-    Download.cert.asPEM(this.toString('pem'), name || this.commonName);
-  }
-
-  public downloadAsDER(name?: string) {
-    Download.cert.asDER(this.raw, name || this.commonName);
+    return nameToString(this.issuer);
   }
 }
