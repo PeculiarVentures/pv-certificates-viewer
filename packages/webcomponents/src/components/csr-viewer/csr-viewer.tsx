@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Component, Host, h, Prop, State, Watch, Build } from '@stencil/core';
+import { Component, Host, h, Prop, State, Watch } from '@stencil/core';
 import { Pkcs10CertificateRequest } from '../../crypto';
 import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers';
 import {
@@ -33,11 +33,6 @@ export class CsrViewer {
   @State() private certificateDecoded?: Pkcs10CertificateRequest;
 
   @State() private certificateDecodeError?: Error;
-
-  private mobileMediaQuery: MediaQueryList;
-  private readonly mediaQueryChangeHandler = (event: MediaQueryListEvent) => {
-    this.mobileScreenView = event.matches;
-  };
 
   /**
    * The certificate value for decode and show details. Use PEM or DER.
@@ -67,31 +62,8 @@ export class CsrViewer {
    */
   @Prop({ reflect: true }) subjectKeyIdSiblingsLink?: string;
 
-  /**
-   * Mobile media query string to control screen view change.
-   * <br />
-   * **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-   * @example
-   *  (max-width: 900px)
-   */
-  @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
-
-  @State() mobileScreenView = false;
-
   componentWillLoad() {
     void this.decodeCertificate(this.certificate);
-
-    if (Build.isBrowser && this.mobileMediaQueryString) {
-      this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
-      this.mobileMediaQuery.addEventListener('change', this.mediaQueryChangeHandler);
-      this.mobileScreenView = this.mobileMediaQuery.matches;
-    }
-  }
-
-  disconnectedCallback() {
-    if (this.mobileMediaQuery) {
-      this.mobileMediaQuery.removeEventListener('change', this.mediaQueryChangeHandler);
-    }
   }
 
   private async decodeCertificate(certificate: TCsrProp) {
@@ -164,7 +136,7 @@ export class CsrViewer {
     const linkTemplateResolvers = buildLinkTemplateResolvers(this);
 
     return (
-      <Host data-mobile-screen-view={String(this.mobileScreenView)}>
+      <Host>
         <table>
           <BasicInformation
             {...this.certificateDecoded}

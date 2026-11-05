@@ -7,6 +7,8 @@
   min-width: 280px;
   overflow: auto;
   position: relative;
+  // The mobile layout follows the component's own width, not the viewport.
+  container: pv-certificates-viewer / inline-size;
 }
 
 .search_section {
@@ -101,6 +103,11 @@ table {
   margin-top: -3px;
 }
 
+// Per-cell labels replace the table header in the mobile layout.
+.cell_label {
+  display: none;
+}
+
 .status_wrapper {
   text-align: center;
   height: calc(var(--pv-size-base) * 16);
@@ -163,7 +170,7 @@ table {
   overflow: auto;
 }
 
-:host([data-mobile-screen-view='true']) {
+@container pv-certificates-viewer (max-width: 900px) {
   table,
   tbody,
   tr,
@@ -178,27 +185,67 @@ table {
     display: none;
   }
 
-  table {
-    tr {
-      padding: calc(var(--pv-size-base) * 2) 0;
-    }
+  .cell_label {
+    display: block;
+  }
 
-    .expanded_summary {
-      padding: 0;
+  table {
+    // Beat the desktop `table td` borders and first/last-child cell sizes.
+    .certificate_row > td,
+    .expanded_summary > td {
+      border: none;
     }
 
     .certificate_row {
+      display: flex;
+      flex-wrap: wrap;
       border-bottom: 1px solid var(--pv-color-gray-5);
       padding: calc(var(--pv-size-base) * 2) calc(var(--pv-size-base) * 4);
+
+      &.m_expanded {
+        border-bottom: none;
+      }
     }
 
-    .certificate_row_actions {
-      padding-top: calc(var(--pv-size-base) * 6);
+    .cell_data {
+      padding: calc(var(--pv-size-base) * 2) 0;
+    }
 
-      td {
-        display: flex;
-        justify-content: right;
-        gap: calc(var(--pv-size-base) * 4);
+    // Actions, then the expand toggle, right-aligned below the cells.
+    .cell_actions,
+    .cell_expand {
+      // flex, not block: inline buttons would add line-height below them.
+      display: flex;
+      width: auto !important;
+      padding: calc(var(--pv-size-base) * 6) 0 calc(var(--pv-size-base) * 2);
+    }
+
+    .cell_actions {
+      order: 1;
+      margin-left: auto;
+    }
+
+    .cell_expand {
+      order: 2;
+      margin-left: calc(var(--pv-size-base) * 4);
+    }
+
+    // `tr.` to match the specificity of the desktop `table tr.expanded_summary table td` rule.
+    tr.expanded_summary {
+      border-bottom: 1px solid var(--pv-color-gray-5);
+      padding: 0 calc(var(--pv-size-base) * 4) calc(var(--pv-size-base) * 2);
+
+      > td {
+        padding: 0;
+      }
+
+      // Summary pairs get the same spacing as the row's own cells.
+      table tr {
+        padding: calc(var(--pv-size-base) * 2) 0;
+      }
+
+      table td {
+        padding: 0;
       }
     }
   }

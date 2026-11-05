@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Component, h, Prop, State, Watch, Host, Event, EventEmitter, Build } from '@stencil/core';
+import { Component, h, Prop, State, Watch, Host, Event, EventEmitter } from '@stencil/core';
 import { OIDs } from '../../constants/oids';
 import { X509Certificate } from '../../crypto';
 import { Button } from '../_shared/button';
@@ -45,11 +45,6 @@ interface ICertificateDecoded {
 export class CertificatesViewer {
   private isHasRoots = false;
 
-  private mobileMediaQuery: MediaQueryList;
-  private readonly mediaQueryChangeHandler = (event: MediaQueryListEvent) => {
-    this.mobileScreenView = event.matches;
-  };
-
   /**
    * List of certificates values for decode and show in the list.
    * <br />
@@ -73,15 +68,6 @@ export class CertificatesViewer {
   @Prop() highlightWithSearch = true;
 
   /**
-   * Mobile media query string to control screen view change.
-   * <br />
-   * **NOTE**: Based on https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
-   * @example
-   *  (max-width: 900px)
-   */
-  @Prop({ reflect: false }) mobileMediaQueryString?: string = '(max-width: 900px)';
-
-  /**
    * Emitted when the user open certificate details modal.
    */
   @Event() detailsOpen!: EventEmitter<X509Certificate>;
@@ -90,8 +76,6 @@ export class CertificatesViewer {
    * Emitted when the user close certificate details modal.
    */
   @Event() detailsClose!: EventEmitter<void>;
-
-  @State() mobileScreenView = false;
 
   @State() search = '';
 
@@ -105,18 +89,6 @@ export class CertificatesViewer {
 
   componentWillLoad() {
     void this.certificatesDecodeAndSet();
-
-    if (Build.isBrowser && this.mobileMediaQueryString) {
-      this.mobileMediaQuery = window.matchMedia(this.mobileMediaQueryString);
-      this.mobileMediaQuery.addEventListener('change', this.mediaQueryChangeHandler);
-      this.mobileScreenView = this.mobileMediaQuery.matches;
-    }
-  }
-
-  disconnectedCallback() {
-    if (this.mobileMediaQuery) {
-      this.mobileMediaQuery.removeEventListener('change', this.mediaQueryChangeHandler);
-    }
   }
 
   @Watch('certificates')
@@ -332,135 +304,28 @@ export class CertificatesViewer {
         }
       }
 
-      if (this.mobileScreenView) {
-        content.push([
-          <tr
-            class={{
-              certificate_row: true,
-              m_expanded: isExpandedRow,
-            }}
-            key={certificate.body.thumbprints['SHA-1']}
-          >
-            <td>
-              <table>
-                <tbody>
-                  {!this.isHasRoots && (
-                    <tr>
-                      <td>
-                        <Typography
-                          variant="b2"
-                          color="gray-9"
-                        >
-                          {'Issuer'}
-                        </Typography>
-                      </td>
-                      <td>
-                        <Typography
-                          variant="b2"
-                          color="black"
-                        >
-                          <peculiar-highlight-words search={searchHighlight}>
-                            {certificate.body.issuerCommonName}
-                          </peculiar-highlight-words>
-                        </Typography>
-                      </td>
-                    </tr>
-                  )}
-                  <tr>
-                    <td>
-                      <Typography
-                        variant="b2"
-                        color="gray-9"
-                      >
-                        {'Name'}
-                      </Typography>
-                    </td>
-                    <td>
-                      <Typography
-                        variant="b2"
-                        color="black"
-                      >
-                        <peculiar-highlight-words search={searchHighlight}>
-                          {this.getCertificateName(certificate)}
-                        </peculiar-highlight-words>
-                      </Typography>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <Typography
-                        variant="b2"
-                        color="gray-9"
-                      >
-                        {'Public Key'}
-                      </Typography>
-                    </td>
-                    <td>
-                      <Typography
-                        variant="b2"
-                        color="black"
-                      >
-                        <peculiar-highlight-words search={searchHighlight}>
-                          {publicKeyValue}
-                        </peculiar-highlight-words>
-                      </Typography>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <Typography
-                        variant="b2"
-                        color="gray-9"
-                      >
-                        {'Fingerprint'}
-                        &nbsp; (SHA-1)
-                      </Typography>
-                    </td>
-                    <td>
-                      <Typography
-                        variant="b2"
-                        color="black"
-                      >
-                        <peculiar-highlight-words search={searchHighlight}>
-                          {certificate.body.thumbprints['SHA-1']}
-                        </peculiar-highlight-words>
-                      </Typography>
-                    </td>
-                  </tr>
-                  {isExpandedRow && this.renderExpandedRow(certificate.body)}
-                  <tr class="certificate_row_actions">
-                    <td>
-                      {this.renderCertificateButtonActions(certificate)}
-                      <Button
-                        startIcon={isExpandedRow ? <ArrowTopIcon /> : <ArrowBottomIcon />}
-                        onClick={this.handleClickRow.bind(this, index)}
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>,
-        ]);
-
-        return;
-      }
-
+      // One markup for both layouts: under 900px of component width the styles stack the cells and
+      // show each cell's label (see the @container rules).
       content.push([
         <tr
-          class={{ m_expanded: isExpandedRow }}
+          class={{ certificate_row: true, m_expanded: isExpandedRow }}
           key={certificate.body.thumbprints['SHA-1']}
         >
-          <td>
+          <td class="cell_expand">
             <Button
               startIcon={isExpandedRow ? <ArrowTopIcon /> : <ArrowBottomIcon />}
-              class="button_table_cell"
-
+              class="button_table_cell expand_button"
               onClick={this.handleClickRow.bind(this, index)}
             />
           </td>
           {!this.isHasRoots && (
-            <td>
+            <td class="cell_data">
+              <Typography
+                color="gray-9"
+                class="cell_label"
+              >
+                {'Issuer'}
+              </Typography>
               <Typography>
                 <peculiar-highlight-words search={searchHighlight}>
                   {certificate.body.issuerCommonName}
@@ -468,28 +333,47 @@ export class CertificatesViewer {
               </Typography>
             </td>
           )}
-          <td>
+          <td class="cell_data">
+            <Typography
+              color="gray-9"
+              class="cell_label"
+            >
+              {'Name'}
+            </Typography>
             <Typography>
               <peculiar-highlight-words search={searchHighlight}>
                 {this.getCertificateName(certificate)}
               </peculiar-highlight-words>
             </Typography>
           </td>
-          <td>
+          <td class="cell_data">
+            <Typography
+              color="gray-9"
+              class="cell_label"
+            >
+              {'Public Key'}
+            </Typography>
             <Typography>
               <peculiar-highlight-words search={searchHighlight}>
                 {publicKeyValue}
               </peculiar-highlight-words>
             </Typography>
           </td>
-          <td>
+          <td class="cell_data">
+            <Typography
+              color="gray-9"
+              class="cell_label"
+            >
+              {'Fingerprint'}
+              &nbsp; (SHA-1)
+            </Typography>
             <Typography>
               <peculiar-highlight-words search={searchHighlight}>
                 {certificate.body.thumbprints['SHA-1']}
               </peculiar-highlight-words>
             </Typography>
           </td>
-          <td>{this.renderCertificateButtonActions(certificate)}</td>
+          <td class="cell_actions">{this.renderCertificateButtonActions(certificate)}</td>
         </tr>,
         isExpandedRow && this.renderExpandedRow(certificate.body),
       ]);
@@ -528,10 +412,7 @@ export class CertificatesViewer {
             />
           </header>
           <div class="modal_content">
-            <peculiar-certificate-viewer
-              certificate={this.certificateSelectedForDetails}
-              mobileMediaQueryString={this.mobileMediaQueryString}
-            />
+            <peculiar-certificate-viewer certificate={this.certificateSelectedForDetails} />
           </div>
         </div>
       </div>
@@ -619,34 +500,32 @@ export class CertificatesViewer {
 
   render() {
     return (
-      <Host data-mobile-screen-view={String(this.mobileScreenView)}>
+      <Host>
         {this.renderSearch()}
         <table>
-          {!this.mobileScreenView && (
-            <thead>
-              <tr>
-                <th />
-                {!this.isHasRoots && (
-                  <th class="col_issuer">
-                    <Typography variant="s2">{'Issuer'}</Typography>
-                  </th>
-                )}
-                <th class="col_name">
-                  <Typography variant="s2">{'Name'}</Typography>
+          <thead>
+            <tr>
+              <th />
+              {!this.isHasRoots && (
+                <th class="col_issuer">
+                  <Typography variant="s2">{'Issuer'}</Typography>
                 </th>
-                <th class="col_public_key">
-                  <Typography variant="s2">{'Public Key'}</Typography>
-                </th>
-                <th class="col_fingerprint">
-                  <Typography variant="s2">
-                    {'Fingerprint'}
-                    &nbsp; (SHA-1)
-                  </Typography>
-                </th>
-                <th />
-              </tr>
-            </thead>
-          )}
+              )}
+              <th class="col_name">
+                <Typography variant="s2">{'Name'}</Typography>
+              </th>
+              <th class="col_public_key">
+                <Typography variant="s2">{'Public Key'}</Typography>
+              </th>
+              <th class="col_fingerprint">
+                <Typography variant="s2">
+                  {'Fingerprint'}
+                  &nbsp; (SHA-1)
+                </Typography>
+              </th>
+              <th />
+            </tr>
+          </thead>
           <tbody>{this.renderTableBody()}</tbody>
         </table>
 
