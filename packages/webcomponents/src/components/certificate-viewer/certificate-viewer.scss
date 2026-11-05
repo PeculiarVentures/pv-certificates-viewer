@@ -65,6 +65,42 @@ table {
   }
 }
 
+.text_hider {
+  display: flex;
+  width: 100%;
+  gap: calc(var(--pv-size-base) * 4);
+}
+
+.text_hider_content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+
+  .text_hider:has(> .text_hider_toggle[open]) > & {
+    white-space: initial;
+  }
+}
+
+.text_hider_toggle {
+  flex-shrink: 0;
+  margin-top: calc(var(--pv-size-base) * -1);
+
+  summary {
+    // `.button` is inline-flex; as a line box inside <details> it would add line-height below it.
+    display: flex;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  &[open] svg {
+    transform: rotate(180deg);
+  }
+}
+
 .status_wrapper {
   min-height: inherit;
   display: flex;

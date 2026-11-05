@@ -237,8 +237,6 @@ export namespace Components {
          */
         "mobileMediaQueryString"?: string;
     }
-    interface PeculiarTextHider {
-    }
 }
 export interface PeculiarCertificateDecoderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -339,12 +337,6 @@ declare global {
         prototype: HTMLPeculiarSshCertificateViewerElement;
         new (): HTMLPeculiarSshCertificateViewerElement;
     };
-    interface HTMLPeculiarTextHiderElement extends Components.PeculiarTextHider, HTMLStencilElement {
-    }
-    var HTMLPeculiarTextHiderElement: {
-        prototype: HTMLPeculiarTextHiderElement;
-        new (): HTMLPeculiarTextHiderElement;
-    };
     interface HTMLElementTagNameMap {
         "peculiar-attribute-certificate-viewer": HTMLPeculiarAttributeCertificateViewerElement;
         "peculiar-button-menu": HTMLPeculiarButtonMenuElement;
@@ -357,7 +349,6 @@ declare global {
         "peculiar-csr-viewer": HTMLPeculiarCsrViewerElement;
         "peculiar-highlight-words": HTMLPeculiarHighlightWordsElement;
         "peculiar-ssh-certificate-viewer": HTMLPeculiarSshCertificateViewerElement;
-        "peculiar-text-hider": HTMLPeculiarTextHiderElement;
     }
 }
 declare namespace LocalJSX {
@@ -592,8 +583,6 @@ declare namespace LocalJSX {
          */
         "mobileMediaQueryString"?: string;
     }
-    interface PeculiarTextHider {
-    }
 
     interface PeculiarAttributeCertificateViewerAttributes {
         "certificate": TAttributeCertificateProp;
@@ -665,7 +654,6 @@ declare namespace LocalJSX {
         "peculiar-csr-viewer": Omit<PeculiarCsrViewer, keyof PeculiarCsrViewerAttributes> & { [K in keyof PeculiarCsrViewer & keyof PeculiarCsrViewerAttributes]?: PeculiarCsrViewer[K] } & { [K in keyof PeculiarCsrViewer & keyof PeculiarCsrViewerAttributes as `attr:${K}`]?: PeculiarCsrViewerAttributes[K] } & { [K in keyof PeculiarCsrViewer & keyof PeculiarCsrViewerAttributes as `prop:${K}`]?: PeculiarCsrViewer[K] };
         "peculiar-highlight-words": Omit<PeculiarHighlightWords, keyof PeculiarHighlightWordsAttributes> & { [K in keyof PeculiarHighlightWords & keyof PeculiarHighlightWordsAttributes]?: PeculiarHighlightWords[K] } & { [K in keyof PeculiarHighlightWords & keyof PeculiarHighlightWordsAttributes as `attr:${K}`]?: PeculiarHighlightWordsAttributes[K] } & { [K in keyof PeculiarHighlightWords & keyof PeculiarHighlightWordsAttributes as `prop:${K}`]?: PeculiarHighlightWords[K] };
         "peculiar-ssh-certificate-viewer": Omit<PeculiarSshCertificateViewer, keyof PeculiarSshCertificateViewerAttributes> & { [K in keyof PeculiarSshCertificateViewer & keyof PeculiarSshCertificateViewerAttributes]?: PeculiarSshCertificateViewer[K] } & { [K in keyof PeculiarSshCertificateViewer & keyof PeculiarSshCertificateViewerAttributes as `attr:${K}`]?: PeculiarSshCertificateViewerAttributes[K] } & { [K in keyof PeculiarSshCertificateViewer & keyof PeculiarSshCertificateViewerAttributes as `prop:${K}`]?: PeculiarSshCertificateViewer[K] };
-        "peculiar-text-hider": PeculiarTextHider;
     }
 }
 export { LocalJSX as JSX };
@@ -683,7 +671,6 @@ declare module "@stencil/core" {
             "peculiar-csr-viewer": LocalJSX.IntrinsicElements["peculiar-csr-viewer"] & JSXBase.HTMLAttributes<HTMLPeculiarCsrViewerElement>;
             "peculiar-highlight-words": LocalJSX.IntrinsicElements["peculiar-highlight-words"] & JSXBase.HTMLAttributes<HTMLPeculiarHighlightWordsElement>;
             "peculiar-ssh-certificate-viewer": LocalJSX.IntrinsicElements["peculiar-ssh-certificate-viewer"] & JSXBase.HTMLAttributes<HTMLPeculiarSshCertificateViewerElement>;
-            "peculiar-text-hider": LocalJSX.IntrinsicElements["peculiar-text-hider"] & JSXBase.HTMLAttributes<HTMLPeculiarTextHiderElement>;
         }
     }
 }
