@@ -10,6 +10,10 @@ import { Component, Host, h, State } from '@stencil/core';
 import { Button } from '../button';
 import { ArrowBottomIcon, ArrowTopIcon } from '../icons';
 
+/**
+ * @deprecated Not used by the viewers any more; collapsed values use a native `<details>` toggle.
+ * Kept so the `peculiar-text-hider` element stays registered. Will be removed in the next major version.
+ */
 @Component({
   tag: 'peculiar-text-hider',
   styleUrl: 'text-hider.scss',

@@ -8,6 +8,7 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import isLink from '../../../utils/is_link';
+import { ArrowBottomIcon } from '../icons';
 import { Link } from '../link';
 import { Typography } from '../typography';
 
@@ -75,7 +76,20 @@ export const RowValue: FunctionalComponent<IRowValueProps> = (props) => {
   let elementValue;
 
   if (collapse) {
-    elementValue = <peculiar-text-hider>{value}</peculiar-text-hider>;
+    // The value stays outside <details> so it can be selected without toggling; see `.text_hider` styles.
+    elementValue = (
+      <span class="text_hider">
+        <span class="text_hider_content">{value}</span>
+        <details class="text_hider_toggle">
+          <summary
+            class="button m_no_padding"
+            aria-label="Show full value"
+          >
+            <ArrowBottomIcon color="secondary" />
+          </summary>
+        </details>
+      </span>
+    );
   } else {
     elementValue = value;
   }

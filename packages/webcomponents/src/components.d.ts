@@ -237,6 +237,10 @@ export namespace Components {
          */
         "mobileMediaQueryString"?: string;
     }
+    /**
+     * @deprecated Not used by the viewers any more; collapsed values use a native `<details>` toggle.
+     * Kept so the `peculiar-text-hider` element stays registered. Will be removed in the next major version.
+     */
     interface PeculiarTextHider {
     }
 }
@@ -339,6 +343,10 @@ declare global {
         prototype: HTMLPeculiarSshCertificateViewerElement;
         new (): HTMLPeculiarSshCertificateViewerElement;
     };
+    /**
+     * @deprecated Not used by the viewers any more; collapsed values use a native `<details>` toggle.
+     * Kept so the `peculiar-text-hider` element stays registered. Will be removed in the next major version.
+     */
     interface HTMLPeculiarTextHiderElement extends Components.PeculiarTextHider, HTMLStencilElement {
     }
     var HTMLPeculiarTextHiderElement: {
@@ -592,6 +600,10 @@ declare namespace LocalJSX {
          */
         "mobileMediaQueryString"?: string;
     }
+    /**
+     * @deprecated Not used by the viewers any more; collapsed values use a native `<details>` toggle.
+     * Kept so the `peculiar-text-hider` element stays registered. Will be removed in the next major version.
+     */
     interface PeculiarTextHider {
     }
 
@@ -683,6 +695,10 @@ declare module "@stencil/core" {
             "peculiar-csr-viewer": LocalJSX.IntrinsicElements["peculiar-csr-viewer"] & JSXBase.HTMLAttributes<HTMLPeculiarCsrViewerElement>;
             "peculiar-highlight-words": LocalJSX.IntrinsicElements["peculiar-highlight-words"] & JSXBase.HTMLAttributes<HTMLPeculiarHighlightWordsElement>;
             "peculiar-ssh-certificate-viewer": LocalJSX.IntrinsicElements["peculiar-ssh-certificate-viewer"] & JSXBase.HTMLAttributes<HTMLPeculiarSshCertificateViewerElement>;
+            /**
+             * @deprecated Not used by the viewers any more; collapsed values use a native `<details>` toggle.
+             * Kept so the `peculiar-text-hider` element stays registered. Will be removed in the next major version.
+             */
             "peculiar-text-hider": LocalJSX.IntrinsicElements["peculiar-text-hider"] & JSXBase.HTMLAttributes<HTMLPeculiarTextHiderElement>;
         }
     }
