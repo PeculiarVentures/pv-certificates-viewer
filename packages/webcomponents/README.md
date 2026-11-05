@@ -61,21 +61,6 @@ Then you can use a components anywhere in your HTML.
 
 To add the `@peculiar/certificates-viewer` to an already existing React project see the [react](https://www.npmjs.com/package/@peculiar/certificates-viewer-react) using guide.
 
-## API reference
-
-Every build writes the full API of all components to `docs/components.json` inside the package
-(`@peculiar/certificates-viewer/docs/components.json`): tags, properties, attributes, events, methods,
-slots, CSS parts and custom properties, with descriptions and deprecations. Types for the file are in
-`docs/components.d.ts`.
-
-Internal helper components are included too. Skip them by folder:
-
-```js
-import docs from '@peculiar/certificates-viewer/docs/components.json';
-
-const publicComponents = docs.components.filter((c) => !c.filePath.includes('/_shared/'));
-```
-
 ## Examples
 
 - [Root CAs](https://codepen.io/donskov/pen/gOpQGYa)
