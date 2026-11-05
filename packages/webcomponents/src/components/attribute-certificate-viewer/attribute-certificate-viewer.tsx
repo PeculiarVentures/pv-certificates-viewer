@@ -12,6 +12,7 @@ import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers'
 import { runViewerDecode } from '../_shared/decode';
 import {
   BasicInformation,
+  toDisplayVersion,
   Signature,
   Thumbprints,
   Miscellaneous,
@@ -188,7 +189,10 @@ export class AttributeCertificateViewer {
     return (
       <Host data-mobile-screen-view={String(this.mobileScreenView)}>
         <table>
-          <BasicInformation {...this.certificateDecoded} />
+          <BasicInformation
+            {...this.certificateDecoded}
+            version={toDisplayVersion(this.certificateDecoded.version)}
+          />
 
           <Issuer issuer={this.certificateDecoded.issuer} />
 

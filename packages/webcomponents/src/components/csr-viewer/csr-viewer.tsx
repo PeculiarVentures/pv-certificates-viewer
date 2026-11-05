@@ -12,6 +12,7 @@ import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers'
 import { runViewerDecode } from '../_shared/decode';
 import {
   BasicInformation,
+  toDisplayVersion,
   SubjectName,
   Signature,
   Thumbprints,
@@ -165,7 +166,10 @@ export class CsrViewer {
     return (
       <Host data-mobile-screen-view={String(this.mobileScreenView)}>
         <table>
-          <BasicInformation {...this.certificateDecoded} />
+          <BasicInformation
+            {...this.certificateDecoded}
+            version={toDisplayVersion(this.certificateDecoded.version)}
+          />
 
           <SubjectName name={this.certificateDecoded.subject} />
 

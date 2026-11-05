@@ -12,6 +12,7 @@ import { buildLinkTemplateResolvers } from '../../utils/link_template_resolvers'
 import { runViewerDecode } from '../_shared/decode';
 import {
   BasicInformation,
+  toDisplayVersion,
   IssuerName,
   Signature,
   Thumbprints,
@@ -171,7 +172,10 @@ export class CrlViewer {
     return (
       <Host data-mobile-screen-view={String(this.mobileScreenView)}>
         <table>
-          <BasicInformation {...this.certificateDecoded} />
+          <BasicInformation
+            {...this.certificateDecoded}
+            version={toDisplayVersion(this.certificateDecoded.asn.tbsCertList.version)}
+          />
 
           <IssuerName
             name={this.certificateDecoded.issuer}
