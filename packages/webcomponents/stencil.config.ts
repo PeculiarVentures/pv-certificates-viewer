@@ -48,8 +48,9 @@ export const config: Config = {
     },
     { type: 'dist-hydrate-script' },
     {
-      type: 'docs-readme',
-      footer: '',
+      type: 'docs-json',
+      file: 'docs/components.json',
+      typesFile: 'docs/components.d.ts',
     },
     {
       type: 'www',
