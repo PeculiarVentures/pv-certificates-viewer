@@ -71,7 +71,7 @@
     "@peculiar/asn1-x509-qualified-etsi": "^3.0.0",
     "@peculiar/ssh": "^3.0.0",
     "@peculiar/utils": "^4.1.0",
-    "@stencil/core": "^4.45.0",
+    "@stencil/core": "^4.45.2",
     "asn1js": "^4.0.0",
     "dayjs": "^1.11.23"
   },
@@ -80,11 +80,11 @@
     "@stencil/sass": "^3.3.3",
     "@stencil/vitest": "^1.16.1",
     "@types/node": "^24.13.3",
-    "@vitest/browser-playwright": "^5.0.5",
-    "playwright": "^1.63.0",
+    "@vitest/browser-playwright": "^5.1.0",
+    "playwright": "^1.64.1",
     "rimraf": "^3.0.2",
     "typescript": "^6.0.0",
-    "vitest": "^5.0.5"
+    "vitest": "^5.1.0"
   },
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
