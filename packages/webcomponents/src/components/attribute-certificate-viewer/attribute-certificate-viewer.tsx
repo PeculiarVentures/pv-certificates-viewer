@@ -30,9 +30,9 @@ export type TAttributeCertificateProp = string | X509AttributeCertificate;
   shadow: true,
 })
 export class AttributeCertificateViewer {
-  private certificateDecoded: X509AttributeCertificate;
+  @State() private certificateDecoded?: X509AttributeCertificate;
 
-  private certificateDecodeError?: Error;
+  @State() private certificateDecodeError?: Error;
 
   private mobileMediaQuery: MediaQueryList;
   private readonly mediaQueryChangeHandler = (event: MediaQueryListEvent) => {
@@ -96,8 +96,6 @@ export class AttributeCertificateViewer {
 
   @State() mobileScreenView = false;
 
-  @State() isDecodeInProcess = true;
-
   componentWillLoad() {
     void this.decodeCertificate(this.certificate);
 
@@ -115,29 +113,29 @@ export class AttributeCertificateViewer {
   }
 
   private async decodeCertificate(certificate: TAttributeCertificateProp) {
-    await runViewerDecode<X509AttributeCertificate>({
-      setLoading: (isLoading) => {
-        this.isDecodeInProcess = isLoading;
-      },
+    await runViewerDecode<X509AttributeCertificate>(this, {
       onStart: () => {
         this.certificateDecodeError = undefined;
       },
-      run: () => {
+      run: async () => {
+        let decoded: X509AttributeCertificate;
+
         if (certificate instanceof X509AttributeCertificate) {
-          return certificate;
+          decoded = certificate;
+        } else if (typeof certificate === 'string') {
+          decoded = new X509AttributeCertificate(certificate);
+        } else {
+          return undefined;
         }
 
-        if (typeof certificate === 'string') {
-          return new X509AttributeCertificate(certificate);
-        }
-
-        return undefined;
-      },
-      onSuccess: async (decoded) => {
         decoded.parseExtensions();
         decoded.parseAttributes();
         await decoded.getThumbprint('SHA-1');
         await decoded.getThumbprint('SHA-256');
+
+        return decoded;
+      },
+      onSuccess: (decoded) => {
         this.certificateDecoded = decoded;
       },
       onError: (error) => {
@@ -148,28 +146,15 @@ export class AttributeCertificateViewer {
   }
 
   /**
-   * Rerun decodeCertificate if previuos value not equal current value
+   * Rerun decodeCertificate when the value changes
    */
   @Watch('certificate')
   watchCertificateAndDecode(
     newValue: TAttributeCertificateProp,
     oldValue: TAttributeCertificateProp,
   ) {
-    if (typeof newValue === 'string' && typeof oldValue === 'string') {
-      if (newValue !== oldValue) {
-        void this.decodeCertificate(newValue);
-      }
-
-      return;
-    }
-
-    if (
-      newValue instanceof X509AttributeCertificate &&
-      oldValue instanceof X509AttributeCertificate
-    ) {
-      if (newValue.serialNumber !== oldValue.serialNumber) {
-        void this.decodeCertificate(newValue);
-      }
+    if (newValue !== oldValue) {
+      void this.decodeCertificate(newValue);
     }
   }
 

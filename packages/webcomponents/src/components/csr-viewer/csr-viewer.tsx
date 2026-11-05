@@ -29,9 +29,9 @@ export type TCsrProp = string | Pkcs10CertificateRequest;
   shadow: true,
 })
 export class CsrViewer {
-  private certificateDecoded: Pkcs10CertificateRequest;
+  @State() private certificateDecoded?: Pkcs10CertificateRequest;
 
-  private certificateDecodeError?: Error;
+  @State() private certificateDecodeError?: Error;
 
   private mobileMediaQuery: MediaQueryList;
   private readonly mediaQueryChangeHandler = (event: MediaQueryListEvent) => {
@@ -77,8 +77,6 @@ export class CsrViewer {
 
   @State() mobileScreenView = false;
 
-  @State() isDecodeInProcess = true;
-
   componentWillLoad() {
     void this.decodeCertificate(this.certificate);
 
@@ -96,28 +94,28 @@ export class CsrViewer {
   }
 
   private async decodeCertificate(certificate: TCsrProp) {
-    await runViewerDecode<Pkcs10CertificateRequest>({
-      setLoading: (isLoading) => {
-        this.isDecodeInProcess = isLoading;
-      },
+    await runViewerDecode<Pkcs10CertificateRequest>(this, {
       onStart: () => {
         this.certificateDecodeError = undefined;
       },
-      run: () => {
+      run: async () => {
+        let decoded: Pkcs10CertificateRequest;
+
         if (certificate instanceof Pkcs10CertificateRequest) {
-          return certificate;
+          decoded = certificate;
+        } else if (typeof certificate === 'string') {
+          decoded = new Pkcs10CertificateRequest(certificate);
+        } else {
+          return undefined;
         }
 
-        if (typeof certificate === 'string') {
-          return new Pkcs10CertificateRequest(certificate);
-        }
-
-        return undefined;
-      },
-      onSuccess: async (decoded) => {
         decoded.parseAttributes();
         await decoded.getThumbprint('SHA-1');
         await decoded.getThumbprint('SHA-256');
+
+        return decoded;
+      },
+      onSuccess: (decoded) => {
         this.certificateDecoded = decoded;
       },
       onError: (error) => {
@@ -128,25 +126,12 @@ export class CsrViewer {
   }
 
   /**
-   * Rerun decodeCertificate if previuos value not equal current value
+   * Rerun decodeCertificate when the value changes
    */
   @Watch('certificate')
   watchCertificateAndDecode(newValue: TCsrProp, oldValue: TCsrProp) {
-    if (typeof newValue === 'string' && typeof oldValue === 'string') {
-      if (newValue !== oldValue) {
-        void this.decodeCertificate(newValue);
-      }
-
-      return;
-    }
-
-    if (
-      newValue instanceof Pkcs10CertificateRequest &&
-      oldValue instanceof Pkcs10CertificateRequest
-    ) {
-      if (newValue.commonName !== oldValue.commonName) {
-        void this.decodeCertificate(newValue);
-      }
+    if (newValue !== oldValue) {
+      void this.decodeCertificate(newValue);
     }
   }
 

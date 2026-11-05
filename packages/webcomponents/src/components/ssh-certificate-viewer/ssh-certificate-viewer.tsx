@@ -23,9 +23,9 @@ export type TSshCertificateProp = string | SshCertificate;
   shadow: true,
 })
 export class SshCertificateViewer {
-  private certificateDecoded: SshCertificate;
+  @State() private certificateDecoded?: SshCertificate;
 
-  private certificateDecodeError?: Error;
+  @State() private certificateDecodeError?: Error;
 
   private mobileMediaQuery: MediaQueryList;
   private readonly mediaQueryChangeHandler = (event: MediaQueryListEvent) => {
@@ -53,8 +53,6 @@ export class SshCertificateViewer {
 
   @State() mobileScreenView = false;
 
-  @State() isDecodeInProcess = true;
-
   componentWillLoad() {
     void this.decodeCertificate(this.certificate);
 
@@ -72,27 +70,27 @@ export class SshCertificateViewer {
   }
 
   private async decodeCertificate(certificate: TSshCertificateProp) {
-    await runViewerDecode<SshCertificate>({
-      setLoading: (isLoading) => {
-        this.isDecodeInProcess = isLoading;
-      },
+    await runViewerDecode<SshCertificate>(this, {
       onStart: () => {
         this.certificateDecodeError = undefined;
       },
-      run: () => {
+      run: async () => {
+        let decoded: SshCertificate;
+
         if (certificate instanceof SshCertificate) {
-          return certificate;
+          decoded = certificate;
+        } else if (typeof certificate === 'string') {
+          decoded = new SshCertificate(certificate);
+        } else {
+          return undefined;
         }
 
-        if (typeof certificate === 'string') {
-          return new SshCertificate(certificate);
-        }
-
-        return undefined;
-      },
-      onSuccess: async (decoded) => {
         await decoded.parsePublicKey();
         await decoded.parseSignatureKey();
+
+        return decoded;
+      },
+      onSuccess: (decoded) => {
         this.certificateDecoded = decoded;
       },
       onError: (error) => {
@@ -103,22 +101,12 @@ export class SshCertificateViewer {
   }
 
   /**
-   * Rerun decodeCertificate if previuos value not equal current value
+   * Rerun decodeCertificate when the value changes
    */
   @Watch('certificate')
   watchCertificateAndDecode(newValue: TSshCertificateProp, oldValue: TSshCertificateProp) {
-    if (typeof newValue === 'string' && typeof oldValue === 'string') {
-      if (newValue !== oldValue) {
-        void this.decodeCertificate(newValue);
-      }
-
-      return;
-    }
-
-    if (newValue instanceof SshCertificate && oldValue instanceof SshCertificate) {
-      if (newValue.serialNumber !== oldValue.serialNumber) {
-        void this.decodeCertificate(newValue);
-      }
+    if (newValue !== oldValue) {
+      void this.decodeCertificate(newValue);
     }
   }
 

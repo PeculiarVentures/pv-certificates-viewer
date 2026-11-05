@@ -113,7 +113,8 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
   }
 
   public get commonName(): string {
-    return `attribute-certificate-${this.thumbprints['SHA-1']}`;
+    // Thumbprints are computed asynchronously; before that, the serial number still gives a unique name.
+    return `attribute-certificate-${this.thumbprints['SHA-1'] ?? this.serialNumber}`;
   }
 
   public toString(format: 'pem' | 'base64' | 'base64url' = 'pem'): string {

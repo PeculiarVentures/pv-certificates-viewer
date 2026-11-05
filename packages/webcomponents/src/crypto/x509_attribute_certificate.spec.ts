@@ -18,3 +18,21 @@ describe('X509AttributeCertificate', () => {
     });
   });
 });
+
+describe('X509AttributeCertificate.commonName', () => {
+  const [certificate] = certificates;
+
+  it('falls back to the serial number before thumbprints are computed', () => {
+    const cert = new X509AttributeCertificate(certificate.value);
+
+    expect(cert.commonName).toBe(`attribute-certificate-${cert.serialNumber}`);
+  });
+
+  it('uses the SHA-1 thumbprint once computed', () => {
+    const cert = new X509AttributeCertificate(certificate.value);
+
+    cert.thumbprints['SHA-1'] = 'abcd';
+
+    expect(cert.commonName).toBe('attribute-certificate-abcd');
+  });
+});
