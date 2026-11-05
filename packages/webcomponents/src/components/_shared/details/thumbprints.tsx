@@ -7,7 +7,6 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { l10n } from '../../../utils';
 import { RowTitle, RowValue } from './row';
 
 interface IThumbprintsProps {
@@ -28,7 +27,7 @@ export const Thumbprints: FunctionalComponent<IThumbprintsProps> = (props) => {
   }
 
   return [
-    <RowTitle value={l10n.getString('fingerprints')} />,
+    <RowTitle value="Fingerprints" />,
     keys.map((name) => (
       <RowValue
         name={name}

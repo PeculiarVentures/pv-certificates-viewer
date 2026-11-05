@@ -8,7 +8,7 @@
 
 import { FunctionalComponent, h } from '@stencil/core';
 import type { X509Certificate } from '../../../crypto';
-import { dateShort, l10n } from '../../../utils';
+import { dateShort } from '../../../utils';
 import { Typography } from '../typography';
 
 interface ICertificateSummaryProps {
@@ -43,14 +43,14 @@ export const CertificateSummary: FunctionalComponent<ICertificateSummaryProps> =
   return (
     <table>
       <tbody>
-        {renderRow(l10n.getString('subjectName'), certificate.subjectToString())}
-        {showIssuer && renderRow(l10n.getString('issuerName'), certificate.issuerToString())}
+        {renderRow('Subject Name', certificate.subjectToString())}
+        {showIssuer && renderRow('Issuer Name', certificate.issuerToString())}
 
-        {renderRow(l10n.getString('serialNumber'), certificate.serialNumber)}
-        {renderRow(l10n.getString('version'), certificate.version)}
-        {renderRow(l10n.getString('validity'), certificate.validity)}
-        {renderRow(l10n.getString('issued'), dateShort(certificate.notBefore))}
-        {renderRow(l10n.getString('expired'), dateShort(certificate.notAfter))}
+        {renderRow('Serial Number', certificate.serialNumber)}
+        {renderRow('Version', certificate.version)}
+        {renderRow('Validity', certificate.validity)}
+        {renderRow('Issued', dateShort(certificate.notBefore))}
+        {renderRow('Expired', dateShort(certificate.notAfter))}
       </tbody>
     </table>
   );

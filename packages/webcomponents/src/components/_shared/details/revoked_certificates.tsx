@@ -9,7 +9,7 @@
 import { h, FunctionalComponent } from '@stencil/core';
 import { hex } from '@peculiar/utils/encoding';
 import { IRevokedCertificate } from '../../../crypto';
-import { dateShort, l10n } from '../../../utils';
+import { dateShort } from '../../../utils';
 import { ParsedExtensions } from '../parsed/extensions';
 import { RowTitle, RowValue, TableRowTable } from './row';
 
@@ -25,21 +25,21 @@ export const RevokedCertificates: FunctionalComponent<IRevokedCertificatesProps>
   }
 
   return [
-    <RowTitle value={l10n.getString('revokedCertificates')} />,
+    <RowTitle value="Revoked Certificates" />,
     revokedCertificates.map((certificate) => [
       <RowValue
-        name={l10n.getString('serialNumber')}
+        name="Serial Number"
         value={hex.encode(certificate.userCertificate)}
         monospace
       />,
       <RowValue
-        name={l10n.getString('revocationDate')}
+        name="Revocation Date"
         value={dateShort(certificate.revocationDate.getTime())}
       />,
       certificate.crlEntryExtensions &&
         certificate.crlEntryExtensions.length && [
           <RowValue
-            name={l10n.getString('crlEntryExtensions')}
+            name="CRL Entry Extensions"
             value=""
           />,
           <TableRowTable>

@@ -9,7 +9,6 @@
 import { Component, h, Prop, State, Watch, Host, Event, EventEmitter, Build } from '@stencil/core';
 import { OIDs } from '../../constants/oids';
 import { X509Certificate } from '../../crypto';
-import { l10n } from '../../utils';
 import { Button } from '../_shared/button';
 import { CertificateSummary } from '../_shared/certificate-summary';
 import {
@@ -227,25 +226,25 @@ export class CertificatesViewer {
         class="button_table_cell"
         groups={[
           {
-            title: l10n.getString('previewCertificate'),
+            title: 'Preview certificate',
             options: [
               {
-                text: l10n.getString('viewDetails'),
+                text: 'View details',
                 startIcon: <DetailsIcon />,
                 onClick: () => this.handleClickDetails(certificate.body),
               },
             ],
           },
           {
-            title: l10n.getString('downloadOptions'),
+            title: 'Download options',
             options: [
               {
-                text: l10n.getString('download.pem'),
+                text: 'Download PEM',
                 startIcon: <DownloadIcon />,
                 onClick: () => this.handleClickDownloadAsPem(certificate),
               },
               {
-                text: l10n.getString('download.der'),
+                text: 'Download DER',
                 startIcon: <DownloadIcon />,
                 onClick: () => this.handleClickDownloadAsDer(certificate),
               },
@@ -254,12 +253,12 @@ export class CertificatesViewer {
           ...(isHasTestURLs
             ? [
                 {
-                  title: l10n.getString('testURLs'),
+                  title: 'Test URLs',
                   options: [
                     ...(certificate.tests?.valid
                       ? [
                           {
-                            text: l10n.getString('valid'),
+                            text: 'Valid',
                             href: certificate.tests.valid,
                             startIcon: <LinkIcon />,
                           },
@@ -268,7 +267,7 @@ export class CertificatesViewer {
                     ...(certificate.tests?.revoked
                       ? [
                           {
-                            text: l10n.getString('revoked'),
+                            text: 'Revoked',
                             href: certificate.tests.revoked,
                             startIcon: <LinkIcon />,
                           },
@@ -277,7 +276,7 @@ export class CertificatesViewer {
                     ...(certificate.tests?.expired
                       ? [
                           {
-                            text: l10n.getString('expired'),
+                            text: 'Expired',
                             href: certificate.tests.expired,
                             startIcon: <LinkIcon />,
                           },
@@ -352,7 +351,7 @@ export class CertificatesViewer {
                           variant="b2"
                           color="gray-9"
                         >
-                          {l10n.getString('issuer')}
+                          {'Issuer'}
                         </Typography>
                       </td>
                       <td>
@@ -373,7 +372,7 @@ export class CertificatesViewer {
                         variant="b2"
                         color="gray-9"
                       >
-                        {l10n.getString('name')}
+                        {'Name'}
                       </Typography>
                     </td>
                     <td>
@@ -393,7 +392,7 @@ export class CertificatesViewer {
                         variant="b2"
                         color="gray-9"
                       >
-                        {l10n.getString('publicKey')}
+                        {'Public Key'}
                       </Typography>
                     </td>
                     <td>
@@ -413,7 +412,7 @@ export class CertificatesViewer {
                         variant="b2"
                         color="gray-9"
                       >
-                        {l10n.getString('fingerprint')}
+                        {'Fingerprint'}
                         &nbsp; (SHA-1)
                       </Typography>
                     </td>
@@ -522,7 +521,7 @@ export class CertificatesViewer {
           part="presentation_container"
         >
           <header class="modal_header">
-            <Typography variant="h4">{l10n.getString('certificateDetails')}</Typography>
+            <Typography variant="h4">{'Certificate Details'}</Typography>
             <Button
               startIcon={<CrossIcon />}
               onClick={this.handleModalClose}
@@ -629,18 +628,18 @@ export class CertificatesViewer {
                 <th />
                 {!this.isHasRoots && (
                   <th class="col_issuer">
-                    <Typography variant="s2">{l10n.getString('issuer')}</Typography>
+                    <Typography variant="s2">{'Issuer'}</Typography>
                   </th>
                 )}
                 <th class="col_name">
-                  <Typography variant="s2">{l10n.getString('name')}</Typography>
+                  <Typography variant="s2">{'Name'}</Typography>
                 </th>
                 <th class="col_public_key">
-                  <Typography variant="s2">{l10n.getString('publicKey')}</Typography>
+                  <Typography variant="s2">{'Public Key'}</Typography>
                 </th>
                 <th class="col_fingerprint">
                   <Typography variant="s2">
-                    {l10n.getString('fingerprint')}
+                    {'Fingerprint'}
                     &nbsp; (SHA-1)
                   </Typography>
                 </th>

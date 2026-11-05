@@ -7,7 +7,7 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { dateShort, l10n } from '../../../utils';
+import { dateShort } from '../../../utils';
 import { RowTitle, RowValue } from './row';
 
 /** ASN.1 versions are 0-based (`v1(0)`); show the human version, or nothing when the field is absent. */
@@ -30,38 +30,38 @@ export const BasicInformation: FunctionalComponent<IBasicInformationProps> = (pr
     props;
 
   return [
-    <RowTitle value={l10n.getString('basicInformation')} />,
+    <RowTitle value="Basic Information" />,
     <RowValue
-      name={l10n.getString('type')}
+      name="Type"
       value={type}
     />,
     <RowValue
-      name={l10n.getString('serialNumber')}
+      name="Serial Number"
       value={serialNumber}
       monospace
     />,
     <RowValue
-      name={l10n.getString('version')}
+      name="Version"
       value={version}
     />,
     <RowValue
-      name={l10n.getString('validity')}
+      name="Validity"
       value={validity}
     />,
     <RowValue
-      name={l10n.getString('issued')}
+      name="Issued"
       value={notBefore ? dateShort(notBefore) : undefined}
     />,
     <RowValue
-      name={l10n.getString('expired')}
+      name="Expired"
       value={notAfter ? dateShort(notAfter) : undefined}
     />,
     <RowValue
-      name={l10n.getString('lastUpdate')}
+      name="Last Update"
       value={lastUpdate ? dateShort(lastUpdate) : undefined}
     />,
     <RowValue
-      name={l10n.getString('nextUpdate')}
+      name="Next Update"
       value={nextUpdate ? dateShort(nextUpdate) : undefined}
     />,
   ];

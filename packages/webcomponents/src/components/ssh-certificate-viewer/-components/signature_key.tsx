@@ -8,7 +8,7 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { SshCertificate } from '../../../crypto';
-import { l10n, getStringByOID } from '../../../utils';
+import { getStringByOID } from '../../../utils';
 import { RowTitle, RowValue } from '../../_shared/details/row';
 
 interface ISshSignatureKeyProps {
@@ -23,9 +23,9 @@ export const SshSignatureKey: FunctionalComponent<ISshSignatureKeyProps> = (prop
   }
 
   return [
-    <RowTitle value={l10n.getString('signingCA')} />,
+    <RowTitle value="Signing CA" />,
     <RowValue
-      name={l10n.getString('algorithm')}
+      name="Algorithm"
       value={getStringByOID(key.algorithm)}
     />,
     <RowValue
@@ -34,7 +34,7 @@ export const SshSignatureKey: FunctionalComponent<ISshSignatureKeyProps> = (prop
       monospace
     />,
     <RowValue
-      name={l10n.getString('value')}
+      name="Value"
       value={key.value}
       monospace
       collapse

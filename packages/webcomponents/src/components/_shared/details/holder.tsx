@@ -8,7 +8,6 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import type { IExtensionNode } from '../../../crypto/extensions/types';
-import { l10n } from '../../../utils';
 import { renderNode } from '../parsed/render_node';
 import { RowTitle } from './row';
 
@@ -23,5 +22,5 @@ export const Holder: FunctionalComponent<IHolderProps> = (props) => {
     return null;
   }
 
-  return [<RowTitle value={l10n.getString('holder')} />, ...holder.map((n) => renderNode(n, {}))];
+  return [<RowTitle value="Holder" />, ...holder.map((n) => renderNode(n, {}))];
 };

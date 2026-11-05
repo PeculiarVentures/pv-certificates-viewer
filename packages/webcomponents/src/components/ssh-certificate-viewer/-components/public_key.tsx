@@ -8,7 +8,7 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { SshCertificate } from '../../../crypto';
-import { l10n, getStringByOID } from '../../../utils';
+import { getStringByOID } from '../../../utils';
 import { RowTitle, RowValue } from '../../_shared/details/row';
 
 interface ISshPublicKeyProps {
@@ -23,9 +23,9 @@ export const SshPublicKey: FunctionalComponent<ISshPublicKeyProps> = (props) => 
   }
 
   return [
-    <RowTitle value={l10n.getString('publicKeyInfo')} />,
+    <RowTitle value="Public Key Info" />,
     <RowValue
-      name={l10n.getString('algorithm')}
+      name="Algorithm"
       value={getStringByOID(key.algorithm)}
     />,
     <RowValue
@@ -34,7 +34,7 @@ export const SshPublicKey: FunctionalComponent<ISshPublicKeyProps> = (props) => 
       monospace
     />,
     <RowValue
-      name={l10n.getString('value')}
+      name="Value"
       value={key.value}
       monospace
       collapse

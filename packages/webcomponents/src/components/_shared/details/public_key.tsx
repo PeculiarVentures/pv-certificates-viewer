@@ -9,7 +9,7 @@
 import { h, FunctionalComponent } from '@stencil/core';
 import { hex } from '@peculiar/utils/encoding';
 import { IPublicKey } from '../../../crypto';
-import { l10n, getStringByOID } from '../../../utils';
+import { getStringByOID } from '../../../utils';
 import { RowTitle, RowValue, TableRowTable } from './row';
 
 function getPublicKeyModulus(publicKey: IPublicKey) {
@@ -51,23 +51,23 @@ export const PublicKey: FunctionalComponent<IPublicKeyProps> = (props) => {
 
     return [
       <RowValue
-        name={l10n.getString('algorithm')}
+        name="Algorithm"
         value={getStringByOID(key.algorithm)}
       />,
       <RowValue
-        name={l10n.getString('namedCurve')}
+        name="Named Curve"
         value={namedCurve ? getStringByOID(namedCurve) : undefined}
       />,
       <RowValue
-        name={l10n.getString('exponent')}
+        name="Exponent"
         value={getPublicKeyExponent(key)}
       />,
       <RowValue
-        name={l10n.getString('modulus')}
+        name="Modulus"
         value={getPublicKeyModulus(key)}
       />,
       <RowValue
-        name={l10n.getString('value')}
+        name="Value"
         value={hex.encode(key.value)}
         monospace
         collapse
@@ -76,7 +76,7 @@ export const PublicKey: FunctionalComponent<IPublicKeyProps> = (props) => {
   }
 
   return [
-    <RowTitle value={l10n.getString('publicKeyInfo')} />,
+    <RowTitle value="Public Key Info" />,
     renderKeyDetails(publicKey),
     Array.isArray(publicKey.params) &&
       publicKey.params.length &&
