@@ -7,79 +7,47 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { hex } from '@peculiar/utils/encoding';
-import { IPublicKey } from '../../../crypto';
+import type { IPublicKeyJSON } from '../../../crypto/fields/public_key';
 import { getStringByOID } from '../../../utils';
 import { RowTitle, RowValue, TableRowTable } from './row';
 
-function getPublicKeyModulus(publicKey: IPublicKey) {
-  if (publicKey.params && 'modulus' in publicKey.params) {
-    let length = publicKey.params.modulus.byteLength;
-
-    if (length % 2) {
-      length -= 1;
-    }
-
-    return length * 8;
-  }
-
-  return null;
-}
-
-function getPublicKeyExponent(publicKey: IPublicKey) {
-  if (publicKey.params && 'publicExponent' in publicKey.params) {
-    return publicKey.params.publicExponent.byteLength === 3 ? 65537 : 3;
-  }
-
-  return null;
-}
-
 interface IPublicKeyProps {
-  publicKey: IPublicKey;
+  publicKey: IPublicKeyJSON;
 }
 
-export const PublicKey: FunctionalComponent<IPublicKeyProps> = (props) => {
-  const { publicKey } = props;
+const renderKeyDetails = (key: IPublicKeyJSON) => [
+  <RowValue
+    name="Algorithm"
+    value={getStringByOID(key.algorithm)}
+  />,
+  <RowValue
+    name="Named Curve"
+    value={key.namedCurve ? getStringByOID(key.namedCurve) : undefined}
+  />,
+  <RowValue
+    name="Exponent"
+    value={key.exponent}
+  />,
+  <RowValue
+    name="Modulus"
+    value={key.modulusBits}
+  />,
+  <RowValue
+    name="Value"
+    value={key.value}
+    monospace
+    collapse
+  />,
+];
 
+export const PublicKey: FunctionalComponent<IPublicKeyProps> = ({ publicKey }) => {
   if (!publicKey) {
     return null;
-  }
-
-  function renderKeyDetails(key: IPublicKey) {
-    const namedCurve =
-      key.params && 'namedCurve' in key.params ? (key.params.namedCurve ?? '') : '';
-
-    return [
-      <RowValue
-        name="Algorithm"
-        value={getStringByOID(key.algorithm)}
-      />,
-      <RowValue
-        name="Named Curve"
-        value={namedCurve ? getStringByOID(namedCurve) : undefined}
-      />,
-      <RowValue
-        name="Exponent"
-        value={getPublicKeyExponent(key)}
-      />,
-      <RowValue
-        name="Modulus"
-        value={getPublicKeyModulus(key)}
-      />,
-      <RowValue
-        name="Value"
-        value={hex.encode(key.value)}
-        monospace
-        collapse
-      />,
-    ];
   }
 
   return [
     <RowTitle value="Public Key Info" />,
     renderKeyDetails(publicKey),
-    Array.isArray(publicKey.params) &&
-      publicKey.params.length &&
-      publicKey.params.map((param) => <TableRowTable>{renderKeyDetails(param)}</TableRowTable>),
+    publicKey.parts?.map((part) => <TableRowTable>{renderKeyDetails(part)}</TableRowTable>),
   ];
 };

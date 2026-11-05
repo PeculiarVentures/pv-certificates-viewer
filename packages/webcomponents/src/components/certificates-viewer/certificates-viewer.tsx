@@ -8,7 +8,8 @@
 
 import { Component, h, Prop, State, Watch, Host, Event, EventEmitter } from '@stencil/core';
 import { OIDs } from '../../constants/oids';
-import { X509Certificate } from '../../crypto';
+import { X509Certificate, type ICertificateJSON } from '../../crypto';
+import { firstCommonName } from '../../crypto/fields/name';
 import { Button } from '../_shared/button';
 import { CertificateSummary } from '../_shared/certificate-summary';
 import {
@@ -33,9 +34,17 @@ export interface ICertificate {
 
 interface ICertificateDecoded {
   body: X509Certificate;
+  json: ICertificateJSON;
+  sha1: string;
+  issuerCommonName: string;
+  signatureAlgorithm: string;
+  /** Lower-cased text the search filter matches against. */
+  searchText: string;
   tests?: ICertificate['tests'];
   name?: ICertificate['name'];
 }
+
+const TEST_URL_LABELS = { valid: 'Valid', revoked: 'Revoked', expired: 'Expired' } as const;
 
 @Component({
   tag: 'peculiar-certificates-viewer',
@@ -117,18 +126,29 @@ export class CertificatesViewer {
     for (const certificate of this.certificates) {
       try {
         const decoded = new X509Certificate(certificate.value);
-
-        await decoded.getThumbprint('SHA-1');
-
-        data.push({
+        const json = decoded.toJSON();
+        const { 'SHA-1': sha1 = '' } = await decoded.getThumbprints(['SHA-1']);
+        const item: ICertificateDecoded = {
           body: decoded,
+          json,
+          sha1,
+          issuerCommonName: firstCommonName(json.issuer),
+          signatureAlgorithm: OIDs[json.signature.algorithm] || json.signature.algorithm,
+          searchText: '',
           tests: certificate.tests,
           name: certificate.name,
-        });
+        };
 
-        if (!hasRoots && decoded.isRoot) {
-          hasRoots = true;
-        }
+        item.searchText = [
+          item.signatureAlgorithm,
+          item.issuerCommonName,
+          this.getCertificateName(item),
+          sha1,
+        ]
+          .join(' ')
+          .toLowerCase();
+        data.push(item);
+        hasRoots ||= json.isRoot;
       } catch (error) {
         console.error('Error certificate parse:', error);
       }
@@ -148,11 +168,11 @@ export class CertificatesViewer {
   }
 
   private handleClickDownloadAsPem(certificate: ICertificateDecoded) {
-    certificate.body.downloadAsPEM(this.getCertificateName(certificate));
+    certificate.body.download('pem', this.getCertificateName(certificate));
   }
 
   private handleClickDownloadAsDer(certificate: ICertificateDecoded) {
-    certificate.body.downloadAsDER(this.getCertificateName(certificate));
+    certificate.body.download('der', this.getCertificateName(certificate));
   }
 
   private handleClickDetails = (certificate: X509Certificate) => {
@@ -189,9 +209,13 @@ export class CertificatesViewer {
   }
 
   private renderCertificateButtonActions(certificate: ICertificateDecoded) {
-    const isHasTestURLs =
-      certificate.tests &&
-      (certificate.tests.expired || certificate.tests.revoked || certificate.tests.valid);
+    const testURLs = (['valid', 'revoked', 'expired'] as const)
+      .filter((kind) => certificate.tests?.[kind])
+      .map((kind) => ({
+        text: TEST_URL_LABELS[kind],
+        href: certificate.tests?.[kind],
+        startIcon: <LinkIcon />,
+      }));
 
     return (
       <peculiar-button-menu
@@ -222,48 +246,13 @@ export class CertificatesViewer {
               },
             ],
           },
-          ...(isHasTestURLs
-            ? [
-                {
-                  title: 'Test URLs',
-                  options: [
-                    ...(certificate.tests?.valid
-                      ? [
-                          {
-                            text: 'Valid',
-                            href: certificate.tests.valid,
-                            startIcon: <LinkIcon />,
-                          },
-                        ]
-                      : []),
-                    ...(certificate.tests?.revoked
-                      ? [
-                          {
-                            text: 'Revoked',
-                            href: certificate.tests.revoked,
-                            startIcon: <LinkIcon />,
-                          },
-                        ]
-                      : []),
-                    ...(certificate.tests?.expired
-                      ? [
-                          {
-                            text: 'Expired',
-                            href: certificate.tests.expired,
-                            startIcon: <LinkIcon />,
-                          },
-                        ]
-                      : []),
-                  ],
-                },
-              ]
-            : []),
+          ...(testURLs.length ? [{ title: 'Test URLs', options: testURLs }] : []),
         ]}
       />
     );
   }
 
-  private renderExpandedRow(certificate: X509Certificate) {
+  private renderExpandedRow(certificate: ICertificateJSON) {
     const colSpan = this.getMaxColSpanValue() - 2;
 
     return (
@@ -286,20 +275,10 @@ export class CertificatesViewer {
 
     this.certificatesDecoded.forEach((certificate, index) => {
       const isExpandedRow = index === this.expandedRow;
-      const publicKeyValue =
-        OIDs[certificate.body.signature.algorithm] || certificate.body.signature.algorithm;
+      const publicKeyValue = certificate.signatureAlgorithm;
 
       if (this.filterWithSearch && this.search) {
-        const certificateStringForSearch = [
-          publicKeyValue,
-          certificate.body.issuerCommonName,
-          this.getCertificateName(certificate),
-          certificate.body.thumbprints['SHA-1'],
-        ]
-          .join(' ')
-          .toLowerCase();
-
-        if (certificateStringForSearch.indexOf(this.search.toLowerCase()) === -1) {
+        if (certificate.searchText.indexOf(this.search.toLowerCase()) === -1) {
           return;
         }
       }
@@ -309,7 +288,7 @@ export class CertificatesViewer {
       content.push([
         <tr
           class={{ certificate_row: true, m_expanded: isExpandedRow }}
-          key={certificate.body.thumbprints['SHA-1']}
+          key={certificate.sha1}
         >
           <td class="cell_expand">
             <Button
@@ -328,7 +307,7 @@ export class CertificatesViewer {
               </Typography>
               <Typography>
                 <peculiar-highlight-words search={searchHighlight}>
-                  {certificate.body.issuerCommonName}
+                  {certificate.issuerCommonName}
                 </peculiar-highlight-words>
               </Typography>
             </td>
@@ -369,13 +348,13 @@ export class CertificatesViewer {
             </Typography>
             <Typography>
               <peculiar-highlight-words search={searchHighlight}>
-                {certificate.body.thumbprints['SHA-1']}
+                {certificate.sha1}
               </peculiar-highlight-words>
             </Typography>
           </td>
           <td class="cell_actions">{this.renderCertificateButtonActions(certificate)}</td>
         </tr>,
-        isExpandedRow && this.renderExpandedRow(certificate.body),
+        isExpandedRow && this.renderExpandedRow(certificate.json),
       ]);
     });
 

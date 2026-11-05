@@ -7,12 +7,12 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import { SshCertificate } from '../../../crypto';
+import type { ISshKeyJSON } from '../../../crypto';
 import { getStringByOID } from '../../../utils';
 import { RowTitle, RowValue } from '../../_shared/details/row';
 
 interface ISshPublicKeyProps {
-  key: SshCertificate['publicKey'];
+  key?: ISshKeyJSON;
 }
 
 export const SshPublicKey: FunctionalComponent<ISshPublicKeyProps> = (props) => {

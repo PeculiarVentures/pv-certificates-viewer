@@ -9,22 +9,22 @@
 import { h, FunctionalComponent } from '@stencil/core';
 import type { INameJSON } from '../../../crypto/fields/name';
 import { getStringByOID } from '../../../utils/get_string_by_oid';
+import { Link } from '../link';
 import { RowTitle, RowValue } from './row';
 
-interface ISubjectNameProps {
+interface INameSectionProps {
+  title: string;
   name: INameJSON[];
+  /** Turns the title into a link. */
+  href?: string;
 }
 
-export const SubjectName: FunctionalComponent<ISubjectNameProps> = (props) => {
-  const { name } = props;
-
-  return [
-    <RowTitle value="Subject Name" />,
-    name.map((n) => (
-      <RowValue
-        name={getStringByOID(n.type, true)}
-        value={n.value}
-      />
-    )),
-  ];
-};
+export const NameSection: FunctionalComponent<INameSectionProps> = ({ title, name, href }) => [
+  <RowTitle value={href ? <Link href={href}>{title}</Link> : title} />,
+  name.map((n) => (
+    <RowValue
+      name={getStringByOID(n.type, true)}
+      value={n.value}
+    />
+  )),
+];

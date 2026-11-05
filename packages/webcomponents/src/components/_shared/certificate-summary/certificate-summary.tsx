@@ -7,12 +7,13 @@
  */
 
 import { FunctionalComponent, h } from '@stencil/core';
-import type { X509Certificate } from '../../../crypto';
+import type { ICertificateJSON } from '../../../crypto';
+import { nameToString } from '../../../crypto/fields/name';
 import { dateShort } from '../../../utils';
 import { Typography } from '../typography';
 
 interface ICertificateSummaryProps {
-  certificate: X509Certificate;
+  certificate: ICertificateJSON;
   showIssuer?: boolean;
 }
 
@@ -43,8 +44,8 @@ export const CertificateSummary: FunctionalComponent<ICertificateSummaryProps> =
   return (
     <table>
       <tbody>
-        {renderRow('Subject Name', certificate.subjectToString())}
-        {showIssuer && renderRow('Issuer Name', certificate.issuerToString())}
+        {renderRow('Subject Name', nameToString(certificate.subject))}
+        {showIssuer && renderRow('Issuer Name', nameToString(certificate.issuer))}
 
         {renderRow('Serial Number', certificate.serialNumber)}
         {renderRow('Version', certificate.version)}
