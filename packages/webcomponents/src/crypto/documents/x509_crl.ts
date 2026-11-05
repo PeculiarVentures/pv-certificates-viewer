@@ -7,13 +7,13 @@
  */
 
 import { CertificateList, Time } from '@peculiar/asn1-x509';
-import { base64, base64url, hex } from '@peculiar/utils/encoding';
 import { Download } from '../../utils';
 import { PemConverter } from '../encoding/pem_converter';
-import { certificateRawToBuffer, getCertificateThumbprint } from '../encoding/raw';
+import { certificateRawToBuffer } from '../encoding/raw';
 import { type IParsedExtension, parseExtension } from '../extensions';
-import { Name, INameJSON } from '../fields/name';
-import { AsnData } from './asn_data';
+import { Name, INameJSON, firstCommonName } from '../fields/name';
+import { type ISignatureJSON, parseSignature, signatureToJSON } from '../fields/signature';
+import { AsnDocument } from './asn_document';
 
 interface ISignature {
   algorithm: string;
@@ -26,7 +26,19 @@ export interface IRevokedCertificate {
   crlEntryExtensions?: IParsedExtension[];
 }
 
-export class X509Crl extends AsnData<CertificateList> {
+export interface ICrlJSON {
+  type: string;
+  /** Human version (`2` for v2); undefined when the optional field is absent. */
+  version?: number;
+  issuer: INameJSON[];
+  lastUpdate: Date;
+  nextUpdate?: Date;
+  signature: ISignatureJSON;
+  extensions: IParsedExtension[];
+  revokedCertificates: IRevokedCertificate[];
+}
+
+export class X509Crl extends AsnDocument<CertificateList, ICrlJSON> {
   public readonly issuer: INameJSON[];
 
   public readonly version: number;
@@ -35,11 +47,10 @@ export class X509Crl extends AsnData<CertificateList> {
 
   public readonly nextUpdate: Date;
 
+  /** @deprecated Use `toJSON().extensions`. Filled by `parseExtensions()`. */
   public extensions: IParsedExtension[];
 
   public revokedCertificates: IRevokedCertificate[];
-
-  public thumbprints: Record<string, string> = {};
 
   public readonly type = 'X.509 Certificate Revocation List';
 
@@ -64,18 +75,26 @@ export class X509Crl extends AsnData<CertificateList> {
     );
   }
 
-  public async getThumbprint(algorithm = 'SHA-1'): Promise<void> {
-    try {
-      const thumbprint = await getCertificateThumbprint(algorithm, this.raw);
+  protected buildJSON(): ICrlJSON {
+    const { tbsCertList } = this.asn;
 
-      if (thumbprint) {
-        this.thumbprints[algorithm] = hex.encode(thumbprint);
-      }
-    } catch (error) {
-      console.error('Error thumbprint get:', error);
-    }
+    return {
+      type: this.type,
+      version: tbsCertList.version === undefined ? undefined : tbsCertList.version + 1,
+      issuer: this.issuer,
+      lastUpdate: this.lastUpdate,
+      nextUpdate: tbsCertList.nextUpdate?.getTime(),
+      signature: signatureToJSON(parseSignature(this.asn.signatureAlgorithm, this.asn.signature)),
+      extensions: (tbsCertList.crlExtensions ?? []).map(parseExtension),
+      revokedCertificates: this.revokedCertificates,
+    };
   }
 
+  protected downloader() {
+    return Download.crl;
+  }
+
+  /** @deprecated Use `toJSON().signature`. */
   public get signature(): ISignature {
     const { signature, signatureAlgorithm } = this.asn;
 
@@ -86,45 +105,13 @@ export class X509Crl extends AsnData<CertificateList> {
   }
 
   public get commonName(): string {
-    if (!this.issuer) {
-      return '';
-    }
-
-    for (let i = 0; i < this.issuer.length; i += 1) {
-      const name = this.issuer[i];
-
-      if (name.short === 'CN' || name.short === 'E' || name.short === 'O') {
-        return name.value;
-      }
-    }
-
-    return '';
+    return firstCommonName(this.issuer);
   }
 
+  /** @deprecated Use `toJSON().extensions`. */
   public parseExtensions() {
-    const { tbsCertList } = this.asn;
-
-    if (tbsCertList.crlExtensions) {
-      this.extensions = tbsCertList.crlExtensions.map(parseExtension);
+    if (this.asn.tbsCertList.crlExtensions) {
+      this.extensions = this.toJSON().extensions;
     }
-  }
-
-  public toString(format: 'pem' | 'base64' | 'base64url' = 'pem'): string {
-    switch (format) {
-      case 'pem':
-        return PemConverter.encode(this.raw, this.tag);
-      case 'base64url':
-        return base64url.encode(this.raw);
-      default:
-        return base64.encode(this.raw);
-    }
-  }
-
-  public downloadAsPEM(name?: string) {
-    Download.crl.asPEM(this.toString('pem'), name || this.commonName);
-  }
-
-  public downloadAsDER(name?: string) {
-    Download.crl.asDER(this.raw, name || this.commonName);
   }
 }

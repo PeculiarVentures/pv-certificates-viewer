@@ -3,6 +3,28 @@ import { base64, base64url, utf8 } from '@peculiar/utils/encoding';
 import { dateDiff, decodeUtf8, Download } from '../../utils';
 import { isBase64UrlText } from '../encoding/raw';
 
+export interface ISshKeyJSON {
+  algorithm: string;
+  type: string;
+  value: string;
+  thumbprint: string;
+}
+
+export interface ISshCertificateJSON {
+  type: string;
+  serialNumber: string;
+  keyId: string;
+  principals: string[];
+  extensions: Record<string, string>;
+  criticalOptions: Record<string, string>;
+  notBefore: Date;
+  notAfter: Date;
+  validity: string;
+  /** Set once the keys are decoded (`SshCertificate.from()` or `decodeKeys()`). */
+  publicKey?: ISshKeyJSON;
+  signatureKey?: ISshKeyJSON;
+}
+
 export class SshCertificate {
   public readonly serialNumber: string;
 
@@ -58,6 +80,44 @@ export class SshCertificate {
     this.criticalOptions = this.#cert.criticalOptions;
   }
 
+  /** Decodes the certificate and its keys. */
+  public static async from(raw: string): Promise<SshCertificate> {
+    const certificate = new SshCertificate(raw);
+
+    await certificate.decodeKeys();
+
+    return certificate;
+  }
+
+  /** Decodes the public and signature keys (async WebCrypto); safe to call more than once. */
+  public async decodeKeys(): Promise<void> {
+    if (!this.publicKey) {
+      await this.parsePublicKey();
+    }
+
+    if (!this.signatureKey) {
+      await this.parseSignatureKey();
+    }
+  }
+
+  /** Everything the viewer renders, as plain data. Keys are included once decoded. */
+  public toJSON(): ISshCertificateJSON {
+    return {
+      type: this.type,
+      serialNumber: this.serialNumber,
+      keyId: this.keyId,
+      principals: this.principals,
+      extensions: this.extensions,
+      criticalOptions: this.criticalOptions,
+      notBefore: this.notBefore,
+      notAfter: this.notAfter,
+      validity: this.validity,
+      publicKey: this.publicKey,
+      signatureKey: this.signatureKey,
+    };
+  }
+
+  /** @deprecated Use `decodeKeys()`. */
   public async parseSignatureKey() {
     const key = await this.#cert.signatureKey.toWebCrypto();
     const blob = this.#cert.signatureKey.getBlob();
@@ -71,6 +131,7 @@ export class SshCertificate {
     };
   }
 
+  /** @deprecated Use `decodeKeys()`. */
   public async parsePublicKey() {
     const key = await this.#cert.publicKey.toWebCrypto();
     const blob = this.#cert.publicKey.getBlob();
@@ -98,7 +159,14 @@ export class SshCertificate {
     return this.#cert.principals.join('_') || this.#cert.keyId || this.#cert.certType;
   }
 
+  public async download(format: 'pub' = 'pub', name = [this.commonName, 'cert'].join('-')) {
+    if (format === 'pub') {
+      Download.certSSH.asPub(await this.toString(), name);
+    }
+  }
+
+  /** @deprecated Use `download('pub', name)`. */
   public async downloadAsPub(name?: string) {
-    Download.certSSH.asPub(await this.toString(), name || [this.commonName, 'cert'].join('-'));
+    await this.download('pub', name || undefined);
   }
 }

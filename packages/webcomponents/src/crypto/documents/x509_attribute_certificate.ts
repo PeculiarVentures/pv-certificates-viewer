@@ -7,22 +7,41 @@
  */
 
 import { AttributeCertificate } from '@peculiar/asn1-x509-attr';
-import { base64, base64url, hex } from '@peculiar/utils/encoding';
+import { hex } from '@peculiar/utils/encoding';
 import { dateDiff, Download } from '../../utils';
 import { type IParsedAttribute, parseAttribute } from '../attributes';
 import { PemConverter } from '../encoding/pem_converter';
-import { certificateRawToBuffer, getCertificateThumbprint } from '../encoding/raw';
+import { certificateRawToBuffer } from '../encoding/raw';
 import { type IParsedExtension, parseExtension, type IExtensionNode } from '../extensions';
 import { parseHolder } from '../fields/holder';
 import { parseIssuer } from '../fields/issuer';
-import { AsnData } from './asn_data';
+import { type ISignatureJSON, parseSignature, signatureToJSON } from '../fields/signature';
+import { AsnDocument } from './asn_document';
 
 interface ISignature {
   algorithm: string;
   value: BufferSource;
 }
 
-export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
+export interface IAttributeCertificateJSON {
+  type: string;
+  /** Human version (`2` for v2). */
+  version: number;
+  serialNumber: string;
+  issuer: IExtensionNode[];
+  holder: IExtensionNode[];
+  notBefore: Date;
+  notAfter: Date;
+  validity: string;
+  signature: ISignatureJSON;
+  extensions: IParsedExtension[];
+  attributes: IParsedAttribute[];
+}
+
+export class X509AttributeCertificate extends AsnDocument<
+  AttributeCertificate,
+  IAttributeCertificateJSON
+> {
   public readonly serialNumber: string;
 
   public readonly version: number;
@@ -33,13 +52,13 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
 
   public readonly validity: string;
 
+  /** @deprecated Use `toJSON().extensions`. Filled by `parseExtensions()`. */
   public extensions: IParsedExtension[];
 
+  /** @deprecated Use `toJSON().attributes`. Filled by `parseAttributes()`. */
   public attributes: IParsedAttribute[];
 
   public holder: IExtensionNode[];
-
-  public thumbprints: Record<string, string> = {};
 
   public readonly issuer: IExtensionNode[];
 
@@ -75,6 +94,31 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     this.holder = parseHolder(acinfo.holder);
   }
 
+  protected buildJSON(): IAttributeCertificateJSON {
+    const { acinfo } = this.asn;
+
+    return {
+      type: this.type,
+      version: this.version + 1,
+      serialNumber: this.serialNumber,
+      issuer: this.issuer,
+      holder: this.holder,
+      notBefore: this.notBefore,
+      notAfter: this.notAfter,
+      validity: this.validity,
+      signature: signatureToJSON(
+        parseSignature(this.asn.signatureAlgorithm, this.asn.signatureValue),
+      ),
+      extensions: (acinfo.extensions ?? []).map(parseExtension),
+      attributes: (acinfo.attributes ?? []).map(parseAttribute),
+    };
+  }
+
+  protected downloader() {
+    return Download.attrCert;
+  }
+
+  /** @deprecated Use `toJSON().signature`. */
   public get signature(): ISignature {
     const { signatureValue, signatureAlgorithm } = this.asn;
 
@@ -84,55 +128,22 @@ export class X509AttributeCertificate extends AsnData<AttributeCertificate> {
     };
   }
 
+  /** @deprecated Use `toJSON().extensions`. */
   public parseExtensions() {
-    const { acinfo } = this.asn;
-
-    if (acinfo.extensions) {
-      this.extensions = acinfo.extensions.map(parseExtension);
+    if (this.asn.acinfo.extensions) {
+      this.extensions = this.toJSON().extensions;
     }
   }
 
+  /** @deprecated Use `toJSON().attributes`. */
   public parseAttributes() {
-    const { acinfo } = this.asn;
-
-    if (acinfo.attributes) {
-      this.attributes = acinfo.attributes.map(parseAttribute);
-    }
-  }
-
-  public async getThumbprint(algorithm = 'SHA-1'): Promise<void> {
-    try {
-      const thumbprint = await getCertificateThumbprint(algorithm, this.raw);
-
-      if (thumbprint) {
-        this.thumbprints[algorithm] = hex.encode(thumbprint);
-      }
-    } catch (error) {
-      console.error('Error thumbprint get:', error);
+    if (this.asn.acinfo.attributes) {
+      this.attributes = this.toJSON().attributes;
     }
   }
 
   public get commonName(): string {
     // Thumbprints are computed asynchronously; before that, the serial number still gives a unique name.
     return `attribute-certificate-${this.thumbprints['SHA-1'] ?? this.serialNumber}`;
-  }
-
-  public toString(format: 'pem' | 'base64' | 'base64url' = 'pem'): string {
-    switch (format) {
-      case 'pem':
-        return PemConverter.encode(this.raw, this.tag);
-      case 'base64url':
-        return base64url.encode(this.raw);
-      default:
-        return base64.encode(this.raw);
-    }
-  }
-
-  public downloadAsPEM(name?: string) {
-    Download.attrCert.asPEM(this.toString('pem'), name || this.commonName);
-  }
-
-  public downloadAsDER(name?: string) {
-    Download.attrCert.asDER(this.raw, name || this.commonName);
   }
 }

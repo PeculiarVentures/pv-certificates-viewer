@@ -64,3 +64,24 @@ describe('SshCertificate', () => {
     expect(() => new SshCertificate('not a certificate')).toThrow(TypeError);
   });
 });
+
+describe('SshCertificate.from', () => {
+  it('returns a certificate with decoded keys in toJSON()', async () => {
+    const cert = await SshCertificate.from(certificates[0].value);
+    const json = cert.toJSON();
+
+    expect(json.publicKey?.value).toBe(cert.publicKey.value);
+    expect(json.signatureKey?.value).toBe(cert.signatureKey.value);
+    expect(json.serialNumber).toBe(cert.serialNumber);
+  });
+
+  it('decodeKeys() is idempotent', async () => {
+    const cert = new SshCertificate(certificates[0].value);
+
+    await cert.decodeKeys();
+    const { publicKey } = cert;
+    await cert.decodeKeys();
+
+    expect(cert.publicKey).toBe(publicKey);
+  });
+});
