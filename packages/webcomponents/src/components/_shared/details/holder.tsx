@@ -7,7 +7,7 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import type { IExtensionNode } from '../../../crypto/extension-parsers/types';
+import type { IExtensionNode } from '../../../crypto/extensions/types';
 import { l10n } from '../../../utils';
 import { renderNode } from '../parsed/render_node';
 import { RowTitle } from './row';
