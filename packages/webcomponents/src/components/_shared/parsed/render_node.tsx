@@ -7,7 +7,7 @@
  */
 
 import { h } from '@stencil/core';
-import type { IExtensionNode } from '../../../crypto/extension-parsers/types';
+import type { IExtensionNode } from '../../../crypto/extensions/types';
 import type { ILinkTemplateResolvers } from '../../../utils/link_template_resolvers';
 import { getStringByOID } from '../../../utils/get_string_by_oid';
 import { getDNSNameLink, getIPAddressLink, getLEILink } from '../../../utils/third_party_links';

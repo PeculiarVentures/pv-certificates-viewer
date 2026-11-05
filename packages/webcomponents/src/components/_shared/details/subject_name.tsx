@@ -7,7 +7,7 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import type { INameJSON } from '../../../crypto/name';
+import type { INameJSON } from '../../../crypto/fields/name';
 import { l10n } from '../../../utils';
 import { getStringByOID } from '../../../utils/get_string_by_oid';
 import { RowTitle, RowValue } from './row';

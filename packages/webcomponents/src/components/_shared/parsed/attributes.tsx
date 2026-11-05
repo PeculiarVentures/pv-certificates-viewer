@@ -8,8 +8,8 @@
 
 import { h, FunctionalComponent } from '@stencil/core';
 import { id_pkcs9_at_extensionRequest } from '@peculiar/asn1-pkcs9';
-import type { IParsedAttribute } from '../../../crypto/attribute-parsers/types';
-import type { IParsedExtension } from '../../../crypto/extension-parsers/types';
+import type { IParsedAttribute } from '../../../crypto/attributes/types';
+import type { IParsedExtension } from '../../../crypto/extensions/types';
 import type { ILinkTemplateResolvers } from '../../../utils/link_template_resolvers';
 import { getStringByOID } from '../../../utils/get_string_by_oid';
 import { RowTitle, RowValue, TableRowTable } from '../details/row';

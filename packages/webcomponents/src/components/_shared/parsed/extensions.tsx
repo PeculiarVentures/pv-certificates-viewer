@@ -7,7 +7,7 @@
  */
 
 import { h, FunctionalComponent } from '@stencil/core';
-import type { IParsedExtension } from '../../../crypto/extension-parsers/types';
+import type { IParsedExtension } from '../../../crypto/extensions/types';
 import type { ILinkTemplateResolvers } from '../../../utils/link_template_resolvers';
 import { getStringByOID } from '../../../utils/get_string_by_oid';
 import { RowTitle, RowValue } from '../details/row';
