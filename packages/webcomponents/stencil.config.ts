@@ -19,7 +19,6 @@ export const config: Config = {
         'peculiar-button-menu',
         'peculiar-circular-progress',
         'peculiar-highlight-words',
-        'peculiar-text-hider',
       ],
     }),
     {
